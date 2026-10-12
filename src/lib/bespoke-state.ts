@@ -147,7 +147,7 @@ export interface Pricing {
 
 export function computePricing(config: BespokeConfig): Pricing {
   const frame = findFrame(config.frameId);
-  const basePriceEur = frame?.basePriceEur ?? 0;
+  const basePriceEur = frame?.basePriceEur ?? 480;
   const engravingEur = config.engravingEnabled ? ENGRAVING_FEE_EUR : 0;
   const lens = LENS_TYPES.find((l) => l.id === config.lensTypeId);
   const lensEur = lens?.priceEur ?? 0;
@@ -164,7 +164,7 @@ export const formatEur = (n: number) =>
   new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(n);
 
 /** Consistent add-on display: "Included" at zero, otherwise "+ $10". */
-export const formatAddOn = (n: number) => (n === 0 ? "Included" : `+ ${formatEur(n)}`);
+export const formatAddOn = (n: number) => (n === 0 ? "Included" : `+${formatEur(n)}`);
 
 export type StepId = 1 | 2 | 3 | 4 | 5 | 6 | 7;
 

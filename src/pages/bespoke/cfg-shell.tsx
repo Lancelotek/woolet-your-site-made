@@ -20,6 +20,12 @@ import { X } from "lucide-react";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { pushGtmEvent } from "@/lib/gtm";
+import { clarityEvent } from "@/lib/clarity";
+
+export function trackBespokeFunnel(event: "bespoke_step_view" | "bespoke_preview_shown" | "bespoke_pay_click", data?: Record<string, string | number | boolean>) {
+  clarityEvent(event);
+  pushGtmEvent(event, data);
+}
 
 /* ───── Instrumentation ───── */
 
@@ -87,7 +93,7 @@ const SECTIONS: { id: CfgInfoSection; title: string; body: ReactNode }[] = [
     body: (
       <ul>
         <li>Hand made in the EU from Italian Mazzucchelli acetate.</li>
-        <li>Lenses included — reading, sun, blue light or photochromic.</li>
+        <li>Plano lenses included. Reading, sun, blue light and photochromic lenses are optional extras, itemized in your build.</li>
         <li>Free worldwide shipping.</li>
         <li>2 weeks from order to dispatch.</li>
       </ul>

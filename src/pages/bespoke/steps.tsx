@@ -1,3 +1,5 @@
+import { PayMeasureNotice } from "@/components/bespoke/PayMeasureNotice";
+import type { PatternRender } from "@/lib/bespoke-pattern-renders";
 import { imageVariant } from "@/lib/optimized-image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -56,6 +58,7 @@ import {
   RENDERS_PER_SESSION,
   pulseMobilePreview,
   pushCfg,
+  trackBespokeFunnel,
   useRenderBudget,
 } from "./cfg-shell";
 
@@ -83,7 +86,7 @@ function acknowledgeChoice(button: HTMLButtonElement) {
 
 /* ───── Step 1 · Pattern ───── */
 
-export function StepFrame({ config, update }: StepProps) {
+export function StepFrame({ config, update, patternRenders = {} }: StepProps & { patternRenders?: Record<string, PatternRender> }) {
   return (
     <div className="space-y-10">
       <header>
@@ -92,16 +95,17 @@ export function StepFrame({ config, update }: StepProps) {
           Choose your frame <em className="cfg-em">silhouette</em>
         </h2>
         <p className="cfg-body mt-4 max-w-xl">
-          Four canonical shapes, drawn as line templates because the finished frame is cut to <em className="cfg-em">your</em> measurements —
-          not to a stock photo. We scan your face after payment, then hand-cut the pattern in the EU from a single block of Mazzucchelli acetate.
+          Cut to your exact face width after a 60-second scan. Free worldwide shipping.
         </p>
       </header>
 
       <div className="cfg-choicegrid grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
         {FRAMES.map((f) => {
           const active = config.frameId === f.id;
+          const example = patternRenders[f.id];
           return (
-            <button
+            <Button
+              variant="ghost"
               key={f.id}
               onClick={(e) => {
                 acknowledgeChoice(e.currentTarget);
@@ -113,7 +117,7 @@ export function StepFrame({ config, update }: StepProps) {
                 }
                 update("frameId", f.id);
               }}
-              className={`cfg-card group text-left ${active ? "cfg-card--active" : ""}`}
+              className={`cfg-card group text-left block h-auto p-0 whitespace-normal ${active ? "cfg-card--active" : ""}`}
               aria-pressed={active}
             >
               <div
@@ -121,14 +125,15 @@ export function StepFrame({ config, update }: StepProps) {
                 style={{ background: "#EFE9DF", aspectRatio: "16 / 9" }}
               >
                 <img
-                  src={imageVariant(f.url, 240)}
+                  src={example?.public_url ?? imageVariant(f.url, 240)}
                   width={521}
                   height={312}
                   decoding="async"
-                  alt={`Woolet Bespoke ${f.name} pattern — ${f.shape} silhouette for wide faces (${f.widthMm} mm reference)`}
-                  loading="lazy"
-                  className="w-full h-full object-contain p-6 transition-transform duration-500 group-hover:scale-[1.03]"
+                  alt={example?.alt_text ?? `Woolet Bespoke ${f.name} pattern — ${f.shape} silhouette for wide faces (${f.widthMm} mm reference)`}
+                  loading="eager"
+                  className={`w-full h-full object-contain ${example ? "" : "p-6"} transition-transform duration-500 group-hover:scale-[1.03]`}
                 />
+                {example && <span className="cfg-pattern-inset"><img src={imageVariant(f.url, 240)} alt={`${f.name} pattern outline`} />Pattern</span>}
                 {active && (
                   <span
                     className="absolute top-2.5 right-2.5 inline-flex items-center justify-center w-6 h-6 bg-[color:var(--cfg-gold)]"
@@ -145,13 +150,13 @@ export function StepFrame({ config, update }: StepProps) {
                   <CfgInfoTrigger section="fit">Cut to your face · reference {f.widthMm} mm</CfgInfoTrigger>
                 </div>
               </div>
-            </button>
+            </Button>
           );
         })}
       </div>
 
       <p className="text-cream-dim text-xs leading-relaxed max-w-xl" style={{ fontStyle: "italic" }}>
-        These outlines represent the shape only. Final dimensions — front width, bridge, temple length, lens height — are all cut to your scan after payment.
+        Pattern outlines represent the shape only. Final dimensions — front width, bridge, temple length, lens height — are all cut to your scan.
       </p>
     </div>
   );
@@ -256,9 +261,9 @@ function ColorSwatchGrid({
                 if (active) pulseMobilePreview();
                 else onSelect(c.id);
               }}
-              onMouseEnter={() => setHoveredId(c.id)}
+              onMouseEnter={() => { if (selected) setHoveredId(c.id); }}
               onMouseLeave={() => setHoveredId((id) => (id === c.id ? null : id))}
-              onFocus={() => setHoveredId(c.id)}
+              onFocus={() => { if (selected) setHoveredId(c.id); }}
               onBlur={() => setHoveredId((id) => (id === c.id ? null : id))}
               title={c.name}
               aria-pressed={active}
@@ -500,6 +505,7 @@ export function AiPreviewPanel({
       const hit = await lookupCachedRender(config, includeLens);
       if (cancelled || !hit) return;
       setCachedUrl(hit.imageUrl);
+      trackBespokeFunnel("bespoke_preview_shown", { status: "cached" });
       setHistory(rememberRender(selectionKey, hit.imageUrl));
     }, 300);
     return () => { cancelled = true; window.clearTimeout(t); };
@@ -596,6 +602,7 @@ export function AiPreviewPanel({
       persist({ ...history, [selectionKey]: nextList }, { droppedOldRenderTs });
       setActiveUrl(url);
       pushCfg("cfg_render_ready");
+      trackBespokeFunnel("bespoke_preview_shown", { status: (data as { cached?: boolean }).cached ? "cached" : "generated" });
 
       // If the buyer is signed in, mirror the render to their account so it
       // shows up on the /account panel later. Non-blocking — surface the
@@ -638,6 +645,7 @@ export function AiPreviewPanel({
         /* body not JSON — keep the generic reason */
       }
       console.warn("[bespoke] preview render failed", reason);
+      trackBespokeFunnel("bespoke_preview_shown", { status: "failed" });
       pushCfg("cfg_render_failed", { reason: String(reason).slice(0, 80) });
       claritySet("bespoke_render_failed", String(reason).slice(0, 80));
       setError("Preview could not be generated. You can retry or skip this step.");
@@ -1199,7 +1207,7 @@ export function StepMeasure({ config, update }: StepProps) {
   return (
     <div className="space-y-8">
       <header>
-        <div className={sectionKicker}>Step 5</div>
+        <div className={sectionKicker}>Step 6 — Lenses</div>
         <h2 className={sectionTitle}>Measure your fit</h2>
         <p className="text-cream-dim mt-2 max-w-xl text-sm leading-relaxed">
           Bespoke depends on accuracy. Pick one method — every measurement is reviewed by our optician before production starts.
@@ -1990,7 +1998,7 @@ export function StepLenses({ config, update }: StepProps) {
   return (
     <div className="space-y-10">
       <header>
-        <div className={sectionKicker}>Step 5</div>
+        <div className={sectionKicker}>Step 6 — Lenses</div>
         <h2 className={sectionTitle}>Lenses & prescription</h2>
         <p className="text-cream-dim mt-2 max-w-xl text-sm leading-relaxed">
           Choose how you want to use your glasses. We will confirm the technical lens specification with you before production.
@@ -2038,10 +2046,10 @@ export function StepLenses({ config, update }: StepProps) {
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-baseline justify-between gap-3">
-                    <span className="text-cream text-sm truncate">{l.name}</span>
+                    <span className="text-cream text-sm whitespace-normal">{l.name}</span>
                     {active && <Check size={15} className="text-gold-light shrink-0" aria-hidden />}
                     <span className="text-gold-light text-xs shrink-0">
-                      {formatAddOn(l.priceEur)}
+                      {l.priceEur > 0 ? formatAddOn(l.priceEur) : null}
                     </span>
                   </div>
                   <div className="text-cream-dim text-[0.72rem] mt-1">{l.description}</div>
@@ -2055,15 +2063,6 @@ export function StepLenses({ config, update }: StepProps) {
       {config.lensTypeId === "reading" && <ReadingStrengthPanel config={config} update={update} />}
       {(config.lensTypeId === "photochromic" || config.lensTypeId === "sun-uv400") && <LensTintPanel config={config} update={update} />}
 
-      <div>
-        <div className={labelClass}>Your frame with these lenses</div>
-        <p className="text-cream-dim text-xs leading-relaxed mt-2 max-w-xl">
-          Generate the final visualisation with the lens you picked. This is the image that travels with your order.
-        </p>
-        <div className="mt-3">
-          <AiPreviewPanel config={config} includeLens />
-        </div>
-      </div>
 
     </div>
   );
@@ -2121,7 +2120,7 @@ export function StepReview({
     <div className="space-y-8">
       <header>
         <div className={sectionKicker}>Step 7 — Review &amp; pay</div>
-        <h2 className={sectionTitle}><Button type="button" variant="ghost" onClick={() => onEdit(1)} className="h-auto p-0 font-display text-cream text-[inherit] hover:bg-transparent hover:text-cream">Confirm your <em className="italic text-gold-light">pattern</em> <span className="text-gold-light text-xs ml-2">Edit</span></Button></h2>
+        <h2 className={sectionTitle}><Button type="button" variant="ghost" onClick={() => onEdit(1)} className="h-auto p-0 font-display text-cream text-2xl sm:text-3xl whitespace-normal hover:bg-transparent hover:text-cream">Confirm your <em className="italic text-gold-light">pattern</em> <span className="text-gold-light text-xs ml-2">Edit</span></Button></h2>
         <p className="text-cream-dim mt-2 max-w-xl text-sm leading-relaxed">
           You are paying for the pattern, acetate and lens configuration you selected. The made-to-measure fit scan is booked <em className="italic text-gold-light">after</em> payment — no measurements are taken until we have your order confirmed.
         </p>
@@ -2132,7 +2131,7 @@ export function StepReview({
           <div className="aspect-[16/9] flex items-center justify-center" style={{ background: "#EFE9DF" }}>
             <img
               src={renderUrl ?? frame.url}
-              alt={`Woolet Bespoke ${frame.name} — ${frame.shape} pattern for wide faces, made-to-measure in the EU`}
+              alt={renderUrl ? renderAltForConfig(config, Boolean(getLatestPreviewUrl(reviewLensKey)) && reviewLensKey !== reviewBaseKey) : `Woolet Bespoke ${frame.name} — ${frame.shape} pattern for wide faces, made-to-measure in the EU`}
               className={renderUrl ? "h-full w-full object-contain" : "max-h-full max-w-[60%] object-contain"}
             />
           </div>
@@ -2164,6 +2163,11 @@ export function StepReview({
         </div>
       </div>
 
+      <div className="space-y-2 text-sm text-cream-dim" aria-label="Price breakdown">
+        <div className="flex justify-between gap-4"><span>Bespoke frame</span><span>{formatEur(computePricing(config).basePriceEur)}</span></div>
+        {engravingEur > 0 && <div className="flex justify-between gap-4"><span>Engraving</span><span>{formatAddOn(engravingEur)}</span></div>}
+        {lensEur > 0 && <div className="flex justify-between gap-4"><span>{lens?.name}</span><span>{formatAddOn(lensEur)}</span></div>}
+      </div>
       {/* What happens after payment */}
       <div
         style={{
@@ -2182,20 +2186,22 @@ export function StepReview({
         </ol>
       </div>
 
+      <PayMeasureNotice />
       <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-        <button
+        <Button
           onClick={() => {
             if (payPending) return;
             setPayPending(true);
             pushCfg("cfg_pay_click");
+            trackBespokeFunnel("bespoke_pay_click", { step: 7 });
             onSave();
             navigate("/en/bespoke/checkout");
           }}
           disabled={payPending}
-          className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-gold text-background text-xs uppercase tracking-[0.22em] font-medium hover:bg-gold-light transition disabled:opacity-60"
+          className="h-auto w-full sm:w-auto px-8 py-3.5 rounded-sm bg-gold text-background text-xs uppercase tracking-[0.22em] font-medium hover:bg-gold-light transition disabled:opacity-60"
         >
           {payPending ? <><Loader2 size={14} className="animate-spin inline mr-2" />Opening checkout…</> : <>Pay {formatEur(total)} — secure your pattern</>}
-        </button>
+        </Button>
         <span className="text-cream-dim text-[0.78rem] uppercase tracking-[0.18em]">
           Free worldwide shipping · Stripe secure checkout
         </span>
