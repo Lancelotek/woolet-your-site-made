@@ -188,7 +188,8 @@ ${blogFitLensHookHtml()}
 
 <p>The full calibrated method — including the credit-card reference for photographing rather than measuring — is in <a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#A07A2A;">how to measure your face width for glasses</a>. If you would rather not measure at all, <a href="/en/fit" style="color:#A07A2A;"><strong>FitLens takes about 60 seconds from your phone camera</strong></a>, no app and no appointment, and returns face width and bridge width together.</p>
 
-<h2 id="size-chart">The number that matters: front width</h2>
+<div id="size-chart" aria-hidden="true"></div>
+<h2 id="size-chart-heading">The number that matters: front width</h2>
 
 <p>Almost every sizing mistake in eyewear comes from shopping by the wrong number. The three digits printed inside the temple — 52▫16 145 — are lens width, bridge and temple length. None of them is the total front width, and total front width is the only measurement that decides whether a frame fits a wide face. A 58 mm lens on a narrow bridge can still produce a 142 mm front.</p>
 
