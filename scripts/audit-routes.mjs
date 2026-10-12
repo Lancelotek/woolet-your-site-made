@@ -13,7 +13,7 @@
  * Paths with other params (:slug, :width) or wildcards are skipped —
  * their known values are enumerated in src/seo/routeRedirects.ts.
  */
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, existsSync, readdirSync, statSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -77,7 +77,6 @@ for (const p of [...concrete].sort()) {
 
 // Soft-404 guard: a stub whose target is a prerendered page must be a full
 // copy of that page (>= 3 KB), never a thin "moved" shell.
-import { readdirSync, statSync } from "node:fs";
 const thin = [];
 const walk = (dir) => {
   for (const name of readdirSync(dir)) {
