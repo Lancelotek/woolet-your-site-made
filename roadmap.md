@@ -1,5 +1,11 @@
 # Roadmap
 
+## Bespoke configurator clarity - 2026-10-12
+- [ ] Show cached pattern examples and current-config previews on initial load
+- [ ] Move payment notice to Review/checkout and itemize existing surcharges
+- [ ] Add guarded funnel events and make lenses lookup-only
+- [ ] Verify fresh/restored flows, totals, lens requests, and capture step 1/Review; do not publish
+
 ## Over-range bespoke wording correction - 2026-10-09
 - [x] Apply only the six listed visitor/shared-crawler wording corrections and correct project memory
 - [x] Audit other over-160 bespoke implications read-only, including full-range claims and the tight-glasses article
