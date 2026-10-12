@@ -988,7 +988,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
 <p>Italian Mazzucchelli acetate eyewear built for face widths of 155 mm and above. Two shapes (007 round, 009 soft square), one precise 158 mm front width with a 21–22 mm keyhole bridge. Bespoke 145–160 mm. From $114 pre-order.</p>`,
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
-      { name: "Collections", url: `${SITE_URL}/en` },
+      { name: "Collections", url: `${SITE_URL}/en/collection` },
       { name: "Wide-Face Glasses", url: `${SITE_URL}${route}` },
     ])]);
   }
@@ -1012,7 +1012,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
 <p>Cellulose-acetate sheet made by Mazzucchelli 1849, the Italian mill that has produced acetate near Milan since 1849. Pigment is layered into a block, batch-cured for weeks and sliced into sheets — denser, more colour-stable and easier to hand-finish than injection-moulded plastic.</p>`,
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
-      { name: "Collections", url: `${SITE_URL}/en` },
+      { name: "Collections", url: `${SITE_URL}/en/collection` },
       { name: "Italian Mazzucchelli Acetate", url: `${SITE_URL}${route}` },
     ])]);
   }
@@ -1063,7 +1063,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
 <p><a href="/en/products/007">Shop Woolet 007 (round)</a> | <a href="/en/products/009">Shop Woolet 009 (square)</a> | <a href="/en/blog/how-to-measure-face-width-for-glasses">How to measure your face width</a> | <a href="/en/collections/oversized-sunglasses-men">Oversized sunglasses for men</a></p>`,
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
-      { name: "Collections", url: `${SITE_URL}/en` },
+      { name: "Collections", url: `${SITE_URL}/en/collection` },
       { name: "Sunglasses for Big Heads", url: `${SITE_URL}${route}` },
     ])]);
   }
@@ -1076,7 +1076,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
 <p>Prescription-ready optical frames for big heads (head circumference 58–64 cm). 158 mm front width, 21–22 mm keyhole bridge, Italian Mazzucchelli acetate Hand made in EU. Bespoke 145–160 mm. From $114 pre-order.</p>`,
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
-      { name: "Collections", url: `${SITE_URL}/en` },
+      { name: "Collections", url: `${SITE_URL}/en/collection` },
       { name: "Glasses for Big Heads", url: `${SITE_URL}${route}` },
     ])]);
   }
@@ -1092,7 +1092,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
 <p>Both shapes are prescription-ready, with 52 × 52 mm and 54 × 50 mm lens areas for single-vision or progressive lenses. Italian Mazzucchelli acetate, hand made in EU. The shop is sold out until the Kickstarter campaign ends; a $1 reservation locks the $114 founding-member price against the $190 MSRP.</p>`,
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
-      { name: "Collections", url: `${SITE_URL}/en` },
+      { name: "Collections", url: `${SITE_URL}/en/collection` },
       { name: "Extra Wide Glasses", url: `${SITE_URL}${route}` },
     ])]);
   }
@@ -1105,7 +1105,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
 <p>Glasses with a 21–22 mm keyhole bridge as standard — engineered for wider noses where mainstream 17–19 mm bridges pinch or slide. 158 mm front width, Italian Mazzucchelli acetate. Bespoke bridge 20–24 mm available. From $114 pre-order.</p>`,
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
-      { name: "Collections", url: `${SITE_URL}/en` },
+      { name: "Collections", url: `${SITE_URL}/en/collection` },
       { name: "Wide Bridge Glasses", url: `${SITE_URL}${route}` },
     ])]);
   }
@@ -1120,7 +1120,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
 <p>Read the fit breakdown: <a href="/en/blog/oversized-blue-light-glasses-vs-wide-fit">oversized blue-light glasses vs a true wide fit</a></p>`,
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
-      { name: "Collections", url: `${SITE_URL}/en` },
+      { name: "Collections", url: `${SITE_URL}/en/collection` },
       { name: "Blue Light Glasses for Wide Faces", url: `${SITE_URL}${route}` },
     ])]);
   }
@@ -1134,7 +1134,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
 <p><a href="/en/products/007">Shop Woolet 007 (round)</a> | <a href="/en/products/009">Shop Woolet 009 (soft-square)</a> | <a href="/en/fit">Find my size</a></p>`,
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
-      { name: "Collections", url: `${SITE_URL}/en` },
+      { name: "Collections", url: `${SITE_URL}/en/collection` },
       { name: "Thick Frame Glasses", url: `${SITE_URL}${route}` },
     ])]);
   }
@@ -1192,7 +1192,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
       noscriptHtml: `<h1>${escapeHtml(c.h1)}</h1>\n<p>${escapeHtml(c.intro)}</p>${path === "/collections/keyhole-bridge-glasses" ? bridgeFitPrerenderHtml("compact") : ""}`,
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
-      { name: "Collections", url: `${SITE_URL}/en` },
+      { name: "Collections", url: `${SITE_URL}/en/collection` },
       { name: c.h1, url: `${SITE_URL}${route}` },
     ])]);
     return meta;

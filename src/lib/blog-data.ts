@@ -188,7 +188,8 @@ ${blogFitLensHookHtml()}
 
 <p>The full calibrated method — including the credit-card reference for photographing rather than measuring — is in <a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#A07A2A;">how to measure your face width for glasses</a>. If you would rather not measure at all, <a href="/en/fit" style="color:#A07A2A;"><strong>FitLens takes about 60 seconds from your phone camera</strong></a>, no app and no appointment, and returns face width and bridge width together.</p>
 
-<h2 id="size-chart">The number that matters: front width</h2>
+<div id="size-chart" aria-hidden="true"></div>
+<h2 id="size-chart-heading">The number that matters: front width</h2>
 
 <p>Almost every sizing mistake in eyewear comes from shopping by the wrong number. The three digits printed inside the temple — 52▫16 145 — are lens width, bridge and temple length. None of them is the total front width, and total front width is the only measurement that decides whether a frame fits a wide face. A 58 mm lens on a narrow bridge can still produce a 142 mm front.</p>
 
@@ -261,7 +262,7 @@ ${blogFitLensHookHtml()}
   <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:14px;">
     <li style="font-size:14px;line-height:1.65;color:#f0ece4;padding-left:18px;border-left:2px solid #c9a84c;">The average adult male face measures <strong style="color:#fff;">141.9 mm in width</strong> (±5.1 mm standard deviation), per peer-reviewed anthropometric research published in the <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4496583/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:underline;">Cleft Palate and Craniofacial Journal</a> (PMC4496583, Gordon et al.).</li>
     <li style="font-size:14px;line-height:1.65;color:#f0ece4;padding-left:18px;border-left:2px solid #c9a84c;">Standard adult eyewear frames range from <strong style="color:#fff;">125–145 mm in total width</strong>, as defined by the <a href="https://www.iso.org/standard/75385.html" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:underline;">ISO 8624</a> spectacle frame measuring system. Woolet starts at 158 mm — <strong style="color:#fff;">13 mm beyond</strong> where the mainstream market ends.</li>
-    <li style="font-size:14px;line-height:1.65;color:#f0ece4;padding-left:18px;border-left:2px solid #c9a84c;">Face widths between <strong style="color:#fff;">131–165 mm</strong> have been recorded in anthropometric studies of adult populations (<a href="https://apps.dtic.mil/sti/tr/pdf/ADA611869.pdf" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:underline;">ANSUR II, US Army, 2012</a>).</li>
+    <li style="font-size:14px;line-height:1.65;color:#f0ece4;padding-left:18px;border-left:2px solid #c9a84c;">Face widths between <strong style="color:#fff;">131–165 mm</strong> have been recorded in anthropometric studies of adult populations (<a href="https://apps.dtic.mil/sti/citations/ADA611869" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:underline;">ANSUR II, US Army, 2012</a>).</li>
   </ul>
 </div>
 
@@ -3675,7 +3676,7 @@ More on fit for bigger heads and wider faces:
 
 <h2>The Master Hat Size Chart</h2>
 
-<p>Read across the row. If your circumference lands between two rows, use the larger one — see <a href="#between-sizes" style="color:#c9a84c;">between sizes</a> below. Don't know your circumference yet? <a href="/en/blog/how-to-measure-your-head-for-a-hat" style="color:#c9a84c;">Measure your head in 60 seconds</a>.</p>
+<p>Read across the row. If your circumference lands between two rows, use the larger one — see <a href="#what-to-do-when-you-re-between-sizes" style="color:#c9a84c;">between sizes</a> below. Don't know your circumference yet? <a href="/en/blog/how-to-measure-your-head-for-a-hat" style="color:#c9a84c;">Measure your head in 60 seconds</a>.</p>
 
 
 
@@ -4002,7 +4003,7 @@ Related guides:
 
 <h2>The four bands</h2>
 
-<p>Anthropometric data (<a href="https://apps.dtic.mil/sti/tr/pdf/ADA611869.pdf" target="_blank" rel="noopener" style="color:#A07A2A;text-decoration:underline;">ANSUR II, US Army, 2012</a>; <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4496583/" target="_blank" rel="noopener" style="color:#A07A2A;text-decoration:underline;">Gordon et al., PMC4496583</a>) shows adult male face widths cluster around <strong>142 mm ±5 mm</strong>. Here is how that maps to what you can actually buy.</p>
+<p>Anthropometric data (<a href="https://apps.dtic.mil/sti/citations/ADA611869" target="_blank" rel="noopener" style="color:#A07A2A;text-decoration:underline;">ANSUR II, US Army, 2012</a>; <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4496583/" target="_blank" rel="noopener" style="color:#A07A2A;text-decoration:underline;">Gordon et al., PMC4496583</a>) shows adult male face widths cluster around <strong>142 mm ±5 mm</strong>. Here is how that maps to what you can actually buy.</p>
 
 <div style="overflow-x:auto;margin:24px 0;">
 <table style="width:100%;border-collapse:collapse;font-family:'Barlow',sans-serif;font-size:14px;">

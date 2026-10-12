@@ -82,7 +82,7 @@ const CollectionPage = ({
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: `${SITE}/en` },
-      { "@type": "ListItem", position: 2, name: "Collections", item: `${SITE}/en/collections` },
+      { "@type": "ListItem", position: 2, name: "Collections", item: `${SITE}/en/collection` },
       { "@type": "ListItem", position: 3, name: breadcrumbName, item: canonical },
     ],
   };
@@ -152,7 +152,7 @@ const CollectionPage = ({
         <nav aria-label="Breadcrumb" style={{ maxWidth: 760, margin: "0 auto", padding: "16px 20px 0", fontSize: 11, color: "#888", letterSpacing: "1px", textTransform: "uppercase" }}>
           <Link to="/en" style={{ color: "#888", textDecoration: "none" }}>Home</Link>
           <span style={{ margin: "0 8px" }}>/</span>
-          <span>Collections</span>
+          <Link to="/en/collection" style={{ color: "#888", textDecoration: "none" }}>Collections</Link>
           <span style={{ margin: "0 8px" }}>/</span>
           <span style={{ color: "#111" }}>{breadcrumbName}</span>
         </nav>
