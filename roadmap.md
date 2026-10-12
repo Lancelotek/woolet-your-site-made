@@ -1,5 +1,10 @@
 # Roadmap
 
+## Crown Panto geometry correction - 2026-10-12
+- [ ] Add explicit shape constraints and place composition reference last
+- [ ] Inspect all cached Crown Panto images and flag round-shaped errors
+- [ ] Regenerate featured Crown Panto, verify flat lens tops and card delivery; do not publish
+
 ## Pattern example labels - 2026-10-12
 - [x] Add photo example labels and exact above/below-grid notes; keep Your build label
 - [x] Check supported languages: configurator is English only; other locales redirect to English

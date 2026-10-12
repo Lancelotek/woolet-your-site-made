@@ -9,7 +9,7 @@ import {
   isAviatorShape,
 } from "../_shared/aviator-references.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.58.0";
-import { COMPOSITION_REFERENCE_URL, COMPOSITION_RULES } from "../_shared/bespoke-composition.ts";
+import { compositionReferenceFor, COMPOSITION_RULES, shapeConstraint } from "../_shared/bespoke-composition.ts";
 import {
   RENDER_BUCKET, PROMPT_VERSION, buildKeyV2, buildAlt, buildStoragePath,
   publicUrlFor, decodeDataUrl,
@@ -266,8 +266,8 @@ Deno.serve(async (req) => {
         : `Classic ${shape} silhouette.`,
       ...(aviator
         ? [
-             `Images 3–8 are photographs of the same physical Aviator construction from different angles. Use them only to understand real thickness, edge polish, bridge depth, end-piece geometry, hinge placement, two-pin temple attachment, temple taper and how each temple joins the front without a gap or invented connector.`,
-             `The technical drawing in image 1 remains the authority for the front silhouette. Image 2 alone decides the camera angle; construction photographs must never decide the angle.`,
+             `Images between image 1 and the LAST image are photographs of the same physical Aviator construction from different angles. Use them only to understand real thickness, edge polish, bridge depth, end-piece geometry, hinge placement, two-pin temple attachment, temple taper and how each temple joins the front without a gap or invented connector.`,
+              `The technical drawing in image 1 remains the authority for the front silhouette. The LAST image alone decides the camera angle; construction photographs must never decide the angle.`,
             `Do not copy the photographs' clear front, black temples, sunglass tint, engraving or branding. Apply the buyer's selected front acetate, temple acetate, finish and lenses stated below.`,
           ]
         : []),
@@ -282,6 +282,7 @@ Deno.serve(async (req) => {
        COMPOSITION_RULES,
        `Precise transparency and refraction where the acetate is translucent, accurate premium product photography.`,
       `no drawing lines, no sketch, no floating hardware, no fused temples, no extra bridge, no asymmetry, ultra-realistic premium catalogue still.`,
+      `HARD SHAPE CONSTRAINTS (override any conflicting shape suggested by the composition photo): ${shapeConstraint(shape) || "Preserve the Aviator technical drawing and construction rules exactly."}`,
     ].join(" ");
 
     // Inline reference images as data URLs: the provider's own URL fetch of
@@ -300,7 +301,7 @@ Deno.serve(async (req) => {
       }
     };
      if (!usePattern) return json({ error: "A pattern drawing is required for fixed-angle generation" }, 400);
-     const refUrls = [patternUrl, COMPOSITION_REFERENCE_URL, ...(aviator ? AVIATOR_CONSTRUCTION_REFERENCES : [])];
+     const refUrls = [patternUrl, ...(aviator ? AVIATOR_CONSTRUCTION_REFERENCES : []), compositionReferenceFor(shape)];
     const inlined = await Promise.all(refUrls.map(inlineImage));
 
     const content = usePattern
