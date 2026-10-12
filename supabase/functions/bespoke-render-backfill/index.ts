@@ -23,7 +23,10 @@ Deno.serve(async (req) => {
   let body: { password?: string; limit?: number } = {};
   try { body = await req.json(); } catch { /* empty */ }
   const provided = body.password ?? req.headers.get("x-admin-password") ?? "";
-  if (!pw || provided !== pw) return json({ error: "Invalid password" }, 401);
+  const bearer = (req.headers.get("authorization") ?? "").replace(/^Bearer\s+/i, "");
+  const service = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
+  const isService = Boolean(service) && bearer === service;
+  if (!isService && (!pw || provided !== pw)) return json({ error: "Invalid password" }, 401);
 
   const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
   const admin = createClient(SUPABASE_URL, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!, { auth: { persistSession: false } });
