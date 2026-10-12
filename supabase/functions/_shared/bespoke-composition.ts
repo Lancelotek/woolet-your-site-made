@@ -1,8 +1,16 @@
 export const COMPOSITION_REFERENCE_URL = "https://wmefczrhnsqicikveuhz.supabase.co/functions/v1/bespoke-render-image/renders/round/woolet-bespoke-round-british-racing-green-front-ice-translucent-temples-brushed-plano-06b46be2.png";
+export const NON_ROUND_COMPOSITION_REFERENCE_URL = "https://wmefczrhnsqicikveuhz.supabase.co/functions/v1/bespoke-render-image/renders/aviator/woolet-bespoke-aviator-british-racing-green-front-british-racing-green-temples-matte-plano-7914d220.png";
+export const SHAPE_CONSTRAINTS: Record<string, string> = {
+  "crown-panto": "Each lens has a FLAT, straight top edge (a crown line) running horizontally into the bridge, with a deep rounded panto bottom; the top of the front is a straight horizontal line, NOT a circle; keyhole bridge. Must not look round.",
+  round: "Fully circular lenses, keyhole bridge.",
+  rectangle: "Rectangular lenses with straight top and bottom edges, soft corners, thick flat brow.",
+};
+export const shapeConstraint = (shape: string) => SHAPE_CONSTRAINTS[shape.trim().toLowerCase().replace(/\s+/g, "-")] ?? "";
+export const compositionReferenceFor = (shape: string) => shape.trim().toLowerCase() === "round" ? COMPOSITION_REFERENCE_URL : NON_ROUND_COMPOSITION_REFERENCE_URL;
 export const COMPOSITION_RULES = [
-  "Image 1 is the geometry authority. Image 2, the reference photo, is the authority ONLY for camera angle, framing, lighting and background: copy those exactly. Never copy its shape, colours, finish or lenses.",
+  "Image 1 is the geometry authority. The LAST image, the reference photo, is the authority ONLY for camera angle, framing, lighting and background: copy those exactly. Never copy its shape, colours, finish or lenses. The composition reference is a DIFFERENT frame shape. Never copy its lens shape, bridge or proportions. Copy only camera angle, framing, light and background.",
   "HARD CAMERA CONSTRAINTS: three-quarter front view, front at lower left, temples receding to the upper right, camera about 20 degrees above. The frame front is turned toward the viewer's left; BOTH open, visible temples run back toward the UPPER RIGHT, with the far temple partly visible behind the lens. Never use temples receding to the left, a flat front view or the angle of any construction photo.",
   "Look slightly down onto the top of the front and both temples from about 20 degrees above; centre the complete pair, filling about 75% of image width; entire frame and both temples inside the image, nothing cropped. Match the reference photo composition exactly.",
-  "COPY IMAGE 2'S PROJECTED PERSPECTIVE, NOT A GENERIC THREE-QUARTER POSE: the front occupies the LOWER LEFT of the complete pair and BOTH temple tips extend diagonally back toward the UPPER RIGHT. Preserve this screen-space direction exactly; never mirror it. The construction photos define physical construction only; rotate every shape into image 2's pose. No printed markings, letters or numbers anywhere, including the inside of the temples.",
+  "COPY THE LAST IMAGE'S PROJECTED PERSPECTIVE, NOT A GENERIC THREE-QUARTER POSE: the front occupies the LOWER LEFT of the complete pair and BOTH temple tips extend diagonally back toward the UPPER RIGHT. Preserve this screen-space direction exactly; never mirror it. The construction photos define physical construction only; rotate every shape into the last image's pose. No printed markings, letters or numbers anywhere, including the inside of the temples.",
   "HARD STUDIO CONSTRAINTS: clean warm off-white seamless background in exactly the reference tone; soft diffuse studio light from upper left; one soft contact shadow under the frame. No props, no coloured backdrop, no face, no text, no model, no branding, no logos.",
 ].join(" ");
