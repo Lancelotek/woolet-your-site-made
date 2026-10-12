@@ -8,7 +8,7 @@ import { getStripe, getStripeEnvironment } from "@/lib/stripe";
 import { supabase } from "@/integrations/supabase/client";
 import { PaymentTestModeBanner } from "@/components/PaymentTestModeBanner";
 import { PayMeasureNotice } from "@/components/bespoke/PayMeasureNotice";
-import { useBespokeConfig, computePricing, formatEur, formatLensWithStrength, lensOrderValue, lensTintCode, selectedLensTint, isStepComplete, readingStrengthMetaValue } from "@/lib/bespoke-state";
+import { useBespokeConfig, hasEngraving, computePricing, formatEur, formatLensWithStrength, lensOrderValue, lensTintCode, selectedLensTint, isStepComplete, readingStrengthMetaValue } from "@/lib/bespoke-state";
 import { findFrame } from "@/data/frames";
 import {
   COLORS,

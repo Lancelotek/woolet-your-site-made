@@ -43,6 +43,7 @@ import {
   lensTintCode,
   isReadingStrengthComplete,
   computePricing,
+  hasEngraving,
 } from "@/lib/bespoke-state";
 import { claritySet } from "@/lib/clarity";
 import { renderAltForConfig } from "@/lib/bespoke-render-alt";
