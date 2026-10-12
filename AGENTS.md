@@ -17,5 +17,5 @@
 - Bespoke AI renders are generated once per canonical v2 selection key (server-built, includes lens + tint) and served from the public bespoke_render_cache table + bespoke-renders bucket; clients never receive base64 — this stops repeat AI spend and lets every visitor reuse a render.
 - Configurator pattern examples use one query for explicit featured selection keys, never popularity; exact-config lookups remain independent so examples never pollute saved preview history.
 - Bespoke angle regeneration is admin-validated server-side and sequential/user-initiated; upload new immutable paths before replacing cache records so failures and existing order URLs remain safe.
-- Bespoke render inputs put the geometry drawing first and the composition reference last, with explicit per-shape constraints; non-round shapes use a non-circular reference to prevent geometry leakage.
+- Bespoke render inputs put the geometry drawing first; only Round receives a composition photo last, while non-round shapes use text-only camera rules (Aviator retains construction photos) to prevent photo geometry leakage.
 - Configurator price breakdowns derive from computePricing without step gating, so restored add-ons remain visible and totals match every surface.

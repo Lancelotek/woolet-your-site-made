@@ -1,5 +1,10 @@
 # Roadmap
 
+## Crown Panto text-only composition correction - 2026-10-12
+- [x] Remove non-Round composition photos, strengthen compact Crown Panto geometry and bump angle-v4
+- [x] Generate three candidates; compare outline and candidates, select and pin candidate 3 (2e3ff1a7): closest compact crown silhouette/keyhole bridge and requested camera direction
+- [x] Re-check retained Aviator/Rectangle outlines; keep their existing silhouettes/images; host contact-sheet review link and verify desktop/mobile card with ALT; do not publish site
+
 ## Crown Panto geometry correction - 2026-10-12
 - [x] Add explicit shape constraints and place composition reference last (angle-v3; Aviator reference for non-round shapes)
 - [x] Inspect all 20 cached Crown Panto images: one Round-shaped error, individually replaced; no remaining shape-error flags or bulk regeneration
