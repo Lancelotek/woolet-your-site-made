@@ -48,7 +48,7 @@ export function RenderCacheAdmin({ password }: { password: string }) {
         {rows.map((row) => <div key={row.id} className="flex items-center gap-4 border-b border-border py-3">
           <a href={row.public_url} target="_blank" rel="noopener noreferrer" className="shrink-0"><img src={row.public_url} alt={row.alt_text} loading="lazy" className="h-16 w-24 object-contain" /></a>
           <span className="min-w-0 flex-1 text-sm">{row.shape} · {row.prompt_version ?? "legacy"}</span>
-          <Button variant="ghost" size="sm" disabled={busy || row.prompt_version === ANGLE_PROMPT_VERSION || row.id === COMPOSITION_REFERENCE_ROW_ID} onClick={() => void regenerate([row])}><RefreshCw />Regenerate in new angle</Button>
+          <Button variant="ghost" size="sm" disabled={busy || row.id === COMPOSITION_REFERENCE_ROW_ID} onClick={() => void regenerate([row])}><RefreshCw />Regenerate in new angle</Button>
         </div>)}
       </div>
     </details>

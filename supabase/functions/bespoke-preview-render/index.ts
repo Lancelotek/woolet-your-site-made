@@ -169,7 +169,6 @@ Deno.serve(async (req) => {
       const { data: row, error } = await db.from("bespoke_render_cache").select("*").eq("id", body.rowId).maybeSingle();
       if (error || !row) return json({ error: "Render not found" }, 404);
       if (row.storage_path.endsWith("matte-plano-1fff96e7.png")) return json({ error: "The composition reference is preserved" }, 400);
-      if (row.prompt_version === PROMPT_VERSION) return json({ imageUrl: row.public_url, alt: row.alt_text, cached: true });
       regenerationId = row.id;
       const shapeSlug = String(row.shape).trim().toLowerCase().replace(/\s+/g, "-");
       const patterns: Record<string, string> = {
