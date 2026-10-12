@@ -166,9 +166,11 @@ const ConfiguratorPage = () => {
     const t = window.setTimeout(async () => {
       const lensHit = config.lensTypeId ? await lookupCachedRender(config, true) : null;
       if (cancelled) return;
-      if (lensHit) { rememberRender(lensKey, lensHit.imageUrl); return; }
+      // Set the panel image directly: rememberRender only writes storage and
+      // fires no event, so a restored config on first load kept the drawing.
+      if (lensHit) { rememberRender(lensKey, lensHit.imageUrl); setAiPreviewUrl(lensHit.imageUrl); return; }
       const baseHit = await lookupCachedRender(config, false);
-      if (!cancelled && baseHit) rememberRender(baseKey, baseHit.imageUrl);
+      if (!cancelled && baseHit) { rememberRender(baseKey, baseHit.imageUrl); setAiPreviewUrl(baseHit.imageUrl); }
     }, 300);
     return () => { cancelled = true; window.clearTimeout(t); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
