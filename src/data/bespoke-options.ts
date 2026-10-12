@@ -58,6 +58,12 @@ export interface ColorSwatch {
    * TODO(catalog): confirm exact thickness per code with atelier and fill in.
    */
   thicknessMm?: 4 | 6;
+  /**
+   * Retired sheets stay in COLORS so old orders, admin, the workshop PDF,
+   * the render cache and `renderAltFromParts` still resolve their names —
+   * they are only hidden from the pickers (see ACTIVE_COLORS).
+   */
+  retired?: boolean;
 }
 
 export const COLORS: ColorSwatch[] = [
@@ -65,13 +71,13 @@ export const COLORS: ColorSwatch[] = [
   { id: "p632-0006", code: "P632 0006", name: "Dark tortoise",          hex: "#3a1a05", image: p632.url,      family: "tortoise", thicknessMm: 4 },
   { id: "p601-0009", code: "P601 0009", name: "Amber tortoise",         hex: "#4a2306", image: p601.url,      family: "tortoise", thicknessMm: 4 },
   { id: "p554-1365", code: "P554 1365", name: "Bordeaux marble",        hex: "#4b1210", image: p554.url,      family: "tortoise", thicknessMm: 4 },
-  { id: "p610-3013", code: "P610 3013", name: "Honey tortoise",         hex: "#a26b26", image: p610.url,      family: "tortoise", thicknessMm: 4 },
+  { id: "p610-3013", code: "P610 3013", name: "Honey tortoise",         hex: "#a26b26", image: p610.url,      family: "tortoise", thicknessMm: 4, retired: true },
   { id: "p634-0813", code: "P634 0813", name: "Amber mint chip",        hex: "#b46a12", image: p634.url,      family: "tortoise", thicknessMm: 4 },
   { id: "p649-2301", code: "P649 2301", name: "Ember sparkle",          hex: "#2a1a10", image: p649.url,      family: "tortoise", thicknessMm: 4 },
   { id: "p685-1583", code: "P685 1583", name: "Emerald rose",           hex: "#2a3a2a", image: p685.url,      family: "colour",   thicknessMm: 4 },
-  { id: "3096-1110", code: "3096 1110", name: "Piano black",            hex: "#0a0a0a", image: ace3096.url,   family: "black",    thicknessMm: 4 },
+  { id: "3096-1110", code: "3096 1110", name: "Piano black",            hex: "#0a0a0a", image: ace3096.url,   family: "black",    thicknessMm: 4, retired: true },
   { id: "a305-2826", code: "A305 2826", name: "Deep matte black",       hex: "#050505", image: a305.url,      family: "black",    thicknessMm: 4 },
-  { id: "a423-1176", code: "A423 1176", name: "Black · red core",       hex: "#0d0505", image: a423.url,      family: "black",    note: "Red layer inside", thicknessMm: 4 },
+  { id: "a423-1176", code: "A423 1176", name: "Black · red core",       hex: "#0d0505", image: a423.url,      family: "black",    note: "Red layer inside", thicknessMm: 4, retired: true },
   { id: "p668-6006", code: "P668 6006", name: "Slate grain",            hex: "#2a2c30", image: p668.url,      family: "grey",     thicknessMm: 4 },
   { id: "a132-1960", code: "A132 1960", name: "Smoke translucent",      hex: "#8892a0", image: a132.url,      family: "translucent", note: "Translucent", thicknessMm: 4 },
   { id: "3102-7110", code: "3102 7110", name: "Ice translucent",        hex: "#e7e6e2", image: ace3102w.url,  family: "translucent", note: "Translucent", thicknessMm: 4 },
@@ -80,16 +86,33 @@ export const COLORS: ColorSwatch[] = [
   { id: "a078-5208", code: "A078 5208", name: "Navy",                   hex: "#0f1a5a", image: a078.url,      family: "colour",   thicknessMm: 4 },
   { id: "a090-0135", code: "A090 0135", name: "Rouge",                  hex: "#a02030", image: a090.url,      family: "colour",   thicknessMm: 4 },
   { id: "3102-1106", code: "3102 1106", name: "Sunflower",              hex: "#f4b410", image: ace3102y.url,  family: "colour",   thicknessMm: 4 },
-  { id: "p844-5962", code: "P844 5962", name: "Olive marble",           hex: "#8a7a1a", image: p844.url,      family: "colour",   thicknessMm: 4 },
+  { id: "p844-5962", code: "P844 5962", name: "Olive marble",           hex: "#8a7a1a", image: p844.url,      family: "colour",   thicknessMm: 4, retired: true },
 ];
 
 /** Front plates are 6 mm; temples must be 4 mm (only sheets stocked at 4 mm show up in the temple grid). */
 export const TEMPLE_THICKNESS_MM = 4 as const;
 export const FRONT_THICKNESS_MM = 6 as const;
 
+/** Sheets shown in the pickers — retired sheets stay in COLORS for order/admin/PDF name resolution. */
+export const ACTIVE_COLORS = COLORS.filter((c) => !c.retired);
+
+/** Retired selections (URL hand-off, restored sessions) fall back to the single black. */
+export const RETIRED_COLOR_FALLBACK_ID = "a305-2826";
+
+/**
+ * Resolve a stored/passed color id for the picker: active ids pass through,
+ * retired ids map to Deep matte black, unknown ids return null.
+ */
+export const resolveActiveColorId = (id: string | null | undefined): string | null => {
+  if (!id) return null;
+  const found = COLORS.find((c) => c.id === id);
+  if (!found) return null;
+  return found.retired ? RETIRED_COLOR_FALLBACK_ID : found.id;
+};
+
 /** Convenience helpers used by the configurator to filter the picker. */
-export const templeColors = () => COLORS.filter((c) => c.thicknessMm === TEMPLE_THICKNESS_MM);
-export const frontColors = () => COLORS.filter((c) => c.thicknessMm === undefined || c.thicknessMm === FRONT_THICKNESS_MM);
+export const templeColors = () => ACTIVE_COLORS.filter((c) => c.thicknessMm === TEMPLE_THICKNESS_MM);
+export const frontColors = () => ACTIVE_COLORS;
 
 export const FINISHES = [
   { id: "shiny",   name: "Shiny hand-polished", image: shinyImg },
