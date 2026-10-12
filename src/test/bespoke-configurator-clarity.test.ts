@@ -10,7 +10,7 @@ describe("Bespoke configurator clarity", () => {
   });
 
   it.each(LENS_TYPES)("itemizes $name without hidden acetate/finish charges", (lens) => {
-    const price = computePricing({ ...INITIAL_CONFIG, frameId: "round", frontColorId: "a332-1203", finishId: "brushed", lensTypeId: lens.id, engravingEnabled: true });
+    const price = computePricing({ ...INITIAL_CONFIG, frameId: "round", frontColorId: "a332-1203", finishId: "brushed", lensTypeId: lens.id, engravingEnabled: true, engravingText: "MC" });
     expect(price.basePriceEur).toBe(480);
     expect(price.engravingEur).toBe(10);
     expect(price.lensEur).toBe(lens.priceEur);
