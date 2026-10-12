@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { DEFAULT_TEMPLE_LENGTH_MM, ENGRAVING_FEE_EUR, findLensTint, findSunTint, isValidTempleLength, LENS_TYPES, type LensTint, type MeasurementKey, type ReadingStrength } from "@/data/bespoke-options";
+import { DEFAULT_TEMPLE_LENGTH_MM, ENGRAVING_FEE_EUR, findLensTint, findSunTint, isValidTempleLength, LENS_TYPES, resolveActiveColorId, type LensTint, type MeasurementKey, type ReadingStrength } from "@/data/bespoke-options";
 import { findFrame } from "@/data/frames";
 
 export type Measurements = Partial<Record<MeasurementKey, number>>;
@@ -101,6 +101,9 @@ const loadInitial = (): BespokeConfig => {
     if (next.lensTypeId === "sun-uv400" && !findSunTint(next.lensTintId)) next.lensTintId = "grey";
     if (next.lensTypeId === "photochromic" && !findLensTint(next.lensTintId)) next.lensTintId = null;
     if (next.lensTypeId !== "sun-uv400" && next.lensTypeId !== "photochromic") next.lensTintId = null;
+    // Retired acetates fall back to Deep matte black so restored sessions stay valid.
+    next.frontColorId = resolveActiveColorId(next.frontColorId);
+    next.templeColorId = resolveActiveColorId(next.templeColorId);
     return next;
   } catch {
     return INITIAL_CONFIG;

@@ -9,6 +9,7 @@ import { getAttribution } from "@/lib/attribution";
 import { useAuth } from "@/lib/auth-context";
 
 import {
+  ACTIVE_COLORS,
   COLORS,
   ENGRAVING_FEE_EUR,
   ENGRAVING_FONTS,
@@ -188,7 +189,7 @@ function ColorSwatchGrid({
     if (window.matchMedia("(max-width: 1023px)").matches) requestAnimationFrame(() => listRef.current?.scrollIntoView({ behavior: "smooth", block: "center" }));
   };
 
-  const filtered = thicknessMm ? COLORS.filter((c) => c.thicknessMm === thicknessMm) : COLORS;
+  const filtered = thicknessMm ? ACTIVE_COLORS.filter((c) => c.thicknessMm === thicknessMm) : ACTIVE_COLORS;
   const families = useMemo(
     () =>
       FAMILY_ORDER.filter((f) => filtered.some((c) => c.family === f)),
