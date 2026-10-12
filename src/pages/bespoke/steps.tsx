@@ -42,6 +42,7 @@ import {
   computePricing,
 } from "@/lib/bespoke-state";
 import { claritySet } from "@/lib/clarity";
+import { renderAltForConfig } from "@/lib/bespoke-render-alt";
 import { clampFaceMm, clampNoseMm } from "@/lib/scan-clamp";
 import { loadScanResult, type StoredScanResult } from "@/lib/scan-result-store";
 import { loadQuizPrior, type QuizPrior } from "@/lib/fit-quiz-prior";
@@ -678,7 +679,7 @@ export function AiPreviewPanel({
             See your <em className="italic text-gold-light">{frame.shape}</em> before you build
           </div>
         </div>
-        {activeUrl && !loading && budget.remaining > 0 && (
+        {activeUrl && !loading && budget.remaining > 0 && activeUrl !== cachedUrl && (
           <button
             onClick={generate}
             className="text-[11px] uppercase tracking-[0.18em] text-gold-light hover:text-gold underline underline-offset-4"

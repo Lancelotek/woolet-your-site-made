@@ -155,6 +155,22 @@ const ConfiguratorPage = () => {
     };
   }, [previewKey]);
 
+  // Shared render cache: show a hosted render for this exact set in the
+  // "Your build" panel as soon as the buyer picks it (no AI call).
+  useEffect(() => {
+    if (!config.frameId || !config.frontColorId || !config.templeColorId || !config.finishId) return;
+    let cancelled = false;
+    const t = window.setTimeout(async () => {
+      const lensHit = config.lensTypeId ? await lookupCachedRender(config, true) : null;
+      if (cancelled) return;
+      if (lensHit) { rememberRender(lensKey, lensHit.imageUrl); return; }
+      const baseHit = await lookupCachedRender(config, false);
+      if (!cancelled && baseHit) rememberRender(baseKey, baseHit.imageUrl);
+    }, 300);
+    return () => { cancelled = true; window.clearTimeout(t); };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [previewKey]);
+
   const goTo = (n: StepId) => {
     setStep(n);
     setVisited((prev) => (prev.includes(n) ? prev : [...prev, n]));
@@ -230,8 +246,9 @@ const ConfiguratorPage = () => {
   // be in has to answer the tap: a picture opens larger, an empty stage sends the
   // buyer to the choice that fills it.
   const stageSrc = aiPreviewUrl && step >= 2 ? aiPreviewUrl : frame ? frame.url : null;
+  const renderAlt = renderAltForConfig(config, Boolean(getLatestPreviewUrl(lensKey)) && lensKey !== baseKey);
   const stageAlt = aiPreviewUrl && step >= 2
-    ? (frame ? `AI visualisation of Woolet Bespoke ${frame.name}` : "AI visualisation of your Woolet Bespoke configuration")
+    ? renderAlt
     : frame
       ? `Woolet Bespoke ${frame.name} — ${frame.shape} pattern for wide faces`
       : "";
@@ -357,7 +374,7 @@ const ConfiguratorPage = () => {
                onClick={stageSrc ? handleStageTap : showPatternMissing}
             >
               {aiPreviewUrl && step >= 2 ? (
-                <img src={aiPreviewUrl} alt={frame ? `AI visualisation of Woolet Bespoke ${frame.name}` : "AI visualisation of your Woolet Bespoke configuration"} />
+                <img src={aiPreviewUrl} alt={renderAlt} />
               ) : frame ? (
                 <img src={frame.url} alt={`Woolet Bespoke ${frame.name} — ${frame.shape} pattern for wide faces`} />
               ) : (
@@ -460,7 +477,7 @@ const ConfiguratorPage = () => {
                   }}
                 >
                   {aiPreviewUrl && step >= 2 ? (
-                    <img src={aiPreviewUrl} alt={frame ? `AI visualisation of Woolet Bespoke ${frame.name} — ${frame.shape} pattern, made-to-measure for wide faces` : "AI visualisation of Woolet Bespoke eyewear configuration"} className="max-h-full max-w-full object-contain" />
+                    <img src={aiPreviewUrl} alt={renderAlt} className="max-h-full max-w-full object-contain" />
                   ) : frame ? (
                     <img src={frame.url} alt={`Woolet Bespoke ${frame.name} — ${frame.shape} pattern for wide faces, made-to-measure in the EU`} className="max-h-full max-w-[82%] object-contain" />
                   ) : (
