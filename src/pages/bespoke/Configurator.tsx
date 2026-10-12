@@ -21,7 +21,10 @@ import {
   buildPreviewKey,
   getLatestPreviewUrl,
   PREVIEW_UPDATED_EVENT,
+  lookupCachedRender,
+  rememberRender,
 } from "./steps";
+import { renderAltForConfig } from "@/lib/bespoke-render-alt";
 import StepPreview from "./StepPreview";
 import {
   CfgInfoProvider,

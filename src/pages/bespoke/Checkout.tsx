@@ -180,12 +180,7 @@ export default function BespokeCheckout() {
     setIsGenerating(true);
     try {
       const { data, error: fnErr } = await supabase.functions.invoke("bespoke-preview-render", {
-        body: {
-          shape: frame.shape,
-          frontColor: `${front.name} (${front.code})`,
-          templeColor: `${temple.name} (${temple.code})`,
-          finish: finish.name,
-        },
+        body: renderRequestBody(config, false),
       });
       if (fnErr) throw fnErr;
       const url = (data as { imageUrl?: string })?.imageUrl;
@@ -439,7 +434,7 @@ export default function BespokeCheckout() {
                         <>
                           <img
                             src={aiPreviewUrl}
-                            alt={`AI visualisation of your ${frame.name} in ${front?.name} / ${temple?.name}`}
+                            alt={renderAltForConfig(config, Boolean(getLatestPreviewUrl(lensKey)) && lensKey !== baseKey)}
                             className="w-full h-full object-cover"
                           />
                           <div
