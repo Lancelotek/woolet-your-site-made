@@ -168,7 +168,7 @@ Deno.serve(async (req) => {
       const db = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!, { auth: { persistSession: false } });
       const { data: row, error } = await db.from("bespoke_render_cache").select("*").eq("id", body.rowId).maybeSingle();
       if (error || !row) return json({ error: "Render not found" }, 404);
-      if (row.storage_path.endsWith("matte-plano-1fff96e7.png")) return json({ error: "The composition reference is preserved" }, 400);
+      if (row.storage_path.endsWith("brushed-plano-06b46be2.png")) return json({ error: "The composition reference is preserved" }, 400);
       regenerationId = row.id;
       const shapeSlug = String(row.shape).trim().toLowerCase().replace(/\s+/g, "-");
       const patterns: Record<string, string> = {
