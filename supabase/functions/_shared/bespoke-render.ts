@@ -3,7 +3,7 @@
 // Mirrored on the client in src/lib/bespoke-render-alt.ts — keep in sync.
 
 export const RENDER_BUCKET = "bespoke-renders";
-export const PROMPT_VERSION = "2026-10-12";
+export const PROMPT_VERSION = "angle-v1";
 
 const norm = (v: unknown) => String(v ?? "").trim().toLowerCase();
 

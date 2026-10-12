@@ -1,5 +1,11 @@
 # Roadmap
 
+## Fixed-angle Bespoke renders - 2026-10-12
+- [x] Add composition reference and versioned admin regeneration without changing normal cache hits
+- [x] Generate three featured shapes and an uncached test; pin Round reference and new cards
+- [x] Verify cards/admin controls, image URLs, old-row count and credit estimate; do not publish
+- [ ] Exact visual acceptance: Aviator still uses the opposite perspective despite reference and hard constraints; requires owner review before further paid attempts
+
 ## Bespoke configurator clarity - 2026-10-12
 - [x] Show cached pattern examples and current-config previews on initial load
 - [x] Move payment notice to Review/checkout and itemize existing surcharges
