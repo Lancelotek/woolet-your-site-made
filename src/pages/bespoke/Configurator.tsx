@@ -742,7 +742,9 @@ const ConfiguratorStyles = () => (
       color: var(--cfg-gold);
     }
     .cfg-scope h2, .cfg-scope header { cursor: default; }
-    .cfg-pattern-inset { position: absolute; bottom: 8px; right: 8px; width: 86px; background: var(--cfg-cream); color: var(--cfg-ink); padding: 4px; font-size: 10px; text-align: center; }
+    .cfg-pattern-inset, .cfg-example-colour { position: absolute; background: var(--cfg-cream); color: var(--cfg-ink); padding: 4px; font-size: 10px; text-align: center; }
+    .cfg-pattern-inset { bottom: 8px; right: 8px; width: 86px; }
+    .cfg-example-colour { top: 8px; left: 8px; }
     .cfg-pattern-inset img { width: 100%; height: 40px; object-fit: contain; }
     .cfg-body { color: var(--cfg-text); font-size: 17px; line-height: 1.65; }
     .cfg-eyebrow {
