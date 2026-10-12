@@ -32,3 +32,18 @@ export function renderAltForConfig(config: BespokeConfig, includeLens = true): s
   if (!frame || !front || !temple || !finish) return "AI preview of a Woolet Bespoke made-to-measure frame";
   return `Woolet Bespoke ${frame.shape} eyeglasses, front in ${front.name} Mazzucchelli acetate, temples in ${temple.name}, ${FINISH_WORD[finish.id] ?? finish.name.toLowerCase()} finish, ${lensDescription(lens?.id, lens ? lensTintCode(config) : null)} - AI preview of a made-to-measure frame`;
 }
+
+/** ALT from stored labels/codes (orders, account history). */
+export function renderAltFromParts(p: {
+  shape?: string | null; front?: string | null; temple?: string | null; finish?: string | null;
+  lensType?: string | null; lensTint?: string | null;
+}): string {
+  const nameOf = (v?: string | null) => {
+    const raw = (v ?? "").replace(/\s*\([^)]*\)\s*$/, "").trim();
+    return COLORS.find((c) => c.code.toLowerCase() === raw.toLowerCase() || c.id === raw.toLowerCase())?.name ?? raw;
+  };
+  const f = FINISHES.find((x) => x.id === p.finish || x.name === p.finish);
+  const finishWord = f ? FINISH_WORD[f.id] : (p.finish ?? "").toLowerCase();
+  const lens = (p.lensType ?? "").split(/\s/)[0].toLowerCase() || "plano";
+  return `Woolet Bespoke ${p.shape ?? "frame"} eyeglasses, front in ${nameOf(p.front)} Mazzucchelli acetate, temples in ${nameOf(p.temple)}, ${finishWord} finish, ${lensDescription(lens, p.lensTint)} - AI preview of a made-to-measure frame`;
+}
