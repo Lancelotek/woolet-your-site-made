@@ -9,6 +9,7 @@ import {
   isAviatorShape,
 } from "../_shared/aviator-references.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.58.0";
+import { COMPOSITION_REFERENCE_URL, COMPOSITION_RULES } from "../_shared/bespoke-composition.ts";
 import {
   RENDER_BUCKET, PROMPT_VERSION, buildKeyV2, buildAlt, buildStoragePath,
   publicUrlFor, decodeDataUrl,
@@ -23,7 +24,9 @@ const corsHeaders = {
 };
 
 interface Body {
-  mode?: "lookup" | "render";
+  mode?: "lookup" | "render" | "regenerate";
+  rowId?: string;
+  password?: string;
   frontCode?: string;     // production code, e.g. "P632 0006" (cache key)
   templeCode?: string;
   frontName?: string;     // e.g. "Dark tortoise" (ALT text)
@@ -155,7 +158,31 @@ Deno.serve(async (req) => {
   if (req.method !== "POST") return json({ error: "Method not allowed" }, 405);
 
   try {
-    const body = (await req.json()) as Body;
+    let body = (await req.json()) as Body;
+    if (body.mode && !["lookup", "render", "regenerate"].includes(body.mode)) return json({ error: "Invalid mode" }, 400);
+    let regenerationId: string | null = null;
+    if (body.mode === "regenerate") {
+      const allowed = [Deno.env.get("BESPOKE_ADMIN_PASSWORD"), Deno.env.get("ADMIN_CRM_PASSWORD")].filter(Boolean);
+      if (!body.password || !allowed.includes(body.password)) return json({ error: "Admin authorization required" }, 401);
+      if (!body.rowId || !/^[0-9a-f-]{36}$/i.test(body.rowId)) return json({ error: "Invalid render ID" }, 400);
+      const db = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!, { auth: { persistSession: false } });
+      const { data: row, error } = await db.from("bespoke_render_cache").select("*").eq("id", body.rowId).maybeSingle();
+      if (error || !row) return json({ error: "Render not found" }, 404);
+      if (row.storage_path.endsWith("matte-plano-1fff96e7.png")) return json({ error: "The composition reference is preserved" }, 400);
+      if (row.prompt_version === PROMPT_VERSION) return json({ imageUrl: row.public_url, alt: row.alt_text, cached: true });
+      regenerationId = row.id;
+      const shapeSlug = String(row.shape).trim().toLowerCase().replace(/\s+/g, "-");
+      const patterns: Record<string, string> = {
+        round: "https://woolet.co/__l5e/assets-v1/499d444a-5b87-4eab-9cf5-282385f68efa/round.png",
+        rectangle: "https://woolet.co/__l5e/assets-v1/8fec659e-19ab-4066-add6-2874199e78b3/rectangle.png",
+        "crown-panto": "https://woolet.co/__l5e/assets-v1/e25b4da4-6278-45f6-a6b4-0faf8ba19dd8/crown-panto.png",
+      };
+      body = { mode: "regenerate", shape: row.shape, frontCode: row.front_code, frontName: row.front_name,
+        templeCode: row.temple_code, templeName: row.temple_name,
+        frontColor: `${row.front_name} (${row.front_code})`, templeColor: `${row.temple_name} (${row.temple_code})`,
+        finish: row.finish, finishId: /brushed|scratched/i.test(row.finish) ? "brushed" : /matte/i.test(row.finish) ? "matte" : "shiny",
+        lensType: row.lens_type, lensTint: row.lens_tint, patternUrl: patterns[shapeSlug] };
+    }
     const shape = String(body?.shape || "").slice(0, 60);
     const frontColor = String(body?.frontColor || "").slice(0, 120);
     const templeColor = String(body?.templeColor || "").slice(0, 120);
@@ -206,7 +233,7 @@ Deno.serve(async (req) => {
         ? json({ hit: true, imageUrl: cached.public_url, alt: cached.alt_text })
         : json({ hit: false });
     }
-    if (cached) {
+    if (cached && !regenerationId) {
       await admin
         .from("bespoke_render_cache")
         .update({ hits: (cached.hits ?? 0) + 1, last_served_at: new Date().toISOString() })
@@ -240,8 +267,8 @@ Deno.serve(async (req) => {
         : `Classic ${shape} silhouette.`,
       ...(aviator
         ? [
-            `Images 2–7 are photographs of the same physical Aviator construction from different angles. Use them only to understand real thickness, edge polish, bridge depth, end-piece geometry, hinge placement, two-pin temple attachment, temple taper and how each temple joins the front without a gap or invented connector.`,
-            `The technical drawing in image 1 remains the authority for the front silhouette. The photographs are the authority for three-dimensional construction and photographic quality.`,
+             `Images 3–8 are photographs of the same physical Aviator construction from different angles. Use them only to understand real thickness, edge polish, bridge depth, end-piece geometry, hinge placement, two-pin temple attachment, temple taper and how each temple joins the front without a gap or invented connector.`,
+             `The technical drawing in image 1 remains the authority for the front silhouette. Image 2 alone decides the camera angle; construction photographs must never decide the angle.`,
             `Do not copy the photographs' clear front, black temples, sunglass tint, engraving or branding. Apply the buyer's selected front acetate, temple acetate, finish and lenses stated below.`,
           ]
         : []),
@@ -253,8 +280,8 @@ Deno.serve(async (req) => {
       `Front width about ${widthMm} mm with a bridge of about ${bridgeMm} mm, so the pair reads wide and generously proportioned.`,
       lensInstruction(lensType, lensName, lensTint),
       `Correctly seated hinges and rivets, accurate acetate edge detail,`,
-      `high-key professional product photography on a clean warm off-white seamless background, controlled softbox reflections, precise transparency and refraction where the acetate is translucent, crisp natural contact shadow,`,
-      `three-quarter front angle with the entire frame and both temples legible, no face, no model, no branding, no text, no logos,`,
+       COMPOSITION_RULES,
+       `Precise transparency and refraction where the acetate is translucent, accurate premium product photography.`,
       `no drawing lines, no sketch, no floating hardware, no fused temples, no extra bridge, no asymmetry, ultra-realistic premium catalogue still.`,
     ].join(" ");
 
@@ -263,17 +290,18 @@ Deno.serve(async (req) => {
     const inlineImage = async (url: string): Promise<string> => {
       try {
         const r = await fetch(url);
-        if (!r.ok) return url;
+         if (!r.ok) throw new Error(`Reference image unavailable (${r.status})`);
         const type = r.headers.get("content-type")?.split(";")[0] || "image/png";
         const bytes = new Uint8Array(await r.arrayBuffer());
         let bin = "";
         for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
         return `data:${type};base64,${btoa(bin)}`;
-      } catch {
-        return url;
+       } catch (error) {
+         throw new Error(`Reference image could not be inlined: ${(error as Error).message}`);
       }
     };
-    const refUrls = usePattern ? [patternUrl, ...(aviator ? AVIATOR_CONSTRUCTION_REFERENCES : [])] : [];
+     if (!usePattern) return json({ error: "A pattern drawing is required for fixed-angle generation" }, 400);
+     const refUrls = [patternUrl, COMPOSITION_REFERENCE_URL, ...(aviator ? AVIATOR_CONSTRUCTION_REFERENCES : [])];
     const inlined = await Promise.all(refUrls.map(inlineImage));
 
     const content = usePattern
@@ -312,7 +340,7 @@ Deno.serve(async (req) => {
 
     // Host the PNG and record it once; a concurrent request for the same set
     // loses the insert race and returns the winner's image.
-    const storagePath = await buildStoragePath({ key, shape, frontName, templeName, finish, lensType, lensTint });
+     const storagePath = await buildStoragePath({ key: `${key}|${PROMPT_VERSION}|${crypto.randomUUID()}`, shape, frontName, templeName, finish, lensType, lensTint });
     const { error: upErr } = await admin.storage
       .from(RENDER_BUCKET)
       .upload(storagePath, decodeDataUrl(dataUrl), { contentType: "image/png", upsert: true, cacheControl: "31536000" });
@@ -320,19 +348,22 @@ Deno.serve(async (req) => {
     const { data: bucket } = await admin.storage.getBucket(RENDER_BUCKET);
     const publicUrl = publicUrlFor(SUPABASE_URL, storagePath, Boolean(bucket?.public));
 
-    await admin.from("bespoke_render_cache").upsert(
+     const record =
       {
         selection_key: key, key_version: 2, shape, front_code: frontCode, front_name: frontName,
         temple_code: templeCode, temple_name: templeName, finish, lens_type: lensType || "plano",
         lens_tint: lensTint || null, storage_path: storagePath, public_url: publicUrl, alt_text: alt,
         model: MODEL, prompt_version: PROMPT_VERSION, hits: 1, last_served_at: new Date().toISOString(),
-      },
-      { onConflict: "selection_key", ignoreDuplicates: true },
-    );
+       };
+     // Regenerate in place only after upload succeeds; preserve legacy keys and old URLs used by orders.
+     const { error: writeError } = regenerationId
+       ? await admin.from("bespoke_render_cache").update({ ...record, selection_key: undefined, key_version: undefined }).eq("id", regenerationId)
+       : await admin.from("bespoke_render_cache").upsert(record, { onConflict: "selection_key", ignoreDuplicates: true });
+     if (writeError) throw new Error(`Render cache write failed: ${writeError.message}`);
     const { data: row } = await admin
       .from("bespoke_render_cache")
       .select("public_url, alt_text")
-      .eq("selection_key", key)
+       .eq(regenerationId ? "id" : "selection_key", regenerationId ?? key)
       .maybeSingle();
 
     return json({ imageUrl: row?.public_url ?? publicUrl, alt: row?.alt_text ?? alt, cached: false });

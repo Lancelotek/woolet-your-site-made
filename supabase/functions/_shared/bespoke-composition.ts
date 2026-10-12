@@ -1,0 +1,7 @@
+export const COMPOSITION_REFERENCE_URL = "https://wmefczrhnsqicikveuhz.supabase.co/functions/v1/bespoke-render-image/renders/round/woolet-bespoke-round-british-racing-green-front-ice-translucent-temples-matte-plano-1fff96e7.png";
+export const COMPOSITION_RULES = [
+  "Image 1 is the geometry authority. Image 2, the reference photo, is the authority ONLY for camera angle, framing, lighting and background: copy those exactly. Never copy its shape, colours, finish or lenses.",
+  "HARD CAMERA CONSTRAINTS: three-quarter front view, frame front turned toward the viewer's left by 30–35 degrees, right-hand temple running back toward the upper right; both temples open and visible, far temple partly visible behind the lens. Never use a flat front view or the angle of any construction photo.",
+  "Camera slightly above the frame at about 10 degrees; frame centred, filling about 75% of image width; entire frame and both temples inside the image, nothing cropped. Match the reference photo composition exactly.",
+  "HARD STUDIO CONSTRAINTS: clean warm off-white seamless background in exactly the reference tone; soft diffuse studio light from upper left; one soft contact shadow under the frame. No props, no coloured backdrop, no face, no text, no model, no branding, no logos.",
+].join(" ");
