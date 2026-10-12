@@ -1,5 +1,10 @@
 # Roadmap
 
+## Fixed-angle Bespoke renders - 2026-10-12
+- [ ] Add composition reference and versioned admin regeneration without changing normal cache hits
+- [ ] Generate three featured shapes and one uncached test; pin Round reference and new cards
+- [ ] Verify cards/admin controls, image URLs, old-row count and credit estimate; do not publish
+
 ## Bespoke configurator clarity - 2026-10-12
 - [x] Show cached pattern examples and current-config previews on initial load
 - [x] Move payment notice to Review/checkout and itemize existing surcharges
