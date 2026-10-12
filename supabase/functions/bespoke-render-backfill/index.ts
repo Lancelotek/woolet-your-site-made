@@ -49,23 +49,19 @@ Deno.serve(async (req) => {
       const finish = r.finish || "";
       const alt = buildAlt({ shape, frontName, templeName, finish, lensType: "plano" });
 
-      const { data: existing } = await admin
-        .from("bespoke_render_cache").select("public_url").eq("selection_key", key).maybeSingle();
-      let publicUrl = existing?.public_url as string | undefined;
-      if (!publicUrl) {
-        const path = await buildStoragePath({ key, shape, frontName, templeName, finish, lensType: "plano" });
+      // Every stored render keeps its own file (users may hold several
+      // variations of one set); the first becomes the shared cache entry.
+      {
+        const path = await buildStoragePath({ key: `${key}#${r.id}`, shape, frontName, templeName, finish, lensType: "plano" });
         const { error: upErr } = await admin.storage.from(RENDER_BUCKET)
           .upload(path, decodeDataUrl(r.image_url), { contentType: "image/png", upsert: true, cacheControl: "31536000" });
         if (upErr) throw new Error(upErr.message);
-        publicUrl = publicUrlFor(SUPABASE_URL, path, isPublic);
+        var publicUrl = publicUrlFor(SUPABASE_URL, path, isPublic);
         await admin.from("bespoke_render_cache").upsert({
           selection_key: key, key_version: 1, shape, front_code: codeOf(r.front_color), front_name: frontName,
           temple_code: codeOf(r.temple_color), temple_name: templeName, finish, lens_type: "plano",
           storage_path: path, public_url: publicUrl, alt_text: alt, prompt_version: "v1-backfill",
         }, { onConflict: "selection_key", ignoreDuplicates: true });
-        const { data: winner } = await admin
-          .from("bespoke_render_cache").select("public_url").eq("selection_key", key).maybeSingle();
-        publicUrl = winner?.public_url ?? publicUrl;
       }
       const { error: updErr } = await admin.from("bespoke_ai_previews").update({ image_url: publicUrl }).eq("id", r.id);
       if (updErr) throw new Error(updErr.message);
