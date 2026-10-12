@@ -265,6 +265,7 @@ async function main() {
 
   const template = await readFile(resolve(DIST, "index.html"), "utf8");
   const routes = getAllRoutes();
+  const renderedHtml = new Map();
   console.log(`[prerender] rendering ${routes.length} routes…`);
 
   let ok = 0;
