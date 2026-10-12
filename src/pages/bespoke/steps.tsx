@@ -99,6 +99,10 @@ export function StepFrame({ config, update, patternRenders = {} }: StepProps & {
         </p>
       </header>
 
+      <div>
+      <p className="cfg-body text-cream-dim mb-4">
+        Photos show example colours. You choose any acetate colour and finish - matte, hand-polished or brushed - in the next steps.
+      </p>
       <div className="cfg-choicegrid grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
         {FRAMES.map((f) => {
           const active = config.frameId === f.id;
@@ -133,7 +137,10 @@ export function StepFrame({ config, update, patternRenders = {} }: StepProps & {
                   loading="eager"
                   className={`w-full h-full object-contain ${example ? "" : "p-6"} transition-transform duration-500 group-hover:scale-[1.03]`}
                 />
-                {example && <span className="cfg-pattern-inset"><img src={imageVariant(f.url, 240)} alt={`${f.name} pattern outline`} />Pattern</span>}
+                {example && <>
+                  <span className="cfg-example-colour">Example colour</span>
+                  <span className="cfg-pattern-inset"><img src={imageVariant(f.url, 240)} alt={`${f.name} pattern outline`} />Pattern</span>
+                </>}
                 {active && (
                   <span
                     className="absolute top-2.5 right-2.5 inline-flex items-center justify-center w-6 h-6 bg-[color:var(--cfg-gold)]"
@@ -154,9 +161,10 @@ export function StepFrame({ config, update, patternRenders = {} }: StepProps & {
           );
         })}
       </div>
+      </div>
 
       <p className="text-cream-dim text-xs leading-relaxed max-w-xl" style={{ fontStyle: "italic" }}>
-        Pattern outlines represent the shape only. Final dimensions — front width, bridge, temple length, lens height — are all cut to your scan.
+        Shapes only. Front width, bridge, temple length and lens height are all cut to your scan.
       </p>
     </div>
   );
