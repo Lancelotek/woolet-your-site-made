@@ -3,7 +3,7 @@
 ## Pattern example labels - 2026-10-12
 - [x] Add photo example labels and exact above/below-grid notes; keep Your build label
 - [x] Check supported languages: configurator is English only; other locales redirect to English
-- [ ] Verify desktop/mobile texts and labels; do not publish
+- [x] Verify desktop/mobile texts and labels; do not publish
 
 ## Fixed-angle Bespoke renders - 2026-10-12
 - [x] Add composition reference and versioned admin regeneration without changing normal cache hits
