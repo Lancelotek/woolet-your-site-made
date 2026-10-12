@@ -1,4 +1,5 @@
 import { renderAltFromParts } from "@/lib/bespoke-render-alt";
+import { RenderCacheAdmin } from "@/components/admin/RenderCacheAdmin";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Check, Copy } from "lucide-react";
@@ -503,6 +504,7 @@ export default function BespokeAdmin() {
 
         {error && <div style={{ color: "#e2725b", fontSize: 13, marginBottom: 16 }}>{error}</div>}
 
+        <RenderCacheAdmin password={password} />
         <StageFilterBar
           orders={rows as unknown as Record<string, unknown>[]}
           value={stageFilter}

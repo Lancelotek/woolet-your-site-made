@@ -1,4 +1,5 @@
 import { supabase } from "@/integrations/supabase/client";
+import { FEATURED_RENDER_KEYS } from "@/data/bespoke-featured-renders";
 
 export interface PatternRender {
   shape: string | null;
@@ -6,7 +7,7 @@ export interface PatternRender {
   alt_text: string;
 }
 
-/** Rows arrive most-served first, with newest breaking ties. */
+/** One explicitly pinned combination per shape. */
 export function selectPatternRenders(rows: PatternRender[]): Record<string, PatternRender> {
   const result: Record<string, PatternRender> = {};
   for (const row of rows) {
@@ -20,8 +21,7 @@ export async function loadPatternRenders(): Promise<Record<string, PatternRender
   try {
     const { data, error } = await supabase.from("bespoke_render_cache")
       .select("shape,public_url,alt_text")
-      .order("hits", { ascending: false })
-      .order("created_at", { ascending: false });
+      .in("selection_key", FEATURED_RENDER_KEYS);
     return error ? {} : selectPatternRenders(data ?? []);
   } catch {
     return {};
