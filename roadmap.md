@@ -5,9 +5,9 @@
 - [x] Generate three featured shapes and an uncached test; pin Round reference and new cards
 - [x] Verify cards/admin controls, image URLs, old-row count and credit estimate; do not publish
 - [x] Owner corrected the reference to brushed Round and accepted existing Aviator 7914d220
-- [ ] Switch to angle-v2 and protect/pin brushed Round instead of matte Round
-- [ ] Regenerate Rectangle and Crown Panto only; inspect direction and retry once if wrong
-- [ ] Verify pinned cards and hosted URLs; do not publish
+- [x] Switch to angle-v2 and protect/pin brushed Round instead of matte Round
+- [x] Regenerate Rectangle and Crown Panto only; both matched direction on first attempt
+- [x] Verify pinned cards and hosted URLs; do not publish
 
 ## Bespoke configurator clarity - 2026-10-12
 - [x] Show cached pattern examples and current-config previews on initial load
