@@ -573,15 +573,11 @@ export function AiPreviewPanel({
     try {
       pushCfg("cfg_generate_click");
       budget.consume();
-      const controller = new AbortController();
-      const timeout = window.setTimeout(() => controller.abort(), 35000);
-      let result: Awaited<ReturnType<typeof supabase.functions.invoke>>;
-      try {
-        result = await supabase.functions.invoke("bespoke-preview-render", {
-          signal: controller.signal,
-          body: renderRequestBody(config, includeLens),
-        });
-      } finally { window.clearTimeout(timeout); }
+      // No client-side timeout: a fresh render takes 20-60 s and aborting it
+      // early surfaced as "Failed to send a request to the Edge Function".
+      const result = await supabase.functions.invoke("bespoke-preview-render", {
+        body: renderRequestBody(config, includeLens),
+      });
       const { data, error: fnErr } = result;
       if (fnErr) throw fnErr;
       const url = (data as { imageUrl?: string })?.imageUrl;
