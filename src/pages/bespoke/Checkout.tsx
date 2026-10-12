@@ -205,7 +205,7 @@ export default function BespokeCheckout() {
     } finally {
       setIsGenerating(false);
     }
-  }, [frame, front, temple, finish, previewKey, buildEventPayload]);
+  }, [frame, front, temple, finish, previewKey, buildEventPayload, config]);
 
   // --- Analytics: Checkout viewed (once, when ready) -------------------------
   const viewedTracked = useRef(false);
