@@ -14,3 +14,4 @@
 
 - FitScan initializes its mobile breakpoint before first paint and reserves panel height; other consumers of useIsMobile retain the existing initialization behavior.
 - A new page is registered in src/seo/metadata.ts (STATIC_ROUTES + a getMetadata case) so scripts/prerender.mjs, the sitemap generator and the route manifest all see it; a case that sets meta.robots to a noindex value is dropped from sitemap.xml automatically and its noscriptHtml carries the content crawlers should read.
+- Bespoke AI renders are generated once per canonical v2 selection key (server-built, includes lens + tint) and served from the public bespoke_render_cache table + bespoke-renders bucket; clients never receive base64 — this stops repeat AI spend and lets every visitor reuse a render.
