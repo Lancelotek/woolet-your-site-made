@@ -13,7 +13,7 @@
  * Paths with other params (:slug, :width) or wildcards are skipped —
  * their known values are enumerated in src/seo/routeRedirects.ts.
  */
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, existsSync, readdirSync, statSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -75,10 +75,30 @@ for (const p of [...concrete].sort()) {
   errors.push(p);
 }
 
+// Soft-404 guard: a stub whose target is a prerendered page must be a full
+// copy of that page (>= 3 KB), never a thin "moved" shell.
+const thin = [];
+const walk = (dir) => {
+  for (const name of readdirSync(dir)) {
+    const f = resolve(dir, name);
+    const st = statSync(f);
+    if (st.isDirectory()) { walk(f); continue; }
+    if (!name.endsWith(".html")) continue;
+    const html = readFileSync(f, "utf8");
+    if (!html.includes('name="woolet-legacy-redirect"')) continue;
+    const m = html.match(/http-equiv="refresh" content="0; url=https:\/\/woolet\.co([^"]*)"/);
+    if (!m) continue;
+    const t = m[1];
+    const targetIsPage = t && has(t) && !isStub(t);
+    if (targetIsPage && st.size < 3072) thin.push(`${f.slice(DIST.length)} (${st.size} B -> ${t})`);
+  }
+};
+walk(DIST);
+if (thin.length) errors.push(...thin.map((x) => `thin redirect stub: ${x}`));
 
 console.log(`[audit-routes] ${concrete.size} concrete App.tsx paths: ${pre} prerendered, ${stub} redirect stubs, ${allowed} allow-listed fallback`);
 if (errors.length) {
-  console.error(`[audit-routes] FAILED — ${errors.length} path(s) would serve the noindex fallback:\n  ${errors.join("\n  ")}`);
+  console.error(`[audit-routes] FAILED — ${errors.length} path(s) failed (noindex fallback or thin stub):\n  ${errors.join("\n  ")}`);
   process.exit(1);
 }
 console.log("[audit-routes] OK");
