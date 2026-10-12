@@ -1758,7 +1758,7 @@ export function StepEngraving({ config, update }: StepProps) {
             onChange={enable}
           />
           <div className="flex items-baseline justify-between gap-2">
-            <span className="text-cream text-base">Add my engraving</span>
+            <span className="text-cream text-base">Add engraving</span>
             <span className="text-gold-light text-[0.78rem]">{formatAddOn(ENGRAVING_FEE_EUR)}</span>
           </div>
           <p className="text-cream-dim text-[0.8rem] leading-relaxed mt-2">Your name, initials or a date on the inner left temple.</p>
@@ -1776,7 +1776,7 @@ export function StepEngraving({ config, update }: StepProps) {
                 value={config.engravingText}
                 onChange={(e) => onTextChange(e.target.value)}
                 maxLength={ENGRAVING_MAX_CHARS}
-                placeholder="e.g. Marek Ciesla"
+                placeholder="e.g. Tom Smith"
                 autoFocus
                 className="w-full px-4 py-3 pr-16 rounded-[10px] bg-background border border-cream/15 text-cream text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/40"
               />
@@ -2155,7 +2155,7 @@ export function StepReview({
         <Row step={2} label="Front acetate" value={front ? <span className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: front.hex }} /> {front.name}</span> : null} />
         <Row step={2} label="Temple acetate" value={temple ? <span className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: temple.hex }} /> {temple.name}</span> : null} />
         <Row step={2} label="Finish" value={finish?.name} />
-        <Row step={5} label="Engraving" value={config.engravingEnabled ? `"${config.engravingText}" · ${formatAddOn(ENGRAVING_FEE_EUR)}` : "None"} />
+        <Row step={5} label="Engraving" value={hasEngraving(config) ? `"${config.engravingText.trim()}" · ${formatAddOn(ENGRAVING_FEE_EUR)}` : "—"} />
         <Row
           step={6} label="Lenses"
           value={lens ? <span className="inline-flex items-center justify-end gap-2">{selectedLensTint(config) && <span className="w-3 h-3 shrink-0 rounded-full border border-cream/20" style={{ background: selectedLensTint(config)?.hex }} />}{formatLensWithStrength(lens.name, config)} · {formatAddOn(lens.priceEur)}</span> : null}

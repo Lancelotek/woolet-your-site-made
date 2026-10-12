@@ -84,6 +84,17 @@ export const INITIAL_CONFIG: BespokeConfig = {
   updatedAt: new Date().toISOString(),
 };
 
+const LEGACY_DEFAULT_ENGRAVING = "tom smith";
+
+/** Clears the retired "Tom Smith" default so returning visitors aren't charged for it. */
+export function clearLegacyEngraving(c: BespokeConfig): BespokeConfig {
+  if ((c.engravingText ?? "").trim().toLowerCase() !== LEGACY_DEFAULT_ENGRAVING) return c;
+  return { ...c, engravingText: "", engravingEnabled: false };
+}
+
+/** Engraving is charged only when the customer actually typed text. */
+export const hasEngraving = (c: BespokeConfig) => c.engravingEnabled && Boolean((c.engravingText ?? "").trim());
+
 export const STORAGE_KEY = "woolet:bespoke:v1";
 
 const loadInitial = (): BespokeConfig => {
@@ -92,7 +103,7 @@ const loadInitial = (): BespokeConfig => {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return INITIAL_CONFIG;
     const parsed = JSON.parse(raw) as BespokeConfig;
-    const next = { ...INITIAL_CONFIG, ...parsed };
+    const next = clearLegacyEngraving({ ...INITIAL_CONFIG, ...parsed });
     if (!["plano", "blue-light", "reading", "photochromic", "sun-uv400"].includes(next.lensTypeId ?? "")) {
       next.lensTypeId = null;
       next.lensMaterialId = null;
@@ -148,7 +159,7 @@ export interface Pricing {
 export function computePricing(config: BespokeConfig): Pricing {
   const frame = findFrame(config.frameId);
   const basePriceEur = frame?.basePriceEur ?? 480;
-  const engravingEur = config.engravingEnabled ? ENGRAVING_FEE_EUR : 0;
+  const engravingEur = hasEngraving(config) ? ENGRAVING_FEE_EUR : 0;
   const lens = LENS_TYPES.find((l) => l.id === config.lensTypeId);
   const lensEur = lens?.priceEur ?? 0;
   return {

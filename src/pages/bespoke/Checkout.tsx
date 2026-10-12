@@ -117,7 +117,7 @@ export default function BespokeCheckout() {
     if (temple) parts.push(`Temple ${temple.code}`);
     if (finish) parts.push(finish.name);
     if (config.templeLengthMm) parts.push(`Temples ${config.templeLengthMm} mm${config.templeLengthIsCustom ? " (custom)" : ""}`);
-    if (config.engravingEnabled && config.engravingText) parts.push(`Engraving "${config.engravingText}"`);
+    if (hasEngraving(config)) parts.push(`Engraving "${config.engravingText}"`);
     if (lens) parts.push(lensOrderValue(lens.name, config));
     return parts.join(" · ");
   }, [front, temple, finish, lens, config.lensTypeId, config.lensTintId, config.engravingEnabled, config.engravingText, config.templeLengthMm, config.templeLengthIsCustom]);
@@ -134,7 +134,7 @@ export default function BespokeCheckout() {
     temple: temple ? `${temple.name} (${temple.code})` : "",
     finish: finish?.name ?? "",
     temple_length: config.templeLengthMm ? `${config.templeLengthMm} mm${config.templeLengthIsCustom ? " (custom)" : ""}` : "",
-    engraving: config.engravingEnabled ? config.engravingText.slice(0, 60) : "",
+    engraving: hasEngraving(config) ? config.engravingText.trim().slice(0, 60) : "",
     lens_type: lens ? lensOrderValue(lens.name, config) : "",
     lens_id: lens?.id ?? "",
     lens_tint: lensTintCode(config),
@@ -162,7 +162,7 @@ export default function BespokeCheckout() {
         temple_length_mm: config.templeLengthMm ?? "",
         lens_type: lens?.id ?? "",
         lens_tint: lensTintCode(config),
-        engraving_enabled: config.engravingEnabled,
+        engraving_enabled: hasEngraving(config),
         ai_preview_present: Boolean(aiPreviewUrl),
         value: pricing.totalEur,
         currency: "USD",
@@ -551,7 +551,7 @@ export default function BespokeCheckout() {
                       <SummaryRow
                         label="Engraving"
                         value={
-                          config.engravingEnabled
+                          hasEngraving(config)
                             ? `"${config.engravingText}" · ${ENGRAVING_POSITIONS.find((p) => p.id === config.engravingPositionId)?.name ?? ""}`
                             : "None"
                         }

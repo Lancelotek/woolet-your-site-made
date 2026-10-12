@@ -479,7 +479,7 @@ const ConfiguratorPage = () => {
                     }
                   />
                   <SpecRow label="Finish" value={finish?.name ?? "—"} />
-                  <SpecRow label="Engraving" value={config.engravingEnabled ? `“${config.engravingText || "…"}”` : "—"} />
+                  <SpecRow label="Engraving" value={hasEngraving(config) ? `“${config.engravingText.trim()}”` : "—"} />
                   <SpecRow label="Lenses" value={lens ? <span className="inline-flex items-center gap-2">{selectedLensTint(config) && <span className="w-3 h-3 shrink-0 rounded-full border border-cream/20" style={{ background: selectedLensTint(config)?.hex }} />}{formatLensWithStrength(lens.name, config)}</span> : "—"} />
                 </dl>
 
