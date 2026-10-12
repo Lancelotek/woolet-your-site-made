@@ -5,7 +5,7 @@ import { Check, ChevronLeft, ChevronRight, Cloud, CloudOff, Loader2, Maximize2, 
 import SEO from "@/components/SEO";
 import { COLORS, FINISHES, LENS_TYPES, formatTempleLength, resolveActiveColorId } from "@/data/bespoke-options";
 import { findFrame } from "@/data/frames";
-import { STEPS, formatEur, formatAddOn, formatLensWithStrength, isStepComplete, lensTintCode, selectedLensTint, useBespokeConfig, type BespokeConfig, type StepId } from "@/lib/bespoke-state";
+import { STEPS, hasEngraving, formatEur, formatAddOn, formatLensWithStrength, isStepComplete, lensTintCode, selectedLensTint, useBespokeConfig, type BespokeConfig, type StepId } from "@/lib/bespoke-state";
 import { clarityEvent, claritySet } from "@/lib/clarity";
 import { trackMetaEventOnce } from "@/lib/meta-capi";
 import { pushGtmEvent } from "@/lib/gtm";
@@ -479,7 +479,7 @@ const ConfiguratorPage = () => {
                     }
                   />
                   <SpecRow label="Finish" value={finish?.name ?? "—"} />
-                  <SpecRow label="Engraving" value={config.engravingEnabled ? `“${config.engravingText || "…"}”` : "—"} />
+                  <SpecRow label="Engraving" value={hasEngraving(config) ? `“${config.engravingText.trim()}”` : "—"} />
                   <SpecRow label="Lenses" value={lens ? <span className="inline-flex items-center gap-2">{selectedLensTint(config) && <span className="w-3 h-3 shrink-0 rounded-full border border-cream/20" style={{ background: selectedLensTint(config)?.hex }} />}{formatLensWithStrength(lens.name, config)}</span> : "—"} />
                 </dl>
 

@@ -10,7 +10,7 @@ describe("Bespoke configurator clarity", () => {
   });
 
   it.each(LENS_TYPES)("itemizes $name without hidden acetate/finish charges", (lens) => {
-    const price = computePricing({ ...INITIAL_CONFIG, frameId: "round", frontColorId: "a332-1203", finishId: "brushed", lensTypeId: lens.id, engravingEnabled: true });
+    const price = computePricing({ ...INITIAL_CONFIG, frameId: "round", frontColorId: "a332-1203", finishId: "brushed", lensTypeId: lens.id, engravingEnabled: true, engravingText: "MC" });
     expect(price.basePriceEur).toBe(480);
     expect(price.engravingEur).toBe(10);
     expect(price.lensEur).toBe(lens.priceEur);
@@ -36,5 +36,15 @@ describe("Bespoke configurator clarity", () => {
     expect(w.clarity).toHaveBeenCalledWith("event", "bespoke_step_view");
     expect(w.dataLayer).toContainEqual({ event: "bespoke_step_view", step: 1, step_name: "pattern" });
     delete w.clarity;
+  });
+});
+describe("Engraving default", () => {
+  it("charges nothing for enabled-but-empty engraving and clears legacy Tom Smith", async () => {
+    const { clearLegacyEngraving } = await import("@/lib/bespoke-state");
+    expect(computePricing({ ...INITIAL_CONFIG, engravingEnabled: true, engravingText: "" }).totalEur).toBe(480);
+    const cleared = clearLegacyEngraving({ ...INITIAL_CONFIG, engravingEnabled: true, engravingText: "Tom Smith" });
+    expect(cleared.engravingText).toBe("");
+    expect(computePricing(cleared).totalEur).toBe(480);
+    expect(clearLegacyEngraving({ ...INITIAL_CONFIG, engravingEnabled: true, engravingText: "Anna" }).engravingText).toBe("Anna");
   });
 });

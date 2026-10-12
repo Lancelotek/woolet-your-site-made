@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth-context";
-import { INITIAL_CONFIG, computePricing, type BespokeConfig } from "@/lib/bespoke-state";
+import { INITIAL_CONFIG, clearLegacyEngraving, computePricing, type BespokeConfig } from "@/lib/bespoke-state";
 
 export type CloudSyncStatus = "idle" | "loading" | "saving" | "saved" | "error" | "offline";
 
@@ -59,7 +59,7 @@ export function useBespokeCloudSync({ config, setConfig, overrides }: Options) {
         return;
       }
       if (data?.config) {
-        const remote = { ...INITIAL_CONFIG, ...(data.config as Partial<BespokeConfig>), ...(overrides ?? {}) };
+        const remote = clearLegacyEngraving({ ...INITIAL_CONFIG, ...(data.config as Partial<BespokeConfig>), ...(overrides ?? {}) });
         // Server wins on resume unless local is more recent and remote is empty.
         if (!sameConfig(remote, config)) setConfig(remote);
         setRowId(data.id);
