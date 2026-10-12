@@ -175,9 +175,9 @@ const ConfiguratorPage = () => {
       if (cancelled) return;
       // Set the panel image directly: rememberRender only writes storage and
       // fires no event, so a restored config on first load kept the drawing.
-      if (lensHit) { rememberRender(lensKey, lensHit.imageUrl); setAiPreviewUrl(lensHit.imageUrl); return; }
+      if (lensHit) { rememberRender(lensKey, lensHit.imageUrl); setAiPreviewUrl(lensHit.imageUrl); trackBespokeFunnel("bespoke_preview_shown", { status: "cached" }); return; }
       const baseHit = await lookupCachedRender(config, false);
-      if (!cancelled && baseHit) { rememberRender(baseKey, baseHit.imageUrl); setAiPreviewUrl(baseHit.imageUrl); }
+      if (!cancelled && baseHit) { rememberRender(baseKey, baseHit.imageUrl); setAiPreviewUrl(baseHit.imageUrl); trackBespokeFunnel("bespoke_preview_shown", { status: "cached" }); }
     }, 300);
     return () => { cancelled = true; window.clearTimeout(t); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -1280,7 +1280,7 @@ const ConfiguratorStyles = () => (
     .cfg-stepper-wrap { padding-top: 32px; }
     .cfg-stepnow { display: none; }
     @media (max-width: 1023px) {
-      .cfg-stepper-wrap { padding-top: 14px; }
+      .cfg-stepper-wrap { padding-top: 14px; width: 100%; min-width: 0; }
       .cfg-stepnow {
         display: block;
         font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
@@ -1309,7 +1309,7 @@ const ConfiguratorStyles = () => (
         border-bottom: 1px solid var(--cfg-border);
         padding: 5px 20px 5px;
         margin-top: 8px;
-        max-height: 120px; overflow: hidden;
+        max-height: 156px; overflow: hidden;
       }
       .cfg-mobilepreview__stage {
         height: 92px;
