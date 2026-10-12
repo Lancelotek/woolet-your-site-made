@@ -23,7 +23,9 @@ import {
   PREVIEW_UPDATED_EVENT,
   loadPreviewHistory,
   savePreviewHistory,
+  renderRequestBody,
 } from "@/pages/bespoke/steps";
+import { renderAltForConfig } from "@/lib/bespoke-render-alt";
 import { pushGtmEvent } from "@/lib/gtm";
 import { readConsentSnapshot } from "@/lib/consent";
 import { trackInitiateCheckoutOnce } from "@/lib/meta-capi";
