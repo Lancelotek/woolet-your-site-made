@@ -282,6 +282,7 @@ async function main() {
         if (hero) headHtml += `\n<link rel="preload" as="image" type="image/webp" href="${hero.variants[1000]}" imagesrcset="${hero.variants[640]} 640w, ${hero.variants[1000]} 1000w" imagesizes="(min-width: 768px) 50vw, 100vw" fetchpriority="high" data-rh="true" />`;
       }
       const html = injectHead(template, headHtml, meta.noscriptHtml, route);
+      renderedHtml.set(route, html);
       const outDir = resolve(DIST, "." + route);
       await mkdir(outDir, { recursive: true });
       await writeFile(resolve(outDir, "index.html"), html, "utf8");
@@ -304,6 +305,7 @@ async function main() {
   // Legacy redirects (single source: src/seo/legacyRedirects.ts). Each
   // legacy path gets a tiny HTML page: canonical=TARGET, meta refresh,
   // window.location.replace — and NO noindex, so link equity follows.
+  const escAttr = (v) => String(v).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
   const legacy = mod.ALL_REDIRECTS ?? mod.LEGACY_REDIRECTS ?? {};
   let legacyCount = 0;
   const shadowed = Object.keys(legacy).filter((f) => routes.includes(f));
@@ -314,15 +316,29 @@ async function main() {
   for (const [from, to] of Object.entries(legacy)) {
     if (from === "/index.html" || from === "/") continue;
     const target = `https://woolet.co${to}`;
-    const page = `<!doctype html>
-<html lang="en"><head><meta charset="utf-8" />
-<meta name="woolet-legacy-redirect" content="1" />
-<title>Moved - Woolet</title>
-<link rel="canonical" href="${target}" />
+    const redirectTags = `<meta name="woolet-legacy-redirect" content="1" />
 <meta http-equiv="refresh" content="0; url=${target}" />
-<script>window.location.replace(${JSON.stringify(to)} + window.location.search + window.location.hash);</script>
-</head><body><p>This page has moved to <a href="${target}">${target}</a>.</p></body></html>
+<script>window.location.replace(${JSON.stringify(to)} + window.location.search + window.location.hash);</script>`;
+    const targetHtml = renderedHtml.get(to);
+    let page;
+    if (targetHtml) {
+      // Full copy of the target (Soft-404 fix 12.10.2026): same head,
+      // noscript article and JSON-LD; canonical/og:url/data-route already
+      // point at the target. Drop hreflang (a duplicate must not declare a
+      // cluster); never add noindex.
+      page = targetHtml
+        .replace(/<link\b[^>]*\bhreflang=[^>]*>\s*/gi, "")
+        .replace(/<head([^>]*)>/i, `<head$1>\n${redirectTags}`);
+    } else {
+      const label = /^https?:/.test(to) ? to : target;
+      page = `<!doctype html>
+<html lang="en"><head><meta charset="utf-8" />
+${redirectTags}
+<title>This page is now at ${escAttr(label)} - Woolet</title>
+<link rel="canonical" href="${escAttr(target)}" />
+</head><body><p>This Woolet page now lives at a new address: <a href="${escAttr(target)}">${escAttr(label)}</a>.</p></body></html>
 `;
+    }
     const variants = new Set([
       from,
       from.toLowerCase(),
