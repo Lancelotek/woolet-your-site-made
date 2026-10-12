@@ -7,6 +7,7 @@ import { EmbeddedCheckoutProvider, EmbeddedCheckout } from "@stripe/react-stripe
 import { getStripe, getStripeEnvironment } from "@/lib/stripe";
 import { supabase } from "@/integrations/supabase/client";
 import { PaymentTestModeBanner } from "@/components/PaymentTestModeBanner";
+import { PayMeasureNotice } from "@/components/bespoke/PayMeasureNotice";
 import { useBespokeConfig, computePricing, formatEur, formatLensWithStrength, lensOrderValue, lensTintCode, selectedLensTint, isStepComplete, readingStrengthMetaValue } from "@/lib/bespoke-state";
 import { findFrame } from "@/data/frames";
 import {
@@ -348,9 +349,7 @@ export default function BespokeCheckout() {
                   <h1 className="font-display text-3xl sm:text-4xl leading-tight">
                     Complete your <em className="italic text-gold-light">bespoke order</em>
                   </h1>
-                  <p className="text-cream-dim text-sm mt-3 max-w-lg leading-relaxed">
-                    You&rsquo;re paying for the pattern, acetate and lens configuration you selected. The made-to-measure fit scan is booked <span className="text-gold-light">after</span> payment.
-                  </p>
+                  <div className="mt-3"><PayMeasureNotice /></div>
 
                   {/* Trust row */}
                   <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-[11px] uppercase tracking-[0.16em] text-cream-dim">

@@ -24,6 +24,7 @@ import {
   lookupCachedRender,
   rememberRender,
 } from "./steps";
+import { loadPatternRenders, type PatternRender } from "@/lib/bespoke-pattern-renders";
 import { renderAltForConfig } from "@/lib/bespoke-render-alt";
 import StepPreview from "./StepPreview";
 import {
@@ -33,6 +34,7 @@ import {
   PreviewLightbox,
   REQUEST_PREVIEW_EVENT,
   pushCfg,
+  trackBespokeFunnel,
 } from "./cfg-shell";
 import { useParams, useNavigate } from "react-router-dom";
 import { loadNotoSansKr } from "@/lib/noto-sans-kr";
@@ -70,7 +72,12 @@ const ConfiguratorPage = () => {
   });
   const [saved, setSaved] = useState(false);
   const [fitOpen, setFitOpen] = useState(false);
-  const [noticeOpen, setNoticeOpen] = useState(false);
+  const [patternRenders, setPatternRenders] = useState<Record<string, PatternRender>>({});
+  useEffect(() => {
+    let cancelled = false;
+    void loadPatternRenders().then((renders) => { if (!cancelled) setPatternRenders(renders); });
+    return () => { cancelled = true; };
+  }, []);
   // A step only earns a tick once the buyer has actually been there — steps 4–6
   // carry defaults, so completeness alone would show false progress.
   const [visited, setVisited] = useState<number[]>([step]);
@@ -193,6 +200,7 @@ const ConfiguratorPage = () => {
     const name = STEPS[step - 1]?.shortLabel.toLowerCase() ?? "unknown";
     claritySet("bespoke_step", `${step}-${name}`);
     pushCfg("cfg_step_view", { step });
+    trackBespokeFunnel("bespoke_step_view", { step, step_name: name });
     if (step === STEPS.length) clarityEvent("bespoke_configurator_complete");
   }, [step]);
 
@@ -250,11 +258,12 @@ const ConfiguratorPage = () => {
   // The preview stage is the most-tapped element on the page. Every state it can
   // be in has to answer the tap: a picture opens larger, an empty stage sends the
   // buyer to the choice that fills it.
-  const stageSrc = aiPreviewUrl && step >= 2 ? aiPreviewUrl : frame ? frame.url : null;
+  const example = patternRenders[frame?.id ?? "aviator"];
+  const stageSrc = aiPreviewUrl ?? (step === 1 ? example?.public_url : null) ?? frame?.url ?? null;
   const renderAlt = renderAltForConfig(config, Boolean(getLatestPreviewUrl(lensKey)) && lensKey !== baseKey);
-  const stageAlt = aiPreviewUrl && step >= 2
+  const stageAlt = aiPreviewUrl
     ? renderAlt
-    : frame
+    : step === 1 && example ? example.alt_text : frame
       ? `Woolet Bespoke ${frame.name} — ${frame.shape} pattern for wide faces`
       : "";
   const lightboxCaption = `${frame ? frame.name : "Your pattern"} · ${front ? front.name : "acetate to choose"} · cut to your face`;
@@ -299,7 +308,7 @@ const ConfiguratorPage = () => {
   };
 
   const StepBody =
-    step === 1 ? <StepFrame config={config} update={update} /> :
+    step === 1 ? <StepFrame config={config} update={update} patternRenders={patternRenders} /> :
     step === 2 ? <StepColor config={config} update={update} /> :
     step === 3 ? <StepPreview config={config} update={update} locale={previewLocale} /> :
     step === 4 ? <StepTempleLength config={config} update={update} /> :
@@ -378,17 +387,14 @@ const ConfiguratorPage = () => {
               aria-label={stageSrc ? "Open larger preview" : "Choose a pattern"}
                onClick={stageSrc ? handleStageTap : showPatternMissing}
             >
-              {aiPreviewUrl && step >= 2 ? (
-                <img src={aiPreviewUrl} alt={renderAlt} />
-              ) : frame ? (
-                <img src={frame.url} alt={`Woolet Bespoke ${frame.name} — ${frame.shape} pattern for wide faces`} />
-              ) : (
+              {stageSrc ? <img src={stageSrc} alt={stageAlt} /> : (
                 <span className="cfg-mobilepreview__place">Select a pattern</span>
               )}
               <span className="cfg-stage__badge" aria-hidden>
                 {stageSrc ? <Maximize2 size={13} /> : <Sparkles size={13} />}
               </span>
              </button>
+            {step === 1 && !aiPreviewUrl && example && <p className="text-xs text-cream-dim px-5 mt-2">Example - your colours come in step 2</p>}
             <div className="cfg-mobilepreview__meta">
               <span>{frame ? frame.name : "No pattern yet"}</span>
               {front && <span className="cfg-mobilepreview__dot" style={{ background: front.hex }} aria-hidden />}
@@ -397,50 +403,6 @@ const ConfiguratorPage = () => {
             </div>
           </div>
         )}
-
-
-        {/* ── Pay-first notice ── */}
-        <div className="cfg-container mt-6 cfg-notewrap">
-          <div role="note" className="cfg-note">
-            <span className="cfg-note__tag">Pay → Measure</span>
-            {isMobile ? (
-              <div style={{ minWidth: 0 }}>
-                <p className="cfg-note__body" style={{ margin: 0 }}>
-                  <CfgInfoTrigger section="measure">
-                    <strong style={{ color: "#EFE9DF", fontWeight: 500 }}>Pay first, measure after.</strong>
-                  </CfgInfoTrigger>{" "}
-                  <CfgInfoTrigger section="price" style={{ color: "#D8B86A" }}>Free worldwide shipping.</CfgInfoTrigger>
-                </p>
-                {noticeOpen && (
-                  <p className="cfg-note__body" style={{ margin: "8px 0 0" }}>
-                    The made-to-measure fit scan is scheduled after your payment clears — once your measurements are
-                    confirmed, your frame is cut in the EU to the exact millimetres of your face.
-                  </p>
-                )}
-                <button
-                  type="button"
-                  onClick={() => setNoticeOpen((v) => !v)}
-                  className="cfg-note__more"
-                  aria-expanded={noticeOpen}
-                >
-                  {noticeOpen ? "Less" : "How it works"}
-                </button>
-              </div>
-            ) : (
-              <p className="cfg-note__body" style={{ margin: 0 }}>
-                <CfgInfoTrigger section="measure">
-                  <strong style={{ color: "#EFE9DF", fontWeight: 500 }}>You pay for your chosen pattern first.</strong>
-                </CfgInfoTrigger>{" "}
-                The made-to-measure fit scan is scheduled <em style={{ color: "#D8B86A", fontStyle: "italic" }}>after</em> your payment clears —
-                once your measurements are confirmed, your frame is cut in the EU to the exact millimetres of your face.{" "}
-                <CfgInfoTrigger section="price" style={{ color: "#D8B86A" }}>Free worldwide shipping included.</CfgInfoTrigger>
-              </p>
-            )}
-          </div>
-        </div>
-
-
-
 
 
         {/* ── Main two-column layout ── */}
@@ -481,11 +443,7 @@ const ConfiguratorPage = () => {
                     }
                   }}
                 >
-                  {aiPreviewUrl && step >= 2 ? (
-                    <img src={aiPreviewUrl} alt={renderAlt} className="max-h-full max-w-full object-contain" />
-                  ) : frame ? (
-                    <img src={frame.url} alt={`Woolet Bespoke ${frame.name} — ${frame.shape} pattern for wide faces, made-to-measure in the EU`} className="max-h-full max-w-[82%] object-contain" />
-                  ) : (
+                  {stageSrc ? <img src={stageSrc} alt={stageAlt} className="max-h-full max-w-full object-contain" /> : (
                     <div className="cfg-rail__placeholder">Select a pattern</div>
                   )}
                   <span className="cfg-stage__badge" aria-hidden>
@@ -493,6 +451,7 @@ const ConfiguratorPage = () => {
                   </span>
                 </div>
 
+                {step === 1 && !aiPreviewUrl && example && <p className="text-xs text-cream-dim mt-3">Example - your colours come in step 2</p>}
                 <dl className="cfg-rail__specs">
                   <SpecRow label="Pattern" value={frame ? `${frame.name}` : "—"} />
                   <SpecRow label="Ref width" value={frame ? <CfgInfoTrigger section="fit" className="cfg-info-trigger--block">{frame.widthMm} mm · cut to face</CfgInfoTrigger> : "—"} />
@@ -530,9 +489,9 @@ const ConfiguratorPage = () => {
                     <CfgInfoTrigger section="price" className="cfg-rail__price cfg-info-trigger--block">{formatEur(stepTotal)}</CfgInfoTrigger>
                   </div>
                   <ul className="cfg-rail__lines">
-                    <li><span>Frame</span><span>{formatEur(pricing.basePriceEur)}</span></li>
-                    {step >= 5 && pricing.engravingEur > 0 && <li><span>Engraving</span><span>{formatAddOn(pricing.engravingEur)}</span></li>}
-                    {step >= 6 && pricing.lensEur > 0 && <li><span>Lenses</span><span>{formatAddOn(pricing.lensEur)}</span></li>}
+                    <li><span>Bespoke frame</span><span>{formatEur(pricing.basePriceEur)}</span></li>
+                    {pricing.engravingEur > 0 && <li><span>Engraving</span><span>{formatAddOn(pricing.engravingEur)}</span></li>}
+                    {pricing.lensEur > 0 && <li><span>{lens?.name ?? "Lenses"}</span><span>{formatAddOn(pricing.lensEur)}</span></li>}
                     <li><span>Shipping</span><CfgInfoTrigger section="price" className="cfg-info-trigger--block" style={{ color: "var(--cfg-gold-bright)" }}>Free · worldwide</CfgInfoTrigger></li>
                   </ul>
                 </div>
@@ -587,6 +546,7 @@ const ConfiguratorPage = () => {
                 if (payPending) return;
                 setPayPending(true);
                 pushCfg("cfg_pay_click");
+                trackBespokeFunnel("bespoke_pay_click", { step: 7 });
                 handleSave();
                 navigate("/en/bespoke/checkout");
                 return;
@@ -781,6 +741,9 @@ const ConfiguratorStyles = () => (
       font-weight: 400;
       color: var(--cfg-gold);
     }
+    .cfg-scope h2, .cfg-scope header { cursor: default; }
+    .cfg-pattern-inset { position: absolute; bottom: 8px; right: 8px; width: 86px; background: var(--cfg-cream); color: var(--cfg-ink); padding: 4px; font-size: 10px; text-align: center; }
+    .cfg-pattern-inset img { width: 100%; height: 40px; object-fit: contain; }
     .cfg-body { color: var(--cfg-text); font-size: 17px; line-height: 1.65; }
     .cfg-eyebrow {
       font-family: 'Archivo', sans-serif;

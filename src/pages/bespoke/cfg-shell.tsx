@@ -20,6 +20,12 @@ import { X } from "lucide-react";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { pushGtmEvent } from "@/lib/gtm";
+import { clarityEvent } from "@/lib/clarity";
+
+export function trackBespokeFunnel(event: "bespoke_step_view" | "bespoke_preview_shown" | "bespoke_pay_click", data?: Record<string, string | number | boolean>) {
+  clarityEvent(event);
+  pushGtmEvent(event, data);
+}
 
 /* ───── Instrumentation ───── */
 
