@@ -258,16 +258,28 @@ Deno.serve(async (req) => {
       `no drawing lines, no sketch, no floating hardware, no fused temples, no extra bridge, no asymmetry, ultra-realistic premium catalogue still.`,
     ].join(" ");
 
+    // Inline reference images as data URLs: the provider's own URL fetch of
+    // woolet.co assets times out intermittently (URL_REJECTED_FC_TIMEOUT).
+    const inlineImage = async (url: string): Promise<string> => {
+      try {
+        const r = await fetch(url);
+        if (!r.ok) return url;
+        const type = r.headers.get("content-type")?.split(";")[0] || "image/png";
+        const bytes = new Uint8Array(await r.arrayBuffer());
+        let bin = "";
+        for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+        return `data:${type};base64,${btoa(bin)}`;
+      } catch {
+        return url;
+      }
+    };
+    const refUrls = usePattern ? [patternUrl, ...(aviator ? AVIATOR_CONSTRUCTION_REFERENCES : [])] : [];
+    const inlined = await Promise.all(refUrls.map(inlineImage));
+
     const content = usePattern
       ? [
           { type: "text", text: prompt },
-          { type: "image_url", image_url: { url: patternUrl } },
-          ...(aviator
-            ? AVIATOR_CONSTRUCTION_REFERENCES.map((url) => ({
-                type: "image_url" as const,
-                image_url: { url },
-              }))
-            : []),
+          ...inlined.map((url) => ({ type: "image_url" as const, image_url: { url } })),
         ]
       : prompt;
 
