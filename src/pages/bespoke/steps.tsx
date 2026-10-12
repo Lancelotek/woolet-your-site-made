@@ -42,6 +42,7 @@ import {
   computePricing,
 } from "@/lib/bespoke-state";
 import { claritySet } from "@/lib/clarity";
+import { renderAltForConfig } from "@/lib/bespoke-render-alt";
 import { clampFaceMm, clampNoseMm } from "@/lib/scan-clamp";
 import { loadScanResult, type StoredScanResult } from "@/lib/scan-result-store";
 import { loadQuizPrior, type QuizPrior } from "@/lib/fit-quiz-prior";
@@ -390,6 +391,63 @@ export const savePreviewHistory = (history: PreviewHistory): SaveResult => {
   };
 };
 
+/** Request body for bespoke-preview-render (shared by every caller). */
+export const renderRequestBody = (config: BespokeConfig, includeLens: boolean) => {
+  const frame = findFrame(config.frameId);
+  const front = COLORS.find((c) => c.id === config.frontColorId);
+  const temple = COLORS.find((c) => c.id === config.templeColorId);
+  const finish = FINISHES.find((f) => f.id === config.finishId);
+  const lens = includeLens ? LENS_TYPES.find((l) => l.id === config.lensTypeId) : undefined;
+  if (!frame || !front || !temple || !finish) return null;
+  return {
+    shape: frame.shape,
+    frontColor: `${front.name} (${front.code})`,
+    templeColor: `${temple.name} (${temple.code})`,
+    frontCode: front.code,
+    templeCode: temple.code,
+    frontName: front.name,
+    templeName: temple.name,
+    finish: finish.name,
+    finishId: finish.id,
+    legacyKey: buildPreviewKey(frame.id, front.id, temple.id, finish.id),
+    patternUrl: frame.url,
+    widthMm: frame.widthMm,
+    bridgeMm: frame.bridgeMm,
+    lensType: lens?.id ?? null,
+    lensName: lens?.name ?? null,
+    lensTint: lens ? lensTintCode(config) || null : null,
+  };
+};
+
+/** Shared render cache lookup — never triggers an AI generation. */
+export async function lookupCachedRender(
+  config: BespokeConfig,
+  includeLens: boolean,
+): Promise<{ imageUrl: string; alt: string } | null> {
+  const body = renderRequestBody(config, includeLens);
+  if (!body) return null;
+  try {
+    const { data, error } = await supabase.functions.invoke("bespoke-preview-render", {
+      body: { ...body, mode: "lookup" },
+    });
+    if (error) return null;
+    const d = data as { hit?: boolean; imageUrl?: string; alt?: string };
+    return d?.hit && d.imageUrl ? { imageUrl: d.imageUrl, alt: d.alt ?? "" } : null;
+  } catch {
+    return null;
+  }
+}
+
+/** Put a hosted render at the top of the local history for a selection key. */
+export const rememberRender = (key: string, url: string) => {
+  const history = loadPreviewHistory();
+  const prev = history[key] ?? [];
+  if (prev[0]?.url === url) return history;
+  const next = { ...history, [key]: [{ url, ts: Date.now() }, ...prev.filter((e) => e.url !== url)].slice(0, MAX_PER_KEY) };
+  savePreviewHistory(next);
+  return next;
+};
+
 export function AiPreviewPanel({
   config,
   onRenderChange,
@@ -426,8 +484,26 @@ export function AiPreviewPanel({
   const [storageWarning, setStorageWarning] = useState<string | null>(null);
   const [cloudSaveState, setCloudSaveState] = useState<"idle" | "saving" | "saved" | "error">("idle");
   const [deletingUrl, setDeletingUrl] = useState<string | null>(null);
+  const [cachedUrl, setCachedUrl] = useState<string | null>(null);
 
   const ready = Boolean(frame && front && temple && finish);
+  const renderAlt = renderAltForConfig(config, includeLens);
+
+  // Shared cache: if anyone already generated this exact combination, show it
+  // straight away — no AI call, no session render spent.
+  useEffect(() => {
+    setCachedUrl(null);
+    if (!ready) return;
+    let cancelled = false;
+    const t = window.setTimeout(async () => {
+      const hit = await lookupCachedRender(config, includeLens);
+      if (cancelled || !hit) return;
+      setCachedUrl(hit.imageUrl);
+      setHistory(rememberRender(selectionKey, hit.imageUrl));
+    }, 300);
+    return () => { cancelled = true; window.clearTimeout(t); };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectionKey, ready]);
 
   // When selection changes, jump to the newest stored preview for that config
   // (or clear the canvas if we have never rendered this exact combo).
@@ -503,24 +579,18 @@ export function AiPreviewPanel({
       try {
         result = await supabase.functions.invoke("bespoke-preview-render", {
           signal: controller.signal,
-          body: {
-          shape: frame.shape,
-          frontColor: `${front.name} (${front.code})`,
-          templeColor: `${temple.name} (${temple.code})`,
-          finish: finish.name,
-          patternUrl: frame.url,
-          widthMm: frame.widthMm,
-          bridgeMm: frame.bridgeMm,
-          lensType: lens?.id ?? null,
-          lensName: lens?.name ?? null,
-          lensTint: lens ? lensTintCode(config) : null,
-          },
+          body: renderRequestBody(config, includeLens),
         });
       } finally { window.clearTimeout(timeout); }
       const { data, error: fnErr } = result;
       if (fnErr) throw fnErr;
       const url = (data as { imageUrl?: string })?.imageUrl;
       if (!url) throw new Error("No preview returned");
+      // A cached image was served: it costs nothing, so it doesn't use a render.
+      if ((data as { cached?: boolean })?.cached) {
+        budget.refund();
+        setCachedUrl(url);
+      }
 
       const prev = history[selectionKey] ?? [];
       const combined = [{ url, ts: Date.now() }, ...prev.filter((e) => e.url !== url)];
@@ -609,7 +679,7 @@ export function AiPreviewPanel({
             See your <em className="italic text-gold-light">{frame.shape}</em> before you build
           </div>
         </div>
-        {activeUrl && !loading && budget.remaining > 0 && (
+        {activeUrl && !loading && budget.remaining > 0 && activeUrl !== cachedUrl && (
           <button
             onClick={generate}
             className="text-[11px] uppercase tracking-[0.18em] text-gold-light hover:text-gold underline underline-offset-4"
@@ -657,7 +727,7 @@ export function AiPreviewPanel({
         {activeUrl ? (
           <img
             src={activeUrl}
-            alt={`AI preview of ${frame.shape} in ${front.name} / ${temple.name}, ${finish.name}`}
+            alt={renderAlt}
             className="w-full h-full object-cover"
           />
         ) : loading ? (
@@ -680,10 +750,16 @@ export function AiPreviewPanel({
       {lightboxOpen && activeUrl && (
         <PreviewLightbox
           src={activeUrl}
-          alt={`AI preview of ${frame.shape} in ${front.name} / ${temple.name}, ${finish.name}`}
+          alt={renderAlt}
           caption={`${frame.name} · ${front.name} · cut to your face`}
           onClose={() => setLightboxOpen(false)}
         />
+      )}
+
+      {cachedUrl && activeUrl === cachedUrl && (
+        <p className="mt-2 text-[10px] uppercase tracking-[0.18em] text-gold-light">
+          Ready - generated earlier for this exact combination
+        </p>
       )}
 
       {currentList.length > 0 && (
@@ -710,7 +786,7 @@ export function AiPreviewPanel({
                   >
                     <img
                       src={entry.url}
-                      alt={`Saved AI render of ${frame.name} bespoke eyewear in ${front.name} acetate with ${temple.name} temples — Woolet made-to-measure`}
+                      alt={renderAlt}
                       loading="lazy"
                       className="w-full h-full object-cover"
                     />
@@ -733,8 +809,8 @@ export function AiPreviewPanel({
 
       {!activeUrl && !error && (
         <button
-          onClick={generate}
-          disabled={loading || budget.remaining <= 0}
+          onClick={() => (cachedUrl ? setActiveUrl(cachedUrl) : generate())}
+          disabled={loading || (!cachedUrl && budget.remaining <= 0)}
           className="mt-4 w-full inline-flex items-center justify-center uppercase tracking-[0.22em] transition-colors disabled:opacity-50"
           style={{
             background: "hsl(var(--gold))",
@@ -746,7 +822,7 @@ export function AiPreviewPanel({
             borderRadius: 2,
           }}
         >
-          {loading ? <><Loader2 size={14} className="animate-spin inline mr-2" />Generating your preview…</> : "Generate AI preview"}
+          {loading ? <><Loader2 size={14} className="animate-spin inline mr-2" />Generating your preview…</> : cachedUrl ? "Show preview" : "Generate AI preview"}
         </button>
       )}
 

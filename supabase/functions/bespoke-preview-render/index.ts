@@ -8,6 +8,13 @@ import {
   AVIATOR_REFERENCE_URLS,
   isAviatorShape,
 } from "../_shared/aviator-references.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.58.0";
+import {
+  RENDER_BUCKET, PROMPT_VERSION, buildKeyV2, buildAlt, buildStoragePath,
+  publicUrlFor, decodeDataUrl,
+} from "../_shared/bespoke-render.ts";
+
+const MODEL = "google/gemini-3-pro-image";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -16,6 +23,13 @@ const corsHeaders = {
 };
 
 interface Body {
+  mode?: "lookup" | "render";
+  frontCode?: string;     // production code, e.g. "P632 0006" (cache key)
+  templeCode?: string;
+  frontName?: string;     // e.g. "Dark tortoise" (ALT text)
+  templeName?: string;
+  finishId?: string;      // "shiny" | "matte" | "brushed" (cache key)
+  legacyKey?: string;     // old client key frameId|frontId|templeId|finishId (v1 fallback)
   shape: string;          // e.g. "Aviator", "Round", "Crown Panto", "Rectangle"
   frontColor: string;     // human-readable, e.g. "Dark tortoise (P632 0006)"
   templeColor: string;    // e.g. "Amber tortoise"
@@ -157,6 +171,49 @@ Deno.serve(async (req) => {
       return json({ error: "Missing shape / frontColor / templeColor / finish" }, 400);
     }
 
+    // ---- Shared render cache (one generation per unique configuration) ----
+    const codeOf = (label: string) => label.match(/\(([^)]+)\)\s*$/)?.[1] ?? label;
+    const nameOf = (label: string) => label.replace(/\s*\([^)]*\)\s*$/, "");
+    const frontCode = String(body?.frontCode || codeOf(frontColor)).slice(0, 40);
+    const templeCode = String(body?.templeCode || codeOf(templeColor)).slice(0, 40);
+    const frontName = String(body?.frontName || nameOf(frontColor)).slice(0, 80);
+    const templeName = String(body?.templeName || nameOf(templeColor)).slice(0, 80);
+    const finishKey = String(body?.finishId || finish).slice(0, 40);
+    const legacyKey = body?.legacyKey ? String(body.legacyKey).slice(0, 200) : "";
+    const key = buildKeyV2({ shape, frontCode, templeCode, finish: finishKey, lensType, lensTint });
+    const alt = buildAlt({ shape, frontName, templeName, finish, lensType, lensTint });
+    const isPlano = !lensType || lensType === "plano";
+
+    const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
+    const admin = createClient(SUPABASE_URL, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!, {
+      auth: { persistSession: false },
+    });
+
+    const findCached = async () => {
+      const keys = [key];
+      if (isPlano && legacyKey) keys.push(`v1|${legacyKey.trim().toLowerCase()}`);
+      const { data } = await admin
+        .from("bespoke_render_cache")
+        .select("id, selection_key, public_url, alt_text, hits")
+        .in("selection_key", keys);
+      if (!data?.length) return null;
+      return data.find((r) => r.selection_key === key) ?? data[0];
+    };
+
+    const cached = await findCached();
+    if (body?.mode === "lookup") {
+      return cached
+        ? json({ hit: true, imageUrl: cached.public_url, alt: cached.alt_text })
+        : json({ hit: false });
+    }
+    if (cached) {
+      await admin
+        .from("bespoke_render_cache")
+        .update({ hits: (cached.hits ?? 0) + 1, last_served_at: new Date().toISOString() })
+        .eq("id", cached.id);
+      return json({ imageUrl: cached.public_url, alt: cached.alt_text, cached: true });
+    }
+
     const apiKey = Deno.env.get("LOVABLE_API_KEY");
     if (!apiKey) return json({ error: "AI gateway not configured" }, 500);
 
@@ -221,7 +278,7 @@ Deno.serve(async (req) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-3-pro-image",
+        model: MODEL,
         messages: [{ role: "user", content }],
         modalities: ["image", "text"],
         stream: true,
@@ -239,9 +296,34 @@ Deno.serve(async (req) => {
       return json({ error: message }, resp.status);
     }
 
-    const imageUrl = await readGeneratedImage(resp);
+    const dataUrl = await readGeneratedImage(resp);
 
-    return json({ imageUrl });
+    // Host the PNG and record it once; a concurrent request for the same set
+    // loses the insert race and returns the winner's image.
+    const storagePath = await buildStoragePath({ key, shape, frontName, templeName, finish, lensType, lensTint });
+    const { error: upErr } = await admin.storage
+      .from(RENDER_BUCKET)
+      .upload(storagePath, decodeDataUrl(dataUrl), { contentType: "image/png", upsert: true, cacheControl: "31536000" });
+    if (upErr) throw new Error(`Render upload failed: ${upErr.message}`);
+    const { data: bucket } = await admin.storage.getBucket(RENDER_BUCKET);
+    const publicUrl = publicUrlFor(SUPABASE_URL, storagePath, Boolean(bucket?.public));
+
+    await admin.from("bespoke_render_cache").upsert(
+      {
+        selection_key: key, key_version: 2, shape, front_code: frontCode, front_name: frontName,
+        temple_code: templeCode, temple_name: templeName, finish, lens_type: lensType || "plano",
+        lens_tint: lensTint || null, storage_path: storagePath, public_url: publicUrl, alt_text: alt,
+        model: MODEL, prompt_version: PROMPT_VERSION, hits: 1, last_served_at: new Date().toISOString(),
+      },
+      { onConflict: "selection_key", ignoreDuplicates: true },
+    );
+    const { data: row } = await admin
+      .from("bespoke_render_cache")
+      .select("public_url, alt_text")
+      .eq("selection_key", key)
+      .maybeSingle();
+
+    return json({ imageUrl: row?.public_url ?? publicUrl, alt: row?.alt_text ?? alt, cached: false });
   } catch (err) {
     return json({ error: (err as Error).message ?? "Unknown error" }, 500);
   }

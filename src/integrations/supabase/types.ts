@@ -623,6 +623,72 @@ export type Database = {
         }
         Relationships: []
       }
+      bespoke_render_cache: {
+        Row: {
+          alt_text: string
+          created_at: string
+          finish: string | null
+          front_code: string | null
+          front_name: string | null
+          hits: number
+          id: string
+          key_version: number
+          last_served_at: string | null
+          lens_tint: string | null
+          lens_type: string | null
+          model: string | null
+          prompt_version: string | null
+          public_url: string
+          selection_key: string
+          shape: string | null
+          storage_path: string
+          temple_code: string | null
+          temple_name: string | null
+        }
+        Insert: {
+          alt_text: string
+          created_at?: string
+          finish?: string | null
+          front_code?: string | null
+          front_name?: string | null
+          hits?: number
+          id?: string
+          key_version?: number
+          last_served_at?: string | null
+          lens_tint?: string | null
+          lens_type?: string | null
+          model?: string | null
+          prompt_version?: string | null
+          public_url: string
+          selection_key: string
+          shape?: string | null
+          storage_path: string
+          temple_code?: string | null
+          temple_name?: string | null
+        }
+        Update: {
+          alt_text?: string
+          created_at?: string
+          finish?: string | null
+          front_code?: string | null
+          front_name?: string | null
+          hits?: number
+          id?: string
+          key_version?: number
+          last_served_at?: string | null
+          lens_tint?: string | null
+          lens_type?: string | null
+          model?: string | null
+          prompt_version?: string | null
+          public_url?: string
+          selection_key?: string
+          shape?: string | null
+          storage_path?: string
+          temple_code?: string | null
+          temple_name?: string | null
+        }
+        Relationships: []
+      }
       bespoke_report_verifications: {
         Row: {
           cad_image_path: string | null

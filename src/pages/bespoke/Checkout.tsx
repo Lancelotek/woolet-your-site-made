@@ -23,7 +23,9 @@ import {
   PREVIEW_UPDATED_EVENT,
   loadPreviewHistory,
   savePreviewHistory,
+  renderRequestBody,
 } from "@/pages/bespoke/steps";
+import { renderAltForConfig } from "@/lib/bespoke-render-alt";
 import { pushGtmEvent } from "@/lib/gtm";
 import { readConsentSnapshot } from "@/lib/consent";
 import { trackInitiateCheckoutOnce } from "@/lib/meta-capi";
@@ -180,12 +182,7 @@ export default function BespokeCheckout() {
     setIsGenerating(true);
     try {
       const { data, error: fnErr } = await supabase.functions.invoke("bespoke-preview-render", {
-        body: {
-          shape: frame.shape,
-          frontColor: `${front.name} (${front.code})`,
-          templeColor: `${temple.name} (${temple.code})`,
-          finish: finish.name,
-        },
+        body: renderRequestBody(config, false),
       });
       if (fnErr) throw fnErr;
       const url = (data as { imageUrl?: string })?.imageUrl;
@@ -208,7 +205,7 @@ export default function BespokeCheckout() {
     } finally {
       setIsGenerating(false);
     }
-  }, [frame, front, temple, finish, previewKey, buildEventPayload]);
+  }, [frame, front, temple, finish, previewKey, buildEventPayload, config]);
 
   // --- Analytics: Checkout viewed (once, when ready) -------------------------
   const viewedTracked = useRef(false);
@@ -439,7 +436,7 @@ export default function BespokeCheckout() {
                         <>
                           <img
                             src={aiPreviewUrl}
-                            alt={`AI visualisation of your ${frame.name} in ${front?.name} / ${temple?.name}`}
+                            alt={renderAltForConfig(config, Boolean(getLatestPreviewUrl(lensKey)) && lensKey !== baseKey)}
                             className="w-full h-full object-cover"
                           />
                           <div

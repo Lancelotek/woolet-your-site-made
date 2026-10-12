@@ -1,3 +1,4 @@
+import { renderAltFromParts } from "@/lib/bespoke-render-alt";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Check, Copy } from "lucide-react";
@@ -1212,7 +1213,7 @@ function DetailView({
           <h3 style={{ fontFamily: SERIF, fontSize: 20, margin: "0 0 10px" }}>Images</h3>
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
             {[
-              { url: (detail.files.preview_url ?? o.ai_preview_url) as string | null, label: "Frame preview" },
+              { url: (detail.files.preview_url ?? o.ai_preview_url) as string | null, label: "Frame preview", alt: renderAltFromParts({ shape: o.frame_name, front: o.front_code, temple: o.temple_code, finish: o.finish_id, lensType: o.lens_type, lensTint: o.lens_tint_code }) },
               { url: detail.files.photo_url, label: "Customer photo" },
               { url: detail.files.vto_url, label: "On the face" },
               { url: detail.files.geometry_url, label: "Geometry" },
@@ -1220,7 +1221,7 @@ function DetailView({
               .filter((i) => i.url)
               .map((i) => (
                 <figure key={i.label} style={{ margin: 0, width: 190 }}>
-                  <img src={i.url as string} alt={i.label} style={{ width: "100%", borderRadius: 3, border: `1px solid ${T.hair}`, background: "#efe9df" }} />
+                  <img src={i.url as string} alt={(i as { alt?: string }).alt ?? i.label} style={{ width: "100%", borderRadius: 3, border: `1px solid ${T.hair}`, background: "#efe9df" }} />
                   <figcaption style={{ fontSize: 11, color: T.mute, marginTop: 6 }}>{i.label}</figcaption>
                 </figure>
               ))}

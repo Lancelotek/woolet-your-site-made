@@ -1,3 +1,4 @@
+import { renderAltFromParts } from "@/lib/bespoke-render-alt";
 import { hrefFor, localePath } from "@/i18n/routeRegistry";
 import { useEffect, useState } from "react";
 import { Link, Navigate, useParams, useSearchParams } from "react-router-dom";
@@ -660,7 +661,7 @@ export default function Account() {
                       >
                         <img
                           src={pv.image_url}
-                          alt={pv.description ?? "Bespoke AI preview"}
+                          alt={renderAltFromParts({ shape: pv.shape, front: pv.front_color, temple: pv.temple_color, finish: pv.finish })}
                           style={{ width: "100%", height: "100%", objectFit: "cover" }}
                           loading="lazy"
                         />
