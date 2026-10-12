@@ -20,16 +20,21 @@ const codeOf = (label: string | null) => (label ?? "").match(/\(([^)]+)\)\s*$/)?
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
   const pw = Deno.env.get("BESPOKE_ADMIN_PASSWORD") ?? "";
-  let body: { password?: string; limit?: number } = {};
+  let body: { password?: string; limit?: number; token?: string } = {};
   try { body = await req.json(); } catch { /* empty */ }
   const provided = body.password ?? req.headers.get("x-admin-password") ?? "";
   const bearer = (req.headers.get("authorization") ?? "").replace(/^Bearer\s+/i, "");
   const service = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
   const isService = Boolean(service) && bearer === service;
-  if (!isService && (!pw || provided !== pw)) return json({ error: "Invalid password" }, 401);
-
   const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
   const admin = createClient(SUPABASE_URL, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!, { auth: { persistSession: false } });
+  // One-time operator token stored in the service-only integration_secrets table.
+  let tokenOk = false;
+  if (body.token && body.token.length >= 32) {
+    const { data } = await admin.from("integration_secrets").select("value").eq("name", "render_backfill_token").maybeSingle();
+    tokenOk = data?.value === body.token;
+  }
+  if (!isService && !tokenOk && (!pw || provided !== pw)) return json({ error: "Invalid password" }, 401);
   const { data: bucket } = await admin.storage.getBucket(RENDER_BUCKET);
   const isPublic = Boolean(bucket?.public);
   const limit = Math.min(Math.max(Number(body.limit) || 10, 1), 25);
