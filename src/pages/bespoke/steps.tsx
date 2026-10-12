@@ -9,6 +9,7 @@ import { getAttribution } from "@/lib/attribution";
 import { useAuth } from "@/lib/auth-context";
 
 import {
+  ACTIVE_COLORS,
   COLORS,
   ENGRAVING_FEE_EUR,
   ENGRAVING_FONTS,

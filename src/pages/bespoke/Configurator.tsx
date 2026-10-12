@@ -3,7 +3,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { Link } from "react-router-dom";
 import { Check, ChevronLeft, ChevronRight, Cloud, CloudOff, Loader2, Maximize2, Ruler, Sparkles } from "lucide-react";
 import SEO from "@/components/SEO";
-import { COLORS, FINISHES, LENS_TYPES, formatTempleLength } from "@/data/bespoke-options";
+import { COLORS, FINISHES, LENS_TYPES, formatTempleLength, resolveActiveColorId } from "@/data/bespoke-options";
 import { findFrame } from "@/data/frames";
 import { STEPS, formatEur, formatAddOn, formatLensWithStrength, isStepComplete, lensTintCode, selectedLensTint, useBespokeConfig, type BespokeConfig, type StepId } from "@/lib/bespoke-state";
 import { clarityEvent, claritySet } from "@/lib/clarity";
