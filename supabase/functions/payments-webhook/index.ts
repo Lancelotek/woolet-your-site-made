@@ -872,10 +872,13 @@ async function handleBespokeCheckoutCompleted(session: any, env: StripeEnv) {
     const db = getSupabase();
     const { data: order } = await db
       .from("bespoke_orders")
-      .select("id, frame_name, front_code, temple_code, finish_id, lens_type, lens_tint_code, ai_preview_path")
+      .select("id, frame_name, front_code, temple_code, finish_id, lens_type, lens_tint_code, ai_preview_path, ai_preview_url")
       .eq("stripe_session_id", session.id)
       .maybeSingle();
-    if (order && !(order as any).ai_preview_path) {
+    // A hosted render from the shared cache already shows this exact set;
+    // only generate when the buyer never had one (saves an AI call).
+    const hosted = /^https:\/\//.test(String((order as any)?.ai_preview_url ?? ""));
+    if (order && !hosted && !(order as any).ai_preview_path) {
       await generateOrderPreview(db as any, order as any);
     }
   } catch (e) {
