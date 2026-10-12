@@ -261,9 +261,9 @@ function ColorSwatchGrid({
                 if (active) pulseMobilePreview();
                 else onSelect(c.id);
               }}
-              onMouseEnter={() => setHoveredId(c.id)}
+              onMouseEnter={() => { if (selected) setHoveredId(c.id); }}
               onMouseLeave={() => setHoveredId((id) => (id === c.id ? null : id))}
-              onFocus={() => setHoveredId(c.id)}
+              onFocus={() => { if (selected) setHoveredId(c.id); }}
               onBlur={() => setHoveredId((id) => (id === c.id ? null : id))}
               title={c.name}
               aria-pressed={active}
