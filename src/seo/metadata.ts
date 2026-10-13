@@ -802,7 +802,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
       title: STORY_TITLE,
       description: STORY_DESCRIPTION,
       noscriptHtml: STORY_CRAWLER_HTML,
-    }, [STORY_JSONLD]);
+    }, {}, [STORY_JSONLD]);
   }
 
   // ----- About
