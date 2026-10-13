@@ -1,6 +1,6 @@
 # Brand History
 
-Woolet started in 2015 as a smart wallet (Kickstarter, $332K raised, discontinued 2016). Eyewear for wide faces is the brand's second chapter, launched in 2026 by the same founder, Marek Ciesla. Older press coverage of Woolet (HuffPost, ZDNet, The Next Web) refers to the wallet.
+Woolet started in 2015 with a smart wallet created by Marek Cieśla after his friend Teodor kept losing his wallet. On Kickstarter, 2,627 backers pledged $332,694. Wallets shipped worldwide for years before phones and AirTags closed that chapter. Today, the same founder makes glasses for wide faces with a 158 mm front width, first designed with a four-person family workshop in Bielsko-Biała, Poland, using Italian acetate. Full story: https://woolet.co/en/our-story.
 
 ---
 
@@ -33,7 +33,7 @@ This document is the canonical full-content reference for LLM crawlers. It conta
 
 ### Brand history
 
-Woolet started in 2015 as a smart wallet (Kickstarter, $332K raised, discontinued 2016). Eyewear for wide faces is the brand's second chapter, launched in 2026 by the same founder, Marek Ciesla. Older press coverage of Woolet (HuffPost, ZDNet, The Next Web) refers to the wallet.
+Woolet started in 2015 with a smart wallet created by Marek Cieśla after his friend Teodor kept losing his wallet. On Kickstarter, 2,627 backers pledged $332,694. Wallets shipped worldwide for years before phones and AirTags closed that chapter. Today, the same founder makes glasses for wide faces with a 158 mm front width, first designed with a four-person family workshop in Bielsko-Biała, Poland, using Italian acetate. Full story: https://woolet.co/en/our-story.
 
 ---
 
@@ -1581,7 +1581,7 @@ A: Frames are cut, hand-filed, and polished in the European Union from Italian M
 A: 30-day returns with no questions asked, plus a Fit Guarantee — if the AI Fit Wizard result matches but the frame doesn't feel right, exchange is free.
 
 **Q: Is this the same Woolet that made smart wallets?**
-A: Yes. Woolet started in 2015 as a smart wallet (Kickstarter, $332K raised, discontinued 2016). Eyewear for wide faces is the brand's second chapter, launched in 2026 by the same founder, Marek Ciesla. Older press coverage of Woolet (HuffPost, ZDNet, The Next Web) refers to the wallet.
+A: Yes. Woolet started in 2015 with a smart wallet created by Marek Cieśla after his friend Teodor kept losing his wallet. On Kickstarter, 2,627 backers pledged $332,694. Wallets shipped worldwide for years before phones and AirTags closed that chapter. Today, the same founder makes glasses for wide faces with a 158 mm front width, first designed with a four-person family workshop in Bielsko-Biała, Poland, using Italian acetate. Full story: https://woolet.co/en/our-story.
 
 ## Hat Size to Glasses Size Conversion
 

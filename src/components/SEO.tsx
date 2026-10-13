@@ -1,4 +1,5 @@
 import { commerceJson } from "@/lib/schema-offer";
+import organization from "@/content/organization.json";
 import { WOOLET_BRAND_PROFILES } from "@/content/brandProfiles";
 import { Helmet } from "react-helmet-async";
 import { SUPPORTED_LANGS, INDEXABLE_LANGS, type Lang } from "@/lib/i18n";
@@ -249,7 +250,8 @@ const SEO = ({
       <meta name="twitter:image" content={ogImage} />
       <meta name="twitter:site" content="@WooletEyewear" />
 
-      {/* Organization, WebSite, and Product schemas live in index.html (single source) */}
+      {/* Preserve the same sitewide Organization after prerender tags are reconciled. */}
+      <script type="application/ld+json">{commerceJson(organization)}</script>
       {articleJsonLd && (
         <script type="application/ld+json">{commerceJson(articleJsonLd)}</script>
       )}

@@ -57,6 +57,7 @@ const RefIndex = lazy(() => import("./pages/ref/RefIndex.tsx"));
 const RefProductPage = lazy(() => import("./pages/ref/RefProductPage.tsx"));
 const StretchGoals = lazy(() => import("./pages/creatives/StretchGoals.tsx"));
 const About = lazy(() => import("./pages/About.tsx"));
+const OurStory = lazy(() => import("./pages/OurStory.tsx"));
 const Process = lazy(() => import("./pages/Process.tsx"));
 const TheBox = lazy(() => import("./pages/TheBox.tsx"));
 const Bespoke = lazy(() => import("./pages/Bespoke.tsx"));
@@ -286,6 +287,7 @@ const App = () => (
           <Route path="/fr/products/009" element={<ProductPage009 />} />
           <Route path="/fr/products/bespoke" element={<ProductPageBespoke />} />
           <Route path="/en/about" element={<About />} />
+          <Route path="/en/our-story" element={<OurStory />} />
           <Route path="/en/process" element={<Process />} />
           <Route path="/en/the-box" element={<TheBox />} />
           <Route path="/:lang/the-box" element={<Navigate to="/en/the-box" replace />} />
