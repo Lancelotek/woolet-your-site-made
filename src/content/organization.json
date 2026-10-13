@@ -1,0 +1,51 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://woolet.co/#organization",
+  "name": "Woolet",
+  "alternateName": [
+    "Woolet Eyewear"
+  ],
+  "url": "https://woolet.co",
+  "description": "Woolet makes glasses for wide faces with a 158 mm front width. The brand started in 2015 with the Woolet smart wallet, funded on Kickstarter by 2,627 backers.",
+  "foundingDate": "2015",
+  "founder": {
+    "@type": "Person",
+    "name": "Marek Cieśla"
+  },
+  "email": "support@woolet.co",
+  "knowsAbout": [
+    "AI-fit eyewear",
+    "Italian acetate eyewear",
+    "Wide-face glasses",
+    "Premium optical frames",
+    "Mazzucchelli acetate",
+    "158 mm frame width",
+    "Bespoke eyewear"
+  ],
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://woolet.co/og-image.png"
+  },
+  "sameAs": [
+    "https://www.instagram.com/frames_for_wide_faces",
+    "https://www.facebook.com/WooletWideFit/",
+    "https://www.youtube.com/@wooleteyewear",
+    "https://www.tiktok.com/@wooletai",
+    "https://www.pinterest.com/Bestwoolet/",
+    "https://www.linkedin.com/company/woolet-inc-/"
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "412 N. Main Street, STE 100",
+    "addressLocality": "Buffalo",
+    "addressRegion": "WY",
+    "postalCode": "82834",
+    "addressCountry": "US"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "support@woolet.co",
+    "contactType": "customer service"
+  }
+}
