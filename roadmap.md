@@ -1,9 +1,9 @@
 # Roadmap
 
 ## English Our story - 2026-10-13
-- [ ] Add exact editorial copy and six photographs, preserving existing header/footer and signup destination
-- [ ] Register route, full crawler HTML and shared Organization facts; update AI references and English footer
-- [ ] Verify desktop/mobile, image loading, CTA links, metadata and focused tests; report diff without publishing
+- [x] Add exact editorial copy and six photographs, preserving existing header/footer and signup destination
+- [x] Register route, full crawler HTML and shared Organization facts; update AI references and English footer
+- [x] Verify desktop/mobile, image loading, CTA links, metadata and focused tests; regenerate sitemap and validate crawler payload without running a manual build; do not publish
 
 ## Crown Panto text-only composition correction - 2026-10-12
 - [x] Remove non-Round composition photos, strengthen compact Crown Panto geometry and bump angle-v4
