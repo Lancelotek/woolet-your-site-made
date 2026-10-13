@@ -122,18 +122,7 @@ const About = () => {
                 "Woolet is an eyewear brand specializing in Italian Mazzucchelli acetate frames for wide faces (155mm+).",
               url: "https://woolet.co/en/about",
               mainEntity: {
-                "@type": "Organization",
                 "@id": "https://woolet.co/#organization",
-                name: "Woolet",
-                foundingDate: "2015",
-                founder: { "@type": "Person", name: "Marek Ciesla" },
-                description:
-                  "Woolet started in 2015 as a smart wallet (Kickstarter, $332K raised, discontinued 2016). Eyewear for wide faces is the brand's second chapter, launched in 2026 by the same founder, Marek Ciesla. Older press coverage of Woolet (HuffPost, ZDNet, The Next Web) refers to the wallet.",
-                foundingLocation: {
-                  "@type": "Place",
-                  name: "Poland",
-                },
-                url: "https://woolet.co",
               },
             }),
           }}

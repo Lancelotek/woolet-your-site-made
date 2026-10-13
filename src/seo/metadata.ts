@@ -13,6 +13,7 @@
  */
 
 import { commerceJson } from "../lib/schema-offer";
+import { STORY_TITLE, STORY_DESCRIPTION, STORY_CRAWLER_HTML, STORY_JSONLD } from "@/content/our-story";
 import { SUPPORTED_LANGS, INDEXABLE_LANGS, type Lang } from "@/lib/i18n";
 import { blogMetaBySlug } from "@/lib/blog-meta";
 import { hreflangAlternates } from "@/i18n/routeRegistry";
@@ -793,6 +794,15 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
     // Every locale's component canonicalises to /en/bespoke at runtime.
     meta.canonical = `${SITE_URL}/en/bespoke`;
     return meta;
+  }
+
+  // ----- Our story (English-only editorial page)
+  if (route === "/en/our-story") {
+    return base(route, "en", {
+      title: STORY_TITLE,
+      description: STORY_DESCRIPTION,
+      noscriptHtml: STORY_CRAWLER_HTML,
+    }, [STORY_JSONLD]);
   }
 
   // ----- About
@@ -2150,6 +2160,7 @@ function escapeHtml(s: string): string {
 const STATIC_ROUTES = [
   "/en",
   "/en/about",
+  "/en/our-story",
   "/en/process",
   "/en/products/007",
   "/en/products/009",

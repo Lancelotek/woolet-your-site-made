@@ -114,6 +114,7 @@ const Footer = ({ lang: langProp }: { lang?: Lang } = {}) => {
     {
       heading: "Company",
       links: [
+        ...(lang === "en" ? [{ label: "Our story", href: "/en/our-story" }] : []),
         { label: "Blog", href: hrefFor("blog", lang) },
         { label: t(lang, "footer.privacy"), href: hrefFor("privacyPolicy", lang) },
         { label: t(lang, "footer.return"), href: hrefFor("returnPolicy", lang) },
