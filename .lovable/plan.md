@@ -1,12 +1,23 @@
-# Add the English sunglasses sizing post
+# Woolet Our story
 
-- Publish the supplied copy in the existing English article format, without rewriting it or changing hyphens.
-- Use the exact supplied metadata and headline, 6 October 2026 publication date, Woolet Editorial Team author, and eight-minute reading time.
-- Render the four tables, standard FAQ and structured data, related links, and the existing FitLens CTA after the measurement section.
-- Create an article share image using the existing blog image treatment.
-- Add the two requested contextual links and include the article first in the English listing and sitemap, with no hreflang.
-- Regenerate the sitemap, inspect the automatic build results, and verify that the configurator still opens. Do not publish.
+## Page
+- Build `/en/our-story` as a calm editorial long-read with the supplied copy unchanged, existing header/footer, restrained gold emphasis and Woolet brand-book typography.
+- Show all five supplied wallet photos plus the existing founder portrait. Save exact JPG names and WebP versions in `public/images`; set dimensions and lazy-load all except the collection hero.
+- End with the existing signup destination (`/en/lp/kickstarter`), the requested button wording, `/en/fit` text link and founder signature. No prices or payment asks on this page.
+- Add “Our story” to English footers only; leave main navigation unchanged.
 
-## Technical safeguards
+## Search and AI references
+- Register the page in the existing sitemap/prerender metadata pipeline with exact title/description, canonical and complete crawler-visible story HTML.
+- Add AboutPage schema referencing the existing Woolet Organization identity. Update that Organization’s description and founder spelling consistently, without duplicating it on the story page.
+- Replace outdated brand-history paragraphs in both AI reference files with the owner-approved facts and story URL.
 
-Use the existing blog data and metadata pipeline. Leave redirects, the SPA fallback, checkout, prices, and tracking unchanged.
+## Technical details
+- Keep story copy and photo metadata in one shared source consumed by the page and crawler metadata, preventing copy drift.
+- Use the existing Button component and signup link; do not change forms, tracking, checkout, redirect maps, Worker or DNS.
+- The explicit `public/images` destination takes precedence over the usual CDN-pointer image flow.
+- Reuse the site layout and semantic colour tokens; scope Newsreader/Archivo typography to this new page, without changing other pages.
+
+## Verification
+- Check exact copy, image names/ALT/dimensions, English footer link, CTA destinations, Organization identity and crawler HTML with focused tests.
+- Check desktop and mobile rendering and the automatic build’s generated sitemap/prerender output.
+- Report changed files and verification results. Do not publish.
