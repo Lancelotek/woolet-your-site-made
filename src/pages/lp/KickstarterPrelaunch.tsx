@@ -309,6 +309,7 @@ const VipForm = ({
       setErrorNonce((n) => n + 1);
       setErrorKind("invalid");
       setError("Enter your email to lock $114");
+      flashTarget(inputRef.current?.form ?? null);
       inputRef.current?.focus();
       inputRef.current?.scrollIntoView({ block: "center", behavior: "smooth" });
       pushGtmEvent("vip_form_error", { form_location: formLocation, reason: "empty" });
@@ -319,6 +320,8 @@ const VipForm = ({
       setErrorNonce((n) => n + 1);
       setErrorKind("invalid");
       setError("That email doesn't look right. Check the address and try again.");
+      inputRef.current?.focus();
+      flashTarget(inputRef.current?.form ?? null);
       pushGtmEvent("vip_form_error", { form_location: formLocation, reason: "invalid" });
       return;
     }
@@ -1431,6 +1434,11 @@ const KickstarterPrelaunch = () => {
                   key={img.src}
                   type="button"
                   onClick={(e) => {
+                    // Re-tapping the photo already shown would change nothing — enlarge it instead.
+                    if (i === activeImg && !isMobile) {
+                      openLightbox(i, "thumbnail", e.currentTarget);
+                      return;
+                    }
                     setActiveImg(i);
                     // On phones the hero image sits off-screen after the tap, so the
                     // swap would be invisible — open the lightbox at that index instead.
@@ -1718,7 +1726,15 @@ const KickstarterPrelaunch = () => {
                 ],
               },
             ].map((m) => (
-              <article key={m.name} style={{ border: `1px solid ${HAIRLINE}` }}>
+              <article
+                key={m.name}
+                // Taps on the card's text (name, specs) open the same photo as the image button.
+                onClick={(e) => {
+                  if ((e.target as HTMLElement).closest("button, a, input")) return;
+                  openLightbox(CARD_LIGHTBOX_INDEX[m.name], "gallery", e.currentTarget);
+                }}
+                style={{ border: `1px solid ${HAIRLINE}`, cursor: "zoom-in" }}
+              >
                 <button
                   type="button"
                   aria-label="View larger image"

@@ -42,6 +42,8 @@ export type KoSection = {
   emphasis?: string;
   ctas?: KoCta[];
   link?: { label: string; href: string };
+  /** Make the heading and intro text a link to the first CTA. */
+  blockLink?: boolean;
 };
 
 export type KoPageConfig = {
@@ -415,6 +417,7 @@ export const koPages: Record<string, KoPageConfig> = {
         body:
           "FitLens는 휴대폰 카메라로 관자놀이에서 관자놀이까지의 폭을 측정합니다. 자도, 도움도 필요 없습니다. 측정값과 함께 맞는 사이즈를 알려드립니다.",
         ctas: [{ label: "FitLens로 측정하기", href: "/en/fit", primary: true }],
+        blockLink: true,
       },
     ],
     faqs: [

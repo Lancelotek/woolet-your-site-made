@@ -53,7 +53,12 @@ const Navbar = () => {
   const sameSite = (href: string) => (e: MouseEvent) => {
     if (!isCurrent(href)) return;
     e.preventDefault();
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (window.scrollY > 4) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      // Already at the top of this page: a brief blink shows the tap registered.
+      (e.currentTarget as HTMLElement).animate?.([{ opacity: 1 }, { opacity: 0.35 }, { opacity: 1 }], { duration: 450 });
+    }
   };
 
   const switcherTitle = (targetLang: Lang): string =>
@@ -80,11 +85,12 @@ const Navbar = () => {
         </div>
 
         {/* Desktop nav */}
+        {/* Links carry padding cancelled by negative margin, so their tap areas cover the gaps. */}
         <div className="hidden md:flex items-center gap-5">
           <Link
             to={hrefFor("collection", lang)}
             aria-current={isCurrent(hrefFor("collection", lang)) ? "page" : undefined}
-            className={`no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors ${isCurrent(hrefFor("collection", lang)) ? "text-primary" : "text-cream-dim"}`}
+            className={`-mx-2.5 px-2.5 py-3 no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors ${isCurrent(hrefFor("collection", lang)) ? "text-primary" : "text-cream-dim"}`}
             style={{ fontSize: "0.72rem" }}
             onClick={(e) => {
               pushGtmEvent("nav_click", { nav_item: "collection", nav_lang: lang });
@@ -96,7 +102,7 @@ const Navbar = () => {
           <Link
             to={hrefFor("fit", lang)}
             aria-current={isCurrent(hrefFor("fit", lang)) ? "page" : undefined}
-            className={`no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors ${isCurrent(hrefFor("fit", lang)) ? "text-primary" : "text-cream-dim"}`}
+            className={`-mx-2.5 px-2.5 py-3 no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors ${isCurrent(hrefFor("fit", lang)) ? "text-primary" : "text-cream-dim"}`}
             style={{ fontSize: "0.72rem" }}
             onClick={(e) => {
               pushGtmEvent("nav_click", { nav_item: "fit_quiz", nav_lang: lang });
@@ -108,7 +114,7 @@ const Navbar = () => {
           <Link
             to={hrefFor("bespoke", lang)}
             aria-current={isCurrent(hrefFor("bespoke", lang)) ? "page" : undefined}
-            className={`no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors ${isCurrent(hrefFor("bespoke", lang)) ? "text-primary" : "text-cream-dim"}`}
+            className={`-mx-2.5 px-2.5 py-3 no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors ${isCurrent(hrefFor("bespoke", lang)) ? "text-primary" : "text-cream-dim"}`}
             style={{ fontSize: "0.72rem" }}
             onClick={(e) => {
               pushGtmEvent("nav_click", { nav_item: "bespoke", nav_lang: lang });
