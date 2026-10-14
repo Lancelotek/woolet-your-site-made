@@ -43,7 +43,11 @@ const ProductGalleryStage = ({ model, colourId, colourName, lang = "en" }: Props
 
   const go = (next: number, source: "arrow" | "thumb") => {
     const n = (next + items.length) % items.length;
-    if (n === idx) return;
+    if (n === idx) {
+      // Re-tapping the photo already shown used to do nothing (Clarity dead clicks) - enlarge it.
+      if (source === "thumb") openZoom();
+      return;
+    }
     setIdx(n);
     clarityEvent("pdp_gallery_view");
     pushGtmEvent("pdp_gallery_view", {
