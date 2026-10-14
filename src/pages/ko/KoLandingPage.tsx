@@ -28,10 +28,22 @@ function SectionBlock({ s }: { s: KoSection }) {
   return (
     <section className="px-6 md:px-10" style={{ borderBottom: `1px solid ${c.line}` }}>
       <div className="max-w-3xl mx-auto py-14 flex flex-col gap-5">
-        <h2 style={{ fontFamily: KO_SERIF, fontWeight: 400, fontSize: "clamp(1.4rem, 2.6vw, 1.9rem)", margin: 0 }}>
-          {s.h2}
-        </h2>
-        <p style={{ color: c.creamDim, lineHeight: 1.9, margin: 0 }}>{s.body}</p>
+        {s.blockLink && s.ctas?.[0] ? (
+          // The whole intro of this block is a real link, so taps on the text act.
+          <Link to={s.ctas[0].href} className="flex flex-col gap-5" style={{ color: "inherit", textDecoration: "none" }}>
+            <h2 style={{ fontFamily: KO_SERIF, fontWeight: 400, fontSize: "clamp(1.4rem, 2.6vw, 1.9rem)", margin: 0 }}>
+              {s.h2} <span aria-hidden="true" style={{ color: c.gold }}>→</span>
+            </h2>
+            <p style={{ color: c.creamDim, lineHeight: 1.9, margin: 0 }}>{s.body}</p>
+          </Link>
+        ) : (
+          <>
+            <h2 style={{ fontFamily: KO_SERIF, fontWeight: 400, fontSize: "clamp(1.4rem, 2.6vw, 1.9rem)", margin: 0, cursor: "auto" }}>
+              {s.h2}
+            </h2>
+            <p style={{ color: c.creamDim, lineHeight: 1.9, margin: 0 }}>{s.body}</p>
+          </>
+        )}
 
         {s.paras?.map((p) => (
           <p key={p} style={{ color: c.creamDim, lineHeight: 1.9, margin: 0 }}>
@@ -251,6 +263,7 @@ export default function KoLandingPage({ config }: { config: KoPageConfig }) {
 
       <div style={{ background: c.ink, color: c.cream, minHeight: "100vh", fontFamily: KO_SANS }}>
         <Navbar />
+        <style>{`.ko-faq summary::-webkit-details-marker{display:none}.ko-faq-icon::before{content:"+"}.ko-faq[open] .ko-faq-icon::before{content:"\\2212"}`}</style>
 
         <main>
           <section className="px-6 md:px-10" style={{ borderBottom: `1px solid ${c.line}` }}>
@@ -285,10 +298,16 @@ export default function KoLandingPage({ config }: { config: KoPageConfig }) {
                 자주 묻는 질문
               </h2>
               {config.faqs.map((f) => (
-                <div key={f.q} className="flex flex-col gap-2">
-                  <h3 style={{ fontSize: "1rem", fontWeight: 600, margin: 0 }}>{f.q}</h3>
-                  <p style={{ color: c.creamDim, lineHeight: 1.85, margin: 0 }}>{f.a}</p>
-                </div>
+                <details key={f.q} className="ko-faq" style={{ borderTop: `1px solid ${c.line}`, paddingTop: 14 }}>
+                  <summary
+                    className="flex items-start justify-between gap-4"
+                    style={{ cursor: "pointer", listStyle: "none", minHeight: 44 }}
+                  >
+                    <h3 style={{ fontSize: "1rem", fontWeight: 600, margin: 0 }}>{f.q}</h3>
+                    <span aria-hidden="true" className="ko-faq-icon" style={{ color: c.gold, fontSize: 20, lineHeight: 1 }} />
+                  </summary>
+                  <p style={{ color: c.creamDim, lineHeight: 1.85, margin: "8px 0 0" }}>{f.a}</p>
+                </details>
               ))}
             </div>
           </section>
