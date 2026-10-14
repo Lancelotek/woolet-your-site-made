@@ -219,11 +219,11 @@ const Navbar = () => {
           aria-modal="true"
           aria-label="Mobile navigation"
         >
-          <div className="flex flex-col gap-2 px-6 py-8">
+          <div className="flex flex-col py-8">
             <Link
               to={hrefFor("collection", lang)}
               aria-current={isCurrent(hrefFor("collection", lang)) ? "page" : undefined}
-              className={`block w-full py-3.5 no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors ${isCurrent(hrefFor("collection", lang)) ? "text-primary" : "text-foreground"}`}
+              className={`block w-full px-6 py-[18px] no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors ${isCurrent(hrefFor("collection", lang)) ? "text-primary" : "text-foreground"}`}
               style={{ fontSize: "0.75rem" }}
               onClick={(e) => {
                 sameSite(hrefFor("collection", lang))(e);
@@ -237,7 +237,7 @@ const Navbar = () => {
             <Link
               to={hrefFor("fit", lang)}
               aria-current={isCurrent(hrefFor("fit", lang)) ? "page" : undefined}
-              className={`block w-full py-3.5 no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors ${isCurrent(hrefFor("fit", lang)) ? "text-primary" : "text-foreground"}`}
+              className={`block w-full px-6 py-[18px] no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors ${isCurrent(hrefFor("fit", lang)) ? "text-primary" : "text-foreground"}`}
               style={{ fontSize: "0.75rem" }}
               onClick={(e) => {
                 sameSite(hrefFor("fit", lang))(e);
@@ -251,7 +251,7 @@ const Navbar = () => {
             <Link
               to={hrefFor("bespoke", lang)}
               aria-current={isCurrent(hrefFor("bespoke", lang)) ? "page" : undefined}
-              className={`block w-full py-3.5 no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors ${isCurrent(hrefFor("bespoke", lang)) ? "text-primary" : "text-foreground"}`}
+              className={`block w-full px-6 py-[18px] no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors ${isCurrent(hrefFor("bespoke", lang)) ? "text-primary" : "text-foreground"}`}
               style={{ fontSize: "0.75rem" }}
               onClick={(e) => {
                 sameSite(hrefFor("bespoke", lang))(e);
@@ -265,7 +265,7 @@ const Navbar = () => {
             {lang !== "de" && (
               <Link
                 to={session ? hrefFor("account", lang) : hrefFor("accountSignIn", lang)}
-                className="block w-full py-3.5 text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
+                className="block w-full px-6 py-[18px] text-foreground no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors"
                 style={{ fontSize: "0.75rem" }}
                 onClick={() => {
                   setMenuOpen(false);
@@ -276,9 +276,12 @@ const Navbar = () => {
               </Link>
             )}
 
-            <div className="woolet-divider" />
+            <div className="px-6">
+              <div className="woolet-divider" />
+            </div>
 
-            <div className="flex flex-col gap-3">
+
+            <div className="flex flex-col gap-3 px-6">
               <span
                 className="text-cream-dim uppercase tracking-[0.2em]"
                 style={{ fontSize: "0.72rem" }}
@@ -312,23 +315,31 @@ const Navbar = () => {
               </div>
             </div>
 
-            <div className="woolet-divider" />
+            <div className="px-6">
+              <div className="woolet-divider" />
+            </div>
+
 
             {lang === "de" ? (
-              <DeReservationCta source="header" variant="compact" className="h-12 w-full rounded-sm font-body text-[11px] font-semibold uppercase tracking-[0.18em]" />
+              <div className="px-6 py-1">
+                <DeReservationCta source="header" variant="compact" className="h-12 w-full rounded-sm font-body text-[11px] font-semibold uppercase tracking-[0.18em]" />
+              </div>
             ) : (
               <Link
                 to={hrefFor("lp.kickstarter", lang)}
-                className="block w-full py-3.5 text-primary uppercase tracking-[0.2em] border border-primary/40 px-3 text-center no-underline hover:bg-primary/10 transition-colors"
+                className="block w-full px-6 py-1 no-underline transition-colors"
                 style={{ fontSize: "0.72rem" }}
                 onClick={() => {
                   setMenuOpen(false);
                   pushGtmEvent("nav_click", { nav_item: "vip", nav_lang: lang });
                 }}
               >
-                VIP — 40% off
+                <span className="block border border-primary/40 py-3.5 text-center text-primary uppercase tracking-[0.2em] hover:bg-primary/10">
+                  VIP — 40% off
+                </span>
               </Link>
             )}
+
           </div>
         </div>
       )}
