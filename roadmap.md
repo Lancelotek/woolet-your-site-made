@@ -4,7 +4,9 @@
 - [x] Make every mobile-menu row edge-to-edge so taps in the former 8px gaps and 24px side padding land on a link
 - [x] Keep label, divider and bordered VIP/reservation visuals unchanged; verify at 390px with elementFromPoint plus real taps; do not publish
 
+## English Our story - 2026-10-13
 - [x] Add exact editorial copy and six photographs, preserving existing header/footer and signup destination
+
 - [x] Register route, full crawler HTML and shared Organization facts; update AI references and English footer
 - [x] Verify desktop/mobile, image loading, CTA links, metadata and focused tests; regenerate sitemap and validate crawler payload without running a manual build; do not publish
 
