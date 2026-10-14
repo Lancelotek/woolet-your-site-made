@@ -53,7 +53,12 @@ const Navbar = () => {
   const sameSite = (href: string) => (e: MouseEvent) => {
     if (!isCurrent(href)) return;
     e.preventDefault();
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (window.scrollY > 4) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      // Already at the top of this page: a brief blink shows the tap registered.
+      (e.currentTarget as HTMLElement).animate?.([{ opacity: 1 }, { opacity: 0.35 }, { opacity: 1 }], { duration: 450 });
+    }
   };
 
   const switcherTitle = (targetLang: Lang): string =>
