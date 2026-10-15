@@ -47,6 +47,7 @@ import {
   readResultTimestamp,
   type FitLensMeasurements,
 } from "@/lib/fitlens-result";
+import { createFitLensResultDedupe } from "@/lib/fitlens-result-dedupe";
 import { recordFitLensEvent } from "@/lib/fitlens-verify";
 import { QRCodeSVG } from "qrcode.react";
 
