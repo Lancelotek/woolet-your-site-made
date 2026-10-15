@@ -1,9 +1,9 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Link } from "react-router-dom";
 import { Check, ChevronLeft, ChevronRight, Cloud, CloudOff, Loader2, Maximize2, Ruler, Sparkles } from "lucide-react";
 import SEO from "@/components/SEO";
-import { COLORS, FINISHES, LENS_TYPES, formatTempleLength, resolveActiveColorId } from "@/data/bespoke-options";
+import { COLORS, FINISHES, LENS_TYPES, RETIRED_COLOR_FALLBACK_ID as DEFAULT_ACETATE_ID, formatTempleLength, resolveActiveColorId } from "@/data/bespoke-options";
 import { findFrame } from "@/data/frames";
 import { STEPS, hasEngraving, formatEur, formatAddOn, formatLensWithStrength, isStepComplete, lensTintCode, selectedLensTint, useBespokeConfig, type BespokeConfig, type StepId } from "@/lib/bespoke-state";
 import { clarityEvent, claritySet } from "@/lib/clarity";
@@ -183,15 +183,38 @@ const ConfiguratorPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [previewKey]);
 
+  // A double tap during the step animation must not skip a step.
+  const stepChangedAt = useRef(0);
   const goTo = (n: StepId) => {
+    stepChangedAt.current = Date.now();
     setStep(n);
     setVisited((prev) => (prev.includes(n) ? prev : [...prev, n]));
     if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const goNext = () => {
+    if (Date.now() - stepChangedAt.current < 600) return;
     pushCfg("cfg_next_click", { from_step: step });
     goTo(Math.min(STEPS.length, step + 1) as StepId);
+  };
+
+  // Step 2 never opens with a dead Next button: empty pickers get the house
+  // black sheet and the first finish (no finish carries a surcharge). Existing
+  // choices from the URL, a restored session or cloud sync are never replaced.
+  const [defaulted, setDefaulted] = useState<{ front?: boolean; temple?: boolean; finish?: boolean }>({});
+  useEffect(() => {
+    if (step !== 2) return;
+    const next: { front?: boolean; temple?: boolean; finish?: boolean } = {};
+    if (!config.frontColorId) { update("frontColorId", DEFAULT_ACETATE_ID); next.front = true; }
+    if (!config.templeColorId) { update("templeColorId", DEFAULT_ACETATE_ID); next.temple = true; }
+    if (!config.finishId) { update("finishId", FINISHES[0].id); next.finish = true; }
+    if (next.front || next.temple || next.finish) setDefaulted((prev) => ({ ...prev, ...next }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step]);
+  const colorUpdate: typeof update = (key, value) => {
+    const flag = key === "frontColorId" ? "front" : key === "templeColorId" ? "temple" : key === "finishId" ? "finish" : null;
+    if (flag) setDefaulted((prev) => ({ ...prev, [flag]: false }));
+    update(key, value);
   };
 
   // Clarity funnel: tag every step change, and mark the session complete when
@@ -213,18 +236,29 @@ const ConfiguratorPage = () => {
     !config.templeColorId && "temple acetate",
     !config.finishId && "finish",
   ].filter(Boolean).join(", ");
+  const firstMissing = !config.frontColorId ? "front" : !config.templeColorId ? "temple" : !config.finishId ? "finish" : null;
+  const blockedLabel = stepComplete || step === STEPS.length
+    ? null
+    : step === 1
+      ? "Pick a pattern first"
+      : step === 2 && firstMissing
+        ? `Pick ${firstMissing === "finish" ? "a finish" : `${firstMissing} acetate`} first`
+        : null;
+  const flash = (el: HTMLElement | null) => {
+    if (!el) return;
+    el.scrollIntoView({ behavior: "smooth", block: "center" });
+    el.classList.remove("cfg-choicegrid--attention");
+    void el.offsetWidth;
+    el.classList.add("cfg-choicegrid--attention");
+    window.setTimeout(() => el.classList.remove("cfg-choicegrid--attention"), 1300);
+  };
   const showPatternMissing = () => {
     setNavHint(true);
-    const grid = document.querySelector<HTMLElement>("main.cfg-container .cfg-choicegrid");
-    grid?.scrollIntoView({ behavior: "smooth", block: "center" });
-    grid?.classList.remove("cfg-choicegrid--attention");
-    if (grid) void grid.offsetWidth;
-    grid?.classList.add("cfg-choicegrid--attention");
-    window.setTimeout(() => grid?.classList.remove("cfg-choicegrid--attention"), 1300);
+    flash(document.querySelector<HTMLElement>("main.cfg-container .cfg-choicegrid"));
   };
   const showMissing = () => {
     setNavHint(true);
-    document.querySelector<HTMLElement>("main.cfg-container .cfg-acetate-missing")?.scrollIntoView({ behavior: "smooth", block: "center" });
+    flash(firstMissing ? document.getElementById(`cfg-group-${firstMissing}`) : null);
   };
 
   // Meta mid funnel: the first time a pattern is actually chosen (step 1 complete),
@@ -309,7 +343,7 @@ const ConfiguratorPage = () => {
 
   const StepBody =
     step === 1 ? <StepFrame config={config} update={update} patternRenders={patternRenders} /> :
-    step === 2 ? <StepColor config={config} update={update} /> :
+    step === 2 ? <StepColor config={config} update={colorUpdate} defaults={defaulted} /> :
     step === 3 ? <StepPreview config={config} update={update} locale={previewLocale} /> :
     step === 4 ? <StepTempleLength config={config} update={update} /> :
     step === 5 ? <StepEngraving config={config} update={update} /> :
@@ -418,9 +452,10 @@ const ConfiguratorPage = () => {
                    onNext={!stepComplete && step === 1 ? showPatternMissing : !stepComplete && step === 2 ? showMissing : goNext}
                   canNext={isStepComplete(step, config)}
                   isLast={step === STEPS.length}
+                  blockedLabel={blockedLabel}
                 />
                  {step === 1 && !stepComplete && navHint && <p className="text-sm text-gold-light mt-3" role="status">Choose a pattern to continue.</p>}
-                 {step === 2 && !stepComplete && <p className="cfg-acetate-missing text-sm text-gold-light mt-3" role="status">Choose {acetateMissing} to continue.</p>}
+                 {step === 2 && !stepComplete && <button type="button" onClick={showMissing} className="cfg-acetate-missing block text-left text-sm text-gold-light mt-3 underline decoration-dotted underline-offset-4" role="status">Choose {acetateMissing} to continue.</button>}
               </div>
             </section>
 
@@ -535,7 +570,7 @@ const ConfiguratorPage = () => {
                 Pick an option to continue
               </div>
             ) : step === 2 && !stepComplete ? (
-              <div className="cfg-mobilebar__note text-gold-light" role="status">Choose {acetateMissing} to continue.</div>
+              <button type="button" onClick={showMissing} className="cfg-mobilebar__note text-gold-light text-left underline decoration-dotted underline-offset-2" role="status">Choose {acetateMissing} to continue.</button>
             ) : (
               <div className="cfg-mobilebar__note">2-week build · free shipping</div>
             )}
@@ -554,10 +589,11 @@ const ConfiguratorPage = () => {
               handleMobileNext();
             }}
              data-incomplete={step !== STEPS.length && !stepComplete ? "true" : undefined}
+            aria-disabled={blockedLabel ? "true" : undefined}
             disabled={payPending}
             className="cfg-cta cfg-cta--mobile"
           >
-            {step === STEPS.length ? (payPending ? <><Loader2 size={14} className="animate-spin" /> Opening checkout…</> : "Pay now") : `Next · ${STEPS[step]?.shortLabel ?? ""}`}
+            {step === STEPS.length ? (payPending ? <><Loader2 size={14} className="animate-spin" /> Opening checkout…</> : "Pay now") : blockedLabel ?? `Next · ${STEPS[step]?.shortLabel ?? ""}`}
           </button>
         </div>
       </div>

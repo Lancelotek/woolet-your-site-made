@@ -238,7 +238,7 @@ const Collection = () => {
                 {FRAMES.map((f) => (
                   <Link
                     key={f.id}
-                    to={`/en/bespoke/configurator?shape=${f.id}`}
+                    to={`/en/bespoke?shape=${f.id}`}
                     onClick={() =>
                       pushGtmEvent("collection_bespoke_shape_click", {
                         location: "collection_bespoke",
