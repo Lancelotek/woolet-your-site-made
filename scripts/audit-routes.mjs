@@ -75,9 +75,9 @@ for (const p of [...concrete].sort()) {
   errors.push(p);
 }
 
-// Soft-404 guard: a stub whose target is a prerendered page must be a full
-// copy of that page (>= 3 KB), never a thin "moved" shell.
-const thin = [];
+// Redirect-stub guard (15.10.2026): every stub must open with meta refresh,
+// canonical and robots "noindex, follow", and must not ship copied content.
+const bad = [];
 const walk = (dir) => {
   for (const name of readdirSync(dir)) {
     const f = resolve(dir, name);
@@ -86,15 +86,15 @@ const walk = (dir) => {
     if (!name.endsWith(".html")) continue;
     const html = readFileSync(f, "utf8");
     if (!html.includes('name="woolet-legacy-redirect"')) continue;
-    const m = html.match(/http-equiv="refresh" content="0; url=https:\/\/woolet\.co([^"]*)"/);
-    if (!m) continue;
-    const t = m[1];
-    const targetIsPage = t && has(t) && !isStub(t);
-    if (targetIsPage && st.size < 3072) thin.push(`${f.slice(DIST.length)} (${st.size} B -> ${t})`);
+    const head = html.split(/<head>/i)[1] ?? "";
+    const ok =
+      /^\s*<meta http-equiv="refresh" content="0; url=https:\/\/[^"]+">\s*<link rel="canonical" href="https:\/\/[^"]+">\s*<meta name="robots" content="noindex, follow">/.test(head) &&
+      st.size < 2048;
+    if (!ok) bad.push(`${f.slice(DIST.length)} (${st.size} B)`);
   }
 };
 walk(DIST);
-if (thin.length) errors.push(...thin.map((x) => `thin redirect stub: ${x}`));
+if (bad.length) errors.push(...bad.map((x) => `malformed redirect stub: ${x}`));
 
 console.log(`[audit-routes] ${concrete.size} concrete App.tsx paths: ${pre} prerendered, ${stub} redirect stubs, ${allowed} allow-listed fallback`);
 if (errors.length) {

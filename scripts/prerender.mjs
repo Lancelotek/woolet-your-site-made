@@ -21,7 +21,7 @@
 
 import { spawn } from "node:child_process";
 import { mkdir, writeFile, readFile, rm } from "node:fs/promises";
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
@@ -127,8 +127,18 @@ const NOSCRIPT_OVERRIDES = {
 };
 
 /** Resolve the final noscript HTML for a route, preferring overrides. */
+// Hydrated-body snapshots of /en/collections/* (refresh with
+// `python3 scripts/snapshot-collections.py` after editing collection copy).
+globalThis.__wooletCollectionSnapshots = (() => {
+  try {
+    return JSON.parse(readFileSync(resolve(ROOT, "src/seo/collection-snapshots.json"), "utf8"));
+  } catch {
+    return {};
+  }
+})();
+
 function getNoscriptContent(route, fallback) {
-  const content = NOSCRIPT_OVERRIDES[route] ?? fallback;
+  const content = NOSCRIPT_OVERRIDES[route] ?? globalThis.__wooletCollectionSnapshots?.[route] ?? fallback;
   if (!content?.includes("{{BLOG_UPDATED_MONTH}}")) return content;
   // Resolve this route's slug, using the same source as Article dateModified.
   const slug = /^\/[a-z]{2}\/blog\/([^/]+)\/?$/.exec(route)?.[1];
@@ -303,12 +313,15 @@ async function main() {
     }
   }
 
-  // Legacy redirects (single source: src/seo/legacyRedirects.ts). Each
-  // legacy path gets a tiny HTML page: canonical=TARGET, meta refresh,
-  // window.location.replace — and NO noindex, so link equity follows.
+  // Legacy / alias redirects (single source: src/seo/legacyRedirects.ts +
+  // src/seo/routeRedirects.ts). Soft-404 fix 15.10.2026: each source gets a
+  // minimal redirect document — first head tags are meta refresh 0,
+  // canonical=TARGET and robots "noindex, follow"; body is one
+  // "Continue to TARGET" link. No copied page content, no SPA shell.
   const escAttr = (v) => String(v).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
   const legacy = mod.ALL_REDIRECTS ?? mod.LEGACY_REDIRECTS ?? {};
   let legacyCount = 0;
+  const emittedSources = [];
   const shadowed = Object.keys(legacy).filter((f) => routes.includes(f));
   if (shadowed.length) {
     console.error(`[prerender] FAILED — redirect sources that are real pages:\n  ${shadowed.join("\n  ")}`);
@@ -316,30 +329,19 @@ async function main() {
   }
   for (const [from, to] of Object.entries(legacy)) {
     if (from === "/index.html" || from === "/") continue;
-    const target = `https://woolet.co${to}`;
-    const redirectTags = `<meta name="woolet-legacy-redirect" content="1" />
-<meta http-equiv="refresh" content="0; url=${target}" />
-<script>window.location.replace(${JSON.stringify(to)} + window.location.search + window.location.hash);</script>`;
-    const targetHtml = renderedHtml.get(to);
-    let page;
-    if (targetHtml) {
-      // Full copy of the target (Soft-404 fix 12.10.2026): same head,
-      // noscript article and JSON-LD; canonical/og:url/data-route already
-      // point at the target. Drop hreflang (a duplicate must not declare a
-      // cluster); never add noindex.
-      page = targetHtml
-        .replace(/<link\b[^>]*\bhreflang=[^>]*>\s*/gi, "")
-        .replace(/<head([^>]*)>/i, `<head$1>\n${redirectTags}`);
-    } else {
-      const label = /^https?:/.test(to) ? to : target;
-      page = `<!doctype html>
-<html lang="en"><head><meta charset="utf-8" />
-${redirectTags}
-<title>This page is now at ${escAttr(label)} - Woolet</title>
-<link rel="canonical" href="${escAttr(target)}" />
-</head><body><p>This Woolet page now lives at a new address: <a href="${escAttr(target)}">${escAttr(label)}</a>.</p></body></html>
+    const target = /^https?:/.test(to) ? to : `https://woolet.co${to}`;
+    const page = `<!doctype html>
+<html lang="en"><head>
+<meta http-equiv="refresh" content="0; url=${escAttr(target)}">
+<link rel="canonical" href="${escAttr(target)}">
+<meta name="robots" content="noindex, follow">
+<meta charset="utf-8">
+<meta name="woolet-legacy-redirect" content="1">
+<title>Continue to ${escAttr(target)}</title>
+<script>window.location.replace(${JSON.stringify(to)} + window.location.search + window.location.hash);</script>
+</head><body><p><a href="${escAttr(target)}">Continue to ${escAttr(target)}</a></p></body></html>
 `;
-    }
+    emittedSources.push(`${from} -> ${to}`);
     const variants = new Set([
       from,
       from.toLowerCase(),
@@ -369,26 +371,15 @@ ${redirectTags}
   console.log(`[prerender] wrote ${ok} route files to dist/`);
 
   // ------------------------------------------------------------------
-  // Patch the fallback dist/index.html so that:
-  //   • the bare root URL "/" carries a self-referencing canonical to /en,
-  //     robots="noindex, follow", and a <noscript> meta refresh to /en for
-  //     crawlers that don't execute JavaScript.
-  //   • any request that falls back to dist/index.html (unknown route)
-  //     ships robots="noindex, follow" so soft-404 URLs stop being indexed.
-  // The SPA still hydrates on top — RootRedirect Navigate("/en") handles
-  // JS users, and NotFound's Helmet block overrides robots to noindex,nofollow
-  // for real 404 routes.
+  // Patch the fallback dist/index.html (host fallback for unknown paths):
+  //   • robots "noindex", no canonical, no homepage content — the static
+  //     body is a "Page not found" block; the SPA renders NotFound on top.
+  //   • the bare root "/" is sent to /en by an inline script (and the router).
   try {
     const fallbackPath = resolve(DIST, "index.html");
     let fallback = await readFile(fallbackPath, "utf8");
-    // Strip any existing canonical/robots so we don't double up.
     fallback = fallback.replace(/<link\s+rel=["']canonical["'][^>]*>\s*/gi, "");
     fallback = fallback.replace(/<meta\s+name=["']robots["'][^>]*>\s*/gi, "");
-    // The SPA template ships homepage-specific og:url / og:title /
-    // og:description. Every route that falls back to this shell would then
-    // preview as the homepage on non-JS social crawlers. Strip the
-    // page-specific social tags and re-emit brand-level ones that point at
-    // /en (the URL this shell actually resolves to).
     fallback = fallback.replace(
       /<meta\s+property=["']og:(url|title|description)["'][^>]*>\s*/gi,
       "",
@@ -397,26 +388,24 @@ ${redirectTags}
       /<meta\s+name=["']twitter:(title|description)["'][^>]*>\s*/gi,
       "",
     );
+    fallback = fallback.replace(/<title[^>]*>[\s\S]*?<\/title>/i, "<title>Page not found | Woolet</title>");
     const softHead = [
-      `<link rel="canonical" href="https://woolet.co/en" data-seo="prerender" />`,
-      `<meta name="robots" content="noindex, follow" data-seo="prerender" />`,
-      `<meta property="og:url" content="https://woolet.co/en" data-seo="prerender" />`,
-      `<meta property="og:title" content="Woolet - Eyewear for Wide Faces (158 mm)" data-seo="prerender" />`,
-      `<meta property="og:description" content="Premium frames engineered for wide faces (155 mm+). Mazzucchelli acetate, hand made in EU." data-seo="prerender" />`,
-      `<meta name="twitter:title" content="Woolet - Eyewear for Wide Faces (158 mm)" data-seo="prerender" />`,
-      `<meta name="twitter:description" content="Premium frames engineered for wide faces (155 mm+). Mazzucchelli acetate, hand made in EU." data-seo="prerender" />`,
+      `<meta name="robots" content="noindex" data-seo="prerender" />`,
+      `<meta property="og:title" content="Page not found | Woolet" data-seo="prerender" />`,
+      `<script>if(location.pathname==="/")location.replace("/en"+location.search+location.hash);</script>`,
     ].join("\n    ");
-    fallback = fallback.replace("</head>", `    ${softHead}\n    <!-- fallback: soft-404 + root redirect -->\n  </head>`);
-    // Add a no-JS refresh + link to /en inside <body>, so crawlers without JS
-    // (and users with JS disabled) end up on the real homepage instead of the
-    // empty SPA shell. This sits inside <noscript> so it never runs when the
-    // SPA is executing.
-    const softBody = `<noscript><meta http-equiv="refresh" content="0; url=/en"><p style="font:14px system-ui;padding:2rem;text-align:center">Go to the <a href="/en">Woolet English homepage</a>.</p></noscript>`;
-    if (!fallback.includes('<noscript><meta http-equiv="refresh"')) {
-      fallback = fallback.replace("</body>", `    ${softBody}\n  </body>`);
+    fallback = fallback.replace("</head>", `    ${softHead}\n    <!-- fallback: 404 shell -->\n  </head>`);
+    // Replace the homepage <noscript> block with a real not-found view.
+    const notFound = `<noscript><main><h1>Page not found</h1><p>The page you were looking for doesn&rsquo;t exist or has moved.</p><ul><li><a href="/en">Return to home</a></li><li><a href="/en/collection">Browse the collection</a></li><li><a href="/en/fit">Find your fit</a></li></ul></main></noscript>`;
+    fallback = fallback.replace(
+      /<noscript>\s*<header>[\s\S]*?Italian Acetate Eyewear for Wide Faces[\s\S]*?<\/noscript>/i,
+      notFound,
+    );
+    if (!fallback.includes("<h1>Page not found</h1>")) {
+      fallback = fallback.replace("</body>", `    ${notFound}\n  </body>`);
     }
     await writeFile(fallbackPath, fallback, "utf8");
-    console.log(`[prerender] patched dist/index.html with soft-404 head + noscript refresh`);
+    console.log(`[prerender] patched dist/index.html as noindex 404 shell`);
     // NOTE: dist/index.html is the SPA shell + host fallback for every
     // non-prerendered route. Never overwrite it with a redirect stub —
     // /index.html → /en is handled only by the router (legacyRedirects.ts).
