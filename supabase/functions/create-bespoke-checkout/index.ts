@@ -116,7 +116,7 @@ Deno.serve(async (req) => {
       metadata: cleanMeta,
     });
 
-    return new Response(JSON.stringify({ clientSecret: session.client_secret }), {
+    return new Response(JSON.stringify({ clientSecret: session.client_secret, sessionId: session.id, amountCents: amountInCents }), {
       status: 200,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });

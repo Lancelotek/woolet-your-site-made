@@ -5,6 +5,7 @@ import HeardFromQuestion from "@/components/HeardFromQuestion";
 import { useSearchParams } from "react-router-dom";
 import { trackGoogleAdsConversion } from "@/lib/google-ads";
 import { trackReservationPurchase } from "@/lib/ga4-purchase";
+import { oaiqReservation } from "@/lib/openai-pixel";
 import wooletLogoAsset from "@/assets/woolet-logo.png.asset.json";
 
 const wooletLogo = wooletLogoAsset.url;
@@ -77,6 +78,7 @@ export default function ThankYouReserved() {
     if (!paid) return;
     trackGoogleAdsConversion(paymentRef);
     trackReservationPurchase(paymentRef, "thank_you_reserved");
+    oaiqReservation(paymentRef);
   }, [paid, paymentRef]);
 
   const downloadPdf = async () => {

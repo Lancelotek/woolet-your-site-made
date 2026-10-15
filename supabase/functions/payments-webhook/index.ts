@@ -972,11 +972,44 @@ async function resolvePaidSource(
   return { paidSource: [source, medium, campaign].filter(Boolean).join("/"), metadata: meta };
 }
 
+// OpenAI (ChatGPT Ads) Conversions API — server duplicate of the browser
+// order_created; same id (Stripe session id) deduplicates. Bespoke only.
+async function sendOpenAiOrderCreated(session: any) {
+  try {
+    if (session?.payment_status === "unpaid") return;
+    const key = Deno.env.get("OPENAI_CONVERSIONS_API_KEY");
+    if (!key) {
+      console.warn("[payments-webhook:openai] OPENAI_CONVERSIONS_API_KEY not set — skipping order_created");
+      return;
+    }
+    const oppref = session?.metadata?.openai_oppref;
+    const event: Record<string, unknown> = {
+      id: session.id,
+      type: "order_created",
+      timestamp_ms: Date.now(),
+      action_source: "web",
+      source_url: "https://woolet.co/en/bespoke",
+      data: { type: "contents", amount: session.amount_total ?? 0, currency: "USD" },
+      ...(oppref ? { oppref } : {}),
+    };
+    const res = await fetch("https://bzr.openai.com/v1/events?pid=PZ4o6trkntv1aiioMM7GJ7", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ events: [event] }),
+    });
+    if (!res.ok) console.error("[payments-webhook:openai] non-ok", res.status, (await res.text()).slice(0, 300));
+    else console.log("[payments-webhook:openai] order_created sent", session.id);
+  } catch (e) {
+    console.error("[payments-webhook:openai] error", e);
+  }
+}
+
 async function handleCheckoutCompleted(session: any, env: StripeEnv) {
   const flow = session?.metadata?.flow;
   if (flow === "bespoke") {
     await handleBespokeCheckoutCompleted(session, env);
     await fireMetaPurchase(session);
+    await sendOpenAiOrderCreated(session);
     if (env === "live") {
       try {
         const { paidSource, metadata } = await resolvePaidSource(session, createStripeClient(env));

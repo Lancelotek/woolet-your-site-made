@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { findFrame } from "@/data/frames";
+import { oaiqBespokeViewed } from "@/lib/openai-pixel";
 import { isValidLang, type Lang } from "@/lib/i18n";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import SEO from "@/components/SEO";
@@ -190,6 +191,7 @@ const BespokePage = () => {
   const atelier = ATELIER_I18N[(lang ?? "en") as keyof typeof ATELIER_I18N] ?? ATELIER_I18N.en;
 
   const heroCtaRef = useRef<HTMLDivElement>(null);
+  useEffect(() => { oaiqBespokeViewed(); }, []);
   const [showStickyCta, setShowStickyCta] = useState(false);
   useEffect(() => {
     const el = heroCtaRef.current;

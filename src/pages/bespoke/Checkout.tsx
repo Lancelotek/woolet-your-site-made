@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { getGaCheckoutMetadata } from "@/lib/ga-ids";
+import { getOppref, oaiqBespokeCheckoutStarted, oaiqBespokeOrderCreated } from "@/lib/openai-pixel";
 import { Link, useNavigate } from "react-router-dom";
 import { ChevronLeft, Sparkles, ShieldCheck, Lock, Scissors, Truck } from "lucide-react";
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from "@stripe/react-stripe-js";
@@ -237,6 +238,37 @@ export default function BespokeCheckout() {
     return params.get("paid") === "1" ? params.get("session_id") || "" : "";
   }, []);
 
+  // --- OpenAI pixel: order_created once the paid order exists (webhook-confirmed).
+  useEffect(() => {
+    if (!paidSessionId) return;
+    let cancelled = false;
+    let tries = 0;
+    const poll = async () => {
+      if (cancelled) return;
+      tries += 1;
+      try {
+        const base = import.meta.env.VITE_SUPABASE_URL;
+        const res = await fetch(`${base}/functions/v1/bespoke-order-get?sid=${encodeURIComponent(paidSessionId)}`, {
+          headers: { apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY },
+        });
+        if (res.ok) {
+          const json = await res.json();
+          const order = json?.order ?? json;
+          const cents = Number(order?.amount_cents);
+          if (order?.stripe_session_id && Number.isFinite(cents) && cents > 0) {
+            oaiqBespokeOrderCreated(cents, paidSessionId);
+            return;
+          }
+        }
+      } catch {
+        /* retry */
+      }
+      if (tries < 10 && !cancelled) window.setTimeout(poll, 3000);
+    };
+    void poll();
+    return () => { cancelled = true; };
+  }, [paidSessionId]);
+
   // --- Analytics: Purchase completed (once, on ?paid=1) ----------------------
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -287,7 +319,7 @@ export default function BespokeCheckout() {
         productName,
         description,
         returnUrl,
-        metadata: { ...metadata, ...getGaCheckoutMetadata() },
+        metadata: { ...metadata, ...getGaCheckoutMetadata(), ...(getOppref() ? { openai_oppref: getOppref() } : {}) },
         environment: getStripeEnvironment(),
       },
     });
@@ -297,6 +329,12 @@ export default function BespokeCheckout() {
         error_message: (error?.message || "no_client_secret").slice(0, 140),
       });
       throw new Error(error?.message || "Failed to create checkout session");
+    }
+    if (typeof data.sessionId === "string") {
+      oaiqBespokeCheckoutStarted(
+        typeof data.amountCents === "number" ? data.amountCents : Math.round(pricing.totalEur * 100),
+        data.sessionId,
+      );
     }
     return data.clientSecret as string;
     // eslint-disable-next-line react-hooks/exhaustive-deps
