@@ -366,7 +366,6 @@ async function main() {
     }
   }
   console.log(`[prerender] wrote ${legacyCount} redirect stub pages (${Object.keys(legacy).length} redirect sources)`);
-  await writeFile(resolve(DIST, "redirect-sources.txt"), emittedSources.sort().join("\n") + "\n", "utf8").catch(() => {});
 
   console.log(`[prerender] done: ${ok} ok, ${fail} failed, ${routes.length} total`);
   console.log(`[prerender] wrote ${ok} route files to dist/`);
@@ -389,7 +388,7 @@ async function main() {
       /<meta\s+name=["']twitter:(title|description)["'][^>]*>\s*/gi,
       "",
     );
-    fallback = fallback.replace(/<title>[\s\S]*?<\/title>/i, "<title>Page not found | Woolet</title>");
+    fallback = fallback.replace(/<title[^>]*>[\s\S]*?<\/title>/i, "<title>Page not found | Woolet</title>");
     const softHead = [
       `<meta name="robots" content="noindex" data-seo="prerender" />`,
       `<meta property="og:title" content="Page not found | Woolet" data-seo="prerender" />`,
