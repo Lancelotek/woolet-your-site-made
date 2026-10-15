@@ -47,6 +47,7 @@ import {
   readResultTimestamp,
   type FitLensMeasurements,
 } from "@/lib/fitlens-result";
+import { createFitLensResultDedupe } from "@/lib/fitlens-result-dedupe";
 import { recordFitLensEvent } from "@/lib/fitlens-verify";
 import { QRCodeSVG } from "qrcode.react";
 
@@ -4371,6 +4372,7 @@ export default function FitScan() {
   const [fitLensMeasurements, setFitLensMeasurements] = useState<FitLensMeasurements | null>(null);
   // When the current FitLens run was opened — used to discard replayed results.
   const fitLensOpenedAtRef = useRef<number | null>(null);
+  const fitLensResultDedupeRef = useRef(createFitLensResultDedupe());
   const [errorKind, setErrorKind] = useState<"recoverable" | "unsupported" | null>(null);
   const [cameraErrorType, setCameraErrorType] = useState<CameraErrorType | null>(null);
   const [supported, setSupported] = useState<boolean>(true);
@@ -4445,6 +4447,10 @@ export default function FitScan() {
   useEffect(() => {
     const onResult = (event: Event) => {
       const detail = (event as CustomEvent).detail;
+
+      // The embed and our message bridge can both dispatch the same result —
+      // process each scan once (measurementId, or measurements+timestamp).
+      if (fitLensResultDedupeRef.current.isDuplicate(detail)) return;
 
       // Guard against the embed replaying a cached result from a previous run:
       // anything stamped before the current scan was opened is stale.

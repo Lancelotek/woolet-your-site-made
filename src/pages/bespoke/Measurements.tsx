@@ -10,6 +10,7 @@ import { lensWithStrength, needsReadingStrength } from "@/lib/bespoke-gaps";
 import { clarityEvent, claritySet, clarityUpgrade } from "@/lib/clarity";
 import { useFitLensScript } from "@/hooks/use-fitlens-script";
 import { parseFitLensEvent, type FitLensMeasurements } from "@/lib/fitlens-result";
+import { createFitLensResultDedupe } from "@/lib/fitlens-result-dedupe";
 import { recordFitLensEvent, SCAN_SOURCE_LABEL, type ScanSource } from "@/lib/fitlens-verify";
 import { BESPOKE_DISCOVERY_SOURCES, isBespokeDiscoverySource, type BespokeDiscoverySource } from "@/content/bespokeFacts";
 
@@ -226,6 +227,7 @@ export default function BespokeMeasurements() {
   // The scan reference is the order's, not the browser's, so a customer who
   // opens the emailed link on a second device still measures against this order.
   const { openFitLens } = useFitLensScript({ sessionRef });
+  const resultDedupeRef = useRef(createFitLensResultDedupe());
 
   // TRUST NOTE: this result arrives as a browser CustomEvent, which anyone can
   // dispatch from a devtools console — the event alone proves nothing. What we
@@ -236,6 +238,8 @@ export default function BespokeMeasurements() {
   const handleScanResult = useCallback(
     (event: Event) => {
       const detail = (event as CustomEvent).detail;
+      // The embed and our message bridge can both dispatch the same result.
+      if (resultDedupeRef.current.isDuplicate(detail)) return;
       const parsed = parseFitLensEvent(detail);
       const measurements = parsed.measurements;
       if (Object.keys(measurements).length === 0) {
