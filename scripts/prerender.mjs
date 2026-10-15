@@ -388,7 +388,7 @@ async function main() {
       /<meta\s+name=["']twitter:(title|description)["'][^>]*>\s*/gi,
       "",
     );
-    fallback = fallback.replace(/<title[^>]*>[\s\S]*?<\/title>/i, "<title>Page not found | Woolet</title>");
+    fallback = fallback.replace(/<title[^>]*>[\s\S]*?<\/title>/i, "<title data-seo=\"prerender\">Page not found | Woolet</title>");
     const softHead = [
       `<meta name="robots" content="noindex" data-seo="prerender" />`,
       `<meta property="og:title" content="Page not found | Woolet" data-seo="prerender" />`,
