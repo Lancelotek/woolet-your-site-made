@@ -73,7 +73,7 @@ const BlogIndex = () => {
                 onClick={() => pushGtmEvent("blog_click", { blog_slug: post.slug, blog_title: post.title, blog_lang: currentLang })}
                 className="group no-underline block py-7 sm:py-9 transition-colors hover:bg-surface/40"
                 style={i < posts.length - 1 ? { borderBottom: "1px solid hsl(0 0% 100% / 0.055)" } : undefined}
-                aria-label={`Read full article: ${post.title}`}
+                aria-label={`${currentLang === "pl" ? "Czytaj artykuł" : "Read full article"}: ${post.title}`}
               >
                 <div className="flex flex-col gap-3">
                   <div className="flex items-center gap-3 flex-wrap">

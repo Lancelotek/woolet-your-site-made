@@ -14,7 +14,7 @@
 
 import { commerceJson } from "../lib/schema-offer";
 import { STORY_TITLE, STORY_DESCRIPTION, STORY_CRAWLER_HTML, STORY_JSONLD } from "@/content/our-story";
-import { SUPPORTED_LANGS, INDEXABLE_LANGS, type Lang } from "@/lib/i18n";
+import { SUPPORTED_LANGS, INDEXABLE_LANGS, t, type Lang } from "@/lib/i18n";
 import { blogMetaBySlug } from "@/lib/blog-meta";
 import { hreflangAlternates } from "@/i18n/routeRegistry";
 // Re-export so scripts/generate-sitemap.mjs can consume the SAME cluster
