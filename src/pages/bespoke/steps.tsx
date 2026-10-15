@@ -915,7 +915,9 @@ export function AiPreviewPanel({
   );
 }
 
-export function StepColor({ config, update }: StepProps) {
+const DEFAULT_TAG = <span className="ml-2 text-[10px] uppercase tracking-[0.14em] text-gold-light/80">Default - tap another to change</span>;
+
+export function StepColor({ config, update, defaults = {} }: StepProps & { defaults?: { front?: boolean; temple?: boolean; finish?: boolean } }) {
   const front = COLORS.find((c) => c.id === config.frontColorId);
   const temple = COLORS.find((c) => c.id === config.templeColorId);
   return (
@@ -928,24 +930,24 @@ export function StepColor({ config, update }: StepProps) {
         </p>
       </header>
 
-      <div>
+      <div id="cfg-group-front">
         <div className={labelClass}>Front acetate</div>
         <div className="mt-3"><ColorSwatchGrid selected={config.frontColorId} onSelect={(id) => update("frontColorId", id)} /></div>
         {front && (
-          <div className="text-cream text-xs mt-2">{front.name}</div>
+          <div className="text-cream text-xs mt-2">{front.name}{defaults.front && DEFAULT_TAG}</div>
         )}
       </div>
 
-      <div>
+      <div id="cfg-group-temple">
         <div className={labelClass}>Temple acetate <span className="text-cream-dim/70 font-normal normal-case tracking-normal">— 4 mm sheets only</span></div>
         <div className="mt-3"><ColorSwatchGrid selected={config.templeColorId} onSelect={(id) => update("templeColorId", id)} thicknessMm={4} /></div>
         {temple && (
-          <div className="text-cream text-xs mt-2">{temple.name}</div>
+          <div className="text-cream text-xs mt-2">{temple.name}{defaults.temple && DEFAULT_TAG}</div>
         )}
       </div>
 
-      <div>
-        <div className={labelClass}>Finish</div>
+      <div id="cfg-group-finish">
+        <div className={labelClass}>Finish{defaults.finish && config.finishId && DEFAULT_TAG}</div>
         <div className="cfg-swatchstrip mt-3 grid grid-cols-3 gap-2.5">
           {FINISHES.map((f) => {
             const active = config.finishId === f.id;
@@ -2233,6 +2235,7 @@ export function StepNav({
   onNext,
   canNext,
   isLast,
+  blockedLabel,
 }: {
   step: number;
   total: number;
@@ -2240,6 +2243,8 @@ export function StepNav({
   onNext: () => void;
   canNext: boolean;
   isLast: boolean;
+  /** Shown instead of "Next" while the step is incomplete; the click still points to the missing picker. */
+  blockedLabel?: string | null;
 }) {
   return (
     <div className="flex items-center justify-between gap-4 mt-12 pt-6 border-t border-cream/10">
@@ -2256,9 +2261,10 @@ export function StepNav({
       {!isLast && (
         <button
           onClick={onNext}
-          className={`inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gold text-background text-xs uppercase tracking-[0.18em] font-medium transition ${canNext ? "hover:bg-gold-light" : "opacity-60"}`}
+          aria-disabled={!canNext ? "true" : undefined}
+          className={`inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs uppercase tracking-[0.18em] font-medium transition ${canNext ? "bg-gold text-background hover:bg-gold-light" : "bg-cream/10 text-cream-dim cursor-not-allowed"}`}
         >
-          Next <ChevronRight size={14} />
+          {!canNext && blockedLabel ? blockedLabel : <>Next <ChevronRight size={14} /></>}
         </button>
       )}
     </div>
