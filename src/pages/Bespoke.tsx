@@ -181,6 +181,12 @@ const FAQS = BESPOKE_FAQS;
 const BespokePage = () => {
   const { lang: paramLang } = useParams();
   const lang: Lang = paramLang && isValidLang(paramLang) ? paramLang : "en";
+  // Collection cards land here with ?shape= so visitors read the explainer first;
+  // every "Build your frame" button then carries that shape into the configurator.
+  const [searchParams] = useSearchParams();
+  const shapeParam = searchParams.get("shape");
+  const selectedShape = shapeParam && findFrame(shapeParam) ? shapeParam : null;
+  const cfgHref = selectedShape ? `/en/bespoke/configurator?shape=${selectedShape}` : "/en/bespoke/configurator";
   const atelier = ATELIER_I18N[(lang ?? "en") as keyof typeof ATELIER_I18N] ?? ATELIER_I18N.en;
 
   const heroCtaRef = useRef<HTMLDivElement>(null);
