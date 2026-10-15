@@ -15,7 +15,7 @@ SERIALIZE = r"""
 () => {
   const root = document.querySelector('main') || document.querySelector('#root');
   const clone = root.cloneNode(true);
-  clone.querySelectorAll('nav, header, footer, script, style, svg, img, picture, video, iframe, form, [aria-hidden="true"], .sr-only').forEach(n => n.remove());
+  clone.querySelectorAll('body > nav, main > footer, script, style, svg, img, picture, video, iframe, form, [aria-hidden="true"], .sr-only').forEach(n => n.remove());
   const KEEP = new Set(['H1','H2','H3','H4','P','UL','OL','LI','A','TABLE','THEAD','TBODY','TR','TH','TD','DL','DT','DD','STRONG','EM','BLOCKQUOTE']);
   const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   const BLOCK = new Set(['DIV','SECTION','ARTICLE','BUTTON','SUMMARY','DETAILS','FIGURE','FIGCAPTION','ASIDE','LABEL']);
