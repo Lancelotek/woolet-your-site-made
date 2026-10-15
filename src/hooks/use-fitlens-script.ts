@@ -129,7 +129,7 @@ export function useFitLensScript(options?: { sessionRef?: string | null }) {
             const ev = new CustomEvent("fitlens:result", { detail: payload, bubbles: true });
             (ev as CustomEvent & { __wooletBridge?: boolean }).__wooletBridge = true;
             document.dispatchEvent(ev);
-          }, 50);
+          }, 400);
         }
       }
 
