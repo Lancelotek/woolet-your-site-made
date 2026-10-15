@@ -71,7 +71,7 @@ const PRODUCT_IMAGES = {
   "009": [`${SITE}/og-009.png`, `${SITE}/og-image.png`],
   generic: [`${SITE}/og-image.png`, `${SITE}/og-007.png`, `${SITE}/og-009.png`]
 };
-const isType = (n, t) => (n == null ? void 0 : n["@type"]) === t || Array.isArray(n == null ? void 0 : n["@type"]) && n["@type"].includes(t);
+const isType = (n, t2) => (n == null ? void 0 : n["@type"]) === t2 || Array.isArray(n == null ? void 0 : n["@type"]) && n["@type"].includes(t2);
 const isAbs = (v) => typeof v === "string" && /^https?:\/\//.test(v);
 function imagesFor(n) {
   const key = `${n.name ?? ""} ${n.sku ?? ""} ${n.productID ?? ""}`;
@@ -149,7 +149,826 @@ function normalizeCommerceJsonLd(obj) {
   }
 }
 const commerceJson = (obj) => JSON.stringify(normalizeCommerceJsonLd(obj));
+const STORY_TITLE = "Woolet Story: From Smart Wallets to Glasses for Wide Faces";
+const STORY_DESCRIPTION = "Woolet started in 2015 with a smart wallet backed by 2,627 people on Kickstarter. Today we make 158 mm glasses for wide faces. Here is why.";
+const STORY_CTA = "JOIN THE LIST - 40% OFF";
+const STORY_FIT_LINK = "Not sure about your size? Measure your face width in 60 seconds →";
+const STORY_SIGNATURE = "Marek Cieśla, founder";
+const STORY_PHOTOS = {
+  collection: { file: "woolet-smart-wallet-2015-collection", width: 1200, height: 902, alt: "The original Woolet smart wallet collection from the 2015 Kickstarter campaign: slim leather wallets, phone sleeves and key fobs" },
+  desk: { file: "woolet-smart-wallet-2015-desk", width: 1200, height: 799, alt: "Woolet smart wallet in brown leather next to an iPhone, glasses and a watch, 2015" },
+  slim: { file: "woolet-smart-wallet-2015-slim-vs-standard", width: 1200, height: 796, alt: "A bulky standard wallet next to the slim Woolet smart wallet" },
+  workshop: { file: "woolet-smart-wallet-2015-workshop", width: 1200, height: 675, alt: "Cutting leather for Woolet smart wallets in the workshop, 2015" },
+  dog: { file: "woolet-smart-wallet-2015-dog", width: 1200, height: 748, alt: "A dog carrying a black Woolet smart wallet" }
+};
+function photo(key, caption) {
+  const image = STORY_PHOTOS[key];
+  return `<figure><picture><source type="image/webp" srcset="/images/${image.file}.webp"><img src="/images/${image.file}.jpg" alt="${image.alt}" width="${image.width}" height="${image.height}" loading="${key === "collection" ? "eager" : "lazy"}" ${key === "collection" ? 'fetchpriority="high"' : 'decoding="async"'}></picture>${caption ? `<figcaption>${caption}</figcaption>` : ""}</figure>`;
+}
+const STORY_HTML = `<header class="story-opening">
+<h1>Woolet started with a <em>wallet.</em> Now we make glasses for wide faces.</h1>
+<p class="story-intro">Every Woolet product starts with a problem I can't ignore.</p>
+</header>
+${photo("collection")}
+<section class="story-chapter">
+<h2>Chapter one: a wallet for people who <em>forget</em></h2>
+<p>In 2015, my friend Teodor kept losing his wallet. So we built one he couldn't leave behind - a smart wallet that warned you before it was gone. On Kickstarter, 2,627 backers pledged $332,694.</p>
+${photo("desk")}
+<p>Our first factory was in Gdańsk, Poland. Costs pushed production to China. For years, Woolet wallets shipped worldwide - from Saudi Arabia to the United States and Australia.</p>
+<div class="story-photo-row">${photo("slim", "Slim by design.")}${photo("workshop", "Hand-finished leather.")}${photo("dog", "Built to be found.")}</div>
+</section>
+<section class="story-chapter">
+<h2>What <em>changed</em></h2>
+<p>Then phones became wallets, and AirTags made tracking a built-in feature. The problem we solved got solved by the platforms. We closed that chapter.</p>
+</section>
+<section class="story-chapter">
+<h2>Chapter two: my own <em>face</em></h2>
+<figure><img src="/images/founder-portrait-1.webp" alt="Marek Cieśla, founder of Woolet, wearing Woolet glasses for wide faces" width="1600" height="893" loading="lazy" decoding="async"></figure>
+<p>I have a wide face. For years I searched for glasses that weren't sporty. Oakleys run wide, but they're plastic and look it. I needed frames wide enough to stop squeezing my temples - and wide enough to make my head look smaller, not bigger.</p>
+<p>I grew a beard to stretch my face visually. In standard frames I still looked like a Russian bear on a kid's bike. The frames made my face bigger.</p>
+<p>Then I noticed how many of my friends had the same problem.</p>
+</section>
+<section class="story-chapter">
+<h2>158 <em>mm</em></h2>
+<p>I designed our first frames with a small family workshop in Bielsko-Biała, Poland - four people, Italian acetate. I chose a front width you won't find at a regular optician: 158 mm. It hit the bullseye.</p>
+</section>
+<section class="story-chapter">
+<h2>Same backers, new <em>problem</em></h2>
+<p>The people who backed the wallet are getting ready to back the glasses. Woolet launches on Kickstarter on October 29.</p>
+</section>`;
+const STORY_CRAWLER_HTML = `<article>${STORY_HTML}<div><a href="/en/lp/kickstarter">${STORY_CTA}</a><p><a href="/en/fit">${STORY_FIT_LINK}</a></p></div><p>${STORY_SIGNATURE}</p></article>`;
+const STORY_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "@id": "https://woolet.co/en/our-story#webpage",
+  name: STORY_TITLE,
+  description: STORY_DESCRIPTION,
+  url: "https://woolet.co/en/our-story",
+  inLanguage: "en",
+  mainEntity: { "@id": "https://woolet.co/#organization" }
+};
 const SUPPORTED_LANGS = ["en", "pl", "fr", "es", "de", "ar", "ja", "nl", "ko"];
+const translations = {
+  en: {
+    "nav.coming_soon": "Coming Soon",
+    "nav.back": "← Back to Home",
+    "nav.blog": "Blog",
+    "nav.collection": "Frames",
+    "nav.fit_quiz": "Find Your Fit",
+    "nav.bespoke": "Bespoke",
+    "hero.eyebrow": "40% Off + Free Shipping — Waitlist Only",
+    "hero.title_1": "Finally frames ",
+    "hero.title_2": "that fit a ",
+    "hero.title_3": "wide face.",
+    "hero.desc": "Woolet 007 & 009 — Italian acetate, precision-engineered for 155mm+ face widths. Extended temples. Wider bridge. Zero compromise on style.",
+    "cta.scan_face_free": "Scan your face — free",
+    "aifit.eyebrow": "AI-FIT · MEASURED FOR YOU",
+    "aifit.h1_em": "Measured",
+    "aifit.h1_rest": " for you — AI-Fit Eyewear for Wide Faces",
+    "aifit.desc_before": "Italian Mazzucchelli acetate. AI-fit precision. Two shapes — both ",
+    "aifit.desc_bold": "158 mm wide",
+    "aifit.desc_after": " with a 21–22 mm bridge, plus bespoke from 145 mm. For faces 155 mm and above.",
+    "aifit.waitlist_link": "Not ready? Join the waitlist for exclusive perks →",
+    "aifit.badge_fit": "Fit Guarantee",
+    "aifit.badge_acetate": "Mazzucchelli acetate",
+    "aifit.badge_milano": "Hand-crafted in EU",
+    "matrix.eyebrow": "THE FIT MATRIX",
+    "matrix.h2_pre": "Two shapes. ",
+    "matrix.h2_em": "One precise size.",
+    "matrix.h2_post": " Endless bespoke.",
+    "matrix.intro_1": "Both the 007 round and the 009 soft square ship at ",
+    "matrix.intro_b1": "158 mm wide",
+    "matrix.intro_2": " with a ",
+    "matrix.intro_b2": "21–22 mm keyhole bridge",
+    "matrix.intro_3": " — engineered for faces in the 153-163 mm range. Outside that, bespoke spans ",
+    "matrix.intro_b3": "145 to 160 mm",
+    "matrix.intro_4": " — every width in between, same 21–22 mm bridge, made to your AI scan.",
+    "matrix.col_model": "Model",
+    "matrix.col_shape": "Shape",
+    "matrix.col_width": "Frame width",
+    "matrix.col_bridge": "Bridge",
+    "matrix.col_lens": "Lens",
+    "matrix.col_face": "Target face",
+    "matrix.shape_round": "Round / Panto",
+    "matrix.shape_square": "Soft Square",
+    "matrix.shape_either": "Either",
+    "matrix.sku_bespoke": "Bespoke",
+    "matrix.custom_badge": "CUSTOM",
+    "matrix.face_any": "Any 150 mm+",
+    "matrix.width_bespoke": "145–160 mm",
+    "matrix.lens_custom": "Custom",
+    "matrix.m_width": "Width",
+    "matrix.m_bridge": "Bridge",
+    "matrix.m_lens": "Lens",
+    "matrix.m_face": "Face",
+    "waitlist.label": "Waitlist",
+    "waitlist.spots": "spots",
+    "waitlist.first_name": "First name",
+    "waitlist.email": "Email",
+    "waitlist.face_width": "Your face width",
+    "waitlist.select": "Select — from 155mm",
+    "waitlist.not_sure": "Not sure — I'll measure",
+    "waitlist.interested": "Interested in",
+    "waitlist.cta": "Claim My Spot — 40% Off + Free Shipping",
+    "waitlist.privacy": "I accept the {link}Privacy Policy{/link}",
+    "waitlist.disclaimer": "No credit card. No spam. Unsubscribe anytime.",
+    "waitlist.success_title": "You're on the list — benefits locked in.",
+    "waitlist.success_desc": "Check your inbox for confirmation. Your exclusive benefits at launch:",
+    "waitlist.perk_1": "40% off your first Woolet order — $114 instead of $190",
+    "waitlist.perk_2": "Free worldwide shipping — no minimum",
+    "waitlist.perk_3": "48h early access before the public launch",
+    "benefits.title": "Waitlist Benefits",
+    "benefits.subtitle": "Reserved exclusively for early supporters",
+    "blog.title": "Blog",
+    "blog.subtitle": "Insights on wide-face eyewear, style & fit",
+    "blog.read_more": "Read the wide-face fit guide",
+    "blog.back": "← Back to Blog",
+    "blog.min_read": "min read",
+    "footer.rights": "© 2026 JAY23 LLC — woolet.co — Eyewear for Wide Faces",
+    "footer.privacy": "Privacy Policy",
+    "footer.return": "Return Policy",
+    "footer.cookie_settings": "Cookie settings",
+    "footer.why_fail": "Why Glasses Fail",
+    "footer.5_reasons": "5 Reasons",
+    "collection.title": "The Collection",
+    "collection.007_specs": "Round · 158mm · 52mm lens",
+    "collection.009_specs": "Square · 158mm · 54mm lens",
+    "testimonial.1_quote": `"I've been searching for frames this wide for years. Woolet is the first brand that gets it."`,
+    "testimonial.1_meta": "Marek W.  ·  161mm  ·  Warsaw",
+    "testimonial.2_quote": '"Finally no more marks on my temples at the end of the day."',
+    "testimonial.2_meta": "James R.  ·  158mm  ·  London",
+    "sticky.spots": "30 frames at $114",
+    "sticky.cta": "Join the waitlist · 40% off at launch",
+    "nav.scan_cta": "Scan your face",
+    "nav.shop_label": "Shop"
+  },
+  pl: {
+    "nav.coming_soon": "Wkrótce",
+    "nav.back": "← Powrót",
+    "nav.blog": "Blog",
+    "nav.collection": "Kolekcja",
+    "nav.fit_quiz": "Quiz dopasowania",
+    "nav.bespoke": "Na Miarę",
+    "hero.eyebrow": "40% zniżki + darmowa wysyłka — tylko lista",
+    "hero.title_1": "Wreszcie oprawki",
+    "hero.title_2": "pasujące na",
+    "hero.title_3": "szeroką twarz.",
+    "hero.desc": "Woolet 007 i 009 — włoski octan, precyzyjnie zaprojektowane dla twarzy 155mm+. Wydłużone zauszniki. Szerszy mostek. Zero kompromisów w stylu.",
+    "cta.scan_face_free": "Skanuj twarz — za darmo",
+    "aifit.eyebrow": "AI-FIT · ZMIERZONE DLA CIEBIE",
+    "aifit.h1_em": "Zmierzone",
+    "aifit.h1_rest": " dla Ciebie — okulary AI-Fit na szeroką twarz",
+    "aifit.desc_before": "Włoski octan Mazzucchelli. Precyzja AI-fit. Dwa kształty — oba ",
+    "aifit.desc_bold": "158 mm szerokości",
+    "aifit.desc_after": " z mostkiem 21–22 mm, plus bespoke od 150 mm. Dla twarzy 155 mm i więcej.",
+    "aifit.waitlist_link": "Jeszcze nie teraz? Dołącz do listy po ekskluzywne korzyści →",
+    "aifit.badge_fit": "Gwarancja dopasowania",
+    "aifit.badge_acetate": "Octan Mazzucchelli",
+    "aifit.badge_milano": "Ręcznie wykonane w UE",
+    "matrix.eyebrow": "TABELA DOPASOWANIA",
+    "matrix.h2_pre": "Dwa kształty. ",
+    "matrix.h2_em": "Jeden precyzyjny rozmiar.",
+    "matrix.h2_post": " Jeden bespoke.",
+    "matrix.intro_1": "Zarówno okrągły 007, jak i kwadratowy 009 mają ",
+    "matrix.intro_b1": "158 mm szerokości",
+    "matrix.intro_2": " z ",
+    "matrix.intro_b2": "mostkiem keyhole 21–22 mm",
+    "matrix.intro_3": " — zaprojektowane dla twarzy 153-163 mm. Poza tym zakresem bespoke obejmuje ",
+    "matrix.intro_b3": "145 do 162 mm",
+    "matrix.intro_4": ", ten sam mostek 21–22 mm, wykonany na podstawie Twojego skanu AI.",
+    "matrix.col_model": "Model",
+    "matrix.col_shape": "Kształt",
+    "matrix.col_width": "Szerokość oprawy",
+    "matrix.col_bridge": "Mostek",
+    "matrix.col_lens": "Soczewka",
+    "matrix.col_face": "Twarz docelowa",
+    "matrix.shape_round": "Okrągły / Panto",
+    "matrix.shape_square": "Miękki kwadrat",
+    "matrix.shape_either": "Dowolny",
+    "matrix.sku_bespoke": "Bespoke",
+    "matrix.custom_badge": "NA MIARĘ",
+    "matrix.face_any": "Dowolna 150 mm+",
+    "matrix.width_bespoke": "145–160 mm",
+    "matrix.lens_custom": "Na miarę",
+    "matrix.m_width": "Szerokość",
+    "matrix.m_bridge": "Mostek",
+    "matrix.m_lens": "Soczewka",
+    "matrix.m_face": "Twarz",
+    "waitlist.label": "Lista oczekujących",
+    "waitlist.spots": "miejsc",
+    "waitlist.first_name": "Imię",
+    "waitlist.email": "Email",
+    "waitlist.face_width": "Szerokość twarzy",
+    "waitlist.select": "Wybierz — od 155mm",
+    "waitlist.not_sure": "Nie wiem — zmierzę",
+    "waitlist.interested": "Interesuje mnie",
+    "waitlist.cta": "Zajmij miejsce — 40% zniżki + darmowa wysyłka",
+    "waitlist.privacy": "Akceptuję {link}Politykę Prywatności{/link}",
+    "waitlist.disclaimer": "Bez karty kredytowej. Bez spamu. Wypisz się kiedy chcesz.",
+    "waitlist.success_title": "Jesteś na liście — korzyści zabezpieczone.",
+    "waitlist.success_desc": "Sprawdź skrzynkę. Twoje ekskluzywne benefity przy starcie:",
+    "waitlist.perk_1": "40% zniżki na pierwsze zamówienie — $114 zamiast $190",
+    "waitlist.perk_2": "Darmowa wysyłka na cały świat — bez minimum",
+    "waitlist.perk_3": "48h wcześniejszy dostęp przed publicznym startem",
+    "benefits.title": "Korzyści z listy",
+    "benefits.subtitle": "Zarezerwowane dla wczesnych wspierających",
+    "blog.title": "Blog",
+    "blog.subtitle": "Wiedza o okularach na szeroką twarz, stylu i dopasowaniu",
+    "blog.read_more": "Przeczytaj poradnik o dopasowaniu",
+    "blog.back": "← Powrót do bloga",
+    "blog.min_read": "min czytania",
+    "footer.rights": "© 2026 JAY23 LLC — woolet.co — Okulary na szeroką twarz",
+    "footer.privacy": "Polityka prywatności",
+    "footer.return": "Polityka zwrotów",
+    "footer.cookie_settings": "Ustawienia ciasteczek",
+    "footer.why_fail": "Dlaczego okulary nie pasują",
+    "footer.5_reasons": "5 powodów",
+    "collection.title": "Kolekcja",
+    "collection.007_specs": "Okrągłe · 158 mm · soczewka 52 mm",
+    "collection.009_specs": "Kwadratowe · 158 mm · soczewka 54 mm",
+    "testimonial.1_quote": "„Latami szukałem tak szerokich oprawek. Woolet to pierwsza marka, która to rozumie.”",
+    "testimonial.1_meta": "Marek W.  ·  161 mm  ·  Warszawa",
+    "testimonial.2_quote": "„Wreszcie żadnych odcisków na skroniach po całym dniu.”",
+    "testimonial.2_meta": "Tomasz R.  ·  158 mm  ·  Kraków",
+    "sticky.spots": "30 par oprawek w cenie $114",
+    "sticky.cta": "Dołącz do listy · -40% przy starcie",
+    "nav.scan_cta": "Skanuj twarz",
+    "nav.shop_label": "Sklep"
+  },
+  fr: {
+    "nav.coming_soon": "Bientôt",
+    "nav.back": "← Retour",
+    "nav.blog": "Blog",
+    "nav.collection": "Collection",
+    "nav.fit_quiz": "Quiz taille",
+    "nav.bespoke": "Sur Mesure",
+    "hero.eyebrow": "40% de réduction + livraison gratuite — liste d'attente",
+    "hero.title_1": "Enfin des montures",
+    "hero.title_2": "adaptées aux",
+    "hero.title_3": "visages larges.",
+    "hero.desc": "Woolet 007 & 009 — acétate italien, conçues pour les visages de 155mm+. Branches allongées. Pont élargi. Aucun compromis sur le style.",
+    "cta.scan_face_free": "Scannez votre visage — gratuit",
+    "aifit.eyebrow": "AI-FIT · MESURÉ POUR VOUS",
+    "aifit.h1_em": "Mesurées",
+    "aifit.h1_rest": " pour vous — lunettes AI-Fit pour visages larges",
+    "aifit.desc_before": "Acétate italien Mazzucchelli. Précision AI-fit. Deux formes — toutes deux ",
+    "aifit.desc_bold": "158 mm de largeur",
+    "aifit.desc_after": " avec un pont de 21–22 mm, plus sur-mesure à partir de 150 mm. Pour les visages de 155 mm et plus.",
+    "aifit.waitlist_link": "Pas prêt ? Rejoignez la liste pour des avantages exclusifs →",
+    "aifit.badge_fit": "Garantie d'ajustement",
+    "aifit.badge_acetate": "Acétate Mazzucchelli",
+    "aifit.badge_milano": "Fabriqué à la main en UE",
+    "matrix.eyebrow": "LA GRILLE DES TAILLES",
+    "matrix.h2_pre": "Deux formes. ",
+    "matrix.h2_em": "Une taille précise.",
+    "matrix.h2_post": " Une sur-mesure.",
+    "matrix.intro_1": "La 007 ronde et la 009 carrée arborent toutes deux ",
+    "matrix.intro_b1": "158 mm de largeur",
+    "matrix.intro_2": " avec un ",
+    "matrix.intro_b2": "pont keyhole de 21–22 mm",
+    "matrix.intro_3": " — conçues pour les visages de 153 à 163 mm. Au-delà, le sur-mesure couvre ",
+    "matrix.intro_b3": "145 à 160 mm",
+    "matrix.intro_4": ", même pont de 21–22 mm, réalisé à partir de votre scan AI.",
+    "matrix.col_model": "Modèle",
+    "matrix.col_shape": "Forme",
+    "matrix.col_width": "Largeur monture",
+    "matrix.col_bridge": "Pont",
+    "matrix.col_lens": "Verre",
+    "matrix.col_face": "Visage cible",
+    "matrix.shape_round": "Ronde / Panto",
+    "matrix.shape_square": "Carrée douce",
+    "matrix.shape_either": "Au choix",
+    "matrix.sku_bespoke": "Sur-mesure",
+    "matrix.custom_badge": "SUR MESURE",
+    "matrix.face_any": "Tout 150 mm+",
+    "matrix.width_bespoke": "145–160 mm",
+    "matrix.lens_custom": "Sur-mesure",
+    "matrix.m_width": "Largeur",
+    "matrix.m_bridge": "Pont",
+    "matrix.m_lens": "Verre",
+    "matrix.m_face": "Visage",
+    "waitlist.label": "Liste d'attente",
+    "waitlist.spots": "places",
+    "waitlist.first_name": "Prénom",
+    "waitlist.email": "Email",
+    "waitlist.face_width": "Largeur du visage",
+    "waitlist.select": "Sélectionner — à partir de 155mm",
+    "waitlist.not_sure": "Je ne sais pas — je vais mesurer",
+    "waitlist.interested": "Intéressé par",
+    "waitlist.cta": "Réserver ma place — 40% + livraison gratuite",
+    "waitlist.privacy": "J'accepte la {link}Politique de confidentialité{/link}",
+    "waitlist.disclaimer": "Pas de carte bancaire. Pas de spam. Désinscription à tout moment.",
+    "waitlist.success_title": "Vous êtes sur la liste — avantages verrouillés.",
+    "waitlist.success_desc": "Vérifiez votre boîte mail. Vos avantages exclusifs au lancement :",
+    "waitlist.perk_1": "40% de réduction sur votre première commande — 114$ au lieu de 190$",
+    "waitlist.perk_2": "Livraison mondiale gratuite — sans minimum",
+    "waitlist.perk_3": "Accès anticipé 48h avant le lancement public",
+    "benefits.title": "Avantages de la liste",
+    "benefits.subtitle": "Réservés aux premiers supporters",
+    "blog.title": "Blog",
+    "blog.subtitle": "Conseils sur les lunettes pour visages larges",
+    "blog.read_more": "Lire le guide de l'ajustement",
+    "blog.back": "← Retour au blog",
+    "blog.min_read": "min de lecture",
+    "footer.rights": "© 2026 JAY23 LLC — woolet.co — Lunettes pour visages larges",
+    "footer.privacy": "Politique de confidentialité",
+    "footer.return": "Politique de retour",
+    "footer.cookie_settings": "Paramètres des cookies",
+    "footer.why_fail": "Pourquoi les lunettes ne vont pas",
+    "footer.5_reasons": "5 raisons",
+    "collection.title": "La Collection",
+    "collection.007_specs": "Ronde · 158 mm · verres 52 mm",
+    "collection.009_specs": "Carrée · 158 mm · verres 54 mm",
+    "testimonial.1_quote": "« Je cherchais des montures aussi larges depuis des années. Woolet est la première marque qui comprend. »",
+    "testimonial.1_meta": "Julien M.  ·  161 mm  ·  Paris",
+    "testimonial.2_quote": "« Enfin plus de marques sur les tempes en fin de journée. »",
+    "testimonial.2_meta": "Thomas R.  ·  158 mm  ·  Lyon",
+    "sticky.spots": "30 paires à $114",
+    "sticky.cta": "Rejoignez la liste · -40 % au lancement",
+    "nav.scan_cta": "Scannez votre visage",
+    "nav.shop_label": "Boutique"
+  },
+  es: {
+    "nav.coming_soon": "Próximamente",
+    "nav.back": "← Volver",
+    "nav.blog": "Blog",
+    "nav.collection": "Colección",
+    "nav.fit_quiz": "Quiz de talla",
+    "nav.bespoke": "A Medida",
+    "hero.eyebrow": "40% de descuento + envío gratis — solo lista de espera",
+    "hero.title_1": "Por fin monturas",
+    "hero.title_2": "que se ajustan a",
+    "hero.title_3": "caras anchas.",
+    "hero.desc": "Woolet 007 y 009 — acetato italiano, diseñadas para caras de 155mm+. Patillas alargadas. Puente más ancho. Sin compromisos de estilo.",
+    "cta.scan_face_free": "Escanea tu cara — gratis",
+    "aifit.eyebrow": "AI-FIT · MEDIDO PARA TI",
+    "aifit.h1_em": "Medidas",
+    "aifit.h1_rest": " para ti — gafas AI-Fit para caras anchas",
+    "aifit.desc_before": "Acetato italiano Mazzucchelli. Precisión AI-fit. Dos formas — ambas de ",
+    "aifit.desc_bold": "158 mm de ancho",
+    "aifit.desc_after": " con puente de 21–22 mm, más a medida desde 150 mm. Para caras de 155 mm o más.",
+    "aifit.waitlist_link": "¿Aún no? Únete a la lista por beneficios exclusivos →",
+    "aifit.badge_fit": "Garantía de ajuste",
+    "aifit.badge_acetate": "Acetato Mazzucchelli",
+    "aifit.badge_milano": "Hecho a mano en UE",
+    "matrix.eyebrow": "LA MATRIZ DE AJUSTE",
+    "matrix.h2_pre": "Dos formas. ",
+    "matrix.h2_em": "Una talla precisa.",
+    "matrix.h2_post": " Una a medida.",
+    "matrix.intro_1": "Tanto la 007 redonda como la 009 cuadrada se entregan con ",
+    "matrix.intro_b1": "158 mm de ancho",
+    "matrix.intro_2": " y un ",
+    "matrix.intro_b2": "puente keyhole de 21–22 mm",
+    "matrix.intro_3": " — diseñadas para caras de 153 a 163 mm. Fuera de ese rango, la versión a medida cubre ",
+    "matrix.intro_b3": "145 a 162 mm",
+    "matrix.intro_4": ", mismo puente de 21–22 mm, hecha a partir de tu escaneo AI.",
+    "matrix.col_model": "Modelo",
+    "matrix.col_shape": "Forma",
+    "matrix.col_width": "Ancho montura",
+    "matrix.col_bridge": "Puente",
+    "matrix.col_lens": "Lente",
+    "matrix.col_face": "Cara objetivo",
+    "matrix.shape_round": "Redonda / Panto",
+    "matrix.shape_square": "Cuadrada suave",
+    "matrix.shape_either": "Cualquiera",
+    "matrix.sku_bespoke": "A medida",
+    "matrix.custom_badge": "A MEDIDA",
+    "matrix.face_any": "Cualquier 150 mm+",
+    "matrix.width_bespoke": "145–160 mm",
+    "matrix.lens_custom": "A medida",
+    "matrix.m_width": "Ancho",
+    "matrix.m_bridge": "Puente",
+    "matrix.m_lens": "Lente",
+    "matrix.m_face": "Cara",
+    "waitlist.label": "Lista de espera",
+    "waitlist.spots": "plazas",
+    "waitlist.first_name": "Nombre",
+    "waitlist.email": "Email",
+    "waitlist.face_width": "Ancho de cara",
+    "waitlist.select": "Seleccionar — desde 155mm",
+    "waitlist.not_sure": "No sé — voy a medir",
+    "waitlist.interested": "Interesado en",
+    "waitlist.cta": "Reservar mi plaza — 40% + envío gratis",
+    "waitlist.privacy": "Acepto la {link}Política de privacidad{/link}",
+    "waitlist.disclaimer": "Sin tarjeta. Sin spam. Cancela cuando quieras.",
+    "waitlist.success_title": "Estás en la lista — beneficios asegurados.",
+    "waitlist.success_desc": "Revisa tu correo. Tus beneficios exclusivos al lanzamiento:",
+    "waitlist.perk_1": "40% de descuento en tu primer pedido — $114 en lugar de $190",
+    "waitlist.perk_2": "Envío mundial gratuito — sin mínimo",
+    "waitlist.perk_3": "Acceso anticipado 48h antes del lanzamiento público",
+    "benefits.title": "Beneficios de la lista",
+    "benefits.subtitle": "Reservados para los primeros seguidores",
+    "blog.title": "Blog",
+    "blog.subtitle": "Consejos sobre gafas para caras anchas",
+    "blog.read_more": "Leer la guía de ajuste",
+    "blog.back": "← Volver al blog",
+    "blog.min_read": "min de lectura",
+    "footer.rights": "© 2026 JAY23 LLC — woolet.co — Gafas para caras anchas",
+    "footer.privacy": "Política de privacidad",
+    "footer.return": "Política de devolución",
+    "footer.cookie_settings": "Configuración de cookies",
+    "footer.why_fail": "Por qué las gafas no encajan",
+    "footer.5_reasons": "5 razones",
+    "collection.title": "La Colección",
+    "collection.007_specs": "Redonda · 158 mm · lente 52 mm",
+    "collection.009_specs": "Cuadrada · 158 mm · lente 54 mm",
+    "testimonial.1_quote": "«Llevaba años buscando monturas tan anchas. Woolet es la primera marca que lo entiende.»",
+    "testimonial.1_meta": "Javier M.  ·  161 mm  ·  Madrid",
+    "testimonial.2_quote": "«Por fin sin marcas en las sienes al final del día.»",
+    "testimonial.2_meta": "Tomás R.  ·  158 mm  ·  Barcelona",
+    "sticky.spots": "30 pares por $114",
+    "sticky.cta": "Únete a la lista · -40 % al lanzamiento",
+    "nav.scan_cta": "Escanea tu cara",
+    "nav.shop_label": "Tienda"
+  },
+  de: {
+    "nav.coming_soon": "Demnächst",
+    "nav.back": "← Zurück zur Startseite",
+    "nav.blog": "Blog",
+    "nav.collection": "Fassungen",
+    "nav.fit_quiz": "Passform messen",
+    "nav.bespoke": "Maßanfertigung",
+    "hero.eyebrow": "40 % Rabatt + Gratisversand - nur Warteliste",
+    "hero.title_1": "Endlich Brillen, ",
+    "hero.title_2": "die auf ein ",
+    "hero.title_3": "breites Gesicht passen.",
+    "hero.desc": "Woolet 007 & 009 - Mazzucchelli-Acetat, präzise entwickelt für Gesichtsbreiten ab 155 mm. Verlängerte Bügel. Breiterer Steg. Keine Kompromisse beim Stil.",
+    "cta.scan_face_free": "Gesicht scannen - kostenlos",
+    "aifit.eyebrow": "AI-FIT · FÜR DICH GEMESSEN",
+    "aifit.h1_em": "Gemessen",
+    "aifit.h1_rest": " für dich - AI-Fit-Brillen für breite Gesichter",
+    "aifit.desc_before": "Mazzucchelli-Acetat. AI-Fit-Präzision. Zwei Formen - beide ",
+    "aifit.desc_bold": "158 mm breit",
+    "aifit.desc_after": " mit 21-22 mm Steg, dazu Maßanfertigung ab 150 mm. Für Gesichter ab 155 mm.",
+    "aifit.waitlist_link": "Noch nicht bereit? Trag dich auf die Warteliste für exklusive Vorteile →",
+    "aifit.badge_fit": "Passform-Garantie",
+    "aifit.badge_acetate": "Mazzucchelli-Acetat",
+    "aifit.badge_milano": "Handgefertigt in der EU",
+    "matrix.eyebrow": "DIE PASSFORM-MATRIX",
+    "matrix.h2_pre": "Zwei Formen. ",
+    "matrix.h2_em": "Eine präzise Größe.",
+    "matrix.h2_post": " Unbegrenzte Maßanfertigung.",
+    "matrix.intro_1": "Die runde 007 und die weich-eckige 009 kommen beide mit ",
+    "matrix.intro_b1": "158 mm Breite",
+    "matrix.intro_2": " und einem ",
+    "matrix.intro_b2": "Keyhole-Steg von 21-22 mm",
+    "matrix.intro_3": " - entwickelt für Gesichter von 153-163 mm. Außerhalb dieses Bereichs deckt die Maßanfertigung ",
+    "matrix.intro_b3": "150 bis 162 mm",
+    "matrix.intro_4": " ab - jede Breite dazwischen, gleicher 21-22-mm-Steg, gefertigt nach deinem AI-Scan.",
+    "matrix.col_model": "Modell",
+    "matrix.col_shape": "Form",
+    "matrix.col_width": "Frontbreite",
+    "matrix.col_bridge": "Steg",
+    "matrix.col_lens": "Glas",
+    "matrix.col_face": "Zielgesicht",
+    "matrix.shape_round": "Rund / Panto",
+    "matrix.shape_square": "Weich-eckig",
+    "matrix.shape_either": "Beides",
+    "matrix.sku_bespoke": "Maßanfertigung",
+    "matrix.custom_badge": "MAßGEFERTIGT",
+    "matrix.face_any": "Ab 150 mm",
+    "matrix.width_bespoke": "145–160 mm",
+    "matrix.lens_custom": "Individuell",
+    "matrix.m_width": "Breite",
+    "matrix.m_bridge": "Steg",
+    "matrix.m_lens": "Glas",
+    "matrix.m_face": "Gesicht",
+    "waitlist.label": "Warteliste",
+    "waitlist.spots": "Plätze",
+    "waitlist.first_name": "Vorname",
+    "waitlist.email": "E-Mail",
+    "waitlist.face_width": "Deine Gesichtsbreite",
+    "waitlist.select": "Auswählen - ab 155 mm",
+    "waitlist.not_sure": "Unsicher - ich messe es",
+    "waitlist.interested": "Interessiert an",
+    "waitlist.cta": "Platz sichern - 40 % Rabatt + Gratisversand",
+    "waitlist.privacy": "Ich akzeptiere die {link}Datenschutzerklärung{/link}",
+    "waitlist.disclaimer": "Keine Kreditkarte. Kein Spam. Jederzeit abmeldbar.",
+    "waitlist.success_title": "Du stehst auf der Liste - Vorteile gesichert.",
+    "waitlist.success_desc": "Sieh in deinem Postfach nach. Deine exklusiven Vorteile zum Launch:",
+    // Keep synchronized with src/content/de/pricing.ts (DE_PRICING).
+    "waitlist.perk_1": "Founding-Preis: 109 € statt 179 € inkl. MwSt.",
+    "waitlist.perk_2": "Kostenloser Versand nach Deutschland und in die ganze EU",
+    "waitlist.perk_3": "48 h früherer Zugang vor dem öffentlichen Launch",
+    "benefits.title": "Vorteile der Warteliste",
+    "benefits.subtitle": "Exklusiv für frühe Unterstützer",
+    "blog.title": "Blog",
+    "blog.subtitle": "Wissen rund um Brillen für breite Gesichter, Stil & Passform",
+    "blog.read_more": "Den Fit-Guide lesen",
+    "blog.back": "← Zurück zum Blog",
+    "blog.min_read": "Min. Lesezeit",
+    "footer.rights": "© 2026 JAY23 LLC - woolet.co - Brillen für breite Gesichter",
+    "footer.privacy": "Datenschutz",
+    "footer.return": "Rückgaberecht",
+    "footer.cookie_settings": "Cookie-Einstellungen",
+    "footer.why_fail": "Warum Brillen nicht passen",
+    "footer.5_reasons": "5 Gründe",
+    "collection.title": "Die Kollektion",
+    "collection.007_specs": "Rund · 158 mm · 52-mm-Glas",
+    "collection.009_specs": "Eckig · 158 mm · 54-mm-Glas",
+    "testimonial.1_quote": "„Ich habe jahrelang nach so breiten Fassungen gesucht. Woolet ist die erste Marke, die das versteht.“",
+    "testimonial.1_meta": "Marek W.  ·  161 mm  ·  Warschau",
+    "testimonial.2_quote": "„Endlich keine Druckstellen mehr an den Schläfen am Ende des Tages.“",
+    "testimonial.2_meta": "James R.  ·  158 mm  ·  London",
+    "sticky.spots": "30 Fassungen für $114",
+    "sticky.cta": "Auf die Warteliste · 40 % zum Launch",
+    "nav.scan_cta": "Gesicht scannen",
+    "nav.shop_label": "Shop"
+  },
+  ar: {
+    "nav.coming_soon": "قريباً",
+    "nav.back": "← العودة إلى الرئيسية",
+    "nav.blog": "المدونة",
+    "nav.collection": "النظارات",
+    "nav.fit_quiz": "اعثر على مقاسك",
+    "nav.bespoke": "صناعة خاصة",
+    "hero.eyebrow": "خصم 40٪ + شحن مجاني — قائمة الانتظار فقط",
+    "hero.title_1": "أخيراً نظارات ",
+    "hero.title_2": "تناسب ",
+    "hero.title_3": "الوجه العريض.",
+    "hero.desc": "Woolet 007 و 009 — أسيتات إيطالي مصمم بدقة لعرض الوجه من 155 ملم فأكثر. أذرع ممتدة. جسر أوسع. أناقة بلا تنازلات.",
+    "cta.scan_face_free": "امسح وجهك — مجاناً",
+    "aifit.eyebrow": "AI-FIT · مقاس مفصّل لك",
+    "aifit.h1_em": "مقاس",
+    "aifit.h1_rest": " لك — نظارات AI-Fit للوجوه العريضة",
+    "aifit.desc_before": "أسيتات Mazzucchelli الإيطالي. دقة AI-fit. شكلان — كلاهما ",
+    "aifit.desc_bold": "بعرض 158 ملم",
+    "aifit.desc_after": " مع جسر 21–22 ملم، إضافة إلى الصناعة الخاصة من 145 ملم. للوجوه من 155 ملم فأكثر.",
+    "aifit.waitlist_link": "لست مستعداً؟ انضم لقائمة الانتظار للمزايا الحصرية ←",
+    "aifit.badge_fit": "ضمان المقاس",
+    "aifit.badge_acetate": "أسيتات Mazzucchelli",
+    "aifit.badge_milano": "صناعة يدوية في الاتحاد الأوروبي",
+    "matrix.eyebrow": "مصفوفة المقاسات",
+    "matrix.h2_pre": "شكلان. ",
+    "matrix.h2_em": "مقاس واحد دقيق.",
+    "matrix.h2_post": " وصناعة خاصة لا حدود لها.",
+    "matrix.intro_1": "كل من 007 المستدير و 009 المربع الناعم يأتي بـ ",
+    "matrix.intro_b1": "عرض 158 ملم",
+    "matrix.intro_2": " وجسر ",
+    "matrix.intro_b2": "21–22 ملم على شكل كيهول",
+    "matrix.intro_3": " — مصمم للوجوه من 153–163 ملم. خارج هذا النطاق، تغطي الصناعة الخاصة ",
+    "matrix.intro_b3": "145 إلى 160 ملم",
+    "matrix.intro_4": " — أي عرض بينها، بنفس الجسر 21–22 ملم، حسب مسحك بالذكاء الاصطناعي.",
+    "matrix.col_model": "الموديل",
+    "matrix.col_shape": "الشكل",
+    "matrix.col_width": "عرض الإطار",
+    "matrix.col_bridge": "الجسر",
+    "matrix.col_lens": "العدسة",
+    "matrix.col_face": "الوجه المستهدف",
+    "matrix.shape_round": "مستدير / بانتو",
+    "matrix.shape_square": "مربع ناعم",
+    "matrix.shape_either": "أي منهما",
+    "matrix.sku_bespoke": "صناعة خاصة",
+    "matrix.custom_badge": "حسب الطلب",
+    "matrix.face_any": "أي عرض من 145 إلى 160 ملم",
+    "matrix.width_bespoke": "145–160 ملم",
+    "matrix.lens_custom": "حسب الطلب",
+    "matrix.m_width": "العرض",
+    "matrix.m_bridge": "الجسر",
+    "matrix.m_lens": "العدسة",
+    "matrix.m_face": "الوجه",
+    "waitlist.label": "قائمة الانتظار",
+    "waitlist.spots": "مقاعد",
+    "waitlist.first_name": "الاسم الأول",
+    "waitlist.email": "البريد الإلكتروني",
+    "waitlist.face_width": "عرض وجهك",
+    "waitlist.select": "اختر — من 155 ملم",
+    "waitlist.not_sure": "غير متأكد — سأقيس",
+    "waitlist.interested": "مهتم بـ",
+    "waitlist.cta": "احجز مكاني — 40٪ خصم + شحن مجاني",
+    "waitlist.privacy": "أوافق على {link}سياسة الخصوصية{/link}",
+    "waitlist.disclaimer": "بدون بطاقة ائتمان. بدون رسائل مزعجة. ألغ في أي وقت.",
+    "waitlist.success_title": "أنت على القائمة — تم تأمين المزايا.",
+    "waitlist.success_desc": "تحقق من بريدك للتأكيد. مزاياك الحصرية عند الإطلاق:",
+    "waitlist.perk_1": "40٪ خصم على أول طلب — 114$ بدلاً من 190$",
+    "waitlist.perk_2": "شحن مجاني عالمياً — بدون حد أدنى",
+    "waitlist.perk_3": "وصول مبكر 48 ساعة قبل الإطلاق العام",
+    "benefits.title": "مزايا قائمة الانتظار",
+    "benefits.subtitle": "محجوزة حصرياً للداعمين الأوائل",
+    "blog.title": "المدونة",
+    "blog.subtitle": "رؤى حول نظارات الوجوه العريضة والأناقة والمقاس",
+    "blog.read_more": "اقرأ دليل المقاس المناسب",
+    "blog.back": "← العودة إلى المدونة",
+    "blog.min_read": "دقيقة قراءة",
+    "footer.rights": "© 2026 JAY23 LLC — woolet.co — نظارات للوجوه العريضة",
+    "footer.privacy": "سياسة الخصوصية",
+    "footer.return": "سياسة الإرجاع",
+    "footer.cookie_settings": "إعدادات الكوكيز",
+    "footer.why_fail": "لماذا تفشل النظارات",
+    "footer.5_reasons": "5 أسباب",
+    "collection.title": "المجموعة",
+    "collection.007_specs": "مستدير · 158 ملم · عدسة 52 ملم",
+    "collection.009_specs": "مربع · 158 ملم · عدسة 54 ملم",
+    "testimonial.1_quote": "«كنت أبحث عن إطارات بهذا العرض لسنوات. Woolet أول علامة تجارية تفهم ذلك.»",
+    "testimonial.1_meta": "ماريك و.  ·  161 ملم  ·  وارسو",
+    "testimonial.2_quote": "«أخيراً لا توجد علامات على صدغي في نهاية اليوم.»",
+    "testimonial.2_meta": "جيمس ر.  ·  158 ملم  ·  لندن",
+    "sticky.spots": "30 نظارات بسعر $114",
+    "sticky.cta": "انضم للقائمة · -40٪ عند الإطلاق",
+    "nav.scan_cta": "امسح وجهك",
+    "nav.shop_label": "المتجر"
+  },
+  ja: {
+    "nav.coming_soon": "近日公開",
+    "nav.back": "← ホームに戻る",
+    "nav.blog": "ブログ",
+    "nav.collection": "フレーム",
+    "nav.fit_quiz": "サイズを見つける",
+    "nav.bespoke": "ビスポーク",
+    "hero.eyebrow": "40%オフ + 送料無料 — ウェイトリスト限定",
+    "hero.title_1": "ついに、",
+    "hero.title_2": "幅広い顔に",
+    "hero.title_3": "合うフレーム。",
+    "hero.desc": "Woolet 007 & 009 — イタリア製アセテート、顔幅155mm以上のために精密設計。延長テンプル。広いブリッジ。スタイルに妥協なし。",
+    "cta.scan_face_free": "顔をスキャン — 無料",
+    "aifit.eyebrow": "AI-FIT · あなたのために計測",
+    "aifit.h1_em": "計測された",
+    "aifit.h1_rest": " あなたのために — 幅広い顔のためのAI-Fitアイウェア",
+    "aifit.desc_before": "イタリア製Mazzucchelliアセテート。AI-fit精度。2つのシェイプ — どちらも ",
+    "aifit.desc_bold": "幅158mm",
+    "aifit.desc_after": "、ブリッジ21–22mm、150mmからのビスポークも対応。顔幅155mm以上の方に。",
+    "aifit.waitlist_link": "まだ決められない？ウェイトリストに参加して特典を受け取る →",
+    "aifit.badge_fit": "フィット保証",
+    "aifit.badge_acetate": "Mazzucchelliアセテート",
+    "aifit.badge_milano": "EUにて手作り",
+    "matrix.eyebrow": "フィットマトリクス",
+    "matrix.h2_pre": "2つのシェイプ。",
+    "matrix.h2_em": "一つの正確なサイズ。",
+    "matrix.h2_post": " 無限のビスポーク。",
+    "matrix.intro_1": "ラウンドの007もソフトスクエアの009も、どちらも ",
+    "matrix.intro_b1": "幅158mm",
+    "matrix.intro_2": "、",
+    "matrix.intro_b2": "21–22mmのキーホールブリッジ",
+    "matrix.intro_3": " — 153–163mmの顔幅向けに設計。それ以外はビスポークで ",
+    "matrix.intro_b3": "145〜160mm",
+    "matrix.intro_4": " をカバー、同じ21–22mmブリッジ、AIスキャンに合わせて製作。",
+    "matrix.col_model": "モデル",
+    "matrix.col_shape": "シェイプ",
+    "matrix.col_width": "フレーム幅",
+    "matrix.col_bridge": "ブリッジ",
+    "matrix.col_lens": "レンズ",
+    "matrix.col_face": "対象顔幅",
+    "matrix.shape_round": "ラウンド / パント",
+    "matrix.shape_square": "ソフトスクエア",
+    "matrix.shape_either": "どちらでも",
+    "matrix.sku_bespoke": "ビスポーク",
+    "matrix.custom_badge": "カスタム",
+    "matrix.face_any": "150mm以上すべて",
+    "matrix.width_bespoke": "145–160 mm",
+    "matrix.lens_custom": "カスタム",
+    "matrix.m_width": "幅",
+    "matrix.m_bridge": "ブリッジ",
+    "matrix.m_lens": "レンズ",
+    "matrix.m_face": "顔",
+    "waitlist.label": "ウェイトリスト",
+    "waitlist.spots": "席",
+    "waitlist.first_name": "お名前",
+    "waitlist.email": "メールアドレス",
+    "waitlist.face_width": "あなたの顔幅",
+    "waitlist.select": "選択 — 155mmから",
+    "waitlist.not_sure": "わからない — 計測する",
+    "waitlist.interested": "興味のあるモデル",
+    "waitlist.cta": "席を確保 — 40%オフ + 送料無料",
+    "waitlist.privacy": "{link}プライバシーポリシー{/link}に同意します",
+    "waitlist.disclaimer": "クレジットカード不要。スパムなし。いつでも解除可能。",
+    "waitlist.success_title": "リストに登録されました — 特典確定。",
+    "waitlist.success_desc": "メールをご確認ください。ローンチ時の限定特典:",
+    "waitlist.perk_1": "初回注文40%オフ — $190のところ$114",
+    "waitlist.perk_2": "世界中送料無料 — 最低注文額なし",
+    "waitlist.perk_3": "一般公開48時間前の早期アクセス",
+    "benefits.title": "ウェイトリスト特典",
+    "benefits.subtitle": "初期サポーター限定",
+    "blog.title": "ブログ",
+    "blog.subtitle": "幅広い顔のためのアイウェア、スタイル、フィットに関する知見",
+    "blog.read_more": "フィットガイドを読む",
+    "blog.back": "← ブログに戻る",
+    "blog.min_read": "分で読了",
+    "footer.rights": "© 2026 JAY23 LLC — woolet.co — 幅広い顔のためのアイウェア",
+    "footer.privacy": "プライバシーポリシー",
+    "footer.return": "返品ポリシー",
+    "footer.cookie_settings": "Cookie設定",
+    "footer.why_fail": "メガネが合わない理由",
+    "footer.5_reasons": "5つの理由",
+    "collection.title": "コレクション",
+    "collection.007_specs": "ラウンド · 158mm · レンズ52mm",
+    "collection.009_specs": "スクエア · 158mm · レンズ54mm",
+    "testimonial.1_quote": "「この幅のフレームを何年も探していました。Wooletはそれを理解している最初のブランドです。」",
+    "testimonial.1_meta": "マレク W.  ·  161mm  ·  ワルシャワ",
+    "testimonial.2_quote": "「一日の終わりにこめかみに跡が残らなくなりました。」",
+    "testimonial.2_meta": "ジェームズ R.  ·  158mm  ·  ロンドン",
+    "sticky.spots": "$114のフレーム30本",
+    "sticky.cta": "ウェイトリストに参加 · ローンチ時40%オフ",
+    "nav.scan_cta": "顔をスキャン",
+    "nav.shop_label": "ショップ"
+  },
+  // NL: pilot market. Empty dictionary — t() falls back to EN automatically.
+  // Only bespoke landing pages exist in NL for now (see src/content/nl/landingPages.ts).
+  nl: {
+    "nav.coming_soon": "Binnenkort",
+    "nav.back": "← Terug naar home",
+    "nav.blog": "Blog",
+    "nav.collection": "Monturen",
+    "nav.fit_quiz": "Vind jouw pasvorm",
+    "nav.bespoke": "Op maat",
+    "hero.eyebrow": "40% korting + gratis verzending — alleen via wachtlijst",
+    "hero.title_1": "Eindelijk monturen ",
+    "hero.title_2": "die passen op een ",
+    "hero.title_3": "breed gezicht.",
+    "hero.desc": "Woolet 007 & 009 — Italiaans acetaat, met precisie ontworpen voor gezichten vanaf 155 mm. Verlengde poten. Bredere brug. Zonder concessies aan stijl.",
+    "cta.scan_face_free": "Scan je gezicht — gratis",
+    "aifit.eyebrow": "AI-FIT · OP MAAT GEMETEN",
+    "aifit.h1_em": "Op maat",
+    "aifit.h1_rest": " gemeten — AI-Fit brillen voor brede gezichten",
+    "aifit.desc_before": "Italiaans Mazzucchelli-acetaat. AI-fit precisie. Twee vormen — beide ",
+    "aifit.desc_bold": "158 mm breed",
+    "aifit.desc_after": " met een brug van 21–22 mm, plus bespoke vanaf 150 mm. Voor gezichten van 155 mm en breder.",
+    "aifit.waitlist_link": "Nog niet klaar? Meld je aan voor exclusieve voordelen →",
+    "aifit.badge_fit": "Pasvormgarantie",
+    "aifit.badge_acetate": "Mazzucchelli-acetaat",
+    "aifit.badge_milano": "Handgemaakt in de EU",
+    "matrix.eyebrow": "DE PASVORM-MATRIX",
+    "matrix.h2_pre": "Twee vormen. ",
+    "matrix.h2_em": "Eén precieze maat.",
+    "matrix.h2_post": " Eindeloos bespoke.",
+    "matrix.intro_1": "Zowel de ronde 007 als de zachte vierkante 009 worden geleverd met ",
+    "matrix.intro_b1": "158 mm breedte",
+    "matrix.intro_2": " en een ",
+    "matrix.intro_b2": "keyhole-brug van 21–22 mm",
+    "matrix.intro_3": " — ontworpen voor gezichten in het bereik 153-163 mm. Daarbuiten dekt bespoke ",
+    "matrix.intro_b3": "150 tot 162 mm",
+    "matrix.intro_4": " — elke breedte ertussen, dezelfde brug van 21–22 mm, gemaakt op basis van jouw AI-scan.",
+    "matrix.col_model": "Model",
+    "matrix.col_shape": "Vorm",
+    "matrix.col_width": "Framebreedte",
+    "matrix.col_bridge": "Brug",
+    "matrix.col_lens": "Glas",
+    "matrix.col_face": "Doelgezicht",
+    "matrix.shape_round": "Rond / Panto",
+    "matrix.shape_square": "Zacht vierkant",
+    "matrix.shape_either": "Beide",
+    "matrix.sku_bespoke": "Bespoke",
+    "matrix.custom_badge": "OP MAAT",
+    "matrix.face_any": "Elk vanaf 150 mm",
+    "matrix.width_bespoke": "145–160 mm",
+    "matrix.lens_custom": "Op maat",
+    "matrix.m_width": "Breedte",
+    "matrix.m_bridge": "Brug",
+    "matrix.m_lens": "Glas",
+    "matrix.m_face": "Gezicht",
+    "waitlist.label": "Wachtlijst",
+    "waitlist.spots": "plaatsen",
+    "waitlist.first_name": "Voornaam",
+    "waitlist.email": "E-mail",
+    "waitlist.face_width": "Jouw gezichtsbreedte",
+    "waitlist.select": "Kies — vanaf 155 mm",
+    "waitlist.not_sure": "Weet ik niet — ik ga meten",
+    "waitlist.interested": "Geïnteresseerd in",
+    "waitlist.cta": "Reserveer mijn plek — 40% korting + gratis verzending",
+    "waitlist.privacy": "Ik ga akkoord met het {link}Privacybeleid{/link}",
+    "waitlist.disclaimer": "Geen creditcard. Geen spam. Altijd uitschrijven.",
+    "waitlist.success_title": "Je staat op de lijst — voordelen vastgezet.",
+    "waitlist.success_desc": "Check je inbox voor de bevestiging. Jouw exclusieve voordelen bij lancering:",
+    "waitlist.perk_1": "40% korting op je eerste Woolet-bestelling — $114 in plaats van $190",
+    "waitlist.perk_2": "Gratis wereldwijde verzending — geen minimum",
+    "waitlist.perk_3": "48 uur vroege toegang vóór de publieke lancering",
+    "benefits.title": "Voordelen van de wachtlijst",
+    "benefits.subtitle": "Exclusief gereserveerd voor vroege supporters",
+    "blog.title": "Blog",
+    "blog.subtitle": "Inzichten over brillen voor brede gezichten, stijl en pasvorm",
+    "blog.read_more": "Lees de fit-gids",
+    "blog.back": "← Terug naar blog",
+    "blog.min_read": "min leestijd",
+    "footer.rights": "© 2026 JAY23 LLC — woolet.co — Brillen voor brede gezichten",
+    "footer.privacy": "Privacybeleid",
+    "footer.return": "Retourbeleid",
+    "footer.cookie_settings": "Cookie-instellingen",
+    "footer.why_fail": "Waarom brillen niet passen",
+    "footer.5_reasons": "5 redenen",
+    "collection.title": "De collectie",
+    "collection.007_specs": "Rond · 158 mm · glas 52 mm",
+    "collection.009_specs": "Vierkant · 158 mm · glas 54 mm",
+    "testimonial.1_quote": "„Ik zocht al jaren naar zulke brede monturen. Woolet is het eerste merk dat het snapt.”",
+    "testimonial.1_meta": "Marek W.  ·  161 mm  ·  Warschau",
+    "testimonial.2_quote": "„Eindelijk geen afdrukken meer op mijn slapen aan het eind van de dag.”",
+    "testimonial.2_meta": "James R.  ·  158 mm  ·  Londen",
+    "sticky.spots": "30 monturen voor $114",
+    "sticky.cta": "Meld je aan · 40% korting bij lancering",
+    "nav.scan_cta": "Scan je gezicht",
+    "nav.shop_label": "Shop"
+  },
+  ko: {
+    "nav.collection": "컬렉션",
+    "nav.blog": "블로그",
+    "nav.bespoke": "비스포크",
+    "nav.fit_quiz": "핏 찾기",
+    "nav.back": "뒤로",
+    "nav.shop_label": "쇼핑"
+  }
+};
+function t(lang, key) {
+  var _a;
+  return ((_a = translations[lang]) == null ? void 0 : _a[key]) ?? translations.en[key] ?? key;
+}
 const blogMetaBySlug = {
   "ray-ban-oakley-costa-maui-jim-sizes-for-big-heads": {
     metaTitle: "Ray-Ban, Oakley, Costa & Maui Jim Sizes for Big Heads (mm Table)",
@@ -3180,7 +3999,8 @@ ${blogFitLensHookHtml()}
 
 <p>The full calibrated method — including the credit-card reference for photographing rather than measuring — is in <a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#A07A2A;">how to measure your face width for glasses</a>. If you would rather not measure at all, <a href="/en/fit" style="color:#A07A2A;"><strong>FitLens takes about 60 seconds from your phone camera</strong></a>, no app and no appointment, and returns face width and bridge width together.</p>
 
-<h2 id="size-chart">The number that matters: front width</h2>
+<div id="size-chart" aria-hidden="true"></div>
+<h2 id="size-chart-heading">The number that matters: front width</h2>
 
 <p>Almost every sizing mistake in eyewear comes from shopping by the wrong number. The three digits printed inside the temple — 52▫16 145 — are lens width, bridge and temple length. None of them is the total front width, and total front width is the only measurement that decides whether a frame fits a wide face. A 58 mm lens on a narrow bridge can still produce a 142 mm front.</p>
 
@@ -3253,7 +4073,7 @@ ${blogFitLensHookHtml()}
   <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:14px;">
     <li style="font-size:14px;line-height:1.65;color:#f0ece4;padding-left:18px;border-left:2px solid #c9a84c;">The average adult male face measures <strong style="color:#fff;">141.9 mm in width</strong> (±5.1 mm standard deviation), per peer-reviewed anthropometric research published in the <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4496583/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:underline;">Cleft Palate and Craniofacial Journal</a> (PMC4496583, Gordon et al.).</li>
     <li style="font-size:14px;line-height:1.65;color:#f0ece4;padding-left:18px;border-left:2px solid #c9a84c;">Standard adult eyewear frames range from <strong style="color:#fff;">125–145 mm in total width</strong>, as defined by the <a href="https://www.iso.org/standard/75385.html" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:underline;">ISO 8624</a> spectacle frame measuring system. Woolet starts at 158 mm — <strong style="color:#fff;">13 mm beyond</strong> where the mainstream market ends.</li>
-    <li style="font-size:14px;line-height:1.65;color:#f0ece4;padding-left:18px;border-left:2px solid #c9a84c;">Face widths between <strong style="color:#fff;">131–165 mm</strong> have been recorded in anthropometric studies of adult populations (<a href="https://apps.dtic.mil/sti/tr/pdf/ADA611869.pdf" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:underline;">ANSUR II, US Army, 2012</a>).</li>
+    <li style="font-size:14px;line-height:1.65;color:#f0ece4;padding-left:18px;border-left:2px solid #c9a84c;">Face widths between <strong style="color:#fff;">131–165 mm</strong> have been recorded in anthropometric studies of adult populations (<a href="https://apps.dtic.mil/sti/citations/ADA611869" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:underline;">ANSUR II, US Army, 2012</a>).</li>
   </ul>
 </div>
 
@@ -6667,7 +7487,7 @@ More on fit for bigger heads and wider faces:
 
 <h2>The Master Hat Size Chart</h2>
 
-<p>Read across the row. If your circumference lands between two rows, use the larger one — see <a href="#between-sizes" style="color:#c9a84c;">between sizes</a> below. Don't know your circumference yet? <a href="/en/blog/how-to-measure-your-head-for-a-hat" style="color:#c9a84c;">Measure your head in 60 seconds</a>.</p>
+<p>Read across the row. If your circumference lands between two rows, use the larger one — see <a href="#what-to-do-when-you-re-between-sizes" style="color:#c9a84c;">between sizes</a> below. Don't know your circumference yet? <a href="/en/blog/how-to-measure-your-head-for-a-hat" style="color:#c9a84c;">Measure your head in 60 seconds</a>.</p>
 
 
 
@@ -6994,7 +7814,7 @@ Related guides:
 
 <h2>The four bands</h2>
 
-<p>Anthropometric data (<a href="https://apps.dtic.mil/sti/tr/pdf/ADA611869.pdf" target="_blank" rel="noopener" style="color:#A07A2A;text-decoration:underline;">ANSUR II, US Army, 2012</a>; <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4496583/" target="_blank" rel="noopener" style="color:#A07A2A;text-decoration:underline;">Gordon et al., PMC4496583</a>) shows adult male face widths cluster around <strong>142 mm ±5 mm</strong>. Here is how that maps to what you can actually buy.</p>
+<p>Anthropometric data (<a href="https://apps.dtic.mil/sti/citations/ADA611869" target="_blank" rel="noopener" style="color:#A07A2A;text-decoration:underline;">ANSUR II, US Army, 2012</a>; <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4496583/" target="_blank" rel="noopener" style="color:#A07A2A;text-decoration:underline;">Gordon et al., PMC4496583</a>) shows adult male face widths cluster around <strong>142 mm ±5 mm</strong>. Here is how that maps to what you can actually buy.</p>
 
 <div style="overflow-x:auto;margin:24px 0;">
 <table style="width:100%;border-collapse:collapse;font-family:'Barlow',sans-serif;font-size:14px;">
@@ -8899,14 +9719,14 @@ const TEMPLES = [
   }
 ];
 function getTempleBySlug(slug) {
-  return TEMPLES.find((t) => t.slug === slug);
+  return TEMPLES.find((t2) => t2.slug === slug);
 }
 const TEMPLE_HUB_PATH = "/en/temple/150mm";
-function splitTempleHubLink(t) {
-  if (!t.hubLinkPhrase) return null;
-  const i = t.fitVerdict.indexOf(t.hubLinkPhrase);
+function splitTempleHubLink(t2) {
+  if (!t2.hubLinkPhrase) return null;
+  const i = t2.fitVerdict.indexOf(t2.hubLinkPhrase);
   if (i < 0) return null;
-  return [t.fitVerdict.slice(0, i), t.hubLinkPhrase, t.fitVerdict.slice(i + t.hubLinkPhrase.length)];
+  return [t2.fitVerdict.slice(0, i), t2.hubLinkPhrase, t2.fitVerdict.slice(i + t2.hubLinkPhrase.length)];
 }
 const XXL_HUB = {
   slug: "",
@@ -9618,7 +10438,7 @@ plPages["jak-dobrac-okulary-do-twarzy"] = {
       body: "Standardowe marki kończą się na około 145–148 mm. Woolet projektuje oprawki od zera pod twarze 155 mm+ — jeden rozmiar stockowy 158 mm (front), mostek keyhole 21–22 mm, zauszniki 148 mm. Materiał: włoski acetat Mazzucchelli 1849, ręczne wykończenie w UE. Modele 007 (okrągły) i 009 (kwadratowy). Bespoke: front 145–160 mm co 1 mm.",
       ctas: [
         { label: "Zobacz modele 007 i 009", href: "/en/collection", primary: true },
-        { label: "Dołącz do listy VIP", href: "/en/vip-join" }
+        { label: "Dołącz do listy VIP", href: "/en/lp/kickstarter" }
       ]
     }
   }
@@ -9932,7 +10752,8 @@ const koPages = {
       {
         h2: "직접 재기 어렵다면 - FitLens",
         body: "FitLens는 휴대폰 카메라로 관자놀이에서 관자놀이까지의 폭을 측정합니다. 자도, 도움도 필요 없습니다. 측정값과 함께 맞는 사이즈를 알려드립니다.",
-        ctas: [{ label: "FitLens로 측정하기", href: "/en/fit", primary: true }]
+        ctas: [{ label: "FitLens로 측정하기", href: "/en/fit", primary: true }],
+        blockLink: true
       }
     ],
     faqs: [
@@ -10810,6 +11631,13 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
     meta.canonical = `${SITE_URL}/en/bespoke`;
     return meta;
   }
+  if (route === "/en/our-story") {
+    return base(route, "en", {
+      title: STORY_TITLE,
+      description: STORY_DESCRIPTION,
+      noscriptHtml: STORY_CRAWLER_HTML
+    }, {}, [STORY_JSONLD]);
+  }
   if (path === "/about") {
     return base(route, lang, {
       title: "About Woolet — Eyewear Built for Wide Faces",
@@ -10890,14 +11718,14 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
         description: "Jak powstaje oprawa Woolet: 13 etapów w ok. 14 dni — od CAD po czyszczenie ultradźwiękowe. Ręcznie wykończona w UE z octanu Mazzucchelli z Mediolanu, dopasowana do szerszych twarzy.",
         noscriptHtml: `<h1>Proces Woolet</h1>
 <p>Każda oprawa Woolet powstaje wokół jednej twarzy — Twojej. Od pierwszego cyfrowego szkicu po końcowe płukanie ultradźwiękowe przechodzi przez ręce i maszyny kilkanaście razy. 13 etapów. W większości ręcznie. Włoski octan Mazzucchelli.</p>
-<ol>${steps.map(([n, t]) => `<li><strong>${escapeHtml(n)}</strong> — ${escapeHtml(t)}</li>`).join("")}</ol>
+<ol>${steps.map(([n, t2]) => `<li><strong>${escapeHtml(n)}</strong> — ${escapeHtml(t2)}</li>`).join("")}</ol>
 <p>Wykonane z włoskiego octanu Mazzucchelli z Mediolanu. Wykończone ręcznie w UE. <a href="/en/fit">Dobierz rozmiar</a> · <a href="/en/bespoke">Poznaj bespoke</a>.</p>`
       } : {
         title: "The Woolet Process — How Our Italian Acetate Eyewear Is Made",
         description: "How a Woolet frame is made: 13 stages across ~14 days, from CAD to ultrasonic cleaning. Hand made in EU from Mazzucchelli acetate, tailored for wider faces.",
         noscriptHtml: `<h1>The Woolet Process</h1>
 <p>Every Woolet frame is built around one face — yours. From the first digital sketch to the final ultrasonic rinse, it passes through hand and machine more than a dozen times. 13 stages, ~14 days, mostly by hand. Italian Mazzucchelli acetate.</p>
-<ol>${steps.map(([n, t]) => `<li><strong>${escapeHtml(n)}</strong> — ${escapeHtml(t)}</li>`).join("")}</ol>
+<ol>${steps.map(([n, t2]) => `<li><strong>${escapeHtml(n)}</strong> — ${escapeHtml(t2)}</li>`).join("")}</ol>
 <p>Made from Italian Mazzucchelli acetate. Hand made in EU. <a href="/en/fit">Find your fit</a> · <a href="/en/bespoke">Explore bespoke</a>.</p>`
       },
       { image: processImage, type: "website" },
@@ -10979,7 +11807,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
 <p>Italian Mazzucchelli acetate eyewear built for face widths of 155 mm and above. Two shapes (007 round, 009 soft square), one precise 158 mm front width with a 21–22 mm keyhole bridge. Bespoke 145–160 mm. From $114 pre-order.</p>`
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
-      { name: "Collections", url: `${SITE_URL}/en` },
+      { name: "Collections", url: `${SITE_URL}/en/collection` },
       { name: "Wide-Face Glasses", url: `${SITE_URL}${route}` }
     ])]);
   }
@@ -11001,7 +11829,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
 <p>Cellulose-acetate sheet made by Mazzucchelli 1849, the Italian mill that has produced acetate near Milan since 1849. Pigment is layered into a block, batch-cured for weeks and sliced into sheets — denser, more colour-stable and easier to hand-finish than injection-moulded plastic.</p>`
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
-      { name: "Collections", url: `${SITE_URL}/en` },
+      { name: "Collections", url: `${SITE_URL}/en/collection` },
       { name: "Italian Mazzucchelli Acetate", url: `${SITE_URL}${route}` }
     ])]);
   }
@@ -11050,7 +11878,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
 <p><a href="/en/products/007">Shop Woolet 007 (round)</a> | <a href="/en/products/009">Shop Woolet 009 (square)</a> | <a href="/en/blog/how-to-measure-face-width-for-glasses">How to measure your face width</a> | <a href="/en/collections/oversized-sunglasses-men">Oversized sunglasses for men</a></p>`
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
-      { name: "Collections", url: `${SITE_URL}/en` },
+      { name: "Collections", url: `${SITE_URL}/en/collection` },
       { name: "Sunglasses for Big Heads", url: `${SITE_URL}${route}` }
     ])]);
   }
@@ -11062,7 +11890,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
 <p>Prescription-ready optical frames for big heads (head circumference 58–64 cm). 158 mm front width, 21–22 mm keyhole bridge, Italian Mazzucchelli acetate Hand made in EU. Bespoke 145–160 mm. From $114 pre-order.</p>`
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
-      { name: "Collections", url: `${SITE_URL}/en` },
+      { name: "Collections", url: `${SITE_URL}/en/collection` },
       { name: "Glasses for Big Heads", url: `${SITE_URL}${route}` }
     ])]);
   }
@@ -11077,7 +11905,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
 <p>Both shapes are prescription-ready, with 52 × 52 mm and 54 × 50 mm lens areas for single-vision or progressive lenses. Italian Mazzucchelli acetate, hand made in EU. The shop is sold out until the Kickstarter campaign ends; a $1 reservation locks the $114 founding-member price against the $190 MSRP.</p>`
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
-      { name: "Collections", url: `${SITE_URL}/en` },
+      { name: "Collections", url: `${SITE_URL}/en/collection` },
       { name: "Extra Wide Glasses", url: `${SITE_URL}${route}` }
     ])]);
   }
@@ -11089,7 +11917,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
 <p>Glasses with a 21–22 mm keyhole bridge as standard — engineered for wider noses where mainstream 17–19 mm bridges pinch or slide. 158 mm front width, Italian Mazzucchelli acetate. Bespoke bridge 20–24 mm available. From $114 pre-order.</p>`
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
-      { name: "Collections", url: `${SITE_URL}/en` },
+      { name: "Collections", url: `${SITE_URL}/en/collection` },
       { name: "Wide Bridge Glasses", url: `${SITE_URL}${route}` }
     ])]);
   }
@@ -11102,7 +11930,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
 <p>Read the fit breakdown: <a href="/en/blog/oversized-blue-light-glasses-vs-wide-fit">oversized blue-light glasses vs a true wide fit</a></p>`
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
-      { name: "Collections", url: `${SITE_URL}/en` },
+      { name: "Collections", url: `${SITE_URL}/en/collection` },
       { name: "Blue Light Glasses for Wide Faces", url: `${SITE_URL}${route}` }
     ])]);
   }
@@ -11115,7 +11943,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
 <p><a href="/en/products/007">Shop Woolet 007 (round)</a> | <a href="/en/products/009">Shop Woolet 009 (soft-square)</a> | <a href="/en/fit">Find my size</a></p>`
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
-      { name: "Collections", url: `${SITE_URL}/en` },
+      { name: "Collections", url: `${SITE_URL}/en/collection` },
       { name: "Thick Frame Glasses", url: `${SITE_URL}${route}` }
     ])]);
   }
@@ -11172,7 +12000,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
 <p>${escapeHtml(c.intro)}</p>${path === "/collections/keyhole-bridge-glasses" ? bridgeFitPrerenderHtml("compact") : ""}`
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
-      { name: "Collections", url: `${SITE_URL}/en` },
+      { name: "Collections", url: `${SITE_URL}/en/collection` },
       { name: c.h1, url: `${SITE_URL}${route}` }
     ])]);
     return meta;
@@ -11269,14 +12097,21 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
       ko: { title: "블로그 — Woolet | 대두 안경테 인사이트", description: "대두 안경테, 이탈리아 아세테이트, 프레임 사이즈, 155mm 이상 얼굴 폭에 맞는 핏에 대한 전문 가이드." }
     };
     const posts = getBlogPosts(lang);
-    const links = posts.map(
-      (p) => `<li><a href="/${lang}/blog/${p.slug}">${escapeHtml(p.title)}</a> — ${escapeHtml(p.excerpt)}</li>`
-    ).join("\n");
+    const readLabel = lang === "pl" ? "Czytaj artykuł" : "Read full article";
+    const minRead = t(lang, "blog.min_read");
+    const links = posts.map((p) => {
+      const date = new Date(p.date).toLocaleDateString(lang, { year: "numeric", month: "long", day: "numeric" });
+      const tags = (p.tags ?? []).map((tag) => escapeHtml(tag)).join(" · ");
+      return `<li><article><p>${escapeHtml(date)} • ${escapeHtml(String(p.readTime))} ${escapeHtml(minRead)}${tags ? ` • ${tags}` : ""}</p>
+<h2><a href="/${lang}/blog/${p.slug}">${escapeHtml(p.title)}</a></h2>
+<p>${escapeHtml(p.excerpt)}</p>
+<p><a href="/${lang}/blog/${p.slug}">${readLabel}: ${escapeHtml(p.title)} →</a></p></article></li>`;
+    }).join("\n");
     const hub = lang === "en" ? `<p>Topic hub: <a href="/en/blog/category/nose-bridge-fit">Nose-bridge fit</a>.</p>` : "";
     return base(route, lang, {
       ...titles[lang],
-      noscriptHtml: `<h1>${escapeHtml(titles[lang].title)}</h1>
-<p>${escapeHtml(titles[lang].description)}</p>
+      noscriptHtml: `<h1>${escapeHtml(t(lang, "blog.title"))}</h1>
+<p>${escapeHtml(t(lang, "blog.subtitle"))}</p>
 ${hub}
 <ul>
 ${links}
@@ -11564,22 +12399,22 @@ ${c.slug === "persol-alternative" || c.slug === "zenni-alternative" ? `<p>From $
   }
   const templeMatch = path.match(/^\/temple\/(\d+mm)$/);
   if (templeMatch) {
-    const t = getTempleBySlug(templeMatch[1]);
-    if (t) {
+    const t2 = getTempleBySlug(templeMatch[1]);
+    if (t2) {
       return base(
         route,
         lang,
         {
-          title: t.metaTitle ?? `${t.length} mm Temple Glasses | Wide-Face Temple Sizing — Woolet`,
-          description: t.metaDescription,
-          noscriptHtml: `<h1>${t.h1}</h1>
-<p>${t.subhead}</p>
-<h2>Does Woolet fit a ${t.length} mm temple?</h2>
+          title: t2.metaTitle ?? `${t2.length} mm Temple Glasses | Wide-Face Temple Sizing — Woolet`,
+          description: t2.metaDescription,
+          noscriptHtml: `<h1>${t2.h1}</h1>
+<p>${t2.subhead}</p>
+<h2>Does Woolet fit a ${t2.length} mm temple?</h2>
 <p>${(() => {
-            const sp = splitTempleHubLink(t);
-            return sp ? `${sp[0]}<a href="${TEMPLE_HUB_PATH}">${sp[1]}</a>${sp[2]}` : t.fitVerdict;
+            const sp = splitTempleHubLink(t2);
+            return sp ? `${sp[0]}<a href="${TEMPLE_HUB_PATH}">${sp[1]}</a>${sp[2]}` : t2.fitVerdict;
           })()}</p>
-<p>${t.intro}</p>
+<p>${t2.intro}</p>
 <p>Signature temples: 150 mm on both 007 and 009. Bespoke 145–155 mm.</p>
 <p><a href="/en/products/007">Woolet 007</a> · <a href="/en/products/009">Woolet 009</a> · <a href="/en/bespoke">Bespoke temples</a> · <a href="/en/fit">FitLens</a></p>`
         },
@@ -11588,7 +12423,7 @@ ${c.slug === "persol-alternative" || c.slug === "zenni-alternative" ? `<p>From $
           {
             "@context": "https://schema.org",
             "@type": "FAQPage",
-            mainEntity: t.faq.map((f) => ({
+            mainEntity: t2.faq.map((f) => ({
               "@type": "Question",
               name: f.q,
               acceptedAnswer: { "@type": "Answer", text: f.a }
@@ -11600,7 +12435,7 @@ ${c.slug === "persol-alternative" || c.slug === "zenni-alternative" ? `<p>From $
             itemListElement: [
               { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/en` },
               { "@type": "ListItem", position: 2, name: "Fit Guide", item: `${SITE_URL}/en/fit` },
-              { "@type": "ListItem", position: 3, name: `${t.length} mm temple glasses`, item: `${SITE_URL}${route}` }
+              { "@type": "ListItem", position: 3, name: `${t2.length} mm temple glasses`, item: `${SITE_URL}${route}` }
             ]
           }
         ]
@@ -12012,6 +12847,7 @@ function escapeHtml(s) {
 const STATIC_ROUTES = [
   "/en",
   "/en/about",
+  "/en/our-story",
   "/en/process",
   "/en/products/007",
   "/en/products/009",
