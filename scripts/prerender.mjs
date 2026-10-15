@@ -366,7 +366,7 @@ async function main() {
     }
   }
   console.log(`[prerender] wrote ${legacyCount} redirect stub pages (${Object.keys(legacy).length} redirect sources)`);
-  await writeFile(resolve(DIST, "..", "dist-redirect-sources.txt"), emittedSources.sort().join("\n") + "\n", "utf8").catch(() => {});
+  await writeFile(resolve(DIST, "redirect-sources.txt"), emittedSources.sort().join("\n") + "\n", "utf8").catch(() => {});
 
   console.log(`[prerender] done: ${ok} ok, ${fail} failed, ${routes.length} total`);
   console.log(`[prerender] wrote ${ok} route files to dist/`);
