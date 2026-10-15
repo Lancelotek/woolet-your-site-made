@@ -129,7 +129,7 @@ const NOSCRIPT_OVERRIDES = {
 /** Resolve the final noscript HTML for a route, preferring overrides. */
 // Hydrated-body snapshots of /en/collections/* (refresh with
 // `python3 scripts/snapshot-collections.py` after editing collection copy).
-const COLLECTION_SNAPSHOTS = (() => {
+globalThis.__wooletCollectionSnapshots = (() => {
   try {
     return JSON.parse(readFileSync(resolve(ROOT, "src/seo/collection-snapshots.json"), "utf8"));
   } catch {
@@ -138,7 +138,7 @@ const COLLECTION_SNAPSHOTS = (() => {
 })();
 
 function getNoscriptContent(route, fallback) {
-  const content = NOSCRIPT_OVERRIDES[route] ?? COLLECTION_SNAPSHOTS[route] ?? fallback;
+  const content = NOSCRIPT_OVERRIDES[route] ?? globalThis.__wooletCollectionSnapshots?.[route] ?? fallback;
   if (!content?.includes("{{BLOG_UPDATED_MONTH}}")) return content;
   // Resolve this route's slug, using the same source as Article dateModified.
   const slug = /^\/[a-z]{2}\/blog\/([^/]+)\/?$/.exec(route)?.[1];
