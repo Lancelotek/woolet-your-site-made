@@ -1,6 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 
 import { getSessionRef } from "@/lib/scan-session-ref";
+import { clarityEvent, claritySet } from "@/lib/clarity";
+import { pushGtmEvent } from "@/lib/gtm";
+import { MEASUREMENT_RANGES } from "@/data/bespoke-options";
+import {
+  createFitLensDedupe,
+  pickFitLensParams,
+  sanitizeFitLensType,
+} from "@/lib/fitlens-events";
 
 const SCRIPT_SRC = "https://fitlens-web-production.up.railway.app/v1/embed.js";
 // No `integrity` hash on purpose: FitLens redeploys /v1/embed.js without
@@ -19,6 +27,11 @@ export function useFitLensScript(options?: { sessionRef?: string | null }) {
   const externalSessionRef = options?.sessionRef ?? null;
   const scriptRef = useRef<HTMLScriptElement | null>(null);
   const frameRef = useRef<HTMLIFrameElement | null>(null);
+  const openedAtRef = useRef<number | null>(null);
+  const lastTypeRef = useRef<string>("opened");
+  const resultSeenRef = useRef(false);
+  const embedResultSeenRef = useRef(false);
+  const dedupeRef = useRef(createFitLensDedupe());
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
@@ -59,19 +72,84 @@ export function useFitLensScript(options?: { sessionRef?: string | null }) {
 
   useEffect(() => {
     const origin = new URL(SCRIPT_SRC).origin;
+    const debugOn = /[?&]debug=1\b/.test(window.location.search);
+
+    // Track whether the embed itself dispatched `fitlens:result` so we never
+    // dispatch a second copy.
+    const onDocResult = (e: Event) => {
+      if ((e as CustomEvent & { __wooletBridge?: boolean }).__wooletBridge) return;
+      embedResultSeenRef.current = true;
+    };
+    document.addEventListener("fitlens:result", onDocResult, true);
 
     const onMessage = (event: MessageEvent) => {
       if (event.origin !== origin || event.data?.source !== "fitlens") return;
+      const data = event.data as Record<string, unknown>;
+      const type = sanitizeFitLensType(data.type);
+      const payload =
+        data.payload && typeof data.payload === "object"
+          ? (data.payload as Record<string, unknown>)
+          : data;
 
-      if (event.data.type === "close") {
+      if (debugOn) console.info("[fitlens] message", type, Object.keys(payload || {}));
+
+      const secs = openedAtRef.current
+        ? Math.round((Date.now() - openedAtRef.current) / 1000)
+        : null;
+
+      claritySet("fitlens_step", type);
+      if (dedupeRef.current.shouldFire(type)) {
+        clarityEvent("fitlens_" + type);
+        pushGtmEvent("fitlens_" + type, pickFitLensParams(payload, secs));
+      }
+      if (type !== "close") lastTypeRef.current = type;
+
+      if (type === "camera_denied" || type === "error") {
+        const code = typeof payload.code === "string" ? payload.code : "";
+        const reason = typeof payload.reason === "string" ? payload.reason : "";
+        claritySet("fitlens_error", (code || reason || "unknown").slice(0, 80));
+      }
+
+      if (type === "result") {
+        const fw = typeof payload.faceWidthMm === "number" ? payload.faceWidthMm : payload.faceWidth;
+        const { min, max } = MEASUREMENT_RANGES.faceWidth;
+        if (typeof fw === "number" && Number.isFinite(fw) && fw >= min && fw <= max) {
+          claritySet("fitlens_face_width", String(Math.round(fw)));
+        }
+        if (!resultSeenRef.current) {
+          resultSeenRef.current = true;
+          // Give the embed a tick to dispatch its own event first.
+          window.setTimeout(() => {
+            if (embedResultSeenRef.current) return;
+            embedResultSeenRef.current = true;
+            const ev = new CustomEvent("fitlens:result", { detail: payload, bubbles: true });
+            (ev as CustomEvent & { __wooletBridge?: boolean }).__wooletBridge = true;
+            document.dispatchEvent(ev);
+          }, 50);
+        }
+      }
+
+      if (type === "close") {
+        const params: Record<string, string | number> = { last_step: lastTypeRef.current };
+        if (secs != null) params.seconds_open = secs;
+        clarityEvent("fitlens_closed");
+        pushGtmEvent("fitlens_closed", params);
+        if (!resultSeenRef.current) {
+          clarityEvent("fitlens_abandoned");
+          pushGtmEvent("fitlens_abandoned", params);
+          claritySet("fitlens_abandon_step", lastTypeRef.current);
+        }
+        openedAtRef.current = null;
         frameRef.current?.remove();
         frameRef.current = null;
       }
-
     };
 
     window.addEventListener("message", onMessage);
-    return () => window.removeEventListener("message", onMessage);
+    return () => {
+      window.removeEventListener("message", onMessage);
+      document.removeEventListener("fitlens:result", onDocResult, true);
+    };
   }, []);
 
   const openFitLens = () => {
@@ -99,6 +177,13 @@ export function useFitLensScript(options?: { sessionRef?: string | null }) {
       `&locale=${encodeURIComponent(locale)}${debug}`;
     document.body.appendChild(frame);
     frameRef.current = frame;
+    openedAtRef.current = Date.now();
+    lastTypeRef.current = "opened";
+    resultSeenRef.current = false;
+    embedResultSeenRef.current = false;
+    dedupeRef.current.reset();
+    clarityEvent("fitlens_opened");
+    pushGtmEvent("fitlens_opened", { page: window.location.pathname });
   };
 
   return { isReady, openFitLens };
