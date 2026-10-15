@@ -1315,11 +1315,17 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
 
     };
     const posts = getBlogPosts(lang);
+    const readLabel = lang === "pl" ? "Czytaj artykuł" : "Read full article";
+    const minRead = t(lang, "blog.min_read");
     const links = posts
-      .map(
-        (p) =>
-          `<li><a href="/${lang}/blog/${p.slug}">${escapeHtml(p.title)}</a> — ${escapeHtml(p.excerpt)}</li>`,
-      )
+      .map((p) => {
+        const date = new Date(p.date).toLocaleDateString(lang, { year: "numeric", month: "long", day: "numeric" });
+        const tags = (p.tags ?? []).map((tag) => escapeHtml(tag)).join(" · ");
+        return `<li><article><p>${escapeHtml(date)} • ${escapeHtml(String(p.readTime))} ${escapeHtml(minRead)}${tags ? ` • ${tags}` : ""}</p>
+<h2><a href="/${lang}/blog/${p.slug}">${escapeHtml(p.title)}</a></h2>
+<p>${escapeHtml(p.excerpt)}</p>
+<p><a href="/${lang}/blog/${p.slug}">${readLabel}: ${escapeHtml(p.title)} →</a></p></article></li>`;
+      })
       .join("\n");
     const hub =
       lang === "en"
@@ -1327,8 +1333,8 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
         : "";
     return base(route, lang, {
       ...titles[lang],
-      noscriptHtml: `<h1>${escapeHtml(titles[lang].title)}</h1>
-<p>${escapeHtml(titles[lang].description)}</p>
+      noscriptHtml: `<h1>${escapeHtml(t(lang, "blog.title"))}</h1>
+<p>${escapeHtml(t(lang, "blog.subtitle"))}</p>
 ${hub}
 <ul>
 ${links}

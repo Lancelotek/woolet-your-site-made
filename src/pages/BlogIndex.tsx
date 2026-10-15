@@ -98,7 +98,7 @@ const BlogIndex = () => {
                     {post.excerpt}
                   </p>
                   <span className="text-primary uppercase tracking-[0.22em] group-hover:tracking-[0.28em] transition-all" style={{ fontSize: "0.72rem" }}>
-                    Read full article: {post.title} →
+                    {currentLang === "pl" ? "Czytaj artykuł" : "Read full article"}: {post.title} →
                   </span>
                 </div>
               </Link>
