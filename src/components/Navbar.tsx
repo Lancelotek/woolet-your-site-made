@@ -90,7 +90,7 @@ const Navbar = () => {
           <Link
             to={hrefFor("collection", lang)}
             aria-current={isCurrent(hrefFor("collection", lang)) ? "page" : undefined}
-            className={`-mx-2.5 px-2.5 py-3 no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors ${isCurrent(hrefFor("collection", lang)) ? "text-primary" : "text-cream-dim"}`}
+            className={`-mx-2.5 px-2.5 py-3 min-h-[44px] inline-flex items-center no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors ${isCurrent(hrefFor("collection", lang)) ? "text-primary" : "text-cream-dim"}`}
             style={{ fontSize: "0.72rem" }}
             onClick={(e) => {
               pushGtmEvent("nav_click", { nav_item: "collection", nav_lang: lang });
@@ -102,7 +102,7 @@ const Navbar = () => {
           <Link
             to={hrefFor("fit", lang)}
             aria-current={isCurrent(hrefFor("fit", lang)) ? "page" : undefined}
-            className={`-mx-2.5 px-2.5 py-3 no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors ${isCurrent(hrefFor("fit", lang)) ? "text-primary" : "text-cream-dim"}`}
+            className={`-mx-2.5 px-2.5 py-3 min-h-[44px] inline-flex items-center no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors ${isCurrent(hrefFor("fit", lang)) ? "text-primary" : "text-cream-dim"}`}
             style={{ fontSize: "0.72rem" }}
             onClick={(e) => {
               pushGtmEvent("nav_click", { nav_item: "fit_quiz", nav_lang: lang });
@@ -114,7 +114,7 @@ const Navbar = () => {
           <Link
             to={hrefFor("bespoke", lang)}
             aria-current={isCurrent(hrefFor("bespoke", lang)) ? "page" : undefined}
-            className={`-mx-2.5 px-2.5 py-3 no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors ${isCurrent(hrefFor("bespoke", lang)) ? "text-primary" : "text-cream-dim"}`}
+            className={`-mx-2.5 px-2.5 py-3 min-h-[44px] inline-flex items-center no-underline uppercase tracking-[0.2em] hover:text-primary transition-colors ${isCurrent(hrefFor("bespoke", lang)) ? "text-primary" : "text-cream-dim"}`}
             style={{ fontSize: "0.72rem" }}
             onClick={(e) => {
               pushGtmEvent("nav_click", { nav_item: "bespoke", nav_lang: lang });

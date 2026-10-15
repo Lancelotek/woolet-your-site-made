@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
+import { findFrame } from "@/data/frames";
 import { isValidLang, type Lang } from "@/lib/i18n";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import SEO from "@/components/SEO";
@@ -295,7 +296,7 @@ const BespokePage = () => {
             <div>
               <div className="woolet-eyebrow mb-5">
                 <div className="woolet-eyebrow-line" />
-                 <span className="woolet-eyebrow-text">BESPOKE · {BESPOKE_FACTS.frontWidth.toUpperCase()}</span>
+                 <span className="woolet-eyebrow-text" style={{ cursor: "default" }}>BESPOKE · {BESPOKE_FACTS.frontWidth.toUpperCase()}</span>
               </div>
               <h1
                 className="font-display text-woolet-white leading-[0.95] mb-6"
@@ -315,7 +316,7 @@ const BespokePage = () => {
 
               <div ref={heroCtaRef} className="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-5">
                 <Link
-                   to="/en/bespoke/configurator"
+                   to={cfgHref}
                   className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
                   style={{
                     background: "hsl(var(--gold))",
@@ -605,7 +606,7 @@ const BespokePage = () => {
 
             <div className="mt-8 flex flex-col sm:flex-row sm:items-center gap-4">
               <Link
-                to="/en/bespoke/configurator"
+                to={cfgHref}
                 className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
                 style={{
                   background: "hsl(var(--gold))",
@@ -769,7 +770,7 @@ const BespokePage = () => {
       {showStickyCta && (
         <div className="md:hidden fixed inset-x-0 bottom-0 z-40 px-4 pb-[max(12px,env(safe-area-inset-bottom))] pt-3 bg-background/95 backdrop-blur-xl border-t" style={{ borderTopColor: "hsl(var(--gold) / 0.2)" }}>
           <Link
-            to="/en/bespoke/configurator"
+            to={cfgHref}
             className="flex w-full items-center justify-center uppercase tracking-[0.22em] no-underline"
             style={{
               background: "hsl(var(--gold))",
