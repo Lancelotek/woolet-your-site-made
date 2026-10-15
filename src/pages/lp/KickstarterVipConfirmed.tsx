@@ -6,6 +6,7 @@ import { pushGtmEvent } from "@/lib/gtm";
 import { KickstarterFollowCta } from "@/components/KickstarterFollowCta";
 import { trackGoogleAdsConversion } from "@/lib/google-ads";
 import { trackReservationPurchase } from "@/lib/ga4-purchase";
+import { oaiqReservation } from "@/lib/openai-pixel";
 import logoAsset from "@/assets/woolet-logo.png.asset.json";
 import vipBespokePreview from "@/assets/vip-bespoke-preview.png.asset.json";
 const logo = logoAsset.url;
@@ -48,6 +49,7 @@ const KickstarterVipConfirmed = () => {
     }
     trackGoogleAdsConversion(paymentRef);
     trackReservationPurchase(paymentRef, "kickstarter_vip_confirmed");
+    oaiqReservation(paymentRef);
   }, [paid, paymentRef]);
 
   useEffect(() => {

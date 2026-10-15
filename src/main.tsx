@@ -7,6 +7,7 @@ import "@fontsource/archivo/600.css";
 import { initRedditPixel } from "./lib/reddit-pixel";
 import { captureAttribution } from "./lib/attribution";
 import { captureJourney } from "./lib/journey";
+import { initOpenAiPixel } from "./lib/openai-pixel";
 import { stripPrerenderedSeoHead } from "./lib/strip-prerender-seo";
 
 // Remove prerender-owned <head> tags only once Helmet has written its own
@@ -14,6 +15,7 @@ import { stripPrerenderedSeoHead } from "./lib/strip-prerender-seo";
 stripPrerenderedSeoHead();
 
 initRedditPixel();
+initOpenAiPixel();
 captureAttribution();
 captureJourney();
 

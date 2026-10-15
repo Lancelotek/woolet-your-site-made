@@ -3,6 +3,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { Link } from "react-router-dom";
 import { Check, ChevronLeft, ChevronRight, Cloud, CloudOff, Loader2, Maximize2, Ruler, Sparkles } from "lucide-react";
 import SEO from "@/components/SEO";
+import { oaiqBespokeViewed } from "@/lib/openai-pixel";
 import { COLORS, FINISHES, LENS_TYPES, RETIRED_COLOR_FALLBACK_ID as DEFAULT_ACETATE_ID, formatTempleLength, resolveActiveColorId } from "@/data/bespoke-options";
 import { findFrame } from "@/data/frames";
 import { STEPS, hasEngraving, formatEur, formatAddOn, formatLensWithStrength, isStepComplete, lensTintCode, selectedLensTint, useBespokeConfig, type BespokeConfig, type StepId } from "@/lib/bespoke-state";
@@ -73,6 +74,7 @@ const ConfiguratorPage = () => {
   const [saved, setSaved] = useState(false);
   const [fitOpen, setFitOpen] = useState(false);
   const [patternRenders, setPatternRenders] = useState<Record<string, PatternRender>>({});
+  useEffect(() => { oaiqBespokeViewed(); }, []);
   useEffect(() => {
     let cancelled = false;
     void loadPatternRenders().then((renders) => { if (!cancelled) setPatternRenders(renders); });
