@@ -98,7 +98,9 @@ export function useFitLensScript(options?: { sessionRef?: string | null }) {
         : null;
 
       claritySet("fitlens_step", type);
-      if (dedupeRef.current.shouldFire(type)) {
+      // "close" never fires as fitlens_close — the funnel has one close event,
+      // fitlens_closed (below), which carries last_step and seconds_open.
+      if (type !== "close" && dedupeRef.current.shouldFire(type)) {
         clarityEvent("fitlens_" + type);
         pushGtmEvent("fitlens_" + type, pickFitLensParams(payload, secs));
       }
@@ -118,7 +120,9 @@ export function useFitLensScript(options?: { sessionRef?: string | null }) {
         }
         if (!resultSeenRef.current) {
           resultSeenRef.current = true;
-          // Give the embed a tick to dispatch its own event first.
+          // Give the embed a window to dispatch its own event first. Page-side
+          // fitlens:result handlers dedupe by measurementId, so a late
+          // duplicate from this bridge is harmless.
           window.setTimeout(() => {
             if (embedResultSeenRef.current) return;
             embedResultSeenRef.current = true;
