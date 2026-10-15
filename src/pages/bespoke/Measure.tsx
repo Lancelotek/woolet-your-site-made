@@ -19,6 +19,7 @@ import { useSearchParams } from "react-router-dom";
 
 import SEO from "@/components/SEO";
 import { supabase } from "@/integrations/supabase/client";
+import { createFitLensResultDedupe } from "@/lib/fitlens-result-dedupe";
 
 const EMBED_ORIGIN = "https://fitlens-web-production.up.railway.app";
 const EMBED_SRC = `${EMBED_ORIGIN}/v1/embed.js`;
@@ -63,6 +64,7 @@ export default function Measure() {
   const csrfRef = useRef<string>("");
   const sessionRef = useRef<string>("");
   const lastResultRef = useRef<unknown>(null);
+  const resultDedupeRef = useRef(createFitLensResultDedupe());
 
   // 1. Neutral check. No side effects, no consumption.
   useEffect(() => {
@@ -126,6 +128,8 @@ export default function Measure() {
     if (stage !== "measuring" && stage !== "saving" && stage !== "refused") return;
     const onResult = (event: Event) => {
       const detail = (event as CustomEvent).detail;
+      // The embed and our message bridge can both dispatch the same result.
+      if (resultDedupeRef.current.isDuplicate(detail)) return;
       void saveResult(detail);
     };
     document.addEventListener("fitlens:result", onResult as EventListener);
