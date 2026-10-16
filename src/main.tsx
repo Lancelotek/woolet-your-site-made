@@ -15,9 +15,9 @@ import { stripPrerenderedSeoHead } from "./lib/strip-prerender-seo";
 stripPrerenderedSeoHead();
 
 initRedditPixel();
-initOpenAiPixel();
 captureAttribution();
 captureJourney();
+initOpenAiPixel();
 
 createRoot(document.getElementById("root")!).render(
   <HelmetProvider>

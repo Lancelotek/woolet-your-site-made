@@ -4,6 +4,8 @@
 // EU-like visitors only after marketing consent (woolet_consent_v1 ad_storage).
 
 import { isEuLikeVisitor } from "@/lib/meta-pixel";
+import { getJourney } from "@/lib/journey";
+import { supabase } from "@/integrations/supabase/client";
 
 type Oaiq = (...args: unknown[]) => void;
 const OPPREF_KEY = "wlt_openai_oppref";
@@ -112,6 +114,7 @@ export const oaiqBespokeOrderCreated = (amountCents: number, sessionId: string):
 
 /** Paid $1 reservation — custom event only, never order_created/checkout_started. */
 export const oaiqReservation = (ref?: string): void => {
+  // ref = Stripe session id → same id as the server reservation_1usd event.
   const key = `wlt_oaiq_res_${ref || "x"}`;
   try {
     if (sessionStorage.getItem(key)) return;
@@ -119,7 +122,11 @@ export const oaiqReservation = (ref?: string): void => {
   } catch {
     /* noop */
   }
-  oaiqMeasure("custom", { type: "custom" }, { custom_event_name: "reservation_1usd" });
+  oaiqMeasure(
+    "custom",
+    { type: "custom" },
+    { custom_event_name: "reservation_1usd", ...(ref ? { event_id: ref } : {}) },
+  );
 };
 
 export const oaiqLead = (eventId: string): void => {
@@ -146,6 +153,117 @@ export const getOppref = (): string => {
   } catch {
     return "";
   }
+};
+
+// ---- user identity (hashed only) ------------------------------------------
+const PIXEL_ID = "PZ4o6trkntv1aiioMM7GJ7";
+const EMAIL_HASH_KEY = "wlt_openai_em";
+
+export const sha256Hex = async (input: string): Promise<string> => {
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(input));
+  return Array.from(new Uint8Array(digest)).map((b) => b.toString(16).padStart(2, "0")).join("");
+};
+
+export const getVisitorId = (): string => {
+  try {
+    return getJourney()?.visitor_id?.trim() || "";
+  } catch {
+    return "";
+  }
+};
+
+/** Re-inits the pixel with hashed email/external id. Never sends raw values. */
+export const oaiqIdentify = async (email?: string): Promise<void> => {
+  try {
+    if (!getOaiq() || !crypto?.subtle) return;
+    const user: Record<string, string> = {};
+    const em = (email ?? "").trim().toLowerCase();
+    if (em && em.includes("@")) {
+      user.email_sha256 = await sha256Hex(em);
+      try { localStorage.setItem(EMAIL_HASH_KEY, user.email_sha256); } catch { /* noop */ }
+    } else {
+      try {
+        const stored = localStorage.getItem(EMAIL_HASH_KEY);
+        if (stored && /^[a-f0-9]{64}$/.test(stored)) user.email_sha256 = stored;
+      } catch { /* noop */ }
+    }
+    const vid = getVisitorId();
+    if (vid) user.external_id_sha256 = await sha256Hex(vid);
+    if (!Object.keys(user).length) return;
+    call("init", { pixelId: PIXEL_ID, user });
+  } catch {
+    /* never throw */
+  }
+};
+
+export const getObref = (): string => {
+  try {
+    const m = document.cookie.match(/(?:^|;\s*)__obref=([^;]+)/)?.[1];
+    return m ? decodeURIComponent(m).slice(0, 500) : "";
+  } catch {
+    return "";
+  }
+};
+
+/** Fields the server needs for the OpenAI Conversions API (empty values omitted). */
+export const getOpenAiServerFields = (): Record<string, string> => {
+  const out: Record<string, string> = { openai_consent: marketingAllowed() ? "1" : "0" };
+  const oppref = getOppref();
+  if (oppref) out.openai_oppref = oppref;
+  const vid = getVisitorId();
+  if (vid) out.wlt_visitor_id = vid;
+  try { out.openai_source_url = window.location.href.slice(0, 500); } catch { /* noop */ }
+  return out;
+};
+
+const SIGNUP_FNS = new Set(["mailerlite-subscribe"]);
+const CHECKOUT_FNS = new Set(["create-checkout", "create-bespoke-checkout"]);
+
+/**
+ * One place that enriches every signup/checkout request: identifies the
+ * visitor (hashed email) BEFORE the request — so lead_created/checkout_started
+ * that follow carry user data — and adds oppref/obref/visitor id/consent.
+ */
+const patchInvoke = (): void => {
+  const fns = supabase.functions as unknown as {
+    invoke: (name: string, opts?: { body?: unknown }) => Promise<unknown>;
+    __wltOaiq?: boolean;
+  };
+  if (fns.__wltOaiq) return;
+  fns.__wltOaiq = true;
+  const original = fns.invoke.bind(supabase.functions);
+  fns.invoke = async (name: string, opts?: { body?: unknown }) => {
+    try {
+      const isSignup = SIGNUP_FNS.has(name);
+      const isCheckout = CHECKOUT_FNS.has(name);
+      const body = opts?.body as Record<string, unknown> | undefined;
+      if ((isSignup || isCheckout) && body && typeof body === "object" && !(body instanceof FormData)) {
+        const email = String(body.email ?? body.customerEmail ?? "");
+        await oaiqIdentify(email || undefined);
+        const fields = getOpenAiServerFields();
+        const obref = getObref();
+        if (isSignup) {
+          opts = {
+            ...opts,
+            body: {
+              ...body,
+              openai_oppref: fields.openai_oppref,
+              openai_consent: fields.openai_consent,
+              obref: obref || undefined,
+              wlt_visitor_id: body.wlt_visitor_id ?? fields.wlt_visitor_id,
+            },
+          };
+        } else {
+          const meta = { ...((body.metadata as Record<string, string>) ?? {}), ...fields };
+          if (obref) meta.openai_obref = obref;
+          opts = { ...opts, body: { ...body, metadata: meta } };
+        }
+      }
+    } catch {
+      /* never block the request */
+    }
+    return original(name, opts);
+  };
 };
 
 /** Mirror meta_lead dataLayer pushes (same event_id as Meta Lead) into lead_created. */
@@ -175,6 +293,8 @@ export const initOpenAiPixel = (): void => {
     captureOppref();
     applyConsent();
     bridgeLeads();
+    patchInvoke();
+    void oaiqIdentify();
     window.addEventListener("woolet-consent-updated", () => applyConsent());
   } catch {
     /* noop */
