@@ -107,17 +107,20 @@ export function useFitLensScript(options?: { sessionRef?: string | null }) {
       }
       if (type !== "close") lastTypeRef.current = type;
 
-      if (type === "camera_denied" || type === "error") {
+      if (type === "camera_denied" || isFitLensErrorLike(type)) {
         const code = typeof payload.code === "string" ? payload.code : "";
         const reason = typeof payload.reason === "string" ? payload.reason : "";
-        claritySet("fitlens_error", (code || reason || "unknown").slice(0, 80));
+        // Legacy camera_unsuitable / measure_failed carry no code, so the tag
+        // value falls back to the step name itself.
+        claritySet("fitlens_error", (code || reason || type).slice(0, 80));
       }
 
       if (type === "result") {
-        const fw = typeof payload.faceWidthMm === "number" ? payload.faceWidthMm : payload.faceWidth;
+        const fw = pickFitLensFaceWidthMm(payload);
         const { min, max } = MEASUREMENT_RANGES.faceWidth;
-        if (typeof fw === "number" && Number.isFinite(fw) && fw >= min && fw <= max) {
-          claritySet("fitlens_face_width", String(Math.round(fw)));
+        // Privacy: only a 5 mm bucket leaves the page — never the exact mm.
+        if (fw != null && fw >= min && fw <= max) {
+          claritySet("fitlens_face_width_bucket", bucketFaceWidth(fw));
         }
         if (!resultSeenRef.current) {
           resultSeenRef.current = true;
