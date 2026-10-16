@@ -7,6 +7,9 @@ import {
   isFitLensErrorLike,
   pickFitLensFaceWidthMm,
   bucketFaceWidth,
+  pickFitLensBucket,
+  fitLensErrorTag,
+  pickFitLensCloseParams,
 } from "./fitlens-events";
 
 describe("sanitizeFitLensType", () => {
