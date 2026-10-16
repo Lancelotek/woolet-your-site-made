@@ -4,6 +4,7 @@ import { sendTemplateEmailAndLog } from "../_shared/transactional-email-template
 import { generateOrderPreview } from "../_shared/bespoke-preview.ts";
 import { buildInterviewBookingUrl } from "../_shared/bespoke-case.ts";
 import { ensurePaidStage } from "../_shared/bespoke-stage.ts";
+import { parseConsentFlag, sendOpenAiEvent } from "../_shared/openai-capi.ts";
 
 
 let _supabase: ReturnType<typeof createClient> | null = null;
@@ -972,36 +973,60 @@ async function resolvePaidSource(
   return { paidSource: [source, medium, campaign].filter(Boolean).join("/"), metadata: meta };
 }
 
-// OpenAI (ChatGPT Ads) Conversions API — server duplicate of the browser
-// order_created; same id (Stripe session id) deduplicates. Bespoke only.
+// OpenAI (ChatGPT Ads) Conversions API — server duplicates of browser events;
+// same id (Stripe session id) deduplicates. Consent flag comes from the browser.
+function openAiUserFromSession(session: any) {
+  const meta = (session?.metadata ?? {}) as Record<string, string>;
+  const cd = session?.customer_details ?? {};
+  return {
+    email: cd.email || session?.customer_email || meta.email,
+    phone: cd.phone,
+    country: cd.address?.country,
+    externalId: meta.wlt_visitor_id,
+    obref: meta.openai_obref,
+    ip: meta.openai_client_ip || meta.meta_client_ip_address,
+    userAgent: meta.openai_client_ua || meta.meta_client_user_agent,
+  };
+}
+
 async function sendOpenAiOrderCreated(session: any) {
-  try {
-    if (session?.payment_status === "unpaid") return;
-    const key = Deno.env.get("OPENAI_CONVERSIONS_API_KEY");
-    if (!key) {
-      console.warn("[payments-webhook:openai] OPENAI_CONVERSIONS_API_KEY not set — skipping order_created");
-      return;
-    }
-    const oppref = session?.metadata?.openai_oppref;
-    const event: Record<string, unknown> = {
-      id: session.id,
-      type: "order_created",
-      timestamp_ms: Date.now(),
-      action_source: "web",
-      source_url: "https://woolet.co/en/bespoke",
-      data: { type: "contents", amount: session.amount_total ?? 0, currency: "USD" },
-      ...(oppref ? { oppref } : {}),
-    };
-    const res = await fetch("https://bzr.openai.com/v1/events?pid=PZ4o6trkntv1aiioMM7GJ7", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ events: [event] }),
-    });
-    if (!res.ok) console.error("[payments-webhook:openai] non-ok", res.status, (await res.text()).slice(0, 300));
-    else console.log("[payments-webhook:openai] order_created sent", session.id);
-  } catch (e) {
-    console.error("[payments-webhook:openai] error", e);
-  }
+  if (session?.payment_status === "unpaid") return;
+  const meta = (session?.metadata ?? {}) as Record<string, string>;
+  const amount = session.amount_total ?? 0;
+  const currency = String(session.currency ?? "usd").toUpperCase();
+  await sendOpenAiEvent({
+    id: session.id,
+    type: "order_created",
+    sourceUrl: meta.openai_source_url || meta.meta_event_source_url || "https://woolet.co/en/bespoke/checkout",
+    oppref: meta.openai_oppref,
+    data: {
+      type: "contents",
+      amount,
+      currency,
+      contents: [{ id: "bespoke", name: "Woolet Bespoke", content_type: "product", quantity: 1, amount, currency }],
+    },
+    user: openAiUserFromSession(session),
+    consent: parseConsentFlag(meta.openai_consent),
+    source: "payments-webhook",
+    requestSummary: { stripe_session_id: session.id, amount_total: amount, currency },
+  });
+}
+
+async function sendOpenAiReservation(session: any) {
+  if (session?.payment_status === "unpaid") return;
+  const meta = (session?.metadata ?? {}) as Record<string, string>;
+  await sendOpenAiEvent({
+    id: session.id,
+    type: "custom",
+    customEventName: "reservation_1usd",
+    sourceUrl: meta.openai_source_url || meta.meta_event_source_url || "https://woolet.co/en/lp/kickstarter",
+    oppref: meta.openai_oppref,
+    data: { type: "custom" },
+    user: openAiUserFromSession(session),
+    consent: parseConsentFlag(meta.openai_consent),
+    source: "payments-webhook",
+    requestSummary: { stripe_session_id: session.id },
+  });
 }
 
 async function handleCheckoutCompleted(session: any, env: StripeEnv) {
@@ -1089,6 +1114,7 @@ async function handleCheckoutCompleted(session: any, env: StripeEnv) {
   }
 
   await fireMetaPurchase(session);
+  await sendOpenAiReservation(session);
   await fireGa4Conversion(session, env, "reservation", paidSource);
 }
 
