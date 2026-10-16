@@ -79,12 +79,16 @@ const DUPLICATE_ALLOW_LIST = [
   ["/en/bespoke", "/en/products/bespoke"],
 ];
 
-const isAllowedDuplicate = (routes) =>
-  DUPLICATE_ALLOW_LIST.some((group) => routes.every((r) => group.includes(r))) ||
-  // Noindex tools share approved English titles across localized entry URLs.
-  routes.every((r) => /<meta\b[^>]*name="robots"[^>]*content="noindex/i.test(
+const isAllowedDuplicate = (routes) => {
+  // Private/noindex tools may reuse the public tool's approved English copy.
+  // Still check every file's stamps, tags and coverage; uniqueness concerns
+  // competing indexable pages, not localized noindex entry points.
+  const indexable = routes.filter((r) => !/<meta\b[^>]*name="robots"[^>]*content="noindex/i.test(
     readFileSync(resolve(DIST, "." + r, "index.html"), "utf8")
   ));
+  return indexable.length < 2 ||
+    DUPLICATE_ALLOW_LIST.some((group) => indexable.every((r) => group.includes(r)));
+};
 
 
 function add(list, file, msg) {
