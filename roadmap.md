@@ -1,5 +1,10 @@
 # Roadmap
 
+## Registered-page prerender titles - 2026-10-16
+- [ ] Give registered conversion and utility pages their own static metadata; keep transactional pages noindex and configurator indexable
+- [ ] Guard static route coverage and verify Bespoke titles on client navigation
+- [ ] Confirm generated checkout/configurator/reserve HTML and focused tests without publishing or changing routing, payments or tracking
+
 ## Mobile menu dead taps - 2026-10-14
 - [x] Make every mobile-menu row edge-to-edge so taps in the former 8px gaps and 24px side padding land on a link
 - [x] Keep label, divider and bordered VIP/reservation visuals unchanged; verify at 390px with elementFromPoint plus real taps; do not publish
