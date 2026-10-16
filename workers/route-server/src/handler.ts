@@ -18,6 +18,22 @@
  */
 import LEGACY_REDIRECTS from "./legacy-redirects.json";
 
+// Minimal Cloudflare HTMLRewriter types: the app tsconfig typechecks this file
+// with DOM libs, not @cloudflare/workers-types.
+interface RewriterElement {
+  append(content: string, options?: { html?: boolean }): RewriterElement;
+  remove(): RewriterElement;
+  getAttribute(name: string): string | null;
+}
+interface RewriterHandler { element(el: RewriterElement): void }
+interface HTMLRewriterLike {
+  on(selector: string, handler: RewriterHandler): HTMLRewriterLike;
+  transform(response: Response): Response;
+}
+declare const HTMLRewriter: { new (): HTMLRewriterLike };
+type Element = RewriterElement;
+
+
 const SECURITY_HEADERS: Record<string, string> = {
   "strict-transport-security": "max-age=31536000; includeSubDomains",
   "x-content-type-options": "nosniff",
