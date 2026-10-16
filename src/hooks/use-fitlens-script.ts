@@ -1,4 +1,7 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { tFit } from "@/lib/i18n-fitscan";
+import type { Lang } from "@/lib/i18n";
 
 import { getSessionRef } from "@/lib/scan-session-ref";
 import { clarityEvent, claritySet } from "@/lib/clarity";
@@ -7,6 +10,7 @@ import { MEASUREMENT_RANGES } from "@/data/bespoke-options";
 import {
   bucketFaceWidth,
   createFitLensDedupe,
+  createFitLensFailureCounter,
   fitLensErrorTag,
   isFitLensErrorLike,
   parseFitLensMessage,
@@ -27,7 +31,35 @@ const FITLENS_KEY = "pk_live_OuBrFjXWKeNygZku6WyJHeFW_8d55SVqIrleeFfrzuQ";
  * Load the external FitLens embed script once per mount.
  * Use `data-fitlens="open"` on a button to open the widget.
  */
-export function useFitLensScript(options?: { sessionRef?: string | null }) {
+const FIT_LANGS: Lang[] = ["en", "pl", "fr", "es", "de", "ar", "ja", "nl", "ko"];
+const PILL_ID = "__fitlens-manual-fallback";
+
+function pageLang(): Lang {
+  const l = (document.documentElement.lang || "en").slice(0, 2) as Lang;
+  return FIT_LANGS.includes(l) ? l : "en";
+}
+
+/** Generic tape-measure route; only en and de have their own manual page. */
+export function defaultManualHref(lang: string): string {
+  return lang === "de" ? "/de/fit/manual" : "/en/fit/manual";
+}
+
+function removeManualPill() {
+  document.getElementById(PILL_ID)?.remove();
+}
+
+export function useFitLensScript(options?: {
+  sessionRef?: string | null;
+  /** Where the "measure with a tape" fallback goes; defaults to /{lang}/fit/manual. */
+  manualHref?: string;
+  /** Replaces navigation, e.g. to open an in-page manual step. */
+  onManualFallback?: () => void;
+}) {
+  const navigate = useNavigate();
+  const manualOptsRef = useRef(options);
+  manualOptsRef.current = options;
+  const failureRef = useRef(createFitLensFailureCounter());
+  const closeRef = useRef<(extra?: Record<string, string>) => void>(() => {});
   // Callers that own a session (e.g. a paid Bespoke order) pass their own
   // reference so the scan ties back to the order rather than to this browser.
   const externalSessionRef = options?.sessionRef ?? null;
@@ -158,30 +190,76 @@ export function useFitLensScript(options?: { sessionRef?: string | null }) {
         }
       }
 
-      if (type === "close") {
-        const closeParams = pickFitLensCloseParams(payload);
-        const params: Record<string, string | number> = {
-          last_step: lastTypeRef.current,
-          ...closeParams,
-        };
-        if (secs != null) params.seconds_open = secs;
-        clarityEvent("fitlens_closed");
-        pushGtmEvent("fitlens_closed", params);
-        if (!resultSeenRef.current) {
-          clarityEvent("fitlens_abandoned");
-          pushGtmEvent("fitlens_abandoned", params);
-          claritySet("fitlens_abandon_step", lastTypeRef.current);
-          if (closeParams.last_state) claritySet("fitlens_abandon_state", closeParams.last_state);
-        }
-        openedAtRef.current = null;
-        frameRef.current?.remove();
-        frameRef.current = null;
-      }
+      const shownFailures = failureRef.current.onMessage(type);
+      if (shownFailures != null) showManualPill(shownFailures);
+      if (type === "result" || type === "result_shown") removeManualPill();
+
+      if (type === "close") closeWidget(payload);
     };
+
+    function closeWidget(payload: Record<string, unknown>, extra?: Record<string, string>) {
+      const secs = openedAtRef.current
+        ? Math.round((Date.now() - openedAtRef.current) / 1000)
+        : null;
+      const closeParams = { ...pickFitLensCloseParams(payload), ...extra };
+      const params: Record<string, string | number> = {
+        last_step: lastTypeRef.current,
+        ...closeParams,
+      };
+      if (secs != null) params.seconds_open = secs;
+      clarityEvent("fitlens_closed");
+      pushGtmEvent("fitlens_closed", params);
+      if (!resultSeenRef.current) {
+        clarityEvent("fitlens_abandoned");
+        pushGtmEvent("fitlens_abandoned", params);
+        claritySet("fitlens_abandon_step", lastTypeRef.current);
+        if (closeParams.last_state) claritySet("fitlens_abandon_state", closeParams.last_state);
+      }
+      openedAtRef.current = null;
+      removeManualPill();
+      frameRef.current?.remove();
+      frameRef.current = null;
+    }
+    closeRef.current = (extra) => {
+      if (frameRef.current) closeWidget({}, extra);
+      else removeManualPill();
+    };
+
+    function showManualPill(failures: number) {
+      if (!frameRef.current || document.getElementById(PILL_ID)) return;
+      const lang = pageLang();
+      const opts = manualOptsRef.current;
+      const href = opts?.manualHref || defaultManualHref(lang);
+      const pill = document.createElement("div");
+      pill.id = PILL_ID;
+      pill.className = "fitlens-fallback-pill";
+      const link = document.createElement("a");
+      link.href = href;
+      link.textContent = tFit(lang, "fallback.tape");
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        clarityEvent("fitlens_manual_fallback_clicked");
+        pushGtmEvent("fitlens_manual_fallback_clicked", { failures: failureRef.current.failures });
+        closeRef.current({ reason: "manual_fallback" });
+        const o = manualOptsRef.current;
+        if (o?.onManualFallback) o.onManualFallback();
+        else navigate(href);
+      });
+      const close = document.createElement("button");
+      close.type = "button";
+      close.setAttribute("aria-label", tFit(lang, "fallback.close"));
+      close.textContent = "×";
+      close.addEventListener("click", () => removeManualPill());
+      pill.append(link, close);
+      document.body.appendChild(pill);
+      clarityEvent("fitlens_manual_fallback_shown");
+      pushGtmEvent("fitlens_manual_fallback_shown", { failures });
+    }
 
     window.addEventListener("message", onMessage);
     return () => {
       window.removeEventListener("message", onMessage);
+      removeManualPill();
       document.removeEventListener("fitlens:result", onDocResult, true);
     };
   }, []);
@@ -196,7 +274,7 @@ export function useFitLensScript(options?: { sessionRef?: string | null }) {
     frame.setAttribute("allowfullscreen", "");
     frame.setAttribute("aria-modal", "true");
     frame.style.cssText =
-      "position:fixed;inset:0;width:100%;height:100%;border:0;z-index:2147483647;background:rgba(11,18,32,.32)";
+      "position:fixed;inset:0;width:100%;height:100%;border:0;z-index:2147483646;background:rgba(11,18,32,.32)";
 
     const debug = /[?&]debug=1\b/.test(window.location.search) ? "&debug=1" : "";
     // Pseudonymous only: a random per-attempt reference and the page language.
@@ -216,6 +294,8 @@ export function useFitLensScript(options?: { sessionRef?: string | null }) {
     resultSeenRef.current = false;
     embedResultSeenRef.current = false;
     dedupeRef.current.reset();
+    failureRef.current.reset();
+    removeManualPill();
     clarityEvent("fitlens_opened");
     pushGtmEvent("fitlens_opened", { page: window.location.pathname });
   };
