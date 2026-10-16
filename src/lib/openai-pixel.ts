@@ -264,7 +264,7 @@ const patchInvoke = (): void => {
     } catch {
       /* never block the request */
     }
-    return original(name, opts);
+    return original.call(this, name, opts);
   };
 };
 
