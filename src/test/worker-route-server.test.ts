@@ -1,4 +1,3 @@
-// @vitest-environment node
 import { describe, it, expect, beforeAll } from "vitest";
 import { buildKnownRouteData, parseAppRoutes, type KnownRouteData } from "@/seo/routeCatalog";
 import { getAllRoutes } from "@/seo/metadata";
