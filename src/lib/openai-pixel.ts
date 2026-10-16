@@ -225,14 +225,16 @@ const CHECKOUT_FNS = new Set(["create-checkout", "create-bespoke-checkout"]);
  * that follow carry user data — and adds oppref/obref/visitor id/consent.
  */
 const patchInvoke = (): void => {
-  const fns = supabase.functions as unknown as {
+  // supabase.functions is a getter returning a new FunctionsClient each time,
+  // so patch the prototype to cover every instance.
+  const proto = Object.getPrototypeOf(supabase.functions) as {
     invoke: (name: string, opts?: { body?: unknown }) => Promise<unknown>;
     __wltOaiq?: boolean;
   };
-  if (fns.__wltOaiq) return;
-  fns.__wltOaiq = true;
-  const original = fns.invoke.bind(supabase.functions);
-  fns.invoke = async (name: string, opts?: { body?: unknown }) => {
+  if (!proto || proto.__wltOaiq) return;
+  proto.__wltOaiq = true;
+  const original = proto.invoke;
+  proto.invoke = async function (this: unknown, name: string, opts?: { body?: unknown }) {
     try {
       const isSignup = SIGNUP_FNS.has(name);
       const isCheckout = CHECKOUT_FNS.has(name);
@@ -262,7 +264,7 @@ const patchInvoke = (): void => {
     } catch {
       /* never block the request */
     }
-    return original(name, opts);
+    return original.call(this, name, opts);
   };
 };
 
