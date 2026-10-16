@@ -88,11 +88,9 @@ export function useFitLensScript(options?: { sessionRef?: string | null }) {
     const onMessage = (event: MessageEvent) => {
       if (event.origin !== origin || event.data?.source !== "fitlens") return;
       const data = event.data as Record<string, unknown>;
-      const type = sanitizeFitLensType(data.type);
-      const payload =
-        data.payload && typeof data.payload === "object"
-          ? (data.payload as Record<string, unknown>)
-          : data;
+      // Accepts both the legacy `{ type: "fitlens:event", name, data }` shape
+      // and the current `{ type, payload }` shape.
+      const { type, payload } = parseFitLensMessage(data);
 
       if (debugOn) console.info("[fitlens] message", type, Object.keys(payload || {}));
 
