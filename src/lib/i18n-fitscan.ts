@@ -3,6 +3,10 @@ import type { Lang } from "@/lib/i18n";
 type Dict = Record<string, string>;
 
 const en: Dict = {
+  "fallback.tape": 'Scan not working? Measure with a tape - 1 min',
+  "fallback.close": 'Close',
+  "qr.desktop_copy": 'Most accurate on your phone - scan this code',
+  "qr.alt": 'QR code to open this page on your phone',
   // SEO
   "seo.title": "Frame Finder for Wide Faces — 155 mm+ | Woolet FitLens",
   "seo.desc": "A frame finder built for wide faces. Scan with your phone camera and get your face width in millimetres plus the frame size that fits, in about 60 seconds.",
@@ -217,6 +221,10 @@ const en: Dict = {
 };
 
 const de: Dict = {
+  "fallback.tape": 'Scan klappt nicht? Mit dem Maßband messen - 1 Min.',
+  "fallback.close": 'Schließen',
+  "qr.desktop_copy": 'Am genauesten auf dem Smartphone - Code scannen',
+  "qr.alt": 'QR-Code, um diese Seite auf dem Smartphone zu öffnen',
   ...en,
   "seo.title": "Brillenfinder für breite Gesichter - Gesicht in 60 Sekunden messen",
   "seo.desc": "Miss deine Gesichtsbreite mit der Smartphone-Kamera und finde in etwa 60 Sekunden die passende Woolet Fassung.",
@@ -258,6 +266,10 @@ const de: Dict = {
 };
 
 const pl: Dict = {
+  "fallback.tape": 'Skan nie działa? Zmierz taśmą - 1 min',
+  "fallback.close": 'Zamknij',
+  "qr.desktop_copy": 'Najdokładniej na telefonie - zeskanuj ten kod',
+  "qr.alt": 'Kod QR otwierający tę stronę na telefonie',
   "seo.title": "Skan twarzy — Woolet AI Fit",
   "seo.desc": "Zmierz szerokość twarzy i nosa kamerą i kartą kredytową. Lokalnie, prywatnie, z dokładnością ~2 mm. Sprawdź, czy oprawki Woolet na szeroką twarz pasują na Ciebie.",
 
@@ -450,6 +462,10 @@ const pl: Dict = {
 };
 
 const fr: Dict = {
+  "fallback.tape": 'Le scan ne marche pas ? Mesurez au mètre ruban - 1 min',
+  "fallback.close": 'Fermer',
+  "qr.desktop_copy": 'Plus précis sur votre téléphone - scannez ce code',
+  "qr.alt": 'QR code pour ouvrir cette page sur votre téléphone',
   "seo.title": "Scan du visage — Woolet AI Fit",
   "seo.desc": "Mesurez la largeur de votre visage et de votre nez avec votre caméra et une carte bancaire. Local, privé, précis à ~2 mm. Découvrez si les montures Woolet pour visages larges vous vont.",
 
@@ -636,6 +652,10 @@ const fr: Dict = {
 };
 
 const es: Dict = {
+  "fallback.tape": '¿El escaneo no funciona? Mide con una cinta - 1 min',
+  "fallback.close": 'Cerrar',
+  "qr.desktop_copy": 'Más preciso en tu móvil - escanea este código',
+  "qr.alt": 'Código QR para abrir esta página en tu móvil',
   "seo.title": "Escaneo de cara — Woolet AI Fit",
   "seo.desc": "Mide el ancho de tu cara y nariz con tu cámara y una tarjeta de crédito. Local, privado y con precisión de ~2 mm. Descubre si las monturas Woolet para caras anchas te quedan.",
 

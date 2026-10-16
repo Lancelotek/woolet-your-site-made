@@ -140,3 +140,31 @@ export function pickFitLensParams(
   if (secondsSinceOpen != null) out.seconds_since_open = secondsSinceOpen;
   return out;
 }
+
+/** Types counted as a failed scan attempt for the tape-measure fallback. */
+export function isFitLensFailure(type: string): boolean {
+  return isFitLensErrorLike(type);
+}
+
+/**
+ * Per-open failure counter. `onMessage` returns the failure count when the
+ * tape-measure fallback should appear (2nd failure, no result yet, once per open),
+ * otherwise null.
+ */
+export function createFitLensFailureCounter(threshold = 2) {
+  let failures = 0;
+  let resultSeen = false;
+  let shown = false;
+  return {
+    reset() { failures = 0; resultSeen = false; shown = false; },
+    get failures() { return failures; },
+    onMessage(type: string): number | null {
+      if (type === "result" || type === "result_shown") { resultSeen = true; return null; }
+      if (!isFitLensFailure(type)) return null;
+      failures += 1;
+      if (resultSeen || shown || failures < threshold) return null;
+      shown = true;
+      return failures;
+    },
+  };
+}
