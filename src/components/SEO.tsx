@@ -97,7 +97,7 @@ const SEO = ({
   const cleanSnippet = (value: string) => value.replace(/\s*[—–]\s*/g, " - ");
   const fullTitle = cleanSnippet(registeredPage?.title || (exactTitle || title.includes("Woolet") ? title : `${title} | Woolet`));
   const cleanDescription = cleanSnippet(registeredPage?.description || description);
-  const socialDescription = cleanSnippet(ogDescription || description);
+  const socialDescription = cleanSnippet(ogDescription || registeredPage?.description || description);
   const canonical = canonicalUrl || (registeredPage ? `${SITE_URL}${pathname}` : `${SITE_URL}/${lang}${path}`);
   const geo = geoMeta[lang] || geoMeta.en;
   const ogImage = image
@@ -211,7 +211,7 @@ const SEO = ({
   // ignored: they produced links to non-existent locale URLs.
   void availableLangs; void alternates;
   const hreflangLinks: JSX.Element[] = [];
-  const pagePath = canonicalUrl ? canonicalUrl.replace(SITE_URL, "") : `/${lang}${path}`;
+  const pagePath = canonical.replace(SITE_URL, "");
   const alts = canonicalUrl && canonicalUrl !== `${SITE_URL}/${lang}${path}` ? null : hreflangAlternates(pagePath, SITE_URL);
   if (alts) {
     alts.forEach(({ lang: l, href }) => {
