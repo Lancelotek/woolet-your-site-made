@@ -4,7 +4,10 @@ import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter, Link } from "react-router-dom";
 import { getAllRoutes, getMetadata, renderHeadHtml } from "@/seo/metadata";
 import SEO from "@/components/SEO";
-import { readFileSync } from "node:fs";
+import { readFileSync, mkdtempSync, mkdirSync, writeFileSync, rmSync, copyFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join, dirname } from "node:path";
+import { spawnSync } from "node:child_process";
 import { runInNewContext } from "node:vm";
 import { ALL_REDIRECTS } from "@/seo/legacyRedirects";
 
@@ -18,6 +21,43 @@ const injectHead = runInNewContext(`${injectSource}; injectHead`, {
 }) as (template: string, head: string, content: string | undefined, route: string) => string;
 
 describe("registered app page metadata", () => {
+  it("passes actual head and route audit scripts against all generated HTML", () => {
+    const root = mkdtempSync(join(tmpdir(), "woolet-production-audit-"));
+    const write = (path: string, content: string) => {
+      const file = join(root, path);
+      mkdirSync(dirname(file), { recursive: true });
+      writeFileSync(file, content);
+    };
+    try {
+      const template = readFileSync("index.html", "utf8");
+      write("src/App.tsx", readFileSync("src/App.tsx", "utf8"));
+      write("dist/index.html", '<head><title data-seo="prerender">Page not found | Woolet</title></head>');
+      for (const route of getAllRoutes()) {
+        const meta = getMetadata(route);
+        const html = injectHead(template, renderHeadHtml(meta), meta.noscriptHtml, route);
+        write(`dist${route}/index.html`, html);
+        write(`dist${route}.html`, html);
+      }
+      for (const [from, to] of Object.entries(ALL_REDIRECTS)) {
+        if (from === "/index.html" || from === "/") continue;
+        const target = `https://woolet.co${to}`;
+        const html = `<html><head>\n<meta http-equiv="refresh" content="0; url=${target}">\n<link rel="canonical" href="${target}">\n<meta name="robots" content="noindex, follow">\n<meta name="woolet-legacy-redirect" content="1"></head></html>`;
+        for (const path of new Set([from, from.toLowerCase(), encodeURI(from), encodeURI(from).toLowerCase()])) {
+          if (getAllRoutes().includes(path)) continue;
+          write(path.endsWith(".html") ? `dist${path}` : `dist${path}/index.html`, html);
+          if (!path.endsWith(".html")) write(`dist${path}.html`, html);
+        }
+      }
+      mkdirSync(join(root, "scripts"), { recursive: true });
+      for (const script of ["audit-routes.mjs", "audit-head.mjs"]) {
+        copyFileSync(`scripts/${script}`, join(root, "scripts", script));
+        const result = spawnSync("node", [join(root, "scripts", script)], { encoding: "utf8" });
+        expect(result.status, result.stdout + result.stderr).toBe(0);
+      }
+    } finally {
+      rmSync(root, { recursive: true, force: true });
+    }
+  }, 30000);
   it("covers every concrete App route except root and deliberate NotFound routes", () => {
     const app = readFileSync("src/App.tsx", "utf8");
     const routes = new Set(getAllRoutes());
