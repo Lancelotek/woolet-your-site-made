@@ -7,6 +7,7 @@
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import { render, waitFor, cleanup } from "@testing-library/react";
 import { HelmetProvider } from "react-helmet-async";
+import { MemoryRouter } from "react-router-dom";
 import SEO from "@/components/SEO";
 
 const SITE = "https://woolet.co";
@@ -22,7 +23,7 @@ const readCanonical = () =>
 const renderSEO = (props: React.ComponentProps<typeof SEO>) =>
   render(
     <HelmetProvider>
-      <SEO {...props} />
+      <MemoryRouter><SEO {...props} /></MemoryRouter>
     </HelmetProvider>
   );
 

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Helmet } from "react-helmet-async";
+import SEO from "@/components/SEO";
 import { Link } from "react-router-dom";
 import { EmbeddedCheckout, EmbeddedCheckoutProvider } from "@stripe/react-stripe-js";
 import { getStripe, getStripeEnvironment } from "@/lib/stripe";
@@ -180,10 +180,7 @@ export default function Reserve() {
 
   return (
     <div style={{ minHeight: "100vh", background: C.bg, color: C.body, fontFamily: "Barlow, sans-serif" }}>
-      <Helmet>
-        <title>Reserve your founder price - Woolet</title>
-        <meta name="robots" content="noindex, nofollow" />
-      </Helmet>
+      <SEO title="Reserve your founder price - Woolet" description="Reserve your Woolet founder price with a $1 deposit." path="/reserve" noindex robots="noindex, nofollow" />
       <style>{`
         .rsv-wrap { max-width: 560px; margin: 0 auto; padding: 40px 20px 72px; }
         .rsv-h1 { font-family: "Cormorant Garamond", Cormorant, serif; font-weight: 300; font-size: 40px; line-height: 1.08; color: ${C.head}; margin: 0 0 14px; }
