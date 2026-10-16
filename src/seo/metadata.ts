@@ -13,6 +13,8 @@
  */
 
 import { commerceJson } from "../lib/schema-offer";
+import { APP_PAGE_METADATA, appPageMetadata } from "./app-page-metadata";
+import { ALL_REDIRECTS as REDIRECT_MAP } from "./legacyRedirects";
 import { STORY_TITLE, STORY_DESCRIPTION, STORY_CRAWLER_HTML, STORY_JSONLD } from "@/content/our-story";
 import { SUPPORTED_LANGS, INDEXABLE_LANGS, t, type Lang } from "@/lib/i18n";
 import { blogMetaBySlug } from "@/lib/blog-meta";
@@ -493,6 +495,16 @@ ${faqBlock}
 export function getMetadata(route: string): RouteMeta {
   const lang = langFromRoute(route);
   const path = route.replace(/^\/[a-z]{2}/, "") || "/";
+
+  const appPage = appPageMetadata(route);
+  if (appPage) {
+    const meta = base(route, lang, {
+      ...appPage,
+      noscriptHtml: `<h1>${escapeHtml(appPage.title)}</h1><p>${escapeHtml(appPage.description)}</p>`,
+    });
+    meta.robots = appPage.robots;
+    return meta;
+  }
 
   // ----- Stretch-goal creative sheet: unlinked, noindex, English only.
   // The three renders live as static JPGs under public/creatives/stretch-goals/;
@@ -2298,7 +2310,15 @@ export function getAllRoutes(): string[] {
       blogRoutes.push(`/${lang}/blog/${post.slug}`);
     }
   }
-  return [...STATIC_ROUTES, ...blogRoutes];
+  const appRoutes = Object.keys(APP_PAGE_METADATA).flatMap((path) => {
+    if (path.startsWith("/.lovable/") || path === "/unsubscribe") return [path];
+    if (["/reserve", "/shop", "/thank-you/reserved", "/lp/kickstarter/vip-confirmed"].includes(path)) return [`/en${path}`];
+    return SUPPORTED_LANGS.map((locale) => `/${locale}${path}`);
+  });
+  return [...new Set([...STATIC_ROUTES, ...blogRoutes, ...appRoutes,
+    "/thank-you", "/thank-you-fb", "/upvote", "/en/fit/quick", "/de/fit/manual", "/de/fit/quick",
+    ...SUPPORTED_LANGS.flatMap((locale) => [`/${locale}/privacy-policy`, `/${locale}/return-policy`, `/${locale}/fit`]),
+  ])].filter((route) => !REDIRECT_MAP[route]);
 }
 
 let _knownRouteSet: Set<string> | null = null;

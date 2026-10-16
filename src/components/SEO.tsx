@@ -2,6 +2,8 @@ import { commerceJson } from "@/lib/schema-offer";
 import organization from "@/content/organization.json";
 import { WOOLET_BRAND_PROFILES } from "@/content/brandProfiles";
 import { Helmet } from "react-helmet-async";
+import { useLocation } from "react-router-dom";
+import { appPageMetadata } from "@/seo/app-page-metadata";
 import { SUPPORTED_LANGS, INDEXABLE_LANGS, type Lang } from "@/lib/i18n";
 import { hreflangAlternates } from "@/i18n/routeRegistry";
 
@@ -90,18 +92,20 @@ const SEO = ({
   availableLangs,
   alternates,
 }: SEOProps) => {
+  const { pathname } = useLocation();
+  const registeredPage = appPageMetadata(pathname);
   const cleanSnippet = (value: string) => value.replace(/\s*[—–]\s*/g, " - ");
-  const fullTitle = cleanSnippet(exactTitle || title.includes("Woolet") ? title : `${title} | Woolet`);
-  const cleanDescription = cleanSnippet(description);
+  const fullTitle = cleanSnippet(registeredPage?.title || (exactTitle || title.includes("Woolet") ? title : `${title} | Woolet`));
+  const cleanDescription = cleanSnippet(registeredPage?.description || description);
   const socialDescription = cleanSnippet(ogDescription || description);
-  const canonical = canonicalUrl || `${SITE_URL}/${lang}${path}`;
+  const canonical = canonicalUrl || (registeredPage ? `${SITE_URL}${pathname}` : `${SITE_URL}/${lang}${path}`);
   const geo = geoMeta[lang] || geoMeta.en;
   const ogImage = image
     ? (image.startsWith("http") ? image : `${SITE_URL}${image.startsWith("/") ? image : `/${image}`}`)
     : OG_IMAGE;
 
   // Determine robots content
-  const robotsContent = robots || (noindex ? "noindex, follow" : "index, follow");
+  const robotsContent = registeredPage?.robots || robots || (noindex ? "noindex, follow" : "index, follow");
 
   // BlogPosting is a subtype of Article and is the preferred schema.org
   // type for editorial blog content. Google renders it identically to
