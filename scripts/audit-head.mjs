@@ -18,7 +18,7 @@
  * blocks the release. Run manually with `node scripts/audit-head.mjs`.
  */
 import { readdir, readFile, stat } from "node:fs/promises";
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { resolve, relative, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 

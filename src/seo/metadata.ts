@@ -17,6 +17,7 @@ import { APP_PAGE_METADATA, appPageMetadata } from "./app-page-metadata";
 import { ALL_REDIRECTS as REDIRECT_MAP } from "./legacyRedirects";
 import { STORY_TITLE, STORY_DESCRIPTION, STORY_CRAWLER_HTML, STORY_JSONLD } from "@/content/our-story";
 import { SUPPORTED_LANGS, INDEXABLE_LANGS, t, type Lang } from "@/lib/i18n";
+import { tFit } from "@/lib/i18n-fitscan";
 import { blogMetaBySlug } from "@/lib/blog-meta";
 import { hreflangAlternates } from "@/i18n/routeRegistry";
 // Re-export so scripts/generate-sitemap.mjs can consume the SAME cluster
@@ -930,6 +931,15 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
 
   // ----- Fit
   if (path === "/fit") {
+    if (lang !== "en" && lang !== "de") {
+      const meta = base(route, lang, {
+        title: tFit(lang, "seo.title"),
+        description: tFit(lang, "seo.desc"),
+        noscriptHtml: `<h1>${escapeHtml(tFit(lang, "seo.title"))}</h1><p>${escapeHtml(tFit(lang, "seo.desc"))}</p>`,
+      });
+      meta.robots = "noindex, follow";
+      return meta;
+    }
     if (lang === "de") {
       return base(route, lang, {
         title: "Brillenfinder für breite Gesichter - Gesicht in 60 Sekunden messen",
@@ -2312,7 +2322,7 @@ export function getAllRoutes(): string[] {
   }
   const appRoutes = Object.keys(APP_PAGE_METADATA).flatMap((path) => {
     if (path.startsWith("/.lovable/") || path === "/unsubscribe") return [path];
-    if (["/reserve", "/shop", "/thank-you/reserved", "/lp/kickstarter/vip-confirmed"].includes(path)) return [`/en${path}`];
+    if (["/reserve", "/shop", "/upvote", "/fit/quick", "/thank-you/reserved", "/lp/kickstarter/vip-confirmed"].includes(path)) return [`/en${path}`];
     return SUPPORTED_LANGS.map((locale) => `/${locale}${path}`);
   });
   return [...new Set([...STATIC_ROUTES, ...blogRoutes, ...appRoutes,

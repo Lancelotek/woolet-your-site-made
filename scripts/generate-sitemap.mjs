@@ -73,7 +73,7 @@ const EXCLUDED_PATH_PATTERNS = [
   /^\/(?:[a-z]{2}\/)?account(?:$|\/)/,
   /^\/(?:[a-z]{2}\/)?crm(?:$|\/)/,
   /^\/de\/brille-grosse-koepfe\/?$/,
-  /^\/(?:[a-z]{2}\/)?bespoke\/(?:configurator|checkout|scan|measurements|shipping)(?:$|\/)/,
+  /^\/(?:[a-z]{2}\/)?bespoke\/(?:checkout|scan|measurements|shipping)(?:$|\/)/,
 ];
 
 const isExcludedPath = (p) => EXCLUDED_PATH_PATTERNS.some((r) => r.test(p));

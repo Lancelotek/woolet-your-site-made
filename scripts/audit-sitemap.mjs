@@ -60,7 +60,7 @@ const EXCLUDED_PATH_PATTERNS = [
   /^\/(?:[a-z]{2}\/)?upvote(?:$|\/)/,
   /^\/(?:[a-z]{2}\/)?account(?:$|\/)/,
   /^\/(?:[a-z]{2}\/)?crm(?:$|\/)/,
-  /^\/(?:[a-z]{2}\/)?bespoke\/(?:configurator|checkout|scan|measurements)(?:$|\/)/,
+  /^\/(?:[a-z]{2}\/)?bespoke\/(?:checkout|scan|measurements)(?:$|\/)/,
   // Consolidated into /de/brillen-fuer-grosse-koepfe (canonical points there).
   /^\/de\/brille-grosse-koepfe\/?$/,
 ];
