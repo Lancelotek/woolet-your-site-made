@@ -255,7 +255,6 @@
       window.__fitlensBridge = true;
 
       var ALLOWED = 'https://fitlens-web-production.up.railway.app';
-      var BUCKET_RE = /^[0-9]{2,3}-[0-9]{2,3}$/;
       var LOADER_ID = '__fitlens-loader';
       var timer = null;
 
@@ -317,6 +316,15 @@
           for (var i = 0; i < records.length; i++) {
             var added = records[i].addedNodes;
             for (var j = 0; j < added.length; j++) scanForFrames(added[j]);
+            var removed = records[i].removedNodes;
+            for (var k = 0; k < removed.length; k++) {
+              var n = removed[k];
+              if (n && n.nodeType === 1 && (n.tagName === 'IFRAME'
+                ? (n.getAttribute('src') || '').indexOf(ALLOWED) === 0
+                : n.querySelector && n.querySelector('iframe[src^="' + ALLOWED + '"]'))) {
+                hideLoader();
+              }
+            }
           }
         }).observe(document.body, { childList: true, subtree: true });
       }
@@ -374,33 +382,9 @@
         if (t.closest('[data-fitlens]')) showLoader();
       }, true);
 
+      /* Loader only — the React hook is the sole FitLens event receiver. */
       window.addEventListener('message', function (e) {
-        if (e.origin !== ALLOWED) return;
-
-        var d = e.data;
-        if (!d || d.source !== 'fitlens' || d.type !== 'fitlens:event') return;
-
-        var raw = String(d.name || '').replace(/[^a-z0-9_]/gi, '').slice(0, 40);
-        if (!raw) return;
-
-        if (raw === 'ready' || raw === 'intro_shown') hideLoader();
-
-        var name = 'fit_' + raw;
-
-        if (typeof window.clarity === 'function') {
-          window.clarity('event', name);
-
-          if (raw === 'camera_granted') {
-            window.clarity('upgrade', 'fitlens_scan');
-          }
-
-          var bucket = d.data && d.data.face_width_bucket;
-          if (typeof bucket === 'string' && BUCKET_RE.test(bucket)) {
-            window.clarity('set', 'face_width_bucket', bucket);
-          }
-        }
-
-        (window.dataLayer = window.dataLayer || []).push({ event: name });
+        if (e.origin === ALLOWED && e.data && e.data.source === 'fitlens') hideLoader();
       }, false);
     })();
     </script>

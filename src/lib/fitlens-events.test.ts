@@ -7,6 +7,9 @@ import {
   isFitLensErrorLike,
   pickFitLensFaceWidthMm,
   bucketFaceWidth,
+  pickFitLensBucket,
+  fitLensErrorTag,
+  pickFitLensCloseParams,
 } from "./fitlens-events";
 
 describe("sanitizeFitLensType", () => {
@@ -104,10 +107,46 @@ describe("pickFitLensFaceWidthMm", () => {
 });
 
 describe("bucketFaceWidth", () => {
-  it("buckets to 5 mm floors", () => {
-    expect(bucketFaceWidth(147.6)).toBe("145");
-    expect(bucketFaceWidth(150)).toBe("150");
-    expect(bucketFaceWidth(158.9)).toBe("155");
+  it("buckets to 5 mm ranges", () => {
+    expect(bucketFaceWidth(147.6)).toBe("145-150");
+    expect(bucketFaceWidth(150)).toBe("150-155");
+    expect(bucketFaceWidth(158.9)).toBe("155-160");
+  });
+});
+
+describe("pickFitLensBucket", () => {
+  it("prefers the FitLens-provided bucket when well formed", () => {
+    expect(pickFitLensBucket({ face_width_bucket: "145-150", faceWidthMm: 152 })).toBe("145-150");
+  });
+  it("rejects malformed buckets", () => {
+    expect(pickFitLensBucket({ face_width_bucket: "147.6" })).toBeNull();
+    expect(pickFitLensBucket({})).toBeNull();
+  });
+});
+
+describe("fitLensErrorTag", () => {
+  it("joins code and reason", () => {
+    expect(fitLensErrorTag("error", { code: "camera_unsuitable", reason: "virtual-camera" }))
+      .toBe("camera_unsuitable:virtual-camera");
+  });
+  it("uses code alone when no reason", () => {
+    expect(fitLensErrorTag("error", { code: "unsteady_reading" })).toBe("unsteady_reading");
+    expect(fitLensErrorTag("camera_denied", { code: "denied" })).toBe("denied");
+  });
+  it("falls back to the type", () => {
+    expect(fitLensErrorTag("error", { code: "Bad Code!" })).toBe("error");
+  });
+});
+
+describe("pickFitLensCloseParams", () => {
+  it("keeps sanitized reason and last_state", () => {
+    expect(pickFitLensCloseParams({ reason: "user", last_state: "poor_light" }))
+      .toEqual({ reason: "user", last_state: "poor_light" });
+    expect(pickFitLensCloseParams({ reason: "after_result", last_state: "pose_off" }))
+      .toEqual({ reason: "after_result", last_state: "pose_off" });
+  });
+  it("drops invalid values", () => {
+    expect(pickFitLensCloseParams({ reason: "<x>", last_state: "a".repeat(41) })).toEqual({});
   });
 });
 
@@ -115,5 +154,12 @@ describe("pickFitLensParams", () => {
   it("drops everything except whitelisted keys", () => {
     const p = pickFitLensParams({ step: "x", code: "c", signedPayload: "a.b.c", image: "data:", tier: "high" }, 4);
     expect(p).toEqual({ step: "x", code: "c", tier: "high", seconds_since_open: 4 });
+  });
+  it("includes last_state", () => {
+    expect(pickFitLensParams({ last_state: "framing" }, null)).toEqual({ last_state: "framing" });
+  });
+  it("passes manual_capture_offered through as a type", () => {
+    expect(parseFitLensMessage({ source: "fitlens", version: 1, type: "manual_capture_offered", payload: {} }).type)
+      .toBe("manual_capture_offered");
   });
 });

@@ -7,8 +7,11 @@ import { MEASUREMENT_RANGES } from "@/data/bespoke-options";
 import {
   bucketFaceWidth,
   createFitLensDedupe,
+  fitLensErrorTag,
   isFitLensErrorLike,
   parseFitLensMessage,
+  pickFitLensBucket,
+  pickFitLensCloseParams,
   pickFitLensFaceWidthMm,
   pickFitLensParams,
 } from "@/lib/fitlens-events";
@@ -34,6 +37,7 @@ export function useFitLensScript(options?: { sessionRef?: string | null }) {
   const lastTypeRef = useRef<string>("opened");
   const resultSeenRef = useRef(false);
   const embedResultSeenRef = useRef(false);
+  const fitLensBucketSentRef = useRef(false);
   const dedupeRef = useRef(createFitLensDedupe());
   const [isReady, setIsReady] = useState(false);
 
@@ -104,22 +108,39 @@ export function useFitLensScript(options?: { sessionRef?: string | null }) {
       if (type !== "close" && dedupeRef.current.shouldFire(type)) {
         clarityEvent("fitlens_" + type);
         pushGtmEvent("fitlens_" + type, pickFitLensParams(payload, secs));
+        if (type === "camera_granted") {
+          // Keep recording priority for sessions that reach the camera.
+          const c = (window as unknown as { clarity?: unknown }).clarity;
+          if (typeof c === "function") {
+            try { (c as (...a: unknown[]) => void)("upgrade", "fitlens_scan"); } catch { /* noop */ }
+          }
+        }
       }
       if (type !== "close") lastTypeRef.current = type;
 
-      if (type === "camera_denied" || isFitLensErrorLike(type)) {
-        const code = typeof payload.code === "string" ? payload.code : "";
-        const reason = typeof payload.reason === "string" ? payload.reason : "";
-        // Legacy camera_unsuitable / measure_failed carry no code, so the tag
-        // value falls back to the step name itself.
-        claritySet("fitlens_error", (code || reason || type).slice(0, 80));
+      if (type === "error" || type === "camera_denied") {
+        claritySet("fitlens_error", fitLensErrorTag(type, payload).slice(0, 80));
+      } else if (isFitLensErrorLike(type)) {
+        // Legacy camera_unsuitable / measure_failed: tag value is the step name.
+        claritySet("fitlens_error", type);
+      }
+
+      if (type === "result_shown") {
+        const b = pickFitLensBucket(payload);
+        if (b) {
+          fitLensBucketSentRef.current = true;
+          claritySet("fitlens_face_width_bucket", b);
+        }
       }
 
       if (type === "result") {
+        const fitLensBucket = pickFitLensBucket(payload);
         const fw = pickFitLensFaceWidthMm(payload);
         const { min, max } = MEASUREMENT_RANGES.faceWidth;
         // Privacy: only a 5 mm bucket leaves the page — never the exact mm.
-        if (fw != null && fw >= min && fw <= max) {
+        if (fitLensBucket) {
+          claritySet("fitlens_face_width_bucket", fitLensBucket);
+        } else if (!fitLensBucketSentRef.current && fw != null && fw >= min && fw <= max) {
           claritySet("fitlens_face_width_bucket", bucketFaceWidth(fw));
         }
         if (!resultSeenRef.current) {
@@ -138,7 +159,11 @@ export function useFitLensScript(options?: { sessionRef?: string | null }) {
       }
 
       if (type === "close") {
-        const params: Record<string, string | number> = { last_step: lastTypeRef.current };
+        const closeParams = pickFitLensCloseParams(payload);
+        const params: Record<string, string | number> = {
+          last_step: lastTypeRef.current,
+          ...closeParams,
+        };
         if (secs != null) params.seconds_open = secs;
         clarityEvent("fitlens_closed");
         pushGtmEvent("fitlens_closed", params);
@@ -146,6 +171,7 @@ export function useFitLensScript(options?: { sessionRef?: string | null }) {
           clarityEvent("fitlens_abandoned");
           pushGtmEvent("fitlens_abandoned", params);
           claritySet("fitlens_abandon_step", lastTypeRef.current);
+          if (closeParams.last_state) claritySet("fitlens_abandon_state", closeParams.last_state);
         }
         openedAtRef.current = null;
         frameRef.current?.remove();
