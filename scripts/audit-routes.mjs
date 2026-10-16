@@ -54,6 +54,9 @@ const isStub = (p) => {
 const errors = [];
 let pre = 0, stub = 0, allowed = 0;
 for (const p of [...concrete].sort()) {
+  // The root uses the intentional unknown-path shell and redirects to /en.
+  // Check this explicit exemption before inspecting an existing index.html.
+  if (ALLOW.some((r) => r.test(p))) { allowed++; continue; }
   if (has(p)) {
     if (isStub(p)) { stub++; continue; }
     const f = [resolve(DIST, "." + p, "index.html"), resolve(DIST, "." + p + ".html")].find(existsSync);
@@ -65,7 +68,6 @@ for (const p of [...concrete].sort()) {
     pre++;
     continue;
   }
-  if (ALLOW.some((r) => r.test(p))) { allowed++; continue; }
   errors.push(p);
 }
 
