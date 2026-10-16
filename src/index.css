@@ -709,3 +709,42 @@ body.wl-lightbox-open .wl-sticky-cta { display: none !important; }
   [data-wl-flash="on"] { animation: none; outline: 2px solid rgba(202, 164, 73, 0.85); outline-offset: 4px; }
 }
 @keyframes wlBtnSpin { to { transform: rotate(360deg); } }
+
+/* FitLens tape-measure fallback: sits above the FitLens iframe (z 2147483646). */
+.fitlens-fallback-pill {
+  position: fixed;
+  left: 50%;
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%);
+  z-index: 2147483647;
+  display: flex;
+  align-items: center;
+  max-width: calc(100vw - 24px);
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--gold));
+  border-radius: 2px;
+  box-shadow: 0 8px 24px hsl(var(--background) / 0.45);
+  font-family: Archivo, Barlow, system-ui, sans-serif;
+  animation: fitlens-pill-in 220ms ease-out;
+}
+.fitlens-fallback-pill a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 6px 0 16px;
+  color: hsl(var(--cream));
+  font-size: 0.85rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.fitlens-fallback-pill a:hover { color: hsl(var(--gold-light)); }
+.fitlens-fallback-pill button {
+  min-width: 44px;
+  min-height: 44px;
+  background: transparent;
+  border: 0;
+  color: hsl(var(--cream) / 0.7);
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+@keyframes fitlens-pill-in { from { opacity: 0; transform: translate(-50%, 8px); } }
