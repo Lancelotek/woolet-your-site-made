@@ -1,0 +1,1 @@
+- The edge Worker's known-route set is generated only from src/seo/routeCatalog.ts (App.tsx routes + prerender catalog + slug data) by workers/route-server/build-bundle.mjs, which fails the deploy on any uncovered route; the Worker passes everything through and only flips unknown documents to 404 — no hand-maintained route lists, no embedded HTML.

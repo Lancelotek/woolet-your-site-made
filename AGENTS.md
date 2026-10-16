@@ -21,3 +21,4 @@
 - Bespoke angle regeneration is admin-validated server-side and sequential/user-initiated; upload new immutable paths before replacing cache records so failures and existing order URLs remain safe.
 - Bespoke render inputs put the geometry drawing first; only Round receives a composition photo last, while non-round shapes use text-only camera rules (Aviator retains construction photos) to prevent photo geometry leakage.
 - Configurator price breakdowns derive from computePricing without step gating, so restored add-ons remain visible and totals match every surface.
+- Subdirectories may have their own AGENTS.md (e.g. workers/route-server); read it before changing files there.
