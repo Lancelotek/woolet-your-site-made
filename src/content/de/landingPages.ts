@@ -158,12 +158,25 @@ export const dePages: Record<string, DePageConfig> = {
     detailBody: "Woolet 007 ist eine runde Panto-Form mit 52□21-150. Woolet 009 ist eine weiche eckige Form mit 54□22-150. Beide sind als Korrektionsbrille oder mit UV400-Sonnengläsern erhältlich.",
     contextualLink: { before: "Mehr zur Passform jenseits der Modellform findest du unter ", label: "Brillen für große Köpfe", after: "." },
     related: ["brillen-fuer-grosse-koepfe", "breite-brille"],
-    metaTitle: "XXL Brille Herren | Woolet - breite Herrenfassungen mit 158 mm Front",
+    metaTitle: "XXL Brille Herren: 158 mm breite Fassung für große Köpfe | Woolet",
     metaDescription:
-      "XXL Brillen für Herren mit breitem Gesicht oder großem Kopf. 153-163 mm, italienisches Acetat, in der EU handgefertigt. Größe per FitLens-Scan in 60 Sekunden bestimmen.",
+      "XXL Brillen für Herren ab 155 mm Gesichtsbreite: 158 mm Front, 150 mm Bügel, Keyhole-Steg. Mazzucchelli-Acetat, in der EU handgefertigt. Größe in 60 Sek. messen.",
     primaryKeyword: "xxl brille herren",
+    kurzeAntwort: "Eine XXL Brille für Herren braucht eine echte Frontbreite von rund 158 mm statt nur größerer Gläser. Die meisten Marken enden bei etwa 148-150 mm. Woolet 007 und 009 haben 158 mm Front und 150 mm Bügel für Gesichter von 155-161 mm; Bespoke gibt es von 145-160 mm.",
+    widthTable: {
+      title: "Gesichtsbreite und passende XXL-Fassung",
+      rows: [
+        ["unter 138 mm", "Narrow", "Standardfassungen aus dem Handel"],
+        ["138-149 mm", "Large-average", "breite Standardfassungen"],
+        ["150-154 mm", "Large-average, oberes Ende", "Woolet Bespoke 145-160 mm"],
+        ["155-161 mm", "Wide face", "Woolet 007 / 009 mit 158 mm Front"],
+        ["ab 162 mm", "Wide face", "außerhalb unseres Fertigungsbereichs"],
+      ],
+    },
     faqs: [
-      { q: "Welche Form gibt es bei der XXL Brille für Herren?", a: "Woolet 007 ist eine runde Panto-Form. Woolet 009 ist weich-eckig. Beide Modelle sind für breite Gesichter konstruiert." },
+      { q: "Ab welcher Breite ist eine Brille XXL?", a: "Wir sprechen von XXL, wenn die Front breiter ist als die rund 148-150 mm, bei denen die meisten Marken enden. Woolet 007 und 009 haben 158 mm Frontbreite, 21-22 mm Steg und 150 mm lange Bügel." },
+      { q: "Welche Form gibt es bei der XXL Brille für Herren?", a: "Woolet 007 ist eine runde Panto-Form (52□21-150). Woolet 009 ist weich-eckig (54□22-150). Beide Modelle sind für breite Gesichter konstruiert." },
+      { q: "Warum Acetat bei einer XXL-Fassung?", a: "Wir verwenden Mazzucchelli-1849-Acetat aus Italien als Material; gefertigt werden die Fassungen in der EU von Hand. Acetat lässt sich an Bügeln und Steg nachjustieren, sodass eine breite Fassung ohne Druck an den Schläfen sitzt." },
       { q: "Gibt es die XXL Herrenbrille auch als Sonnenbrille?", a: "Ja. Beide Fassungen können mit UV400-Sonnengläsern oder mit Korrektionsgläsern ausgestattet werden." },
       ...DEFAULT_FAQS.slice(2),
     ],
