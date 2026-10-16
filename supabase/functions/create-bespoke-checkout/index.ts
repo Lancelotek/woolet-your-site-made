@@ -90,6 +90,13 @@ Deno.serve(async (req) => {
     if (buyerIp && !cleanMeta.meta_client_ip_address) {
       cleanMeta.meta_client_ip_address = buyerIp.slice(0, 64);
     }
+    // OpenAI Conversions API inputs (oppref/obref/visitor id/consent come from the browser).
+    if (buyerIp) cleanMeta.openai_client_ip = buyerIp.slice(0, 64);
+    const buyerUa = req.headers.get("user-agent");
+    if (buyerUa) cleanMeta.openai_client_ua = buyerUa.slice(0, 500);
+    for (const k of ["openai_oppref", "openai_obref", "openai_consent", "openai_source_url", "wlt_visitor_id"]) {
+      if (cleanMeta[k] !== undefined && !cleanMeta[k]) delete cleanMeta[k];
+    }
 
     const session = await stripe.checkout.sessions.create({
       line_items: [

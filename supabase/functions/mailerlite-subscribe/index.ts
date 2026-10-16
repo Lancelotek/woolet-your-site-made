@@ -2,6 +2,7 @@ import { sendTemplateEmailAndLog } from "../_shared/transactional-email-template
 import { templeWidthMm } from "../_shared/hat-to-glasses.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
+import { clientIp, parseConsentFlag, sendOpenAiEvent } from "../_shared/openai-capi.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -446,8 +447,30 @@ export const handler = async (req: Request): Promise<Response> => {
     }).catch((e) => console.error("[meta-capi lead] dispatch failed", e));
     const waitUntil = (globalThis as { EdgeRuntime?: { waitUntil?: (p: Promise<unknown>) => void } })
       .EdgeRuntime?.waitUntil;
-    if (waitUntil) waitUntil(capiLead);
-    else void capiLead;
+    // OpenAI Conversions API lead_created — same id as browser oaiqLead (meta_event_id).
+    const oaLead = meta_event_id
+      ? sendOpenAiEvent({
+          id: String(meta_event_id),
+          type: "lead_created",
+          sourceUrl: String(event_source_url || landing_url || "https://woolet.co/en"),
+          oppref: typeof reqBody.openai_oppref === "string" ? reqBody.openai_oppref : undefined,
+          data: { type: "customer_action" },
+          user: {
+            email,
+            phone,
+            country: country_code,
+            externalId: typeof reqBody.wlt_visitor_id === "string" ? reqBody.wlt_visitor_id : undefined,
+            obref: typeof reqBody.obref === "string" ? reqBody.obref : undefined,
+            ip: clientIp(req),
+            userAgent: req.headers.get("user-agent"),
+          },
+          consent: parseConsentFlag(reqBody.openai_consent),
+          source: "mailerlite-subscribe",
+          requestSummary: { form_source: source ?? null },
+        }).catch((e) => console.error("[openai-capi lead] dispatch failed", e))
+      : Promise.resolve();
+    if (waitUntil) { waitUntil(capiLead); waitUntil(oaLead); }
+    else { void capiLead; void oaLead; }
 
     if (isHatCard) {
       try {
