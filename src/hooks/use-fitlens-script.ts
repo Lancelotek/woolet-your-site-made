@@ -5,9 +5,12 @@ import { clarityEvent, claritySet } from "@/lib/clarity";
 import { pushGtmEvent } from "@/lib/gtm";
 import { MEASUREMENT_RANGES } from "@/data/bespoke-options";
 import {
+  bucketFaceWidth,
   createFitLensDedupe,
+  isFitLensErrorLike,
+  parseFitLensMessage,
+  pickFitLensFaceWidthMm,
   pickFitLensParams,
-  sanitizeFitLensType,
 } from "@/lib/fitlens-events";
 
 const SCRIPT_SRC = "https://fitlens-web-production.up.railway.app/v1/embed.js";
