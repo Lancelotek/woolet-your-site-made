@@ -25,26 +25,10 @@ if (!existsSync(DIST)) {
 }
 const LOCALES = ["en", "pl", "de", "fr", "nl", "ja", "es", "ar", "ko"];
 
-// Intentional noindex app pages that may use the fallback shell.
+// Only deliberate NotFound routes and the bare-root redirect may use the shell.
+// Being noindex is NOT an exemption from having a real page title.
 const ALLOW = [
-  /^\/(?:[a-z]{2}\/)?account(?:\/|$)/,
-  /^\/[a-z]{2}\/admin(?:\/|$)/,
   /^\/(?:[a-z]{2}\/)?crm(?:\/|$)/,
-  /^\/(?:[a-z]{2}\/)?payments$/,
-  /^\/(?:[a-z]{2}\/)?thank-you(?:-fb)?(?:\/|$)/,
-  /^\/[a-z]{2}\/vip-join$/,
-  /^\/[a-z]{2}\/bespoke\/(?:configurator|checkout|scan|measure|measurements|photo|shipping)$/,
-  /^\/[a-z]{2}\/measure$/,
-  /^\/[a-z]{2}\/fit\/wizard$/,
-  /^\/en\/fit\/quick$/, /^\/de\/fit\/(?:manual|quick)$/, // noindex helper tools
-  // Localized fit tool: indexable only in en/de; other locales are noindex.
-  /^\/(?:pl|fr|nl|ja|es|ar|ko)\/fit$/,
-  /^\/(?:[a-z]{2}\/)?upvote$/,
-  /^\/en\/shop$/,
-  /^\/unsubscribe$/,
-  /^\/en\/reserve$/,
-  /^\/en\/lp\/kickstarter\/vip-confirmed$/,
-  /^\/\.lovable\//,
   /^\/$/, // root: fallback shell carries canonical /en + noscript refresh
 ];
 
@@ -70,7 +54,17 @@ const isStub = (p) => {
 const errors = [];
 let pre = 0, stub = 0, allowed = 0;
 for (const p of [...concrete].sort()) {
-  if (has(p)) { isStub(p) ? stub++ : pre++; continue; }
+  if (has(p)) {
+    if (isStub(p)) { stub++; continue; }
+    const f = [resolve(DIST, "." + p, "index.html"), resolve(DIST, "." + p + ".html")].find(existsSync);
+    const html = f ? readFileSync(f, "utf8") : "";
+    const title = html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1];
+    if (!title || /Page not found|Lovable App/i.test(title) || !/<meta\b[^>]*name="description"[^>]*content="[^"]+"/i.test(html)) {
+      errors.push(`${p}: missing real page title/description`);
+    }
+    pre++;
+    continue;
+  }
   if (ALLOW.some((r) => r.test(p))) { allowed++; continue; }
   errors.push(p);
 }

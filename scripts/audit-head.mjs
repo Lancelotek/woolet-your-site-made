@@ -80,7 +80,11 @@ const DUPLICATE_ALLOW_LIST = [
 ];
 
 const isAllowedDuplicate = (routes) =>
-  DUPLICATE_ALLOW_LIST.some((group) => routes.every((r) => group.includes(r)));
+  DUPLICATE_ALLOW_LIST.some((group) => routes.every((r) => group.includes(r))) ||
+  // Noindex tools share approved English titles across localized entry URLs.
+  routes.every((r) => /<meta\b[^>]*name="robots"[^>]*content="noindex/i.test(
+    readFileSync(resolve(DIST, "." + r, "index.html"), "utf8")
+  ));
 
 
 function add(list, file, msg) {
