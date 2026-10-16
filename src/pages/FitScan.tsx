@@ -1,5 +1,5 @@
 import { hrefFor, localePath } from "@/i18n/routeRegistry";
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback, lazy, Suspense } from "react";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { z } from "zod";
 import SEO from "@/components/SEO";
@@ -49,7 +49,35 @@ import {
 } from "@/lib/fitlens-result";
 import { createFitLensResultDedupe } from "@/lib/fitlens-result-dedupe";
 import { recordFitLensEvent } from "@/lib/fitlens-verify";
-import { QRCodeSVG } from "qrcode.react";
+// Lazy so the QR library never ships in the mobile path.
+const QRCodeSVG = lazy(() => import("qrcode.react").then((m) => ({ default: m.QRCodeSVG })));
+
+const DESKTOP_QR_QUERY = "(hover: hover) and (pointer: fine) and (min-width: 1024px)";
+
+/** Current page URL for the phone: keep params, drop debug, tag as desktop QR. */
+export function buildDesktopQrUrl(href: string, sid?: string): string {
+  const u = new URL(href);
+  u.searchParams.delete("debug");
+  if (sid && !u.searchParams.has("sid")) u.searchParams.set("sid", sid);
+  u.searchParams.set("utm_source", "desktop_qr");
+  u.searchParams.set("utm_medium", "qr");
+  u.hash = "";
+  return u.toString();
+}
+
+function useDesktopQr(): boolean {
+  const [on, setOn] = useState(
+    () => typeof window !== "undefined" && window.matchMedia?.(DESKTOP_QR_QUERY).matches === true,
+  );
+  useEffect(() => {
+    const mq = window.matchMedia?.(DESKTOP_QR_QUERY);
+    if (!mq) return;
+    const update = () => setOn(mq.matches);
+    mq.addEventListener?.("change", update);
+    return () => mq.removeEventListener?.("change", update);
+  }, []);
+  return on;
+}
 
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
@@ -394,8 +422,16 @@ function WelcomeStep({
       ? crypto.randomUUID()
       : Math.random().toString(36).slice(2) + Date.now().toString(36),
   );
+  const showDesktopQr = useDesktopQr() && !isMobile;
   const phoneUrl =
-    typeof window === "undefined" ? "" : `${window.location.origin}/${lang}/fit?sid=${handoffSid}`;
+    typeof window === "undefined" ? "" : buildDesktopQrUrl(window.location.href, handoffSid);
+  const qrShownRef = useRef(false);
+  useEffect(() => {
+    if (!showDesktopQr || qrShownRef.current) return;
+    qrShownRef.current = true;
+    clarityEvent("fit_desktop_qr_shown");
+    pushGtmEvent("fit_desktop_qr_shown", { page: window.location.pathname });
+  }, [showDesktopQr]);
   const steps = lang === "de" ? [
     { n: "01", title: "Passform messen antippen", body: "FitLens öffnet ein sicheres Fenster und fragt nach dem Kamerazugriff." },
     { n: "02", title: isMobile ? "Smartphone auf Armlänge halten" : "Auf Augenhöhe vor die Webcam setzen", body: "Gerade in die Kamera schauen, Haare zurücknehmen und Brille absetzen. Keine Karte, kein Lineal." },
@@ -452,7 +488,7 @@ function WelcomeStep({
             borderRadius: 12,
             padding: isMobile ? "24px 18px 20px" : "28px 26px 24px",
             display: "grid",
-            gridTemplateColumns: isMobile ? "1fr" : "1fr auto",
+            gridTemplateColumns: showDesktopQr ? "1fr auto" : "1fr",
             gap: isMobile ? 18 : 28,
             alignItems: "center",
             cursor: disabled ? "not-allowed" : "pointer",
@@ -666,7 +702,7 @@ function WelcomeStep({
             </p>
           </div>
 
-          {!isMobile && (
+          {showDesktopQr && (
             <div
               style={{
                 display: "flex",
@@ -688,10 +724,16 @@ function WelcomeStep({
                   fontWeight: 600,
                 }}
               >
-                {lang === "de" ? "Oder Smartphone verwenden" : "Or use your phone"}
+                {tFit(lang, "qr.desktop_copy")}
               </span>
-              <div style={{ background: "#fff", padding: 10, borderRadius: 8, lineHeight: 0 }}>
-                {phoneUrl && <QRCodeSVG value={phoneUrl} size={132} level="M" includeMargin={false} />}
+              <div
+                role="img"
+                aria-label={tFit(lang, "qr.alt")}
+                style={{ background: "#fff", padding: 10, borderRadius: 2, lineHeight: 0, width: 164, height: 164 }}
+              >
+                <Suspense fallback={null}>
+                  {phoneUrl && <QRCodeSVG value={phoneUrl} size={144} level="M" includeMargin={false} title={tFit(lang, "qr.alt")} />}
+                </Suspense>
               </div>
               <span
                 style={{
@@ -703,7 +745,7 @@ function WelcomeStep({
                   lineHeight: 1.45,
                 }}
               >
-                {lang === "de" ? "QR-Code scannen und diese Seite auf dem Smartphone öffnen." : "Scan to open this page on your phone camera."}
+                {lang === "de" ? "Oder hier mit der Webcam:" : "Or use your webcam with Find my fit."}
               </span>
             </div>
           )}
