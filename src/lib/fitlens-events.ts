@@ -82,9 +82,46 @@ export function pickFitLensFaceWidthMm(payload: Record<string, unknown>): number
   return null;
 }
 
-/** 5 mm privacy bucket: 147.6 → "145". */
+/** 5 mm privacy bucket: 147.6 → "145-150". */
 export function bucketFaceWidth(fw: number): string {
-  return String(Math.floor(fw / 5) * 5);
+  const lo = Math.floor(fw / 5) * 5;
+  return `${lo}-${lo + 5}`;
+}
+
+const BUCKET_RE = /^\d{2,3}-\d{2,3}$/;
+
+/** FitLens-provided `face_width_bucket` ("145-150"), or null if absent/malformed. */
+export function pickFitLensBucket(payload: Record<string, unknown>): string | null {
+  const b = payload.face_width_bucket;
+  return typeof b === "string" && BUCKET_RE.test(b) ? b : null;
+}
+
+const TOKEN_RE = /^[a-z0-9_-]{1,40}$/;
+
+/** Short identifier token (reason, last_state, code); anything else → null. */
+export function sanitizeFitLensToken(v: unknown): string | null {
+  return typeof v === "string" && TOKEN_RE.test(v) ? v : null;
+}
+
+/** Clarity `fitlens_error` value: `code` plus `:reason` when present. */
+export function fitLensErrorTag(type: string, payload: Record<string, unknown>): string {
+  const code = sanitizeFitLensToken(payload.code);
+  const reason = sanitizeFitLensToken(payload.reason);
+  if (code && reason) return `${code}:${reason}`;
+  return code || reason || type;
+}
+
+/** `reason` + `last_state` for fitlens_closed / fitlens_abandoned. */
+export function pickFitLensCloseParams(payload: Record<string, unknown>): {
+  reason?: string;
+  last_state?: string;
+} {
+  const out: { reason?: string; last_state?: string } = {};
+  const reason = sanitizeFitLensToken(payload.reason);
+  const lastState = sanitizeFitLensToken(payload.last_state);
+  if (reason) out.reason = reason;
+  if (lastState) out.last_state = lastState;
+  return out;
 }
 
 /** Whitelisted dataLayer params — never the raw payload. */
@@ -98,6 +135,8 @@ export function pickFitLensParams(
     if (typeof v === "string" && v.length <= 80) out[k] = v;
     else if (typeof v === "number" && Number.isFinite(v)) out[k] = v;
   }
+  const lastState = sanitizeFitLensToken(payload.last_state);
+  if (lastState) out.last_state = lastState;
   if (secondsSinceOpen != null) out.seconds_since_open = secondsSinceOpen;
   return out;
 }
