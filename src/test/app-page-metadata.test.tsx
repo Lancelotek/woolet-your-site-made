@@ -1,11 +1,21 @@
 import { describe, it, expect } from "vitest";
-import { render, waitFor, cleanup } from "@testing-library/react";
+import { render, waitFor, cleanup, fireEvent } from "@testing-library/react";
 import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter, Link } from "react-router-dom";
 import { getAllRoutes, getMetadata, renderHeadHtml } from "@/seo/metadata";
 import SEO from "@/components/SEO";
 import { readFileSync } from "node:fs";
+import { runInNewContext } from "node:vm";
 import { ALL_REDIRECTS } from "@/seo/legacyRedirects";
+
+const prerenderSource = readFileSync("scripts/prerender.mjs", "utf8");
+const injectSource = prerenderSource.match(/function injectHead\(template, headHtml, noscriptHtml, route\) \{[\s\S]*?\n\}/)?.[0];
+if (!injectSource) throw new Error("Production injectHead function not found");
+const injectHead = runInNewContext(`${injectSource}; injectHead`, {
+  localeFromRoute: (route: string) => route.split("/")[1],
+  RTL_LOCALES: new Set(["ar"]),
+  getNoscriptContent: (_route: string, content: string) => content,
+}) as (template: string, head: string, content: string | undefined, route: string) => string;
 
 describe("registered app page metadata", () => {
   it("covers every concrete App route except root and deliberate NotFound routes", () => {
@@ -41,6 +51,10 @@ describe("registered app page metadata", () => {
     expect(meta.robots).toBe(robots);
     expect(renderHeadHtml(meta)).toContain(`<title data-seo="prerender">${title}</title>`);
     expect(meta.canonical).toBe(`https://woolet.co${route}`);
+    const html = injectHead(readFileSync("index.html", "utf8"), renderHeadHtml(meta), meta.noscriptHtml, route);
+    expect(html.match(/<title\b[^>]*>(.*?)<\/title>/)?.[1]).toBe(title);
+    expect(html).not.toContain("Page not found | Woolet");
+    expect(html).toContain(`<noscript data-route="${route}">`);
   });
 
   it("updates title on client navigation even when a page omitted its path prop", async () => {
@@ -50,7 +64,7 @@ describe("registered app page metadata", () => {
       <Link to="/en/bespoke/checkout">Checkout</Link>
     </MemoryRouter></HelmetProvider>);
     await waitFor(() => expect(document.title).toBe("Bespoke Configurator - Woolet"));
-    view.getByText("Checkout").click();
+    fireEvent.click(view.getByText("Checkout"));
     await waitFor(() => expect(document.title).toBe("Secure checkout · Woolet Bespoke"));
     expect(document.querySelector('link[rel="canonical"]')?.getAttribute("href")).toBe("https://woolet.co/en/bespoke/checkout");
     cleanup();
