@@ -22,8 +22,10 @@ export function createMatcher(data: KnownRouteData): (pathname: string) => boole
     return { segs: f.pattern.split("/").slice(1), perLang, sets };
   });
 
-  return (pathname: string) => {
-    if (exact.has(pathname)) return true;
+  return (rawPath: string) => {
+    let pathname = rawPath;
+    try { pathname = decodeURIComponent(rawPath); } catch { /* keep raw */ }
+    if (exact.has(pathname) || exact.has(rawPath)) return true;
     const parts = pathname.split("/").slice(1);
     for (const f of compiled) {
       if ("prefix" in f) {
