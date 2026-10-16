@@ -226,7 +226,17 @@ export default function BespokeMeasurements() {
   const sessionRef = order?.session_ref ?? null;
   // The scan reference is the order's, not the browser's, so a customer who
   // opens the emailed link on a second device still measures against this order.
-  const { openFitLens } = useFitLensScript({ sessionRef });
+  const { openFitLens } = useFitLensScript({
+    sessionRef,
+    // The order's own manual step lives on this page.
+    onManualFallback: () => {
+      setManualOpen(true);
+      window.setTimeout(
+        () => document.getElementById("bespoke-manual-measure")?.scrollIntoView({ behavior: "smooth", block: "start" }),
+        50,
+      );
+    },
+  });
   const resultDedupeRef = useRef(createFitLensResultDedupe());
 
   // TRUST NOTE: this result arrives as a browser CustomEvent, which anyone can
@@ -1000,6 +1010,7 @@ export default function BespokeMeasurements() {
                     )}
 
                     <details
+                      id="bespoke-manual-measure"
                       open={manualOpen}
                       onToggle={(e) => setManualOpen((e.currentTarget as HTMLDetailsElement).open)}
                       className="mt-6 border-t border-cream/12 pt-5"
