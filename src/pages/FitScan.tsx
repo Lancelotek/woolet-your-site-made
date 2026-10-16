@@ -83,6 +83,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth-context";
 import { clarityEvent, claritySet } from "@/lib/clarity";
+import { pushGtmEvent } from "@/lib/gtm";
 
 const GOLD = "#CAA449";
 const BG = "#080807";
@@ -745,7 +746,7 @@ function WelcomeStep({
                   lineHeight: 1.45,
                 }}
               >
-                {lang === "de" ? "Oder hier mit der Webcam:" : "Or use your webcam with Find my fit."}
+                {lang === "de" ? "Oder per Webcam mit „Passform messen“." : "Or use your webcam with Find my fit."}
               </span>
             </div>
           )}
@@ -4372,6 +4373,14 @@ export default function FitScan() {
   // `sid` = new "lead already captured on the other device" flag (random UUID).
   // `s`   = legacy supabase scan-session id (kept for back-compat).
   const sidParam = searchParams.get("sid");
+  // Phone side of the desktop QR handoff.
+  const qrArrivalFiredRef = useRef(false);
+  useEffect(() => {
+    if (qrArrivalFiredRef.current || searchParams.get("utm_source") !== "desktop_qr") return;
+    qrArrivalFiredRef.current = true;
+    clarityEvent("fit_qr_arrival");
+    pushGtmEvent("fit_qr_arrival", { page: window.location.pathname });
+  }, [searchParams]);
   const sessionId = searchParams.get("s");
   const sessionToken = searchParams.get("t");
   // If the visitor arrived via the desktop→QR handoff OR is already logged in,

@@ -163,3 +163,28 @@ describe("pickFitLensParams", () => {
       .toBe("manual_capture_offered");
   });
 });
+
+import { createFitLensFailureCounter } from "./fitlens-events";
+
+describe("createFitLensFailureCounter", () => {
+  it("shows on the 2nd failure only, once", () => {
+    const c = createFitLensFailureCounter();
+    expect(c.onMessage("error")).toBeNull();
+    expect(c.onMessage("ready")).toBeNull();
+    expect(c.onMessage("measure_failed")).toBe(2);
+    expect(c.onMessage("camera_unsuitable")).toBeNull();
+  });
+  it("a result suppresses it", () => {
+    const c = createFitLensFailureCounter();
+    c.onMessage("error");
+    c.onMessage("result");
+    expect(c.onMessage("error")).toBeNull();
+  });
+  it("resets on open", () => {
+    const c = createFitLensFailureCounter();
+    c.onMessage("error");
+    c.reset();
+    expect(c.onMessage("error")).toBeNull();
+    expect(c.onMessage("error")).toBe(2);
+  });
+});
