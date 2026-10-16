@@ -1,5 +1,9 @@
 # Roadmap
 
+## Production route-audit diagnosis - 2026-10-16
+- [x] Correct root-shell exemption ordering without weakening registered-page coverage
+- [ ] Verify production diagnostics and actual generated route HTML; do not publish
+
 ## Registered-page prerender titles - 2026-10-16
 - [x] Give registered conversion and utility pages their own static metadata; keep transactional pages noindex and configurator indexable
 - [x] Guard static route coverage and verify Bespoke titles on client navigation
