@@ -1,9 +1,9 @@
 # Roadmap
 
 ## Gallery and size-page dead taps - 2026-10-17
-- [ ] Make Kickstarter gallery background taps enlarge the current slide without changing arrows or swipe
-- [ ] Link size/spec cards and remove button styling from noninteractive facts on English/Korean size pages
-- [ ] Run existing tests and verify tap targets at 390px and 1280px; do not publish
+- [x] Make Kickstarter gallery background taps enlarge the current slide without changing arrows or swipe
+- [x] Link size/spec cards and remove button styling from noninteractive facts on English/Korean size pages
+- [x] Verify photo/caption/counter/background, seven arrow taps, swipe suppression and English/Korean link destinations at 390px and 1280px; existing tests: 267 passed, 2 pre-existing Polish process SEO failures; preview build OK; not published
 
 ## Production route-audit diagnosis - 2026-10-16
 - [x] Correct root-shell exemption ordering without weakening registered-page coverage
