@@ -130,9 +130,15 @@ function SizePageInner({ size }: { size: SizeEntry }) {
 
         {/* Hero */}
         <header style={{ ...wrap, padding: "28px 20px 8px" }}>
-          <div style={{ display: "inline-block", background: verdictBg[size.verdictKind], padding: "5px 12px", borderRadius: 2, fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#3A2E12", marginBottom: 18 }}>
-            {verdictLabel[size.verdictKind]}
-          </div>
+          {size.verdictKind === "out-of-range" ? (
+            <span style={{ display: "inline-block", padding: "5px 12px", fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#3A2E12", marginBottom: 18, cursor: "text" }}>
+              {verdictLabel[size.verdictKind]}
+            </span>
+          ) : (
+            <Link to={size.verdictKind === "signature-range" ? "/en/collection" : "/en/bespoke"} style={{ display: "inline-block", background: verdictBg[size.verdictKind], padding: "5px 12px", borderRadius: 2, fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#3A2E12", marginBottom: 18, textDecoration: "none" }}>
+              {verdictLabel[size.verdictKind]}
+            </Link>
+          )}
           <h1
             style={{
               fontFamily: "'Newsreader', 'Cormorant Garamond', serif",
@@ -150,13 +156,13 @@ function SizePageInner({ size }: { size: SizeEntry }) {
           </p>
 
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 12 }}>
-            <span style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#666", border: "1px solid #D9C9A8", padding: "5px 10px", borderRadius: 2 }}>
+            <Link to="/en/collection" style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#666", border: "1px solid #D9C9A8", padding: "5px 10px", borderRadius: 2, textDecoration: "none" }}>
               Signature 158 mm
-            </span>
-            <span style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#666", border: "1px solid #D9C9A8", padding: "5px 10px", borderRadius: 2 }}>
+            </Link>
+            <Link to="/en/bespoke" style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#666", border: "1px solid #D9C9A8", padding: "5px 10px", borderRadius: 2, textDecoration: "none" }}>
               Bespoke 145–160 mm
-            </span>
-            <span style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#666", border: "1px solid #D9C9A8", padding: "5px 10px", borderRadius: 2 }}>
+            </Link>
+            <span style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#666", padding: "5px 10px", cursor: "text" }}>
               Hand made in EU
             </span>
           </div>
@@ -440,7 +446,7 @@ function SizePageInner({ size }: { size: SizeEntry }) {
               return (
                 <Link
                   key={r.slug}
-                  to={`/en/size/${r.slug}`}
+                  to={current ? (band === "signature" || band === "signature-range" ? "/en/collection" : "/en/bespoke") : `/en/size/${r.slug}`}
                   aria-current={current ? "page" : undefined}
                   style={{
                     fontSize: 12,

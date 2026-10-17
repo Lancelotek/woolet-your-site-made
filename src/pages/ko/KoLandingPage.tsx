@@ -22,7 +22,7 @@ const c = {
   line: "#2A2520",
 };
 
-function SectionBlock({ s }: { s: KoSection }) {
+function SectionBlock({ s, sizePage = false }: { s: KoSection; sizePage?: boolean }) {
   const ListTag = s.ordered ? "ol" : "ul";
 
   return (
@@ -140,7 +140,9 @@ function SectionBlock({ s }: { s: KoSection }) {
                           whiteSpace: "nowrap",
                         }}
                       >
-                        {cell}
+                        {sizePage && row[0] === "전면부 총길이" && i > 0 ? (
+                          <Link to={i === 1 ? "/en/products/007" : "/en/products/009"} style={{ color: "inherit", textDecoration: "none", display: "block" }}>{cell}</Link>
+                        ) : cell}
                       </td>
                     ))}
                   </tr>
@@ -288,7 +290,7 @@ export default function KoLandingPage({ config }: { config: KoPageConfig }) {
           </section>
 
           {config.sections.map((s) => (
-            <SectionBlock key={s.h2} s={s} />
+            <SectionBlock key={s.h2} s={s} sizePage={config.path.startsWith("/ko/size/")} />
           ))}
 
           {config.faqs.length ? (
