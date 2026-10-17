@@ -1375,7 +1375,11 @@ const KickstarterPrelaunch = () => {
       <section>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-8 md:py-20 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 md:items-center min-w-0">
           {/* Left on desktop, second on mobile — gallery */}
-          <div className="order-2 md:order-1">
+          <div className="order-2 md:order-1 cursor-zoom-in" onClick={(e) => {
+            // Existing buttons own their clicks; arrows must only change slides.
+            if (e.target instanceof Element && e.target.closest("button")) return;
+            if (!gallerySwiped.current) openLightbox(activeImg, "gallery", e.currentTarget);
+          }}>
             <div className="relative" onTouchStart={(e) => { galleryTouch.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }; }} onTouchEnd={(e) => {
               const start = galleryTouch.current;
               galleryTouch.current = null;
