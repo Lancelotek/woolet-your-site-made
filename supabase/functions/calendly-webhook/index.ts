@@ -9,6 +9,7 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
 import { sendTemplateEmailAndLog } from "../_shared/transactional-email-templates/send-and-log.ts";
 import { recordStage } from "../_shared/bespoke-stage.ts";
+import { identifyReferenceGlasses, readInterviewAnswers } from "../_shared/reference-glasses.ts";
 
 const supabase = createClient(
   Deno.env.get("SUPABASE_URL")!,
@@ -204,6 +205,20 @@ async function sendScanInvite(order: OrderRow, startIso: string, timezone: strin
   }
 }
 
+/** Looks the customer's glasses up and stores the result next to the order. */
+async function enrichReferenceGlasses(orderId: string, raw: string | null) {
+  if (!raw) return;
+  try {
+    const result = await identifyReferenceGlasses(raw);
+    await supabase
+      .from("bespoke_orders")
+      .update({ reference_glasses: result, reference_glasses_checked_at: result.checked_at })
+      .eq("id", orderId);
+  } catch (e) {
+    console.error("[calendly-webhook] reference glasses lookup failed", e);
+  }
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
   if (req.method !== "POST") return json({ error: "method_not_allowed" }, 405);
@@ -307,6 +322,10 @@ Deno.serve(async (req) => {
     return json({ ok: true, matched: true, duplicate: true });
   }
 
+  // The three answers (order number, reference glasses, FitLens status) go on
+  // the order with every booking; a reschedule overwrites them with the latest.
+  const interview = readInterviewAnswers(payload?.questions_and_answers);
+
   const startIso: string =
     payload?.scheduled_event?.start_time ?? payload?.event?.start_time ?? new Date().toISOString();
   const timezone: string = payload?.timezone || payload?.scheduled_event?.timezone || "UTC";
@@ -318,6 +337,9 @@ Deno.serve(async (req) => {
       calendly_invitee_uri: inviteeUri,
       interview_at: startIso,
       interview_timezone: timezone,
+      interview_answers: interview.answers,
+      interview_fitlens_answer: interview.fitlens,
+      reference_glasses_raw: interview.glasses,
     })
     .eq("id", order.id);
   if (upErr) {
@@ -332,7 +354,10 @@ Deno.serve(async (req) => {
   // The row is safe; the email goes out after the response so Calendly is not
   // kept waiting on our mail provider.
   const response = json({ ok: true, matched: true, stage: "interview_booked" });
-  const after = sendScanInvite(order, startIso, timezone);
+  const after = Promise.all([
+    sendScanInvite(order, startIso, timezone),
+    enrichReferenceGlasses(order.id, interview.glasses),
+  ]);
   // deno-lint-ignore no-explicit-any
   const waitUntil = (globalThis as any).EdgeRuntime?.waitUntil;
   if (typeof waitUntil === "function") waitUntil(after);

@@ -1071,6 +1071,8 @@ function DetailView({
 
       <BriefBlock order={o} password={password} onOrderChange={onOrderChange} />
 
+      <InterviewBlock order={o} password={password} onOrderChange={onOrderChange} />
+
       <Group title="Customer" action={editing === null ? <button type="button" style={editBtn} onClick={() => setEditing("customer")}>Edit</button> : null}>
         {editing === "customer" ? <EditForm section="customer" order={o} password={password} onCancel={() => setEditing(null)} onSaved={(patch) => { onOrderChange(patch); setEditing(null); }} /> : <>
         <Field label="Name" value={o.customer_name} />
@@ -1289,6 +1291,120 @@ async function downloadBrief(password: string, id: string) {
   document.body.appendChild(a);
   a.click();
   a.remove();
+}
+
+// ---- Fitting interview (Calendly) + the customer's reference glasses.
+// Sizes come from the temple digits (exact); brand/model/front width come from
+// an AI lookup and are labelled unverified until checked by hand.
+function InterviewBlock({
+  order, password, onOrderChange,
+}: {
+  order: Record<string, any>;
+  password: string;
+  onOrderChange: (patch: Record<string, unknown>) => void;
+}) {
+  const [busy, setBusy] = useState(false);
+  const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
+  const [draft, setDraft] = useState<string | null>(null);
+  const g = (order.reference_glasses ?? null) as Record<string, any> | null;
+  const answers = Array.isArray(order.interview_answers) ? (order.interview_answers as { question: string; answer: string | null }[]) : [];
+  if (!order.interview_at && !order.reference_glasses_raw && answers.length === 0) return null;
+
+  const orderedTemple = Number(String((order.metadata as any)?.temple_length ?? "").replace(/[^\d.]/g, "")) || null;
+  const faceWidth = (order.manual_face_width_mm ?? order.ai_face_width_mm) as number | null;
+  const flags: string[] = [];
+  if (g?.temple_mm && orderedTemple && Math.abs(g.temple_mm - orderedTemple) >= 5) {
+    flags.push(`Temple: customer wears ${g.temple_mm} mm, order says ${orderedTemple} mm - confirm on the call.`);
+  }
+  if (g?.front_width_mm && faceWidth && faceWidth - g.front_width_mm >= 8) {
+    flags.push(`Reference front (${g.front_width_mm} mm) is ${Math.round(faceWidth - g.front_width_mm)} mm narrower than the measured face - ask where it pinches.`);
+  }
+  if (g && g.confidence !== "high") flags.push("Brand/model identification is not certain - verify with the search link.");
+
+  const rerun = async (raw?: string) => {
+    setBusy(true);
+    setMsg(null);
+    try {
+      const { data, error } = await supabase.functions.invoke("bespoke-admin-orders", {
+        body: { password, action: "lookup_reference_glasses", id: order.id, ...(raw ? { raw } : {}) },
+      });
+      const code = (data as { error?: string } | null)?.error;
+      if (code) throw new Error(code === "no_reference_glasses" ? "No glasses text to look up." : code);
+      if (error) throw error;
+      onOrderChange((data as any).patch);
+      setDraft(null);
+      setMsg({ ok: true, text: "Lookup updated." });
+    } catch (err) {
+      setMsg({ ok: false, text: err instanceof Error ? err.message : "Lookup failed." });
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const frontLabel = g?.front_width_mm
+    ? `${g.front_width_mm} mm${g.front_width_source === "estimate" ? " (estimate: 2×lens + bridge + 18)" : g.front_width_source === "ai_known" ? " (AI, unverified)" : ""}`
+    : null;
+
+  return (
+    <>
+      <Group
+        title="Fitting interview · reference glasses"
+        action={
+          <button type="button" style={editBtn} disabled={busy} onClick={() => setDraft(order.reference_glasses_raw ?? "")}>
+            {busy ? "Checking…" : "Re-check"}
+          </button>
+        }
+      >
+        <Field label="Interview" value={order.interview_at ? `${fmtDate(order.interview_at)} · ${order.interview_timezone ?? ""}` : "Not booked"} />
+        <Field label="FitLens scan (customer says)" value={order.interview_fitlens_answer} />
+        <Field label="Temple text (as typed)" value={order.reference_glasses_raw} />
+        <Field label="Brand / model" value={g ? [g.brand, g.model].filter(Boolean).join(" ") || null : "Lookup pending"} />
+        <Field label="Colour" value={g ? [g.colour_code, g.colour_name].filter(Boolean).join(" · ") || null : null} />
+        <Field label="Shape / material" value={g ? [g.shape, g.material].filter(Boolean).join(" · ") || null : null} />
+        <Field label="Lens · bridge · temple" value={g?.lens_mm ? `${g.lens_mm} · ${g.bridge_mm ?? "?"} · ${g.temple_mm ?? "?"} mm` : null} />
+        <Field label="Front width" value={frontLabel} />
+        <Field label="Identification confidence" value={g?.confidence} />
+        <Field label="Ordered frame" value={[order.frame_name, order.front_code, (order.metadata as any)?.temple_length ? `temple ${(order.metadata as any).temple_length}` : null].filter(Boolean).join(" · ")} />
+        {g?.notes && <Field label="Lookup notes" value={g.notes} />}
+        {g?.search_url && (
+          <div style={{ borderTop: `1px solid ${T.hair}`, padding: "8px 0", fontSize: 13 }}>
+            <a href={g.search_url} target="_blank" rel="noreferrer" style={{ color: T.ink }}>Verify on Google ↗</a>
+          </div>
+        )}
+      </Group>
+      {draft !== null && (
+        <div style={{ display: "flex", gap: 8, marginTop: 8, flexWrap: "wrap" }}>
+          <input
+            value={draft}
+            onChange={(e) => setDraft(e.target.value)}
+            placeholder="Brand model colour 52 21-145"
+            style={{ flex: "1 1 260px", padding: "8px 10px", background: "transparent", color: T.ink, border: `1px solid ${T.hair}` }}
+          />
+          <button type="button" style={editBtn} disabled={busy || !draft.trim()} onClick={() => rerun(draft.trim())}>Look up</button>
+          <button type="button" style={editBtn} disabled={busy} onClick={() => setDraft(null)}>Cancel</button>
+        </div>
+      )}
+      {flags.length > 0 && (
+        <ul style={{ margin: "10px 0 0", padding: "10px 12px 10px 28px", border: "1px solid rgba(217,145,32,0.4)", background: "rgba(217,145,32,0.08)", color: "#D99120", fontSize: 13, lineHeight: 1.6 }}>
+          {flags.map((f) => <li key={f}>{f}</li>)}
+        </ul>
+      )}
+      {answers.length > 0 && (
+        <details style={{ marginTop: 8, fontSize: 13, color: T.dim }}>
+          <summary style={{ cursor: "pointer" }}>All Calendly answers ({answers.length})</summary>
+          <dl style={{ margin: "8px 0 0" }}>
+            {answers.map((a) => (
+              <div key={a.question} style={{ padding: "4px 0" }}>
+                <dt style={{ color: T.mute }}>{a.question}</dt>
+                <dd style={{ margin: 0, color: T.ink }}>{a.answer || "—"}</dd>
+              </div>
+            ))}
+          </dl>
+        </details>
+      )}
+      {msg && <p style={{ color: msg.ok ? T.dim : "#e2725b", fontSize: 12, marginTop: 8 }}>{msg.text}</p>}
+    </>
+  );
 }
 
 function BriefBlock({
