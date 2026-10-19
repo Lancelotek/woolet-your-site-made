@@ -214,24 +214,62 @@ export const getVisitorId = (): string => {
 };
 
 /** Re-inits the pixel with hashed email/external id. Never sends raw values. */
+let cachedEmHash = "";
+let cachedVidHash = "";
+let lastInitKey = "";
+
+const applyIdentify = (): void => {
+  const user: Record<string, string> = {};
+  if (cachedEmHash) user.email_sha256 = cachedEmHash;
+  if (cachedVidHash) user.external_id_sha256 = cachedVidHash;
+  if (!Object.keys(user).length) return;
+  const key = `${cachedEmHash}|${cachedVidHash}`;
+  if (key === lastInitKey) return;
+  lastInitKey = key;
+  call("init", { pixelId: PIXEL_ID, user });
+};
+
 export const oaiqIdentify = async (email?: string): Promise<void> => {
   try {
     if (!getOaiq() || !crypto?.subtle) return;
-    const user: Record<string, string> = {};
     const em = (email ?? "").trim().toLowerCase();
     if (em && em.includes("@")) {
-      user.email_sha256 = await sha256Hex(em);
-      try { localStorage.setItem(EMAIL_HASH_KEY, user.email_sha256); } catch { /* noop */ }
-    } else {
+      cachedEmHash = await sha256Hex(em);
+      try { localStorage.setItem(EMAIL_HASH_KEY, cachedEmHash); } catch { /* noop */ }
+    } else if (!cachedEmHash) {
       try {
         const stored = localStorage.getItem(EMAIL_HASH_KEY);
-        if (stored && /^[a-f0-9]{64}$/.test(stored)) user.email_sha256 = stored;
+        if (stored && /^[a-f0-9]{64}$/.test(stored)) cachedEmHash = stored;
       } catch { /* noop */ }
     }
     const vid = getVisitorId();
-    if (vid) user.external_id_sha256 = await sha256Hex(vid);
-    if (!Object.keys(user).length) return;
-    call("init", { pixelId: PIXEL_ID, user });
+    if (vid) cachedVidHash = await sha256Hex(vid);
+    applyIdentify();
+  } catch {
+    /* never throw */
+  }
+};
+
+/** Identify with an already-hashed email (e.g. a hash returned server-side). */
+export const oaiqIdentifyHash = (emailSha256: string): void => {
+  try {
+    if (!/^[a-f0-9]{64}$/.test(emailSha256)) return;
+    cachedEmHash = emailSha256;
+    try { localStorage.setItem(EMAIL_HASH_KEY, emailSha256); } catch { /* noop */ }
+    applyIdentify();
+  } catch {
+    /* never throw */
+  }
+};
+
+/** Synchronously re-attach known user data right before an event fires. */
+const identifyBeforeMeasure = (): void => {
+  try {
+    if (cachedEmHash || cachedVidHash) {
+      applyIdentify();
+    } else {
+      void oaiqIdentify();
+    }
   } catch {
     /* never throw */
   }
