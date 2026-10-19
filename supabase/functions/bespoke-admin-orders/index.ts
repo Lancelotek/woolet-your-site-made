@@ -4,6 +4,7 @@
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.4";
 import { PREVIEW_BUCKET, generateOrderPreview } from "../_shared/bespoke-preview.ts";
+import { identifyReferenceGlasses } from "../_shared/reference-glasses.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -291,6 +292,32 @@ Deno.serve(async (req) => {
       await admin.from("bespoke_crm_events").insert({
         order_id: id, from_stage: null, to_stage: null, note: note.slice(0, 2000), created_by: "admin",
       });
+      return json({ ok: true, patch });
+    }
+
+    // ---- Reference glasses from the fitting interview: re-run the lookup,
+    // optionally with temple text corrected by the admin.
+    if ((body as any).action === "lookup_reference_glasses") {
+      const id = body.id ?? "";
+      if (!UUID_RE.test(id)) return json({ error: "invalid_id" }, 400);
+      const { data: order, error } = await admin
+        .from("bespoke_orders")
+        .select("id, reference_glasses_raw")
+        .eq("id", id)
+        .maybeSingle();
+      if (error) throw error;
+      if (!order) return json({ error: "not_found" }, 404);
+      const override = typeof (body as any).raw === "string" ? (body as any).raw.trim().slice(0, 300) : "";
+      const raw = override || order.reference_glasses_raw || "";
+      if (!raw) return json({ error: "no_reference_glasses" }, 400);
+      const result = await identifyReferenceGlasses(raw);
+      const patch = {
+        reference_glasses_raw: raw,
+        reference_glasses: result,
+        reference_glasses_checked_at: result.checked_at,
+      };
+      const { error: upErr } = await admin.from("bespoke_orders").update(patch).eq("id", id);
+      if (upErr) throw upErr;
       return json({ ok: true, patch });
     }
 
