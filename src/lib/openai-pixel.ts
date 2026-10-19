@@ -164,12 +164,53 @@ export const sha256Hex = async (input: string): Promise<string> => {
   return Array.from(new Uint8Array(digest)).map((b) => b.toString(16).padStart(2, "0")).join("");
 };
 
+// Persistent first-party visitor ID, used when the attribution journey has no
+// ID yet (e.g. a direct landing before any touch is captured). Stored in
+// localStorage + a 2-year first-party cookie; EU-like visitors without
+// marketing consent keep it in memory only (mirrors the journey rule).
+const VISITOR_ID_KEY = "wlt_vid";
+const VISITOR_ID_COOKIE = "wlt_vid";
+let memoryVisitorId = "";
+
+const readStoredVisitorId = (): string => {
+  try {
+    const fromLs = localStorage.getItem(VISITOR_ID_KEY);
+    if (fromLs) return fromLs;
+  } catch { /* noop */ }
+  try {
+    const fromCookie = document.cookie.match(new RegExp(`(?:^|;\\s*)${VISITOR_ID_COOKIE}=([^;]+)`))?.[1];
+    if (fromCookie) return decodeURIComponent(fromCookie);
+  } catch { /* noop */ }
+  return "";
+};
+
+const persistVisitorId = (id: string): void => {
+  if (!marketingAllowed()) return; // EU-like without consent: memory only
+  try { localStorage.setItem(VISITOR_ID_KEY, id); } catch { /* noop */ }
+  try {
+    const maxAge = 2 * 365 * 24 * 60 * 60; // 2 years
+    document.cookie = `${VISITOR_ID_COOKIE}=${encodeURIComponent(id)}; max-age=${maxAge}; path=/; SameSite=Lax`;
+  } catch { /* noop */ }
+};
+
 export const getVisitorId = (): string => {
   try {
-    return getJourney()?.visitor_id?.trim() || "";
-  } catch {
-    return "";
+    const journeyId = getJourney()?.visitor_id?.trim();
+    if (journeyId) return journeyId;
+  } catch { /* noop */ }
+  if (memoryVisitorId) return memoryVisitorId;
+  const stored = readStoredVisitorId();
+  if (stored) {
+    memoryVisitorId = stored;
+    return stored;
   }
+  try {
+    memoryVisitorId = crypto.randomUUID();
+  } catch {
+    memoryVisitorId = `v${Date.now().toString(36)}${Math.random().toString(36).slice(2, 12)}`;
+  }
+  persistVisitorId(memoryVisitorId);
+  return memoryVisitorId;
 };
 
 /** Re-inits the pixel with hashed email/external id. Never sends raw values. */
