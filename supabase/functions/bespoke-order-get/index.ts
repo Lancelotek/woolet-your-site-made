@@ -118,9 +118,17 @@ Deno.serve(async (req) => {
     }
 
     const { id: _id, ...safeOrder } = data;
+    // SHA-256 of the normalized email, for the OpenAI pixel's order_created
+    // user data. A hash — the buyer's address still never leaves this function.
+    let emailSha256: string | null = null;
+    if (em) {
+      const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(em.trim().toLowerCase()));
+      emailSha256 = Array.from(new Uint8Array(digest)).map((b) => b.toString(16).padStart(2, "0")).join("");
+    }
     return new Response(
       JSON.stringify({
         ...safeOrder,
+        customer_email_sha256: emailSha256,
         // Public order reference (same format as the shipping export) — safe
         // to show the customer and to tag analytics with; not the raw uuid.
         order_ref: `WLT-${String(_id).slice(0, 8).toUpperCase()}`,

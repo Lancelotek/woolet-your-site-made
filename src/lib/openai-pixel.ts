@@ -61,6 +61,7 @@ export const oaiqMeasure = (
 ): void => {
   try {
     applyConsent();
+    identifyBeforeMeasure();
     const dedupe = options?.event_id ? `${eventName}:${String(options.event_id)}` : "";
     if (dedupe) {
       if (fired.has(dedupe)) return;
@@ -164,33 +165,112 @@ export const sha256Hex = async (input: string): Promise<string> => {
   return Array.from(new Uint8Array(digest)).map((b) => b.toString(16).padStart(2, "0")).join("");
 };
 
+// Persistent first-party visitor ID, used when the attribution journey has no
+// ID yet (e.g. a direct landing before any touch is captured). Stored in
+// localStorage + a 2-year first-party cookie; EU-like visitors without
+// marketing consent keep it in memory only (mirrors the journey rule).
+const VISITOR_ID_KEY = "wlt_vid";
+const VISITOR_ID_COOKIE = "wlt_vid";
+let memoryVisitorId = "";
+
+const readStoredVisitorId = (): string => {
+  try {
+    const fromLs = localStorage.getItem(VISITOR_ID_KEY);
+    if (fromLs) return fromLs;
+  } catch { /* noop */ }
+  try {
+    const fromCookie = document.cookie.match(new RegExp(`(?:^|;\\s*)${VISITOR_ID_COOKIE}=([^;]+)`))?.[1];
+    if (fromCookie) return decodeURIComponent(fromCookie);
+  } catch { /* noop */ }
+  return "";
+};
+
+const persistVisitorId = (id: string): void => {
+  if (!marketingAllowed()) return; // EU-like without consent: memory only
+  try { localStorage.setItem(VISITOR_ID_KEY, id); } catch { /* noop */ }
+  try {
+    const maxAge = 2 * 365 * 24 * 60 * 60; // 2 years
+    document.cookie = `${VISITOR_ID_COOKIE}=${encodeURIComponent(id)}; max-age=${maxAge}; path=/; SameSite=Lax`;
+  } catch { /* noop */ }
+};
+
 export const getVisitorId = (): string => {
   try {
-    return getJourney()?.visitor_id?.trim() || "";
-  } catch {
-    return "";
+    const journeyId = getJourney()?.visitor_id?.trim();
+    if (journeyId) return journeyId;
+  } catch { /* noop */ }
+  if (memoryVisitorId) return memoryVisitorId;
+  const stored = readStoredVisitorId();
+  if (stored) {
+    memoryVisitorId = stored;
+    return stored;
   }
+  try {
+    memoryVisitorId = crypto.randomUUID();
+  } catch {
+    memoryVisitorId = `v${Date.now().toString(36)}${Math.random().toString(36).slice(2, 12)}`;
+  }
+  persistVisitorId(memoryVisitorId);
+  return memoryVisitorId;
 };
 
 /** Re-inits the pixel with hashed email/external id. Never sends raw values. */
+let cachedEmHash = "";
+let cachedVidHash = "";
+let lastInitKey = "";
+
+const applyIdentify = (): void => {
+  const user: Record<string, string> = {};
+  if (cachedEmHash) user.email_sha256 = cachedEmHash;
+  if (cachedVidHash) user.external_id_sha256 = cachedVidHash;
+  if (!Object.keys(user).length) return;
+  const key = `${cachedEmHash}|${cachedVidHash}`;
+  if (key === lastInitKey) return;
+  lastInitKey = key;
+  call("init", { pixelId: PIXEL_ID, user });
+};
+
 export const oaiqIdentify = async (email?: string): Promise<void> => {
   try {
     if (!getOaiq() || !crypto?.subtle) return;
-    const user: Record<string, string> = {};
     const em = (email ?? "").trim().toLowerCase();
     if (em && em.includes("@")) {
-      user.email_sha256 = await sha256Hex(em);
-      try { localStorage.setItem(EMAIL_HASH_KEY, user.email_sha256); } catch { /* noop */ }
-    } else {
+      cachedEmHash = await sha256Hex(em);
+      try { localStorage.setItem(EMAIL_HASH_KEY, cachedEmHash); } catch { /* noop */ }
+    } else if (!cachedEmHash) {
       try {
         const stored = localStorage.getItem(EMAIL_HASH_KEY);
-        if (stored && /^[a-f0-9]{64}$/.test(stored)) user.email_sha256 = stored;
+        if (stored && /^[a-f0-9]{64}$/.test(stored)) cachedEmHash = stored;
       } catch { /* noop */ }
     }
     const vid = getVisitorId();
-    if (vid) user.external_id_sha256 = await sha256Hex(vid);
-    if (!Object.keys(user).length) return;
-    call("init", { pixelId: PIXEL_ID, user });
+    if (vid) cachedVidHash = await sha256Hex(vid);
+    applyIdentify();
+  } catch {
+    /* never throw */
+  }
+};
+
+/** Identify with an already-hashed email (e.g. a hash returned server-side). */
+export const oaiqIdentifyHash = (emailSha256: string): void => {
+  try {
+    if (!/^[a-f0-9]{64}$/.test(emailSha256)) return;
+    cachedEmHash = emailSha256;
+    try { localStorage.setItem(EMAIL_HASH_KEY, emailSha256); } catch { /* noop */ }
+    applyIdentify();
+  } catch {
+    /* never throw */
+  }
+};
+
+/** Synchronously re-attach known user data right before an event fires. */
+const identifyBeforeMeasure = (): void => {
+  try {
+    if (cachedEmHash || cachedVidHash) {
+      applyIdentify();
+    } else {
+      void oaiqIdentify();
+    }
   } catch {
     /* never throw */
   }
@@ -297,7 +377,12 @@ export const initOpenAiPixel = (): void => {
     bridgeLeads();
     patchInvoke();
     void oaiqIdentify();
-    window.addEventListener("woolet-consent-updated", () => applyConsent());
+    window.addEventListener("woolet-consent-updated", () => {
+      applyConsent();
+      // Consent just granted: persist the visitor ID and re-attach user data.
+      if (memoryVisitorId) persistVisitorId(memoryVisitorId);
+      void oaiqIdentify();
+    });
   } catch {
     /* noop */
   }
