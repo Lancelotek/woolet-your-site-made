@@ -61,6 +61,7 @@ export const oaiqMeasure = (
 ): void => {
   try {
     applyConsent();
+    identifyBeforeMeasure();
     const dedupe = options?.event_id ? `${eventName}:${String(options.event_id)}` : "";
     if (dedupe) {
       if (fired.has(dedupe)) return;
@@ -376,7 +377,12 @@ export const initOpenAiPixel = (): void => {
     bridgeLeads();
     patchInvoke();
     void oaiqIdentify();
-    window.addEventListener("woolet-consent-updated", () => applyConsent());
+    window.addEventListener("woolet-consent-updated", () => {
+      applyConsent();
+      // Consent just granted: persist the visitor ID and re-attach user data.
+      if (memoryVisitorId) persistVisitorId(memoryVisitorId);
+      void oaiqIdentify();
+    });
   } catch {
     /* noop */
   }
