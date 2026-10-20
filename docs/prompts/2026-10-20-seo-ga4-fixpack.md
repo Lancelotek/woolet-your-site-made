@@ -1,5 +1,40 @@
 # SEO + GA4 fix pack 20.10.2026
 
+## Status wdrożenia (gałąź `claude/seo-ga4-fixpack-2026-10-20`)
+
+Zrobione w kodzie:
+- **Worker:** nagłówek `x-woolet-edge: route-server` na każdej odpowiedzi. Worker bierze przekierowania z `src/seo/legacyRedirects.ts` (`resolveLegacyRedirect`) zamiast ręcznej, nieaktualnej listy `legacy-redirects.json` (26 wpisów, część z celami sprzed zmiany 145-160 mm) - teraz ~708 źródeł + reguły prefiksowe, jak router i prerender. `build-bundle.mjs` waliduje cele z `ALL_REDIRECTS`.
+- **Przekierowania:** 21 błędnych adresów z GSC w `src/seo/routeRedirects.ts` (stuby w `dist/` + 301 w Workerze).
+- **Atrybucja:** `getGaCheckoutMetadataAsync()` (fallback `gtag('get', ..., 'client_id')`, max 400 ms, pola `ga_cid_src` i `ga_cookie_shape`) we wszystkich 5 miejscach tworzenia sesji Stripe. Linki `buy.stripe.com` (DE `DeReservationCta`, `/payments`) dostają GA ids w `client_reference_id` w chwili kliknięcia; `payments-webhook` je parsuje (`_shared/ga-client-reference.ts`) i loguje `ga_cid_src` / `ga_cookie_shape` w `server_event_log`. `paid_source` dla Payment Links ze strony: `payment_link/<base>` (np. `payment_link/de_fit_result`).
+- **Ruch wewnętrzny:** `?wlt_internal=1` (zapis w localStorage, `?wlt_internal=0` czyści) albo `utm_source=claude_*` → `gtag('set', {traffic_type: 'internal'})` w `index.html` przed GTM.
+- Testy: `src/test/worker-route-server.test.ts` (+3), `src/test/ga-client-reference.test.ts` (nowy). `npm run build` OK, `wrangler deploy --dry-run` OK. Na `main` padają 2 testy `src/test/process-seo.test.ts` (`/pl/process`) - istniały przed tą zmianą.
+
+Po merge do `main`: GitHub Action `deploy-worker.yml` wdraża Worker, Lovable pobiera kod → **Publish** w Lovable. Edge function `payments-webhook` wdraża Lovable.
+
+### Checklista ręczna (Marek)
+1. **Cloudflare / Lovable - O2O:** po deployu `node scripts/check-edge.mjs`. Brak `x-woolet-edge` na `https://woolet.co/...` = apex obsługuje Lovable (Cloudflare for SaaS) z pominięciem Twojej strefy. Wtedy zgłoszenie do Lovable support: włączenie Orange-to-Orange dla custom hostname `woolet.co`, żeby Worker `woolet-route-server` (routes `woolet.co/*`, `www.woolet.co/*`) szedł przed originem. Nie przepinaj DNS apex samodzielnie. To samo zakładał plan `.lovable/plan/legacy-redirects-and-shared-route-source-o2o-2026-09-25.md`.
+2. **GA4 Admin → Data filters → Internal traffic:** ustaw na *Active* (najpierw *Testing* na 1-2 dni).
+3. **GTM:** w tagu Google (GA4 config) dodaj parametr `traffic_type` = zmienna dataLayer `traffic_type` (gdy `gtag('set')` nie zadziała w Twojej konfiguracji - sprawdź w DebugView).
+4. **GTM / GA4:** potwierdź w DebugView, że `scan_completed` i `bespoke_pay_click` dochodzą do GA4 (tag GA4 Event dla tych nazw). Potem GA4 Admin → Events → oznacz oba jako key event. Usuń nieużywane key events `close_convert_lead` i `qualify_lead`.
+5. **GA4 Admin → Custom definitions:** wymiary event-scope `paid_source` i `ga_cid_src` (opcjonalnie).
+6. **Maile MailerLite** z linkami `buy.stripe.com` zostają bez zmian (brak cookie GA w kliencie poczty) - atrybucja przez `paid_source`.
+7. **GSC:** po Publish - Inspect URL `https://woolet.co/` i kilku adresów z Zadania 2, walidacja poprawek w raportach *Strona z przekierowaniem* / *Soft 404*.
+8. **Za 14 dni:** zapytanie kontrolne:
+   ```sql
+   select request_summary->>'ga_cid_src' as src, request_summary->>'ga_cookie_shape' as shape,
+          custom_data->>'paid_source' as paid_source, count(*)
+   from server_event_log
+   where source = 'payments-webhook' and event_name in ('GA4Reservation','GA4Purchase')
+     and created_at >= now() - interval '14 days'
+   group by 1,2,3 order by 4 desc;
+   ```
+
+Nie zrobione w kodzie (wymaga danych z GA4 DebugView): diagnoza landing page `(not set)` z Zadania 4.
+
+---
+
+## Prompt (oryginał)
+
 Prompt do wykonania w tym repo (Claude Code / Lovable). Źródło: audyt GSC + GA4 z 20.10.2026.
 
 ## Kontekst
@@ -55,7 +90,7 @@ Dopisz do `EXPLICIT` w `src/seo/routeRedirects.ts` (sekcja „GSC 20.10.2026 - t
 /terms/return-policy                                  -> /en/return-policy
 ```
 
-- Upewnij się, że `build-bundle.mjs` przenosi je do `legacy-redirects.json` Workera (301 na edge) i że prerender tworzy stuby (fallback, gdy Worker nie działa).
+- Worker musi brać przekierowania z tego samego źródła co router i prerender (fallback: stuby `meta refresh`, gdy Worker nie działa).
 - `npm run build` musi przejść (`audit-routes`, `audit-sitemap`).
 
 **Akceptacja:** każdy adres z listy → 301 na cel (przez Worker) albo stub z `meta refresh` + canonical na cel (bez Workera).

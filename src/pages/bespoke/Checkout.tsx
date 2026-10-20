@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { getGaCheckoutMetadata } from "@/lib/ga-ids";
+import { getGaCheckoutMetadataAsync } from "@/lib/ga-ids";
 import { getOppref, oaiqBespokeCheckoutStarted, oaiqBespokeOrderCreated, oaiqIdentifyHash } from "@/lib/openai-pixel";
 import { Link, useNavigate } from "react-router-dom";
 import { ChevronLeft, Sparkles, ShieldCheck, Lock, Scissors, Truck } from "lucide-react";
@@ -320,7 +320,7 @@ export default function BespokeCheckout() {
         productName,
         description,
         returnUrl,
-        metadata: { ...metadata, ...getGaCheckoutMetadata(), ...(getOppref() ? { openai_oppref: getOppref() } : {}) },
+        metadata: { ...metadata, ...(await getGaCheckoutMetadataAsync()), ...(getOppref() ? { openai_oppref: getOppref() } : {}) },
         environment: getStripeEnvironment(),
       },
     });

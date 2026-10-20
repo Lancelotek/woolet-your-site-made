@@ -6,7 +6,7 @@
  *   - an App.tsx route has no resolver / is not matched by the known set,
  *   - a prerender catalog route (getAllRoutes) would be 404'd,
  *   - a sitemap URL would be 404'd,
- *   - a LEGACY_REDIRECTS target is unknown (a 301 into a 404).
+ *   - an ALL_REDIRECTS target is unknown (a 301 into a 404).
  * The Worker no longer embeds prerendered HTML; the origin serves every page.
  */
 import fs from "node:fs";
@@ -50,9 +50,12 @@ if (fs.existsSync(sitemap)) {
     if (p !== "/" && !isKnown(p)) errors.push(`sitemap URL not known: ${p}`);
   }
 }
-// 4. Legacy redirect targets.
-const legacy = JSON.parse(fs.readFileSync(path.resolve(__dirname, "src/legacy-redirects.json"), "utf8"));
-for (const [src, dst] of Object.entries(legacy)) if (!isKnown(dst)) errors.push(`legacy redirect ${src} -> unknown ${dst}`);
+// 4. Redirect targets (src/seo/legacyRedirects.ts ALL_REDIRECTS - the Worker
+//    resolves redirects from the same module as the router and prerender).
+for (const [src, dst] of Object.entries(mod.ALL_REDIRECTS)) {
+  if (/^https?:/.test(dst)) continue;
+  if (!isKnown(dst.split(/[?#]/)[0])) errors.push(`redirect ${src} -> unknown ${dst}`);
+}
 
 if (errors.length) {
   console.error(`[build-bundle] FAILED — ${errors.length} problem(s):\n  ${errors.join("\n  ")}`);

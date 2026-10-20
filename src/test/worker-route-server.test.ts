@@ -5,7 +5,7 @@ import { getBlogPosts } from "@/lib/blog-data";
 import { SIZES } from "@/data/sizes";
 import { SUPPORTED_LANGS, type Lang } from "@/lib/i18n";
 import { createMatcher } from "../../workers/route-server/src/routes";
-import { createHandler } from "../../workers/route-server/src/handler";
+import { createHandler, EDGE_HEADER, EDGE_HEADER_VALUE } from "../../workers/route-server/src/handler";
 
 // Minimal HTMLRewriter stand-in: Node has none; status/headers are what we assert.
 class FakeRewriter {
@@ -101,5 +101,26 @@ describe("route-server Worker", () => {
     expect(await loc("/en/about/")).toEqual([301, "https://woolet.co/en/about"]);
     expect(await loc("/en/compare/warby-parker")).toEqual([301, "https://woolet.co/en/compare/warby-parker-alternative"]);
     expect(await loc("/pl/compare/zenni-alternative")).toEqual([301, "https://woolet.co/en/compare/zenni-alternative"]);
+  });
+
+  it("marks every response with the edge header (passthrough, 200, 301, 404)", async () => {
+    const post = await handle(new Request("https://woolet.co/en/nope-x", { method: "POST" }));
+    for (const res of [await get("/en"), await get("/"), await get("/en/this-does-not-exist"), await get("/assets/x.js"), post]) {
+      expect(res.headers.get(EDGE_HEADER)).toBe(EDGE_HEADER_VALUE);
+    }
+  });
+
+  it("keeps the query string on / -> /en", async () => {
+    const r = await get("/?utm_source=x&no_redirect=true");
+    expect([r.status, r.headers.get("location")]).toEqual([301, "https://woolet.co/en?utm_source=x&no_redirect=true"]);
+  });
+
+  it("301s typo / AI-hallucinated blog slugs from GSC (20.10.2026)", async () => {
+    const loc = async (p: string) => { const r = await get(p); return [r.status, r.headers.get("location")]; };
+    expect(await loc("/en/blog/how-to-tell-if-your-face-wide-or-narrow"))
+      .toEqual([301, "https://woolet.co/en/blog/how-to-tell-if-your-face-is-wide-or-narrow"]);
+    expect(await loc("/en/blog/numbers-on-frames-meaning"))
+      .toEqual([301, "https://woolet.co/en/blog/numbers-on-glasses-frames-meaning"]);
+    expect(await loc("/terms/return-policy")).toEqual([301, "https://woolet.co/en/return-policy"]);
   });
 });

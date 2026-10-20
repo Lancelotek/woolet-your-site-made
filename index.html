@@ -149,6 +149,19 @@
       });
       gtag('set', 'ads_data_redaction', true);
       gtag('set', 'url_passthrough', true);
+      // Internal traffic (fix pack 20.10.2026): ?wlt_internal=1 marks this
+      // browser (localStorage, ?wlt_internal=0 clears it); utm_source=claude_*
+      // marks the visit. GA4 drops it once the "Internal traffic" data filter
+      // is Active (GA4 Admin -> Data filters).
+      try {
+        var wltQ = new URLSearchParams(location.search);
+        if (wltQ.get('wlt_internal') === '1') localStorage.setItem('wlt_internal', '1');
+        if (wltQ.get('wlt_internal') === '0') localStorage.removeItem('wlt_internal');
+        if (localStorage.getItem('wlt_internal') === '1' || /^claude_/i.test(wltQ.get('utm_source') || '')) {
+          gtag('set', { 'traffic_type': 'internal' });
+          window.dataLayer.push({ 'traffic_type': 'internal' });
+        }
+      } catch (e) {}
     </script>
 
     <script>

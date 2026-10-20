@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { buildPurchaseAttribution } from "@/lib/meta-capi";
 import { pushGtmEvent } from "@/lib/gtm";
 import { getLastTouchCheckoutMetadata } from "@/lib/attribution";
-import { getGaCheckoutMetadata } from "@/lib/ga-ids";
+import { getGaCheckoutMetadataAsync } from "@/lib/ga-ids";
 import { Button } from "@/components/ui/button";
 
 const StripeCheckoutModalLazy = lazy(() =>
@@ -63,17 +63,18 @@ export function ReserveCheckoutButton({
   const sessionRef = useRef<Promise<string> | null>(null);
 
   const createSession = useCallback((): Promise<string> => {
-    const merged = { ...(metadata ?? {}), ...buildPurchaseAttribution(), ...getLastTouchCheckoutMetadata(), ...getGaCheckoutMetadata(), user_initiated: "1" };
-    return supabase.functions
-      .invoke("create-checkout", {
+    // Sync attribution is captured at tap time; only the GA id fallback awaits (<=400 ms).
+    const base = { ...(metadata ?? {}), ...buildPurchaseAttribution(), ...getLastTouchCheckoutMetadata() };
+    return getGaCheckoutMetadataAsync()
+      .then((ga) => supabase.functions.invoke("create-checkout", {
         body: {
           priceId,
           customerEmail,
           returnUrl,
-          metadata: merged,
+          metadata: { ...base, ...ga, user_initiated: "1" },
           environment: getStripeEnvironment(),
         },
-      })
+      }))
       .then(({ data, error: err }) => {
         if (err || !data?.clientSecret) {
           throw new Error(err?.message || "Failed to create checkout session");

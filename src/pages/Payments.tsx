@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { withGaPaymentLink } from "@/lib/ga-ids";
 import { Helmet } from "react-helmet-async";
 import { Link, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -224,6 +225,7 @@ export default function Payments() {
                   </div>
                   <a
                     href={`${STRIPE_FALLBACK_URL}?prefilled_email=${encodeURIComponent(email)}`}
+                    onClick={(e) => { e.currentTarget.href = withGaPaymentLink(e.currentTarget.href, "site_payments"); }}
                     style={{
                       display: "block", width: "100%", padding: "14px 0",
                       background: "#CAA449", color: "#1F1B16", border: "none",

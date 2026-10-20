@@ -2,3 +2,4 @@
 export { buildKnownRouteData, parseAppRoutes } from "../../src/seo/routeCatalog";
 export { getAllRoutes } from "../../src/seo/metadata";
 export { createMatcher } from "./src/routes";
+export { ALL_REDIRECTS } from "../../src/seo/legacyRedirects";

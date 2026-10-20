@@ -1,8 +1,10 @@
+import type React from "react";
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { DE_PRICING, deReservationUrl, formatDePrice } from "@/content/de/pricing";
 import { pushGtmEvent } from "@/lib/gtm";
 import { trackMetaEvent, uuid } from "@/lib/meta-capi";
+import { withGaPaymentLink } from "@/lib/ga-ids";
 
 type Props = {
   source: string;
@@ -14,7 +16,10 @@ export default function DeReservationCta({ source, className, variant = "button"
   const clickedRef = useRef(false);
   const href = deReservationUrl(source);
 
-  const onClick = () => {
+  const onClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    // GA ids go into client_reference_id at tap time so payments-webhook can
+    // attribute the Payment Link purchase to the visitor's GA4 session.
+    e.currentTarget.href = withGaPaymentLink(href);
     if (clickedRef.current) return;
     clickedRef.current = true;
     const custom = {

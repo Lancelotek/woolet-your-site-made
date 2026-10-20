@@ -6,7 +6,7 @@ import { getStripe, getStripeEnvironment } from "@/lib/stripe";
 import { supabase } from "@/integrations/supabase/client";
 import { buildPurchaseAttribution, trackInitiateCheckoutOnce } from "@/lib/meta-capi";
 import { getAttribution, getLastTouchCheckoutMetadata } from "@/lib/attribution";
-import { getGaCheckoutMetadata } from "@/lib/ga-ids";
+import { getGaCheckoutMetadataAsync } from "@/lib/ga-ids";
 import { pushGtmEvent } from "@/lib/gtm";
 import { claritySet } from "@/lib/clarity";
 import { PaymentTestModeBanner } from "@/components/PaymentTestModeBanner";
@@ -96,16 +96,17 @@ export default function Reserve() {
   }, [touch]);
 
   const createSession = useCallback((): Promise<string> => {
-    const merged = { ...metadata, ...buildPurchaseAttribution(), ...getLastTouchCheckoutMetadata(), ...getGaCheckoutMetadata(), user_initiated: "1" };
-    return supabase.functions
-      .invoke("create-checkout", {
+    // Sync attribution is captured at tap time; only the GA id fallback awaits (<=400 ms).
+    const base = { ...metadata, ...buildPurchaseAttribution(), ...getLastTouchCheckoutMetadata() };
+    return getGaCheckoutMetadataAsync()
+      .then((ga) => supabase.functions.invoke("create-checkout", {
         body: {
           priceId: RESERVATION_PRICE_ID,
           returnUrl,
-          metadata: merged,
+          metadata: { ...base, ...ga, user_initiated: "1" },
           environment: getStripeEnvironment(),
         },
-      })
+      }))
       .then(({ data, error }) => {
         if (error || !data?.clientSecret) {
           throw new Error(error?.message || "Failed to create checkout session");

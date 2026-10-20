@@ -5,6 +5,7 @@ import { generateOrderPreview } from "../_shared/bespoke-preview.ts";
 import { buildInterviewBookingUrl } from "../_shared/bespoke-case.ts";
 import { ensurePaidStage } from "../_shared/bespoke-stage.ts";
 import { parseConsentFlag, sendOpenAiEvent } from "../_shared/openai-capi.ts";
+import { parseGaClientReference } from "../_shared/ga-client-reference.ts";
 
 
 let _supabase: ReturnType<typeof createClient> | null = null;
@@ -238,6 +239,8 @@ async function fireGa4Conversion(
         currency: session?.currency ?? null,
         has_ga_client_id: Boolean(session?.metadata?.ga_client_id),
         has_ga_session_id: Boolean(session?.metadata?.ga_session_id),
+        ga_cid_src: session?.metadata?.ga_cid_src ?? null,
+        ga_cookie_shape: session?.metadata?.ga_cookie_shape ?? null,
       },
       status,
     });
@@ -960,8 +963,18 @@ async function resolvePaidSource(
   }
 
   if (session?.payment_link) {
-    const ref: string = session?.client_reference_id || "";
-    return { paidSource: ref.startsWith("ml-") ? ref : "payment_link", metadata: meta };
+    const rawRef: string = session?.client_reference_id || "";
+    const { base: ref, gaClientId, gaSessionId } = parseGaClientReference(rawRef);
+    // Payment Links carry no metadata; site links put the visitor's GA ids in
+    // client_reference_id ("<base>__ga_<cidA>_<cidB>[_<sid>]", fix pack 20.10.2026).
+    const withGa: Record<string, string> = { ...meta };
+    if (gaClientId && !withGa.ga_client_id) {
+      withGa.ga_client_id = gaClientId;
+      withGa.ga_cid_src = "client_reference_id";
+      if (gaSessionId && !withGa.ga_session_id) withGa.ga_session_id = gaSessionId;
+    }
+    const paidSource = ref.startsWith("ml-") ? ref : ref ? `payment_link/${ref}` : "payment_link";
+    return { paidSource, metadata: withGa };
   }
 
   // Last-touch fields take precedence; older checkout UTM fields remain the

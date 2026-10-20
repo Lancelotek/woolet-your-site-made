@@ -16,7 +16,9 @@
  * Known routes are generated at build time (build-bundle.mjs) from
  * src/seo/routeCatalog.ts — the same catalog as prerender and audit-routes.
  */
-import LEGACY_REDIRECTS from "./legacy-redirects.json";
+// Same source as the router and prerender stubs (src/seo/legacyRedirects.ts):
+// exact map + prefix/regex rules, case-insensitive, %20-tolerant.
+import { resolveLegacyRedirect } from "../../../src/seo/legacyRedirects";
 
 // Minimal Cloudflare HTMLRewriter types: the app tsconfig typechecks this file
 // with DOM libs, not @cloudflare/workers-types.
@@ -80,7 +82,25 @@ const stripPreviewImage = {
   },
 };
 
+/** Diagnostic marker: proves a response went through this Worker (fix pack 20.10.2026). */
+export const EDGE_HEADER = "x-woolet-edge";
+export const EDGE_HEADER_VALUE = "route-server";
+
+/** Copy a response with the edge marker (Response.redirect headers are immutable). */
+function withEdgeHeader(response: Response): Response {
+  const out = new Response(response.body, response);
+  out.headers.set(EDGE_HEADER, EDGE_HEADER_VALUE);
+  return out;
+}
+
 export function createHandler(isKnownRoute: (pathname: string) => boolean, originFetch: typeof fetch = (r) => fetch(r)) {
+  const inner = createInnerHandler(isKnownRoute, originFetch);
+  return async function handle(request: Request): Promise<Response> {
+    return withEdgeHeader(await inner(request));
+  };
+}
+
+function createInnerHandler(isKnownRoute: (pathname: string) => boolean, originFetch: typeof fetch) {
   return async function handle(request: Request): Promise<Response> {
     const method = request.method.toUpperCase();
     // Never touch non-GET/HEAD (form posts, webhooks, callbacks).
@@ -98,7 +118,7 @@ export function createHandler(isKnownRoute: (pathname: string) => boolean, origi
       url.pathname = pathname.replace(/\/+$/, "") || "/";
       return Response.redirect(url.toString(), 301);
     }
-    const legacy = (LEGACY_REDIRECTS as Record<string, string>)[pathname];
+    const legacy = resolveLegacyRedirect(pathname);
     if (legacy) return Response.redirect(`https://${url.host}${legacy}${url.search}`, 301);
 
     const localizedEnOnly = pathname.match(
