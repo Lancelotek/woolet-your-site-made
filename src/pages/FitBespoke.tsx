@@ -13,7 +13,7 @@ const SIZE_ROWS: Array<{
   pathLabel: string;
   note: string;
 }> = [
-  { width: "145-154 mm", bridge: "20-22 mm", path: "bespoke", pathLabel: "Bespoke", note: "Below the signature front" },
+  { width: "145-152 mm", bridge: "20-22 mm", path: "bespoke", pathLabel: "Bespoke", note: "Below the signature front" },
   { width: "153-163 mm", bridge: "21-22 mm", path: "stock", pathLabel: "Signature · 007 / 009", note: "158 mm front - the signature fit" },
   { width: "Above 163 mm", bridge: "22-24 mm", path: "bespoke", pathLabel: "Bespoke (max 160 mm)", note: "Widest Woolet front is 160 mm (bespoke); measure first" },
 ];

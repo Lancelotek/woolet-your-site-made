@@ -162,15 +162,15 @@ export const dePages: Record<string, DePageConfig> = {
     metaDescription:
       "XXL Brillen für Herren ab 155 mm Gesichtsbreite: 158 mm Front, 150 mm Bügel, Keyhole-Steg. Mazzucchelli-Acetat, in der EU handgefertigt. Größe in 60 Sek. messen.",
     primaryKeyword: "xxl brille herren",
-    kurzeAntwort: "Eine XXL Brille für Herren braucht eine echte Frontbreite von rund 158 mm statt nur größerer Gläser. Die meisten Marken enden bei etwa 148-150 mm. Woolet 007 und 009 haben 158 mm Front und 150 mm Bügel für Gesichter von 155-161 mm; Bespoke gibt es von 145-160 mm.",
+    kurzeAntwort: "Eine XXL Brille für Herren braucht eine echte Frontbreite von rund 158 mm statt nur größerer Gläser. Die meisten Marken enden bei etwa 148-150 mm. Woolet 007 und 009 haben 158 mm Front und 150 mm Bügel für Gesichter von 153-163 mm; Bespoke gibt es von 145-160 mm.",
     widthTable: {
       title: "Gesichtsbreite und passende XXL-Fassung",
       rows: [
         ["unter 138 mm", "Narrow", "Standardfassungen aus dem Handel"],
         ["138-149 mm", "Large-average", "breite Standardfassungen"],
-        ["150-154 mm", "Large-average, oberes Ende", "Woolet Bespoke 145-160 mm"],
-        ["155-161 mm", "Wide face", "Woolet 007 / 009 mit 158 mm Front"],
-        ["ab 162 mm", "Wide face", "außerhalb unseres Fertigungsbereichs"],
+        ["150-152 mm", "Large-average, oberes Ende", "Woolet Bespoke 145-160 mm"],
+        ["153-163 mm", "Wide face", "Woolet 007 / 009 mit 158 mm Front"],
+        ["ab 164 mm", "Wide face", "außerhalb der Standardgröße - Bespoke bis 160 mm, vorher messen"],
       ],
     },
     faqs: [
@@ -215,7 +215,7 @@ export const dePages: Record<string, DePageConfig> = {
     heroAlt: "Greg trägt eine Woolet 009 Brille, Frontbreite als Maßanfertigung wählbar",
     kurzeAntwort: "Eine Brille mit 150 mm Frontbreite gibt es bei Woolet nur als Bespoke-Maßanfertigung im Bereich 145-160 mm für 480 USD. Unser Standardmodell hat 158 mm Front und passt bei 153-163 mm Gesichtsbreite.",
     problemTitle: "Für wen ist eine 150 mm breite Brille?",
-    problemBody: "150 mm liegt im Bereich Extra-wide (145-154 mm Gesichtsbreite). Große Marken wie Persol, Ray-Ban und Warby Parker enden bei etwa 148-150 mm Frontbreite. Wenn das bei dir knapp sitzt, fertigen wir die Front als Bespoke auf dein Maß.",
+    problemBody: "150 mm liegt im Bereich Extra-wide (145-152 mm Gesichtsbreite). Große Marken wie Persol, Ray-Ban und Warby Parker enden bei etwa 148-150 mm Frontbreite. Wenn das bei dir knapp sitzt, fertigen wir die Front als Bespoke auf dein Maß.",
     detailTitle: "Bespoke 145-160 mm oder Standard 158 mm?",
     detailBody: "Liegt deine Gesichtsbreite bei 153-163 mm, passt der Standard mit 158 mm Front. Darunter oder darüber fertigen wir Bespoke von 145 bis 160 mm für 480 USD. Mit einer Reservierung für 1 € sicherst du dir den Founding-Member-Preis.",
     widthTable: {
@@ -224,7 +224,7 @@ export const dePages: Record<string, DePageConfig> = {
         ["unter 130 mm", "Narrow", "Standardfassungen aus dem Handel"],
         ["130-137 mm", "Standard", "Standardfassungen aus dem Handel"],
         ["138-144 mm", "Wide", "breite Standardfassungen"],
-        ["145-154 mm", "Extra-wide", "Woolet Bespoke 145-160 mm"],
+        ["145-152 mm", "Extra-wide", "Woolet Bespoke 145-160 mm"],
         ["153-163 mm", "XL / specialty wide", "Woolet Standard 158 mm"],
         ["über 163 mm", "XL / specialty wide", "Woolet Bespoke bis 160 mm"],
       ],
@@ -237,7 +237,7 @@ export const dePages: Record<string, DePageConfig> = {
     faqs: [
       { q: "Gibt es bei Woolet eine Brille mit 150 mm Breite?", a: "Ja, als Bespoke-Maßanfertigung. Bespoke deckt 145-160 mm Frontbreite ab und kostet 480 USD." },
       { q: "Welche Frontbreite hat das Woolet-Standardmodell?", a: "158 mm. Es passt bei einer Gesichtsbreite von 153-163 mm." },
-      { q: "Welche Gesichtsbreite passt zu 150 mm Front?", a: "150 mm liegt im Bereich Extra-wide, also etwa 145-154 mm Gesichtsbreite. FitLens misst deine Gesichtsbreite im Browser." },
+      { q: "Welche Gesichtsbreite passt zu 150 mm Front?", a: "150 mm liegt im Bereich Extra-wide, also etwa 145-152 mm Gesichtsbreite. FitLens misst deine Gesichtsbreite im Browser." },
     ],
   },
   "brille-breite-155-mm": {
@@ -250,9 +250,9 @@ export const dePages: Record<string, DePageConfig> = {
     heroAlt: "Greg trägt die Woolet 009 mit 158 mm Front für 155 mm Gesichtsbreite",
     kurzeAntwort: "153 mm Gesichtsbreite ist die Untergrenze unseres Passbereichs: Woolet 007 und 009 haben eine 158 mm breite Front und passen bei 153-163 mm Gesichtsbreite. Für schmalere oder breitere Maße gibt es Bespoke von 145-160 mm.",
     problemTitle: "Passt eine 158 mm Front bei 155 mm Gesichtsbreite?",
-    problemBody: "Ja. Ab 155 mm Gesichtsbreite beginnt der Bereich XL / specialty wide. Die 158 mm Front von Woolet ist für 153-163 mm ausgelegt, dazu kommen Keyhole-Steg und 150 mm lange Bügel.",
-    detailTitle: "Unter 155 mm? Dann Bespoke",
-    detailBody: "Liegt deine Gesichtsbreite unter 155 mm, fertigen wir die Front als Bespoke im Bereich 145-160 mm für 480 USD. FitLens misst dein Maß in etwa 60 Sekunden im Browser.",
+    problemBody: "Ja. Ab 153 mm Gesichtsbreite beginnt der Bereich XL / specialty wide. Die 158 mm Front von Woolet ist für 153-163 mm ausgelegt, dazu kommen Keyhole-Steg und 150 mm lange Bügel.",
+    detailTitle: "Unter 153 mm? Dann Bespoke",
+    detailBody: "Liegt deine Gesichtsbreite unter 153 mm, fertigen wir die Front als Bespoke im Bereich 145-160 mm für 480 USD. FitLens misst dein Maß in etwa 60 Sekunden im Browser.",
     related: ["brille-breite-150-mm", "brille-breite-158-mm", "brille-breite-160-mm", "breite-brille"],
     metaTitle: "Brille 155 mm breit (Herren) | Woolet 158 mm Front",
     metaDescription:

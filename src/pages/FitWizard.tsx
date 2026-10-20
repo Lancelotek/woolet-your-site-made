@@ -51,7 +51,7 @@ const SKU_DETAIL: Record<Exclude<Sku, "bespoke">, { shape: string; widthMm: numb
 // Single-size catalog: one 158 mm width with a 21 mm bridge.
 // Faces outside the 153–163 mm sweet spot are routed to Bespoke (145–160 mm).
 const recommendSku = (faceWidthMm: number): Sku => {
-  if (faceWidthMm < 155 || faceWidthMm > 161) return "bespoke";
+  if (faceWidthMm < 153 || faceWidthMm > 163) return "bespoke";
   return "009";
 };
 

@@ -1076,7 +1076,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
   <thead><tr><th>Face / head measurement</th><th>Recommended frame</th></tr></thead>
   <tbody>
     <tr><td>Face width 153–163 mm (head 58–62 cm)</td><td>Woolet 158 mm</td></tr>
-    <tr><td>Face width 145–154 mm (head 56–58 cm)</td><td>Bespoke</td></tr><tr><td>Above 163 mm</td><td>Widest Woolet front is 160 mm (bespoke); measure first</td></tr>
+    <tr><td>Face width 145–152 mm (head 56–58 cm)</td><td>Bespoke</td></tr><tr><td>Above 163 mm</td><td>Widest Woolet front is 160 mm (bespoke); measure first</td></tr>
   </tbody>
 </table>
 <h2>Frequently asked</h2>
@@ -1119,8 +1119,8 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
         "Extra wide glasses engineered for 155 mm+ faces: 158 mm front, 21–22 mm bridge, Italian Mazzucchelli acetate. Bespoke 145–160 mm.",
       noscriptHtml: `<h1>Extra Wide Glasses</h1>
 <h2>What counts as extra wide glasses?</h2>
-<p>In this sizing scale, Extra-wide means frames for faces measuring 145–154 mm. Faces measuring 155 mm or more are XL / specialty wide and need a purpose-built front; Woolet uses a 158 mm front for its 153–163 mm standard fit range.</p>
-<table><thead><tr><th>Face width (mm)</th><th>Frame front (mm)</th><th>Fit route</th></tr></thead><tbody><tr><td>145–154 mm</td><td>145–157 mm</td><td>Bespoke</td></tr><tr><td>153–163 mm</td><td>158 mm</td><td>Standard 007 or 009</td></tr><tr><td>Above 163 mm</td><td>160 mm max</td><td>Widest Woolet front is 160 mm (bespoke); measure first</td></tr></tbody></table>
+<p>In this sizing scale, Extra-wide means frames for faces measuring 145–152 mm. Faces measuring 153 mm or more are XL / specialty wide and need a purpose-built front; Woolet uses a 158 mm front for its 153–163 mm standard fit range.</p>
+<table><thead><tr><th>Face width (mm)</th><th>Frame front (mm)</th><th>Fit route</th></tr></thead><tbody><tr><td>145–152 mm</td><td>145–157 mm</td><td>Bespoke</td></tr><tr><td>153–163 mm</td><td>158 mm</td><td>Standard 007 or 009</td></tr><tr><td>Above 163 mm</td><td>160 mm max</td><td>Widest Woolet front is 160 mm (bespoke); measure first</td></tr></tbody></table>
 <p>Both shapes are prescription-ready, with 52 × 52 mm and 54 × 50 mm lens areas for single-vision or progressive lenses. Italian Mazzucchelli acetate, hand made in EU. The shop is sold out until the Kickstarter campaign ends; a $1 reservation locks the $114 founding-member price against the $190 MSRP.</p>`,
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
@@ -1451,9 +1451,9 @@ ${enhancement ? `<aside aria-label="Quick answer"><strong>Quick answer</strong><
       {
         title: "大きい顔 メガネ 153–163mm | Woolet 幅広イタリア製アセテート",
         description:
-          "大きい顔・幅広い顔のためのメガネ。Wooletは155mm・158mm・161mmの実寸フレームをイタリア製マッツケリ・アセテートで手作り。FitLensスキャンで60秒、自分のサイズが分かります。",
+          "大きい顔・幅広い顔のためのメガネ。Wooletは顔幅153〜163mmに合う158mmの実寸フレームをイタリア製マッツケリ・アセテートで手作り。FitLensスキャンで60秒、自分のサイズが分かります。",
         noscriptHtml: `<h1>大きい顔のメガネ — Woolet 158 mm</h1>
-<p>Wooletは155mm・158mm・161mmの実寸フロント幅を提供する、幅広い顔のためのイタリア製アセテートアイウェアブランドです。素材はMazzucchelli 1849、EUの職人が一本ずつ手作業で仕上げます。FitLensスキャンで顔幅を60秒で計測できます。</p>`,
+<p>Wooletは顔幅153〜163mmに合う実寸158mmのフロント幅を提供する、幅広い顔のためのイタリア製アセテートアイウェアブランドです。素材はMazzucchelli 1849、EUの職人が一本ずつ手作業で仕上げます。FitLensスキャンで顔幅を60秒で計測できます。</p>`,
       },
       { image: DEFAULT_OG },
       [
@@ -1603,7 +1603,7 @@ ${c.slug === "persol-alternative" || c.slug === "zenni-alternative" ? `<p>From $
 <p>${s.bespokeNote}</p>
 <p>Bespoke: ${BESPOKE_FACTS.shapes.join(", ")}, ${BESPOKE_FACTS.frontWidth} front, ${BESPOKE_FACTS.bridge} bridge, ${BESPOKE_FACTS.temples} temples. ${BESPOKE_FACTS.regularPriceLabel} including standard prescription lenses and free worldwide shipping; specialty lens upgrades cost extra. ${BESPOKE_FACTS.leadTime}. ${BESPOKE_FACTS.origin} from ${BESPOKE_FACTS.material}. Signature 158 mm frames fit 153-163 mm faces.</p>
 <h2>Every width we cover — 145 to 160 mm</h2>
-<p>${SIZES.map((r) => `<a href="/en/size/${r.slug}">${r.width} mm${r.width === 158 ? " (signature)" : r.width >= 155 && r.width <= 161 ? " (signature fit)" : " (bespoke)"}</a>`).join(" · ")}</p>
+<p>${SIZES.map((r) => `<a href="/en/size/${r.slug}">${r.width} mm${r.width === 158 ? " (signature)" : r.width >= 153 && r.width <= 163 ? " (signature fit)" : " (bespoke)"}</a>`).join(" · ")}</p>
 <p><a href="/en/fit">Measure my face with FitLens</a> · <a href="/en/products/007">Woolet 007 Round</a> · <a href="/en/products/009">Woolet 009 Soft Square</a> · <a href="/en/fit/bespoke">Bespoke 145–160 mm</a></p>`,
 
         },

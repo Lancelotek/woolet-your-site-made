@@ -27,9 +27,9 @@ const tdStyle = "padding:10px 12px;border-bottom:1px solid #2A251C;";
 
 export const BLOG_AIO_ENHANCEMENTS: Record<string, BlogAioEnhancement> = {
   "how-to-tell-if-your-face-is-wide-or-narrow": {
-    quickAnswer: "For eyewear sizing, a face under 138 mm is Narrow; 138–149 mm is Large-average; 150–154 mm is large-average at the upper end; 155–161 mm is a Wide face — the Woolet stock range; and 162 mm or more is a wide face beyond the range we build — our widest bespoke front is 160 mm. Measure temple to temple, then compare that number with total frame front width rather than lens width.",
+    quickAnswer: "For eyewear sizing, a face under 138 mm is Narrow; 138–149 mm is Large-average; 150–152 mm is large-average at the upper end; 153–163 mm is a Wide face — the Woolet stock range; and 164 mm or more is a wide face beyond the range we build — our widest bespoke front is 160 mm. Measure temple to temple, then compare that number with total frame front width rather than lens width.",
     question: "How wide is a wide face?",
-    directAnswer: "A face under 138 mm is Narrow; 138–149 mm is Large-average; 150–154 mm is large-average at the upper end; 155–161 mm is a Wide face — the Woolet stock range; and 162 mm or more is a wide face beyond the range we build — our widest bespoke front is 160 mm.",
+    directAnswer: "A face under 138 mm is Narrow; 138–149 mm is Large-average; 150–152 mm is large-average at the upper end; 153–163 mm is a Wide face — the Woolet stock range; and 164 mm or more is a wide face beyond the range we build — our widest bespoke front is 160 mm.",
     anchor: "extra wide glasses",
     linkSentence: "If your measurement is 155 mm or above, compare it with our guide to <a href=\"/en/collections/extra-wide-glasses\">extra wide glasses</a> before choosing a frame.",
   },
@@ -42,16 +42,16 @@ export const BLOG_AIO_ENHANCEMENTS: Record<string, BlogAioEnhancement> = {
     table: `<table style="${tableStyle}"><thead><tr><th style="${thStyle}">Face shape</th><th style="${thStyle}">Frame shape</th><th style="${thStyle}">Minimum front width (mm)</th></tr></thead><tbody><tr><td style="${tdStyle}">Round</td><td style="${tdStyle}">Soft square</td><td style="${tdStyle}">Match measured face width</td></tr><tr><td style="${tdStyle}">Angular</td><td style="${tdStyle}">Round / panto</td><td style="${tdStyle}">Match measured face width</td></tr><tr><td style="${tdStyle}">Wide, 155 mm+</td><td style="${tdStyle}">Either</td><td style="${tdStyle}">155 mm+</td></tr></tbody></table>`,
   },
   "eyeglass-frame-size-chart": {
-    quickAnswer: "Eyeglass frame sizes run from roughly 122 mm at XS to about 150 mm at XXL, measured across the total front. Match the frame front to your face within about 3 mm; faces measuring 155–161 mm sit beyond the standard chart and need a front around 158 mm.",
+    quickAnswer: "Eyeglass frame sizes run from roughly 122 mm at XS to about 150 mm at XXL, measured across the total front. Match the frame front to your face within about 3 mm; faces measuring 153–163 mm sit beyond the standard chart and need a front around 158 mm.",
     question: "What eyeglass frame size matches my face width?",
     directAnswer: "Choose a total frame front within about 3 mm of your temple-to-temple face width.",
     anchor: "frames for 155 mm and wider faces",
     linkSentence: "The standard chart ends before our <a href=\"/en/collections/extra-wide-glasses\">frames for 155 mm and wider faces</a>, which start with a 158 mm front.",
   },
   "glasses-for-wide-faces-guide": {
-    quickAnswer: "A face measuring 155 mm or more needs a frame with a total front width of at least 155 mm; a 158 mm front fits the common 155–161 mm range. Measure temple to temple and ignore vague labels such as wide or oversized unless the product page publishes total front width.",
+    quickAnswer: "A face measuring 155 mm or more needs a frame with a total front width of at least 155 mm; a 158 mm front fits the common 153–163 mm range. Measure temple to temple and ignore vague labels such as wide or oversized unless the product page publishes total front width.",
     question: "What frame width fits a wide face?",
-    directAnswer: "A wide face needs a frame front close to its temple-to-temple width, with 158 mm fitting the 155–161 mm range.",
+    directAnswer: "A wide face needs a frame front close to its temple-to-temple width, with 158 mm fitting the 153–163 mm range.",
     anchor: "genuinely extra wide glasses",
     linkSentence: "Use the measurements on our <a href=\"/en/collections/extra-wide-glasses\">genuinely extra wide glasses</a> page as a practical reference when comparing brands.",
   },
@@ -63,7 +63,7 @@ export const BLOG_AIO_ENHANCEMENTS: Record<string, BlogAioEnhancement> = {
     linkSentence: "For a complete published front measurement, compare those markings with our <a href=\"/en/collections/extra-wide-glasses\">158 mm extra wide frames</a>.",
   },
   "how-to-measure-face-width-for-glasses": {
-    quickAnswer: "Measure face width in millimetres from temple to temple across the widest point, keeping the ruler level and looking straight ahead. A face under 138 mm is Narrow; 138–149 mm is Large-average; 150–154 mm is large-average at the upper end; 155–161 mm is a Wide face — the Woolet stock range; and 162 mm or more is a wide face beyond the range we build — our widest bespoke front is 160 mm.",
+    quickAnswer: "Measure face width in millimetres from temple to temple across the widest point, keeping the ruler level and looking straight ahead. A face under 138 mm is Narrow; 138–149 mm is Large-average; 150–152 mm is large-average at the upper end; 153–163 mm is a Wide face — the Woolet stock range; and 164 mm or more is a wide face beyond the range we build — our widest bespoke front is 160 mm.",
     question: "How do you measure face width for glasses?",
     directAnswer: "Measure horizontally from temple to temple at the widest point and record the result in millimetres.",
     anchor: "glasses built for wider faces",
@@ -86,17 +86,17 @@ export const BLOG_AIO_ENHANCEMENTS: Record<string, BlogAioEnhancement> = {
     table: `<table style="${tableStyle}"><thead><tr><th style="${thStyle}">Bridge width (mm)</th><th style="${thStyle}">Typical fit</th><th style="${thStyle}">What to check</th></tr></thead><tbody><tr><td style="${tdStyle}">17–19 mm</td><td style="${tdStyle}">Mainstream range</td><td style="${tdStyle}">Pinching or high sitting</td></tr><tr><td style="${tdStyle}">20 mm</td><td style="${tdStyle}">Bespoke lower range</td><td style="${tdStyle}">Bridge shape</td></tr><tr><td style="${tdStyle}">21–22 mm</td><td style="${tdStyle}">Wider nose starting point</td><td style="${tdStyle}">Keyhole contact</td></tr><tr><td style="${tdStyle}">23–24 mm</td><td style="${tdStyle}">Bespoke wider range</td><td style="${tdStyle}">Custom measurement</td></tr></tbody></table>`,
   },
   "what-size-glasses-for-a-large-head": {
-    quickAnswer: "For a large head, choose glasses by measured face width: 150–154 mm usually needs an extra-large front, while 155–161 mm is best matched by a front around 158 mm. The printed lens-bridge-temple code does not reveal total width, so measure the frame across its outer edges.",
+    quickAnswer: "For a large head, choose glasses by measured face width: 150–152 mm usually needs an extra-large front, while 153–163 mm is best matched by a front around 158 mm. The printed lens-bridge-temple code does not reveal total width, so measure the frame across its outer edges.",
     question: "What size glasses fit a large head?",
-    directAnswer: "A 155–161 mm face generally fits a frame front around 158 mm, while other widths should be matched as closely as possible.",
+    directAnswer: "A 153–163 mm face generally fits a frame front around 158 mm, while other widths should be matched as closely as possible.",
     anchor: "wide glasses measured in millimetres",
     linkSentence: "Compare your result with <a href=\"/en/collections/extra-wide-glasses\">wide glasses measured in millimetres</a> before buying by an XL label.",
-    table: `<table style="${tableStyle}"><thead><tr><th style="${thStyle}">Face width (mm)</th><th style="${thStyle}">Suggested front width (mm)</th><th style="${thStyle}">Fit category</th></tr></thead><tbody><tr><td style="${tdStyle}">140–149 mm</td><td style="${tdStyle}">Within about 3 mm</td><td style="${tdStyle}">Large-average</td></tr><tr><td style="${tdStyle}">150–154 mm</td><td style="${tdStyle}">150–157 mm</td><td style="${tdStyle}">Extra large</td></tr><tr><td style="${tdStyle}">155–161 mm</td><td style="${tdStyle}">158 mm</td><td style="${tdStyle}">Specialty wide</td></tr><tr><td style="${tdStyle}">Above 161 mm</td><td style="${tdStyle}">Widest Woolet front is 160 mm (bespoke); measure first</td><td style="${tdStyle}">Bespoke</td></tr></tbody></table>`,
+    table: `<table style="${tableStyle}"><thead><tr><th style="${thStyle}">Face width (mm)</th><th style="${thStyle}">Suggested front width (mm)</th><th style="${thStyle}">Fit category</th></tr></thead><tbody><tr><td style="${tdStyle}">140–149 mm</td><td style="${tdStyle}">Within about 3 mm</td><td style="${tdStyle}">Large-average</td></tr><tr><td style="${tdStyle}">150–152 mm</td><td style=\"${tdStyle}\">150–157 mm</td><td style="${tdStyle}">Extra large</td></tr><tr><td style="${tdStyle}">153–163 mm</td><td style=\"${tdStyle}\">158 mm</td><td style=\"${tdStyle}\">Specialty wide</td></tr><tr><td style="${tdStyle}">Above 163 mm</td><td style="${tdStyle}">Widest Woolet front is 160 mm (bespoke); measure first</td><td style="${tdStyle}">Bespoke</td></tr></tbody></table>`,
   },
   "what-size-sunglasses-for-wide-faces": {
-    quickAnswer: "Wide-face sunglasses should match temple-to-temple width, with a 155–161 mm face typically needing a front around 158 mm. Sunglass lenses may be larger for coverage, but lens width is not total frame width; check the outer edge-to-outer edge measurement and bridge width before buying.",
+    quickAnswer: "Wide-face sunglasses should match temple-to-temple width, with a 153–163 mm face typically needing a front around 158 mm. Sunglass lenses may be larger for coverage, but lens width is not total frame width; check the outer edge-to-outer edge measurement and bridge width before buying.",
     question: "What size sunglasses fit a wide face?",
-    directAnswer: "A face measuring 155–161 mm generally needs sunglasses with a total front width around 158 mm.",
+    directAnswer: "A face measuring 153–163 mm generally needs sunglasses with a total front width around 158 mm.",
     anchor: "extra wide sunglasses-ready frames",
     linkSentence: "The same sizing logic applies to our <a href=\"/en/collections/extra-wide-glasses\">extra wide sunglasses-ready frames</a> with UV400 lens options.",
   },

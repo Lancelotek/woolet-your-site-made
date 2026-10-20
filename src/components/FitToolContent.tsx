@@ -368,7 +368,7 @@ export default function FitToolContent() {
                 ["Answers", "How does it look on me?", "Will it fit my head?"],
                 ["Output", "A rendered image", "Millimetres: face width, bridge, front width"],
                 ["Useful above 155 mm", "No — sizes are approximated", "Yes — that is what it is built for"],
-                ["Tells you when nothing fits", "No", "Yes, including above 162 mm"],
+                ["Tells you when nothing fits", "No", "Yes, including above 163 mm"],
               ].map((r) => (
                 <tr key={r[0]}>
                   <th scope="row" style={{ textAlign: "left", padding: "12px", fontWeight: 500, color: "hsl(var(--foreground))", borderBottom: "1px solid hsl(var(--gold) / 0.12)" }}>{r[0]}</th>

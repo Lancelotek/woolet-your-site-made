@@ -215,7 +215,7 @@ export function getRelatedSizes(slug: string): SizeEntry[] {
 /** Band label for the ladder: signature 158 mm, signature-range 153–163 mm, else bespoke. */
 export function ladderLabel(width: number): "signature" | "signature-range" | "bespoke" {
   if (width === 158) return "signature";
-  if (width >= 155 && width <= 161) return "signature-range";
+  if (width >= 153 && width <= 163) return "signature-range";
   return "bespoke";
 }
 

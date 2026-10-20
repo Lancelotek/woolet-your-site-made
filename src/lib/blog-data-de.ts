@@ -23,9 +23,9 @@ export const blogPostsDE: BlogPost[] = [
 <ul>
 <li><strong>Unter 138 mm</strong> – Schmal. Mainstream-Marken können passen.</li>
 <li><strong>138–149 mm</strong> – Großes Durchschnittsmaß. Mainstream-Marken können passen, spezialisierte Marken helfen.</li>
-<li><strong>150–154 mm</strong> – Großes Durchschnittsmaß am oberen Ende. Extra-breite Spezialmarken helfen.</li>
-<li><strong>155–161 mm</strong> – Breites Gesicht. Woolets Standardbereich mit 158-mm-Front.</li>
-<li><strong>162 mm und darüber</strong> – Breites Gesicht außerhalb unseres Fertigungsbereichs; unsere breiteste Maßanfertigung hat eine Frontbreite von 160 mm.</li>
+<li><strong>150–152 mm</strong> – Großes Durchschnittsmaß am oberen Ende. Extra-breite Spezialmarken helfen.</li>
+<li><strong>153–163 mm</strong> – Breites Gesicht. Woolets Standardbereich mit 158-mm-Front.</li>
+<li><strong>164 mm und darüber</strong> – Breites Gesicht außerhalb unseres Fertigungsbereichs; unsere breiteste Maßanfertigung hat eine Frontbreite von 160 mm.</li>
 </ul>
 
 <p>Wenn Sie von Brillen regelmäßig Kopfschmerzen bekommen oder feststellen, dass sich „breite“ Optionen von Mainstream-Marken immer noch eng anfühlen, misst Ihr Gesicht wahrscheinlich 155 mm oder mehr. Dieser Ratgeber richtet sich hauptsächlich an Sie.</p>
@@ -219,9 +219,9 @@ export const blogPostsDE: BlogPost[] = [
 <h2>Größenkategorien für Sonnenbrillen für breite Gesichter</h2>
 
 <ul>
-<li><strong>Gesichtsbreite 150–154 mm — mittelbreit.</strong> Eine standardmäßig-große Sonnenbrille mit 148–152 mm Frontbreite wird hier passen. Die meisten „Wide Fit“-Linien von Mainstream-Marken (Ray-Ban Justin XL, Warby Parker Wide) fallen in diesen Bereich.</li>
-<li><strong>Gesichtsbreite 155–161 mm — breit.</strong> Standard-Sonnenbrillen von Mainstream-Marken werden nicht passen. Sie benötigen eine spezialisierte Marke für breite Gesichter. Die Modelle 007 und 009 von Woolet werden mit einer Frontbreite von 158 mm, einem Steg von 21–22 mm und 150 mm langen Bügeln geliefert – genau für diesen Bereich konzipiert.</li>
-<li><strong>Gesichtsbreite über 161 mm — breiteste Woolet-Front ist 160 mm (Bespoke); zuerst messen.</strong> Die Auswahl an Standardmodellen ist sehr begrenzt. Eine Maßanfertigung ist hier oft die einzig ehrliche Antwort. Der Maßanfertigungs-Service von Woolet deckt Frontbreiten von 145 bis 160 mm für beide Formen ab.</li>
+<li><strong>Gesichtsbreite 150–152 mm — mittelbreit.</strong> Eine standardmäßig-große Sonnenbrille mit 148–152 mm Frontbreite wird hier passen. Die meisten „Wide Fit“-Linien von Mainstream-Marken (Ray-Ban Justin XL, Warby Parker Wide) fallen in diesen Bereich.</li>
+<li><strong>Gesichtsbreite 153–163 mm — breit.</strong> Standard-Sonnenbrillen von Mainstream-Marken werden nicht passen. Sie benötigen eine spezialisierte Marke für breite Gesichter. Die Modelle 007 und 009 von Woolet werden mit einer Frontbreite von 158 mm, einem Steg von 21–22 mm und 150 mm langen Bügeln geliefert – genau für diesen Bereich konzipiert.</li>
+<li><strong>Gesichtsbreite über 163 mm — breiteste Woolet-Front ist 160 mm (Bespoke); zuerst messen.</strong> Die Auswahl an Standardmodellen ist sehr begrenzt. Eine Maßanfertigung ist hier oft die einzig ehrliche Antwort. Der Maßanfertigungs-Service von Woolet deckt Frontbreiten von 145 bis 160 mm für beide Formen ab.</li>
 <li><strong>Gesichtsbreite über 160 mm — außerhalb unseres Bereichs.</strong> Woolet fertigt keine Frontbreiten über 160 mm.</li>
 </ul>
 

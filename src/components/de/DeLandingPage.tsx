@@ -126,9 +126,9 @@ function WidthMeter() {
       <div className="flex justify-between text-[10px] uppercase tracking-[0.22em] text-cream-dim"><span>Frontbreite</span><span>mm</span></div>
       <div className="relative h-6 border-y border-border-sub">
         <div className="absolute left-[8%] top-1/2 h-3 w-[28%] -translate-y-1/2 border border-border-sub bg-secondary" />
-        <div className="absolute left-1/2 top-0 h-full w-[30%] bg-primary" />
+        <div className="absolute left-[45%] top-0 h-full w-[25%] bg-primary" />
       </div>
-      <div className="flex justify-between text-[11px] text-cream-dim"><span>135</span><span>155</span><span>161</span><span>175</span></div>
+      <div className="flex justify-between text-[11px] text-cream-dim"><span>135</span><span>153</span><span>163</span><span>175</span></div>
       <div className="flex justify-between text-xs"><span className="text-cream-dim">Standard 138-148</span><span className="font-semibold text-primary">Woolet 153-163</span></div>
     </div>
   );

@@ -73,9 +73,9 @@ const RESULTS: Record<Band, {
   },
   average: {
     title: "Average width — you have plenty of options",
-    range: "138–154 mm temple-to-temple",
+    range: "138–152 mm temple-to-temple",
     honest:
-      "Every mainstream brand builds for you. Woolet's 158 mm will feel one size too big on most of this range. If you're at the top end (150–154 mm) and standard frames still pinch, look at Ray-Ban Large, Persol's wider models, or Moscot Lemtosh XL first.",
+      "Every mainstream brand builds for you. Woolet's 158 mm will feel one size too big on most of this range. If you're at the top end (150–152 mm) and standard frames still pinch, look at Ray-Ban Large, Persol's wider models, or Moscot Lemtosh XL first.",
     cta: { label: "Measure precisely with AI Fit Wizard", href: "/en/fit" },
     tone: "muted",
   },
@@ -90,7 +90,7 @@ const RESULTS: Record<Band, {
   },
   "extra-wide": {
     title: "Extra-wide face — bespoke territory",
-    range: "162 mm and above",
+    range: "164 mm and above",
     honest:
       "Even our stock 158 mm will bow at the temples. Woolet Bespoke is cut to your exact face width (up to 160 mm) and bridge (20–24 mm), using Italian acetate and hand made in the EU.",
     cta: { label: "Explore Woolet Bespoke", href: "/en/bespoke" },

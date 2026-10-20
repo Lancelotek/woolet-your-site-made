@@ -138,8 +138,8 @@ plPages["jak-dobrac-okulary-do-twarzy"] = {
     "Kształt (owalny, kwadratowy, okrągły) wpływa na estetykę. Ale to szerokość między skrońmi decyduje, czy oprawka fizycznie leży, czy uciska. Woolet projektuje oprawki od zera dla twarzy 155 mm+ — jeden rozmiar stockowy 158 mm, plus bespoke od 145 do 160 mm co 1 mm.",
   proofBullets: [
     { label: "Poniżej 145 mm", value: "Standardowe oprawki z salonów" },
-    { label: "145 – 154 mm", value: "Bespoke Woolet (145–154 mm)" },
-    { label: "155 mm i więcej", value: "Woolet 007 / 009 — 158 mm" },
+    { label: "145 – 152 mm", value: "Bespoke Woolet (145–152 mm)" },
+    { label: "153 – 163 mm", value: "Woolet 007 / 009 — 158 mm" },
     { label: "Powyżej 163 mm", value: "Najszersza oprawka Woolet to 160 mm (bespoke); najpierw zmierz" },
   ],
   closingH2: "Zmierz raz, zamawiaj bez ryzyka",
@@ -202,8 +202,8 @@ plPages["jak-dobrac-okulary-do-twarzy"] = {
         { range: "poniżej 130 mm", label: "wąska twarz — większość opraw damskich" },
         { range: "130 – 137 mm", label: "standardowa — bestselling range w salonach" },
         { range: "138 – 144 mm", label: "szeroka — jeszcze dostępna w salonach" },
-        { range: "145 – 154 mm", label: "bardzo szeroka — trudno znaleźć, głównie bespoke" },
-        { range: "155 mm i więcej", label: "poza standardowym rynkiem — Woolet 158 mm", highlight: true },
+        { range: "145 – 152 mm", label: "bardzo szeroka — trudno znaleźć, głównie bespoke" },
+        { range: "153 – 163 mm", label: "poza standardowym rynkiem — Woolet 158 mm", highlight: true },
       ],
     },
     measureSteps: {

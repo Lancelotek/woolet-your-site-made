@@ -23,7 +23,7 @@ export default function DeFitManual() {
     setError("");
     setResult(Math.round(mm));
   };
-  const standard = result != null && result >= 155 && result <= 161;
+  const standard = result != null && result >= 153 && result <= 163;
 
   return <main className="min-h-screen bg-background text-foreground">
     <Helmet><html lang="de" /><title>Gesichtsbreite manuell messen | Woolet</title><meta name="description" content="Gesichtsbreite ohne Kamera messen und die passende Woolet Brille finden." /><meta name="robots" content="noindex, follow" /></Helmet>

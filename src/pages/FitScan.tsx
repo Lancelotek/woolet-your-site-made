@@ -3280,7 +3280,7 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
         const clamp = (n: number) => Math.max(SCALE_MIN, Math.min(SCALE_MAX, n));
         const pct = (n: number) => ((clamp(n) - SCALE_MIN) / (SCALE_MAX - SCALE_MIN)) * 100;
         const userPct = pct(adjustedFace);
-        const thresholdPct = pct(155);
+        const thresholdPct = pct(153);
         return (
           <div
             style={{
@@ -3306,10 +3306,10 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
                   opacity: 0.85,
                 }}
               />
-              {/* Threshold marker at 155mm */}
+              {/* Threshold marker at 153mm (start of the stock fit band) */}
               <div style={{ position: "absolute", left: `${thresholdPct}%`, top: -10, bottom: -10, width: 2, background: GOLD, transform: "translateX(-1px)" }} />
               <div style={{ position: "absolute", left: `${thresholdPct}%`, top: 14, transform: "translateX(-50%)", color: GOLD, fontFamily: "Barlow, sans-serif", fontSize: "0.7rem", letterSpacing: "0.05em", whiteSpace: "nowrap" }}>
-                155 mm
+                153 mm
               </div>
               {/* User marker */}
               <div
@@ -3649,7 +3649,7 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
 
       <div className="scan-cta-primary flex flex-col gap-2">
         {lang === "de" ? (
-          adjustedFace >= 155 && adjustedFace <= 161 ? (
+          adjustedFace >= 153 && adjustedFace <= 163 ? (
             <>
               <p className="font-display text-xl text-woolet-white">Passt: Woolet 007 oder 009 mit 158 mm</p>
               <DeReservationCta source="fit_result" />
@@ -4182,7 +4182,7 @@ function ResultSentStep({
       </p>
 
       {lang === "de" ? (
-        faceWidthMm >= 155 && faceWidthMm <= 161 ? (
+        faceWidthMm >= 153 && faceWidthMm <= 163 ? (
           <div className="flex flex-col gap-3">
             <p className="font-display text-xl text-woolet-white">Passt: Woolet 007 oder 009 mit 158 mm</p>
             <DeReservationCta source="fit_result" />
@@ -5332,7 +5332,7 @@ export default function FitScan() {
                       device={isMobile ? "mobile" : "desktop"}
                     />
                     {lang === "de" ? (
-                      fitLensMeasurements.faceWidth != null && fitLensMeasurements.faceWidth >= 155 && fitLensMeasurements.faceWidth <= 161 ? (
+                      fitLensMeasurements.faceWidth != null && fitLensMeasurements.faceWidth >= 153 && fitLensMeasurements.faceWidth <= 163 ? (
                         <div className="flex flex-col gap-3">
                           <p className="font-display text-xl text-woolet-white">Passt: Woolet 007 oder 009 mit 158 mm</p>
                           <DeReservationCta source="fit_result" />

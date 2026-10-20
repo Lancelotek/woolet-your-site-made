@@ -36,7 +36,7 @@ const BUCKETS: Record<BucketKey, Bucket> = {
   b145_155: {
     key: "b145_155",
     label: "Below signature",
-    range: "145–154 mm",
+    range: "145–152 mm",
     description:
       "Wider than average, narrower than our signature 158 mm front. Off-the-shelf wide frames rarely land here cleanly.",
     recommendation: "Bespoke, built to your millimetre — 145 to 160 mm front width with a 20–24 mm bridge.",
@@ -54,18 +54,18 @@ const BUCKETS: Record<BucketKey, Bucket> = {
   above160: {
     key: "above160",
     label: "Above signature",
-    range: "162 mm and above",
+    range: "164 mm and above",
     description:
       "Most brands stop at 150 mm. Our signature fits faces up to 163 mm and made-to-measure extends to 160 mm.",
-    recommendation: "Above 163 mm, the widest Woolet front is 160 mm (bespoke); measure first. Above 160 mm we do not build — there is no frame we can make honestly.",
+    recommendation: "Above 163 mm, even the 158 mm signature front sits tight. The widest Woolet Bespoke front is 160 mm - measure first and we will tell you honestly whether we can build for you.",
     cta: { label: "Join the VIP list →", href: "/en/lp/kickstarter" },
   },
 };
 
 function classify(mm: number): BucketKey {
   if (mm < 145) return "below145";
-  if (mm < 155) return "b145_155";
-  if (mm <= 161) return "b155_160";
+  if (mm < 153) return "b145_155";
+  if (mm <= 163) return "b155_160";
   return "above160";
 }
 

@@ -166,7 +166,7 @@ ${FITLENS_CTA(
 
 <p>The full explanation of why the industry stops where it does — and what it means for pricing, tooling and availability — is in <a href="/en/blog/why-glasses-dont-fit-155mm-problem" style="color:#A07A2A;">why glasses don't fit at 155 mm</a>. If you want the practical version, with what to buy and what to skip, start with the <a href="/en/blog/glasses-for-wide-faces-guide" style="color:#A07A2A;">complete wide-face fit guide</a>.</p>
 
-<p>For reference, both Woolet signature frames are cut at a 158 mm front: the <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> at 52□21-150 and the <a href="/en/products/009" style="color:#A07A2A;">009 Soft Square</a> at 54□22-150. Both sit in a 155–161 mm fit band. Below 155 mm or above 161 mm, Bespoke covers 145–160 mm in four shapes.</p>
+<p>For reference, both Woolet signature frames are cut at a 158 mm front: the <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> at 52□21-150 and the <a href="/en/products/009" style="color:#A07A2A;">009 Soft Square</a> at 54□22-150. Both sit in a 153–163 mm fit band. Below 153 mm or above 163 mm, Bespoke covers 145–160 mm in four shapes.</p>
 
 <p>The point is not that you need a particular frame. It is that the pain you are feeling has a number attached to it, and once you know that number the problem stops being mysterious.</p>
 
@@ -204,7 +204,7 @@ ${FITLENS_CTA(
     slug: "eyeglass-frame-size-chart",
     title: "Eyeglass Frame Size Chart: XS to XXL (Including 155mm+ Wide Fit)",
     excerpt:
-      "A real eyeglass frame size chart in millimetres: XS to XXL mapped to front width, lens width, bridge and temple length — including the 155–161 mm wide-fit band most charts leave out.",
+      "A real eyeglass frame size chart in millimetres: XS to XXL mapped to front width, lens width, bridge and temple length — including the 153–163 mm wide-fit band most charts leave out.",
     date: "2026-07-29",
     readTime: 9,
     tags: ["Sizing", "Guide", "Frame Size"],
@@ -282,7 +282,7 @@ ${ANSWER(
       <td style="${TD}"><strong>XXL</strong><br><span class="fsc-note">rare, few makers</span></td><td style="${TD}">148–150 mm</td><td style="${TD}">58–60 mm</td><td style="${TD}">20–22 mm</td><td style="${TD}">148–150 mm</td><td style="${TD}">152–154 mm</td>
     </tr>
     <tr style="background:#201A0E;border-left:3px solid #C9A84C;">
-      <td style="${TD}"><strong>Woolet 158</strong><br><span class="fsc-note">off the standard chart</span></td><td style="${TD}"><strong style="color:#C9A84C;">158 mm</strong></td><td style="${TD}">52–54 mm</td><td style="${TD}">21–22 mm</td><td style="${TD}">150 mm</td><td style="${TD}"><strong style="color:#C9A84C;">155–161 mm</strong></td>
+      <td style="${TD}"><strong>Woolet 158</strong><br><span class="fsc-note">off the standard chart</span></td><td style="${TD}"><strong style="color:#C9A84C;">158 mm</strong></td><td style="${TD}">52–54 mm</td><td style="${TD}">21–22 mm</td><td style="${TD}">150 mm</td><td style="${TD}"><strong style="color:#C9A84C;">153–163 mm</strong></td>
     </tr>
   </tbody>
 </table>
@@ -334,9 +334,9 @@ ${FITLENS_CTA(
 
 <p>If your face measures more than about 154 mm, the six-band chart has run out. Three honest options remain.</p>
 
-<p><strong>Buy at 158 mm.</strong> If you measure 155–161 mm, that is a stock size at Woolet: the <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> at 52□21-150 and the <a href="/en/products/009" style="color:#A07A2A;">009 Soft Square</a> at 54□22-150, both cut at a 158 mm front from Mazzucchelli acetate and hand made in the EU. Every 158 mm option is gathered on the <a href="/en/collections/big-glasses-frames" style="color:#A07A2A;">oversized glasses</a> collection page, sized for faces of 155 mm and up.</p>
+<p><strong>Buy at 158 mm.</strong> If you measure 153–163 mm, that is a stock size at Woolet: the <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> at 52□21-150 and the <a href="/en/products/009" style="color:#A07A2A;">009 Soft Square</a> at 54□22-150, both cut at a 158 mm front from Mazzucchelli acetate and hand made in the EU. Every 158 mm option is gathered on the <a href="/en/collections/big-glasses-frames" style="color:#A07A2A;">oversized glasses</a> collection page, sized for faces of 155 mm and up.</p>
 
-<p><strong>Go bespoke between 145 and 160 mm.</strong> The bands either side of 155–161 mm are the ones nobody serves: 145–154 mm is too wide for the mainstream chart and too narrow for a 158 mm signature frame, and 162 mm is past everything. Bespoke covers that full span in four shapes and sixty colour and size combinations. See <a href="/en/bespoke" style="color:#A07A2A;">bespoke</a>.</p>
+<p><strong>Go bespoke between 145 and 160 mm.</strong> The bands either side of 153–163 mm are the ones nobody serves: 145–152 mm is too wide for the mainstream chart and too narrow for a 158 mm signature frame, and 164 mm is past everything. Bespoke covers that full span in four shapes and sixty colour and size combinations. See <a href="/en/bespoke" style="color:#A07A2A;">bespoke</a>.</p>
 
 <p><strong>Above 160 mm, look at made-to-order metal.</strong> We do not build past 160 mm, and saying so is more useful than pretending otherwise. A custom metal front from a specialist workshop is the realistic route.</p>
 
@@ -399,7 +399,7 @@ ${FITLENS_CTA(
       },
       {
         q: "What temple length do Woolet frames use?",
-        a: "150 mm on both the 007 Round and the 009 Soft Square, with a 52 mm tip drop, matched to a 158 mm front for faces 155–161 mm wide.",
+        a: "150 mm on both the 007 Round and the 009 Soft Square, with a 52 mm tip drop, matched to a 158 mm front for faces 153–163 mm wide.",
       },
     ],
     content: `${BYLINE("29 July 2026", "29 July 2026")}
@@ -450,7 +450,7 @@ ${ANSWER(
     <tr style="border-bottom:1px solid #E8E4DC;background:#FAF7F0;"><td style="${TD}"><strong>140 mm</strong></td><td style="${TD}">The default for most adults</td><td style="${TD}">Paired with 132–142 mm fronts. If a shop has one length in stock, it is this.</td></tr>
     <tr style="border-bottom:1px solid #E8E4DC;"><td style="${TD}"><strong>145 mm</strong></td><td style="${TD}">Larger heads, ears set further back</td><td style="${TD}">The usual upgrade when a 140 mm arm bends too early.</td></tr>
     <tr style="border-bottom:1px solid #E8E4DC;background:#FAF7F0;"><td style="${TD}"><strong>150 mm</strong></td><td style="${TD}">Long-skulled or high-circumference heads</td><td style="${TD}">Rare in stock. Often special order.</td></tr>
-    <tr style="background:#F5EFDD;"><td style="${TD}"><strong>150 mm (52 mm tip drop)</strong><br><span style="color:#666;font-size:12px;">Woolet 007 / 009</span></td><td style="${TD}">155–161 mm faces</td><td style="${TD}">Matched to a 158 mm front.</td></tr>
+    <tr style="background:#F5EFDD;"><td style="${TD}"><strong>150 mm (52 mm tip drop)</strong><br><span style="color:#666;font-size:12px;">Woolet 007 / 009</span></td><td style="${TD}">153–163 mm faces</td><td style="${TD}">Matched to a 158 mm front.</td></tr>
   </tbody>
 </table>
 </div>
@@ -495,7 +495,7 @@ ${FITLENS_CTA(
 <p>It is your own face measurement: the distance across the widest part of your head, just above and in front of the ears, measured in millimetres. It is the number a frame's total front width should match within about 3 mm. Average is under 140 mm; 155 mm and above is a wide face.</p>
 
 <h3>What temple length do Woolet frames use?</h3>
-<p>150 mm on both the 007 Round and the 009 Soft Square, with a 52 mm tip drop, matched to a 158 mm front for faces 155–161 mm wide.</p>
+<p>150 mm on both the 007 Round and the 009 Soft Square, with a 52 mm tip drop, matched to a 158 mm front for faces 153–163 mm wide.</p>
 
 <h2>Related articles</h2>
 <ul>
@@ -774,8 +774,8 @@ ${ANSWER(
     </tr>
     <tr>
       <th style="${TD}" scope="row">Fit range</th>
-      <td style="${TD}">155–161 mm (bespoke 145–160 mm)</td>
-      <td style="${TD}">155–161 mm (bespoke 145–160 mm)</td>
+      <td style="${TD}">153–163 mm (bespoke 145–160 mm)</td>
+      <td style="${TD}">153–163 mm (bespoke 145–160 mm)</td>
     </tr>
   </tbody>
 </table>
@@ -976,7 +976,7 @@ ${ANSWER(
 
 <p>The giveaway is a second set of marks: red lines at the temples, in front of the ears, alongside the pain behind them. Sleeves and re-bends move the symptom around but never remove it, because the geometry is unchanged. The full diagnosis of that pattern is here: <a href="/en/blog/glasses-too-tight-on-side-of-head" style="color:#A07A2A;">glasses too tight on the side of your head</a>.</p>
 
-<p>The rule is simple. A face measuring 155 mm or more temple to temple needs a front of 155 mm or more. Woolet frames are 158 mm across the front on both shapes - the 007 Round at 52 x 52 mm lenses with a 21 mm bridge, the 009 Soft Square at 54 x 50 mm with a 22 mm bridge - built for faces in the 155 to 161 mm band. Outside that band, Bespoke is made to your measurement, any front width from 145 to 160 mm, hand made in the EU.</p>
+<p>The rule is simple. A face measuring 155 mm or more temple to temple needs a front of 155 mm or more. Woolet frames are 158 mm across the front on both shapes - the 007 Round at 52 x 52 mm lenses with a 21 mm bridge, the 009 Soft Square at 54 x 50 mm with a 22 mm bridge - built for faces in the 153 to 163 mm band. Outside that band, Bespoke is made to your measurement, any front width from 145 to 160 mm, hand made in the EU.</p>
 
 <h2>4. Your ears sit at different heights</h2>
 
@@ -1100,7 +1100,7 @@ ${ANSWER("Glasses that turn into sunglasses use photochromic lenses, often calle
 
 <h2>Why the frame matters more on a wide face</h2>
 <p>Here is the part that catches wide-faced buyers: the lens technology is identical in every frame, but the frame is not. A frame narrower than your face pushes the temple arms outward, and the arms press the sides of your head all day - photochromic lenses or not. Comfort is decided by width, not by the lens.</p>
-<p>So measure before you shop. Measure your face temple to temple; at 155 mm or more, look for a front of 155 mm or more. The method is in <a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#A07A2A;">how to measure face width for glasses</a>, and the sunglass-specific numbers are in <a href="/en/blog/what-size-sunglasses-for-wide-faces" style="color:#A07A2A;">what size sunglasses for a wide face</a>. Both Woolet stock shapes - the <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> and the <a href="/en/products/009" style="color:#A07A2A;">009 Soft Square</a> - are 158 mm across the front with 150 mm temples, sized for faces between 155 and 161 mm.</p>
+<p>So measure before you shop. Measure your face temple to temple; at 155 mm or more, look for a front of 155 mm or more. The method is in <a href="/en/blog/how-to-measure-face-width-for-glasses" style="color:#A07A2A;">how to measure face width for glasses</a>, and the sunglass-specific numbers are in <a href="/en/blog/what-size-sunglasses-for-wide-faces" style="color:#A07A2A;">what size sunglasses for a wide face</a>. Both Woolet stock shapes - the <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> and the <a href="/en/products/009" style="color:#A07A2A;">009 Soft Square</a> - are 158 mm across the front with 150 mm temples, sized for faces between 153 and 163 mm.</p>
 
 <h2>Two ways to get photochromic glasses that fit</h2>
 <div style="overflow-x:auto;margin:24px 0;">
@@ -1120,14 +1120,14 @@ ${ANSWER("Glasses that turn into sunglasses use photochromic lenses, often calle
 <td style="${TD}border-bottom:1px solid #F0EBE1;">158 mm</td>
 <td style="${TD}border-bottom:1px solid #F0EBE1;">Your optician fits prescription photochromic lenses</td>
 <td style="${TD}border-bottom:1px solid #F0EBE1;">Frame $190 + your optician's lenses</td>
-<td style="${TD}border-bottom:1px solid #F0EBE1;">You need a prescription and fit 155-161 mm</td>
+<td style="${TD}border-bottom:1px solid #F0EBE1;">You need a prescription and fit 153-163 mm</td>
 </tr>
 <tr>
 <td style="${TD}border-bottom:1px solid #F0EBE1;"><a href="/en/bespoke" style="color:#A07A2A;">Woolet Bespoke</a></td>
 <td style="${TD}border-bottom:1px solid #F0EBE1;">Any width 145-160 mm, 4 shapes</td>
 <td style="${TD}border-bottom:1px solid #F0EBE1;">Photochromic lens option</td>
 <td style="${TD}border-bottom:1px solid #F0EBE1;">From $480</td>
-<td style="${TD}border-bottom:1px solid #F0EBE1;">You fall outside 155-161 mm or want a shape built to your face</td>
+<td style="${TD}border-bottom:1px solid #F0EBE1;">You fall outside 153-163 mm or want a shape built to your face</td>
 </tr>
 </tbody>
 </table>
