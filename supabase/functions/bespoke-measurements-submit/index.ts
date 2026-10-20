@@ -9,6 +9,7 @@ import {
   measurementDisagreements,
 } from "../_shared/bespoke-gaps.ts";
 import { compareRepeatability, sortScans } from "../_shared/scan-repeatability.ts";
+import { identifyReferenceGlasses } from "../_shared/reference-glasses.ts";
 
 const supabase = createClient(
   Deno.env.get("SUPABASE_URL")!,
@@ -48,6 +49,12 @@ type Body = {
     postal_code?: string | null;
     country?: string | null;
   };
+  /** Glasses the customer wears now: brand + the text printed inside the temple. */
+  current_glasses?: {
+    brand?: string | null;
+    temple_text?: string | null;
+    none?: boolean | null;
+  } | null;
   reading?: {
     mode?: string | null;
     strength?: string | null;
@@ -205,6 +212,25 @@ Deno.serve(async (req) => {
       }
     }
 
+    // Current glasses (optional). Stored in the same fields the Calendly
+    // interview fills, so the admin card and the AI lookup work unchanged.
+    // Only written when the customer answered — never blanks an earlier answer.
+    const GLASSES_BRANDS = [
+      "Ray-Ban", "Oakley", "Warby Parker", "Persol", "Tom Ford", "Oliver Peoples",
+      "Prada", "Zenni", "Fatheadz", "Costco / Kirkland", "Other",
+    ];
+    const cg = body.current_glasses;
+    const cgBrand =
+      typeof cg?.brand === "string" && GLASSES_BRANDS.includes(cg.brand) ? cg.brand : null;
+    const cgTemple = clampText(cg?.temple_text, 120)?.replace(/[\u0000-\u001f<>]/g, "") ?? null;
+    let glassesRaw: string | null = null;
+    if (cg?.none === true) {
+      glassesRaw = "No glasses";
+    } else if (cgBrand || cgTemple) {
+      glassesRaw = [cgBrand && cgBrand !== "Other" ? cgBrand : null, cgTemple].filter(Boolean).join(" · ");
+    }
+    if (glassesRaw) patch.reference_glasses_raw = glassesRaw;
+
     patch.scan_source = scanSource;
     patch.scan_payload = scanPayload;
     if (scanSource === "fitlens") patch.scan_received_at = new Date().toISOString();
@@ -252,6 +278,55 @@ Deno.serve(async (req) => {
       console.error("[bespoke-measurements-submit] heard_from sync failed", e);
     }
 
+    // Current glasses → AI identification + MailerLite fields. Runs after the
+    // response so the customer is not kept waiting on the AI lookup.
+    if (glassesRaw) {
+      const orderId = (data as Record<string, unknown>).id as string;
+      const email = ((data as Record<string, unknown>).customer_email as string | null) ?? "";
+      const enrich = (async () => {
+        try {
+          const isNone = glassesRaw === "No glasses";
+          const result = isNone ? null : await identifyReferenceGlasses(glassesRaw!);
+          if (result) {
+            // The customer's own brand pick beats the AI guess.
+            if (cgBrand && cgBrand !== "Other") result.brand = cgBrand;
+            await supabase
+              .from("bespoke_orders")
+              .update({ reference_glasses: result, reference_glasses_checked_at: result.checked_at })
+              .eq("id", orderId);
+          }
+          const mlKey = Deno.env.get("MAILERLITE_API_KEY");
+          if (mlKey && email) {
+            const brand = isNone ? "No glasses" : result?.brand ?? (cgBrand && cgBrand !== "Other" ? cgBrand : "");
+            const size = result && result.lens_mm && result.bridge_mm
+              ? [result.lens_mm, result.bridge_mm, result.temple_mm].filter(Boolean).join("-")
+              : "";
+            for (const name of ["current_glasses_brand", "current_glasses_size"]) {
+              await fetch("https://connect.mailerlite.com/api/fields", {
+                method: "POST",
+                headers: { "Content-Type": "application/json", Authorization: `Bearer ${mlKey}` },
+                body: JSON.stringify({ name, type: "text" }),
+              }).then((r) => r.text()).catch(() => "");
+            }
+            // Update the existing subscriber only — never subscribe from here.
+            const r = await fetch(`https://connect.mailerlite.com/api/subscribers/${encodeURIComponent(email)}`, {
+              method: "PUT",
+              headers: { "Content-Type": "application/json", Authorization: `Bearer ${mlKey}` },
+              body: JSON.stringify({ fields: { current_glasses_brand: brand, current_glasses_size: size } }),
+            });
+            if (!r.ok) console.error("[bespoke-measurements-submit] glasses mailerlite", r.status, await r.text());
+            else await r.text();
+          }
+        } catch (e) {
+          console.error("[bespoke-measurements-submit] current glasses enrich failed", e);
+        }
+      })();
+      // deno-lint-ignore no-explicit-any
+      const waitUntil = (globalThis as any).EdgeRuntime?.waitUntil;
+      if (typeof waitUntil === "function") waitUntil(enrich);
+      else await enrich;
+    }
+
     // Notify the workshop with the numbers themselves, not just "they arrived".
     try {
       const order = data as Record<string, any>;
@@ -292,6 +367,7 @@ Deno.serve(async (req) => {
         { label: "Manual · Head circumference", value: mm(order.manual_head_circumference_mm) },
         { label: "Manual · Ear-to-ear over crown", value: mm(order.manual_ear_to_ear_mm) },
         { label: "Workshop notes", value: order.manual_notes ?? "" },
+        { label: "Current glasses (temple text)", value: order.reference_glasses_raw ?? "" },
       ].filter((row) => row.value);
 
       const email = (order.customer_email as string) ?? "";
