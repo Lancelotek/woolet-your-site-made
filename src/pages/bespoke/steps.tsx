@@ -782,6 +782,7 @@ export function AiPreviewPanel({
             <div className="text-[10px] uppercase tracking-[0.2em] text-cream-dim">
               Saved renders · {currentList.length}/{MAX_PER_KEY}
             </div>
+            <div className="text-[10px] text-cream-dim/70">Tap a render to view, tap again to enlarge</div>
           </div>
           <div className="grid grid-cols-4 gap-2">
             {currentList.map((entry) => {
@@ -789,7 +790,9 @@ export function AiPreviewPanel({
               return (
                 <div key={entry.url} className="relative group">
                   <button
-                    onClick={() => setActiveUrl(entry.url)}
+                    type="button"
+                    onClick={() => (isActive ? setLightboxOpen(true) : setActiveUrl(entry.url))}
+                    aria-label={isActive ? "Open larger preview" : "Show this render"}
                     className={`block w-full aspect-[4/3] overflow-hidden border transition ${
                       isActive
                         ? "border-gold ring-2 ring-gold/40"

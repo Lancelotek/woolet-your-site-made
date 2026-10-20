@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { CheckCircle2, Loader2, Ruler, ScanFace, Sparkles, Truck } from "lucide-react";
+import { CheckCircle2, Loader2, Maximize2, Ruler, ScanFace, Sparkles, Truck } from "lucide-react";
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import SEO from "@/components/SEO";
 import { COUNTRY_CODES, countryLabel } from "@/data/shipping-countries";
 import { supabase } from "@/integrations/supabase/client";
@@ -191,6 +192,7 @@ export default function BespokeMeasurements() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [order, setOrder] = useState<OrderSummary | null>(null);
+  const [previewOpen, setPreviewOpen] = useState(false);
   const [discoverySource, setDiscoverySource] = useState<BespokeDiscoverySource | "">("");
   const [form, setForm] = useState<FormState>(EMPTY);
   const [shipping, setShipping] = useState<ShippingState>(EMPTY_SHIPPING);
@@ -765,13 +767,42 @@ export default function BespokeMeasurements() {
                     )}
                   </dl>
                   {order.ai_preview_url && (
-                    <div className="mt-5 rounded bg-[#EFE9DF] p-3 flex items-center justify-center">
-                      <img
-                        src={order.ai_preview_url}
-                        alt={`AI visualisation of your ${order.frame_name ?? "Woolet Bespoke"} configuration`}
-                        className="max-h-40 object-contain"
-                      />
-                    </div>
+                    <>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setPreviewOpen(true);
+                          clarityEvent("bespoke_measurements_preview_open");
+                        }}
+                        aria-label="Open larger preview of your frame"
+                        className="group relative mt-5 w-full rounded bg-[#EFE9DF] p-3 flex items-center justify-center cursor-zoom-in focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+                      >
+                        <img
+                          src={order.ai_preview_url}
+                          alt={`AI visualisation of your ${order.frame_name ?? "Woolet Bespoke"} configuration`}
+                          className="max-h-40 object-contain"
+                        />
+                        <span
+                          aria-hidden
+                          className="absolute bottom-2 right-2 inline-flex items-center gap-1 rounded-sm bg-[#1F1B16]/80 px-2 py-1 text-[10px] uppercase tracking-[0.16em] text-cream opacity-80 transition-opacity group-hover:opacity-100"
+                        >
+                          <Maximize2 size={11} /> Enlarge
+                        </span>
+                      </button>
+                      <Dialog open={previewOpen} onOpenChange={setPreviewOpen}>
+                        <DialogContent className="max-w-4xl border-none bg-[#EFE9DF] p-3 sm:p-4">
+                          <DialogTitle className="sr-only">Your frame preview</DialogTitle>
+                          <DialogDescription className="sr-only">
+                            AI visualisation of your {order.frame_name ?? "Woolet Bespoke"} configuration
+                          </DialogDescription>
+                          <img
+                            src={order.ai_preview_url}
+                            alt={`AI visualisation of your ${order.frame_name ?? "Woolet Bespoke"} configuration`}
+                            className="max-h-[80vh] w-full object-contain"
+                          />
+                        </DialogContent>
+                      </Dialog>
+                    </>
                   )}
                 </section>
               )}
