@@ -365,6 +365,7 @@ export type Database = {
           interview_answers: Json | null
           interview_at: string | null
           interview_completed_at: string | null
+          interview_fitlens_answer: string | null
           interview_timezone: string | null
           lens_tint_code: string | null
           lens_type: string | null
@@ -387,6 +388,9 @@ export type Database = {
           reading_strength_left: string | null
           reading_strength_mode: string | null
           reading_strength_right: string | null
+          reference_glasses: Json | null
+          reference_glasses_checked_at: string | null
+          reference_glasses_raw: string | null
           scan_email_sent_at: string | null
           scan_id: string | null
           scan_payload: Json | null
@@ -466,6 +470,7 @@ export type Database = {
           interview_answers?: Json | null
           interview_at?: string | null
           interview_completed_at?: string | null
+          interview_fitlens_answer?: string | null
           interview_timezone?: string | null
           lens_tint_code?: string | null
           lens_type?: string | null
@@ -488,6 +493,9 @@ export type Database = {
           reading_strength_left?: string | null
           reading_strength_mode?: string | null
           reading_strength_right?: string | null
+          reference_glasses?: Json | null
+          reference_glasses_checked_at?: string | null
+          reference_glasses_raw?: string | null
           scan_email_sent_at?: string | null
           scan_id?: string | null
           scan_payload?: Json | null
@@ -567,6 +575,7 @@ export type Database = {
           interview_answers?: Json | null
           interview_at?: string | null
           interview_completed_at?: string | null
+          interview_fitlens_answer?: string | null
           interview_timezone?: string | null
           lens_tint_code?: string | null
           lens_type?: string | null
@@ -589,6 +598,9 @@ export type Database = {
           reading_strength_left?: string | null
           reading_strength_mode?: string | null
           reading_strength_right?: string | null
+          reference_glasses?: Json | null
+          reference_glasses_checked_at?: string | null
+          reference_glasses_raw?: string | null
           scan_email_sent_at?: string | null
           scan_id?: string | null
           scan_payload?: Json | null
