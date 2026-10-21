@@ -241,6 +241,39 @@
       })();
     </script>
 
+    <!-- X (Twitter) conversion tracking base code - pixel nveju (21.10.2026).
+         Same gating as the direct Meta Pixel (src/lib/meta-pixel.ts):
+         production host only, no bots, and only visitors outside the
+         EU/EEA/UK/CH. EU-like visitors stay on the GTM consent path. -->
+    <script>
+      (function () {
+        var host = window.location.hostname;
+        if (!(host === 'woolet.co' || host === 'www.woolet.co') || window.__wooletBot) return;
+        var euLike = true;
+        try {
+          var tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+          var EU = ['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','UK','CH'];
+          euLike = !tz || tz.indexOf('Europe/') === 0 ||
+            ['Atlantic/Canary','Atlantic/Madeira','Atlantic/Reykjavik','Atlantic/Azores'].indexOf(tz) !== -1;
+          if (!euLike) {
+            var langs = [navigator.language].concat(navigator.languages || []);
+            for (var i = 0; i < langs.length; i++) {
+              var region = (langs[i] || '').split('-')[1];
+              if (region && EU.indexOf(region.toUpperCase()) !== -1) { euLike = true; break; }
+            }
+          }
+        } catch (e) { euLike = true; }
+        if (euLike) return;
+        !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
+        },s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='https://static.ads-twitter.com/uwt.js',
+        a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
+        twq.integration='gtm-ad-manager';
+        twq('config','nveju');
+        window.__wooletXDirect = true;
+      })();
+    </script>
+    <!-- End X conversion tracking base code -->
+
     <script type="text/javascript">
       // Canonical host guard — only woolet.co may be indexed.
       // Preview / published Lovable domains (*.lovable.app, *.lovableproject.com,
