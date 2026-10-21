@@ -533,6 +533,34 @@ ${shot("woolet-aviator-161-metal.jpg", "Woolet Aviator 161 mm in brushed silver 
     return meta;
   }
 
+  // ----- Kickstarter launch countdown ads: unlinked, noindex, English only.
+  // The six ad images live under public/ads/2026-10-ks-launch/ (manifest.json
+  // carries the same alt text); this page carries the alt text in markup.
+  if (path === "/creatives/ks-launch") {
+    const shot = (file: string, alt: string) =>
+      `<img src="/ads/2026-10-ks-launch/${file}" width="1080" height="1350" alt="${escapeHtml(alt)}" />`;
+    const meta = base(
+      "/en/creatives/ks-launch",
+      "en",
+      {
+        title: "Woolet Kickstarter launch - countdown ads",
+        description:
+          "Six Meta ad images for the Woolet Kickstarter launch on October 29: countdown, live now and founder access.",
+        noscriptHtml: `<h1>Kickstarter launch countdown</h1>
+<p>Six ad images for the Woolet Kickstarter launch on October 29.</p>
+${shot("woolet-ks-countdown-01-launching-oct29-4x5.jpg", "Man with a wide face wearing Woolet 007 Round black acetate glasses, headline: Glasses that finally fit. Live October 29 on Kickstarter. 158 mm front for 153-163 mm faces.")}
+${shot("woolet-ks-countdown-02-3-days-4x5.jpg", "Man with a wide face wearing Woolet 007 Round black acetate glasses, countdown: 3 days to go until the Woolet Kickstarter launch on Thursday, October 29.")}
+${shot("woolet-ks-countdown-03-2-days-4x5.jpg", "Man with a wide face wearing Woolet 007 Round black acetate glasses, countdown: 2 days to go until the Woolet Kickstarter launch on Thursday, October 29.")}
+${shot("woolet-ks-countdown-04-tomorrow-4x5.jpg", "Man with a wide face wearing Woolet 007 Round black acetate glasses, countdown: Woolet launches on Kickstarter tomorrow, early-bird 30 frames at $114, then $190.")}
+${shot("woolet-ks-countdown-05-live-now-4x5.jpg", "Man with a wide face wearing Woolet 007 Round black acetate glasses, headline: Glasses built for wide faces, now live on Kickstarter. 158 mm front, Mazzucchelli acetate.")}
+${shot("woolet-ks-countdown-06-founder-48h-4x5.jpg", "Man with a wide face wearing Woolet 007 Round black acetate glasses, headline: Your $114 founder price is waiting, open for 48 hours after the Kickstarter launch.")}`,
+      },
+      { image: "/ads/2026-10-ks-launch/woolet-ks-countdown-01-launching-oct29-4x5.jpg" },
+    );
+    meta.robots = "noindex, follow"; // unlinked creative sheet, never indexed
+    return meta;
+  }
+
   // ----- Reference product pages (partners / creators), English only
   if (path === "/ref" || path.startsWith("/ref/")) {
     if (path === "/ref") {
@@ -2217,6 +2245,7 @@ const STATIC_ROUTES = [
   "/de/bespoke",
   "/en/the-box",
   "/en/creatives/stretch-goals",
+  "/en/creatives/ks-launch",
   "/fr/blog",
   "/nl/blog",
   "/de",
