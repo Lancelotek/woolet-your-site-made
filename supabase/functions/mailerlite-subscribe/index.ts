@@ -217,6 +217,7 @@ const VIP_GROUP_ID = "192429285503403097";          // Kickstarter VIP (dedicate
 const WAITLIST_ENG_GROUP_ID = "181841182994728358"; // Woolet Waitlist ENG (general)
 const AI_SCAN_GROUP_ID = "189356132351870087";      // AI Scan leads
 const BESPOKE_GROUP_ID = "189449279680546761";      // Bespoke configurator waitlist
+const VIP_DE_GROUP_ID = "202036716615238949";       // Woolet VIP DE (German sequence, 22.10.2026)
 
 async function mlFetch(apiKey: string, path: string, method: string, body?: unknown) {
   const res = await fetch(`${MAILERLITE_API}${path}`, {
@@ -340,8 +341,9 @@ export const handler = async (req: Request): Promise<Response> => {
       // Dedicated Kickstarter VIP group for campaign reporting
       groups.push(VIP_GROUP_ID);
     } else if (source === "DE" || source === "de") {
-      // DE landing pages stay in the general Woolet Waitlist ENG group
-      groups.push(WAITLIST_ENG_GROUP_ID);
+      // DE pages get their own group + German sequence (until 22.10.2026 they
+      // landed in Waitlist ENG and received the English warm-up).
+      groups.push(VIP_DE_GROUP_ID);
     } else {
       // Default/missing — general waitlist
       groups.push(WAITLIST_ENG_GROUP_ID);

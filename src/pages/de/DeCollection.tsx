@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import DeReservationCta from "@/components/de/DeReservationCta";
+import DeVipForm from "@/components/de/DeVipForm";
 import DeMobileReservationBar from "@/components/de/DeMobileReservationBar";
 import { DE_PRICING, formatDePrice } from "@/content/de/pricing";
 import frame007 from "@/assets/products/woolet-007-round-black-card.webp.asset.json";
@@ -46,7 +47,7 @@ export default function DeCollection() {
           <div className="woolet-eyebrow mb-5"><div className="woolet-eyebrow-line" /><span className="woolet-eyebrow-text">Die Kollektion</span></div>
           <h1 className="max-w-4xl font-display text-[clamp(2.25rem,5vw,4.5rem)] font-light leading-[1.02] text-woolet-white">Brillen für breite Gesichter - <em className="text-gold-light">158 mm Frontbreite</em></h1>
           <p className="mt-6 max-w-2xl font-body text-base leading-7 text-cream-dim">Zwei klare Formen für breite Gesichter. Mazzucchelli-Acetat, handgefertigt in der EU.</p>
-          <div data-de-hero-reservation className="mt-8"><DeReservationCta source="kollektion_hero" /></div>
+          <div data-de-hero-reservation className="mt-8 flex flex-col items-start gap-4"><DeVipForm placement="kollektion_hero" variant="hero" /><DeReservationCta source="kollektion_hero" variant="link" /></div>
         </div>
       </section>
 
@@ -60,7 +61,7 @@ export default function DeCollection() {
           <div className="mt-8 grid gap-5 md:grid-cols-2">
             {products.map((product) => (
               <article key={product.id} className="border border-border-sub bg-secondary">
-                <Link to={`/en/products/${product.id}`} aria-label={`Woolet ${product.id} ${product.shape} ansehen`} className="block no-underline">
+                <Link to={`/de/produkte/${product.id}`} aria-label={`Woolet ${product.id} ${product.shape} ansehen`} className="block no-underline">
                 <div className="aspect-[4/3] overflow-hidden bg-cream"><img src={product.image} alt={`Woolet ${product.id} ${product.shape} in Havana Founder Acetate`} width={1200} height={900} className="h-full w-full object-contain" loading="lazy" /></div>
                 <div className="px-6 pt-6 sm:px-8 sm:pt-8">
                   <p className="font-body text-[10px] uppercase tracking-[0.24em] text-primary">Woolet {product.id}</p>
