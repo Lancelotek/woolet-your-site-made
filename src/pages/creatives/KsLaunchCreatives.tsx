@@ -27,6 +27,8 @@ type Shot = {
   src: string;
   alt: string;
   label: string;
+  width?: number;
+  height?: number;
 };
 
 const SHOTS: Shot[] = [
@@ -59,6 +61,146 @@ const SHOTS: Shot[] = [
     src: "/ads/2026-10-ks-launch/woolet-ks-countdown-06-founder-48h-4x5.jpg",
     alt: "Man with a wide face wearing Woolet 007 Round black acetate glasses, headline: Your $114 founder price is waiting, open for 48 hours after the Kickstarter launch.",
     label: "Founder 48 h",
+  },
+  {
+    src: "/ads/2026-10-ks-launch/woolet-ks-countdown-v2-oct29-4x5.jpg",
+    alt: "Woolet Kickstarter launch date: giant black OCT 29 on yellow, above a close-up of a man with a wide face in Woolet 007 Round black acetate glasses - glasses built for wide faces, 158 mm front.",
+    label: "v2 OCT 29 (4:5)",
+    width: 1080,
+    height: 1350,
+  },
+  {
+    src: "/ads/2026-10-ks-launch/woolet-ks-countdown-v2-oct29-9x16.jpg",
+    alt: "Woolet Kickstarter launch date: giant black OCT 29 on yellow, above a close-up of a man with a wide face in Woolet 007 Round black acetate glasses - glasses built for wide faces, 158 mm front.",
+    label: "v2 OCT 29 (9:16)",
+    width: 1080,
+    height: 1920,
+  },
+  {
+    src: "/ads/2026-10-ks-launch/woolet-ks-countdown-v2-7-days-4x5.jpg",
+    alt: "Giant black number 7 on yellow: 7 days to the Woolet Kickstarter launch, above a close-up of a man with a wide face in Woolet 007 Round black acetate glasses - glasses built for wide faces, 158 mm front.",
+    label: "v2 7 days (4:5)",
+    width: 1080,
+    height: 1350,
+  },
+  {
+    src: "/ads/2026-10-ks-launch/woolet-ks-countdown-v2-7-days-9x16.jpg",
+    alt: "Giant black number 7 on yellow: 7 days to the Woolet Kickstarter launch, above a close-up of a man with a wide face in Woolet 007 Round black acetate glasses - glasses built for wide faces, 158 mm front.",
+    label: "v2 7 days (9:16)",
+    width: 1080,
+    height: 1920,
+  },
+  {
+    src: "/ads/2026-10-ks-launch/woolet-ks-countdown-v2-6-days-4x5.jpg",
+    alt: "Giant black number 6 on yellow: 6 days to the Woolet Kickstarter launch, above a close-up of a man with a wide face in Woolet 007 Round black acetate glasses - glasses built for wide faces, 158 mm front.",
+    label: "v2 6 days (4:5)",
+    width: 1080,
+    height: 1350,
+  },
+  {
+    src: "/ads/2026-10-ks-launch/woolet-ks-countdown-v2-6-days-9x16.jpg",
+    alt: "Giant black number 6 on yellow: 6 days to the Woolet Kickstarter launch, above a close-up of a man with a wide face in Woolet 007 Round black acetate glasses - glasses built for wide faces, 158 mm front.",
+    label: "v2 6 days (9:16)",
+    width: 1080,
+    height: 1920,
+  },
+  {
+    src: "/ads/2026-10-ks-launch/woolet-ks-countdown-v2-5-days-4x5.jpg",
+    alt: "Giant black number 5 on yellow: 5 days to the Woolet Kickstarter launch, above a close-up of a man with a wide face in Woolet 007 Round black acetate glasses - glasses built for wide faces, 158 mm front.",
+    label: "v2 5 days (4:5)",
+    width: 1080,
+    height: 1350,
+  },
+  {
+    src: "/ads/2026-10-ks-launch/woolet-ks-countdown-v2-5-days-9x16.jpg",
+    alt: "Giant black number 5 on yellow: 5 days to the Woolet Kickstarter launch, above a close-up of a man with a wide face in Woolet 007 Round black acetate glasses - glasses built for wide faces, 158 mm front.",
+    label: "v2 5 days (9:16)",
+    width: 1080,
+    height: 1920,
+  },
+  {
+    src: "/ads/2026-10-ks-launch/woolet-ks-countdown-v2-4-days-4x5.jpg",
+    alt: "Giant black number 4 on yellow: 4 days to the Woolet Kickstarter launch, above a close-up of a man with a wide face in Woolet 007 Round black acetate glasses - glasses built for wide faces, 158 mm front.",
+    label: "v2 4 days (4:5)",
+    width: 1080,
+    height: 1350,
+  },
+  {
+    src: "/ads/2026-10-ks-launch/woolet-ks-countdown-v2-4-days-9x16.jpg",
+    alt: "Giant black number 4 on yellow: 4 days to the Woolet Kickstarter launch, above a close-up of a man with a wide face in Woolet 007 Round black acetate glasses - glasses built for wide faces, 158 mm front.",
+    label: "v2 4 days (9:16)",
+    width: 1080,
+    height: 1920,
+  },
+  {
+    src: "/ads/2026-10-ks-launch/woolet-ks-countdown-v2-3-days-4x5.jpg",
+    alt: "Giant black number 3 on yellow: 3 days to the Woolet Kickstarter launch, above a close-up of a man with a wide face in Woolet 007 Round black acetate glasses - glasses built for wide faces, 158 mm front.",
+    label: "v2 3 days (4:5)",
+    width: 1080,
+    height: 1350,
+  },
+  {
+    src: "/ads/2026-10-ks-launch/woolet-ks-countdown-v2-3-days-9x16.jpg",
+    alt: "Giant black number 3 on yellow: 3 days to the Woolet Kickstarter launch, above a close-up of a man with a wide face in Woolet 007 Round black acetate glasses - glasses built for wide faces, 158 mm front.",
+    label: "v2 3 days (9:16)",
+    width: 1080,
+    height: 1920,
+  },
+  {
+    src: "/ads/2026-10-ks-launch/woolet-ks-countdown-v2-2-days-4x5.jpg",
+    alt: "Giant black number 2 on yellow: 2 days to the Woolet Kickstarter launch, above a close-up of a man with a wide face in Woolet 007 Round black acetate glasses - glasses built for wide faces, 158 mm front.",
+    label: "v2 2 days (4:5)",
+    width: 1080,
+    height: 1350,
+  },
+  {
+    src: "/ads/2026-10-ks-launch/woolet-ks-countdown-v2-2-days-9x16.jpg",
+    alt: "Giant black number 2 on yellow: 2 days to the Woolet Kickstarter launch, above a close-up of a man with a wide face in Woolet 007 Round black acetate glasses - glasses built for wide faces, 158 mm front.",
+    label: "v2 2 days (9:16)",
+    width: 1080,
+    height: 1920,
+  },
+  {
+    src: "/ads/2026-10-ks-launch/woolet-ks-countdown-v2-1-day-4x5.jpg",
+    alt: "Giant black number 1 on yellow: Woolet goes live on Kickstarter tomorrow, above a close-up of a man with a wide face in Woolet 007 Round black acetate glasses - glasses built for wide faces, 158 mm front.",
+    label: "v2 1 day (4:5)",
+    width: 1080,
+    height: 1350,
+  },
+  {
+    src: "/ads/2026-10-ks-launch/woolet-ks-countdown-v2-1-day-9x16.jpg",
+    alt: "Giant black number 1 on yellow: Woolet goes live on Kickstarter tomorrow, above a close-up of a man with a wide face in Woolet 007 Round black acetate glasses - glasses built for wide faces, 158 mm front.",
+    label: "v2 1 day (9:16)",
+    width: 1080,
+    height: 1920,
+  },
+  {
+    src: "/ads/2026-10-ks-launch/woolet-ks-countdown-v2-live-now-4x5.jpg",
+    alt: "Giant black LIVE NOW on yellow: Woolet is now live on Kickstarter, above a close-up of a man with a wide face in Woolet 007 Round black acetate glasses - glasses built for wide faces, 158 mm front.",
+    label: "v2 Live now (4:5)",
+    width: 1080,
+    height: 1350,
+  },
+  {
+    src: "/ads/2026-10-ks-launch/woolet-ks-countdown-v2-live-now-9x16.jpg",
+    alt: "Giant black LIVE NOW on yellow: Woolet is now live on Kickstarter, above a close-up of a man with a wide face in Woolet 007 Round black acetate glasses - glasses built for wide faces, 158 mm front.",
+    label: "v2 Live now (9:16)",
+    width: 1080,
+    height: 1920,
+  },
+  {
+    src: "/ads/2026-10-ks-launch/woolet-ks-countdown-v2-founder-48h-4x5.jpg",
+    alt: "Giant black number 48 on yellow: 48 hours of the Woolet founder price after the Kickstarter launch, above a close-up of a man with a wide face in Woolet 007 Round black acetate glasses - glasses built for wide faces, 158 mm front.",
+    label: "v2 Founder 48 h (4:5)",
+    width: 1080,
+    height: 1350,
+  },
+  {
+    src: "/ads/2026-10-ks-launch/woolet-ks-countdown-v2-founder-48h-9x16.jpg",
+    alt: "Giant black number 48 on yellow: 48 hours of the Woolet founder price after the Kickstarter launch, above a close-up of a man with a wide face in Woolet 007 Round black acetate glasses - glasses built for wide faces, 158 mm front.",
+    label: "v2 Founder 48 h (9:16)",
+    width: 1080,
+    height: 1920,
   },
 ];
 
@@ -161,8 +303,8 @@ const KsLaunchCreatives = () => (
           color: MUTED,
         }}
       >
-        Six ad images for the Woolet Kickstarter launch on October 29: launch
-        announcement, three countdown days, live now and founder access.
+        Ad images for the Woolet Kickstarter launch on October 29: the first
+        dark set, then v2 with giant countdown numbers on yellow (4:5 and 9:16).
       </p>
 
       <div
@@ -176,8 +318,8 @@ const KsLaunchCreatives = () => (
             <img
               src={shot.src}
               alt={shot.alt}
-              width={NATURAL.width}
-              height={NATURAL.height}
+              width={shot.width ?? NATURAL.width}
+              height={shot.height ?? NATURAL.height}
               loading={i === 0 ? "eager" : "lazy"}
               decoding="async"
               style={{
