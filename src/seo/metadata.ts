@@ -2270,6 +2270,7 @@ const STATIC_ROUTES = [
   "/en/the-box",
   "/en/creatives/stretch-goals",
   "/en/creatives/ks-launch",
+  "/en/creatives/too-small",
   "/fr/blog",
   "/nl/blog",
   "/de",
