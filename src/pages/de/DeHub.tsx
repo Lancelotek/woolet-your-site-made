@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import DeReservationCta from "@/components/de/DeReservationCta";
+import DeVipForm from "@/components/de/DeVipForm";
 import DeMobileReservationBar from "@/components/de/DeMobileReservationBar";
 import { DE_PRICING, formatDePrice } from "@/content/de/pricing";
 
@@ -52,12 +53,15 @@ export default function DeHub() {
             <p className="max-w-[590px] font-body text-base leading-7 text-cream-dim sm:text-lg">
               158 mm Frontbreite für breite Gesichter und große Köpfe. Mazzucchelli-Acetat, handgefertigt in der EU.
             </p>
-            <div data-de-hero-reservation className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-              <DeReservationCta source="home_hero" />
-              <Link to="/de/fit" className="inline-flex min-h-12 items-center border border-border-sub px-6 font-body text-xs font-semibold uppercase tracking-[0.18em] text-cream-dim no-underline hover:border-primary/40 hover:text-foreground">Erst Passform messen</Link>
+            <div data-de-hero-reservation className="flex flex-col items-start gap-4">
+              <DeVipForm placement="home_hero" variant="hero" />
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+                <DeReservationCta source="home_hero" variant="link" />
+                <Link to="/de/fit" className="font-body text-sm text-cream-dim underline underline-offset-4 hover:text-foreground">Erst Passform messen</Link>
+              </div>
             </div>
             <div className="flex flex-wrap gap-x-5 gap-y-2 border-t border-border-sub pt-5 font-body text-xs text-cream-dim">
-              <span>109 € statt 179 € inkl. MwSt.</span><span>Kostenloser Versand nach Deutschland</span><span>Sichere Zahlung über Stripe</span>
+              <span>109 € statt 179 € inkl. MwSt. - nur 30 Fassungen</span><span>Kostenloser Versand nach Deutschland</span><span>Kickstarter-Start 29. Oktober</span>
             </div>
           </div>
           <Link to="/de/kollektion" aria-label="Deutsche Woolet Kollektion ansehen" className="relative block min-h-[390px] overflow-hidden border border-border-sub sm:aspect-[4/5] lg:min-h-[600px]">
@@ -75,7 +79,7 @@ export default function DeHub() {
           </div>
           <div className="grid gap-5 sm:grid-cols-2">
             {models.map((model) => (
-              <Link key={model.id} to="/de/kollektion" className="group border border-border-sub bg-secondary no-underline transition-colors hover:border-primary/50">
+              <Link key={model.id} to={`/de/produkte/${model.id}`} className="group border border-border-sub bg-secondary no-underline transition-colors hover:border-primary/50">
                 <div className="aspect-[4/3] bg-background"><img src={model.image} alt={`Woolet ${model.id} ${model.shape}`} width={1200} height={900} loading="lazy" className="h-full w-full object-contain" /></div>
                 <div className="flex items-end justify-between gap-4 p-5"><div><p className="font-body text-[10px] uppercase tracking-[0.24em] text-primary">Woolet {model.id}</p><h3 className="mt-1 font-display text-2xl text-foreground">{model.shape}</h3><p className="mt-1 font-body text-xs text-cream-dim">158 mm - {model.specs}</p></div><span className="font-body text-[10px] uppercase tracking-[0.18em] text-primary">Ansehen →</span></div>
               </Link>

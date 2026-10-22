@@ -722,6 +722,26 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
     );
   }
 
+  if (route === "/de/produkte/007" || route === "/de/produkte/009") {
+    const id = route.endsWith("007") ? "007" : "009";
+    const shape = id === "007" ? "Rund / Panto" : "Weiches Quadrat / Soft Square";
+    return base(route, "de", {
+      title: `Woolet ${id} ${shape} - Brille für breite Gesichter (158 mm) | Woolet`,
+      description: `Woolet ${id} ${shape}: 158 mm Frontbreite, Mazzucchelli-Acetat, handgefertigt in der EU. Founder-Preis ${DE_PRICING.founderPriceEur} € statt ${DE_PRICING.regularPriceEur} € inkl. MwSt.`,
+      noscriptHtml: `<h1>Woolet ${id} ${shape}</h1><p>158 mm Frontbreite für breite Gesichter. Founder-Preis ${DE_PRICING.founderPriceEur} € statt ${DE_PRICING.regularPriceEur} € inkl. MwSt., nur 30 Fassungen.</p><p><a href="/de/kollektion">Kollektion</a> · <a href="/de/fit">Gesicht messen</a></p>`,
+    }, {}, undefined, { de: `${SITE_URL}${route}`, en: `${SITE_URL}/en/products/${id}`, "x-default": `${SITE_URL}/en/products/${id}` });
+  }
+
+  if (route === "/de/danke") {
+    const meta = base(route, "de", {
+      title: "Danke - deine Reservierung steht | Woolet",
+      description: "Deine Woolet Founder-Reservierung ist bestätigt.",
+      noscriptHtml: `<h1>Danke. Dein Founder-Preis ist gesichert.</h1>`,
+    });
+    meta.robots = "noindex, follow";
+    return meta;
+  }
+
   if (route === "/de/kollektion") {
     return base(route, "de", {
       title: "Brillen für breite Gesichter - 158 mm Frontbreite | Woolet",
@@ -2295,6 +2315,8 @@ const STATIC_ROUTES = [
   "/nl/blog",
   "/de",
   "/de/kollektion",
+  "/de/produkte/007",
+  "/de/produkte/009",
   "/de/fit",
   "/de/brille-fuer-breites-gesicht",
   "/de/breite-brille",
@@ -2400,7 +2422,7 @@ export function getAllRoutes(): string[] {
     return SUPPORTED_LANGS.map((locale) => `/${locale}${path}`);
   });
   return [...new Set([...STATIC_ROUTES, ...blogRoutes, ...appRoutes,
-    "/thank-you", "/thank-you-fb", "/upvote", "/en/fit/quick", "/de/fit/manual", "/de/fit/quick",
+    "/thank-you", "/thank-you-fb", "/upvote", "/en/fit/quick", "/de/fit/manual", "/de/fit/quick", "/de/danke",
     ...SUPPORTED_LANGS.flatMap((locale) => [`/${locale}/privacy-policy`, `/${locale}/return-policy`, `/${locale}/fit`]),
   ])].filter((route) => !REDIRECT_MAP[route]);
 }

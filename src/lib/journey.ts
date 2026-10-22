@@ -27,7 +27,7 @@ export type Journey = {
 const KEY = "wlt_attr";
 const SESSION_KEY = "wlt_attr_session";
 const SELF = new Set(["woolet.co", "www.woolet.co", "shop.woolet.co"]);
-const IGNORE = new Set(["checkout.stripe.com", "buy.stripe.com"]);
+const IGNORE = new Set(["checkout.stripe.com", "buy.stripe.com", "book.stripe.com"]);
 let memory: Journey | null = null;
 let sessionCounted = false;
 

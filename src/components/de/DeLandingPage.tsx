@@ -5,9 +5,8 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { supabase } from "@/integrations/supabase/client";
-import { getAttribution } from "@/lib/attribution";
 import DeReservationCta from "@/components/de/DeReservationCta";
+import DeVipForm from "@/components/de/DeVipForm";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { DE_PRICING, formatDePrice } from "@/content/de/pricing";
@@ -33,57 +32,6 @@ const ENGLISH_EQUIVALENT: Record<string, string> = {
   "brille-breite-155-mm": "/en/size/155mm",
   "brille-breite-158-mm": "/en/size/158mm",
 };
-
-function VipForm() {
-  const [email, setEmail] = useState("");
-  const [consent, setConsent] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [done, setDone] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const onSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    if (!consent) return;
-    setLoading(true);
-    setError(null);
-    try {
-      const { data, error: functionError } = await supabase.functions.invoke("mailerlite-subscribe", {
-        body: {
-          ...getAttribution(), email, source: "DE", country: "Germany", country_code: "DE",
-          utm_source: "de-landing", utm_campaign: "de-seo",
-        },
-      });
-      if (functionError) throw functionError;
-      if (data && !data.success) throw new Error(data.error || "Anmeldung fehlgeschlagen");
-      setDone(true);
-    } catch (caught) {
-      setError(caught instanceof Error ? caught.message : "Etwas ist schiefgelaufen.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  if (done) {
-    return <div className="mx-auto max-w-xl border border-primary/25 bg-primary/5 p-6 font-body text-foreground">Du stehst auf der VIP-Liste. Wir melden uns zum Kickstarter-Start mit deinem Founding-Preis.</div>;
-  }
-
-  return (
-    <form onSubmit={onSubmit} className="mx-auto flex max-w-xl flex-col gap-3 text-left">
-      <label className="flex flex-col gap-2">
-        <span className="font-body text-[11px] uppercase tracking-[0.22em] text-cream-dim">E-Mail</span>
-        <input type="email" required value={email} onChange={(event) => setEmail(event.target.value)} placeholder="du@beispiel.de" className="w-full border-0 border-b border-border-sub bg-transparent px-0 py-3 font-body text-[15px] text-foreground outline-none focus:border-primary" />
-      </label>
-      <label className="mt-1 flex cursor-pointer items-start gap-3 font-body text-xs text-cream-dim">
-        <input type="checkbox" checked={consent} onChange={() => setConsent((value) => !value)} className="mt-0.5 h-4 w-4 accent-primary" />
-        <span>Ja, schickt mir das Founding-Angebot und Launch-Updates per E-Mail. Abmeldung jederzeit möglich.</span>
-      </label>
-      {error && <p className="font-body text-xs text-destructive">{error}</p>}
-      <Button type="submit" disabled={loading || !consent} className="h-auto rounded-sm py-4 text-xs font-semibold uppercase tracking-[0.22em]">
-        {loading ? "Wird gesendet..." : "Auf die VIP-Liste"}
-      </Button>
-    </form>
-  );
-}
 
 function Section({ children, bordered = false }: { children: ReactNode; bordered?: boolean }) {
   return <section className={`relative px-5 py-16 sm:px-8 lg:px-16 lg:py-24 ${bordered ? "border-t border-border-sub" : ""}`}><div className="mx-auto max-w-[1100px]">{children}</div></section>;
@@ -210,9 +158,10 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
               <div className="order-5 lg:order-none"><FitSymptoms /></div>
 
               <div data-de-hero-reservation className="order-2 flex flex-col items-start gap-4 lg:order-none">
-                <DeReservationCta source={config.slug} />
+                <DeVipForm placement={config.slug} variant="hero" />
+                <DeReservationCta source={config.slug} variant="link" />
                 <Button asChild variant="outline" className="h-auto rounded-sm border-border-sub bg-transparent px-7 py-4 font-body text-xs font-semibold uppercase tracking-[0.22em] text-cream-dim hover:border-primary/40 hover:bg-transparent hover:text-foreground"><Link to="/de/fit">Erst Gesicht messen</Link></Button>
-                <p className="max-w-xl font-body text-[13px] leading-5 text-cream-dim">1 € sichert dir eine nummerierte Founders Edition. Voll anrechenbar und jederzeit erstattbar.</p>
+                <p className="max-w-xl font-body text-[13px] leading-5 text-cream-dim">1 € sichert dir den Founder-Preis von 109 € statt 179 € (nur 30 Fassungen). Voll anrechenbar und jederzeit erstattbar.</p>
               </div>
 
               <div className="order-6 max-w-[520px] lg:order-none"><FoundingBenefitsDe /></div>
@@ -237,13 +186,13 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
         <Section bordered>
           <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end"><div><div className="woolet-eyebrow mb-4"><div className="woolet-eyebrow-line" /><span className="woolet-eyebrow-text">Die Kollektion</span></div><h2 className="font-display text-3xl text-woolet-white lg:text-4xl">Zwei Formen. <em className="text-gold-light">Eine ehrliche Breite.</em></h2></div><Link to="/de/kollektion" className="font-body text-xs uppercase tracking-[0.22em] text-cream-dim no-underline hover:text-foreground">Kollektion ansehen -&gt;</Link></div>
           <div className="grid gap-4 sm:grid-cols-2 lg:gap-6">
-            {models.map((model) => <Link key={model.id} to="/de/kollektion" className="group block border border-border-sub bg-secondary no-underline transition-all hover:-translate-y-1 hover:border-primary/50"><div className="relative aspect-[4/3] overflow-hidden bg-background"><img src={model.image} alt={`Woolet ${model.id} ${model.shape} breite Brille`} className="h-full w-full object-contain transition-opacity duration-500 group-hover:opacity-0" loading="lazy" /><img src={model.onFace} alt={`Woolet ${model.id} ${model.shape} auf einem breiten Gesicht`} className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100" loading="lazy" /></div><div className="flex items-end justify-between gap-4 px-5 py-4"><div><div className="font-body text-[11px] uppercase tracking-[0.28em] text-primary">{model.id}</div><div className="mt-1 font-display text-xl text-woolet-white">Woolet {model.id}</div><div className="mt-1 font-body text-[10px] uppercase tracking-[0.2em] text-cream-dim">{model.shape} · {model.specs}</div></div><span className="font-body text-[10px] uppercase tracking-[0.2em] text-cream-dim">Ansehen -&gt;</span></div></Link>)}
+            {models.map((model) => <Link key={model.id} to={`/de/produkte/${model.id}`} className="group block border border-border-sub bg-secondary no-underline transition-all hover:-translate-y-1 hover:border-primary/50"><div className="relative aspect-[4/3] overflow-hidden bg-background"><img src={model.image} alt={`Woolet ${model.id} ${model.shape} breite Brille`} className="h-full w-full object-contain transition-opacity duration-500 group-hover:opacity-0" loading="lazy" /><img src={model.onFace} alt={`Woolet ${model.id} ${model.shape} auf einem breiten Gesicht`} className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100" loading="lazy" /></div><div className="flex items-end justify-between gap-4 px-5 py-4"><div><div className="font-body text-[11px] uppercase tracking-[0.28em] text-primary">{model.id}</div><div className="mt-1 font-display text-xl text-woolet-white">Woolet {model.id}</div><div className="mt-1 font-body text-[10px] uppercase tracking-[0.2em] text-cream-dim">{model.shape} · {model.specs}</div></div><span className="font-body text-[10px] uppercase tracking-[0.2em] text-cream-dim">Ansehen -&gt;</span></div></Link>)}
           </div>
         </Section>
 
         <section className="border-y border-border-sub bg-secondary px-5 py-16 text-center sm:px-8 lg:py-24"><div className="mx-auto max-w-3xl"><p className="font-body text-xs uppercase tracking-[0.24em] text-primary">Founding-Preis</p><h2 className="mt-4 font-display text-4xl text-foreground md:text-5xl">Breite Passform. Klarer Preis.</h2><div className="mt-6 flex items-baseline justify-center gap-4"><span className="font-display text-3xl text-cream-dim line-through">{formatDePrice(DE_PRICING.regularPriceEur)}</span><strong className="font-display text-6xl font-normal text-foreground">{formatDePrice(DE_PRICING.founderPriceEur)}</strong></div><p className="mt-3 font-body text-sm text-cream-dim">inkl. MwSt. · Kostenloser Versand nach Deutschland</p><DeReservationCta source={`${config.slug}_pricing`} className="mt-8" /></div></section>
 
-        <section id="vip" className="border-b border-border-sub bg-secondary px-5 py-16 text-center sm:px-8 lg:py-24"><div className="mx-auto max-w-3xl"><div className="woolet-eyebrow mb-4 justify-center"><div className="woolet-eyebrow-line" /><span className="woolet-eyebrow-text">Kickstarter · Founding Member</span></div><h2 className="font-display text-4xl text-foreground">Noch nicht bereit? Founding-Preis per E-Mail sichern.</h2><p className="mx-auto mb-8 mt-4 max-w-xl font-body text-[15px] leading-7 text-cream-dim">VIP-Mitglieder erhalten 48 Stunden vor dem öffentlichen Launch Zugang.</p><DeReservationCta source={`${config.slug}_vip`} variant="link" className="mb-7 inline-block font-body text-sm text-primary underline underline-offset-4" /><VipForm /></div></section>
+        <section id="vip" className="border-b border-border-sub bg-secondary px-5 py-16 text-center sm:px-8 lg:py-24"><div className="mx-auto max-w-3xl"><div className="woolet-eyebrow mb-4 justify-center"><div className="woolet-eyebrow-line" /><span className="woolet-eyebrow-text">Kickstarter · Founding Member</span></div><h2 className="font-display text-4xl text-foreground">Noch nicht bereit? Founding-Preis per E-Mail sichern.</h2><p className="mx-auto mb-8 mt-4 max-w-xl font-body text-[15px] leading-7 text-cream-dim">VIP-Mitglieder erhalten 48 Stunden vor dem öffentlichen Launch Zugang.</p><DeReservationCta source={`${config.slug}_vip`} variant="link" className="mb-7 inline-block font-body text-sm text-primary underline underline-offset-4" /><DeVipForm placement={`${config.slug}_vip`} className="mx-auto" /></div></section>
 
         {config.widthTable && (
           <Section bordered><h2 className="mb-6 font-display text-3xl text-foreground">{config.widthTable.title}</h2><div className="overflow-x-auto"><table className="w-full border-collapse font-body text-[15px]"><thead><tr className="border-b border-border-sub text-left text-[10px] uppercase tracking-[0.22em] text-cream-dim"><th className="py-3 pr-4 font-medium">Gesichtsbreite (mm)</th><th className="py-3 pr-4 font-medium">Kategorie</th><th className="py-3 font-medium">Empfohlene Frontbreite</th></tr></thead><tbody>{config.widthTable.rows.map((row) => <tr key={row[0]} className="border-b border-border-sub text-foreground"><td className="py-3 pr-4">{row[0]}</td><td className="py-3 pr-4 text-cream-dim">{row[1]}</td><td className="py-3">{row[2]}</td></tr>)}</tbody></table></div></Section>

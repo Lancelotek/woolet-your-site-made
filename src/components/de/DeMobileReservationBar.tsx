@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import DeReservationCta from "@/components/de/DeReservationCta";
 import { DE_PRICING, formatDePrice } from "@/content/de/pricing";
 
 export default function DeMobileReservationBar() {
@@ -37,9 +36,19 @@ export default function DeMobileReservationBar() {
       className={`sticky-mobile-cta fixed inset-x-0 bottom-0 z-[90] flex min-h-[72px] items-center justify-between gap-3 border-t border-primary/30 bg-background px-4 py-3 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))] transition-transform duration-300 md:hidden ${visible ? "translate-y-0" : "pointer-events-none translate-y-full"}`}
     >
       <span className="max-w-[55%] font-body text-[11px] leading-4 text-cream-dim">
-        {formatDePrice(DE_PRICING.founderPriceEur)} statt {formatDePrice(DE_PRICING.regularPriceEur)} - {formatDePrice(DE_PRICING.reservationEur)} reserviert deinen Platz
+        {formatDePrice(DE_PRICING.founderPriceEur)} statt {formatDePrice(DE_PRICING.regularPriceEur)} - nur 30 Fassungen
       </span>
-      <DeReservationCta source="sticky" variant="compact" />
+      <button
+        type="button"
+        onClick={() => {
+          const hero = document.querySelector<HTMLElement>("[data-de-hero-reservation]");
+          hero?.scrollIntoView({ behavior: "smooth", block: "center" });
+          window.setTimeout(() => hero?.querySelector<HTMLInputElement>("input[type=email]")?.focus({ preventScroll: true }), 500);
+        }}
+        className="h-10 shrink-0 rounded-sm bg-primary px-4 font-body text-[10px] font-semibold uppercase tracking-[0.16em] text-primary-foreground"
+      >
+        Preis sichern
+      </button>
     </aside>
   );
 }

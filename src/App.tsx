@@ -100,6 +100,8 @@ const Widerruf = lazy(() => import("./pages/de/Widerruf.tsx"));
 const DeCollection = lazy(() => import("./pages/de/DeCollection.tsx"));
 const DeFitManual = lazy(() => import("./pages/de/DeFitManual.tsx"));
 const DeFitQuick = lazy(() => import("./pages/de/DeFitQuick.tsx"));
+const DeProduct = lazy(() => import("./pages/de/DeProduct.tsx"));
+const DeDanke = lazy(() => import("./pages/de/DeDanke.tsx"));
 const JaLandingRoute = lazy(() => import("./pages/ja/JaLandingRoute.tsx"));
 const KoLandingRoute = lazy(() => import("./pages/ko/KoLandingRoute.tsx"));
 const FrLandingRoute = lazy(() => import("./pages/fr/FrLandingRoute.tsx"));
@@ -264,6 +266,9 @@ const App = () => (
           <Route path="/en/lp/kickstarter" element={<KickstarterPrelaunch />} />
            <Route path="/de/lp/kickstarter" element={<DeKickstarter />} />
           <Route path="/de/kollektion" element={<DeCollection />} />
+          <Route path="/de/produkte/007" element={<DeProduct modelId="007" />} />
+          <Route path="/de/produkte/009" element={<DeProduct modelId="009" />} />
+          <Route path="/de/danke" element={<DeDanke />} />
           <Route path="/de/collection" element={<Navigate to="/de/kollektion" replace />} />
           {/* Cited by AI assistants but never existed as DE pages. */}
           <Route path="/de/xxl" element={<RedirectKeepQuery to="/de/brillen-fuer-grosse-koepfe" />} />
