@@ -253,7 +253,7 @@ async function main() {
       getNoscriptContent(route, getMetadata(route).noscriptHtml);
     }
   } catch (err) {
-    console.error("[prerender] FAILED —", err.stack);
+    console.error("[prerender] FAILED —", err.message);
     process.exit(1);
   }
 
