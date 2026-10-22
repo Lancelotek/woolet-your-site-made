@@ -565,7 +565,6 @@ ${shot("woolet-too-small-m9-never-your-face-007-4x5.jpg", "Man in his fifties wi
       `<img src="/ads/2026-10-ks-launch/${file}" width="1080" height="1350" alt="${escapeHtml(alt)}" />`;
     const meta = base(
       "/en/creatives/ks-launch",
-  "/en/creatives/too-small",
       "en",
       {
         title: "Woolet Kickstarter launch - countdown ads",
@@ -2271,6 +2270,7 @@ const STATIC_ROUTES = [
   "/en/the-box",
   "/en/creatives/stretch-goals",
   "/en/creatives/ks-launch",
+  "/en/creatives/too-small",
   "/fr/blog",
   "/nl/blog",
   "/de",
