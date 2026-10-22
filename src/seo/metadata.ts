@@ -533,6 +533,30 @@ ${shot("woolet-aviator-161-metal.jpg", "Woolet Aviator 161 mm in brushed silver 
     return meta;
   }
 
+  // ----- "Too small" cold ads: unlinked, noindex, English only.
+  // The ad images live under public/ads/2026-10-too-small/ (manifest.json
+  // carries the same alt text); this page carries the alt text in markup.
+  if (path === "/creatives/too-small") {
+    const shot = (file: string, alt: string) =>
+      `<img src="/ads/2026-10-too-small/${file}" width="1080" height="1350" alt="${escapeHtml(alt)}" />`;
+    const meta = base(
+      "/en/creatives/too-small",
+      "en",
+      {
+        title: "Woolet - too small for your face ads",
+        description:
+          "Meta ad images for Woolet: standard frames are too small for wide faces, the 158 mm front reaches the temples.",
+        noscriptHtml: `<h1>Too small for your face</h1>
+<p>Ad images for wide faces: standard frames end before the face does.</p>
+${shot("woolet-too-small-m8-frame-edge-009-4x5.jpg", "Close-up of a man with a wide face wearing Woolet 009 Soft Square black acetate glasses, headline: Your frame stops. Your face doesn't. Labels show where a standard frame ends and where the 158 mm Woolet front reaches the edge of the face.")}
+${shot("woolet-too-small-m9-never-your-face-007-4x5.jpg", "Man in his fifties with a wide face wearing Woolet 007 Round black acetate glasses at home, headline: It was never your face. Your glasses were too small. 158 mm front, built for wide faces.")}`,
+      },
+      { image: "/ads/2026-10-too-small/woolet-too-small-m8-frame-edge-009-4x5.jpg" },
+    );
+    meta.robots = "noindex, follow"; // unlinked creative sheet, never indexed
+    return meta;
+  }
+
   // ----- Kickstarter launch countdown ads: unlinked, noindex, English only.
   // The six ad images live under public/ads/2026-10-ks-launch/ (manifest.json
   // carries the same alt text); this page carries the alt text in markup.
@@ -541,6 +565,7 @@ ${shot("woolet-aviator-161-metal.jpg", "Woolet Aviator 161 mm in brushed silver 
       `<img src="/ads/2026-10-ks-launch/${file}" width="1080" height="1350" alt="${escapeHtml(alt)}" />`;
     const meta = base(
       "/en/creatives/ks-launch",
+  "/en/creatives/too-small",
       "en",
       {
         title: "Woolet Kickstarter launch - countdown ads",
