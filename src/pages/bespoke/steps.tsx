@@ -3,7 +3,7 @@ import type { PatternRender } from "@/lib/bespoke-pattern-renders";
 import { imageVariant } from "@/lib/optimized-image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Check, ChevronLeft, ChevronRight, Loader2, Lock, Maximize2, Sparkles, Unlock } from "lucide-react";
+import { Check, ChevronLeft, ChevronRight, FileDown, Loader2, Lock, Maximize2, Sparkles, Unlock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 import { supabase } from "@/integrations/supabase/client";
@@ -47,6 +47,7 @@ import {
 } from "@/lib/bespoke-state";
 import { claritySet } from "@/lib/clarity";
 import { renderAltForConfig } from "@/lib/bespoke-render-alt";
+import { readSessionRef } from "@/lib/scan-session-ref";
 import { clampFaceMm, clampNoseMm } from "@/lib/scan-clamp";
 import { loadScanResult, type StoredScanResult } from "@/lib/scan-result-store";
 import { loadQuizPrior, type QuizPrior } from "@/lib/fit-quiz-prior";
@@ -2092,6 +2093,8 @@ export function StepReview({
   onEdit: (step: number) => void;
 }) {
   const [payPending, setPayPending] = useState(false);
+  const [cardPending, setCardPending] = useState(false);
+  const [cardError, setCardError] = useState<string | null>(null);
   const frame = findFrame(config.frameId);
   const front = COLORS.find((c) => c.id === config.frontColorId);
   const temple = COLORS.find((c) => c.id === config.templeColorId);
@@ -2119,6 +2122,22 @@ export function StepReview({
       window.removeEventListener("storage", sync);
     };
   }, [reviewLensKey, reviewBaseKey]);
+
+  const downloadCard = async () => {
+    if (cardPending) return;
+    setCardPending(true);
+    setCardError(null);
+    pushCfg("cfg_product_card_pdf", { has_render: Boolean(renderUrl), frame: config.frameId ?? "" });
+    try {
+      const { downloadProductCard } = await import("@/lib/bespoke-product-card-pdf");
+      await downloadProductCard({ config, renderUrl, buildRef: readSessionRef()?.slice(0, 8) ?? null });
+    } catch (e) {
+      console.warn("[bespoke] product card PDF failed", e);
+      setCardError("The PDF could not be created on this device. Please try again.");
+    } finally {
+      setCardPending(false);
+    }
+  };
 
   const Row = ({ label, value, step }: { label: string; value: React.ReactNode; step: number }) => (
     <Button type="button" variant="ghost" onClick={() => onEdit(step)} className="h-auto w-full rounded-none flex items-baseline justify-between gap-4 py-3 px-0 border-b border-cream/10 hover:bg-transparent text-left">
@@ -2216,6 +2235,23 @@ export function StepReview({
         <span className="text-cream-dim text-[0.78rem] uppercase tracking-[0.18em]">
           Free worldwide shipping · Stripe secure checkout
         </span>
+      </div>
+      <div className="space-y-2">
+        <button
+          type="button"
+          onClick={downloadCard}
+          disabled={cardPending}
+          className="inline-flex items-center gap-2 text-gold-light text-xs uppercase tracking-[0.18em] underline underline-offset-4 decoration-gold/40 hover:text-cream disabled:opacity-60"
+        >
+          {cardPending ? <Loader2 size={14} className="animate-spin" /> : <FileDown size={14} />}
+          {cardPending ? "Preparing your PDF…" : "Download product card (PDF)"}
+        </button>
+        <p className="text-cream-dim text-xs">
+          {renderUrl
+            ? "Includes your AI preview, specification and price."
+            : "Includes your specification and price. Generate an AI preview in step 3 to add it to the card."}
+        </p>
+        {cardError && <p className="text-xs text-red-300" role="alert">{cardError}</p>}
       </div>
       {saved && (
         <p className="text-cream-dim text-xs">

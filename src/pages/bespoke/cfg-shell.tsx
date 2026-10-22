@@ -39,6 +39,7 @@ export type CfgEvent =
   | "cfg_pay_click"
   | "cfg_render_failed"
   | "cfg_preview_skip"
+  | "cfg_product_card_pdf"
   | "bespoke_reading_strength_selected"
   | "bespoke_lens_tint_selected";
 
