@@ -1,6 +1,6 @@
 export const COMPOSITION_REFERENCE_URL = "https://wmefczrhnsqicikveuhz.supabase.co/functions/v1/bespoke-render-image/renders/round/woolet-bespoke-round-british-racing-green-front-ice-translucent-temples-brushed-plano-06b46be2.png";
 export const SHAPE_CONSTRAINTS: Record<string, string> = {
-  "crown-panto": "Each lens has a FLAT, straight top edge (a crown line) running horizontally into the bridge, with a deep rounded panto bottom; the top of the front is a straight horizontal line, NOT a circle; keyhole bridge. Must not look round. Lens size and proportions exactly as the outline drawing: compact lenses, NOT aviator teardrops, keyhole bridge sitting high, no brow bar.",
+  "crown-panto": "Each lens has a FLAT, straight top edge (a crown line) running horizontally into the bridge, with a deep rounded panto bottom; the top of the front is a straight horizontal line, NOT a circle; keyhole bridge. Must not look round. Lens size and proportions exactly as the outline drawing: compact lenses, NOT aviator teardrops, keyhole bridge sitting high, no brow bar. Exactly two lenses, each with ONE continuous rim: never a doubled, nested or ghost inner rim, never a third lens or extra ring beside the hinge or the bridge.",
   round: "Fully circular lenses, keyhole bridge.",
   rectangle: "Rectangular lenses with straight top and bottom edges, soft corners, thick flat brow.",
 };

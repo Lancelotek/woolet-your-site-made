@@ -281,7 +281,7 @@ Deno.serve(async (req) => {
       `Correctly seated hinges and rivets, accurate acetate edge detail,`,
        compositionRulesFor(shape),
        `Precise transparency and refraction where the acetate is translucent, accurate premium product photography.`,
-      `no drawing lines, no sketch, no floating hardware, no fused temples, no extra bridge, no asymmetry, ultra-realistic premium catalogue still.`,
+      `no drawing lines, no sketch, no floating hardware, no fused temples, no extra bridge, exactly two lenses with one single continuous rim around each (no doubled, nested or ghost rims, no third lens, no extra lens ring), no asymmetry, ultra-realistic premium catalogue still.`,
       `HARD SHAPE CONSTRAINTS: ${shapeConstraint(shape) || "Preserve the Aviator technical drawing and construction rules exactly."}`,
     ].join(" ");
 
