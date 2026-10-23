@@ -800,6 +800,7 @@ export type Database = {
           face_width_mm: number | null
           id: string
           measurement_ref: string | null
+          nose_bridge_estimate_mm: number | null
           nose_bridge_height_mm: number | null
           nose_bridge_width_mm: number | null
           order_id: string | null
@@ -832,6 +833,7 @@ export type Database = {
           face_width_mm?: number | null
           id?: string
           measurement_ref?: string | null
+          nose_bridge_estimate_mm?: number | null
           nose_bridge_height_mm?: number | null
           nose_bridge_width_mm?: number | null
           order_id?: string | null
@@ -864,6 +866,7 @@ export type Database = {
           face_width_mm?: number | null
           id?: string
           measurement_ref?: string | null
+          nose_bridge_estimate_mm?: number | null
           nose_bridge_height_mm?: number | null
           nose_bridge_width_mm?: number | null
           order_id?: string | null
