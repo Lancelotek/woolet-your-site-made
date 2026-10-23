@@ -44,6 +44,11 @@ export function defaultManualHref(lang: string): string {
   return lang === "de" ? "/de/fit/manual" : "/en/fit/manual";
 }
 
+/** FitLens accepts 8-64 chars of A-Z a-z 0-9 _ - as `sessionRef`; anything else is dropped. */
+export function toFitLensSessionRef(value: string | null | undefined): string | null {
+  return typeof value === "string" && /^[A-Za-z0-9_-]{8,64}$/.test(value) ? value : null;
+}
+
 function removeManualPill() {
   document.getElementById(PILL_ID)?.remove();
 }
@@ -88,6 +93,10 @@ export function useFitLensScript(options?: {
     script.dataset.key = FITLENS_KEY;
     script.dataset.label = "Find my fit";
     script.dataset.color = "#3B4A66";
+    // FitLens returns this as payload.sessionRef / measurement.sessionRef /
+    // fitlens:result detail.sessionRef. Set before any open (loader re-reads it).
+    const loaderRef = toFitLensSessionRef(externalSessionRef);
+    if (loaderRef) script.dataset.sessionRef = loaderRef;
     script.addEventListener("load", () => setIsReady(true), { once: true });
     // The widget is opened by building the iframe ourselves, so a failed embed
     // load must not block the button — log it and carry on.
@@ -281,11 +290,19 @@ export function useFitLensScript(options?: {
     // Never an email, a name or an order number — the widget is a processor and
     // must not receive anything that identifies the person being measured.
     const sessionRef = externalSessionRef || getSessionRef();
+    // The widget reads `sessionRef` (2026-10-23 FitLens fix) and echoes it back
+    // in the result; `sessionId` stays for older widget builds.
+    const fitLensRef = toFitLensSessionRef(sessionRef);
+    if (scriptRef.current) {
+      if (fitLensRef) scriptRef.current.dataset.sessionRef = fitLensRef;
+      else delete scriptRef.current.dataset.sessionRef;
+    }
     const locale = (document.documentElement.lang || "en").slice(0, 5);
     frame.src =
       `${origin}/w/intro?k=${encodeURIComponent(FITLENS_KEY)}` +
       `&host=${encodeURIComponent(window.location.origin)}` +
       `&sessionId=${encodeURIComponent(sessionRef)}` +
+      (fitLensRef ? `&sessionRef=${encodeURIComponent(fitLensRef)}` : "") +
       `&locale=${encodeURIComponent(locale)}${debug}`;
     document.body.appendChild(frame);
     frameRef.current = frame;

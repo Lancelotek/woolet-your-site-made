@@ -22,6 +22,15 @@ export type FitLensEvent = {
   /** JWT signed by FitLens — the only part we can actually verify. */
   signedPayload: string | null;
   confidence: { tier: string | null; spreadMm: number | null };
+  /** Echo of the `data-session-ref` / `sessionRef` we passed to the widget. */
+  sessionRef: string | null;
+  /**
+   * Nasal sidewall width between MediaPipe points 134-363 (`noseBridgeEstimateMm`).
+   * Not the exact frame-to-nose contact width - FitLens does not validate that.
+   */
+  noseBridgeEstimateMm: number | null;
+  /** Inner eye corners 133-362 (`intercanthalDistanceMm`; legacy alias `noseBridgeMm`). */
+  intercanthalMm: number | null;
   /** Unknown/extra fields, kept verbatim. */
   raw: Record<string, unknown>;
   /**
@@ -35,7 +44,8 @@ export const FITLENS_SEMANTICS_CUTOVER_MS = Date.parse("2026-09-08T00:00:00Z");
 
 const ALIASES: Record<MeasurementKey, string[]> = {
   faceWidth: ["facewidth", "facewidthmm", "face_width", "facepx", "width", "faceWidthMm"],
-  bridge: ["bridge", "bridgewidth", "bridgewidthmm", "nosebridge", "nosebridgewidth", "nosewidth"],
+  // `noseBridgeMm` is a deprecated alias of the intercanthal distance - never a bridge.
+  bridge: ["bridge", "bridgewidth", "bridgewidthmm", "nosebridgewidth", "nosewidth"],
   pd: ["pd", "pdmm", "pupillarydistance", "interpupillarydistance", "ipd"],
   templeToTemple: ["templetotemple", "templetotemplemm", "tempTotemp", "templewidth", "headwidth"],
   templeLength: ["templelength", "templelengthmm", "armlength", "templearmlength"],
@@ -142,6 +152,25 @@ export function readResultTimestamp(detail: unknown): number | null {
   return null;
 }
 
+/** Read a top-level field, or the same field under `payload` / `measurement`. */
+function readField(detail: unknown, key: string): unknown {
+  if (!detail || typeof detail !== "object") return null;
+  const d = detail as Record<string, unknown>;
+  for (const src of [d, d.payload, d.measurement]) {
+    if (src && typeof src === "object" && key in (src as Record<string, unknown>)) {
+      const v = (src as Record<string, unknown>)[key];
+      if (v !== null && v !== undefined && v !== "") return v;
+    }
+  }
+  return null;
+}
+
+function readMm(detail: unknown, key: string, min: number, max: number): number | null {
+  const v = readField(detail, key);
+  if (typeof v !== "number" || !Number.isFinite(v) || v < min || v > max) return null;
+  return Math.round(v * 10) / 10;
+}
+
 /**
  * Full read of a `fitlens:result` detail: the validated six numbers plus the
  * scan id, the signed token and the confidence/raw blocks. Unknown fields are
@@ -169,7 +198,8 @@ export function parseFitLensEvent(detail: unknown): FitLensEvent {
     return typeof v === "string" && /^[\w-]+\.[\w-]+\.[\w-]+$/.test(v) ? v : null;
   })();
 
-  const tierRaw = pick("tier", "confidenceTier", "quality");
+  // `confidence` arrives either as a string tier ("high") or as an object with `tier`.
+  const tierRaw = pick("tier", "confidenceTier", "quality") ?? (typeof flat.confidence === "string" ? flat.confidence : null);
   const spreadRaw = pick("spreadMm", "spread");
   const spread = toNumber(spreadRaw);
 
@@ -185,6 +215,12 @@ export function parseFitLensEvent(detail: unknown): FitLensEvent {
       tier: typeof tierRaw === "string" && tierRaw ? tierRaw.toLowerCase() : null,
       spreadMm: spread,
     },
+    sessionRef: ((): string | null => {
+      const v = readField(detail, "sessionRef");
+      return typeof v === "string" && /^[A-Za-z0-9_-]{8,64}$/.test(v) ? v : null;
+    })(),
+    noseBridgeEstimateMm: readMm(detail, "noseBridgeEstimateMm", 5, 40),
+    intercanthalMm: readMm(detail, "intercanthalDistanceMm", 20, 50),
     raw: detail && typeof detail === "object" ? ({ ...(detail as Record<string, unknown>) }) : {},
     semanticsVersion,
   };

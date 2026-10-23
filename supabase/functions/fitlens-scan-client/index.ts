@@ -20,6 +20,8 @@ const json = (body: unknown, status = 200) =>
     headers: { ...corsHeaders, "Content-Type": "application/json" },
   });
 
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 const num = (v: unknown, min: number, max: number): number | null => {
   if (v === null || v === undefined || v === "") return null;
   const n = Number(v);
@@ -58,14 +60,20 @@ Deno.serve(async (req) => {
     }
   }
 
+  // `session_ref` is a uuid column; a case number or other FitLens ref stays in raw_payload.
+  const sessionUuid = sessionRef && UUID_RE.test(sessionRef) ? sessionRef : null;
+
   const row = {
     scan_id: scanId || `client-${crypto.randomUUID()}`,
     source: "fitlens_client",
-    session_ref: sessionRef,
+    session_ref: sessionUuid,
     temple_to_temple_mm: templeToTemple,
     face_width_mm: faceWidth ?? templeToTemple,
     pd_mm: num(m.pd, 40, 90),
-    nose_bridge_width_mm: num(m.bridge ?? m.noseBridge, 5, 60),
+    // Inner eye corners (face measurement). `noseBridge` is FitLens's deprecated alias of it.
+    nose_bridge_width_mm: num(m.intercanthal ?? m.bridge ?? m.noseBridge, 5, 60),
+    // FitLens `noseBridgeEstimateMm`: nasal sidewall 134-363, not a validated frame contact width.
+    nose_bridge_estimate_mm: num(m.noseBridgeEstimate, 5, 40),
     semantics_version: typeof body.semanticsVersion === "string" ? body.semanticsVersion : "current",
     confidence_tier: typeof body.tier === "string" ? body.tier.toLowerCase() : null,
     spread_mm: num(body.spreadMm, 0, 100),

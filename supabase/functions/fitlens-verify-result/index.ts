@@ -42,6 +42,16 @@ const getJwks = () => {
   return jwks;
 };
 
+const pickMm = (...vals: unknown[]): number | null => {
+  for (const v of vals) {
+    if (v === null || v === undefined || v === "") continue;
+    const n = Number(v);
+    if (Number.isFinite(n)) return n;
+  }
+  return null;
+};
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
   if (req.method !== "POST") return json({ error: "method_not_allowed" }, 405);
@@ -99,7 +109,9 @@ Deno.serve(async (req) => {
     return json({ ok: true, scanId, source: "fitlens_webhook", claims });
   }
 
-  const sessionRef = typeof claims.sessionId === "string" ? claims.sessionId : null;
+  const rawRef =
+    typeof claims.sessionRef === "string" ? claims.sessionRef : typeof claims.sessionId === "string" ? claims.sessionId : null;
+  const sessionRef = rawRef && UUID_RE.test(rawRef) ? rawRef : null;
   const { error } = await supabase.from("bespoke_scan_profiles").upsert(
     {
       scan_id: scanId,
@@ -110,7 +122,8 @@ Deno.serve(async (req) => {
       pd_mm: num(m.pd),
       pd_left_mm: num(m.pdLeft),
       pd_right_mm: num(m.pdRight),
-      nose_bridge_width_mm: num(m.noseBridge),
+      nose_bridge_width_mm: pickMm(m.intercanthalDistance, m.intercanthalDistanceMm, (claims as any).intercanthalDistanceMm, m.noseBridge),
+      nose_bridge_estimate_mm: pickMm(m.noseBridgeEstimate, m.noseBridgeEstimateMm, (claims as any).noseBridgeEstimateMm),
       payload_version: typeof claims.payloadVersion === "string" ? claims.payloadVersion : null,
       semantics_version: semanticsVersion,
       confidence_tier: tier,

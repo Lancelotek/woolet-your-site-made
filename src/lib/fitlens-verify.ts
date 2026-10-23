@@ -47,7 +47,8 @@ export async function recordFitLensEvent(
     const { data } = await supabase.functions.invoke("fitlens-scan-client", {
       body: {
         scanId: event.measurementId,
-        sessionRef: sessionRef ?? null,
+        // The page's own reference wins; otherwise the one FitLens echoed back.
+        sessionRef: sessionRef ?? event.sessionRef ?? null,
         reference: reference ?? null,
         semanticsVersion: event.semanticsVersion,
         tier: event.confidence.tier,
@@ -57,6 +58,8 @@ export async function recordFitLensEvent(
           faceWidth: event.measurements.faceWidth ?? null,
           pd: event.measurements.pd ?? null,
           bridge: event.measurements.bridge ?? null,
+          noseBridgeEstimate: event.noseBridgeEstimateMm,
+          intercanthal: event.intercanthalMm,
         },
       },
     });

@@ -76,6 +76,16 @@ async function resolveWebhookSecret(): Promise<string | null> {
   return value;
 }
 
+const pickMm = (...vals: unknown[]): number | null => {
+  for (const v of vals) {
+    if (v === null || v === undefined || v === "") continue;
+    const n = Number(v);
+    if (Number.isFinite(n)) return n;
+  }
+  return null;
+};
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
   if (req.method !== "POST") return json({ error: "method_not_allowed" }, 405);
@@ -152,7 +162,10 @@ Deno.serve(async (req) => {
     : qualityVerdict({ tier, spreadMm, templeToTempleMm: fitMm, yawDeg: yaw, semanticsVersion });
 
   const client = (payload.client ?? {}) as Record<string, unknown>;
-  const sessionId = typeof client.sessionId === "string" ? client.sessionId : null;
+  const sessionId =
+    typeof client.sessionRef === "string" ? client.sessionRef
+    : typeof payload.sessionRef === "string" ? (payload.sessionRef as string)
+    : typeof client.sessionId === "string" ? client.sessionId : null;
   // Fallback for a customer who scanned outside our link and quoted their
   // measurement reference instead. FitLens has not shipped the field that would
   // carry this yet — the path below is ready and waiting on the partner.
@@ -195,14 +208,15 @@ Deno.serve(async (req) => {
     {
       scan_id: scanId,
       source: "fitlens_webhook",
-      session_ref: sessionId,
+      session_ref: sessionId && UUID_RE.test(sessionId) ? sessionId : null,
       email: typeof client.email === "string" ? client.email : null,
       temple_to_temple_mm: templeToTemple,
       face_width_mm: faceWidth ?? templeToTemple,
       pd_mm: num(m.pd),
       pd_left_mm: num(m.pdLeft),
       pd_right_mm: num(m.pdRight),
-      nose_bridge_width_mm: num(m.noseBridge),
+      nose_bridge_width_mm: pickMm(m.intercanthalDistance, m.intercanthalDistanceMm, (payload as any).intercanthalDistanceMm, m.noseBridge),
+      nose_bridge_estimate_mm: pickMm(m.noseBridgeEstimate, m.noseBridgeEstimateMm, (payload as any).noseBridgeEstimateMm),
       payload_version: typeof payload.payloadVersion === "string" ? payload.payloadVersion : null,
       semantics_version: semanticsVersion,
       confidence_tier: tier,
