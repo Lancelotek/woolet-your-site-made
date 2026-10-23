@@ -20,11 +20,10 @@ import {
   pickFitLensParams,
 } from "@/lib/fitlens-events";
 
-const SCRIPT_SRC = "https://fitlens-web-production.up.railway.app/v1/embed.js";
-// No `integrity` hash on purpose: FitLens redeploys /v1/embed.js without
-// warning, and a pinned hash makes the browser refuse the new file — the scan
-// button then dies silently. `crossorigin="anonymous"` stays so load errors
-// stay readable.
+import { FITLENS_EMBED_SRC, appendFitLensScript } from "@/lib/fitlens-embed";
+
+// SRI-pinned loader; a mismatch falls back to an unpinned load (see fitlens-embed.ts).
+const SCRIPT_SRC = FITLENS_EMBED_SRC;
 const FITLENS_KEY = "pk_live_OuBrFjXWKeNygZku6WyJHeFW_8d55SVqIrleeFfrzuQ";
 
 /**
@@ -85,29 +84,23 @@ export function useFitLensScript(options?: {
     const existing = document.querySelector(`script[src="${SCRIPT_SRC}"]`);
     if (existing) existing.remove();
 
-    const script = document.createElement("script");
-    script.src = SCRIPT_SRC;
-    script.async = true;
-    script.defer = true;
-    script.crossOrigin = "anonymous";
-    script.dataset.key = FITLENS_KEY;
-    script.dataset.label = "Find my fit";
-    script.dataset.color = "#3B4A66";
-    // FitLens returns this as payload.sessionRef / measurement.sessionRef /
-    // fitlens:result detail.sessionRef. Set before any open (loader re-reads it).
-    const loaderRef = toFitLensSessionRef(externalSessionRef);
-    if (loaderRef) script.dataset.sessionRef = loaderRef;
-    script.addEventListener("load", () => setIsReady(true), { once: true });
-    // The widget is opened by building the iframe ourselves, so a failed embed
-    // load must not block the button — log it and carry on.
-    script.addEventListener(
-      "error",
-      () => console.warn("[fitlens] embed.js failed to load; opening the widget directly"),
-      { once: true },
-    );
-
-    document.body.appendChild(script);
-    scriptRef.current = script;
+    const configure = (script: HTMLScriptElement) => {
+      script.async = true;
+      script.defer = true;
+      script.dataset.key = FITLENS_KEY;
+      script.dataset.label = "Find my fit";
+      script.dataset.color = "#3B4A66";
+      // FitLens returns this as payload.sessionRef / measurement.sessionRef /
+      // fitlens:result detail.sessionRef. Set before any open (loader re-reads it).
+      const loaderRef = toFitLensSessionRef(externalSessionRef);
+      if (loaderRef) script.dataset.sessionRef = loaderRef;
+      script.addEventListener("load", () => setIsReady(true), { once: true });
+    };
+    // The widget is opened by building the iframe ourselves, so even a failed
+    // embed load never blocks the button.
+    scriptRef.current = appendFitLensScript(configure, (retry) => {
+      scriptRef.current = retry;
+    });
 
     return () => {
       frameRef.current?.remove();

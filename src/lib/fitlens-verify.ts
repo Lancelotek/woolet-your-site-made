@@ -47,8 +47,9 @@ export async function recordFitLensEvent(
     const { data } = await supabase.functions.invoke("fitlens-scan-client", {
       body: {
         scanId: event.measurementId,
-        // The page's own reference wins; otherwise the one FitLens echoed back.
-        sessionRef: sessionRef ?? event.sessionRef ?? null,
+        sessionRef: sessionRef ?? null,
+        // What FitLens echoed back from data-session-ref (e.g. WLT-BSP-2026-0004).
+        fitlensSessionRef: event.sessionRef ?? null,
         reference: reference ?? null,
         semanticsVersion: event.semanticsVersion,
         tier: event.confidence.tier,

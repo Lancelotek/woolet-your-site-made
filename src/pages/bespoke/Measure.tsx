@@ -14,6 +14,7 @@
 // The invitation token never reaches the FitLens iframe, and the order number
 // never reaches the browser as something the browser could change.
 
+import { appendFitLensScript } from "@/lib/fitlens-embed";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
@@ -159,17 +160,14 @@ export default function Measure() {
       // The token leaves the URL before any external script is allowed to load.
       window.history.replaceState({}, "", `${window.location.pathname}`);
 
-      const script = document.createElement("script");
-      script.src = EMBED_SRC;
-      script.defer = true;
-      script.crossOrigin = "anonymous";
-      script.dataset.key = FITLENS_KEY;
-      script.dataset.mode = "measurement_only";
-      script.dataset.layout = "full_page";
-      // No `integrity`: FitLens redeploys /v1/embed.js without notice and a
-      // pinned hash makes the browser refuse the new file, killing the scan
-      // silently. The result is trusted by its signature, not by the script.
-      document.body.appendChild(script);
+      // SRI-pinned; a mismatch retries unpinned (see fitlens-embed.ts). The
+      // result is still trusted by its signature, not by the script.
+      appendFitLensScript((script) => {
+        script.defer = true;
+        script.dataset.key = FITLENS_KEY;
+        script.dataset.mode = "measurement_only";
+        script.dataset.layout = "full_page";
+      });
       setStage("measuring");
     } catch {
       setErrorKey("network");

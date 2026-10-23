@@ -149,6 +149,14 @@ Deno.serve(async (req) => {
 
   const measurementRef = await assignMeasurementRef(supabase, scanId);
 
+  const caseRef = rawRef && /^WLT-BSP-\d{4}-\d{4}$/i.test(rawRef.trim()) ? rawRef.trim().toUpperCase() : null;
+  if (caseRef) {
+    const { data: caseOrder } = await supabase.from("bespoke_orders").select("id").eq("case_no", caseRef).maybeSingle();
+    if (caseOrder) {
+      await supabase.from("bespoke_scan_profiles").update({ order_id: caseOrder.id }).eq("scan_id", scanId);
+      await supabase.from("bespoke_orders").update({ scan_id: scanId }).eq("id", caseOrder.id);
+    }
+  }
   if (sessionRef) {
     try {
       const { data: order } = await supabase

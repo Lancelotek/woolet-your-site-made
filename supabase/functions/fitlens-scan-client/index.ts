@@ -94,6 +94,30 @@ Deno.serve(async (req) => {
 
   const measurementRef = await assignMeasurementRef(supabase, row.scan_id);
 
+  // Order binding by the reference FitLens echoed back (data-session-ref =
+  // case number). Only trusted when this case was opened through a valid
+  // emailed token in the last 14 days (bespoke-scan-context writes that row).
+  // The scan is attached for visibility (admin lists it under the order) and
+  // stays `unverified`; bespoke_orders.scan_id is still never moved here.
+  let orderId: string | null = null;
+  const echoed = typeof body.fitlensSessionRef === "string" ? body.fitlensSessionRef.trim().toUpperCase() : "";
+  const caseNo = /^WLT-BSP-\d{4}-\d{4}$/.test(echoed) ? echoed : null;
+  if (caseNo) {
+    const since = new Date(Date.now() - 14 * 86400_000).toISOString();
+    const { data: ctx } = await supabase
+      .from("bespoke_scan_contexts")
+      .select("order_id")
+      .eq("case_no", caseNo)
+      .gte("created_at", since)
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    if (ctx?.order_id) {
+      orderId = ctx.order_id as string;
+      await supabase.from("bespoke_scan_profiles").update({ order_id: orderId }).eq("scan_id", row.scan_id);
+    }
+  }
+
   // Production rule: an unsigned number never becomes a production number.
   // The row is kept so the customer sees what the widget reported and so we can
   // tell a failed scan from no scan at all, but it is deliberately NOT attached
@@ -115,6 +139,7 @@ Deno.serve(async (req) => {
     measurementRef,
     source: "fitlens_client",
     status: "unverified",
+    orderId,
     accepted_for_production: false,
   });
 });
