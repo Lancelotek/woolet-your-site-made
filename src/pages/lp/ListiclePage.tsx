@@ -144,7 +144,7 @@ const ListiclePage = () => {
       pushGtmEvent("generate_lead", { awareness_stage: "solution_aware", source: "listicle" });
       // Browser-only Meta Lead (GTM pixel bridge). The server Lead is sent by
       // mailerlite-subscribe with the same event_id, so Meta dedupes them.
-      if (typeof window !== "undefined") {
+      if (typeof window !== "undefined" && data?.is_new !== false) {
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
           event: "meta_lead",

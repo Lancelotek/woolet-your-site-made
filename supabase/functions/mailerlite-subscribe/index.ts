@@ -424,8 +424,14 @@ export const handler = async (req: Request): Promise<Response> => {
       );
     }
 
+    // MailerLite upsert: 201 = new subscriber, 200 = existing one updated.
+    // Only a new subscriber is a Lead - re-submits by people already on the
+    // list inflated Meta Leads (24.10.2026: 160 Leads vs 132 new subscribers).
+    const isNewSubscriber = status === 201;
+
     console.log(
       "Subscriber added:", email,
+      "| new:", isNewSubscriber ? "yes" : "no",
       "| source:", source || "default",
       "| phone:", phone ? "yes" : "-",
       "| device:", device || "-",
@@ -435,7 +441,7 @@ export const handler = async (req: Request): Promise<Response> => {
 
     // Fire server-side Meta CAPI Lead event (deduped with browser pixel via
     // meta_event_id). Fire-and-forget — never blocks the form submit.
-    const capiLead = sendMetaCapiLead({
+    const capiLead = !isNewSubscriber ? Promise.resolve() : sendMetaCapiLead({
       email,
       phone,
       country_code,
@@ -450,7 +456,7 @@ export const handler = async (req: Request): Promise<Response> => {
     const waitUntil = (globalThis as { EdgeRuntime?: { waitUntil?: (p: Promise<unknown>) => void } })
       .EdgeRuntime?.waitUntil;
     // OpenAI Conversions API lead_created — same id as browser oaiqLead (meta_event_id).
-    const oaLead = meta_event_id
+    const oaLead = isNewSubscriber && meta_event_id
       ? sendOpenAiEvent({
           id: String(meta_event_id),
           type: "lead_created",
@@ -486,7 +492,7 @@ export const handler = async (req: Request): Promise<Response> => {
     }
 
     return new Response(
-      JSON.stringify({ success: true, correlation_id, subscriber: { email: data.data?.email } }),
+      JSON.stringify({ success: true, correlation_id, is_new: isNewSubscriber, subscriber: { email: data.data?.email } }),
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json", "x-correlation-id": correlation_id } }
     );
   } catch (error: unknown) {
