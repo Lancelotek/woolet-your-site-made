@@ -28,6 +28,26 @@ function readRequestedTempleLength(): string | null {
   }
 }
 
+const CURRENT_GLASSES_BRANDS = [
+  "Ray-Ban", "Oakley", "Warby Parker", "Persol", "Tom Ford", "Oliver Peoples",
+  "Prada", "Zenni", "Fatheadz", "Costco / Kirkland", "Other",
+] as const;
+
+/** Same rule as the server parser: last plausible lens / bridge / temple triple. */
+function readTempleSizes(raw: string): { lens: number; bridge: number; temple: number | null } | null {
+  const nums = (raw.match(/\d{2,3}/g) ?? []).map(Number);
+  const ok = (n: number, lo: number, hi: number) => n >= lo && n <= hi;
+  for (let i = nums.length - 3; i >= 0; i -= 1) {
+    const [a, b, c] = nums.slice(i, i + 3);
+    if (ok(a, 38, 70) && ok(b, 12, 28) && ok(c, 120, 160)) return { lens: a, bridge: b, temple: c };
+  }
+  for (let i = nums.length - 2; i >= 0; i -= 1) {
+    const [a, b] = nums.slice(i, i + 2);
+    if (ok(a, 38, 70) && ok(b, 12, 28)) return { lens: a, bridge: b, temple: null };
+  }
+  return null;
+}
+
 type OrderSummary = {
   stripe_session_id: string;
   source?: string | null;
@@ -192,6 +212,10 @@ export default function BespokeMeasurements() {
   const [error, setError] = useState<string | null>(null);
   const [order, setOrder] = useState<OrderSummary | null>(null);
   const [discoverySource, setDiscoverySource] = useState<BespokeDiscoverySource | "">("");
+  const [glassesBrand, setGlassesBrand] = useState("");
+  const [glassesTemple, setGlassesTemple] = useState("");
+  const [noGlasses, setNoGlasses] = useState(false);
+  const templeSizes = useMemo(() => readTempleSizes(glassesTemple), [glassesTemple]);
   const [form, setForm] = useState<FormState>(EMPTY);
   const [shipping, setShipping] = useState<ShippingState>(EMPTY_SHIPPING);
   const [shippingError, setShippingError] = useState<string | null>(null);
@@ -525,6 +549,11 @@ export default function BespokeMeasurements() {
         body: {
           sid,
           source: order?.source || discoverySource,
+          current_glasses: noGlasses
+            ? { none: true }
+            : glassesBrand || glassesTemple.trim()
+              ? { brand: glassesBrand || null, temple_text: glassesTemple.trim() || null }
+              : null,
           ai: {
             face_width_mm: form.ai_face_width_mm || null,
             temple_to_temple_mm: form.ai_temple_to_temple_mm || null,
@@ -738,6 +767,64 @@ export default function BespokeMeasurements() {
                     <option value="">Select one</option>
                     {BESPOKE_DISCOVERY_SOURCES.map((item) => <option key={item} value={item}>{item}</option>)}
                   </select>
+                </section>
+              )}
+
+              {order && (
+                <section className="border border-cream/20 p-5 mb-8" aria-labelledby="current-glasses-heading">
+                  <h2 id="current-glasses-heading" className="text-sm text-cream mb-1">
+                    The glasses you wear now <span className="text-cream-dim">(optional)</span>
+                  </h2>
+                  <p className="text-cream-dim text-sm leading-relaxed mb-4">
+                    Look inside the temple arm. You will see three numbers, e.g. <span className="text-cream">52□18 145</span>:
+                    lens width, bridge and temple length. They tell our optician what has not fitted you so far.
+                  </p>
+                  <label className="flex items-center gap-2 text-sm text-cream mb-4 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={noGlasses}
+                      onChange={(e) => setNoGlasses(e.target.checked)}
+                      className="h-4 w-4 accent-[#C9A84C]"
+                    />
+                    I don&apos;t wear glasses right now
+                  </label>
+                  {!noGlasses && (
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      <label className="block text-sm text-cream">
+                        Brand
+                        <select
+                          value={glassesBrand}
+                          onChange={(e) => setGlassesBrand(e.target.value)}
+                          className="mt-2 min-h-[48px] w-full border border-cream/20 bg-background px-3 text-cream"
+                        >
+                          <option value="">Select brand</option>
+                          {CURRENT_GLASSES_BRANDS.map((b) => (
+                            <option key={b} value={b}>{b}</option>
+                          ))}
+                        </select>
+                      </label>
+                      <label className="block text-sm text-cream">
+                        Text inside the temple
+                        <input
+                          type="text"
+                          inputMode="text"
+                          autoComplete="off"
+                          maxLength={120}
+                          value={glassesTemple}
+                          onChange={(e) => setGlassesTemple(e.target.value)}
+                          placeholder="e.g. RB5154 2000 51□21 145"
+                          className="mt-2 min-h-[48px] w-full border border-cream/20 bg-background px-3 text-cream placeholder:text-cream-dim/60"
+                        />
+                        {glassesTemple.trim() && (
+                          <span className="mt-2 block text-xs text-cream-dim" aria-live="polite">
+                            {templeSizes
+                              ? `Read as: lens ${templeSizes.lens} mm · bridge ${templeSizes.bridge} mm${templeSizes.temple ? ` · temple ${templeSizes.temple} mm` : ""}`
+                              : "Type it exactly as printed - our optician will read it."}
+                          </span>
+                        )}
+                      </label>
+                    </div>
+                  )}
                 </section>
               )}
 
