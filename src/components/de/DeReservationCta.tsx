@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { DE_PRICING, deReservationUrl, formatDePrice, isDeReserved } from "@/content/de/pricing";
 import { pushGtmEvent } from "@/lib/gtm";
-import { trackMetaEvent, uuid } from "@/lib/meta-capi";
+import { trackInitiateCheckoutOnce, uuid } from "@/lib/meta-capi";
 import { withGaPaymentLink } from "@/lib/ga-ids";
 
 type Props = {
@@ -32,7 +32,9 @@ export default function DeReservationCta({ source, className, variant = "button"
       value: DE_PRICING.reservationEur,
     };
     const eventId = uuid();
-    void trackMetaEvent("Lead", { custom, eventId });
+    // A click on the 1 EUR link starts a checkout - it is not a Lead (the
+    // signup already sent one). Counting it as Lead inflated Meta Leads.
+    trackInitiateCheckoutOnce(`de-reservation:${source}`, { custom, eventId });
     pushGtmEvent("generate_lead", { ...custom, source, event_id: eventId });
   };
 

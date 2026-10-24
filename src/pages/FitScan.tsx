@@ -3805,23 +3805,24 @@ function EmailGateStep({
             ...leadAttribution,
           },
         })
-        .then(({ error: mlErr }) => {
-          if (mlErr) console.warn("[scan email gate] mailerlite failed", mlErr);
+        .then(({ data: mlData, error: mlErr }) => {
+          if (mlErr) {
+            console.warn("[scan email gate] mailerlite failed", mlErr);
+            return;
+          }
+          // Browser Meta Lead (GTM pixel bridge) - deduped with the server Lead
+          // via meta_event_id; only for a new subscriber, once per submission.
+          if (mlData?.is_new === false || leadFiredRef.current || typeof window === "undefined") return;
+          leadFiredRef.current = true;
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({
+            event: "meta_lead",
+            meta_event_name: "Lead",
+            event_id: leadAttribution.meta_event_id,
+            content_name: "Fit scan email",
+            content_category: "fit_scan",
+          });
         });
-
-      // Browser Meta Lead (GTM pixel bridge) — deduped with the server Lead
-      // via meta_event_id. Exactly once per submission.
-      if (!leadFiredRef.current && typeof window !== "undefined") {
-        leadFiredRef.current = true;
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-          event: "meta_lead",
-          meta_event_name: "Lead",
-          event_id: leadAttribution.meta_event_id,
-          content_name: "Fit scan email",
-          content_category: "fit_scan",
-        });
-      }
 
       // Fire-and-forget: send measurements + fit recommendation by email via a
       // whitelisted server-side proxy. send-transactional-email itself is
@@ -4283,24 +4284,26 @@ function FitLensEmailCapture({
             ...leadAttribution,
           },
         })
-        .then(({ error: mlErr }) => {
-          if (mlErr) console.warn("[fitlens email] mailerlite failed", mlErr);
+        .then(({ data: mlData, error: mlErr }) => {
+          if (mlErr) {
+            console.warn("[fitlens email] mailerlite failed", mlErr);
+            return;
+          }
+          // Browser Meta Lead (GTM pixel bridge) - deduped with the server Lead
+          // via meta_event_id; only for a new subscriber, once per submission.
+          if (mlData?.is_new === false || leadFiredRef.current || typeof window === "undefined") return;
+          leadFiredRef.current = true;
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({
+            event: "meta_lead",
+            meta_event_name: "Lead",
+            event_id: leadAttribution.meta_event_id,
+            content_name: "FitLens email",
+            content_category: "fitlens",
+          });
         });
 
       setStatus("sent");
-      // Browser Meta Lead (GTM pixel bridge) — fired only after the email was
-      // sent successfully, deduped with the server Lead via meta_event_id.
-      if (!leadFiredRef.current && typeof window !== "undefined") {
-        leadFiredRef.current = true;
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-          event: "meta_lead",
-          meta_event_name: "Lead",
-          event_id: leadAttribution.meta_event_id,
-          content_name: "FitLens email",
-          content_category: "fitlens",
-        });
-      }
       pushEvent("fit_fitlens_email_captured", { device });
       // Mirror for GA4/dataLayer reconciliation; original event stays unchanged.
       pushEvent("scan_email_submitted", { device });

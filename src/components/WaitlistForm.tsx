@@ -112,6 +112,7 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
           event: "waitlist_signup",
+          is_new_lead: data?.is_new !== false,
           user_email: formData.email,
           user_first_name: formData.name,
           frame_width_preference: formData.faceWidth || null,
@@ -132,7 +133,8 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
 
       // Browser-only Meta Lead (GTM pixel bridge). The server Lead is sent by
       // mailerlite-subscribe with the same meta_event_id, so Meta dedupes them.
-      if (typeof window !== "undefined") {
+      // Existing subscribers re-submitting are not a new Lead.
+      if (typeof window !== "undefined" && data?.is_new !== false) {
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
           event: "meta_lead",

@@ -42,10 +42,10 @@ export default function DeVipForm({ placement, variant = "section", className }:
       });
       if (functionError) throw functionError;
       if (data && !data.success) throw new Error(data.error || "Anmeldung fehlgeschlagen");
-      pushGtmEvent("waitlist_signup", { form_location: `de_${placement}`, market: "de", event_id: metaEventId });
+      pushGtmEvent("waitlist_signup", { form_location: `de_${placement}`, market: "de", event_id: metaEventId, is_new_lead: data?.is_new !== false });
       const w = window as unknown as { dataLayer?: unknown[] };
       w.dataLayer = w.dataLayer || [];
-      w.dataLayer.push({
+      if (data?.is_new !== false) w.dataLayer.push({
         event: "meta_lead", meta_event_name: "Lead", event_id: metaEventId,
         content_name: "de_vip", content_category: "waitlist", source: "DE", form_location: `de_${placement}`,
       });
