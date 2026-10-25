@@ -114,7 +114,7 @@ export default function HeroSymptoms({ meter }: Props) {
             if (next) pushGtmEvent("hero_numbers_open", { location: "home_hero" });
           }}
           className="w-full flex items-center justify-between uppercase tracking-[0.2em] text-cream-dim bg-transparent cursor-pointer"
-          style={{ fontFamily: BARLOW, fontSize: "0.66rem", padding: "12px 16px", border: 0 }}
+          style={{ fontFamily: BARLOW, fontSize: "0.75rem", padding: "12px 16px", border: 0 }}
         >
           <span>Know your measurement? See the numbers</span>
           <span className="text-gold" aria-hidden="true">{open ? "–" : "+"}</span>

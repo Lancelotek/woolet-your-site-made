@@ -553,7 +553,7 @@ const FrameWidthMeter = ({ copy, lang }: { copy: HomeCopy; lang: Lang }) => {
         <span
           className="ml-2 uppercase tracking-[0.22em]"
           style={{
-            fontSize: "0.62rem",
+            fontSize: "0.72rem",
             color: "hsl(var(--cream-dim))",
             fontFamily: "Barlow, sans-serif",
           }}
@@ -1032,7 +1032,7 @@ const Index = () => {
                     <div className="min-w-0">
                       <div
                         className="uppercase tracking-[0.28em] mb-1"
-                        style={{ fontSize: "0.68rem", color: "hsl(var(--gold))" }}
+                        style={{ fontSize: "0.75rem", color: "hsl(var(--gold))" }}
                       >
                         {m.id}
                       </div>
@@ -1044,14 +1044,14 @@ const Index = () => {
                       </div>
                       <div
                         className="uppercase tracking-[0.22em] text-cream-dim mt-1"
-                        style={{ fontSize: "0.65rem", fontFamily: "Barlow, sans-serif" }}
+                        style={{ fontSize: "0.72rem", fontFamily: "Barlow, sans-serif" }}
                       >
                         {m.shape} · 153–163 mm
                       </div>
                     </div>
                     <div
                       className="uppercase tracking-[0.28em] text-cream-dim group-hover:text-gold-light transition-colors"
-                      style={{ fontSize: "0.65rem", fontFamily: "Barlow, sans-serif" }}
+                      style={{ fontSize: "0.75rem", fontFamily: "Barlow, sans-serif" }}
                     >
                       {copy.viewCta}
                     </div>
@@ -1102,7 +1102,7 @@ const Index = () => {
                       </div>
                       <div
                         className="text-cream-dim uppercase tracking-[0.22em] mt-1"
-                        style={{ fontSize: "0.62rem", fontFamily: "Barlow, sans-serif" }}
+                        style={{ fontSize: "0.72rem", fontFamily: "Barlow, sans-serif" }}
                       >
                         {COLOUR_BLACK[lang]}
                       </div>
@@ -1112,7 +1112,7 @@ const Index = () => {
                     </div>
                     <span
                       className="uppercase tracking-[0.22em] text-cream-dim group-hover:text-gold-light transition-colors"
-                      style={{ fontSize: "0.68rem", fontFamily: "Barlow, sans-serif" }}
+                      style={{ fontSize: "0.75rem", fontFamily: "Barlow, sans-serif" }}
                     >
                       See the frame →
                     </span>
@@ -1146,7 +1146,7 @@ const Index = () => {
             </h2>
 
             <p
-              className="text-cream-dim leading-relaxed max-w-[680px]"
+              className="text-cream-dim leading-relaxed max-w-[62ch]"
               style={{ fontSize: "1.02rem" }}
             >
               Our signature frames fit 153–163 mm. For measurements outside that range, explore our{" "}
@@ -1191,7 +1191,7 @@ const Index = () => {
                   </div>
                   <div
                     className="uppercase tracking-[0.24em] text-cream-dim"
-                    style={{ fontSize: "0.66rem", fontFamily: "Barlow, sans-serif" }}
+                    style={{ fontSize: "0.72rem", fontFamily: "Barlow, sans-serif" }}
                   >
                     {s.label}
                   </div>

@@ -157,7 +157,7 @@ const Footer = ({ lang: langProp }: { lang?: Lang } = {}) => {
             </Link>
 
             <p
-              className="text-cream-dim/70 max-w-[280px] leading-relaxed"
+              className="text-cream-dim/70 max-w-[280px] leading-relaxed text-pretty"
               style={{ fontSize: "0.78rem" }}
             >
               {lang === "de" ? "Mazzucchelli-Acetat für breite Gesichter (153-163 mm), handgefertigt in der EU." : "Italian Mazzucchelli acetate eyewear for wide faces (153–163 mm). Hand made in EU."}
@@ -175,7 +175,7 @@ const Footer = ({ lang: langProp }: { lang?: Lang } = {}) => {
               className="inline-flex items-center gap-2 self-start mt-3 no-underline transition-colors hover:text-primary"
               style={{
                 fontFamily: "Barlow, sans-serif",
-                fontSize: "0.66rem",
+                fontSize: "0.75rem",
                 letterSpacing: "0.22em",
                 textTransform: "uppercase",
                 color: "hsl(var(--gold-dim))",
@@ -221,13 +221,13 @@ const Footer = ({ lang: langProp }: { lang?: Lang } = {}) => {
         >
           <div className="flex flex-col gap-1">
             <span
-              className="text-cream-dim tracking-wider"
+              className="text-cream-dim tracking-normal"
               style={{ fontSize: "0.7rem" }}
             >
               {t(lang, "footer.rights")}
             </span>
             <span
-              className="text-cream-dim/85 tracking-wider"
+              className="text-cream-dim/85 tracking-normal"
               style={{ fontSize: "0.68rem", lineHeight: 1.5 }}
             >
               Woolet by JAY23 LLC · 412 N. Main Street, STE 100 · Buffalo, Wyoming 82834
@@ -237,7 +237,7 @@ const Footer = ({ lang: langProp }: { lang?: Lang } = {}) => {
             onClick={() => window.dispatchEvent(new Event("open-cookie-settings"))}
             className="text-cream-dim/70 hover:text-primary no-underline uppercase tracking-[0.22em] transition-colors self-start md:self-auto"
             style={{
-              fontSize: "0.66rem",
+              fontSize: "0.75rem",
               background: "none",
               border: "none",
               cursor: "pointer",

@@ -30,7 +30,7 @@ export const FoundingBenefits = ({ compact = false }: { compact?: boolean }) => 
       >
         <span
           className="uppercase tracking-[0.28em] text-primary"
-          style={{ fontSize: "10px", fontFamily: "Barlow, sans-serif", fontWeight: 600 }}
+          style={{ fontSize: "12px", fontFamily: "Barlow, sans-serif", fontWeight: 600 }}
         >
           Founding member
         </span>
