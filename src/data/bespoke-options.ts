@@ -64,6 +64,11 @@ export interface ColorSwatch {
    * they are only hidden from the pickers (see ACTIVE_COLORS).
    */
   retired?: boolean;
+  /**
+   * Temporary stock gap at the atelier for some plate thicknesses.
+   * The sheet stays selectable; the wizard shows `note` next to it until `until` (inclusive).
+   */
+  restock?: { plateMm: Array<4 | 6>; until: string; note: string };
 }
 
 export const COLORS: ColorSwatch[] = [
@@ -76,9 +81,9 @@ export const COLORS: ColorSwatch[] = [
   { id: "p649-2301", code: "P649 2301", name: "Ember sparkle",          hex: "#2a1a10", image: p649.url,      family: "tortoise", thicknessMm: 4 },
   { id: "p685-1583", code: "P685 1583", name: "Emerald rose",           hex: "#2a3a2a", image: p685.url,      family: "colour",   thicknessMm: 4 },
   { id: "3096-1110", code: "3096 1110", name: "Piano black",            hex: "#0a0a0a", image: ace3096.url,   family: "black",    thicknessMm: 4, retired: true },
-  { id: "a305-2826", code: "A305 2826", name: "Deep matte black",       hex: "#050505", image: a305.url,      family: "black",    thicknessMm: 4 },
+  { id: "a305-2826", code: "A305 2826", name: "Deep matte black",       hex: "#050505", image: a305.url,      family: "black",    thicknessMm: 4, restock: { plateMm: [6], until: "2026-11-20", note: "Restocking from Italy - adds 3-4 weeks" } },
   { id: "a423-1176", code: "A423 1176", name: "Black · red core",       hex: "#0d0505", image: a423.url,      family: "black",    note: "Red layer inside", thicknessMm: 4, retired: true },
-  { id: "p668-6006", code: "P668 6006", name: "Slate grain",            hex: "#2a2c30", image: p668.url,      family: "grey",     thicknessMm: 4 },
+  { id: "p668-6006", code: "P668 6006", name: "Slate grain",            hex: "#2a2c30", image: p668.url,      family: "grey",     thicknessMm: 4, restock: { plateMm: [6], until: "2026-11-20", note: "Restocking from Italy - adds 3-4 weeks" } },
   { id: "a132-1960", code: "A132 1960", name: "Smoke translucent",      hex: "#8892a0", image: a132.url,      family: "translucent", note: "Translucent", thicknessMm: 4 },
   { id: "3102-7110", code: "3102 7110", name: "Ice translucent",        hex: "#e7e6e2", image: ace3102w.url,  family: "translucent", note: "Translucent", thicknessMm: 4 },
   { id: "a102-8421", code: "A102 8421", name: "Nude beige",             hex: "#e6d3c0", image: a102.url,      family: "translucent", note: "Translucent", thicknessMm: 4 },
@@ -108,6 +113,18 @@ export const resolveActiveColorId = (id: string | null | undefined): string | nu
   const found = COLORS.find((c) => c.id === id);
   if (!found) return null;
   return found.retired ? RETIRED_COLOR_FALLBACK_ID : found.id;
+};
+
+/**
+ * Restock remark for a sheet at a given plate thickness (front = 6 mm, temples = 4 mm),
+ * or null when the sheet is in stock or the notice has expired.
+ * Workshop notice 23.10.2026: A305 2826 and P668 6006 out in 6 mm for 3-4 weeks.
+ */
+export const restockNoteFor = (c: ColorSwatch, plateMm: 4 | 6, now: Date = new Date()): string | null => {
+  const r = c.restock;
+  if (!r || !r.plateMm.includes(plateMm)) return null;
+  if (now.getTime() > new Date(`${r.until}T23:59:59Z`).getTime()) return null;
+  return r.note;
 };
 
 /** Convenience helpers used by the configurator to filter the picker. */
