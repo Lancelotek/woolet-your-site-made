@@ -5,7 +5,7 @@ import { BESPOKE_SPEC, BESPOKE_FRONT_WIDTH_RANGE } from "@/lib/bespoke-spec";
 
 /**
  * Guards the bespoke FRONT WIDTH range (145–160 mm) against drift.
- * Temple length (145–155 mm) and bridge (20–24 mm) are different
+ * Temple length (145–155 mm) and bridge (20–26 mm) are different
  * measurements and are intentionally not matched here.
  */
 const ROOTS = ["src", "scripts", "public/llms.txt", "public/llms-full.txt", "index.html"];

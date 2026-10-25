@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-22T11:10:07.150Z",
-  "totalRoutes": 383,
+  "generatedAt": "2026-10-25T16:53:53.047Z",
+  "totalRoutes": 388,
   "blogSlugs": {
     "de": [
       "beste-brillen-fuer-grosse-koepfe-2026",
@@ -114,6 +114,7 @@
     "/de/brille-fuer-breites-gesicht",
     "/de/brille-grosse-koepfe",
     "/de/brillen-fuer-grosse-koepfe",
+    "/de/danke",
     "/de/fit",
     "/de/fit/manual",
     "/de/fit/quick",
@@ -125,6 +126,8 @@
     "/de/lp/kickstarter",
     "/de/measure",
     "/de/payments",
+    "/de/produkte/007",
+    "/de/produkte/009",
     "/de/thank-you",
     "/de/thank-you-fb",
     "/de/the-box",
@@ -191,6 +194,8 @@
     "/en/bridge/21mm",
     "/en/bridge/22mm",
     "/en/bridge/24mm",
+    "/en/bridge/25mm",
+    "/en/bridge/26mm",
     "/en/collection",
     "/en/collections/big-glasses-frames",
     "/en/collections/blue-light-glasses-for-wide-faces",

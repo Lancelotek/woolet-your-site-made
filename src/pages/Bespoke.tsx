@@ -533,7 +533,7 @@ const BespokePage = () => {
               Bespoke eyewear, <em className="italic text-gold-light">defined properly.</em>
             </h2>
             <p className="text-cream-dim leading-relaxed mb-5" style={{ fontSize: "0.98rem" }}>
-              Woolet Bespoke is a made-to-measure frame, not a stock size or colour swap. Front widths run from 145–160 mm, bridges from 20-24 mm and temples from 145-155 mm. The finished frame is made for one wearer.
+              Woolet Bespoke is a made-to-measure frame, not a stock size or colour swap. Front widths run from 145–160 mm, bridges from 20-26 mm and temples from 145-155 mm. The finished frame is made for one wearer.
             </p>
             <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.95rem" }}>
               The regular price is $480 USD with standard prescription lenses and free worldwide shipping. Specialty lens upgrades cost extra in the configurator. The $299 price was a <Link to={BESPOKE_FACTS.kickstarterPath} className="text-gold-light underline">Kickstarter-only backer price</Link>, not a shop offer. Your phone-camera scan starts the remote measurement process; you approve the 3D model before production.
@@ -566,7 +566,7 @@ const BespokePage = () => {
             >
               {[
                 { label: "Frame width", woolet: BESPOKE_FACTS.frontWidth, stock: "158 mm (007 and 009)" },
-                { label: "Bridge width", woolet: BESPOKE_FACTS.bridge, stock: "21 mm (007), 22 mm (009)" },
+                { label: "Bridge width", woolet: BESPOKE_FACTS.bridge, stock: "26 mm (007), 25 mm (009)" },
                 { label: "Temple length", woolet: BESPOKE_FACTS.temples, stock: "150 mm (007 and 009)" },
                 { label: "Measurement method", woolet: "Phone-camera scan and model approval", stock: "Fixed dimensions" },
                 { label: "Regular price", woolet: "$480 USD, standard prescription lenses and worldwide shipping included; specialty upgrades cost extra", stock: "See stock product pages" },
@@ -688,7 +688,7 @@ const BespokePage = () => {
               {[
                 "Frame width 145–160 mm (outside the stock 158 mm front)",
                 "Asymmetric ears or significant pantoscopic-tilt needs",
-                "Bridge width 20-24 mm, measured for the wearer's nose",
+                "Bridge width 20-26 mm, measured for the wearer's nose",
                 "Wearers who simply want a one-of-one frame, cut to their face",
               ].map((item) => (
                 <li

@@ -150,14 +150,14 @@ export const blogPostsNL: BlogPost[] = [
     slug: "welke-maat-zonnebril-voor-breed-gezicht",
     title: "Welke zonnebril bij een breed gezicht? 155mm+ fitgids",
     excerpt:
-      "Zonnebrillen voor brede gezichten (155mm+): 155mm+ frontbreedte, 20–22mm brug, 148mm veren. Meet in 60 seconden en vind passende monturen.",
+      "Zonnebrillen voor brede gezichten (155mm+): 155mm+ frontbreedte, 25–26mm brug, 148mm veren. Meet in 60 seconden en vind passende monturen.",
     date: "2026-06-03",
     readTime: 7,
     tags: ["Maatgids", "Zonnebrillen", "Breed gezicht"],
     faq: [
       {
         q: "Welke zonnebrilmaat is het beste voor een breed gezicht?",
-        a: "Een frontbreedte (van scharnier tot scharnier) van 155 mm of meer, een brug van 20–22 mm en veren van minstens 148 mm. Onder 155 mm frontbreedte zal het montuur drukken — hoe groot het glas er ook uitziet.",
+        a: "Een frontbreedte (van scharnier tot scharnier) van 155 mm of meer, een brug van 25–26 mm en veren van minstens 148 mm. Onder 155 mm frontbreedte zal het montuur drukken — hoe groot het glas er ook uitziet.",
       },
       {
         q: "Hoe meet ik mijn gezichtsbreedte voor een zonnebril?",
@@ -177,14 +177,14 @@ export const blogPostsNL: BlogPost[] = [
       },
     ],
     content: `
-<p>De meest gestelde vraag van kopers met een breed gezicht is ook de eenvoudigste: <em>welke zonnebrilmaat heb ik echt nodig?</em> Het korte antwoord past op één regel: een frontbreedte van 155 mm of meer, een brug van 20–22 mm en veren van minstens 148 mm. Het lange antwoord is de rest van deze gids: hoe je de drie getallen op een zonnebril leest, hoe je je gezicht in minder dan een minuut meet en hoe je de meest gemaakte maatfout voorkomt.</p>
+<p>De meest gestelde vraag van kopers met een breed gezicht is ook de eenvoudigste: <em>welke zonnebrilmaat heb ik echt nodig?</em> Het korte antwoord past op één regel: een frontbreedte van 155 mm of meer, een brug van 25–26 mm en veren van minstens 148 mm. Het lange antwoord is de rest van deze gids: hoe je de drie getallen op een zonnebril leest, hoe je je gezicht in minder dan een minuut meet en hoe je de meest gemaakte maatfout voorkomt.</p>
 
 <h2>Het antwoord in één regel</h2>
 
 <p>Als je gezicht op slaaphoogte 155 mm of meer meet, heb je een zonnebrilmontuur nodig met:</p>
 <ul>
 <li><strong>Frontbreedte (van scharnier tot scharnier):</strong> 155 mm of meer</li>
-<li><strong>Brug:</strong> 20–22 mm</li>
+<li><strong>Brug:</strong> 25–26 mm</li>
 <li><strong>Veren:</strong> 148 mm of meer</li>
 </ul>
 
@@ -213,7 +213,7 @@ export const blogPostsNL: BlogPost[] = [
 
 <ul>
 <li><strong>Gezichtsbreedte 150–154 mm — matig breed.</strong> Een standaard-grote zonnebril met 148–152 mm frontbreedte past hier. De meeste "Wide Fit"-lijnen van mainstream-merken (Ray-Ban Justin XL, Warby Parker Wide) vallen in dit bereik.</li>
-<li><strong>Gezichtsbreedte 155–161 mm — breed.</strong> Standaardzonnebrillen van mainstream-merken passen niet. Je hebt een gespecialiseerd merk nodig. De modellen 007 en 009 van Woolet komen met 158 mm frontbreedte, een 21–22 mm brug en 150 mm-veren — precies voor dit bereik ontworpen.</li>
+<li><strong>Gezichtsbreedte 155–161 mm — breed.</strong> Standaardzonnebrillen van mainstream-merken passen niet. Je hebt een gespecialiseerd merk nodig. De modellen 007 en 009 van Woolet komen met 158 mm frontbreedte, een 25–26 mm brug en 150 mm-veren — precies voor dit bereik ontworpen.</li>
 <li><strong>Gezichtsbreedte boven 161 mm — breedste Woolet front is 160 mm (bespoke); meet eerst.</strong> Het standaardaanbod is zeer beperkt. Maatwerk is hier vaak het enige eerlijke antwoord. Woolet Bespoke dekt frontbreedtes van 145 tot 160 mm voor beide vormen.</li>
 <li><strong>Gezichtsbreedte boven 160 mm — buiten ons bereik.</strong> Woolet bouwt geen fronten breder dan 160 mm.</li>
 </ul>
@@ -224,12 +224,12 @@ export const blogPostsNL: BlogPost[] = [
 
 <h2>De brugbreedte is belangrijker dan je denkt</h2>
 
-<p>De brug is de afstand tussen de twee glazen. Mainstream-zonnebrillen gebruiken een brug van 17–19 mm, ontworpen voor een gemiddelde neus. Bredere gezichten hebben bijna altijd ook bredere neuzen — een brug van 20–22 mm zorgt dat het montuur correct op de neuspads rust, het gewicht gelijk verdeeld wordt en de bril bij een lach niet op de jukbeenderen valt. Woolet gebruikt standaard een 21 mm sleutelgatbrug, met bespoke-opties tussen 16 en 26 mm.</p>
+<p>De brug is de afstand tussen de twee glazen. Mainstream-zonnebrillen gebruiken een brug van 17–19 mm, ontworpen voor een gemiddelde neus. Bredere gezichten hebben bijna altijd ook bredere neuzen — een brug van 25–26 mm zorgt dat het montuur correct op de neuspads rust, het gewicht gelijk verdeeld wordt en de bril bij een lach niet op de jukbeenderen valt. Woolet gebruikt standaard een 21 mm sleutelgatbrug, met bespoke-opties tussen 16 en 26 mm.</p>
 
 <h2>Korte FAQ</h2>
 
 <h3>Welke zonnebrilmaat is het beste voor een breed gezicht?</h3>
-<p>Een frontbreedte (van scharnier tot scharnier) van 155 mm of meer, een brug van 20–22 mm en veren van minstens 148 mm. Onder 155 mm frontbreedte zal het montuur drukken — hoe groot het glas er ook uitziet.</p>
+<p>Een frontbreedte (van scharnier tot scharnier) van 155 mm of meer, een brug van 25–26 mm en veren van minstens 148 mm. Onder 155 mm frontbreedte zal het montuur drukken — hoe groot het glas er ook uitziet.</p>
 
 <h3>Hoe meet ik mijn gezichtsbreedte voor een zonnebril?</h3>
 <p>Zoek de breedste plek van je gezicht ter hoogte van je jukbeenderen. Gebruik een creditcard (85,6 mm) als referentie, of gebruik de <a href="/nl/fit">AI Fit Wizard</a> voor een precieze meting.</p>

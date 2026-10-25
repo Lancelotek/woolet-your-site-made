@@ -3,8 +3,8 @@ import CollectionPage from "@/components/CollectionPage";
 const SPEC_TABLE = `<table style="width:100%;border-collapse:collapse;font-size:14px;">
 <thead><tr style="background:#F8F6F1;"><th style="padding:10px;text-align:left;">Frame</th><th style="padding:10px;text-align:right;">Front width</th><th style="padding:10px;text-align:right;">Bridge</th><th style="padding:10px;text-align:right;">Lens</th><th style="padding:10px;text-align:right;">Temple</th></tr></thead>
 <tbody>
-<tr style="border-top:1px solid #E0D5C5;"><td style="padding:10px;"><a href="/en/products/007" style="color:#A07A2A;">Woolet 007 Round / Panto</a></td><td style="padding:10px;text-align:right;">158 mm</td><td style="padding:10px;text-align:right;">21 mm</td><td style="padding:10px;text-align:right;">52 × 52 mm</td><td style="padding:10px;text-align:right;">150 mm</td></tr>
-<tr style="border-top:1px solid #E0D5C5;"><td style="padding:10px;"><a href="/en/products/009" style="color:#A07A2A;">Woolet 009 Soft Square</a></td><td style="padding:10px;text-align:right;">158 mm</td><td style="padding:10px;text-align:right;">22 mm</td><td style="padding:10px;text-align:right;">54 × 50 mm</td><td style="padding:10px;text-align:right;">150 mm</td></tr>
+<tr style="border-top:1px solid #E0D5C5;"><td style="padding:10px;"><a href="/en/products/007" style="color:#A07A2A;">Woolet 007 Round / Panto</a></td><td style="padding:10px;text-align:right;">158 mm</td><td style="padding:10px;text-align:right;">26 mm</td><td style="padding:10px;text-align:right;">53 × 47.6 mm</td><td style="padding:10px;text-align:right;">150 mm</td></tr>
+<tr style="border-top:1px solid #E0D5C5;"><td style="padding:10px;"><a href="/en/products/009" style="color:#A07A2A;">Woolet 009 Soft Square</a></td><td style="padding:10px;text-align:right;">158 mm</td><td style="padding:10px;text-align:right;">25 mm</td><td style="padding:10px;text-align:right;">54 × 44 mm</td><td style="padding:10px;text-align:right;">150 mm</td></tr>
 </tbody></table>`;
 
 const BigGlassesFrames = () => (
@@ -18,7 +18,7 @@ const BigGlassesFrames = () => (
     whyThisFits={[
       "<strong>Big lenses, same squeeze.</strong> Oversized is a style label, not a size. The number that decides fit is front width, hinge to hinge. Woolet's is 158 mm, built for faces 153-163 mm temple to temple.",
       "<strong>Arms that reach your ears.</strong> 150 mm temples clear the widest part of a larger head before they bend, so the bend sits behind the ear instead of pressing above it.",
-      "<strong>A bridge for a wider nose.</strong> 21 mm on the 007 Round, 22 mm on the 009 Soft Square.",
+      "<strong>A bridge for a wider nose.</strong> 26 mm on the 007 Round, 25 mm on the 009 Soft Square.",
       "<strong>Italian Mazzucchelli acetate, hand made in EU.</strong> Acetate holds the shape an optician sets, which matters more the wider the frame.",
       "<strong>Eyeglasses $190. Sunglasses, blue light or readers $210.</strong> Outside 153-163 mm? <a href=\"/en/bespoke\" style=\"color:#A07A2A;\">Bespoke</a> covers any width from 145 to 160 mm, hand made in the EU. Check your width with <a href=\"/en/fit\" style=\"color:#A07A2A;\">FitLens</a> in 60 seconds.",
     ]}
@@ -34,7 +34,7 @@ const BigGlassesFrames = () => (
       {
         heading: "Which oversized shape suits your face",
         paragraphs: [
-          "<strong>007 Round / Panto</strong> softens a square jaw and a strong brow. The 52 mm lens height gives a full, classic oversized look.",
+          "<strong>007 Round / Panto</strong> softens a square jaw and a strong brow. The 47.6 mm lens height gives a full, classic oversized look.",
           "<strong>009 Soft Square</strong> adds structure to a round or full face. The 54 mm lens width reads wide without looking heavy.",
           "Not sure? <a href=\"/en/blog/round-vs-square-glasses-wide-face\" style=\"color:#A07A2A;\">Round vs square glasses for a wide face</a> walks through the rule and the exceptions.",
         ],

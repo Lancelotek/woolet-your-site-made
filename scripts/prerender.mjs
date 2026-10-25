@@ -91,7 +91,7 @@ const NOSCRIPT_OVERRIDES = {
       <tr><th>Brand</th><th>Frame width</th><th>Material</th><th>Bridge</th><th>Rx available</th><th>Starting price</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>Woolet</strong></td><td><strong>158 mm (bespoke 145-160 mm)</strong></td><td><strong>Mazzucchelli acetate, Italy</strong></td><td><strong>21 mm keyhole</strong></td><td><strong>Yes</strong></td><td><strong>$114 pre-order</strong></td></tr>
+      <tr><td><strong>Woolet</strong></td><td><strong>158 mm (bespoke 145-160 mm)</strong></td><td><strong>Mazzucchelli acetate, Italy</strong></td><td><strong>26 mm keyhole</strong></td><td><strong>Yes</strong></td><td><strong>$114 pre-order</strong></td></tr>
       <tr><td>SizeGlasses</td><td>155–165 mm</td><td>TR90</td><td>up to 20 mm</td><td>Yes</td><td>$99</td></tr>
       <tr><td>BXL Eyewear</td><td>145–165 mm</td><td>TR90</td><td>up to 20 mm</td><td>Yes</td><td>$105</td></tr>
       <tr><td>Zenni Extended Fit</td><td>~138–148 mm</td><td>Various</td><td>up to 18 mm</td><td>Yes</td><td>$6.95</td></tr>
@@ -108,7 +108,7 @@ const NOSCRIPT_OVERRIDES = {
   <h3>What face width do I need for Woolet glasses?</h3>
   <p>Woolet standard frames are built for face widths of 155 mm and above. The frame front measures 158 mm. If your face is between 145 mm and 160 mm, the bespoke tier covers that full range. To measure your face width, use a ruler or tape measure at the widest point — typically across your cheekbones.</p>
   <h3>Do Woolet frames work with progressive lenses?</h3>
-  <p>Yes. Both the 007 Round and 009 Square accept single-vision, bifocal, and progressive prescription lenses. The 21 mm keyhole bridge is designed to accommodate the fitting height progressive lenses require.</p>
+  <p>Yes. Both the 007 Round and 009 Square accept single-vision, bifocal, and progressive prescription lenses. The 26 mm keyhole bridge is designed to accommodate the fitting height progressive lenses require.</p>
   <h3>Why don't standard glasses fit wide faces?</h3>
   <p>Most eyewear is manufactured at 135–145 mm total frame width — optimized for the average face. Faces wider than 145 mm push the temples outward, causing the arms to bow, the frame to press against the temples, and the optical centers to misalign with the eyes. No amount of adjustment fixes a frame that was never built for the measurement.</p>
   <h3>How is Woolet different from Zenni Extended Fit or Warby Parker Wide?</h3>

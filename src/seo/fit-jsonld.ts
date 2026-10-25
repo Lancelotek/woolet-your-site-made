@@ -18,7 +18,7 @@ export const fitSoftwareApplicationJsonLd = {
   softwareRequirements: "No installation required — runs in the browser",
   featureList: [
     "Temple-to-temple face width measurement in millimetres",
-    "Nose bridge width measurement (21 mm / 22 mm keyhole)",
+    "Nose bridge width measurement (25 mm / 26 mm keyhole)",
     "Pupillary distance estimate",
     "Recommended frame front width for faces 155 mm and wider",
   ],

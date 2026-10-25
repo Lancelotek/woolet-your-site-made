@@ -70,7 +70,7 @@ export const plPages: Record<string, PlPageConfig> = {
     sub: "Szerokość frontu od 145 do 160 mm, mostek, zauszniki i wysokość soczewki dobierane indywidualnie. Włoski octan Mazzucchelli 1849, ręcznie wykończony w Unii Europejskiej.",
     metaTitle: "Okulary na zamówienie 145-160 mm | Woolet - włoski octan",
     metaDescription:
-      "Okulary na zamówienie dla szerszych twarzy: front 145-160 mm, mostek 20-24 mm, zauszniki dopasowane. Włoski octan Mazzucchelli, ręcznie w UE. Pomiar FitLens w  60 s.",
+      "Okulary na zamówienie dla szerszych twarzy: front 145-160 mm, mostek 20-26 mm, zauszniki dopasowane. Włoski octan Mazzucchelli, ręcznie w UE. Pomiar FitLens w  60 s.",
     primaryKeyword: "okulary na zamówienie",
     ctaPrimaryLabel: "Zmierz twarz (60 s)",
     ctaPrimaryHref: "/pl/fit",
@@ -94,7 +94,7 @@ export const plPages: Record<string, PlPageConfig> = {
     faqs: [
       {
         q: "Jak daleko można dopasować wymiary?",
-        a: "Front: 145–160 mm. Mostek: 20–24 mm. Zauszniki: 135–155 mm. Wysokość soczewki też jest konfigurowalna.",
+        a: "Front: 145–160 mm. Mostek: 20–26 mm. Zauszniki: 135–155 mm. Wysokość soczewki też jest konfigurowalna.",
       },
       {
         q: "Jak wygląda pomiar?",
@@ -248,7 +248,7 @@ plPages["jak-dobrac-okulary-do-twarzy"] = {
     brandSection: {
       h2: "A jeśli masz szeroką twarz?",
       body:
-        "Standardowe marki kończą się na około 145–148 mm. Woolet projektuje oprawki od zera pod twarze 155 mm+ — jeden rozmiar stockowy 158 mm (front), mostek keyhole 21–22 mm, zauszniki 148 mm. Materiał: włoski acetat Mazzucchelli 1849, ręczne wykończenie w UE. Modele 007 (okrągły) i 009 (kwadratowy). Bespoke: front 145–160 mm co 1 mm.",
+        "Standardowe marki kończą się na około 145–148 mm. Woolet projektuje oprawki od zera pod twarze 155 mm+ — jeden rozmiar stockowy 158 mm (front), mostek keyhole 25–26 mm, zauszniki 148 mm. Materiał: włoski acetat Mazzucchelli 1849, ręczne wykończenie w UE. Modele 007 (okrągły) i 009 (kwadratowy). Bespoke: front 145–160 mm co 1 mm.",
       ctas: [
         { label: "Zobacz modele 007 i 009", href: "/en/collection", primary: true },
         { label: "Dołącz do listy VIP", href: "/en/lp/kickstarter" },

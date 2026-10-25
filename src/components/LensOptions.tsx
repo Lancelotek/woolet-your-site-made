@@ -32,7 +32,7 @@ type Props = {
   lang?: PdpLang;
 };
 
-/** Pull the first millimetre figure out of a spec value like "52 × 52 mm". */
+/** Pull the first millimetre figure out of a spec value like "53 × 47.6 mm". */
 function mm(specs: [string, string][], key: string): string | null {
   const row = specs.find(([k]) => k.toLowerCase() === key.toLowerCase());
   const match = row?.[1].match(/(\d+)/);

@@ -142,7 +142,7 @@ export const SIZE_SECTIONS: Record<string, SizeSection[]> = {
     {
       h2: "Who a 155 mm face width actually is",
       body: [
-        "155 mm is the floor of the signature range and the point at which the mainstream market stops being an option at all. Nothing sold as extended fit reaches you reliably here. A 155 mm face typically comes with a head circumference in the 58–59 cm region and a bridge of 20–22 mm, and it is the width at which people usually stop shopping by style and start shopping by number.",
+        "155 mm is the floor of the signature range and the point at which the mainstream market stops being an option at all. Nothing sold as extended fit reaches you reliably here. A 155 mm face typically comes with a head circumference in the 58–59 cm region and a bridge of 25–26 mm, and it is the width at which people usually stop shopping by style and start shopping by number.",
         "If you have arrived at this page after measuring for the first time, the useful reframe is this: 155 mm is not an outlier measurement. It is a normal measurement that the catalogue never covered.",
       ],
     },
@@ -150,13 +150,13 @@ export const SIZE_SECTIONS: Record<string, SizeSection[]> = {
       h2: "Does the 158 mm signature fit a 155 mm face?",
       body: [
         "Yes. This is the width the frame was engineered against. The 158 mm front gives you 3 mm of designed ease across the temples, which is the correct tolerance for an acetate front at this scale — enough for the arms to clear the temporal ridge without contact, not so much that the frame slides.",
-        "Both shapes work at 155 mm. The 007 round, with its 21 mm keyhole bridge, distributes weight higher on the nose and suits a stronger jaw. The 009 soft-square runs a 22 mm bridge and a flatter top line, which holds structure on a fuller face.",
+        "Both shapes work at 155 mm. The 007 round, with its 26 mm keyhole bridge, distributes weight higher on the nose and suits a stronger jaw. The 009 soft-square runs a 25 mm bridge and a flatter top line, which holds structure on a fuller face.",
       ],
       table: {
         head: ["Dimension at 155 mm", "Signature answer"],
         rows: [
           ["Front width", "158 mm — 3 mm designed ease"],
-          ["Bridge", "21 mm (007) / 22 mm (009)"],
+          ["Bridge", "26 mm (007) / 25 mm (009)"],
           ["Temple", "148 mm at 11° drop"],
           ["Bespoke needed?", "No"],
         ],
@@ -181,7 +181,7 @@ export const SIZE_SECTIONS: Record<string, SizeSection[]> = {
     {
       h2: "Who a 158 mm face width actually is",
       body: [
-        "158 mm is the number the entire brand is engineered around. It is not a bespoke variant or a large option inside a broader catalogue — both signature shapes are cut at a 158 mm front as the canonical size, and everything else on this site is described in relation to it. A 158 mm face usually carries a head circumference near 59–60 cm and a bridge of 21–22 mm.",
+        "158 mm is the number the entire brand is engineered around. It is not a bespoke variant or a large option inside a broader catalogue — both signature shapes are cut at a 158 mm front as the canonical size, and everything else on this site is described in relation to it. A 158 mm face usually carries a head circumference near 59–60 cm and a bridge of 25–26 mm.",
         "For context: peer-reviewed anthropometric work puts the average adult male face width around 142 mm. 158 mm is roughly three standard deviations out. That is not a rare face — it is a common face that sits outside the range the industry tooled for.",
       ],
     },
@@ -189,14 +189,14 @@ export const SIZE_SECTIONS: Record<string, SizeSection[]> = {
       h2: "Why 158 mm is the signature and not a special order",
       body: [
         "Building one width properly is a different exercise from scaling a small frame up. At 158 mm the acetate front has to hold tension across a longer span, so the rim runs thicker at the hinge and the barrel count goes to five rather than three. The temple drop is set at 11°, which is steeper than a standard frame, because a wider face nearly always means a deeper skull and the arms have further to travel before the ear.",
-        "The lens geometry follows the same logic. The 007 round is cut 52 × 52 mm and the 009 soft-square 54 × 50 mm, sized so that the optical centres land inside the pupillary distance range that comes with a 158 mm face rather than outside it.",
+        "The lens geometry follows the same logic. The 007 round is cut 53 × 47.6 mm and the 009 soft-square 54 × 44 mm, sized so that the optical centres land inside the pupillary distance range that comes with a 158 mm face rather than outside it.",
       ],
       table: {
         head: ["Spec", "007 Round / 009 Soft Square"],
         rows: [
           ["Front width", "158 mm / 158 mm"],
-          ["Bridge", "21 mm keyhole / 22 mm"],
-          ["Lens", "52 × 52 mm / 54 × 50 mm"],
+          ["Bridge", "26 mm keyhole / 25 mm"],
+          ["Lens", "53 × 47.6 mm / 54 × 44 mm"],
           ["Temple", "148 mm at 11° drop"],
           ["Material", "Mazzucchelli acetate, Milan"],
         ],
@@ -206,7 +206,7 @@ export const SIZE_SECTIONS: Record<string, SizeSection[]> = {
       h2: "Do you need bespoke at 158 mm?",
       body: [
         "No. 158 mm is the middle of the 153–163 mm designed range, which means the signature frame is a direct match and there is nothing bespoke can improve about the front width. Bespoke exists for the widths either side of the range, from 145 mm up to 160 mm, and for wearers whose bridge or temple length falls outside the standard pairing.",
-        "If your face is 158 mm and your bridge is 21 or 22 mm, order the signature 007 or 009 and skip the scan queue entirely.",
+        "If your face is 158 mm and a 25–26 mm frame bridge suits you, order the signature 009 or 007 and skip the scan queue entirely.",
       ],
     },
     {

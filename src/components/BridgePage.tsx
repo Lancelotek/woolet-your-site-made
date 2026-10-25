@@ -21,6 +21,7 @@ const verdictBg: Record<BridgeVerdictKind, string> = {
   "signature-007": "#F3EBD5",
   "signature-009": "#F3EBD5",
   "signature-between": "#EFE9DF",
+  "bespoke-narrower": "#EFE9DF",
   "below-signature": "#F5E6DF",
   "wide-bespoke": "#EFE9DF",
   "out-of-range": "#F5E6DF",
@@ -30,6 +31,7 @@ const verdictLabel: Record<BridgeVerdictKind, string> = {
   "signature-007": "Signature — 007 Keyhole",
   "signature-009": "Signature — 009",
   "signature-between": "Bespoke floor",
+  "bespoke-narrower": "Bespoke",
   "below-signature": "Below our range",
   "wide-bespoke": "Bespoke — wide bridge",
   "out-of-range": "Outside our range",
@@ -99,13 +101,13 @@ function BridgePageInner({ b }: { b: BridgeEntry }) {
 
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 12 }}>
             <span style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#666", border: "1px solid #D9C9A8", padding: "5px 10px", borderRadius: 2 }}>
-              007 Keyhole 21 mm
+              007 Keyhole 26 mm
             </span>
             <span style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#666", border: "1px solid #D9C9A8", padding: "5px 10px", borderRadius: 2 }}>
-              009 Bridge 22 mm
+              009 Bridge 25 mm
             </span>
             <span style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#666", border: "1px solid #D9C9A8", padding: "5px 10px", borderRadius: 2 }}>
-              Bespoke 20–24 mm
+              Bespoke 20–26 mm
             </span>
           </div>
 
@@ -228,7 +230,7 @@ function BridgePageInner({ b }: { b: BridgeEntry }) {
             </table>
           </div>
           <p style={{ fontSize: 12, color: "#666", lineHeight: 1.6, margin: "12px 0 0" }}>
-            Bridge width scales with front width. Bespoke pairs 20–24 mm bridges with any front from 145 to 160 mm.
+            Bridge width scales with front width. Bespoke pairs 20–26 mm bridges with any front from 145 to 160 mm.
           </p>
         </section>
 
@@ -265,7 +267,7 @@ function BridgePageInner({ b }: { b: BridgeEntry }) {
                 Woolet 007 — Round
               </div>
               <div style={{ fontSize: 12, color: "#666", lineHeight: 1.55, marginBottom: 12 }}>
-                21 mm keyhole bridge · 158 mm front · 52 × 52 mm lens · 150 mm temples.
+                26 mm keyhole bridge · 158 mm front · 53 × 47.6 mm lens · 150 mm temples.
               </div>
               <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
                 <span style={{ color: "#7A6420", fontWeight: 700, fontSize: 16 }}>$114</span>
@@ -291,7 +293,7 @@ function BridgePageInner({ b }: { b: BridgeEntry }) {
                 Woolet 009 — Soft Square
               </div>
               <div style={{ fontSize: 12, color: "#666", lineHeight: 1.55, marginBottom: 12 }}>
-                22 mm bridge · 158 mm front · 54 × 50 mm lens · 150 mm temples.
+                25 mm bridge · 158 mm front · 54 × 44 mm lens · 150 mm temples.
               </div>
               <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
                 <span style={{ color: "#7A6420", fontWeight: 700, fontSize: 16 }}>$114</span>

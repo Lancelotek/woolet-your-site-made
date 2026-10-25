@@ -121,8 +121,8 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
   }, []);
 
   const models = [
-    { id: "007", shape: "Rund / Panto", specs: "52□21-150", image: frame007.url, onFace: homeOnFaceCard["007"] },
-    { id: "009", shape: "Weiches Quadrat", specs: "54□22-150", image: frame009.url, onFace: homeOnFaceCard["009"] },
+    { id: "007", shape: "Rund / Panto", specs: "53□26-150", image: frame007.url, onFace: homeOnFaceCard["007"] },
+    { id: "009", shape: "Weiches Quadrat", specs: "54□25-150", image: frame009.url, onFace: homeOnFaceCard["009"] },
   ];
 
   return (

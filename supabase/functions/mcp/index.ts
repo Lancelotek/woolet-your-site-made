@@ -20,7 +20,7 @@ var list_products_default = defineTool({
         name: "Woolet 007 Round",
         shape: "Round",
         widthMm: 158,
-        bridgeMm: 22,
+        bridgeMm: 26,
         preOrderUsd: 133,
         regularUsd: 190,
         url: "https://woolet.co/en/products/007"
@@ -30,7 +30,7 @@ var list_products_default = defineTool({
         name: "Woolet 009 Square",
         shape: "Square",
         widthMm: 158,
-        bridgeMm: 21,
+        bridgeMm: 25,
         preOrderUsd: 133,
         regularUsd: 190,
         url: "https://woolet.co/en/products/009"

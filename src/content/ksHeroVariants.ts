@@ -53,7 +53,7 @@ export const VARIANTS: Record<string, HeroVariant> = {
   "temples-bent": {
     eyebrow: "Every pair you've owned",
     h1: "Stop bending the temples. Get the width.",
-    sub: "A 158 mm front and a 21-22 mm keyhole bridge, built for heads from 153 to 163 mm. Italian Mazzucchelli acetate, hand made in the EU. Join the VIP list for early access and up to {{40off}}.",
+    sub: "A 158 mm front and a 25-26 mm keyhole bridge, built for heads from 153 to 163 mm. Italian Mazzucchelli acetate, hand made in the EU. Join the VIP list for early access and up to {{40off}}.",
     reserveLead:
       "Temples that sit where they should. A refundable {{$1}} reservation holds your {{40OFF}} Founder price when the campaign opens.",
   },

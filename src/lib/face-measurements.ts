@@ -354,7 +354,7 @@ export function getRecommendation(
   const needsWiderBridge = wideNose || lowBridge || bridgeHint;
 
   if (needsWiderBridge) {
-    // Route to 009 (22mm keyhole, soft-square, low-bridge-friendly).
+    // Route to 009 (25mm keyhole, soft-square, low-bridge-friendly).
     const reason = lowBridge
       ? "Your quiz answers point to a low-bridge fit — standard bridges slip, leave marks or push lashes into the lens."
       : wideNose
@@ -365,7 +365,7 @@ export function getRecommendation(
       badgeLabel: "WOOLET 009 — WIDER KEYHOLE",
       badgeColor: "#CAA449",
       title: "Woolet 009 is your fit",
-      body: `At ${faceWidthMm}mm you're inside our stock range. ${reason} 009's 158mm front with a 22mm keyhole bridge is engineered for exactly this.`,
+      body: `At ${faceWidthMm}mm you're inside our stock range. ${reason} 009's 158mm front with a 25mm keyhole bridge is engineered for exactly this.`,
       primaryCta: "See Woolet 009",
       primaryHref: "/en/products/009",
     };
@@ -377,7 +377,7 @@ export function getRecommendation(
     badgeLabel: "WOOLET 007 — STANDARD KEYHOLE",
     badgeColor: "#CAA449",
     title: "Woolet 007 is your fit",
-    body: `At ${faceWidthMm}mm face width and ${noseWidthMm}mm nose width, 007's 158mm round-panto front with a 21mm keyhole bridge lines up with your geometry — no slipping, no lash contact.`,
+    body: `At ${faceWidthMm}mm face width and ${noseWidthMm}mm nose width, 007's 158mm round-panto front with a 26mm keyhole bridge lines up with your geometry — no slipping, no lash contact.`,
     primaryCta: "See Woolet 007",
     primaryHref: "/en/products/007",
   };

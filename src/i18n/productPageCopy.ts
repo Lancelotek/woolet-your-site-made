@@ -100,17 +100,17 @@ export const PDP_COPY: Record<PdpLang, PdpCopy> = {
     models: {
       "007": {
         title: "Woolet 007 — Round Panto Acetate Glasses, 158 mm",
-        metaDescription: "Round panto acetate frame, 158 mm wide with 21 mm keyhole bridge. Engineered for 155 mm+ faces. Reserve for $1, locks $114 founding price.",
-        ogDescription: "Reserve for $1, refundable. Locks $114 founding price (SRP $190). 158 mm front, 21 mm keyhole bridge.",
-        jsonLdDescription: "Round panto acetate frame, 158 mm wide with a 21 mm keyhole bridge. Mazzucchelli acetate from Milan, hand made in EU. Engineered for faces 155 mm and wider.",
+        metaDescription: "Round panto acetate frame, 158 mm wide with 26 mm keyhole bridge. Engineered for 155 mm+ faces. Reserve for $1, locks $114 founding price.",
+        ogDescription: "Reserve for $1, refundable. Locks $114 founding price (SRP $190). 158 mm front, 26 mm keyhole bridge.",
+        jsonLdDescription: "Round panto acetate frame, 158 mm wide with a 26 mm keyhole bridge. Mazzucchelli acetate from Milan, hand made in EU. Engineered for faces 155 mm and wider.",
         shapeEm: "Panto",
-        intro: "Engineered for faces 155 mm and wider. 158 mm front, 21 mm keyhole bridge.",
+        intro: "Engineered for faces 155 mm and wider. 158 mm front, 26 mm keyhole bridge.",
         crossLink: "Prefer a soft-square shape? See the Woolet 009 →",
         specs: [
           ["Material", "Mazzucchelli acetate from Milan"],
           ["Frame Width", "158 mm (hinge to hinge)"],
-          ["Lens", "52 × 52 mm (round panto)"],
-          ["Bridge", "Keyhole 21 mm"],
+          ["Lens", "53 × 47.6 mm (round panto)"],
+          ["Bridge", "Keyhole 26 mm"],
           ["Temples", "148 mm, 11° angle"],
           ["Hinges", "5-barrel PVD Gunmetal"],
           ["Rivets", "Double, PVD Gunmetal"],
@@ -119,7 +119,7 @@ export const PDP_COPY: Record<PdpLang, PdpCopy> = {
           "Mazzucchelli acetate from Milan — hand made in EU",
           "158 mm — engineered for 155 mm+ faces",
           "5-barrel PVD Gunmetal hinges — built for years of daily wear",
-          "Keyhole bridge 21 mm — zero slipping",
+          "Keyhole bridge 26 mm — zero slipping",
           "Hand polish + bevel cut — not machine polish",
         ],
       },
@@ -127,14 +127,14 @@ export const PDP_COPY: Record<PdpLang, PdpCopy> = {
         title: "Woolet 009 — Soft-Square Acetate Glasses, 158 mm",
         metaDescription: "Soft-square acetate frame, 158 mm wide with 20 mm bridge. Engineered for 155 mm+ faces. Reserve for $1, locks $114 founding price.",
         ogDescription: "Reserve for $1, refundable. Locks $114 founding price (SRP $190). 158 mm front, 20 mm bridge.",
-        jsonLdDescription: "Soft-square acetate frame, 158 mm wide with a 22 mm bridge. Mazzucchelli acetate from Milan, hand made in EU. Engineered for faces 155 mm and wider.",
+        jsonLdDescription: "Soft-square acetate frame, 158 mm wide with a 25 mm bridge. Mazzucchelli acetate from Milan, hand made in EU. Engineered for faces 155 mm and wider.",
         shapeEm: "Soft-Square",
         intro: "Engineered for faces 155 mm and wider. 158 mm front, 20 mm bridge.",
         crossLink: "Prefer a round panto? See the Woolet 007 →",
         specs: [
           ["Material", "Mazzucchelli acetate from Milan"],
           ["Frame Width", "158 mm (hinge to hinge)"],
-          ["Lens", "54 × 50 mm (soft-square)"],
+          ["Lens", "54 × 44 mm (soft-square)"],
           ["Bridge", "Keyhole 20 mm"],
           ["Temples", "148 mm, 11° angle"],
           ["Hinges", "5-barrel PVD Gunmetal"],
@@ -186,17 +186,17 @@ export const PDP_COPY: Record<PdpLang, PdpCopy> = {
     models: {
       "007": {
         title: "Woolet 007 — lunettes rondes panto en acétate, 158 mm",
-        metaDescription: "Monture ronde panto en acétate, 158 mm de large avec pont keyhole 21 mm. Conçue pour les visages de 155 mm+. Réservez pour 1 $ et bloquez le prix fondateur de 114 $.",
-        ogDescription: "Réservez pour 1 $, remboursable. Bloque le prix fondateur de 114 $ (prix public 190 $). Face de 158 mm, pont keyhole de 21 mm.",
-        jsonLdDescription: "Monture ronde panto en acétate, 158 mm de large avec un pont keyhole de 21 mm. Acétate Mazzucchelli de Milan, fait main dans l'UE. Conçue pour les visages de 155 mm et plus.",
+        metaDescription: "Monture ronde panto en acétate, 158 mm de large avec pont keyhole 26 mm. Conçue pour les visages de 155 mm+. Réservez pour 1 $ et bloquez le prix fondateur de 114 $.",
+        ogDescription: "Réservez pour 1 $, remboursable. Bloque le prix fondateur de 114 $ (prix public 190 $). Face de 158 mm, pont keyhole de 26 mm.",
+        jsonLdDescription: "Monture ronde panto en acétate, 158 mm de large avec un pont keyhole de 26 mm. Acétate Mazzucchelli de Milan, fait main dans l'UE. Conçue pour les visages de 155 mm et plus.",
         shapeEm: "Panto",
-        intro: "Conçue pour les visages de 155 mm et plus. Face de 158 mm, pont keyhole de 21 mm.",
+        intro: "Conçue pour les visages de 155 mm et plus. Face de 158 mm, pont keyhole de 26 mm.",
         crossLink: "Vous préférez une forme carrée douce ? Découvrez la Woolet 009 →",
         specs: [
           ["Matière", "Acétate Mazzucchelli de Milan"],
           ["Largeur de monture", "158 mm (de charnière à charnière)"],
-          ["Verres", "52 × 52 mm (panto ronde)"],
-          ["Pont", "Keyhole 21 mm"],
+          ["Verres", "53 × 47.6 mm (panto ronde)"],
+          ["Pont", "Keyhole 26 mm"],
           ["Branches", "148 mm, angle de 11°"],
           ["Charnières", "5 barils, PVD Gunmetal"],
           ["Rivets", "Doubles, PVD Gunmetal"],
@@ -205,7 +205,7 @@ export const PDP_COPY: Record<PdpLang, PdpCopy> = {
           "Acétate Mazzucchelli de Milan - fait main dans l'UE",
           "158 mm - conçue pour les visages de 155 mm+",
           "Charnières 5 barils PVD Gunmetal - faites pour des années de port quotidien",
-          "Pont keyhole 21 mm - zéro glissement",
+          "Pont keyhole 26 mm - zéro glissement",
           "Polie à la main, bords biseautés - pas de polissage machine",
         ],
       },
@@ -213,14 +213,14 @@ export const PDP_COPY: Record<PdpLang, PdpCopy> = {
         title: "Woolet 009 — lunettes carrées en acétate, 158 mm",
         metaDescription: "Monture carrée douce en acétate, 158 mm de large avec pont 20 mm. Conçue pour les visages de 155 mm+. Réservez pour 1 $ et bloquez le prix fondateur de 114 $.",
         ogDescription: "Réservez pour 1 $, remboursable. Bloque le prix fondateur de 114 $ (prix public 190 $). Face de 158 mm, pont de 20 mm.",
-        jsonLdDescription: "Monture carrée douce en acétate, 158 mm de large avec un pont de 22 mm. Acétate Mazzucchelli de Milan, fait main dans l'UE. Conçue pour les visages de 155 mm et plus.",
+        jsonLdDescription: "Monture carrée douce en acétate, 158 mm de large avec un pont de 25 mm. Acétate Mazzucchelli de Milan, fait main dans l'UE. Conçue pour les visages de 155 mm et plus.",
         shapeEm: "Carrée douce",
         intro: "Conçue pour les visages de 155 mm et plus. Face de 158 mm, pont de 20 mm.",
         crossLink: "Vous préférez une panto ronde ? Découvrez la Woolet 007 →",
         specs: [
           ["Matière", "Acétate Mazzucchelli de Milan"],
           ["Largeur de monture", "158 mm (de charnière à charnière)"],
-          ["Verres", "54 × 50 mm (carrée douce)"],
+          ["Verres", "54 × 44 mm (carrée douce)"],
           ["Pont", "Keyhole 20 mm"],
           ["Branches", "148 mm, angle de 11°"],
           ["Charnières", "5 barils, PVD Gunmetal"],
@@ -272,17 +272,17 @@ export const PDP_COPY: Record<PdpLang, PdpCopy> = {
     models: {
       "007": {
         title: "Woolet 007 — ronde panto acetaatbril, 158 mm",
-        metaDescription: "Ronde panto in acetaat, 158 mm breed met 21 mm brug. Ontworpen voor gezichten van 155 mm+. Reserveer voor $1 en zet de $114 founding-prijs vast.",
-        ogDescription: "Reserveer voor $1, terugbetaalbaar. Zet de founding-prijs van $114 vast (adviesprijs $190). Front van 158 mm, keyhole-brug van 21 mm.",
-        jsonLdDescription: "Ronde panto in acetaat, 158 mm breed met een keyhole-brug van 21 mm. Mazzucchelli-acetaat uit Milaan, handgemaakt in de EU. Ontworpen voor gezichten van 155 mm en breder.",
+        metaDescription: "Ronde panto in acetaat, 158 mm breed met 26 mm brug. Ontworpen voor gezichten van 155 mm+. Reserveer voor $1 en zet de $114 founding-prijs vast.",
+        ogDescription: "Reserveer voor $1, terugbetaalbaar. Zet de founding-prijs van $114 vast (adviesprijs $190). Front van 158 mm, keyhole-brug van 26 mm.",
+        jsonLdDescription: "Ronde panto in acetaat, 158 mm breed met een keyhole-brug van 26 mm. Mazzucchelli-acetaat uit Milaan, handgemaakt in de EU. Ontworpen voor gezichten van 155 mm en breder.",
         shapeEm: "Panto",
-        intro: "Ontworpen voor gezichten van 155 mm en breder. Front van 158 mm, keyhole-brug van 21 mm.",
+        intro: "Ontworpen voor gezichten van 155 mm en breder. Front van 158 mm, keyhole-brug van 26 mm.",
         crossLink: "Liever een zacht vierkante vorm? Bekijk de Woolet 009 →",
         specs: [
           ["Materiaal", "Mazzucchelli-acetaat uit Milaan"],
           ["Montuurbreedte", "158 mm (van scharnier tot scharnier)"],
-          ["Glazen", "52 × 52 mm (ronde panto)"],
-          ["Brug", "Keyhole 21 mm"],
+          ["Glazen", "53 × 47.6 mm (ronde panto)"],
+          ["Brug", "Keyhole 26 mm"],
           ["Veren", "148 mm, hoek van 11°"],
           ["Scharnieren", "5-barrel, PVD Gunmetal"],
           ["Klinknagels", "Dubbel, PVD Gunmetal"],
@@ -291,7 +291,7 @@ export const PDP_COPY: Record<PdpLang, PdpCopy> = {
           "Mazzucchelli-acetaat uit Milaan - handgemaakt in de EU",
           "158 mm - ontworpen voor gezichten van 155 mm+",
           "5-barrel PVD Gunmetal-scharnieren - gemaakt voor jaren dagelijks gebruik",
-          "Keyhole-brug 21 mm - glijdt niet af",
+          "Keyhole-brug 26 mm - glijdt niet af",
           "Met de hand gepolijst, schuin afgewerkte randen - geen machinepolijsting",
         ],
       },
@@ -299,14 +299,14 @@ export const PDP_COPY: Record<PdpLang, PdpCopy> = {
         title: "Woolet 009 — vierkante acetaatbril, 158 mm",
         metaDescription: "Zachte vierkante acetaatbril, 158 mm breed met 20 mm brug. Voor gezichten van 155 mm+. Reserveer voor $1 en zet de $114 founding-prijs vast.",
         ogDescription: "Reserveer voor $1, terugbetaalbaar. Zet de founding-prijs van $114 vast (adviesprijs $190). Front van 158 mm, brug van 20 mm.",
-        jsonLdDescription: "Zacht vierkant acetaatmontuur, 158 mm breed met een brug van 22 mm. Mazzucchelli-acetaat uit Milaan, handgemaakt in de EU. Ontworpen voor gezichten van 155 mm en breder.",
+        jsonLdDescription: "Zacht vierkant acetaatmontuur, 158 mm breed met een brug van 25 mm. Mazzucchelli-acetaat uit Milaan, handgemaakt in de EU. Ontworpen voor gezichten van 155 mm en breder.",
         shapeEm: "Zacht vierkant",
         intro: "Ontworpen voor gezichten van 155 mm en breder. Front van 158 mm, brug van 20 mm.",
         crossLink: "Liever een ronde panto? Bekijk de Woolet 007 →",
         specs: [
           ["Materiaal", "Mazzucchelli-acetaat uit Milaan"],
           ["Montuurbreedte", "158 mm (van scharnier tot scharnier)"],
-          ["Glazen", "54 × 50 mm (zacht vierkant)"],
+          ["Glazen", "54 × 44 mm (zacht vierkant)"],
           ["Brug", "Keyhole 20 mm"],
           ["Veren", "148 mm, hoek van 11°"],
           ["Scharnieren", "5-barrel, PVD Gunmetal"],
@@ -520,7 +520,7 @@ export const PRODUCT_FAQ_I18N: Record<Exclude<PdpLang, "en">, FaqItem[]> = {
     },
     {
       q: "En quoi Woolet diffère-t-elle des lunettes pour visage large moins chères ?",
-      a: "La plupart des marques de montures larges (Fatheadz, BXL, Zenni) utilisent du plastique TR90 ou un acétate bon marché. Woolet utilise l'acétate italien Mazzucchelli, le même matériau que les montures à plus de 500 $. Nous y ajoutons des charnières 5 barils PVD Gunmetal, un pont keyhole de 21 mm et un polissage à la main. Une qualité premium au prix Membre fondateur de 114 $ (prix normal 190 $, soit 40 % d'économie).",
+      a: "La plupart des marques de montures larges (Fatheadz, BXL, Zenni) utilisent du plastique TR90 ou un acétate bon marché. Woolet utilise l'acétate italien Mazzucchelli, le même matériau que les montures à plus de 500 $. Nous y ajoutons des charnières 5 barils PVD Gunmetal, un pont keyhole de 26 mm et un polissage à la main. Une qualité premium au prix Membre fondateur de 114 $ (prix normal 190 $, soit 40 % d'économie).",
     },
     {
       q: "Quand vais-je recevoir ma commande ?",
@@ -542,7 +542,7 @@ export const PRODUCT_FAQ_I18N: Record<Exclude<PdpLang, "en">, FaqItem[]> = {
     },
     {
       q: "Waarin verschilt Woolet van goedkopere brillen voor brede gezichten?",
-      a: "De meeste merken met brede monturen (Fatheadz, BXL, Zenni) gebruiken TR90-kunststof of goedkoop acetaat. Woolet gebruikt Italiaans Mazzucchelli-acetaat, hetzelfde materiaal als in monturen van $500+. Daar komen 5-barrel PVD Gunmetal-scharnieren, een keyhole-brug van 21 mm en handmatig polijsten bij. Premium kwaliteit voor de Founding Member-prijs van $114 (normaal $190, 40% korting).",
+      a: "De meeste merken met brede monturen (Fatheadz, BXL, Zenni) gebruiken TR90-kunststof of goedkoop acetaat. Woolet gebruikt Italiaans Mazzucchelli-acetaat, hetzelfde materiaal als in monturen van $500+. Daar komen 5-barrel PVD Gunmetal-scharnieren, een keyhole-brug van 26 mm en handmatig polijsten bij. Premium kwaliteit voor de Founding Member-prijs van $114 (normaal $190, 40% korting).",
     },
     {
       q: "Wanneer ontvang ik mijn bestelling?",
@@ -638,9 +638,9 @@ type GalleryCopy = {
 };
 
 const GALLERY_SHAPE_FR: Record<PdpModel, string> = { "007": "panto rondes", "009": "carrées douces" };
-const GALLERY_BRIDGE_FR: Record<PdpModel, string> = { "007": "pont keyhole de 21 mm", "009": "pont de 22 mm" };
+const GALLERY_BRIDGE_FR: Record<PdpModel, string> = { "007": "pont keyhole de 26 mm", "009": "pont de 25 mm" };
 const GALLERY_SHAPE_NL: Record<PdpModel, string> = { "007": "ronde panto", "009": "zacht vierkante" };
-const GALLERY_BRIDGE_NL: Record<PdpModel, string> = { "007": "keyhole-brug van 21 mm", "009": "brug van 22 mm" };
+const GALLERY_BRIDGE_NL: Record<PdpModel, string> = { "007": "keyhole-brug van 26 mm", "009": "brug van 25 mm" };
 
 /** Keys of `shared` are `${model}:${mediaId}` from src/data/product-media.ts. */
 export const GALLERY_COPY: Record<Exclude<PdpLang, "en">, GalleryCopy> = {
@@ -659,8 +659,8 @@ export const GALLERY_COPY: Record<Exclude<PdpLang, "en">, GalleryCopy> = {
         caption: "Charnière PVD 5 barils, rivets doubles, bord poli à la main",
       },
       "007:scale": {
-        alt: "Schéma des dimensions de la Woolet 007 panto ronde : largeur de face 158 mm, largeur de verre 52 mm, hauteur de verre 52 mm, pont 21 mm, branches 150 mm",
-        caption: "Face 158 mm · verres 52 × 52 mm · pont 21 mm · branches 150 mm",
+        alt: "Schéma des dimensions de la Woolet 007 panto ronde : largeur de face 158 mm, largeur de verre 53 mm, hauteur de verre 47.6 mm, pont 26 mm, branches 150 mm",
+        caption: "Face 158 mm · verres 53 × 47.6 mm · pont 26 mm · branches 150 mm",
       },
       "009:on-face": {
         alt: "Greg, testeur au visage de 158 mm, portant les lunettes Woolet 009 carrées douces en acétate",
@@ -671,8 +671,8 @@ export const GALLERY_COPY: Record<Exclude<PdpLang, "en">, GalleryCopy> = {
         caption: "De profil - les branches restent droites, sans s'écarter",
       },
       "009:scale": {
-        alt: "Schéma des dimensions de la Woolet 009 carrée douce : largeur de face 158 mm, largeur de verre 54 mm, hauteur de verre 50 mm, pont 22 mm, branches 150 mm",
-        caption: "Face 158 mm · verres 54 × 50 mm · pont 22 mm · branches 150 mm",
+        alt: "Schéma des dimensions de la Woolet 009 carrée douce : largeur de face 158 mm, largeur de verre 54 mm, hauteur de verre 44 mm, pont 25 mm, branches 150 mm",
+        caption: "Face 158 mm · verres 54 × 44 mm · pont 25 mm · branches 150 mm",
       },
     },
   },
@@ -691,8 +691,8 @@ export const GALLERY_COPY: Record<Exclude<PdpLang, "en">, GalleryCopy> = {
         caption: "5-barrel PVD-scharnier, dubbele klinknagels, handgepolijste rand",
       },
       "007:scale": {
-        alt: "Maattekening van de Woolet 007 ronde panto: frontbreedte 158 mm, glasbreedte 52 mm, glashoogte 52 mm, brug 21 mm, veerlengte 150 mm",
-        caption: "Front 158 mm · glazen 52 × 52 mm · brug 21 mm · veren 150 mm",
+        alt: "Maattekening van de Woolet 007 ronde panto: frontbreedte 158 mm, glasbreedte 53 mm, glashoogte 47.6 mm, brug 26 mm, veerlengte 150 mm",
+        caption: "Front 158 mm · glazen 53 × 47.6 mm · brug 26 mm · veren 150 mm",
       },
       "009:on-face": {
         alt: "Greg, tester met een gezicht van 158 mm, draagt de Woolet 009 zacht vierkante acetaatbril",
@@ -703,8 +703,8 @@ export const GALLERY_COPY: Record<Exclude<PdpLang, "en">, GalleryCopy> = {
         caption: "Zijaanzicht - de veren lopen recht, buigen niet uit",
       },
       "009:scale": {
-        alt: "Maattekening van de Woolet 009 zacht vierkant: frontbreedte 158 mm, glasbreedte 54 mm, glashoogte 50 mm, brug 22 mm, veerlengte 150 mm",
-        caption: "Front 158 mm · glazen 54 × 50 mm · brug 22 mm · veren 150 mm",
+        alt: "Maattekening van de Woolet 009 zacht vierkant: frontbreedte 158 mm, glasbreedte 54 mm, glashoogte 44 mm, brug 25 mm, veerlengte 150 mm",
+        caption: "Front 158 mm · glazen 54 × 44 mm · brug 25 mm · veren 150 mm",
       },
     },
   },

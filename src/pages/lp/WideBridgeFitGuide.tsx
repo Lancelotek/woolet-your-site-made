@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import noseBridgeAsset from "@/assets/nose-bridge-comparison.png.asset.json";
+const noseBridgeAsset = { url: "/images/specs/nose-bridge-comparison-woolet-25-26mm.png" };
 import BridgeFitExplainer from "@/components/BridgeFitExplainer";
 import { WIDE_BRIDGE_GUIDE_FAQ } from "@/content/wideBridgeGuideFaq";
 
@@ -17,7 +17,7 @@ const guideLd = {
   "@type": "Article",
   headline: "Wide Bridge Fit Guide — How to Pick Bridge Width & Stop Glasses Sliding",
   description:
-    "A practical guide to bridge width for glasses: how to measure your nose bridge, when to choose 21 mm or 22 mm, keyhole vs saddle, and how to stop glasses sliding down your nose.",
+    "A practical guide to bridge width for glasses: how to measure your nose bridge, when to choose 25 mm or 26 mm, keyhole vs saddle, and how to stop glasses sliding down your nose.",
   inLanguage: "en",
   url: CANONICAL,
   mainEntityOfPage: CANONICAL,
@@ -57,7 +57,7 @@ const WideBridgeFitGuide = () => {
     <div className="relative z-[1] flex flex-col min-h-screen">
       <SEO
         title="Wide Bridge Fit Guide — How to Pick Bridge Width & Stop Glasses Sliding | Woolet"
-        description="How to measure your nose bridge, when to pick 21 mm or 22 mm, keyhole vs saddle, and the real reason glasses slide down your nose — plus how to fix it."
+        description="How to measure your nose bridge, when to pick 25 mm or 26 mm, keyhole vs saddle, and the real reason glasses slide down your nose — plus how to fix it."
         lang="en"
         path={PATH}
         jsonLd={[guideLd, breadcrumbLd, faqLd]}
@@ -115,7 +115,7 @@ const WideBridgeFitGuide = () => {
         <figure className="mb-14">
           <img
             src={noseBridgeAsset.url}
-            alt="Nose bridge fit diagram for glasses — standard 18–20 mm saddle bridge pinching the sides of a wide nose vs Woolet 21 mm and 24 mm wider keyhole bridges sitting level on the top of the nose"
+            alt="Nose bridge fit diagram for glasses — standard 18–20 mm saddle bridge pinching the sides of a wide nose vs Woolet 25 mm and 26 mm wider bridges sitting level on the top of the nose"
             className="w-full h-auto block"
             style={{ border: "1px solid hsl(0 0% 100% / 0.08)" }}
             loading="lazy"
@@ -203,7 +203,7 @@ const WideBridgeFitGuide = () => {
             {[
               { range: "< 17 mm", label: "Narrow", note: "Most petite frames. Will pinch a wide nose immediately." },
               { range: "17–20 mm", label: "Mainstream", note: "Standard for off-the-shelf eyewear. Works for average noses." },
-              { range: "21–22 mm", label: "Wide (Woolet 007 / 009)", note: "Stops the slide for the majority of wider noses without going bespoke." },
+              { range: "25–26 mm", label: "Wide (Woolet 007 / 009)", note: "Stops the slide for the majority of wider noses without going bespoke." },
               { range: "23–26 mm", label: "Bespoke", note: "For high or unusually broad bridges. Custom-cut from Italian acetate." },
             ].map((row, i, arr) => (
               <div
@@ -395,7 +395,7 @@ const WideBridgeFitGuide = () => {
                 border: "1px solid hsl(0 0% 100% / 0.08)",
               }}
             >
-              Shop Keyhole 21–22 mm
+              Shop Keyhole 25–26 mm
             </Link>
             <Link
               to="/en/fit/bespoke"
@@ -407,7 +407,7 @@ const WideBridgeFitGuide = () => {
                 border: "1px solid hsl(0 0% 100% / 0.08)",
               }}
             >
-              Bespoke 20–24 mm
+              Bespoke 20–26 mm
             </Link>
           </div>
         </section>

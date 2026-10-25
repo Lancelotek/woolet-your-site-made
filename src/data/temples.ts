@@ -105,7 +105,7 @@ export const TEMPLES: TempleEntry[] = [
       "Yes — 150 mm is exactly the signature temple on both 007 and 009. No bespoke, no upcharge. This is the fit.",
     metaTitle: "150 mm Temple Glasses for Wide Faces and Wide Temples",
     metaDescription:
-      "150 mm temple glasses: the Woolet signature. Italian Mazzucchelli acetate, hand made in EU. 158 mm front · 21–22 mm keyhole bridge · 150 mm temples.",
+      "150 mm temple glasses: the Woolet signature. Italian Mazzucchelli acetate, hand made in EU. 158 mm front · 25–26 mm keyhole bridge · 150 mm temples.",
     bespokeNote:
       "Bespoke keeps 150 mm as the default and lets you shift 5 mm shorter or 5 mm longer if your measurement demands it.",
     bestFor: "Wide faces (153–163 mm) with average-to-large head circumference — the canonical Woolet fit.",

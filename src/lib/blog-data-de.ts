@@ -157,14 +157,14 @@ export const blogPostsDE: BlogPost[] = [
   {
     slug: "welche-groesse-sonnenbrille-breites-gesicht",
     title: "Welche Sonnenbrille bei breitem Gesicht? 155-mm-Fit-Guide",
-    excerpt: "Sonnenbrillen für breite Gesichter (155mm+): 155mm+ Frontbreite, 20–22mm Steg, 148mm Bügel. In 60 Sekunden messen und passende Fassungen finden.",
+    excerpt: "Sonnenbrillen für breite Gesichter (155mm+): 155mm+ Frontbreite, 25–26mm Steg, 148mm Bügel. In 60 Sekunden messen und passende Fassungen finden.",
     date: "2026-06-03",
     readTime: 7,
     tags: ["Größenberatung", "Sonnenbrillen", "Breites Gesicht"],
     faq: [
       {
         q: "Welche Sonnenbrillengröße ist am besten für ein breites Gesicht?",
-        a: "Eine Frontbreite (von Scharnier zu Scharnier) von 155 mm oder mehr, ein 20–22 mm breiter Steg und Bügel von mindestens 148 mm. Unter 155 mm Frontbreite wird die Fassung drücken – ganz egal, wie groß das Glas aussieht.",
+        a: "Eine Frontbreite (von Scharnier zu Scharnier) von 155 mm oder mehr, ein 25–26 mm breiter Steg und Bügel von mindestens 148 mm. Unter 155 mm Frontbreite wird die Fassung drücken – ganz egal, wie groß das Glas aussieht.",
       },
       {
         q: "Wie messe ich meine Gesichtsbreite für eine Sonnenbrille?",
@@ -184,14 +184,14 @@ export const blogPostsDE: BlogPost[] = [
       },
     ],
     content: `
-<p>Die häufigste Frage, die uns von Käufern mit breiten Gesichtern gestellt wird, ist auch die einfachste: <em>Welche Sonnenbrillengröße brauche ich wirklich?</em> Die kurze Antwort passt in eine Zeile: eine Frontbreite von 155 mm oder mehr, ein Steg von 20–22 mm und Bügel von mindestens 148 mm. Die lange Antwort ist der Inhalt dieses Ratgebers: wie Sie die drei Zahlen auf einer Sonnenbrille lesen, wie Sie Ihr Gesicht in unter einer Minute vermessen und wie Sie den häufigsten Fehler bei der Größenwahl vermeiden.</p>
+<p>Die häufigste Frage, die uns von Käufern mit breiten Gesichtern gestellt wird, ist auch die einfachste: <em>Welche Sonnenbrillengröße brauche ich wirklich?</em> Die kurze Antwort passt in eine Zeile: eine Frontbreite von 155 mm oder mehr, ein Steg von 25–26 mm und Bügel von mindestens 148 mm. Die lange Antwort ist der Inhalt dieses Ratgebers: wie Sie die drei Zahlen auf einer Sonnenbrille lesen, wie Sie Ihr Gesicht in unter einer Minute vermessen und wie Sie den häufigsten Fehler bei der Größenwahl vermeiden.</p>
 
 <h2>Die Antwort in einer Zeile</h2>
 
 <p>Wenn Ihr Gesicht auf Höhe der Schläfen 155 mm oder mehr misst, benötigen Sie eine Sonnenbrillenfassung mit:</p>
 <ul>
 <li><strong>Frontbreite (von Scharnier zu Scharnier):</strong> 155 mm oder mehr</li>
-<li><strong>Steg:</strong> 20–22 mm</li>
+<li><strong>Steg:</strong> 25–26 mm</li>
 <li><strong>Bügel:</strong> 148 mm oder mehr</li>
 </ul>
 
@@ -220,7 +220,7 @@ export const blogPostsDE: BlogPost[] = [
 
 <ul>
 <li><strong>Gesichtsbreite 150–154 mm — mittelbreit.</strong> Eine standardmäßig-große Sonnenbrille mit 148–152 mm Frontbreite wird hier passen. Die meisten „Wide Fit“-Linien von Mainstream-Marken (Ray-Ban Justin XL, Warby Parker Wide) fallen in diesen Bereich.</li>
-<li><strong>Gesichtsbreite 155–161 mm — breit.</strong> Standard-Sonnenbrillen von Mainstream-Marken werden nicht passen. Sie benötigen eine spezialisierte Marke für breite Gesichter. Die Modelle 007 und 009 von Woolet werden mit einer Frontbreite von 158 mm, einem Steg von 21–22 mm und 150 mm langen Bügeln geliefert – genau für diesen Bereich konzipiert.</li>
+<li><strong>Gesichtsbreite 155–161 mm — breit.</strong> Standard-Sonnenbrillen von Mainstream-Marken werden nicht passen. Sie benötigen eine spezialisierte Marke für breite Gesichter. Die Modelle 007 und 009 von Woolet werden mit einer Frontbreite von 158 mm, einem Steg von 25–26 mm und 150 mm langen Bügeln geliefert – genau für diesen Bereich konzipiert.</li>
 <li><strong>Gesichtsbreite über 161 mm — breiteste Woolet-Front ist 160 mm (Bespoke); zuerst messen.</strong> Die Auswahl an Standardmodellen ist sehr begrenzt. Eine Maßanfertigung ist hier oft die einzig ehrliche Antwort. Der Maßanfertigungs-Service von Woolet deckt Frontbreiten von 145 bis 160 mm für beide Formen ab.</li>
 <li><strong>Gesichtsbreite über 160 mm — außerhalb unseres Bereichs.</strong> Woolet fertigt keine Frontbreiten über 160 mm.</li>
 </ul>
@@ -231,12 +231,12 @@ export const blogPostsDE: BlogPost[] = [
 
 <h2>Die Stegbreite ist wichtiger als Sie denken</h2>
 
-<p>Der Steg ist der Abstand zwischen den beiden Gläsern. Mainstream-Sonnenbrillen verwenden einen 17–19 mm breiten Steg, der für eine Standardnase ausgelegt ist. Breitere Gesichter haben fast immer auch breitere Nasen – ein 20–22 mm breiter Steg sorgt dafür, dass die Fassung korrekt auf den Nasenpads aufliegt, das Gewicht gleichmäßig verteilt wird und die Brille beim Lächeln nicht auf die Wangenknochen rutscht. Woolet verwendet standardmäßig einen 21 mm breiten Schlüssellochsteg, mit Optionen für Maßanfertigungen zwischen 16 und 26 mm.</p>
+<p>Der Steg ist der Abstand zwischen den beiden Gläsern. Mainstream-Sonnenbrillen verwenden einen 17–19 mm breiten Steg, der für eine Standardnase ausgelegt ist. Breitere Gesichter haben fast immer auch breitere Nasen – ein 25–26 mm breiter Steg sorgt dafür, dass die Fassung korrekt auf den Nasenpads aufliegt, das Gewicht gleichmäßig verteilt wird und die Brille beim Lächeln nicht auf die Wangenknochen rutscht. Woolet verwendet standardmäßig einen 21 mm breiten Schlüssellochsteg, mit Optionen für Maßanfertigungen zwischen 16 und 26 mm.</p>
 
 <h2>Kurzes FAQ</h2>
 
 <h3>Welche Sonnenbrillengröße ist am besten für ein breites Gesicht?</h3>
-<p>Eine Frontbreite (von Scharnier zu Scharnier) von 155 mm oder mehr, ein 20–22 mm breiter Steg und Bügel von mindestens 148 mm. Unter 155 mm Frontbreite wird die Fassung drücken – ganz egal, wie groß das Glas aussieht.</p>
+<p>Eine Frontbreite (von Scharnier zu Scharnier) von 155 mm oder mehr, ein 25–26 mm breiter Steg und Bügel von mindestens 148 mm. Unter 155 mm Frontbreite wird die Fassung drücken – ganz egal, wie groß das Glas aussieht.</p>
 
 <h3>Wie messe ich meine Gesichtsbreite für eine Sonnenbrille?</h3>
 <p>Finden Sie die breiteste Stelle Ihres Gesichts auf Höhe der Wangenknochen. Nutzen Sie eine Kreditkarte (85,6 mm) als Referenz oder verwenden Sie den <a href="/de/fit">AI Fit Wizard</a> für eine präzise Messung.</p>

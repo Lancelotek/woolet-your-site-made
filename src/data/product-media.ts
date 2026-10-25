@@ -7,8 +7,9 @@ import ovCrystal from "@/assets/frames-2026/oval-crystal.asset.json";
 import sqHavana from "@/assets/frames-2026/square-havana.asset.json";
 import sqBlack from "@/assets/frames-2026/square-black.asset.json";
 import sqCrystal from "@/assets/frames-2026/square-crystal.asset.json";
-import dims007 from "@/assets/woolet-007-dimensions.png.asset.json";
-import dims009 from "@/assets/woolet-009-dimensions.png.asset.json";
+// Spec diagrams updated 2026-10-25 to official dimensions (007 53□26-150, 009 54□25-150).
+const DIMS_007_ROUND = "/images/specs/woolet-007-round-dimensions-53-26-150.png";
+const DIMS_009_SQUARE = "/images/specs/woolet-009-soft-square-dimensions-54-25-150.png";
 import greg009 from "@/assets/greg-woolet-009.webp.asset.json";
 
 import detail007 from "@/assets/woolet-007-detail-hinge.jpg";
@@ -44,7 +45,7 @@ const shapeLabel: Record<ProductId, string> = {
   "009": "soft-square",
 };
 
-const bridge: Record<ProductId, string> = { "007": "21 mm keyhole bridge", "009": "22 mm bridge" };
+const bridge: Record<ProductId, string> = { "007": "26 mm keyhole bridge", "009": "25 mm bridge" };
 
 const shared: Record<ProductId, MediaItem[]> = {
   "007": [
@@ -59,9 +60,9 @@ const shared: Record<ProductId, MediaItem[]> = {
     {
       id: "scale",
       kind: "scale",
-      src: dims009.url,
-      alt: "Measurement diagram of Woolet 007 round panto: 158 mm total front width, 52 mm lens width, 52 mm lens height, 21 mm bridge, 150 mm temple length",
-      caption: "158 mm front · 52 × 52 mm lens · 21 mm bridge · 150 mm temples",
+      src: DIMS_007_ROUND,
+      alt: "Measurement diagram of Woolet 007 round panto: 158 mm total front width, 53 mm lens width, 47.6 mm lens height, 26 mm bridge, 150 mm temple length",
+      caption: "158 mm front · 53 × 47.6 mm lens · 26 mm bridge · 150 mm temples",
     },
   ],
   "009": [
@@ -84,9 +85,9 @@ const shared: Record<ProductId, MediaItem[]> = {
     {
       id: "scale",
       kind: "scale",
-      src: dims007.url,
-      alt: "Measurement diagram of Woolet 009 soft-square: 158 mm total front width, 54 mm lens width, 50 mm lens height, 22 mm bridge, 150 mm temple length",
-      caption: "158 mm front · 54 × 50 mm lens · 22 mm bridge · 150 mm temples",
+      src: DIMS_009_SQUARE,
+      alt: "Measurement diagram of Woolet 009 soft-square: 158 mm total front width, 54 mm lens width, 44 mm lens height, 25 mm bridge, 150 mm temple length",
+      caption: "158 mm front · 54 × 44 mm lens · 25 mm bridge · 150 mm temples",
     },
   ],
 };

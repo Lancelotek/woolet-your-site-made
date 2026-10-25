@@ -23,11 +23,11 @@ const FAQS = [
   },
   {
     q: "Where do I start if my glasses always slide or pinch?",
-    a: "Read the pillar guide first — it explains what the bridge number on your current frames means and what 21–22 mm actually changes. Then use the AI Fit Wizard to confirm width and bridge from a single photo.",
+    a: "Read the pillar guide first — it explains what the bridge number on your current frames means and what 25–26 mm actually changes. Then use the AI Fit Wizard to confirm width and bridge from a single photo.",
   },
   {
     q: "Keyhole or saddle bridge for a wide nose?",
-    a: "Keyhole. Saddle bridges wrap the sides of the nose and pinch wider noses; keyhole bridges sit across the top ridge and distribute weight on bone. Both Woolet 007 (21 mm) and 009 (22 mm) are keyhole.",
+    a: "Keyhole. Saddle bridges wrap the sides of the nose and pinch wider noses; keyhole bridges sit across the top ridge and distribute weight on bone. Both Woolet 007 (26 mm) and 009 (25 mm) are keyhole.",
   },
 ];
 
@@ -72,7 +72,7 @@ const NoseBridgeFitHub = () => {
     <div className="relative z-[1] flex flex-col min-h-screen">
       <SEO
         title="Nose-Bridge Fit for Glasses — Guides, Sizing & Collections | Woolet"
-        description="Hub for nose-bridge fit: what bridge width means, what counts as wide, keyhole vs saddle, and how to measure. Pillar guide plus the 21–22 mm Woolet collections."
+        description="Hub for nose-bridge fit: what bridge width means, what counts as wide, keyhole vs saddle, and how to measure. Pillar guide plus the 25–26 mm Woolet collections."
         lang="en"
         path={PATH}
         jsonLd={[itemListLd, breadcrumbLd, faqLd]}
@@ -110,7 +110,7 @@ const NoseBridgeFitHub = () => {
           className="text-cream-dim tracking-wider mb-10 pb-8 leading-relaxed"
           style={{ fontSize: "0.9rem", borderBottom: "1px solid hsl(0 0% 100% / 0.055)", maxWidth: 640 }}
         >
-          Everything we've written on bridge width, keyhole geometry, and what 21–22 mm
+          Everything we've written on bridge width, keyhole geometry, and what 25–26 mm
           actually fixes for wider or higher noses. Start with the pillar guide, then
           measure, then pick a shape.
         </p>
@@ -158,12 +158,12 @@ const NoseBridgeFitHub = () => {
               {
                 to: "/en/collections/wide-bridge-glasses",
                 label: "Wide Bridge Glasses",
-                blurb: "Glasses for a wide nose bridge — 21–22 mm keyhole while most brands cap at 18 mm.",
+                blurb: "Glasses for a wide nose bridge — 25–26 mm keyhole while most brands cap at 18 mm.",
               },
               {
                 to: "/en/collections/keyhole-bridge-glasses",
                 label: "Keyhole Bridge Glasses",
-                blurb: "Heritage keyhole geometry in Italian acetate. Round 007 (21 mm) and soft-square 009 (22 mm).",
+                blurb: "Heritage keyhole geometry in Italian acetate. Round 007 (26 mm) and soft-square 009 (25 mm).",
               },
             ].map((c) => (
               <Link
@@ -194,14 +194,14 @@ const NoseBridgeFitHub = () => {
               className="text-cream-dim hover:text-gold-light no-underline px-4 py-2"
               style={{ fontSize: "0.7rem", letterSpacing: "0.18em", textTransform: "uppercase", border: "1px solid hsl(0 0% 100% / 0.08)" }}
             >
-              Woolet 007 — 21 mm
+              Woolet 007 — 26 mm
             </Link>
             <Link
               to="/en/products/009"
               className="text-cream-dim hover:text-gold-light no-underline px-4 py-2"
               style={{ fontSize: "0.7rem", letterSpacing: "0.18em", textTransform: "uppercase", border: "1px solid hsl(0 0% 100% / 0.08)" }}
             >
-              Woolet 009 — 22 mm
+              Woolet 009 — 25 mm
             </Link>
             <Link
               to="/en/fit"
@@ -215,7 +215,7 @@ const NoseBridgeFitHub = () => {
               className="text-cream-dim hover:text-gold-light no-underline px-4 py-2"
               style={{ fontSize: "0.7rem", letterSpacing: "0.18em", textTransform: "uppercase", border: "1px solid hsl(0 0% 100% / 0.08)" }}
             >
-              Bespoke 20–24 mm
+              Bespoke 20–26 mm
             </Link>
           </div>
         </section>

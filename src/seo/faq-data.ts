@@ -13,7 +13,7 @@ export const PRODUCT_FAQ: FaqItem[] = [
   },
   {
     q: "How is Woolet different from cheaper wide-face glasses?",
-    a: "Most brands offering wide frames (Fatheadz, BXL, Zenni) use TR90 plastic or cheap acetate. Woolet uses Italian Mazzucchelli acetate — the same material found in $500+ frames. We add 5-barrel PVD Gunmetal hinges, a 21mm keyhole bridge, and hand polishing. Premium quality at the Founding Member price of $114 (regular $190, save 40%).",
+    a: "Most brands offering wide frames (Fatheadz, BXL, Zenni) use TR90 plastic or cheap acetate. Woolet uses Italian Mazzucchelli acetate — the same material found in $500+ frames. We add 5-barrel PVD Gunmetal hinges, a 26mm keyhole bridge, and hand polishing. Premium quality at the Founding Member price of $114 (regular $190, save 40%).",
   },
   {
     q: "When will I receive my order?",
@@ -62,7 +62,7 @@ export const GUIDE_FAQS: Record<string, FaqItem[]> = {
     },
     {
       q: "Do Woolet frames work with prescription lenses?",
-      a: "Yes. Both 007 (round) and 009 (soft square) accept single-vision, bifocal, and progressive Rx lenses. The 21–22 mm keyhole bridge accommodates the fitting height progressive lenses require.",
+      a: "Yes. Both 007 (round) and 009 (soft square) accept single-vision, bifocal, and progressive Rx lenses. The 25–26 mm keyhole bridge accommodates the fitting height progressive lenses require.",
     },
     {
       q: "Are glasses for wide faces the same as glasses for big heads?",
@@ -72,7 +72,7 @@ export const GUIDE_FAQS: Record<string, FaqItem[]> = {
   "best-sunglasses-for-wide-faces": [
     {
       q: "What sunglasses are best for wide faces?",
-      a: "Frames at 155 mm of front width or wider. Mainstream sunglasses cap around 138–148 mm even on oversized models. Look for 158 mm fronts, 21–22 mm bridges and acetate construction that holds tension at wider dimensions.",
+      a: "Frames at 155 mm of front width or wider. Mainstream sunglasses cap around 138–148 mm even on oversized models. Look for 158 mm fronts, 25–26 mm bridges and acetate construction that holds tension at wider dimensions.",
     },
     {
       q: "Are Woolet sunglasses polarised?",
@@ -88,7 +88,7 @@ export const GUIDE_FAQS: Record<string, FaqItem[]> = {
     },
     {
       q: "Can I get prescription sunglasses in wide-fit frames?",
-      a: "Yes — both Woolet 007 and 009 accept prescription, polarised and gradient sun lenses with the same 158 mm front and 21–22 mm bridge.",
+      a: "Yes — both Woolet 007 and 009 accept prescription, polarised and gradient sun lenses with the same 158 mm front and 25–26 mm bridge.",
     },
   ],
   "how-to-measure-face-width-for-glasses": [
