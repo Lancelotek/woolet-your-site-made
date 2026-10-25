@@ -12,6 +12,7 @@ import { useAuth } from "@/lib/auth-context";
 
 import {
   ACTIVE_COLORS,
+  restockNoteFor,
   COLORS,
   ENGRAVING_FEE_EUR,
   ENGRAVING_FONTS,
@@ -189,9 +190,12 @@ function ColorSwatchGrid({
   selected,
   onSelect,
   thicknessMm,
+  plateMm,
 }: {
   selected: string | null;
   onSelect: (id: string) => void;
+  /** Plate this picker cuts from (front 6 mm, temples 4 mm) - drives restock remarks. */
+  plateMm: 4 | 6;
   /** When set, only swatches with matching `thicknessMm` are shown. Falls back to full list if none are marked. */
   thicknessMm?: 4 | 6;
 }) {
@@ -255,6 +259,9 @@ function ColorSwatchGrid({
             {preview.note && (
               <div className="cfg-swatch-preview__note">{preview.note}</div>
             )}
+            {restockNoteFor(preview, plateMm) && (
+              <div className="cfg-swatch-preview__note text-[#CAA449]">{restockNoteFor(preview, plateMm)}</div>
+            )}
             <div className="cfg-swatch-preview__family">{FAMILY_LABEL[preview.family]}</div>
           </div>
         </div>
@@ -263,6 +270,7 @@ function ColorSwatchGrid({
       <div ref={listRef} className="cfg-swatchstrip grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
         {list.map((c) => {
           const active = selected === c.id;
+          const restock = restockNoteFor(c, plateMm);
           return (
             <button
               key={c.id}
@@ -275,7 +283,7 @@ function ColorSwatchGrid({
               onMouseLeave={() => setHoveredId((id) => (id === c.id ? null : id))}
               onFocus={() => { if (selected) setHoveredId(c.id); }}
               onBlur={() => setHoveredId((id) => (id === c.id ? null : id))}
-              title={c.name}
+              title={restock ? `${c.name} - ${restock}` : c.name}
               aria-pressed={active}
               className={`group relative overflow-hidden text-left transition ${
                 active
@@ -291,6 +299,14 @@ function ColorSwatchGrid({
                   loading="lazy"
                   className="absolute inset-0 w-full h-full object-cover pointer-events-none transition-transform duration-500 group-hover:scale-[1.05] group-hover:brightness-110 group-hover:contrast-110"
                 />
+                {restock && (
+                  <span
+                    className="absolute text-[9px] uppercase tracking-[0.12em] px-1.5 py-0.5"
+                    style={{ top: 6, left: 6, borderRadius: 2, background: "rgba(12,12,12,0.85)", color: "#CAA449" }}
+                  >
+                    Restocking
+                  </span>
+                )}
                 {active && (
                   <span
                     className="absolute inline-flex items-center justify-center"
@@ -304,6 +320,9 @@ function ColorSwatchGrid({
                 <div className="text-cream text-[12px] truncate">{c.name}</div>
                 {c.note && (
                   <div className="text-cream-dim text-[10px] italic truncate">{c.note}</div>
+                )}
+                {restock && (
+                  <div className="text-[#CAA449] text-[10px] truncate">+3-4 weeks</div>
                 )}
               </div>
             </button>
@@ -933,15 +952,20 @@ export function StepColor({ config, update, defaults = {} }: StepProps & { defau
 
       <div id="cfg-group-front">
         <div className={labelClass}>Front acetate</div>
-        <div className="mt-3"><ColorSwatchGrid selected={config.frontColorId} onSelect={(id) => update("frontColorId", id)} /></div>
+        <div className="mt-3"><ColorSwatchGrid selected={config.frontColorId} onSelect={(id) => update("frontColorId", id)} plateMm={6} /></div>
         {front && (
-          <div className="text-cream text-xs mt-2">{front.name}{defaults.front && DEFAULT_TAG}</div>
+          <div className="text-cream text-xs mt-2">
+            {front.name}{defaults.front && DEFAULT_TAG}
+            {restockNoteFor(front, 6) && (
+              <span className="block text-[#CAA449] mt-1">{restockNoteFor(front, 6)}. Pick another front sheet to start production sooner.</span>
+            )}
+          </div>
         )}
       </div>
 
       <div id="cfg-group-temple">
         <div className={labelClass}>Temple acetate <span className="text-cream-dim/70 font-normal normal-case tracking-normal">— 4 mm sheets only</span></div>
-        <div className="mt-3"><ColorSwatchGrid selected={config.templeColorId} onSelect={(id) => update("templeColorId", id)} thicknessMm={4} /></div>
+        <div className="mt-3"><ColorSwatchGrid selected={config.templeColorId} onSelect={(id) => update("templeColorId", id)} thicknessMm={4} plateMm={4} /></div>
         {temple && (
           <div className="text-cream text-xs mt-2">{temple.name}{defaults.temple && DEFAULT_TAG}</div>
         )}
