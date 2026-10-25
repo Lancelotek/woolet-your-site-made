@@ -61,3 +61,6 @@ verify_jwt = false
 
 [functions.attribution-admin]
 verify_jwt = false
+
+[functions.bespoke-shipping-reminder]
+verify_jwt = false

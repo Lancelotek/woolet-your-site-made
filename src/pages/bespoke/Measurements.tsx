@@ -3,6 +3,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { CheckCircle2, Loader2, Ruler, ScanFace, Sparkles, Truck } from "lucide-react";
 import SEO from "@/components/SEO";
 import { COUNTRY_CODES, countryLabel } from "@/data/shipping-countries";
+import { NO_POSTAL_CODE, SHIPPING_FIELD_ERRORS, STATE_REQUIRED, validateShipping, type ShippingField } from "@/lib/shipping-validate";
 import { supabase } from "@/integrations/supabase/client";
 import { STORAGE_KEY } from "@/lib/bespoke-state";
 import { READING_STRENGTHS } from "@/data/bespoke-options";
@@ -13,6 +14,11 @@ import { parseFitLensEvent, type FitLensMeasurements } from "@/lib/fitlens-resul
 import { createFitLensResultDedupe } from "@/lib/fitlens-result-dedupe";
 import { recordFitLensEvent, SCAN_SOURCE_LABEL, type ScanSource } from "@/lib/fitlens-verify";
 import { BESPOKE_DISCOVERY_SOURCES, isBespokeDiscoverySource, type BespokeDiscoverySource } from "@/content/bespokeFacts";
+
+function shippingErrorMessage(fields: ShippingField[]): string {
+  if (!fields.length) return "Add the full shipping address - name, phone, street, city, postal code and country.";
+  return `Please check: ${fields.map((f) => SHIPPING_FIELD_ERRORS[f] ?? f).join(", ")}.`;
+}
 
 /** Temple length the customer asked for at checkout — shown for reference only. */
 function readRequestedTempleLength(): string | null {
@@ -500,19 +506,14 @@ export default function BespokeMeasurements() {
       document.getElementById("reading-strength-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
       return;
     }
-    const shippingComplete =
-      shipping.name.trim() &&
-      shipping.phone.trim() &&
-      shipping.line1.trim() &&
-      shipping.city.trim() &&
-      shipping.postal_code.trim() &&
-      shipping.country.trim();
-    if (!shippingComplete) {
-      setShippingError("Add the full shipping address — name, phone, street, city, postal code and country.");
+    const checkedShipping = validateShipping(shipping);
+    if (!checkedShipping.ok) {
+      setShippingError(shippingErrorMessage(checkedShipping.errors));
       document.getElementById("shipping-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
       clarityEvent("bespoke_form_incomplete");
       return;
     }
+    const cleanShipping = checkedShipping.value!;
     if (!order?.source && !isBespokeDiscoverySource(discoverySource)) {
       setError("Choose how you found Woolet before submitting.");
       document.getElementById("measurement-discovery-source")?.focus();
@@ -553,14 +554,14 @@ export default function BespokeMeasurements() {
               }
             : null,
           shipping: {
-            name: shipping.name,
-            phone: shipping.phone,
-            line1: shipping.line1,
-            line2: shipping.line2 || null,
-            city: shipping.city,
-            state: shipping.state || null,
-            postal_code: shipping.postal_code,
-            country: shipping.country,
+            name: cleanShipping.name,
+            phone: cleanShipping.phone,
+            line1: cleanShipping.line1,
+            line2: cleanShipping.line2,
+            city: cleanShipping.city,
+            state: cleanShipping.state,
+            postal_code: cleanShipping.postal_code,
+            country: cleanShipping.country,
           },
           scan: scanResult
             ? {
@@ -577,14 +578,20 @@ export default function BespokeMeasurements() {
             : { source: "manual", payload: null, ai_source: "manual" },
         },
       });
-      if (fnErr) throw fnErr;
-      if ((data as any)?.error === "incomplete_shipping") {
-        setShippingError("Add the full shipping address — name, phone, street, city, postal code and country.");
+      let payload = data as { error?: string; fields?: ShippingField[] } | null;
+      if (fnErr) {
+        const ctx = (fnErr as { context?: Response }).context;
+        payload = ctx ? await ctx.json().catch(() => null) : null;
+        if (!payload?.error) throw fnErr;
+      }
+      if (payload?.error === "invalid_shipping" || payload?.error === "incomplete_shipping") {
+        setShippingError(shippingErrorMessage(payload.fields ?? []));
+        document.getElementById("shipping-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
         setSubmitting(false);
         clarityEvent("bespoke_form_incomplete");
         return;
       }
-      if ((data as any)?.error === "no_measurements") {
+      if (payload?.error === "no_measurements") {
         setError("Please fill in at least one measurement before submitting.");
         setSubmitting(false);
         clarityEvent("bespoke_form_incomplete");
@@ -594,15 +601,24 @@ export default function BespokeMeasurements() {
         o
           ? {
               ...o,
-              shipping_name: shipping.name,
-              shipping_line1: shipping.line1,
-              shipping_city: shipping.city,
-              shipping_postal_code: shipping.postal_code,
-              shipping_country: shipping.country,
+              shipping_name: cleanShipping.name,
+              shipping_phone: cleanShipping.phone,
+              shipping_line1: cleanShipping.line1,
+              shipping_line2: cleanShipping.line2,
+              shipping_city: cleanShipping.city,
+              shipping_state: cleanShipping.state,
+              shipping_postal_code: cleanShipping.postal_code,
+              shipping_country: cleanShipping.country,
               shipping_submitted_at: new Date().toISOString(),
             }
           : o,
       );
+      setShipping({
+        ...cleanShipping,
+        line2: cleanShipping.line2 ?? "",
+        state: cleanShipping.state ?? "",
+        postal_code: cleanShipping.postal_code ?? "",
+      });
       setSubmitted(true);
       clarityEvent("bespoke_shipping_saved");
       clarityEvent("bespoke_measurements_submitted");
@@ -852,8 +868,8 @@ export default function BespokeMeasurements() {
                         autoComplete="tel"
                         inputMode="tel"
                         type="tel"
-                        placeholder="+48 600 000 000"
-                        note="With country code — for the courier."
+                        placeholder="+1 555 123 4567"
+                        note="For the courier. Pick your country below and we add the country code."
                         required
                       />
                       <TextField
@@ -879,17 +895,18 @@ export default function BespokeMeasurements() {
                         required
                       />
                       <TextField
-                        label="State / province (optional)"
+                        label={STATE_REQUIRED.has(shipping.country) ? "State / province" : "State / province (optional)"}
                         value={shipping.state}
                         onChange={(e) => setShipping((s) => ({ ...s, state: e.target.value }))}
                         autoComplete="address-level1"
+                        required={STATE_REQUIRED.has(shipping.country)}
                       />
                       <TextField
-                        label="Postal code"
+                        label={NO_POSTAL_CODE.has(shipping.country) ? "Postal code (optional)" : "Postal code"}
                         value={shipping.postal_code}
                         onChange={(e) => setShipping((s) => ({ ...s, postal_code: e.target.value }))}
                         autoComplete="postal-code"
-                        required
+                        required={!NO_POSTAL_CODE.has(shipping.country)}
                       />
                       <CountryField
                         value={shipping.country}

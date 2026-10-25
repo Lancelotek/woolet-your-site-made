@@ -9,6 +9,7 @@ import {
   measurementDisagreements,
 } from "../_shared/bespoke-gaps.ts";
 import { compareRepeatability, sortScans } from "../_shared/scan-repeatability.ts";
+import { validateShipping } from "../_shared/shipping-validate.ts";
 
 const supabase = createClient(
   Deno.env.get("SUPABASE_URL")!,
@@ -157,28 +158,26 @@ Deno.serve(async (req) => {
       });
     }
 
-    const ship = body.shipping;
-    if (ship) {
-      const name = clampText(ship.name, 120);
-      const phone = clampText(ship.phone, 40);
-      const line1 = clampText(ship.line1, 200);
-      const city = clampText(ship.city, 120);
-      const postal = clampText(ship.postal_code, 30);
-      const country = (clampText(ship.country, 2) ?? "").toUpperCase();
-      if (!name || !phone || !line1 || !city || !postal || !/^[A-Z]{2}$/.test(country)) {
-        return new Response(JSON.stringify({ error: "incomplete_shipping" }), {
-          status: 400,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
-      }
-      patch.shipping_name = name;
-      patch.shipping_phone = phone;
-      patch.shipping_line1 = line1;
-      patch.shipping_line2 = clampText(ship.line2, 200);
-      patch.shipping_city = city;
-      patch.shipping_state = clampText(ship.state, 120);
-      patch.shipping_postal_code = postal;
-      patch.shipping_country = country;
+    // The address is required on every save and checked with the same rules as
+    // the shipping form (phone valid for the country, postal code format, state
+    // where couriers need it). Stored normalised: phone in E.164.
+    const checkedShipping = validateShipping((body.shipping ?? {}) as Record<string, unknown>);
+    if (!checkedShipping.ok) {
+      return new Response(JSON.stringify({ error: "invalid_shipping", fields: checkedShipping.errors }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+    {
+      const c = checkedShipping.value!;
+      patch.shipping_name = c.name;
+      patch.shipping_phone = c.phone;
+      patch.shipping_line1 = c.line1;
+      patch.shipping_line2 = c.line2;
+      patch.shipping_city = c.city;
+      patch.shipping_state = c.state;
+      patch.shipping_postal_code = c.postal_code;
+      patch.shipping_country = c.country;
       patch.shipping_submitted_at = new Date().toISOString();
     }
 

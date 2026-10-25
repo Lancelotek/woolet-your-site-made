@@ -4,6 +4,7 @@ import { CheckCircle2, Loader2 } from "lucide-react";
 import SEO from "@/components/SEO";
 import { supabase } from "@/integrations/supabase/client";
 import { COUNTRY_CODES, countryLabel } from "@/data/shipping-countries";
+import { NO_POSTAL_CODE, SHIPPING_FIELD_ERRORS, STATE_REQUIRED, validateShipping } from "@/lib/shipping-validate";
 
 type OrderInfo = Record<string, string | null>;
 type Fields = {
@@ -19,15 +20,7 @@ type Fields = {
 
 const EMPTY: Fields = { name: "", phone: "", line1: "", line2: "", city: "", state: "", postal_code: "", country: "" };
 
-const FIELD_ERRORS: Record<string, string> = {
-  name: "full name",
-  phone: "phone with country code (starting with +)",
-  line1: "street and number",
-  city: "city",
-  postal_code: "postal code",
-  country: "country",
-  consent: "consent",
-};
+const FIELD_ERRORS: Record<string, string> = SHIPPING_FIELD_ERRORS;
 
 const inputCls =
   "w-full min-h-[48px] bg-cream/[0.04] border border-cream/15 rounded-sm px-3 py-2.5 text-cream text-sm focus:outline-none focus:border-gold/60 transition";
@@ -87,6 +80,11 @@ export default function BespokeShipping() {
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!consent) return;
+    const checked = validateShipping(fields);
+    if (!checked.ok) {
+      setError(`Please check: ${checked.errors.map((f) => FIELD_ERRORS[f] ?? f).join(", ")}.`);
+      return;
+    }
     setSubmitting(true);
     setError(null);
     try {
@@ -189,21 +187,33 @@ export default function BespokeShipping() {
               <form onSubmit={submit} className="grid grid-cols-1 sm:grid-cols-2 gap-4" noValidate>
                 <Text label="Full name" value={fields.name} onChange={set("name")} autoComplete="name" required full />
                 <Text
-                  label="Phone with country code"
+                  label="Phone"
                   value={fields.phone}
                   onChange={set("phone")}
                   autoComplete="tel"
                   type="tel"
                   placeholder="+1 555 123 4567"
-                  note="The courier needs it."
+                  note="The courier needs it. Pick your country below and we add the country code."
                   required
                   full
                 />
                 <Text label="Street + number" value={fields.line1} onChange={set("line1")} autoComplete="address-line1" required full />
                 <Text label="Apartment / floor (optional)" value={fields.line2} onChange={set("line2")} autoComplete="address-line2" full />
                 <Text label="City" value={fields.city} onChange={set("city")} autoComplete="address-level2" required />
-                <Text label="State / province (optional)" value={fields.state} onChange={set("state")} autoComplete="address-level1" />
-                <Text label="Postal code" value={fields.postal_code} onChange={set("postal_code")} autoComplete="postal-code" required />
+                <Text
+                  label={STATE_REQUIRED.has(fields.country) ? "State / province" : "State / province (optional)"}
+                  value={fields.state}
+                  onChange={set("state")}
+                  autoComplete="address-level1"
+                  required={STATE_REQUIRED.has(fields.country)}
+                />
+                <Text
+                  label={NO_POSTAL_CODE.has(fields.country) ? "Postal code (optional)" : "Postal code"}
+                  value={fields.postal_code}
+                  onChange={set("postal_code")}
+                  autoComplete="postal-code"
+                  required={!NO_POSTAL_CODE.has(fields.country)}
+                />
                 <label className="block">
                   <span className="block text-[11px] uppercase tracking-[0.16em] text-cream-dim mb-1.5">Country</span>
                   <select value={fields.country} onChange={set("country")} autoComplete="country" required className={inputCls}>

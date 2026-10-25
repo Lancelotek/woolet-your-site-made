@@ -4,6 +4,7 @@
 
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
+import { validateShipping } from "../_shared/shipping-validate.ts";
 
 const admin = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!, {
   auth: { persistSession: false },
@@ -15,7 +16,6 @@ export const CONSENT_TEXT =
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const REF_RE = /^WLT-BSP-\d{4}-\d{4,6}$/;
-const COUNTRY_RE = /^[A-Z]{2}$/;
 const MAX_SAVES_PER_HOUR = 10;
 
 const json = (body: unknown, status = 200) =>
@@ -62,31 +62,25 @@ Deno.serve(async (req) => {
     if (recent.length >= MAX_SAVES_PER_HOUR) return json({ error: "rate_limited" }, 429);
 
     const f = (body.fields ?? {}) as Record<string, unknown>;
-    const v = {
-      shipping_name: clean(f.name, 120),
-      shipping_phone: clean(f.phone, 40),
-      shipping_line1: clean(f.line1, 200),
-      shipping_line2: clean(f.line2, 200),
-      shipping_city: clean(f.city, 120),
-      shipping_state: clean(f.state, 120),
-      shipping_postal_code: clean(f.postal_code, 20),
-      shipping_country: clean(f.country, 2).toUpperCase(),
-    };
-    const errors: string[] = [];
-    if (v.shipping_name.length < 2) errors.push("name");
-    if (!/^\+[\d\s().-]{6,30}$/.test(v.shipping_phone) || v.shipping_phone.replace(/\D/g, "").length < 7) errors.push("phone");
-    if (v.shipping_line1.length < 3) errors.push("line1");
-    if (v.shipping_city.length < 2) errors.push("city");
-    if (v.shipping_postal_code.length < 2) errors.push("postal_code");
-    if (!COUNTRY_RE.test(v.shipping_country)) errors.push("country");
+    const checked = validateShipping(f);
+    const errors: string[] = [...checked.errors];
     if (body.consent !== true) errors.push("consent");
-    if (errors.length) return json({ error: "validation", fields: errors }, 400);
+    if (!checked.ok || errors.length) return json({ error: "validation", fields: errors }, 400);
+    const c = checked.value!;
+    const v = {
+      shipping_name: c.name,
+      shipping_phone: c.phone,
+      shipping_line1: c.line1,
+      shipping_line2: c.line2,
+      shipping_city: c.city,
+      shipping_state: c.state,
+      shipping_postal_code: c.postal_code,
+      shipping_country: c.country,
+    };
 
     const nowIso = new Date(now).toISOString();
     const saved = {
       ...v,
-      shipping_line2: v.shipping_line2 || null,
-      shipping_state: v.shipping_state || null,
       shipping_submitted_at: nowIso,
       shipping_consent_at: nowIso,
       shipping_consent_version: CONSENT_VERSION,
