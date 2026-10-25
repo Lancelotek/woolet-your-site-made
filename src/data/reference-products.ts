@@ -35,8 +35,8 @@ const F = "https://woolet.co/frames/";
 const SPECS_007: [string, string][] = [
   ["Shape", "Round / Panto"],
   ["Frame width", "158 mm - fits faces 153-163 mm"],
-  ["Bridge", "21 mm keyhole"],
-  ["Lens", "52 x 52 mm"],
+  ["Bridge", "26 mm keyhole"],
+  ["Lens", "53 x 47.6 mm"],
   ["Temple length", "150 mm"],
   ["Front height", "52 mm"],
   ["Material", "Italian Mazzucchelli acetate, milled in Milan"],
@@ -45,8 +45,8 @@ const SPECS_007: [string, string][] = [
 const SPECS_009: [string, string][] = [
   ["Shape", "Soft Square"],
   ["Frame width", "158 mm - fits faces 153-163 mm"],
-  ["Bridge", "22 mm keyhole"],
-  ["Lens", "54 x 50 mm"],
+  ["Bridge", "25 mm keyhole"],
+  ["Lens", "54 x 44 mm"],
   ["Temple length", "150 mm"],
   ["Front height", "54 mm"],
   ["Material", "Italian Mazzucchelli acetate, milled in Milan"],
@@ -72,13 +72,13 @@ const LENSES_STD = [
 
 const BODY_007 = [
   "Woolet 007 Round / Panto is 158 mm across the front. Most brands build to 138-145 mm and call it one size fits most. It fits most. It never fit you.",
-  "An XL version of a standard frame is scaled up from a narrow base, so the bridge and lens spacing still fight a wide face. Woolet 007 was drawn at 158 mm from scratch. The temples sit past your face instead of into it, and the 21 mm keyhole bridge rests on the sides of your nose rather than the top - which is what stops the slide.",
+  "An XL version of a standard frame is scaled up from a narrow base, so the bridge and lens spacing still fight a wide face. Woolet 007 was drawn at 158 mm from scratch. The temples sit past your face instead of into it, and the 26 mm keyhole bridge rests on the sides of your nose rather than the top - which is what stops the slide.",
   "Cut by hand from Italian Mazzucchelli acetate milled in Milan, not injection-moulded. Cut acetate keeps its density and stays cool to the touch, and the colour runs through the material, so a scratch never turns white. It is also the only way to build a 158 mm front that does not flex - and a flexing front is why wide frames snap. Hand made in EU.",
   "Not sure of your number? Hold two credit cards end to end across your face, temple to temple. A card is 85.6 mm. When two cards barely span it, you are 155 mm or wider, and this is your size.",
 ];
 const BODY_009 = [
   "Woolet 009 Soft Square is 158 mm across the front. Most brands build to 138-145 mm and call it one size fits most. It fits most. It never fit you.",
-  "An XL version of a standard frame is scaled up from a narrow base, so the bridge and lens spacing still fight a wide face. Woolet 009 was drawn at 158 mm from scratch. The temples sit past your face instead of into it, and the 22 mm keyhole bridge rests on the sides of your nose rather than the top - which is what stops the slide.",
+  "An XL version of a standard frame is scaled up from a narrow base, so the bridge and lens spacing still fight a wide face. Woolet 009 was drawn at 158 mm from scratch. The temples sit past your face instead of into it, and the 25 mm keyhole bridge rests on the sides of your nose rather than the top - which is what stops the slide.",
   "Cut by hand from Italian Mazzucchelli acetate milled in Milan, not injection-moulded. Cut acetate keeps its density and stays cool to the touch, and the colour runs through the material, so a scratch never turns white. It is also the only way to build a 158 mm front that does not flex - and a flexing front is why wide frames snap. Hand made in EU.",
   "Not sure of your number? Hold two credit cards end to end across your face, temple to temple. A card is 85.6 mm. When two cards barely span it, you are 155 mm or wider, and this is your size.",
 ];
@@ -125,7 +125,7 @@ export const REF_PRODUCTS: RefProduct[] = [
     siblings: ["007-havana", "007-silver-clear"],
     shopUrl: "https://shop.woolet.co/products/woolet-007-round-panto-black",
     metaTitle: "Woolet 007 Round / Panto - Black | 158 mm acetate glasses for wide faces",
-    metaDescription: "Round panto frame, 158 mm front, 21 mm keyhole bridge, hand-cut Italian Mazzucchelli acetate, hand made in EU. Reference product page.",
+    metaDescription: "Round panto frame, 158 mm front, 26 mm keyhole bridge, hand-cut Italian Mazzucchelli acetate, hand made in EU. Reference product page.",
   },
   {
     slug: "007-havana",
@@ -151,7 +151,7 @@ export const REF_PRODUCTS: RefProduct[] = [
     siblings: ["007-black", "007-silver-clear"],
     shopUrl: "https://shop.woolet.co/products/woolet-007-round-panto-havana",
     metaTitle: "Woolet 007 Round / Panto - Havana | 158 mm tortoise acetate glasses",
-    metaDescription: "Round panto frame in Havana tortoise, 158 mm front, 21 mm keyhole bridge, Italian Mazzucchelli acetate, hand made in EU. Reference product page.",
+    metaDescription: "Round panto frame in Havana tortoise, 158 mm front, 26 mm keyhole bridge, Italian Mazzucchelli acetate, hand made in EU. Reference product page.",
   },
   {
     slug: "007-silver-clear",
@@ -180,7 +180,7 @@ export const REF_PRODUCTS: RefProduct[] = [
     siblings: ["007-black", "007-havana"],
     shopUrl: "https://shop.woolet.co/products/woolet-007-round-panto-silver-clear",
     metaTitle: "Woolet 007 Round / Panto - Silver Clear | 158 mm clear acetate glasses",
-    metaDescription: "Round panto frame in transparent acetate, 158 mm front, 21 mm keyhole bridge, Italian Mazzucchelli acetate, hand made in EU. Reference product page.",
+    metaDescription: "Round panto frame in transparent acetate, 158 mm front, 26 mm keyhole bridge, Italian Mazzucchelli acetate, hand made in EU. Reference product page.",
   },
 
   // ---------- 009 ----------
@@ -208,7 +208,7 @@ export const REF_PRODUCTS: RefProduct[] = [
     siblings: ["009-havana", "009-silver-clear"],
     shopUrl: "https://shop.woolet.co/products/woolet-009-soft-square-black",
     metaTitle: "Woolet 009 Soft Square - Black | 158 mm acetate glasses for wide faces",
-    metaDescription: "Soft square frame, 158 mm front, 22 mm keyhole bridge, hand-cut Italian Mazzucchelli acetate, hand made in EU. Reference product page.",
+    metaDescription: "Soft square frame, 158 mm front, 25 mm keyhole bridge, hand-cut Italian Mazzucchelli acetate, hand made in EU. Reference product page.",
   },
   {
     slug: "009-havana",
@@ -235,7 +235,7 @@ export const REF_PRODUCTS: RefProduct[] = [
     siblings: ["009-black", "009-silver-clear"],
     shopUrl: "https://shop.woolet.co/products/woolet-009-soft-square-havana",
     metaTitle: "Woolet 009 Soft Square - Havana | 158 mm tortoise acetate glasses",
-    metaDescription: "Soft square frame in Havana tortoise, 158 mm front, 22 mm keyhole bridge, Italian Mazzucchelli acetate, hand made in EU. Reference product page.",
+    metaDescription: "Soft square frame in Havana tortoise, 158 mm front, 25 mm keyhole bridge, Italian Mazzucchelli acetate, hand made in EU. Reference product page.",
   },
   {
     slug: "009-silver-clear",
@@ -261,7 +261,7 @@ export const REF_PRODUCTS: RefProduct[] = [
     siblings: ["009-black", "009-havana"],
     shopUrl: "https://shop.woolet.co/products/woolet-009-soft-square-silver-clear",
     metaTitle: "Woolet 009 Soft Square - Silver Clear | 158 mm clear acetate glasses",
-    metaDescription: "Soft square frame in transparent acetate, 158 mm front, 22 mm keyhole bridge, Italian Mazzucchelli acetate, hand made in EU. Reference product page.",
+    metaDescription: "Soft square frame in transparent acetate, 158 mm front, 25 mm keyhole bridge, Italian Mazzucchelli acetate, hand made in EU. Reference product page.",
   },
 
   // ---------- 003 (new) ----------

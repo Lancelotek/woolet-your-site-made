@@ -35,7 +35,7 @@ const CHAPTERS: EditorialChapter[] = [
     index: "03",
     eyebrow: "The Fit Problem / 03",
     src: fitProblem03.url,
-    alt: "Macro close-up of a wide keyhole acetate bridge sitting flush on a wider nose — Woolet keyhole bridges are cut 21–24 mm to fit noses that standard 16–19 mm bridges pinch or slide off.",
+    alt: "Macro close-up of a wide keyhole acetate bridge sitting flush on a wider nose — Woolet keyhole bridges are cut 21–26 mm to fit noses that standard 16–19 mm bridges pinch or slide off.",
     caption: "The nose is its own axis. Standard bridges run 16–19 mm. Some faces need 24. Ours are cut to fit — no perching, no sliding.",
   },
   {

@@ -65,7 +65,7 @@ function recommend(state: QuizState): Recommendation {
       "Off-the-shelf wide frames fit faces around 153–163 mm. We make bespoke from 145–160 mm with the same Italian acetate.");
     if (w >= 156) return mk(w, bridge, "009", "high",
       "Woolet 009 at 158 mm is your size.",
-      "009 (soft square) sits at 158 mm with a 22 mm keyhole bridge — built for your width.");
+      "009 (soft square) sits at 158 mm with a 25 mm keyhole bridge — built for your width.");
     if (w >= 150) return mk(w, bridge, "bespoke", "high",
       "Bespoke is the right path.",
       "Woolet Bespoke starts at 145 mm. Stock Woolet 007 and 009 have a 158 mm front and fit faces from 153–163 mm.");

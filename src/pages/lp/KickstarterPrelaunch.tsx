@@ -1186,7 +1186,7 @@ const KickstarterPrelaunch = () => {
       },
       {
         q: "How is this different from a Ray-Ban or Persol XL?",
-        a: "XL models are scaled-up versions of frames designed for a ~137 mm face. Woolet is engineered wide from the first millimetre — 158 mm front, 20–21 mm keyhole bridge, proportions built for 153–163 mm faces.",
+        a: "XL models are scaled-up versions of frames designed for a ~137 mm face. Woolet is engineered wide from the first millimetre — 158 mm front, 25–26 mm keyhole bridge, proportions built for 153–163 mm faces.",
       },
       {
         q: "What exactly do VIPs get?",
@@ -1247,7 +1247,7 @@ const KickstarterPrelaunch = () => {
             {
               "@type": "Product",
               name: "Woolet 007 — Round",
-              description: "Round Milanese acetate frame, 158 mm wide with a 21 mm keyhole bridge. Engineered for wide faces 153–163 mm.",
+              description: "Round Milanese acetate frame, 158 mm wide with a 26 mm keyhole bridge. Engineered for wide faces 153–163 mm.",
               image: w007BlackFrontAsset.url,
               brand: { "@type": "Brand", name: "Woolet" },
               category: "Eyewear",
@@ -1268,7 +1268,7 @@ const KickstarterPrelaunch = () => {
             {
               "@type": "Product",
               name: "Woolet 009 — Soft-Square",
-              description: "Soft-square Milanese acetate frame, 158 mm wide with a 22 mm keyhole bridge. Engineered for wide faces 153–163 mm.",
+              description: "Soft-square Milanese acetate frame, 158 mm wide with a 25 mm keyhole bridge. Engineered for wide faces 153–163 mm.",
               image: w009BlackFrontAsset.url,
               brand: { "@type": "Brand", name: "Woolet" },
               category: "Eyewear",
@@ -1710,8 +1710,8 @@ const KickstarterPrelaunch = () => {
                 kickstarter: 114,
                 specs: [
                   ["Front width", "158 mm"],
-                  ["Bridge", "21 mm keyhole"],
-                  ["Lens", "52 × 52 mm"],
+                  ["Bridge", "26 mm keyhole"],
+                  ["Lens", "53 × 47.6 mm"],
                   ["Temple", "150 mm"],
                   ["Front height", "52 mm"],
                 ],
@@ -1725,8 +1725,8 @@ const KickstarterPrelaunch = () => {
                 kickstarter: 114,
                 specs: [
                   ["Front width", "158 mm"],
-                  ["Bridge", "22 mm keyhole"],
-                  ["Lens", "54 × 50 mm"],
+                  ["Bridge", "25 mm keyhole"],
+                  ["Lens", "54 × 44 mm"],
                   ["Temple", "150 mm"],
                   ["Front height", "54 mm"],
                 ],
@@ -1885,7 +1885,7 @@ const KickstarterPrelaunch = () => {
               },
               {
                 t: "Keyhole Bridge",
-                sub: "21-22 mm, rests on the sides of the nose",
+                sub: "25-26 mm, rests on the sides of the nose",
                 d: "The bridge sits on the sides of the nose rather than the top, so the frame sits level, doesn't slide, and leaves no red marks at the end of the day.",
               },
               {

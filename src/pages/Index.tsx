@@ -652,9 +652,9 @@ const Index = () => {
       onFace: homeOnFaceCard["007"],
       onFaceAlt: "Woolet 007 Round / Panto in Havana worn on a 158 mm wide face - real fit, front view",
       img: woolet007Asset.url,
-      alt: "Woolet 007 — round panto Italian Mazzucchelli acetate glasses, 158 mm front, 21 mm keyhole bridge, for wide faces 155 mm+",
+      alt: "Woolet 007 — round panto Italian Mazzucchelli acetate glasses, 158 mm front, 26 mm keyhole bridge, for wide faces 155 mm+",
       blackImg: woolet007BlackCard.url,
-      blackAlt: "Woolet 007 in black — round panto Italian Mazzucchelli acetate glasses, 158 mm front, 21 mm keyhole bridge, front view",
+      blackAlt: "Woolet 007 in black — round panto Italian Mazzucchelli acetate glasses, 158 mm front, 26 mm keyhole bridge, front view",
     },
     {
       id: "009",
@@ -663,9 +663,9 @@ const Index = () => {
       onFace: homeOnFaceCard["009"],
       onFaceAlt: "Woolet 009 Soft Square in Silver Clear worn on a 158 mm wide face - real fit, front view",
       img: woolet009Asset.url,
-      alt: "Woolet 009 — soft-square Italian Mazzucchelli acetate glasses, 158 mm front, 22 mm keyhole bridge, for wide faces 155 mm+",
+      alt: "Woolet 009 — soft-square Italian Mazzucchelli acetate glasses, 158 mm front, 25 mm keyhole bridge, for wide faces 155 mm+",
       blackImg: woolet009BlackCard.url,
-      blackAlt: "Woolet 009 in black — soft-square Italian Mazzucchelli acetate glasses, 158 mm front, 22 mm keyhole bridge, front view",
+      blackAlt: "Woolet 009 in black — soft-square Italian Mazzucchelli acetate glasses, 158 mm front, 25 mm keyhole bridge, front view",
     },
   ];
 

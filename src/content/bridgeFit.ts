@@ -12,9 +12,9 @@ export const bridgeFitImages = {
 };
 
 export const BRIDGE_FIT_FAQ = [
-  { q: "Should glasses cover your eyebrows?", a: "No. The top rim should sit at or just below your brow line. When your glasses cover your eyebrows, the bridge is usually too narrow for your nose: the frame rests on two points high on the nose, so the whole front lifts. A bridge that matches your nose, like Woolet's 21-22 mm keyhole bridge, lets the frame sit lower with your eyes centred in the lenses." },
+  { q: "Should glasses cover your eyebrows?", a: "No. The top rim should sit at or just below your brow line. When your glasses cover your eyebrows, the bridge is usually too narrow for your nose: the frame rests on two points high on the nose, so the whole front lifts. A bridge that matches your nose, like Woolet's 25-26 mm keyhole bridge, lets the frame sit lower with your eyes centred in the lenses." },
   { q: "Why do my glasses sit high on my nose?", a: "The bridge is narrower than your nose. Instead of resting along the sides of the nose, the frame touches at two pinch points and leaves a gap above them. Measure your bridge width (FitLens does it in 60 seconds) and pick a frame with a matching bridge." },
-  { q: "What bridge width do I need for a wide nose?", a: "Most standard frames use a 16-19 mm bridge. A wide nose usually needs 21 mm or more. Woolet frames use a 21-22 mm keyhole bridge, and Bespoke frames are cut to your measured bridge." },
+  { q: "What bridge width do I need for a wide nose?", a: "Most standard frames use a 16-19 mm bridge. A wide nose usually needs 21 mm or more. Woolet frames use a 25-26 mm keyhole bridge, and Bespoke frames are cut to your measured bridge." },
 ];
 
 export const BRIDGE_FIT_INTRO = "Face width is only half the fit. When the bridge is narrower than your nose, the frame can't sit down. It rests on two pinch points, leaves a gap above them and lifts the top rim into your eyebrows.";
@@ -24,7 +24,7 @@ export const BRIDGE_FIT_LEGEND = [
 ];
 export const BRIDGE_FIT_CARDS = [
   { image: bridgeFitImages.narrow, title: "19 mm bridge", subtitle: "too narrow for a wider nose", bullets: ["Touches at two pinch points", "Gap above them", "Frame lifts into the brows"] },
-  { image: bridgeFitImages.keyhole, title: "Woolet keyhole bridge", subtitle: "21-22 mm, built for wider noses", bullets: ["Rests along the whole flank", "No gap, no pressure points", "Eyes centred, brows clear"] },
+  { image: bridgeFitImages.keyhole, title: "Woolet keyhole bridge", subtitle: "25-26 mm, built for wider noses", bullets: ["Rests along the whole flank", "No gap, no pressure points", "Eyes centred, brows clear"] },
 ];
 
 const escape = (value: string) => value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");

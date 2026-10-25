@@ -62,7 +62,7 @@ export default function DeKickstarter() {
           <div className="max-w-2xl">
             <p className="mb-5 font-body text-xs uppercase tracking-[0.24em] text-primary">Kickstarter · Founders Edition</p>
             <h1 className="text-5xl font-normal leading-[1.02] text-foreground md:text-7xl">Die Brille, die breite Gesichter endlich ernst nimmt.</h1>
-            <p className="mt-6 max-w-xl font-body text-base leading-7 text-cream-dim md:text-lg">158 mm Frontbreite, 21 oder 22 mm Keyhole-Steg und 150 mm Bügel. Mazzucchelli-Acetat, handgefertigt in der EU.</p>
+            <p className="mt-6 max-w-xl font-body text-base leading-7 text-cream-dim md:text-lg">158 mm Frontbreite, 25 oder 26 mm Keyhole-Steg und 150 mm Bügel. Mazzucchelli-Acetat, handgefertigt in der EU.</p>
             <DeReservationCta source="kickstarter_hero" className="mt-8" />
             <p className="mt-4 max-w-lg font-body text-[13px] leading-5 text-cream-dim">1 € sichert dir eine nummerierte Founders Edition (max. {DE_PRICING.founderLimit}). Voll anrechenbar, jederzeit erstattbar.</p>
           </div>
@@ -77,8 +77,8 @@ export default function DeKickstarter() {
           </div>
           <div className="grid gap-px bg-border-sub md:grid-cols-2">
             {[
-              { image: frame007.url, model: "007", shape: "Round / Panto", specs: "158 · 21 · 52×52 · 150" },
-              { image: frame009.url, model: "009", shape: "Soft Square", specs: "158 · 22 · 54×50 · 150" },
+              { image: frame007.url, model: "007", shape: "Round / Panto", specs: "158 · 21 · 53×47.6 · 150" },
+              { image: frame009.url, model: "009", shape: "Soft Square", specs: "158 · 22 · 54×44 · 150" },
             ].map((frame) => (
               <article key={frame.model} className="bg-secondary p-7 md:p-10">
                 <img src={frame.image} alt={`Woolet ${frame.model} ${frame.shape}`} className="aspect-[4/3] w-full object-contain" loading="lazy" />

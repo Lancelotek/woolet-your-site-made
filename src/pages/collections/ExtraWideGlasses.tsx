@@ -10,7 +10,7 @@ const ExtraWideGlasses = () => (
     h1="Extra Wide Glasses — Wide Eyeglass Frames 158 mm"
     breadcrumbName="Extra Wide Glasses"
     metaTitle="Extra Wide Glasses & Wide Eyeglass Frames 158 mm | Woolet"
-    metaDescription="Extra wide glasses and wide eyeglass frames for 155 mm+ faces: 158 mm front, 21 mm keyhole bridge, Italian acetate. Bespoke 145–160 mm."
+    metaDescription="Extra wide glasses and wide eyeglass frames for 155 mm+ faces: 158 mm front, 26 mm keyhole bridge, Italian acetate. Bespoke 145–160 mm."
     answerBlock={{
       heading: "What counts as extra wide glasses?",
       text: "In this sizing scale, Extra-wide means frames for faces measuring 145–154 mm. Faces measuring 155 mm or more are XL / specialty wide and need a purpose-built front; Woolet uses a 158 mm front for its 153–163 mm standard fit range.",
@@ -18,8 +18,8 @@ const ExtraWideGlasses = () => (
     intro="Extra-wide covers faces measuring 145–154 mm. At 155 mm or more, the correct category is XL / specialty wide. Woolet's standard front is 158 mm for faces in the 153–163 mm range, with a 21 mm bridge on 007 and 22 mm on 009, hand made in EU from Italian Mazzucchelli acetate."
     whyThisFits={[
       "Extra-wide covers faces measuring 145–154 mm; 155 mm and above is XL / specialty wide. Retail labels often omit total front width, so the frame can still pinch at the temples. Woolet scales front width and lens area together at 158 mm for its 153–163 mm standard fit range.",
-      "Bridge width is the second variable most extra-wide listings ignore. A wider face usually has a wider nose; we use a 21 mm keyhole bridge (vs the 18–20 mm typical of mainstream wide frames) so the frame sits without riding up or leaving pressure marks.",
-      "Both shapes — round 007 and soft-square 009 — are cut from Italian Mazzucchelli cellulose acetate. Hand made in EU, 5-barrel PVD Gunmetal hinges and 150 mm temples. Their generous 52 × 52 mm and 54 × 50 mm lens areas are ready for single-vision or progressive prescription lenses.",
+      "Bridge width is the second variable most extra-wide listings ignore. A wider face usually has a wider nose; we use a 26 mm keyhole bridge (vs the 18–20 mm typical of mainstream wide frames) so the frame sits without riding up or leaving pressure marks.",
+      "Both shapes — round 007 and soft-square 009 — are cut from Italian Mazzucchelli cellulose acetate. Hand made in EU, 5-barrel PVD Gunmetal hinges and 150 mm temples. Their generous 53 × 47.6 mm and 54 × 44 mm lens areas are ready for single-vision or progressive prescription lenses.",
       "The shop is sold out until the Kickstarter campaign ends. A $1 reservation now locks the $114 founding-member price against the $190 MSRP. Confirm 158 mm is right for you with <a href=\"/en/fit\" style=\"color:#A07A2A;\">FitLens</a>. Outside 153–163 mm, <a href=\"/en/fit/bespoke\" style=\"color:#A07A2A;\">Bespoke</a> covers 145 to 160 mm.",
       "<strong>Read the guide:</strong> <a href=\"/en/blog/extra-wide-glasses-158mm\" style=\"color:#A07A2A;\">How wide is extra wide? The 158 mm answer</a>",
     ]}
@@ -35,9 +35,9 @@ const ExtraWideGlasses = () => (
       { question: "What counts as extra wide for glasses?", answer: "Extra-wide means frames for faces measuring 145–154 mm. Faces measuring 155 mm or more are XL / specialty wide; Woolet's standard front is 158 mm, with bespoke available from 145–160 mm." },
       { question: "How do I know if I need extra wide?", answer: "Measure your face width temple-to-temple at eye level. A 145–154 mm result is Extra-wide; 155 mm or above is XL / specialty wide. The AI Fit Wizard measures this using a credit card for scale." },
       { question: "Are these for prescription or sunglasses?", answer: "Both. The frames accept single-vision, progressive, blue-light, and polarised sunglass lenses. Polarised is a paid upgrade." },
-      { question: "What about the bridge — will it fit a wider nose?", answer: "The 007 has a 21 mm keyhole bridge and the 009 has a 22 mm keyhole bridge. Both are designed to distribute weight on a wider nose without pinching." },
+      { question: "What about the bridge — will it fit a wider nose?", answer: "The 007 has a 26 mm keyhole bridge and the 009 has a 25 mm keyhole bridge. Both are designed to distribute weight on a wider nose without pinching." },
       { question: "Can I go wider than 158 mm?", answer: "Yes. Bespoke covers 145 to 160 mm of front width in either shape, with temples up to 155 mm. Hand-crafted from your scan." },
-      { question: "Can extra-wide frames take progressive lenses?", answer: "Yes. The 52 × 52 mm lens area on 007 and 54 × 50 mm area on 009 leave room for a progressive corridor. An optician can also fit single-vision lenses." },
+      { question: "Can extra-wide frames take progressive lenses?", answer: "Yes. The 53 × 47.6 mm lens area on 007 and 54 × 44 mm area on 009 leave room for a progressive corridor. An optician can also fit single-vision lenses." },
     ]}
   />
 );

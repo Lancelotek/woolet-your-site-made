@@ -306,7 +306,7 @@ export default function FitToolContent() {
             <ul style={{ display: "grid", gap: 10 }}>
               {[
                 "Face width, temple to temple, in millimetres",
-                "Nose bridge width — 21 mm and 22 mm are our two keyhole options",
+                "Nose bridge width — 25 mm and 26 mm are our two keyhole options",
                 "Pupillary distance, for your optician",
                 "The front width that fits you, and whether 158 mm is it",
               ].map((x) => (

@@ -4,7 +4,7 @@ export const BESPOKE_FACTS = {
   name: "Woolet Bespoke - made-to-measure eyeglasses",
   h1: "Woolet Bespoke - glasses made to your exact face",
   frontWidth: "145-160 mm",
-  bridge: "20-24 mm",
+  bridge: "20-26 mm",
   temples: "145-155 mm",
   regularPrice: 480,
   regularPriceLabel: "$480 USD",
@@ -35,11 +35,11 @@ export const BESPOKE_META_DESCRIPTION =
 export const BESPOKE_GUIDE = [
   {
     heading: "A frame built around your measurements",
-    text: "Made to measure means the front width, bridge and temples are chosen for one person, not picked from an existing shelf size. Woolet Bespoke covers front widths from 145-160 mm, bridges from 20-24 mm and temple lengths from 145-155 mm. Those numbers describe the frame, not a guarantee that every face of the same width needs identical glasses. The measurement and model-review steps establish the dimensions for your individual build. If you are deciding between a stock frame and a custom one, start with a face-width measurement rather than guessing from your hat size or an old pair of glasses.",
+    text: "Made to measure means the front width, bridge and temples are chosen for one person, not picked from an existing shelf size. Woolet Bespoke covers front widths from 145-160 mm, bridges from 20-26 mm and temple lengths from 145-155 mm. Those numbers describe the frame, not a guarantee that every face of the same width needs identical glasses. The measurement and model-review steps establish the dimensions for your individual build. If you are deciding between a stock frame and a custom one, start with a face-width measurement rather than guessing from your hat size or an old pair of glasses.",
   },
   {
     heading: "When a standard Woolet frame is enough",
-    text: "The standard Woolet 007 Round/Panto and 009 Soft Square both have a 158 mm front and generally fit face widths around 153-163 mm. Their bridges measure 21 mm and 22 mm respectively, and both have 150 mm temples. If those fixed dimensions suit your face, a standard frame may be the simpler choice. Bespoke is not a larger version of either stock silhouette. Its four available shapes - Aviator, Rectangle, Crown Panto and Round - are distinct configurator designs. The fit scan helps you compare your own numbers with the standard dimensions before you commit to a made-to-measure order.",
+    text: "The standard Woolet 007 Round/Panto and 009 Soft Square both have a 158 mm front and generally fit face widths around 153-163 mm. Their bridges measure 25 mm and 26 mm respectively, and both have 150 mm temples. If those fixed dimensions suit your face, a standard frame may be the simpler choice. Bespoke is not a larger version of either stock silhouette. Its four available shapes - Aviator, Rectangle, Crown Panto and Round - are distinct configurator designs. The fit scan helps you compare your own numbers with the standard dimensions before you commit to a made-to-measure order.",
   },
   {
     heading: "A narrower or wider face can need the same process",

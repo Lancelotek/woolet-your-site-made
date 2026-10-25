@@ -36,13 +36,13 @@ const productCards = [
   {
     id: "007",
     name: "Woolet 007 — Round",
-    blurb: "Round Italian acetate. 158 mm signature, 21 mm keyhole bridge.",
+    blurb: "Round Italian acetate. 158 mm signature, 26 mm keyhole bridge.",
     href: "/en/products/007",
   },
   {
     id: "009",
     name: "Woolet 009 — Soft Square",
-    blurb: "Soft-square Italian acetate. 158 mm signature, 22 mm bridge.",
+    blurb: "Soft-square Italian acetate. 158 mm signature, 25 mm bridge.",
     href: "/en/products/009",
   },
 ];

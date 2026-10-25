@@ -174,196 +174,173 @@ export const TEMPLE_SECTIONS: Record<string, ClusterSection[]> = {
 
 /**
  * Long-form, per-width unique copy for the /en/bridge/* landing cluster.
- * Signature bridges: 21 mm keyhole (007), 22 mm (009). Bespoke adjusts bridge
- * within the 145–160 mm front-width range.
+ * Signature bridges: 26 mm keyhole (007), 25 mm (009). Bespoke 20–26 mm,
+ * any front width 145–160 mm. Bridge numbers here are frame DBL, not a
+ * measurement of the wearer's nose.
  */
+const RANGE_TABLE: NonNullable<ClusterSection["table"]> = {
+  head: ["Frame bridge", "Woolet route"],
+  rows: [
+    ["18–19 mm", "Below our range — mainstream"],
+    ["20–24 mm", "Bespoke"],
+    ["25 mm", "Woolet 009 Soft Square (signature)"],
+    ["26 mm", "Woolet 007 Round keyhole (signature)"],
+  ],
+};
+
+const MEASURE_SECTION: ClusterSection = {
+  h2: "Your nose is not the number on the frame",
+  body: [
+    "The bridge printed on a frame (the middle number in 54□25-150) is the gap between the lenses. A measurement of your nose is a different number, so do not copy one into the other. FitLens measures face width and bridge from one phone photo and tells you whether the 007, the 009 or bespoke fits.",
+  ],
+};
+
 export const BRIDGE_SECTIONS: Record<string, ClusterSection[]> = {
   "18mm": [
     {
       h2: "Who an 18 mm bridge fits",
       body: [
-        "18 mm is the mainstream default. It suits a narrow nasal root — the bone between the eyes, measured at the point where the pads or the acetate saddle would sit — and it is what the great majority of frames on the market ship with because it matches the average face the industry tooled for.",
-        "An 18 mm bridge on a wide face is the second half of the fit problem. People solve the front width, order a 155 mm+ frame with a stock bridge, and find the frame perched high with the lenses too far from the eyes.",
+        "18 mm is the mainstream default. It is what the great majority of frames ship with because it matches the average face the industry tooled for.",
+        "On a wide face an 18 mm bridge is the second half of the fit problem. People solve the front width, order a 155 mm+ frame with a stock bridge, and find the frame perched high with the lenses too far from the eyes.",
       ],
     },
     {
       h2: "Why we do not build 18 mm",
       body: [
-        "Bridge and front width are not independent. A wider face nearly always carries a wider nasal root, and putting an 18 mm saddle on a 158 mm front concentrates the entire weight of the frame on two small contact points at the top of the nose. That is what produces the red indentation marks and the frame that slides the moment your skin warms.",
-        "Our narrowest is 21 mm on the 007 keyhole, which spreads the same load across a longer contact arc.",
+        "Putting an 18 mm saddle on a 158 mm front concentrates the weight of the frame on two small contact points at the top of the nose. That is what produces red marks and a frame that slides once your skin warms. Our signature bridges are 25 mm (009) and 26 mm (007 keyhole).",
       ],
-      table: {
-        head: ["Bridge width", "Nasal root it suits"],
-        rows: [
-          ["18 mm", "Narrow — mainstream default"],
-          ["20 mm", "Average-to-wide"],
-          ["21 mm", "Woolet 007 keyhole"],
-          ["22 mm", "Woolet 009"],
-          ["23–24 mm", "Bespoke"],
-        ],
-      },
+      table: RANGE_TABLE,
     },
     {
       h2: "What to do if 18 mm is your measurement",
       body: [
-        "Buy mainstream, and buy on bridge rather than on lens size. If your face width is under 155 mm as well, nothing about the wide-face category applies to you. If your face is wide but your bridge is genuinely 18 mm, bespoke can pair a narrow bridge with a wide front — that combination is unusual but we can build it.",
+        "Buy mainstream, and buy on bridge rather than on lens size. If your face width is under 155 mm as well, nothing about the wide-face category applies to you. If your face is wide but your frame bridge needs to be 18 mm, the honest answer is a mainstream frame or a specialist outside our range.",
       ],
     },
+    MEASURE_SECTION,
   ],
 
   "19mm": [
     {
       h2: "Who a 19 mm bridge fits",
       body: [
-        "19 mm is the upper edge of mainstream bridge sizing — the widest you will reliably find in a stock catalogue before you enter specialist territory. It suits a nasal root that is slightly broader than average without being wide, which is a very common combination on faces measuring 145–152 mm.",
-        "It is the bridge width where the industry's sizing logic starts to break down, because a 19 mm bridge is usually only offered on frames with fronts of 140–148 mm. If your face is wider than that, the bridge you need exists but not on the frame you need.",
+        "19 mm is the upper edge of mainstream bridge sizing — the widest you will reliably find in a stock catalogue. It is usually offered only on fronts of 140–148 mm, so on a wider face the bridge you need exists but not on the frame you need.",
       ],
     },
     {
       h2: "19 mm against the Woolet range",
       body: [
-        "We start at 21 mm, so a 19 mm measurement sits 2 mm below our narrowest signature bridge. In practice a 2 mm gap is small enough that the 007 keyhole often still works: the keyhole shape carries its contact lower on the sides of the nose than a saddle bridge does, which tolerates a slightly narrower root than the nominal number suggests.",
-        "If you want it exact, bespoke can specify a 19 mm bridge on any front width from 145 to 160 mm.",
+        "Woolet bespoke starts at 20 mm and the signature frames run 25–26 mm, so 19 mm sits below our range.",
       ],
-      table: {
-        head: ["Your bridge", "Best route"],
-        rows: [
-          ["19 mm, face under 152 mm", "Mainstream frames"],
-          ["19 mm, face 153–163 mm", "007 keyhole, or bespoke for exact"],
-          ["19 mm, high nasal root", "Keyhole strongly preferred"],
-        ],
-      },
+      table: RANGE_TABLE,
     },
-    {
-      h2: "Keyhole versus saddle at 19 mm",
-      body: [
-        "A saddle bridge rests across the top of the nose and needs the width to be right or it perches. A keyhole bridge clears the top of the nose entirely and bears on the flanks, which both spreads load and gives a couple of millimetres of tolerance. At 19 mm, on a wide frame, keyhole is the shape that behaves.",
-      ],
-    },
+    MEASURE_SECTION,
   ],
 
   "20mm": [
     {
       h2: "Who a 20 mm bridge fits",
       body: [
-        "20 mm is the crossover measurement. It is wider than nearly everything in stock retail and one millimetre under our 007 keyhole, which makes it the single most common bridge measurement we see on wide-face scans that have never found a frame that works.",
-        "A 20 mm nasal root usually travels with a face width of 152–158 mm and a bridge complaint rather than a temple complaint: the frame closes fine at the sides but sits too high, so the wearer looks through the lower third of the lens.",
+        "20 mm is wider than nearly everything in stock retail and it is the floor of Woolet bespoke. It suits a wide face that needs a frame bridge narrower than our 25–26 mm signature.",
       ],
     },
     {
-      h2: "Does the 21 mm signature keyhole work at 20 mm?",
+      h2: "20 mm against the Woolet range",
       body: [
-        "Yes, in most cases. One millimetre of surplus on a keyhole bridge is inside the tolerance the shape is designed to absorb — the contact simply sits fractionally lower on the flanks of the nose, which is where you want the weight anyway. The 009's 22 mm bridge is a larger stretch at this measurement and tends to sit lower than intended.",
-        "So at 20 mm the practical recommendation is the 007 round rather than the 009 soft-square, unless you want bespoke.",
+        "Signature frames are 25 mm (009) and 26 mm (007 keyhole). A 20 mm bridge is a bespoke build on any front from 145 to 160 mm.",
       ],
-      table: {
-        head: ["Frame", "Fit at a 20 mm nasal root"],
-        rows: [
-          ["007 Round, 21 mm keyhole", "Recommended"],
-          ["009 Soft Square, 22 mm", "Sits low — bespoke preferred"],
-          ["Bespoke, 20 mm", "Exact"],
-        ],
-      },
+      table: RANGE_TABLE,
     },
-    {
-      h2: "How to measure your bridge properly",
-      body: [
-        "Look straight into a mirror and find the narrowest point between your eyes, roughly level with the pupil centre. Measure across it in millimetres — that distance, not the width of the whole nose, is your bridge measurement. FitLens returns it alongside face width from a single phone photo.",
-      ],
-    },
+    MEASURE_SECTION,
   ],
 
   "21mm": [
     {
-      h2: "Why 21 mm is the 007 keyhole",
+      h2: "21 mm against the Woolet range",
       body: [
-        "21 mm is the bridge the 007 round is built around, and the keyhole shape is inseparable from the number. A keyhole clears the crest of the nose and transfers load onto the flanks, which is the only way to carry a 158 mm acetate front without pads. At 21 mm the contact arc is long enough to spread the weight and short enough that the frame does not drift when you look down.",
-        "It suits a nasal root measuring 20–22 mm, which is the range that comes with most 153–163 mm faces.",
+        "21 mm is a wide bridge by mainstream standards and a bespoke build at Woolet. The signature frames go wider: 25 mm on the 009 Soft Square and 26 mm on the 007 keyhole.",
       ],
+      table: RANGE_TABLE,
     },
     {
-      h2: "21 mm versus the 22 mm on the 009",
+      h2: "What a correct bridge does not fix",
       body: [
-        "The difference is not simply one millimetre of width. The 007's keyhole is cut higher and narrower at the crest, so it sits further up the nose and carries a round lens that needs the extra height. The 009's 22 mm bridge is a shallower saddle profile that pairs with the soft-square's flatter top line and lower lens height.",
-        "If your nasal root is 20–21 mm, take the 007. At 22 mm or above, the 009 is the better mechanical match even before you consider which shape you prefer.",
-      ],
-      table: {
-        head: ["Nasal root", "Frame"],
-        rows: [
-          ["20–21 mm", "007 Round, 21 mm keyhole"],
-          ["22 mm", "009 Soft Square, 22 mm"],
-          ["23–24 mm", "Bespoke"],
-        ],
-      },
-    },
-    {
-      h2: "What a 21 mm bridge does not fix",
-      body: [
-        "A correct bridge will not rescue a frame that is too narrow across the front. If the arms press at the temples, the bridge is not the problem and widening it makes the frame heavier without moving the contact points. Diagnose front width first, bridge second, temple length third.",
+        "A correct bridge will not rescue a frame that is too narrow across the front. If the arms press at the temples, the bridge is not the problem. Check front width first, bridge second, temple length third.",
       ],
     },
+    MEASURE_SECTION,
   ],
 
   "22mm": [
     {
-      h2: "Who a 22 mm bridge fits",
+      h2: "22 mm against the Woolet range",
       body: [
-        "22 mm is a genuinely wide nasal root and it is the bridge the 009 soft-square is built at. It suits a face in the upper half of the signature range, typically 158–163 mm, where the nose is broad at the root as well as at the nostrils and a narrower bridge would perch rather than seat.",
-        "Almost nothing in mainstream retail is offered at 22 mm. When a stock frame does list it, the front width is usually still 145 mm or under, which puts you back in the same trap from the other direction.",
+        "Almost nothing in mainstream retail is offered at 22 mm, and when a stock frame lists it the front is usually 145 mm or under. At Woolet 22 mm is a bespoke build; the signature 009 runs 25 mm and the 007 keyhole 26 mm.",
       ],
+      table: RANGE_TABLE,
     },
-    {
-      h2: "Saddle at 22 mm and why it works here",
-      body: [
-        "The 009 carries a shallower saddle profile rather than a keyhole. At 22 mm the root is wide enough that a saddle has real surface to bear on, which distributes the frame weight over a broader area than a keyhole can and keeps the lens height consistent — important on a soft-square where the top line is flat and any tilt is visible.",
-        "It also pairs with the 009's 54 × 50 mm lens: a wider bridge pushes the lenses apart, and the lens geometry is cut to keep the optical centres inside the pupillary distance that comes with a 158 mm face.",
-      ],
-      table: {
-        head: ["Spec", "009 Soft Square"],
-        rows: [
-          ["Bridge", "22 mm saddle"],
-          ["Front width", "158 mm"],
-          ["Lens", "54 × 50 mm"],
-          ["Alternative at 22 mm", "Bespoke, any front 145–160 mm"],
-        ],
-      },
-    },
-    {
-      h2: "When to go bespoke instead",
-      body: [
-        "If your bridge is 22 mm but your face measures outside 153–163 mm, the bridge is right and the front is not — that is a bespoke order. The same applies if you need a 22 mm bridge with a keyhole rather than a saddle profile, which we can cut but do not stock.",
-      ],
-    },
+    MEASURE_SECTION,
   ],
 
   "24mm": [
     {
-      h2: "Who a 24 mm bridge fits",
+      h2: "24 mm against the Woolet range",
       body: [
-        "24 mm is the widest bridge we build and it is a bespoke specification only. It suits a very broad nasal root, usually paired with a face width above the 153–163 mm stock fit band, and it is the measurement where every stock frame on the market has already failed by a wide margin.",
-        "At this width the bridge stops being a detail and becomes the primary fit constraint. Front width can be approximately right and the frame will still be unwearable if the bridge is four millimetres narrow.",
+        "24 mm is specialist wide-bridge sizing and a bespoke build at Woolet. It sits just under the signature 009 (25 mm) and 007 keyhole (26 mm).",
+        "When the bridge widens, the lens geometry has to follow: bespoke adjusts lens width so the optical centres stay aligned with your pupillary distance.",
       ],
+      table: RANGE_TABLE,
     },
+    MEASURE_SECTION,
+  ],
+
+  "25mm": [
     {
-      h2: "What changes at 24 mm",
+      h2: "Why 25 mm is the 009 bridge",
       body: [
-        "A 24 mm bridge moves the lenses further apart, so the lens geometry has to be recalculated rather than carried over: we adjust lens width to keep the optical centres aligned with your pupillary distance instead of drifting outboard of it. The acetate at the bridge also carries more unsupported span, so the section runs thicker there than on a 21 mm keyhole.",
-        "That is the reason 24 mm exists only in bespoke. It is not a variant of the signature frame; it is a different set of numbers throughout.",
+        "The 009 Soft Square is built 54□25-150 on a 158 mm front. A 25 mm bridge pushes the lenses apart for a wide nose, and the 54 × 44 mm lens keeps the optical centres inside the pupillary distance that comes with a wide face.",
       ],
       table: {
-        head: ["At a 24 mm nasal root", "Route"],
+        head: ["Spec", "009 Soft Square"],
         rows: [
-          ["Signature 007 (21 mm)", "3 mm too narrow — perches"],
-          ["Signature 009 (22 mm)", "2 mm too narrow"],
-          ["Bespoke 24 mm", "Correct — our maximum bridge"],
+          ["Bridge", "25 mm"],
+          ["Front width", "158 mm"],
+          ["Lens", "54 × 44 mm"],
+          ["Temples", "150 mm"],
         ],
       },
     },
     {
-      h2: "Getting the measurement right",
+      h2: "25 mm versus the 26 mm keyhole on the 007",
       body: [
-        "Bridge is measured at the narrowest point between the eyes, level with the pupils — not across the nostrils, which is the mistake that produces inflated numbers. If you measured 24 mm at the base of the nose, measure again higher up; the root is usually several millimetres narrower. FitLens measures at the correct point automatically.",
+        "The 007 Round carries a 26 mm keyhole that rests on the sides of the nose and a taller 53 × 47.6 mm round lens. The 009 pairs its 25 mm bridge with a flatter top line and a lower lens. Shape preference usually decides between them.",
       ],
     },
+    MEASURE_SECTION,
+  ],
+
+  "26mm": [
+    {
+      h2: "Why 26 mm is the 007 keyhole",
+      body: [
+        "The 007 Round / Panto is built 53□26-150 on a 158 mm front. A keyhole clears the crest of the nose and carries the load on the flanks, which is how a 158 mm acetate front sits without pads.",
+      ],
+      table: {
+        head: ["Spec", "007 Round / Panto"],
+        rows: [
+          ["Bridge", "26 mm keyhole"],
+          ["Front width", "158 mm"],
+          ["Lens", "53 × 47.6 mm"],
+          ["Temples", "150 mm"],
+        ],
+      },
+    },
+    {
+      h2: "26 mm is our widest bridge",
+      body: [
+        "26 mm is the 007 signature and the top of the bespoke range (20–26 mm). Bespoke can put a 26 mm bridge on any bespoke shape and front from 145 to 160 mm.",
+      ],
+    },
+    MEASURE_SECTION,
   ],
 };

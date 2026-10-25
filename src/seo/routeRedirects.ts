@@ -33,7 +33,7 @@ const REF_SLUGS = [
   "009-silver-clear", "003-black", "bespoke", "the-box",
 ];
 const SIZE_SLUGS = ["145mm", "150mm", "152mm", "155mm", "158mm", "160mm"];
-const BRIDGE_SLUGS = ["18mm", "19mm", "20mm", "21mm", "22mm", "24mm"];
+const BRIDGE_SLUGS = ["18mm", "19mm", "20mm", "21mm", "22mm", "24mm", "25mm", "26mm"];
 const TEMPLE_SLUGS = ["140mm", "145mm", "150mm", "152mm", "155mm"];
 const LP_SLUGS = ["kickstarter", "why-glasses-fail", "5-reasons", "wide-bridge-fit-guide"];
 

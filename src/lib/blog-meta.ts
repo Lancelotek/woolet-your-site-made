@@ -32,9 +32,9 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
   },
 
   "glasses-for-wide-nose-bridge-21-22mm-explained": {
-    metaTitle: "Wide Nose Bridge Glasses (21–22 mm Explained)",
+    metaTitle: "Wide Nose Bridge Glasses (25–26 mm Explained)",
     metaDescription:
-      "Most frames cap at 18 mm. See what a 21–22 mm bridge changes for a wide nose, why keyhole beats saddle, and which brands actually stock it.",
+      "Most frames cap at 18 mm. See what a 25–26 mm bridge changes for a wide nose, why keyhole beats saddle, and which brands actually stock it.",
   },
   "oversized-blue-light-glasses-vs-wide-fit": {
     metaTitle: "Oversized vs Wide-Fit Blue Light Glasses (158 mm)",
@@ -245,7 +245,7 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
   "welche-groesse-sonnenbrille-breites-gesicht": {
     metaTitle: "Welche Sonnenbrille bei breitem Gesicht? 155-mm-Fit-Guide",
     metaDescription:
-      "Sonnenbrillen für breite Gesichter (155mm+): 155mm+ Frontbreite, 20–22mm Steg, 148mm Bügel. In 60 Sekunden messen und passende Fassungen finden.",
+      "Sonnenbrillen für breite Gesichter (155mm+): 155mm+ Frontbreite, 25–26mm Steg, 148mm Bügel. In 60 Sekunden messen und passende Fassungen finden.",
   },
 
   // ── NL ───────────────────────────────────────────────────────────────
@@ -258,7 +258,7 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
   "welke-maat-zonnebril-voor-breed-gezicht": {
     metaTitle: "Welke zonnebril bij een breed gezicht? 155mm+ fitgids",
     metaDescription:
-      "Zonnebrillen voor brede gezichten (155mm+): 155mm+ frontbreedte, 20–22mm brug, 148mm veren. Meet in 60 seconden en vind passende monturen.",
+      "Zonnebrillen voor brede gezichten (155mm+): 155mm+ frontbreedte, 25–26mm brug, 148mm veren. Meet in 60 seconden en vind passende monturen.",
   },
 
   // ── FR ───────────────────────────────────────────────────────────────
@@ -271,7 +271,7 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
   "quelle-taille-de-lunettes-de-soleil-visage-large": {
     metaTitle: "Quelle taille de solaires pour un visage large ? Guide 155mm+",
     metaDescription:
-      "Lunettes de soleil pour visages larges (155mm+) : largeur de face 155mm+, pont 20–22mm, branches 148mm. Mesurez en 60 secondes et trouvez votre taille.",
+      "Lunettes de soleil pour visages larges (155mm+) : largeur de face 155mm+, pont 25–26mm, branches 148mm. Mesurez en 60 secondes et trouvez votre taille.",
   },
 
   // ── EN: fit, sizing & frame-measurement cluster (July 2026) ──────────

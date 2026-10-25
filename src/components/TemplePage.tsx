@@ -97,12 +97,12 @@ function TemplePageInner({ t }: { t: TempleEntry }) {
   const model007Card = productCard(
     "/en/products/007",
     "Woolet 007 — Round",
-    "150 mm temples · 158 mm front · 52 × 52 mm lens · 21 mm keyhole bridge.",
+    "150 mm temples · 158 mm front · 53 × 47.6 mm lens · 26 mm keyhole bridge.",
   );
   const model009Card = productCard(
     "/en/products/009",
     "Woolet 009 — Soft Square",
-    "150 mm temples · 158 mm front · 54 × 50 mm lens · 22 mm bridge.",
+    "150 mm temples · 158 mm front · 54 × 44 mm lens · 25 mm bridge.",
   );
 
   const bespokeCard = (
@@ -429,8 +429,8 @@ function TemplePageInner({ t }: { t: TempleEntry }) {
           <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 8, fontSize: 13 }}>
             {[
               { href: "/en/size/158mm", label: "158 mm — signature front width" },
-              { href: "/en/bridge/21mm", label: "21 mm keyhole bridge — 007" },
-              { href: "/en/bridge/22mm", label: "22 mm bridge — 009" },
+              { href: "/en/bridge/21mm", label: "26 mm keyhole bridge — 007" },
+              { href: "/en/bridge/22mm", label: "25 mm bridge — 009" },
               { href: "/en/blog/glasses-for-wide-faces-guide", label: "Guide: glasses for wide faces" },
             ].map((l) => (
               <li key={l.href}>

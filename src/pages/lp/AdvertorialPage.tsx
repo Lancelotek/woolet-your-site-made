@@ -770,7 +770,7 @@ const AdvertorialPage = () => {
 
             <img
               src={noseBridgeImg}
-              alt="Glasses nose bridge fit diagram — standard 18–20mm keyhole bridge digging into a wide nose vs Woolet 21mm and 24mm wider bridge sizes sitting level for wide noses and slim-face wearers"
+              alt="Glasses nose bridge fit diagram — standard 18–20mm keyhole bridge digging into a wide nose vs Woolet 25mm and 26mm wider bridge sizes sitting level for wide noses and slim-face wearers"
               width={1320}
               height={880}
               style={{
@@ -793,7 +793,7 @@ const AdvertorialPage = () => {
               margin: "0 2px 14px",
               fontStyle: "italic",
             }}>
-              Two keyhole bridge sizes — 21mm and 24mm — matched to your nose by the fit scan. The frame sits level, pads stop pinching, and the slide-down problem goes away. Built for wide noses on any face shape.
+              Two bridge sizes — 25mm (009) and 26mm (007 keyhole) — matched to your nose by the fit scan. The frame sits level, pads stop pinching, and the slide-down problem goes away. Built for wide noses on any face shape.
             </p>
 
             {/* Section 2 */}
@@ -1018,7 +1018,7 @@ const AdvertorialPage = () => {
                 margin: "0 0 12px",
               }}
             >
-              I received a prototype pair. Model 007 — round panto, Crystal, 158mm. Wide temples. Keyhole bridge 21mm — the wider keyhole-shaped bridge that doesn't slide off your nose every twenty minutes.
+              I received a prototype pair. Model 007 — round panto, Crystal, 158mm. Wide temples. Keyhole bridge 26mm — the wider keyhole-shaped bridge that doesn't slide off your nose every twenty minutes.
             </p>
             <p
               style={{

@@ -42,9 +42,9 @@ export const FRAME_SPECS = {
   "007": {
     name: "Woolet 007 — Round",
     frameWidth: 158,
-    bridge: 21,
-    lensWidth: 52,
-    lensHeight: 52,
+    bridge: 26,
+    lensWidth: 53,
+    lensHeight: 47.6,
     templeLength: 150,
     templeDrop: 11, // degrees
     href: "/en/products/007",
@@ -52,9 +52,9 @@ export const FRAME_SPECS = {
   "009": {
     name: "Woolet 009 — Soft Square",
     frameWidth: 158,
-    bridge: 22,
+    bridge: 25,
     lensWidth: 54,
-    lensHeight: 50,
+    lensHeight: 44,
     templeLength: 150,
     templeDrop: 11,
     href: "/en/products/009",
@@ -168,9 +168,9 @@ export const SIZES: SizeEntry[] = [
       "Bespoke is available in either shape from 145 to 160 mm, but at 158 mm you don't need it — signature is the fit.",
     faq: [
       { q: "Is 158 mm wide for glasses?", a: "Very wide by mainstream standards. Standard retail eyewear tops out around 145–148 mm. Woolet's 158 mm is a specialist size for faces in the 153–163 mm band." },
-      { q: "What bridge width comes with a 158 mm front?", a: "The 007 Round uses a 21 mm keyhole bridge; the 009 Soft Square uses a 22 mm bridge. Both are shaped for weight distribution across a wider nose." },
+      { q: "What bridge width comes with a 158 mm front?", a: "The 007 Round uses a 26 mm keyhole bridge; the 009 Soft Square uses a 25 mm bridge. Both are shaped for weight distribution across a wider nose." },
       { q: "Are 158 mm glasses only for men?", a: "No. Frame width is face width, not gender. Women with a 153–163 mm face wear the same signature 158 mm frame." },
-      { q: "What lens size comes with 158 mm frames?", a: "007 Round: 52 × 52 mm lens. 009 Soft Square: 54 × 50 mm lens. Both accept single-vision, progressive, blue-light and polarised sunglass lenses." },
+      { q: "What lens size comes with 158 mm frames?", a: "007 Round: 53 × 47.6 mm lens. 009 Soft Square: 54 × 44 mm lens. Both accept single-vision, progressive, blue-light and polarised sunglass lenses." },
       { q: "What temple length pairs with a 158 mm front?", a: "150 mm temples at an 11° drop, standard on both shapes. Bespoke can extend to 155 mm." },
     ],
   },

@@ -183,7 +183,7 @@ const faqs = [
   },
   {
     q: "What's the difference between standard and bespoke?",
-    a: "Standard 007 and 009 are built in one precise size — 158 mm front with a 21 mm keyhole bridge — which fits faces 153–163 mm. Bespoke is cut to your exact measurements and covers 145–160 mm.",
+    a: "Standard 007 and 009 are built in one precise size — 158 mm front with a 26 mm keyhole bridge — which fits faces 153–163 mm. Bespoke is cut to your exact measurements and covers 145–160 mm.",
   },
   {
     q: "Can I get prescription lenses?",
@@ -299,7 +299,7 @@ const BuyBox = () => {
             {modelName}
           </h3>
           <p style={{ ...sans, color: MUTED, fontSize: 15, lineHeight: 1.7, marginTop: 12 }}>
-            158 mm front · 21 mm keyhole bridge · Italian Mazzucchelli acetate, hand made in EU.
+            158 mm front · 26 mm keyhole bridge · Italian Mazzucchelli acetate, hand made in EU.
           </p>
 
           <div style={{ display: "flex", alignItems: "baseline", gap: 14, marginTop: 24 }}>
@@ -451,7 +451,7 @@ const ProductTabs = () => {
         {tab === "specs" && (
           <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "grid", gap: 10 }}>
             <li><span style={{ color: GOLD }}>—</span> Front width: 158 mm</li>
-            <li><span style={{ color: GOLD }}>—</span> Bridge: 21 mm keyhole</li>
+            <li><span style={{ color: GOLD }}>—</span> Bridge: 26 mm keyhole</li>
             <li><span style={{ color: GOLD }}>—</span> Temple length: 148 mm</li>
             <li><span style={{ color: GOLD }}>—</span> Lens height: 45 mm (007) / 42 mm (009)</li>
             <li><span style={{ color: GOLD }}>—</span> Weight: ~28 g</li>
@@ -497,7 +497,7 @@ const Shop = () => {
     <div style={{ background: BG, color: CREAM, minHeight: "100vh", ...sans }}>
       <SEO
         title="Woolet Shop — Wide-Face Eyewear"
-        description="Italian Mazzucchelli acetate eyewear engineered for wide faces. 158 mm front, 21 mm keyhole bridge, Hand made in EU."
+        description="Italian Mazzucchelli acetate eyewear engineered for wide faces. 158 mm front, 26 mm keyhole bridge, Hand made in EU."
         path="/shop"
         noindex
         robots="noindex, nofollow"
@@ -745,7 +745,7 @@ const Shop = () => {
             className="feature-row"
           >
             {[
-              { eb: "The Fit", h: "158 mm front + 21 mm keyhole bridge", p: "One precise size, built for 153–163 mm faces. Bespoke covers 145–160 mm." },
+              { eb: "The Fit", h: "158 mm front + 26 mm keyhole bridge", p: "One precise size, built for 153–163 mm faces. Bespoke covers 145–160 mm." },
               { eb: "The Material", h: "Mazzucchelli 1849 acetate", p: "Italian cellulose acetate, batch-cured for weeks. Denser and more stable than moulded plastic." },
               { eb: "The Craft", h: "Hand made in EU", p: "Milled, bevelled and polished by hand. Every front inspected before it leaves the workshop." },
             ].map((c) => (
@@ -779,10 +779,10 @@ const Shop = () => {
             },
             {
               eb: "The bridge",
-              h: "A 21 mm keyhole bridge that stops the slide.",
-              p: "Standard 18–20 mm saddle bridges concentrate pressure on the top of the nose, then slide. The 21 mm keyhole distributes weight across the side walls, so the frame stays put — even on a wider nasal base.",
-              bullets: ["21 mm keyhole geometry", "Reduces slide on wide bridges", "Matched to your nose by AI Fit"],
-              img: "Feature — 21 mm keyhole bridge macro on 009",
+              h: "A 26 mm keyhole bridge that stops the slide.",
+              p: "Standard 18–20 mm saddle bridges concentrate pressure on the top of the nose, then slide. The 26 mm keyhole distributes weight across the side walls, so the frame stays put — even on a wider nasal base.",
+              bullets: ["26 mm keyhole geometry", "Reduces slide on wide bridges", "Matched to your nose by AI Fit"],
+              img: "Feature — 26 mm keyhole bridge macro on 009",
               reverse: true,
             },
             {
@@ -931,7 +931,7 @@ const Shop = () => {
               Meet the 007 Round and the 009 Soft-square.
             </h2>
             <p style={{ ...sans, color: MUTED, fontSize: 16, lineHeight: 1.7 }}>
-              Two shapes, one wide-face architecture. Both sized at 158 mm with a 21 mm keyhole.
+              Two shapes, one wide-face architecture. Both sized at 158 mm with a 26 mm keyhole.
             </p>
           </div>
           <div className="feature-row" style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0,1fr))", gap: 32 }}>

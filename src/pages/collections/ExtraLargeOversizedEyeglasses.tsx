@@ -6,13 +6,13 @@ const ExtraLargeOversizedEyeglasses = () => (
     breadcrumbName="Extra Large Eyeglass Frames"
     h1="Extra Large Eyeglass Frames - XXL Fit, 158 mm Front"
     metaTitle="Extra Large Eyeglass Frames (XXL, 158 mm) - Prescription Ready | Woolet"
-    metaDescription="Extra large eyeglass frames that are actually wide: 158 mm front, 21-22 mm keyhole bridge, Mazzucchelli acetate, prescription ready. XXL fit, bespoke 145-160 mm."
+    metaDescription="Extra large eyeglass frames that are actually wide: 158 mm front, 25-26 mm keyhole bridge, Mazzucchelli acetate, prescription ready. XXL fit, bespoke 145-160 mm."
     intro="Extra large at most online opticians means a bigger lens on a standard front. These frames measure 158 mm across the front with 150 mm temples, so prescription lenses sit centred on a face 155 mm or wider. Two shapes, 007 Round and 009 Soft Square, $190 with demo lenses ready for your prescription."
     whyThisFits={[
       "<strong>158 mm front width is the honest measure.</strong> Mainstream <em>extra large</em> eyeglasses cap at 140–148 mm. The first number printed inside the temple is lens width, not total front width. Woolet scales both axes together so the frame fits faces of 155 mm and above.",
       "<strong>Italian Mazzucchelli acetate, hand made in EU.</strong> The same cellulose acetate block material used by Persol and Tom Ford. At extra large widths, cheap injection-moulded plastic warps under heat — acetate holds the set an optician gives it.",
-      "<strong>21–22 mm keyhole bridge</strong> — wider than the 18–20 mm typical of mainstream <em>extra large</em> frames — distributes weight evenly on a wider nose without leaving pressure marks. Temples run 150 mm on both shapes.",
-      "<strong>Prescription-ready.</strong> Single-vision, progressive, blue-light filter, or UV400 sun lenses. Lens area is generous enough for progressives without edge distortion: 52 × 52 mm on 007 round, 54 × 50 mm on 009 soft square.",
+      "<strong>25–26 mm keyhole bridge</strong> — wider than the 18–20 mm typical of mainstream <em>extra large</em> frames — distributes weight evenly on a wider nose without leaving pressure marks. Temples run 150 mm on both shapes.",
+      "<strong>Prescription-ready.</strong> Single-vision, progressive, blue-light filter, or UV400 sun lenses. Lens area is generous enough for progressives without edge distortion: 53 × 47.6 mm on 007 round, 54 × 44 mm on 009 soft square.",
       "<strong>Bespoke 145–160 mm</strong> if you fall outside 153–163 mm. Same Italian acetate, hand made in the EU to your scan. Confirm your size with the <a href=\"/en/fit\" style=\"color:#A07A2A;\">AI Fit Wizard</a> or the <a href=\"/en/fit/manual\" style=\"color:#A07A2A;\">credit-card manual method</a>.",
       "<strong>Looking for the full oversized range?</strong> See all <a href=\"/en/collections/big-glasses-frames\" style=\"color:#A07A2A;\">oversized glasses</a>, including sunglasses and both shapes.",
       "<strong>Read the guide:</strong> <a href=\"/en/blog/eyeglass-frame-size-chart\" style=\"color:#A07A2A;\">eyeglass frame size chart</a> — what every number on a frame means, in mm.",
@@ -31,7 +31,7 @@ const ExtraLargeOversizedEyeglasses = () => (
       {
         question: "Can I get progressive or single-vision prescription lenses?",
         answer:
-          "Yes. The $190 eyeglasses ship with demo lenses cut for the 158 mm front. Your optician fits single-vision or progressive lenses; the 52 × 52 mm (007) and 54 × 50 mm (009) lens area leaves room for a progressive corridor.",
+          "Yes. The $190 eyeglasses ship with demo lenses cut for the 158 mm front. Your optician fits single-vision or progressive lenses; the 53 × 47.6 mm (007) and 54 × 44 mm (009) lens area leaves room for a progressive corridor.",
       },
       {
         question: "Are these prescription-ready or sunglasses only?",
@@ -41,12 +41,12 @@ const ExtraLargeOversizedEyeglasses = () => (
       {
         question: "How is this different from your other extra-wide frames?",
         answer:
-          "Same 158 mm front and 21–22 mm bridge as the rest of the Woolet collection — the difference is the page intent: this page is for buyers who want prescription lenses in an extra large frame, and emphasizes the scale-matched lens area.",
+          "Same 158 mm front and 25–26 mm bridge as the rest of the Woolet collection — the difference is the page intent: this page is for buyers who want prescription lenses in an extra large frame, and emphasizes the scale-matched lens area.",
       },
       {
         question: "Can I go larger than 158 mm?",
         answer:
-          "Yes. Bespoke covers 145 to 160 mm of front width in four shapes, with a 20–24 mm bridge and temples up to 155 mm. Same Italian Mazzucchelli acetate, hand made in the EU to your measurement, from $480 with lenses included.",
+          "Yes. Bespoke covers 145 to 160 mm of front width in four shapes, with a 20–26 mm bridge and temples up to 155 mm. Same Italian Mazzucchelli acetate, hand made in the EU to your measurement, from $480 with lenses included.",
       },
       {
         question: "How do I know if I need extra large?",

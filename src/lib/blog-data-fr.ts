@@ -65,7 +65,7 @@ export const blogPostsFR: BlogPost[] = [
 
 <p>Woolet est la réponse à une question que le marché premium a trop longtemps ignorée : pourquoi aucune marque sérieuse d'acétate ne conçoit-elle de montures à partir de 155 mm+ ?</p>
 
-<p>Il y a deux modèles. La <strong>Woolet 007</strong> est une monture ronde à pont keyhole et verres 52 mm pour une largeur totale de 158 mm — un design qui apporte la vraie tradition optique européenne aux visages larges, sans les compromis visuels d'une monture agrandie depuis une plate-forme plus petite. La <strong>Woolet 009</strong> est une wayfarer carré adouci audacieuse, 158 mm de large, verres 54 mm — structurée, assurée, adaptée à un contexte professionnel.</p>
+<p>Il y a deux modèles. La <strong>Woolet 007</strong> est une monture ronde à pont keyhole et verres 53 mm pour une largeur totale de 158 mm — un design qui apporte la vraie tradition optique européenne aux visages larges, sans les compromis visuels d'une monture agrandie depuis une plate-forme plus petite. La <strong>Woolet 009</strong> est une wayfarer carré adouci audacieuse, 158 mm de large, verres 54 mm — structurée, assurée, adaptée à un contexte professionnel.</p>
 
 <figure style="display:flex;gap:1rem;flex-wrap:wrap"><img src="/images/woolet-007-round-glasses-wide-face.png" alt="Woolet 007 lunettes rondes pour grosses têtes — meilleures lunettes premium pour visages larges 2026, acétate italien, 158 mm, verres 52 mm" loading="lazy" style="width:48%;min-width:200px;border-radius:6px" /><img src="/images/woolet-009-square-glasses-wide-face.png" alt="Woolet 009 lunettes carrées pour grosses têtes — meilleures lunettes premium pour visages larges 2026, acétate italien, 158 mm, verres 54 mm" loading="lazy" style="width:48%;min-width:200px;border-radius:6px" /></figure>
 
@@ -150,14 +150,14 @@ export const blogPostsFR: BlogPost[] = [
     slug: "quelle-taille-de-lunettes-de-soleil-visage-large",
     title: "Quelle taille de solaires pour un visage large ? Guide 155mm+",
     excerpt:
-      "Lunettes de soleil pour visages larges (155mm+) : largeur de face 155mm+, pont 20–22mm, branches 148mm. Mesurez en 60 secondes et trouvez votre taille.",
+      "Lunettes de soleil pour visages larges (155mm+) : largeur de face 155mm+, pont 25–26mm, branches 148mm. Mesurez en 60 secondes et trouvez votre taille.",
     date: "2026-06-03",
     readTime: 7,
     tags: ["Guide taille", "Solaires", "Visage large"],
     faq: [
       {
         q: "Quelle taille de solaires est la meilleure pour un visage large ?",
-        a: "Une largeur de face (charnière à charnière) de 155 mm ou plus, un pont de 20–22 mm et des branches d'au moins 148 mm. En dessous de 155 mm de face, la monture pincera — quelle que soit la taille apparente du verre.",
+        a: "Une largeur de face (charnière à charnière) de 155 mm ou plus, un pont de 25–26 mm et des branches d'au moins 148 mm. En dessous de 155 mm de face, la monture pincera — quelle que soit la taille apparente du verre.",
       },
       {
         q: "Comment mesurer la largeur de mon visage pour des lunettes de soleil ?",
@@ -177,14 +177,14 @@ export const blogPostsFR: BlogPost[] = [
       },
     ],
     content: `
-<p>La question la plus posée par les acheteurs à visage large est aussi la plus simple : <em>quelle taille de solaires me faut-il vraiment ?</em> La réponse courte tient sur une ligne : une largeur de face de 155 mm ou plus, un pont de 20–22 mm et des branches d'au moins 148 mm. La réponse longue, c'est le reste de ce guide : comment lire les trois chiffres sur des solaires, comment mesurer votre visage en moins d'une minute et comment éviter l'erreur de taille la plus fréquente.</p>
+<p>La question la plus posée par les acheteurs à visage large est aussi la plus simple : <em>quelle taille de solaires me faut-il vraiment ?</em> La réponse courte tient sur une ligne : une largeur de face de 155 mm ou plus, un pont de 25–26 mm et des branches d'au moins 148 mm. La réponse longue, c'est le reste de ce guide : comment lire les trois chiffres sur des solaires, comment mesurer votre visage en moins d'une minute et comment éviter l'erreur de taille la plus fréquente.</p>
 
 <h2>La réponse en une ligne</h2>
 
 <p>Si votre visage mesure 155 mm ou plus à hauteur des tempes, il vous faut une monture solaire avec :</p>
 <ul>
 <li><strong>Largeur de face (charnière à charnière) :</strong> 155 mm ou plus</li>
-<li><strong>Pont :</strong> 20–22 mm</li>
+<li><strong>Pont :</strong> 25–26 mm</li>
 <li><strong>Branches :</strong> 148 mm ou plus</li>
 </ul>
 
@@ -213,7 +213,7 @@ export const blogPostsFR: BlogPost[] = [
 
 <ul>
 <li><strong>Largeur de visage 150–154 mm — modérément large.</strong> Des solaires large standard avec 148–152 mm de face conviennent. La plupart des lignes « Wide Fit » mainstream (Ray-Ban Justin XL, Warby Parker Wide) tombent dans cette plage.</li>
-<li><strong>Largeur de visage 155–161 mm — large.</strong> Les solaires standard des marques mainstream ne conviennent pas. Il vous faut une marque spécialisée. Les modèles 007 et 009 de Woolet arrivent avec 158 mm de face, un pont 21–22 mm et des branches 150 mm — conçus exactement pour cette plage.</li>
+<li><strong>Largeur de visage 155–161 mm — large.</strong> Les solaires standard des marques mainstream ne conviennent pas. Il vous faut une marque spécialisée. Les modèles 007 et 009 de Woolet arrivent avec 158 mm de face, un pont 25–26 mm et des branches 150 mm — conçus exactement pour cette plage.</li>
 <li><strong>Largeur de visage supérieure à 161 mm — la face Woolet la plus large est 160 mm (sur mesure) ; mesurez d'abord.</strong> L'offre standard est très limitée. Le sur-mesure est souvent la seule réponse honnête. Woolet Bespoke couvre les faces de 145 à 160 mm pour les deux formes.</li>
 <li><strong>Largeur de visage supérieure à 160 mm — hors de notre plage.</strong> Woolet ne fabrique pas de face supérieure à 160 mm.</li>
 </ul>
@@ -224,12 +224,12 @@ export const blogPostsFR: BlogPost[] = [
 
 <h2>La largeur du pont compte plus que vous ne le pensez</h2>
 
-<p>Le pont est la distance entre les deux verres. Les solaires mainstream utilisent un pont de 17–19 mm, pensé pour un nez moyen. Les visages larges ont presque toujours un nez plus large aussi — un pont de 20–22 mm garantit que la monture repose correctement sur les plaquettes, que le poids est réparti et que les lunettes ne tombent pas sur les pommettes au premier sourire. Woolet utilise un pont keyhole de 21 mm en standard, avec des options bespoke entre 16 et 26 mm.</p>
+<p>Le pont est la distance entre les deux verres. Les solaires mainstream utilisent un pont de 17–19 mm, pensé pour un nez moyen. Les visages larges ont presque toujours un nez plus large aussi — un pont de 25–26 mm garantit que la monture repose correctement sur les plaquettes, que le poids est réparti et que les lunettes ne tombent pas sur les pommettes au premier sourire. Woolet utilise un pont keyhole de 26 mm en standard, avec des options bespoke entre 16 et 26 mm.</p>
 
 <h2>FAQ courte</h2>
 
 <h3>Quelle taille de solaires est la meilleure pour un visage large ?</h3>
-<p>Une largeur de face (charnière à charnière) de 155 mm ou plus, un pont de 20–22 mm et des branches d'au moins 148 mm. En dessous de 155 mm de face, la monture pincera — quelle que soit la taille apparente du verre.</p>
+<p>Une largeur de face (charnière à charnière) de 155 mm ou plus, un pont de 25–26 mm et des branches d'au moins 148 mm. En dessous de 155 mm de face, la monture pincera — quelle que soit la taille apparente du verre.</p>
 
 <h3>Comment mesurer la largeur de mon visage pour des solaires ?</h3>
 <p>Repérez le point le plus large de votre visage à hauteur des pommettes. Utilisez une carte bancaire (85,6 mm) comme référence, ou l'<a href="/fr/fit">AI Fit Wizard</a> pour une mesure précise.</p>

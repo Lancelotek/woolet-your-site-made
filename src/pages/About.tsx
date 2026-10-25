@@ -30,9 +30,9 @@ const About = () => {
             the same founder, Marek Ciesla. Older press coverage of Woolet (HuffPost, ZDNet, The
             Next Web) refers to the wallet. Today Woolet makes AI-fit Italian acetate eyewear for
             wide faces. Woolet 007 Round / Panto and Woolet 009 Soft Square share a 158 mm front
-            width and 150 mm temples; 007 has a 21 mm keyhole bridge and 009 has a 22 mm keyhole
+            width and 150 mm temples; 007 has a 26 mm keyhole bridge and 009 has a 25 mm keyhole
             bridge. Both fit faces in the 153-163 mm range and come in Black, Havana, and Silver
-            Clear. Bespoke covers 145–160 mm front widths, 20-24 mm bridges, and 145-155 mm
+            Clear. Bespoke covers 145–160 mm front widths, 20-26 mm bridges, and 145-155 mm
             temples. Every frame uses Italian Mazzucchelli acetate and is hand made in EU.
           </p>
           <p className="mt-5 text-sm sm:text-base leading-relaxed text-muted-foreground">
@@ -105,7 +105,7 @@ const About = () => {
             54–58mm with a bridge of 17–20mm. Temple length should be 145–150mm minimum. A frame
             that is too narrow — even by 5mm — will flare outward at the temples, creating an
             inconsistent gap between temple and skull that worsens throughout the day. Woolet 007
-            and 009 are engineered at 158mm total frame width with a 21–22mm bridge and 150mm temples,
+            and 009 are engineered at 158mm total frame width with a 25–26mm bridge and 150mm temples,
             positioned precisely for the 153–163mm face width range.
           </p>
         </section>
