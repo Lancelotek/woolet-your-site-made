@@ -15,7 +15,7 @@ const ExtraWideGlasses = () => (
       heading: "What counts as extra wide glasses?",
       text: "In this sizing scale, Extra-wide means frames for faces measuring 145–154 mm. Faces measuring 155 mm or more are XL / specialty wide and need a purpose-built front; Woolet uses a 158 mm front for its 153–163 mm standard fit range.",
     }}
-    intro="Extra-wide covers faces measuring 145–154 mm. At 155 mm or more, the correct category is XL / specialty wide. Woolet's standard front is 158 mm for faces in the 153–163 mm range, with a 21 mm bridge on 007 and 22 mm on 009, hand made in EU from Italian Mazzucchelli acetate."
+    intro="Extra-wide covers faces measuring 145–154 mm. At 155 mm or more, the correct category is XL / specialty wide. Woolet's standard front is 158 mm for faces in the 153–163 mm range, with a 26 mm bridge on 007 and 25 mm on 009, hand made in EU from Italian Mazzucchelli acetate."
     whyThisFits={[
       "Extra-wide covers faces measuring 145–154 mm; 155 mm and above is XL / specialty wide. Retail labels often omit total front width, so the frame can still pinch at the temples. Woolet scales front width and lens area together at 158 mm for its 153–163 mm standard fit range.",
       "Bridge width is the second variable most extra-wide listings ignore. A wider face usually has a wider nose; we use a 26 mm keyhole bridge (vs the 18–20 mm typical of mainstream wide frames) so the frame sits without riding up or leaving pressure marks.",

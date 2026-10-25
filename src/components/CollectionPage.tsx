@@ -273,7 +273,7 @@ const CollectionPage = ({
               One precise size - or go bespoke
             </h2>
             <p style={{ fontSize: 13, lineHeight: 1.6, color: "#CCC", margin: "0 0 14px" }}>
-              Both shapes ship at 158 mm wide with a 26 mm bridge, engineered for faces in the 153-163 mm range. Outside that, bespoke covers 145 to 160 mm with the same 26 mm bridge.
+              Both shapes ship at 158 mm wide with a 25–26 mm bridge (009 25 mm, 007 26 mm), engineered for faces in the 153-163 mm range. Outside that, bespoke covers 145 to 160 mm with a 20–26 mm bridge.
               Use our AI Fit Wizard to confirm the right fit for your face.
             </p>
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>

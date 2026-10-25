@@ -660,7 +660,7 @@ ${blogFitLensHookHtml()}
 
 <p><strong>Keyhole bridge</strong> is cut with a small inverted-keyhole opening at the center. The frame doesn't touch the sides of the nose at all — it sits across the top, like a bridge spanning a gap. Historically the bridge style of choice for mid-century American eyewear (Wayfarer, Persol 649, Moscot Lemtosh) and still standard in heritage frames today.</p>
 
-<p>For a wider or higher nose, the combination you want is <strong>wide + keyhole</strong>: 21 mm or more, cut with a keyhole opening. That's the spec on both Woolet 007 (21 mm round) and Woolet 009 (22 mm soft-square). See the full breakdown on the <a href="/en/collections/keyhole-bridge-glasses">keyhole bridge collection</a>.</p>
+<p>For a wider or higher nose, the combination you want is <strong>wide + keyhole</strong>: 21 mm or more, cut with a keyhole opening. That's the spec on both Woolet 007 (26 mm round) and Woolet 009 (25 mm soft-square). See the full breakdown on the <a href="/en/collections/keyhole-bridge-glasses">keyhole bridge collection</a>.</p>
 
 <h2>Are glasses for big noses the same problem?</h2>
 
@@ -2149,9 +2149,9 @@ ${blogFitLensHookHtml()}
 </thead>
 <tbody>
 <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>145–154 mm</strong></td><td style="padding:14px 16px;">20–26 mm</td><td style="padding:14px 16px;color:#c9a84c;">Bespoke</td><td style="padding:14px 16px;color:#555;">Gap between mainstream and Woolet stock</td></tr>
-<tr style="background:#F8F6F1;color:#1F1B16;border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>155 mm</strong></td><td style="padding:14px 16px;">21 mm</td><td style="padding:14px 16px;color:#0f0f0f;">Bespoke or stock 158 mm</td><td style="padding:14px 16px;color:#555;">Stock frames have a 158 mm front</td></tr>
+<tr style="background:#F8F6F1;color:#1F1B16;border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>155 mm</strong></td><td style="padding:14px 16px;">25–26 mm</td><td style="padding:14px 16px;color:#0f0f0f;">Bespoke or stock 158 mm</td><td style="padding:14px 16px;color:#555;">Stock frames have a 158 mm front</td></tr>
 <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>158 mm</strong></td><td style="padding:14px 16px;">25–26 mm</td><td style="padding:14px 16px;color:#0f0f0f;">Stock Woolet 007 / 009 (158 mm)</td><td style="padding:14px 16px;color:#555;">Core size, covers most 155 mm+ buyers</td></tr>
-<tr style="background:#F8F6F1;color:#1F1B16;border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>161 mm</strong></td><td style="padding:14px 16px;">22 mm</td><td style="padding:14px 16px;color:#0f0f0f;">Bespoke or stock 158 mm</td><td style="padding:14px 16px;color:#555;">Stock frames have a 158 mm front</td></tr>
+<tr style="background:#F8F6F1;color:#1F1B16;border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>161 mm</strong></td><td style="padding:14px 16px;">25–26 mm</td><td style="padding:14px 16px;color:#0f0f0f;">Bespoke or stock 158 mm</td><td style="padding:14px 16px;color:#555;">Stock frames have a 158 mm front</td></tr>
 <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>162–166 mm</strong></td><td style="padding:14px 16px;">22–24 mm</td><td style="padding:14px 16px;color:#c9a84c;">Bespoke</td><td style="padding:14px 16px;color:#555;">Above stock ceiling</td></tr>
 <tr style="background:#F8F6F1;color:#1F1B16;border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>155–160 mm</strong></td><td style="padding:14px 16px;">20–26 mm</td><td style="padding:14px 16px;color:#c9a84c;">Bespoke</td><td style="padding:14px 16px;color:#555;">Upper limit of acetate single-block cut</td></tr>
 </tbody>
@@ -4310,7 +4310,7 @@ const blogPostsPL: BlogPost[] = [
 </ul>
 
 <h2>Rozwiązanie Woolet</h2>
-<p>Stworzyliśmy Woolet, bo sami żyliśmy z tym problemem. Nasze oprawki zaczynają się od 155mm, używają wzmocnionych zawiasów 5-baryłkowych, zauszników 150mm i mostka 22mm. Nie zaadaptowane. Zaprojektowane od zera.</p>
+<p>Stworzyliśmy Woolet, bo sami żyliśmy z tym problemem. Nasze oprawki zaczynają się od 155mm, używają wzmocnionych zawiasów 5-baryłkowych, zauszników 150mm i mostka 25-26 mm. Nie zaadaptowane. Zaprojektowane od zera.</p>
 `,
   },
   {

@@ -272,7 +272,7 @@ export const dePages: Record<string, DePageConfig> = {
     h1Post: " - unser Standard.",
     sub: "Woolet 007 Round und 009 Soft Square: 158 mm Front, 26/25 mm Keyhole-Steg, 150 mm Bügel.",
     heroAlt: "Greg trägt die Woolet 009 Soft Square mit 158 mm Frontbreite",
-    kurzeAntwort: "158 mm ist die Standardbreite von Woolet: Beide Modelle, 007 Round und 009 Soft Square, haben eine 158 mm breite Front, einen Keyhole-Steg mit 21 bzw. 22 mm und 150 mm lange Bügel. Sie passen bei 153-163 mm Gesichtsbreite.",
+    kurzeAntwort: "158 mm ist die Standardbreite von Woolet: Beide Modelle, 007 Round und 009 Soft Square, haben eine 158 mm breite Front, einen Keyhole-Steg mit 26 bzw. 25 mm und 150 mm lange Bügel. Sie passen bei 153-163 mm Gesichtsbreite.",
     problemTitle: "Was steckt in der 158 mm Front?",
     problemBody: "Woolet 007 Round misst 53□26-150, Woolet 009 Soft Square 54□25-150. Beide haben 158 mm Frontbreite, einen Keyhole-Steg und 150 mm lange Bügel, gefertigt aus Mazzucchelli-Acetat und in der EU handgefertigt.",
     detailTitle: "Für wen ist 158 mm die richtige Breite?",
