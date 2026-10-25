@@ -710,6 +710,19 @@ body.wl-lightbox-open .wl-sticky-cta { display: none !important; }
 }
 @keyframes wlBtnSpin { to { transform: rotate(360deg); } }
 
+/* Primary CTA hover: lighter gold (bg utility), 2 px lift and a soft gold shadow, 150 ms. */
+.woolet-cta-lift {
+  transition: background-color 150ms ease-out, transform 150ms ease-out, box-shadow 150ms ease-out;
+}
+.woolet-cta-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -10px hsl(var(--gold) / 0.6);
+}
+.woolet-cta-lift:active { transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) {
+  .woolet-cta-lift, .woolet-cta-lift:hover { transition: none; transform: none; }
+}
+
 /* FitLens tape-measure fallback: sits above the FitLens iframe (z 2147483646). */
 .fitlens-fallback-pill {
   position: fixed;

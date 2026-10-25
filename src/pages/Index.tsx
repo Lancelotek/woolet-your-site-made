@@ -13,6 +13,7 @@ import StickyMobileCTA from "@/components/StickyMobileCTA";
 import { FoundingBenefits } from "@/components/FoundingBenefits";
 import SEO from "@/components/SEO";
 import HeroSymptoms from "@/components/HeroSymptoms";
+import { prefersReducedMotion } from "@/hooks/use-motion-once";
 import { pushGtmEvent } from "@/lib/gtm";
 import { isValidLang, dirForLang, type Lang } from "@/lib/i18n";
 import { hrefFor } from "@/i18n/routeRegistry";
@@ -479,7 +480,7 @@ const makeMeters = (copy: HomeCopy): MeterCfg[] => [
     scaleMin: 135,
     scaleMax: 175,
     standard: [138, 148],
-    woolet: [155, 161],
+    woolet: [153, 163],
     ticks: [135, 155, 175],
   },
   {
@@ -497,16 +498,42 @@ const makeMeters = (copy: HomeCopy): MeterCfg[] => [
 const FrameWidthMeter = ({ copy, lang }: { copy: HomeCopy; lang: Lang }) => {
   const [active, setActive] = useState(0);
   const meters = makeMeters(copy);
+  const rootRef = useRef<HTMLDivElement>(null);
 
+  // Autoplay only while the meter is on screen and the tab is visible;
+  // never for visitors who ask the OS for reduced motion.
   useEffect(() => {
-    const t = setInterval(() => {
-      setActive((i) => (i + 1) % meters.length);
-    }, 5200);
-    return () => clearInterval(t);
+    if (prefersReducedMotion()) return;
+    let onScreen = true;
+    let t: number | undefined;
+    const sync = () => {
+      const run = onScreen && document.visibilityState === "visible";
+      if (run && t === undefined) {
+        t = window.setInterval(() => setActive((i) => (i + 1) % meters.length), 5200);
+      } else if (!run && t !== undefined) {
+        window.clearInterval(t);
+        t = undefined;
+      }
+    };
+    const io =
+      typeof IntersectionObserver !== "undefined" && rootRef.current
+        ? new IntersectionObserver(([e]) => {
+            onScreen = e.isIntersecting;
+            sync();
+          })
+        : null;
+    if (io && rootRef.current) io.observe(rootRef.current);
+    document.addEventListener("visibilitychange", sync);
+    sync();
+    return () => {
+      io?.disconnect();
+      document.removeEventListener("visibilitychange", sync);
+      if (t !== undefined) window.clearInterval(t);
+    };
   }, [meters.length]);
 
   return (
-    <div className="w-full max-w-[520px]">
+    <div ref={rootRef} className="w-full max-w-[520px]">
       <div className="relative overflow-hidden">
         <div
           className="flex transition-transform duration-700 ease-[cubic-bezier(0.22,0.61,0.36,1)]"
@@ -745,17 +772,14 @@ const Index = () => {
                     });
                     if (heroTracked) trackHeroCtaClick(heroVariant.id, "join_list");
                   }}
-                  className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"
+                  className="woolet-cta-lift inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline bg-gold hover:bg-gold-light"
                   style={{
-                    background: "hsl(var(--gold))",
                     color: "hsl(var(--background))",
                     fontFamily: "Barlow, sans-serif",
                     fontWeight: 500,
                     fontSize: "0.78rem",
                     padding: "18px 28px",
                   }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = "hsl(var(--gold-light))")}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = "hsl(var(--gold))")}
                 >
                   {copy.ctaPrimary}
                 </Link>

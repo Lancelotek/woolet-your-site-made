@@ -1,0 +1,51 @@
+/* HeroSymptoms entrance: the gold frame draws, then the red pressure marks,
+   then the copy; 120 ms stagger per symptom. Hidden only in the "pre" phase,
+   so prerender and reduced-motion users always see the finished state. */
+
+.hs-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+[data-motion="pre"] .hs-draw { stroke-dashoffset: 1; }
+[data-motion="pre"] .hs-face { opacity: 0; }
+[data-motion="pre"] .hs-copy { opacity: 0; transform: translateY(8px); }
+[data-motion="pre"] .hs-verdict { opacity: 0; }
+
+[data-motion="play"] .hs-face {
+  transition: opacity 300ms ease-out var(--hs-d0);
+}
+[data-motion="play"] .hs-gold {
+  transition: stroke-dashoffset 600ms cubic-bezier(0.22, 1, 0.36, 1) var(--hs-d1);
+}
+[data-motion="play"] .hs-red {
+  transition: stroke-dashoffset 450ms cubic-bezier(0.22, 1, 0.36, 1) var(--hs-d2);
+}
+[data-motion="play"] .hs-copy {
+  transition:
+    opacity 280ms cubic-bezier(0.22, 1, 0.36, 1) var(--hs-d3),
+    transform 280ms cubic-bezier(0.22, 1, 0.36, 1) var(--hs-d3);
+}
+[data-motion="play"] .hs-verdict {
+  transition: opacity 400ms ease-out 1100ms;
+}
+
+/* "See the numbers" panel: height eases open instead of jumping. */
+.hs-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hs-panel[data-open="true"] { grid-template-rows: 1fr; }
+.hs-panel > div { min-height: 0; overflow: hidden; }
+.hs-panel-inner { opacity: 0; transition: opacity 200ms ease-out; }
+.hs-panel[data-open="true"] .hs-panel-inner { opacity: 1; transition-delay: 100ms; }
+.hs-toggle-icon { display: inline-block; transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1); }
+[aria-expanded="true"] .hs-toggle-icon { transform: rotate(45deg); }
+
+@media (prefers-reduced-motion: reduce) {
+  .hs-panel,
+  .hs-panel-inner,
+  .hs-toggle-icon,
+  [data-motion] * { transition: none !important; }
+}
