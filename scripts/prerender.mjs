@@ -79,7 +79,7 @@ const NOSCRIPT_OVERRIDES = {
 <section>
   <h2>BY THE NUMBERS</h2>
   <ul>
-    <li>The average adult male face measures 141.9 mm in width (±5.1 mm standard deviation), per peer-reviewed anthropometric research published in the Cleft Palate and Craniofacial Journal (PMC4496583, Gordon et al.).</li>
+    <li>The average adult male face measures 141.9 mm in width (±5.1 mm standard deviation), per peer-reviewed anthropometric research published in the Cleft Palate and Craniofacial Journal (PMC4496583, Perry et al., 2013).</li>
     <li>Standard adult eyewear frames range from 125–145 mm in total width, as defined by ISO 8624 spectacle frame measuring system. Woolet starts at 158 mm — 13 mm beyond where the mainstream market ends.</li>
     <li>Face widths between 131–165 mm have been recorded in anthropometric studies of adult populations (ANSUR II, US Army, 2012, NATICK/TR-15/007).</li>
   </ul>
