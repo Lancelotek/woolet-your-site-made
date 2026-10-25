@@ -576,16 +576,16 @@ ${ANSWER(
   </thead>
   <tbody>
     <tr style="border-bottom:1px solid #E8E4DC;">
-      <td style="${TD}"><strong><a href="/en/products/007" style="color:#A07A2A;">Woolet 007 Round</a></strong></td><td style="${TD}">53□26-150</td><td style="${TD}">52 mm</td><td style="${TD}">21 mm</td><td style="${TD}">52 mm</td><td style="${TD}"><strong>158 mm</strong></td>
+      <td style="${TD}"><strong><a href="/en/products/007" style="color:#A07A2A;">Woolet 007 Round</a></strong></td><td style="${TD}">53□26-150</td><td style="${TD}">53 mm</td><td style="${TD}">26 mm</td><td style="${TD}">47.6 mm</td><td style="${TD}"><strong>158 mm</strong></td>
     </tr>
     <tr style="background:#FAF7F0;">
-      <td style="${TD}"><strong><a href="/en/products/009" style="color:#A07A2A;">Woolet 009 Soft Square</a></strong></td><td style="${TD}">54□25-150</td><td style="${TD}">54 mm</td><td style="${TD}">25 mm</td><td style="${TD}">50 mm</td><td style="${TD}"><strong>158 mm</strong></td>
+      <td style="${TD}"><strong><a href="/en/products/009" style="color:#A07A2A;">Woolet 009 Soft Square</a></strong></td><td style="${TD}">54□25-150</td><td style="${TD}">54 mm</td><td style="${TD}">25 mm</td><td style="${TD}">44 mm</td><td style="${TD}"><strong>158 mm</strong></td>
     </tr>
   </tbody>
 </table>
 </div>
 
-<p>Note what just happened. The 007 has a <em>smaller</em> lens and a <em>narrower</em> bridge than the 009, and both frames are exactly the same width across the front. The difference is absorbed in rim thickness and the width of the hinge blocks either side. Nothing in the printed marking would tell you they are the same size on a face.</p>
+<p>Note what just happened. The 007 has a <em>smaller</em> lens and a <em>wider</em> bridge than the 009, and both frames are exactly the same width across the front. The difference is absorbed in rim thickness and the width of the hinge blocks either side. Nothing in the printed marking would tell you they are the same size on a face.</p>
 
 <h2>The arithmetic: getting from three numbers to front width</h2>
 
@@ -976,7 +976,7 @@ ${ANSWER(
 
 <p>The giveaway is a second set of marks: red lines at the temples, in front of the ears, alongside the pain behind them. Sleeves and re-bends move the symptom around but never remove it, because the geometry is unchanged. The full diagnosis of that pattern is here: <a href="/en/blog/glasses-too-tight-on-side-of-head" style="color:#A07A2A;">glasses too tight on the side of your head</a>.</p>
 
-<p>The rule is simple. A face measuring 155 mm or more temple to temple needs a front of 155 mm or more. Woolet frames are 158 mm across the front on both shapes - the 007 Round at 53 x 47.6 mm lenses with a 26 mm bridge, the 009 Soft Square at 54 x 44 mm with a 22 mm bridge - built for faces in the 155 to 161 mm band. Outside that band, Bespoke is made to your measurement, any front width from 145 to 160 mm, hand made in the EU.</p>
+<p>The rule is simple. A face measuring 155 mm or more temple to temple needs a front of 155 mm or more. Woolet frames are 158 mm across the front on both shapes - the 007 Round at 53 x 47.6 mm lenses with a 26 mm bridge, the 009 Soft Square at 54 x 44 mm with a 25 mm bridge - built for faces in the 155 to 161 mm band. Outside that band, Bespoke is made to your measurement, any front width from 145 to 160 mm, hand made in the EU.</p>
 
 <h2>4. Your ears sit at different heights</h2>
 

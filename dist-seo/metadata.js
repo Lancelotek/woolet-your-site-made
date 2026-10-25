@@ -3503,16 +3503,16 @@ ${ANSWER(
   </thead>
   <tbody>
     <tr style="border-bottom:1px solid #E8E4DC;">
-      <td style="${TD}"><strong><a href="/en/products/007" style="color:#A07A2A;">Woolet 007 Round</a></strong></td><td style="${TD}">53□26-150</td><td style="${TD}">52 mm</td><td style="${TD}">21 mm</td><td style="${TD}">52 mm</td><td style="${TD}"><strong>158 mm</strong></td>
+      <td style="${TD}"><strong><a href="/en/products/007" style="color:#A07A2A;">Woolet 007 Round</a></strong></td><td style="${TD}">53□26-150</td><td style="${TD}">53 mm</td><td style="${TD}">26 mm</td><td style="${TD}">47.6 mm</td><td style="${TD}"><strong>158 mm</strong></td>
     </tr>
     <tr style="background:#FAF7F0;">
-      <td style="${TD}"><strong><a href="/en/products/009" style="color:#A07A2A;">Woolet 009 Soft Square</a></strong></td><td style="${TD}">54□25-150</td><td style="${TD}">54 mm</td><td style="${TD}">25 mm</td><td style="${TD}">50 mm</td><td style="${TD}"><strong>158 mm</strong></td>
+      <td style="${TD}"><strong><a href="/en/products/009" style="color:#A07A2A;">Woolet 009 Soft Square</a></strong></td><td style="${TD}">54□25-150</td><td style="${TD}">54 mm</td><td style="${TD}">25 mm</td><td style="${TD}">44 mm</td><td style="${TD}"><strong>158 mm</strong></td>
     </tr>
   </tbody>
 </table>
 </div>
 
-<p>Note what just happened. The 007 has a <em>smaller</em> lens and a <em>narrower</em> bridge than the 009, and both frames are exactly the same width across the front. The difference is absorbed in rim thickness and the width of the hinge blocks either side. Nothing in the printed marking would tell you they are the same size on a face.</p>
+<p>Note what just happened. The 007 has a <em>smaller</em> lens and a <em>wider</em> bridge than the 009, and both frames are exactly the same width across the front. The difference is absorbed in rim thickness and the width of the hinge blocks either side. Nothing in the printed marking would tell you they are the same size on a face.</p>
 
 <h2>The arithmetic: getting from three numbers to front width</h2>
 
@@ -3898,7 +3898,7 @@ ${ANSWER(
 
 <p>The giveaway is a second set of marks: red lines at the temples, in front of the ears, alongside the pain behind them. Sleeves and re-bends move the symptom around but never remove it, because the geometry is unchanged. The full diagnosis of that pattern is here: <a href="/en/blog/glasses-too-tight-on-side-of-head" style="color:#A07A2A;">glasses too tight on the side of your head</a>.</p>
 
-<p>The rule is simple. A face measuring 155 mm or more temple to temple needs a front of 155 mm or more. Woolet frames are 158 mm across the front on both shapes - the 007 Round at 53 x 47.6 mm lenses with a 26 mm bridge, the 009 Soft Square at 54 x 44 mm with a 22 mm bridge - built for faces in the 155 to 161 mm band. Outside that band, Bespoke is made to your measurement, any front width from 145 to 160 mm, hand made in the EU.</p>
+<p>The rule is simple. A face measuring 155 mm or more temple to temple needs a front of 155 mm or more. Woolet frames are 158 mm across the front on both shapes - the 007 Round at 53 x 47.6 mm lenses with a 26 mm bridge, the 009 Soft Square at 54 x 44 mm with a 25 mm bridge - built for faces in the 155 to 161 mm band. Outside that band, Bespoke is made to your measurement, any front width from 145 to 160 mm, hand made in the EU.</p>
 
 <h2>4. Your ears sit at different heights</h2>
 
@@ -5453,7 +5453,7 @@ ${blogFitLensHookHtml()}
 
 <p><strong>Keyhole bridge</strong> is cut with a small inverted-keyhole opening at the center. The frame doesn't touch the sides of the nose at all — it sits across the top, like a bridge spanning a gap. Historically the bridge style of choice for mid-century American eyewear (Wayfarer, Persol 649, Moscot Lemtosh) and still standard in heritage frames today.</p>
 
-<p>For a wider or higher nose, the combination you want is <strong>wide + keyhole</strong>: 21 mm or more, cut with a keyhole opening. That's the spec on both Woolet 007 (21 mm round) and Woolet 009 (22 mm soft-square). See the full breakdown on the <a href="/en/collections/keyhole-bridge-glasses">keyhole bridge collection</a>.</p>
+<p>For a wider or higher nose, the combination you want is <strong>wide + keyhole</strong>: 21 mm or more, cut with a keyhole opening. That's the spec on both Woolet 007 (26 mm round) and Woolet 009 (25 mm soft-square). See the full breakdown on the <a href="/en/collections/keyhole-bridge-glasses">keyhole bridge collection</a>.</p>
 
 <h2>Are glasses for big noses the same problem?</h2>
 
@@ -6942,9 +6942,9 @@ ${blogFitLensHookHtml()}
 </thead>
 <tbody>
 <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>145–154 mm</strong></td><td style="padding:14px 16px;">20–26 mm</td><td style="padding:14px 16px;color:#c9a84c;">Bespoke</td><td style="padding:14px 16px;color:#555;">Gap between mainstream and Woolet stock</td></tr>
-<tr style="background:#F8F6F1;color:#1F1B16;border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>155 mm</strong></td><td style="padding:14px 16px;">21 mm</td><td style="padding:14px 16px;color:#0f0f0f;">Bespoke or stock 158 mm</td><td style="padding:14px 16px;color:#555;">Stock frames have a 158 mm front</td></tr>
+<tr style="background:#F8F6F1;color:#1F1B16;border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>155 mm</strong></td><td style="padding:14px 16px;">25–26 mm</td><td style="padding:14px 16px;color:#0f0f0f;">Bespoke or stock 158 mm</td><td style="padding:14px 16px;color:#555;">Stock frames have a 158 mm front</td></tr>
 <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>158 mm</strong></td><td style="padding:14px 16px;">25–26 mm</td><td style="padding:14px 16px;color:#0f0f0f;">Stock Woolet 007 / 009 (158 mm)</td><td style="padding:14px 16px;color:#555;">Core size, covers most 155 mm+ buyers</td></tr>
-<tr style="background:#F8F6F1;color:#1F1B16;border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>161 mm</strong></td><td style="padding:14px 16px;">22 mm</td><td style="padding:14px 16px;color:#0f0f0f;">Bespoke or stock 158 mm</td><td style="padding:14px 16px;color:#555;">Stock frames have a 158 mm front</td></tr>
+<tr style="background:#F8F6F1;color:#1F1B16;border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>161 mm</strong></td><td style="padding:14px 16px;">25–26 mm</td><td style="padding:14px 16px;color:#0f0f0f;">Bespoke or stock 158 mm</td><td style="padding:14px 16px;color:#555;">Stock frames have a 158 mm front</td></tr>
 <tr style="border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>162–166 mm</strong></td><td style="padding:14px 16px;">22–24 mm</td><td style="padding:14px 16px;color:#c9a84c;">Bespoke</td><td style="padding:14px 16px;color:#555;">Above stock ceiling</td></tr>
 <tr style="background:#F8F6F1;color:#1F1B16;border-bottom:1px solid #E8E4DC;"><td style="padding:14px 16px;"><strong>155–160 mm</strong></td><td style="padding:14px 16px;">20–26 mm</td><td style="padding:14px 16px;color:#c9a84c;">Bespoke</td><td style="padding:14px 16px;color:#555;">Upper limit of acetate single-block cut</td></tr>
 </tbody>
@@ -9100,7 +9100,7 @@ const blogPostsPL = [
 </ul>
 
 <h2>Rozwiązanie Woolet</h2>
-<p>Stworzyliśmy Woolet, bo sami żyliśmy z tym problemem. Nasze oprawki zaczynają się od 155mm, używają wzmocnionych zawiasów 5-baryłkowych, zauszników 150mm i mostka 22mm. Nie zaadaptowane. Zaprojektowane od zera.</p>
+<p>Stworzyliśmy Woolet, bo sami żyliśmy z tym problemem. Nasze oprawki zaczynają się od 155mm, używają wzmocnionych zawiasów 5-baryłkowych, zauszników 150mm i mostka 25-26 mm. Nie zaadaptowane. Zaprojektowane od zera.</p>
 `
   },
   {
@@ -11128,7 +11128,7 @@ const dePages = {
     h1Post: " - unser Standard.",
     sub: "Woolet 007 Round und 009 Soft Square: 158 mm Front, 26/25 mm Keyhole-Steg, 150 mm Bügel.",
     heroAlt: "Greg trägt die Woolet 009 Soft Square mit 158 mm Frontbreite",
-    kurzeAntwort: "158 mm ist die Standardbreite von Woolet: Beide Modelle, 007 Round und 009 Soft Square, haben eine 158 mm breite Front, einen Keyhole-Steg mit 21 bzw. 22 mm und 150 mm lange Bügel. Sie passen bei 153-163 mm Gesichtsbreite.",
+    kurzeAntwort: "158 mm ist die Standardbreite von Woolet: Beide Modelle, 007 Round und 009 Soft Square, haben eine 158 mm breite Front, einen Keyhole-Steg mit 26 bzw. 25 mm und 150 mm lange Bügel. Sie passen bei 153-163 mm Gesichtsbreite.",
     problemTitle: "Was steckt in der 158 mm Front?",
     problemBody: "Woolet 007 Round misst 53□26-150, Woolet 009 Soft Square 54□25-150. Beide haben 158 mm Frontbreite, einen Keyhole-Steg und 150 mm lange Bügel, gefertigt aus Mazzucchelli-Acetat und in der EU handgefertigt.",
     detailTitle: "Für wen ist 158 mm die richtige Breite?",

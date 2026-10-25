@@ -165,7 +165,7 @@ export const SIZE_SECTIONS: Record<string, SizeSection[]> = {
     {
       h2: "When bespoke still makes sense",
       body: [
-        "You do not need bespoke at 155 mm, and we will not pretend otherwise to upsell you. There are two real reasons to choose it anyway. The first is bridge: if you measure above 22 mm across the nose, the signature bridge will sit lower than intended regardless of the front width being right. The second is temple length: a 60 cm head circumference on a 155 mm face needs arms longer than the standard 148 mm.",
+        "You do not need bespoke at 155 mm, and we will not pretend otherwise to upsell you. There are two real reasons to choose it anyway. The first is bridge: if you measure below 22 mm across the nose, the 25–26 mm signature bridge will sit lower than intended regardless of the front width being right. The second is temple length: a 60 cm head circumference on a 155 mm face needs arms longer than the standard 148 mm.",
         "Otherwise, order the signature. It ships from the first production batch instead of waiting six to eight weeks behind it.",
       ],
     },

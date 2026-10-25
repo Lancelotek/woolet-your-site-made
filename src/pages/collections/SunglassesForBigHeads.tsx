@@ -10,7 +10,7 @@ const CANONICAL = `${SITE}/en${PATH}`;
 const faqs = [
   {
     q: "How many mm is considered wide for sunglasses?",
-    a: "Mainstream sunglasses sit at 138 to 148 mm across the front. Anything above 150 mm is wide. Woolet's standard size is 158 mm front width with a 21 mm bridge, and bespoke covers 145 to 160 mm. The first number printed inside the temple is lens width, not front width, so it can be misleading.",
+    a: "Mainstream sunglasses sit at 138 to 148 mm across the front. Anything above 150 mm is wide. Woolet's standard size is 158 mm front width with a 25–26 mm bridge, and bespoke covers 145 to 160 mm. The first number printed inside the temple is lens width, not front width, so it can be misleading.",
   },
   {
     q: "How wide are XXL sunglasses?",
