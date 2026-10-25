@@ -1,4 +1,5 @@
 import { type StripeEnv, createStripeClient } from "../_shared/stripe.ts";
+import { SHIPPING_COUNTRY_CODES } from "../_shared/shipping-validate.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -116,6 +117,13 @@ Deno.serve(async (req) => {
       ui_mode: "embedded_page",
       return_url: body.returnUrl,
       ...(body.customerEmail && { customer_email: body.customerEmail }),
+      // The courier needs a phone and a full address. Asking here makes both
+      // required before the card is charged; payments-webhook copies them to
+      // the order and the measurements page only asks the customer to confirm.
+      phone_number_collection: { enabled: true },
+      shipping_address_collection: {
+        allowed_countries: SHIPPING_COUNTRY_CODES as any,
+      },
       payment_intent_data: {
         description: body.productName,
         metadata: cleanMeta,

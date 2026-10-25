@@ -6,6 +6,7 @@ import { buildInterviewBookingUrl } from "../_shared/bespoke-case.ts";
 import { ensurePaidStage } from "../_shared/bespoke-stage.ts";
 import { parseConsentFlag, sendOpenAiEvent } from "../_shared/openai-capi.ts";
 import { parseGaClientReference } from "../_shared/ga-client-reference.ts";
+import { validateShipping } from "../_shared/shipping-validate.ts";
 
 
 let _supabase: ReturnType<typeof createClient> | null = null;
@@ -727,27 +728,46 @@ async function handleBespokeCheckoutCompleted(session: any, env: StripeEnv) {
   const amountFormatted = formatAmount(amountCents, currency);
   const measurementsUrl = `${SITE_ORIGIN}/en/bespoke/measurements?sid=${encodeURIComponent(session.id)}`;
 
-  // Prefill the shipping block from Stripe, but never overwrite a value the
-  // customer already confirmed on the measurements page.
-  const addr = (session?.customer_details?.address ?? {}) as Record<string, string | null>;
+  // Shipping block from Stripe Checkout (phone + shipping address are required
+  // there). Prefer the shipping address over the billing one, and never
+  // overwrite a value the customer already confirmed on the measurements page.
+  const stripeShipping =
+    session?.collected_information?.shipping_details ?? session?.shipping_details ?? null;
+  const addr = (stripeShipping?.address ?? session?.customer_details?.address ?? {}) as Record<string, string | null>;
   const { data: existingOrder } = await getSupabase()
     .from("bespoke_orders")
     .select(
-      "shipping_name, shipping_phone, shipping_line1, shipping_line2, shipping_city, shipping_state, shipping_postal_code, shipping_country",
+      "shipping_name, shipping_phone, shipping_line1, shipping_line2, shipping_city, shipping_state, shipping_postal_code, shipping_country, shipping_submitted_at",
     )
     .eq("stripe_session_id", session.id)
     .maybeSingle();
   const keep = (column: string, incoming: string | null | undefined) =>
     ((existingOrder as Record<string, string | null> | null)?.[column] ?? null) || incoming || null;
+  // Normalise what Stripe collected with the same rules as our own forms.
+  // A complete, valid set counts as entered by the customer, so the order is
+  // not held as "Address not confirmed" just because they skipped the page.
+  const fromStripe = validateShipping({
+    name: stripeShipping?.name ?? customerName ?? null,
+    phone: session?.customer_details?.phone ?? null,
+    line1: addr.line1,
+    line2: addr.line2,
+    city: addr.city,
+    state: addr.state,
+    postal_code: addr.postal_code,
+    country: addr.country,
+  });
+  const stripeValue = fromStripe.ok ? fromStripe.value : null;
+  const alreadyConfirmed = Boolean((existingOrder as Record<string, string | null> | null)?.shipping_submitted_at);
   const shippingPatch = {
-    shipping_name: keep("shipping_name", customerName ?? null),
-    shipping_phone: keep("shipping_phone", session?.customer_details?.phone ?? null),
-    shipping_line1: keep("shipping_line1", addr.line1 ?? null),
-    shipping_line2: keep("shipping_line2", addr.line2 ?? null),
-    shipping_city: keep("shipping_city", addr.city ?? null),
-    shipping_state: keep("shipping_state", addr.state ?? null),
-    shipping_postal_code: keep("shipping_postal_code", addr.postal_code ?? null),
-    shipping_country: keep("shipping_country", addr.country ?? null),
+    shipping_name: keep("shipping_name", stripeValue?.name ?? stripeShipping?.name ?? customerName ?? null),
+    shipping_phone: keep("shipping_phone", stripeValue?.phone ?? session?.customer_details?.phone ?? null),
+    shipping_line1: keep("shipping_line1", stripeValue?.line1 ?? addr.line1 ?? null),
+    shipping_line2: keep("shipping_line2", stripeValue ? stripeValue.line2 : addr.line2 ?? null),
+    shipping_city: keep("shipping_city", stripeValue?.city ?? addr.city ?? null),
+    shipping_state: keep("shipping_state", stripeValue ? stripeValue.state : addr.state ?? null),
+    shipping_postal_code: keep("shipping_postal_code", stripeValue ? stripeValue.postal_code : addr.postal_code ?? null),
+    shipping_country: keep("shipping_country", stripeValue?.country ?? addr.country ?? null),
+    ...(stripeValue && !alreadyConfirmed ? { shipping_submitted_at: new Date().toISOString() } : {}),
   };
 
   const { error: upsertErr } = await getSupabase()
