@@ -1,3 +1,5 @@
+import KickstarterLiveRedirect from "@/components/KickstarterLiveRedirect";
+import { isKickstarterLive } from "@/config/kickstarter";
 import { useEffect, useState } from "react";
 import { withGaPaymentLink } from "@/lib/ga-ids";
 import { Helmet } from "react-helmet-async";
@@ -39,7 +41,7 @@ const CardBadges = () => (
   </div>
 );
 
-export default function Payments() {
+function PaymentsOpen() {
   const [params] = useSearchParams();
   const productParam = params.get("product") || "007";
   const product: Product = normalizeProduct(productParam);
@@ -268,4 +270,10 @@ export default function Payments() {
       </div>
     </>
   );
+}
+
+// $1 reservation closes at the public Kickstarter launch; old email/bio links land on the campaign.
+export default function Payments() {
+  if (isKickstarterLive()) return <KickstarterLiveRedirect refTag="site_payments" slot="payments_page" />;
+  return <PaymentsOpen />;
 }

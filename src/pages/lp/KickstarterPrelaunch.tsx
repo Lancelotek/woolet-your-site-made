@@ -11,6 +11,7 @@ import { pushGtmEvent } from "@/lib/gtm";
 import { resolveHeroVariant } from "@/content/ksHeroVariants";
 import { Button } from "@/components/ui/button";
 import { ReserveCheckoutButton } from "@/components/ReserveCheckoutButton";
+import { isKickstarterLive } from "@/config/kickstarter";
 const ImageLightbox = lazy(() => import("@/components/ImageLightbox"));
 import { persistRef, resolveReferredBy } from "@/lib/referral";
 import heroManAsset from "@/assets/kickstarter-hero.png.asset.json";
@@ -259,7 +260,7 @@ const VipForm = ({
   const step2ViewedRef = useRef(false);
 
   useEffect(() => {
-    if (!reopenReserve) return;
+    if (!reopenReserve || isKickstarterLive()) return;
     try {
       const saved = JSON.parse(sessionStorage.getItem("woolet_vip_confirm") ?? "null") as { email?: string } | null;
       if (!saved?.email || !EMAIL_RE.test(saved.email)) return;
@@ -291,6 +292,17 @@ const VipForm = ({
     typeof window !== "undefined"
       ? `${window.location.origin}/en/lp/kickstarter/vip-confirmed?paid=1&session_id={CHECKOUT_SESSION_ID}`
       : "https://woolet.co/en/lp/kickstarter/vip-confirmed?paid=1&session_id={CHECKOUT_SESSION_ID}";
+
+  // After the public launch there is no $1 step: email -> thank-you page with the campaign link.
+  const goToLiveThankYou = (confirmedEmail: string) => {
+    try {
+      localStorage.setItem(VIP_RESOLVED_KEY, "1");
+    } catch {
+      /* ignore */
+    }
+    onResolved?.();
+    navigate("/en/lp/kickstarter/vip-confirmed", { state: { email: confirmedEmail, name: "" } });
+  };
 
   const markJoined = () => {
     onJoined?.();
@@ -344,6 +356,12 @@ const VipForm = ({
       const { data: statusData } = await supabase.functions.invoke("vip-reservation-status", {
         body: { email: normalizedEmail },
       });
+      if (statusData?.reserved && isKickstarterLive()) {
+        setLoading(false);
+        markJoined();
+        goToLiveThankYou(normalizedEmail);
+        return;
+      }
       if (statusData?.reserved) {
         setErrorKind("duplicate");
         setError("This email already has a VIP reservation.");
@@ -437,6 +455,10 @@ const VipForm = ({
       setEmail(normalizedEmail);
       setLoading(false);
       markJoined();
+      if (isKickstarterLive()) {
+        goToLiveThankYou(normalizedEmail);
+        return;
+      }
       setStep(2);
       // Focus the dedicated $1 view after it mounts.
       window.setTimeout(() => {

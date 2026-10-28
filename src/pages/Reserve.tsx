@@ -1,3 +1,5 @@
+import KickstarterLiveRedirect from "@/components/KickstarterLiveRedirect";
+import { isKickstarterLive } from "@/config/kickstarter";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import SEO from "@/components/SEO";
 import { Link } from "react-router-dom";
@@ -51,7 +53,7 @@ const readTouch = (): Touch => {
   return out;
 };
 
-export default function Reserve() {
+function ReserveOpen() {
   const [failed, setFailed] = useState<string | null>(null);
   const [retryKey, setRetryKey] = useState(0);
   const [mounted, setMounted] = useState(false);
@@ -310,4 +312,10 @@ export default function Reserve() {
       </main>
     </div>
   );
+}
+
+// $1 reservation closes at the public Kickstarter launch; old email/bio links land on the campaign.
+export default function Reserve() {
+  if (isKickstarterLive()) return <KickstarterLiveRedirect refTag="site_reserve" slot="reserve_page" />;
+  return <ReserveOpen />;
 }

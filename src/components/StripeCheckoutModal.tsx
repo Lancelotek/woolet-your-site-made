@@ -1,3 +1,5 @@
+import KickstarterLiveRedirect from "@/components/KickstarterLiveRedirect";
+import { isKickstarterLive } from "@/config/kickstarter";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from "@stripe/react-stripe-js";
 import { getStripe, getStripeEnvironment } from "@/lib/stripe";
@@ -23,7 +25,13 @@ interface Props {
   onReady?: (loadMs: number) => void;
 }
 
-export function StripeCheckoutModal({
+export function StripeCheckoutModal(props: Props) {
+  // The only checkout this modal opens is the $1 deposit, closed after launch.
+  if (isKickstarterLive()) return <KickstarterLiveRedirect refTag="site_fit" slot="checkout_modal" />;
+  return <StripeCheckoutModalOpen {...props} />;
+}
+
+function StripeCheckoutModalOpen({
   priceId,
   customerEmail,
   returnUrl,

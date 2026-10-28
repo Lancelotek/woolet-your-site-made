@@ -6,6 +6,7 @@ import { pushGtmEvent } from "@/lib/gtm";
 import { getLastTouchCheckoutMetadata } from "@/lib/attribution";
 import { getGaCheckoutMetadataAsync } from "@/lib/ga-ids";
 import { Button } from "@/components/ui/button";
+import { isKickstarterLive, kickstarterLiveHref } from "@/config/kickstarter";
 
 const StripeCheckoutModalLazy = lazy(() =>
   import("@/components/StripeCheckoutModal").then((m) => ({ default: m.StripeCheckoutModal })),
@@ -109,8 +110,16 @@ export function ReserveCheckoutButton({
 
   const prefetchedClientSecret = useCallback(() => warm(), [warm]);
 
+  const liveHref = kickstarterLiveHref("site_lp", `reserve_button${id ? `_${id}` : ""}`);
+
   const handleClick = async () => {
     if (loading || open) return;
+    // Tab opened before launch: never start a $1 session after it.
+    if (isKickstarterLive()) {
+      pushGtmEvent("kickstarter_live_click", { ...(eventParams ?? {}), slot: "reserve_button" });
+      window.location.href = liveHref;
+      return;
+    }
     setError(null);
     setLoading(true);
     pushGtmEvent(clickEvent, { ...(eventParams ?? {}) });
@@ -136,6 +145,20 @@ export function ReserveCheckoutButton({
       setLoading(false);
     }
   };
+
+  // After the public launch the $1 reservation is closed: the same slot links to the campaign.
+  if (isKickstarterLive()) {
+    return (
+      <Button asChild id={id} className={className} style={style}>
+        <a
+          href={liveHref}
+          onClick={() => pushGtmEvent("kickstarter_live_click", { ...(eventParams ?? {}), slot: "reserve_button" })}
+        >
+          Back Woolet on Kickstarter
+        </a>
+      </Button>
+    );
+  }
 
   return (
     <>

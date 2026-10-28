@@ -5,6 +5,7 @@ import { DE_PRICING, deReservationUrl, formatDePrice, isDeReserved } from "@/con
 import { pushGtmEvent } from "@/lib/gtm";
 import { trackInitiateCheckoutOnce, uuid } from "@/lib/meta-capi";
 import { withGaPaymentLink } from "@/lib/ga-ids";
+import { isKickstarterLive, kickstarterLiveHref } from "@/config/kickstarter";
 
 type Props = {
   source: string;
@@ -37,6 +38,24 @@ export default function DeReservationCta({ source, className, variant = "button"
     trackInitiateCheckoutOnce(`de-reservation:${source}`, { custom, eventId });
     pushGtmEvent("generate_lead", { ...custom, source, event_id: eventId });
   };
+
+  // Ab dem Kickstarter-Start (29.10.2026, 15:00 CET) keine 1-EUR-Reservierung mehr.
+  if (isKickstarterLive()) {
+    const ksHref = kickstarterLiveHref("site_de", source);
+    const track = () => pushGtmEvent("kickstarter_live_click", { slot: source, market: "de" });
+    if (variant === "link") {
+      return (
+        <a href={ksHref} onClick={track} className={className ?? "font-body text-sm text-primary underline underline-offset-4"}>
+          Jetzt auf Kickstarter unterstützen
+        </a>
+      );
+    }
+    return (
+      <Button asChild className={variant === "compact" ? className ?? "h-10 shrink-0 rounded-sm px-4 font-body text-[10px] font-semibold uppercase tracking-[0.16em]" : `h-auto rounded-sm px-7 py-4 text-xs font-semibold uppercase tracking-[0.22em] ${className ?? ""}`}>
+        <a href={ksHref} onClick={track}>{variant === "compact" ? "Zu Kickstarter" : "Jetzt auf Kickstarter unterstützen"}</a>
+      </Button>
+    );
+  }
 
   if (reserved && variant === "compact") {
     return <span className="shrink-0 font-body text-[11px] font-semibold uppercase tracking-[0.16em] text-primary">✓ Reserviert</span>;

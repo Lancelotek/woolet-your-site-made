@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate, useSearchParams } from "react-router-do
 import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
 import { KickstarterFollowCta } from "@/components/KickstarterFollowCta";
+import { isKickstarterLive, kickstarterLiveHref } from "@/config/kickstarter";
 import { trackGoogleAdsConversion } from "@/lib/google-ads";
 import { trackReservationPurchase } from "@/lib/ga4-purchase";
 import { oaiqReservation } from "@/lib/openai-pixel";
@@ -11,7 +12,8 @@ import logoAsset from "@/assets/woolet-logo.png.asset.json";
 import vipBespokePreview from "@/assets/vip-bespoke-preview.png.asset.json";
 const logo = logoAsset.url;
 
-const KS_LAUNCH_DATE_LABEL = "September 19, 2026";
+const KS_LAUNCH_DATE_LABEL = "October 29, 2026";
+const LIVE_HREF = kickstarterLiveHref("site_lp", "thank_you");
 
 type LocationState = { email?: string; name?: string } | null;
 
@@ -22,6 +24,8 @@ const KickstarterVipConfirmed = () => {
   const paid = params.get("paid") === "1";
   const paymentRef = params.get("session_id") || undefined;
   const state = (location.state as LocationState) || null;
+  // After the public launch this is the thank-you page: one CTA to the live campaign.
+  const live = useMemo(() => isKickstarterLive(), []);
 
 
   // Fall back to localStorage in case the user refreshes
@@ -66,6 +70,9 @@ const KickstarterVipConfirmed = () => {
     pushGtmEvent("vip_confirmed", { source: "kickstarter_lp" });
   }, [email, name, navigate]);
 
+  const trackLiveClick = () =>
+    pushGtmEvent("kickstarter_live_click", { slot: "thank_you", source: "kickstarter_vip_confirmed" });
+
   const trackVipFacebookGroupClick = () => {
     // Fire once per click across handlers (click + auxClick for middle-mouse)
     const w = window as unknown as {
@@ -99,7 +106,7 @@ const KickstarterVipConfirmed = () => {
   return (
     <div className="lp-scope min-h-screen bg-[#0f0f0f] text-woolet-white font-body">
       <Helmet>
-        <title>You're on the VIP list — Woolet Kickstarter</title>
+        <title>{live ? "Thank you - Woolet is live on Kickstarter" : "You're on the VIP list — Woolet Kickstarter"}</title>
         <meta name="description" content="You're on the Woolet VIP list. Get early access, see how we build bespoke glasses for wide faces, and join the VIP group before the Kickstarter launch." />
         <meta property="og:description" content="You're on the Woolet VIP list. Get early access, see how we build bespoke glasses for wide faces, and join the VIP group before the Kickstarter launch." />
         <meta name="robots" content="noindex" />
@@ -111,7 +118,7 @@ const KickstarterVipConfirmed = () => {
             <img src={logo} alt="Woolet" className="h-8 w-auto" />
           </Link>
           <span className="text-[12px] sm:text-xs uppercase tracking-[0.22em] text-primary border border-primary/40 rounded-full px-3 py-1">
-            VIP Confirmed
+            {live ? "Live on Kickstarter" : "VIP Confirmed"}
           </span>
         </div>
       </header>
@@ -126,11 +133,28 @@ const KickstarterVipConfirmed = () => {
             You're in{name ? `, ${name}` : ""}.
           </p>
           <h1 className="font-display text-woolet-white leading-[1.1] text-[2rem] sm:text-[2.75rem] mb-4">
-            {paid ? "Your 40% OFF is reserved." : "You're on the VIP list."}
+            {paid ? "Your 40% OFF is reserved." : live ? "Thank you. Woolet is live on Kickstarter." : "You're on the VIP list."}
           </h1>
-          <p className="text-[#D8D4CC] text-base sm:text-lg leading-relaxed max-w-lg">
-            Watch your inbox on <span className="text-woolet-white">{KS_LAUNCH_DATE_LABEL}</span> — we'll send your hidden-pledge link the moment the campaign opens.
-          </p>
+          {live ? (
+            <>
+              <p className="text-[#D8D4CC] text-base sm:text-lg leading-relaxed max-w-lg">
+                The campaign is open now. Early-bird frames are limited - back Woolet before they're gone.
+              </p>
+              <a
+                href={LIVE_HREF}
+                onClick={trackLiveClick}
+                onAuxClick={trackLiveClick}
+                className="mt-7 flex items-center justify-center w-full sm:w-auto sm:inline-flex bg-primary text-primary-foreground font-body uppercase tracking-[0.22em] text-xs px-8 py-4 rounded-sm hover:bg-gold-light transition-colors touch-manipulation"
+                style={{ minHeight: 56 }}
+              >
+                Back Woolet on Kickstarter
+              </a>
+            </>
+          ) : (
+            <p className="text-[#D8D4CC] text-base sm:text-lg leading-relaxed max-w-lg">
+              Watch your inbox on <span className="text-woolet-white">{KS_LAUNCH_DATE_LABEL}</span> — we'll send your hidden-pledge link the moment the campaign opens.
+            </p>
+          )}
           {paid && (
             <p
               className="mt-5 text-[12px] uppercase tracking-[0.22em] text-primary border rounded-sm px-4 py-3"
@@ -140,10 +164,14 @@ const KickstarterVipConfirmed = () => {
             </p>
           )}
           {paid && <HeardFromQuestion sessionId={paymentRef} />}
-          <div className="mt-6">
-            <KickstarterFollowCta slot="post_signup" label="You're on the list. Now follow on" />
-          </div>
+          {!live && (
+            <div className="mt-6">
+              <KickstarterFollowCta slot="post_signup" label="You're on the list. Now follow on" />
+            </div>
+          )}
         </div>
+
+        {!live && (<>
 
         {/* Bespoke preview — what VIPs see first */}
         <section className="mt-10" aria-labelledby="bespoke-preview-heading">
@@ -217,7 +245,7 @@ const KickstarterVipConfirmed = () => {
           <ol className="flex flex-col divide-y divide-[#1a1612] border-y border-[#1a1612]">
             {[
               { t: "Confirmation email on its way", d: "Add support@woolet.co to your contacts so we don't land in spam." },
-              { t: "We email you on launch day", d: `September 19, 2026. You'll get the hidden-pledge link before the public sees the campaign.` },
+              { t: "We email you on launch day", d: `${KS_LAUNCH_DATE_LABEL}. You'll get the hidden-pledge link before the public sees the campaign.` },
               { t: "Pledge & lock your reward", d: "VIP backers get the first chance to pledge before the campaign opens to everyone." },
             ].map((s, i) => (
               <li key={s.t} className="py-5 flex gap-5">
@@ -230,6 +258,7 @@ const KickstarterVipConfirmed = () => {
             ))}
           </ol>
         </section>
+        </>)}
       </main>
 
       <footer className="border-t border-[#1a1612] py-8 text-center">

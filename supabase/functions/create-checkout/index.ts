@@ -6,6 +6,11 @@ const corsHeaders = {
   "Access-Control-Allow-Methods": "POST, OPTIONS",
 };
 
+const KICKSTARTER_LIVE_AT_MS = Date.UTC(2026, 9, 29, 14, 0, 0);
+const DEPOSIT_PRICE_IDS = new Set(["founding_member_deposit_1usd"]);
+const KICKSTARTER_URL =
+  "https://www.kickstarter.com/projects/wooletco/woolet-finally-glasses-that-actually-fit-wider-faces?ref=site_lp";
+
 interface Body {
   priceId: string;
   quantity?: number;
@@ -34,6 +39,15 @@ Deno.serve(async (req) => {
     }
     if (body.environment !== "sandbox" && body.environment !== "live") {
       throw new Error("Invalid environment");
+    }
+
+    // $1 founder reservation closes at the public Kickstarter launch:
+    // 29.10.2026 15:00 Warsaw = 14:00 UTC (keep in sync with src/config/kickstarter.ts).
+    if (DEPOSIT_PRICE_IDS.has(body.priceId) && Date.now() >= KICKSTARTER_LIVE_AT_MS) {
+      return new Response(JSON.stringify({ error: "reservation_closed", kickstarter_url: KICKSTARTER_URL }), {
+        status: 410,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     const stripe = createStripeClient(body.environment);

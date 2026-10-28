@@ -28,6 +28,13 @@ vi.mock("@/integrations/supabase/client", () => ({
 
 vi.mock("@/lib/gtm", () => ({ pushGtmEvent: vi.fn() }));
 
+// Launch switch is controlled per test so the suite does not depend on the real clock.
+const ks = vi.hoisted(() => ({ live: false }));
+vi.mock("@/config/kickstarter", async () => {
+  const actual = await vi.importActual<typeof import("@/config/kickstarter")>("@/config/kickstarter");
+  return { ...actual, isKickstarterLive: () => ks.live };
+});
+
 import KickstarterPrelaunch from "@/pages/lp/KickstarterPrelaunch";
 
 const renderPage = () =>
@@ -41,6 +48,7 @@ const renderPage = () =>
 
 describe("Kickstarter VIP form — email-only submission", () => {
   beforeEach(async () => {
+    ks.live = false;
     navigateMock.mockReset();
     (window as unknown as { dataLayer?: unknown[] }).dataLayer = [];
     const { supabase } = await import("@/integrations/supabase/client");
@@ -153,5 +161,25 @@ describe("Kickstarter VIP form — email-only submission", () => {
       getItemSpy.mockRestore();
       setItemSpy.mockRestore();
     }
+  });
+
+  it("after the Kickstarter launch skips the $1 step and opens the thank-you page", async () => {
+    ks.live = true;
+    renderPage();
+    const form = document.getElementById("vip-section-hero") as HTMLFormElement;
+    const emailInput = form.querySelector('input[type="email"]') as HTMLInputElement;
+    const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    fireEvent.change(emailInput, { target: { value: "live@example.com" } });
+    await waitFor(() => expect(submitBtn.disabled).toBe(false));
+    fireEvent.click(submitBtn);
+
+    await waitFor(() =>
+      expect(navigateMock).toHaveBeenCalledWith("/en/lp/kickstarter/vip-confirmed", {
+        state: { email: "live@example.com", name: "" },
+      }),
+    );
+    expect(screen.queryByRole("dialog", { name: /\$1 today locks your/ })).toBeNull();
+    expect(screen.queryByRole("button", { name: /pay \$1/ })).toBeNull();
+    expect(localStorage.getItem("wlt_ks_vip_resolved")).toBe("1");
   });
 });
