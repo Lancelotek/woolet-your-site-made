@@ -3,6 +3,7 @@ import { template as fitScanResult } from './fit-scan-result.tsx'
 import { template as bespokePurchaseCustomer } from './bespoke-purchase-customer.tsx'
 import { template as bespokePurchaseAdmin } from './bespoke-purchase-admin.tsx'
 import { template as bespokeMeasurementsAdmin } from './bespoke-measurements-admin.tsx'
+import { template as bespokePhotoAdmin } from './bespoke-photo-admin.tsx'
 import { template as bespokeMeasurementSummary } from './bespoke-measurement-summary.tsx'
 import { template as bespokeMeasureInvite } from './bespoke-measure-invite.tsx'
 import { template as bespokeScanInvite } from './bespoke-scan-invite.tsx'
@@ -25,6 +26,7 @@ export const TEMPLATES: Record<string, TemplateEntry> = {
   'bespoke-purchase-customer': bespokePurchaseCustomer,
   'bespoke-purchase-admin': bespokePurchaseAdmin,
   'bespoke-measurements-admin': bespokeMeasurementsAdmin,
+  'bespoke-photo-admin': bespokePhotoAdmin,
   'bespoke-measurement-summary': bespokeMeasurementSummary,
   'bespoke-measure-invite': bespokeMeasureInvite,
   'bespoke-scan-invite': bespokeScanInvite,

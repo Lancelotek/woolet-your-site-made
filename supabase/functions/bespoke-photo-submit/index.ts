@@ -4,6 +4,7 @@
 
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
+import { sendTemplateEmailAndLog } from "../_shared/transactional-email-templates/send-and-log.ts";
 
 const supabase = createClient(
   Deno.env.get("SUPABASE_URL")!,
@@ -56,17 +57,32 @@ Deno.serve(async (req) => {
     const consentText = str(body?.consentText, 2000);
     if (!consentText || body?.consentGiven !== true) return json({ error: "consent_required" }, 400);
 
-    let order: { id: string; session_ref: string | null; purged_at: string | null } | null = null;
+    type OrderRow = {
+      id: string;
+      session_ref: string | null;
+      purged_at: string | null;
+      customer_email: string | null;
+      customer_name: string | null;
+      shipping_name: string | null;
+      frame_name: string | null;
+      amount_cents: number | null;
+      currency: string | null;
+      case_no: string | null;
+      created_at: string | null;
+    };
+    let order: OrderRow | null = null;
     if (sid) {
       const { data, error } = await supabase
         .from("bespoke_orders")
-        .select("id, session_ref, purged_at")
+        .select(
+          "id, session_ref, purged_at, customer_email, customer_name, shipping_name, frame_name, amount_cents, currency, case_no, created_at",
+        )
         .eq("stripe_session_id", sid)
         .maybeSingle();
       if (error) throw error;
       if (!data) return json({ error: "not_found" }, 404);
       if (data.purged_at) return json({ error: "purged" }, 410);
-      order = data;
+      order = data as OrderRow;
     }
 
 
@@ -123,6 +139,12 @@ Deno.serve(async (req) => {
     };
 
     if (order) {
+      const { data: previous } = await supabase
+        .from("bespoke_order_photos")
+        .select("id")
+        .eq("order_id", order.id)
+        .maybeSingle();
+
       const { error: upsertErr } = await supabase
         .from("bespoke_order_photos")
         .upsert(row, { onConflict: "order_id" });
@@ -133,6 +155,35 @@ Deno.serve(async (req) => {
         .from("bespoke_orders")
         .update({ production_blocked: delta != null && delta > DELTA_BLOCK_MM })
         .eq("id", order.id);
+
+      // Tell Marek which customer and which order sent the required photo.
+      // A failed email never fails the upload — the photo is already saved.
+      try {
+        const amount =
+          order.amount_cents != null
+            ? `${(order.amount_cents / 100).toFixed(2)} ${(order.currency ?? "usd").toUpperCase()}`
+            : "";
+        await sendTemplateEmailAndLog("bespoke-photo-admin", undefined, {
+          idempotencyKey: `bespoke-photo-${order.id}-${row.uploaded_at}`,
+          templateData: {
+            orderRef: `WLT-${String(order.id).slice(0, 8).toUpperCase()}`,
+            caseNo: order.case_no ?? "",
+            customerName: order.customer_name ?? order.shipping_name ?? "",
+            customerEmail: order.customer_email ?? "",
+            frameName: order.frame_name ?? "Woolet Bespoke",
+            amountFormatted: amount,
+            paidAt: order.created_at ? order.created_at.slice(0, 10) : "",
+            photoTempleToTempleMm: photoTt,
+            scanTempleToTempleMm: scanTt,
+            deltaMm: delta,
+            needsReview: delta != null && delta > DELTA_BLOCK_MM,
+            retake: Boolean(previous),
+            adminUrl: "https://woolet.co/en/admin/bespoke",
+          },
+        });
+      } catch (e) {
+        console.error("[bespoke-photo-submit] admin email failed", e);
+      }
     } else {
       // Pre-purchase: one row per browsing session, replaced on every save.
       const { data: existing } = await supabase
