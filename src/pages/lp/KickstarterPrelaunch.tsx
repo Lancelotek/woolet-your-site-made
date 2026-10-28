@@ -12,6 +12,7 @@ import { resolveHeroVariant } from "@/content/ksHeroVariants";
 import { Button } from "@/components/ui/button";
 import { ReserveCheckoutButton } from "@/components/ReserveCheckoutButton";
 import { isKickstarterLive } from "@/config/kickstarter";
+import KickstarterCountdown from "@/components/KickstarterCountdown";
 const ImageLightbox = lazy(() => import("@/components/ImageLightbox"));
 import { persistRef, resolveReferredBy } from "@/lib/referral";
 import heroManAsset from "@/assets/kickstarter-hero.png.asset.json";
@@ -516,6 +517,7 @@ const VipForm = ({
           <img src={gregSquare} alt="Greg wearing a Woolet frame" width={80} height={80} className="w-20 h-20 object-cover shrink-0" />
           <figcaption className="text-sm leading-relaxed text-muted-foreground italic">“{GREG_QUOTE}” <span className="block not-italic text-xs mt-1">{GREG_ATTRIBUTION}</span></figcaption>
         </figure>
+        <KickstarterCountdown note="Founders with a $1 reservation get in at 9:00 AM ET - one hour before everyone." />
         <ReserveCheckoutButton
           id={`vip-reserve${idSuffix}`}
           label="Lock $114 - pay $1 now"
@@ -1551,7 +1553,11 @@ const KickstarterPrelaunch = () => {
               {renderSubTokens(heroVariant.sub)}
             </p>
 
-            <div id="vip-section-hero" style={{ marginTop: 28 }}>
+            <div style={{ marginTop: 24 }}>
+              <KickstarterCountdown />
+            </div>
+
+            <div id="vip-section-hero" style={{ marginTop: 20 }}>
                <VipForm utmSource={utmSource} idSuffix="-hero" referredBy={referredBy} heroVariant={heroVariantKey} onJoined={() => { setHasJoined(true); setActiveFormSuffix("-hero"); }} onResolved={markResolved} reopenReserve={reopenReserve} />
             </div>
 
