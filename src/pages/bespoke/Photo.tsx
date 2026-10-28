@@ -54,7 +54,7 @@ const round1 = (n: number) => Math.round(n * 10) / 10;
 
 const INSTRUCTIONS = [
   { icon: Sun, title: "Even light, face on", body: "Stand facing a window. No hard shadow across one cheek." },
-  { icon: CreditCard, title: "Bank card on your cheek", body: "Hold it flat against your cheek, long edge horizontal, numbers facing out." },
+  { icon: CreditCard, title: "Bank card on your cheek", body: "Any card the size of a bank card works - loyalty, gift or ID-size. Hold it flat against your cheek, long edge horizontal, card numbers turned away or covered." },
   { icon: ScanFace, title: "Both ears in frame", body: "Chin level, glasses off, hair tucked behind the ears." },
   { icon: Camera, title: "One straight-on shot", body: "Arm's length, camera at eye height. Do not crop it afterwards." },
 ];
@@ -307,7 +307,7 @@ export default function BespokePhoto() {
       <SEO title="Fit photo — Woolet Bespoke" description="Confirm the fit of your made-to-measure frames." lang={locale as Lang} noindex />
       <main className="min-h-screen bg-[#080807] px-5 py-12 text-cream sm:px-8">
         <div className="mx-auto max-w-3xl">
-          <p className={eyebrow}>Photo for the workshop · optional</p>
+          <p className={eyebrow}>Photo for the workshop · required</p>
           <h1 className="mt-3 font-display text-3xl font-light text-[#F8F8F6] sm:text-4xl">
             One photo, and we cut to your face
           </h1>
@@ -373,7 +373,9 @@ export default function BespokePhoto() {
                 Continue
               </button>
               <p className="mt-4 text-xs text-cream-dim/70">
-                Prefer not to? Your frames are still built from the measurements you already sent.{" "}
+                The photo is required for every Bespoke order - we start cutting only after it
+                arrives. Questions? <a href="mailto:support@woolet.co" className="underline">support@woolet.co</a>
+                {" · "}
                 <Link to="/en/bespoke/measurements" className="underline">Back to my measurements</Link>
               </p>
             </section>
@@ -382,6 +384,21 @@ export default function BespokePhoto() {
           {stage === "capture" && (
             <section className={`mt-8 ${card}`}>
               <h2 className="font-display text-xl font-light text-[#F8F8F6]">Take the photo</h2>
+              <figure className="mt-5 flex flex-col gap-4 border border-cream/10 bg-[#080807] p-4 sm:flex-row sm:items-center">
+                <img
+                  src="/images/bespoke/fit-photo-example.webp"
+                  width={720}
+                  height={894}
+                  loading="lazy"
+                  alt="Example fit photo: a man looks straight at the camera and holds a plain bank card flat against his cheek, long edge horizontal, fingers only along the bottom edge."
+                  className="w-full max-w-[220px] self-center"
+                />
+                <figcaption className="text-xs leading-relaxed text-cream-dim">
+                  <span className="block text-[11px] uppercase tracking-[0.18em] text-gold">Like this</span>
+                  Card flat on the cheek, long edge horizontal, the whole card visible. Fingers only
+                  along the bottom edge. Both eyes open and looking at the lens.
+                </figcaption>
+              </figure>
               <ol className="mt-5 grid gap-4 sm:grid-cols-2">
                 {INSTRUCTIONS.map(({ icon: Icon, title, body }, i) => (
                   <li key={title} className="border border-cream/10 bg-[#080807] p-4">
