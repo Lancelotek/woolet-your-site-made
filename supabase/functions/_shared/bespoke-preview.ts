@@ -1,3 +1,4 @@
+import { NO_DECORATION_RULES } from "./bespoke-composition.ts";
 // Generates the production visualisation of a bespoke frame from the order's
 // own specification (pattern, front acetate, temple acetate, finish) and stores
 // it in the private `bespoke-cad` bucket. The workshop PDF embeds it from a
@@ -32,8 +33,8 @@ function buildPrompt(spec: PreviewSpec): string {
     ...(aviator
       ? [
           `Image 1 is the exact technical blueprint for the front silhouette. Images 2–7 show the same physical Aviator construction from several angles.`,
-          `Keep the blueprint's lens outline, single bridge and top line exactly. From the photographs preserve the real acetate thickness, bridge depth, end pieces, hinge placement, two-pin temple attachment, tapered temples and the precise joint between temples and front.`,
-          `Use the photographs only for construction and studio quality. Do not copy their clear front, black temples, sunglass tint, engraving or branding; use the order specification below.`,
+          `Keep the blueprint's lens outline, single bridge and top line exactly. From the photographs preserve the real acetate thickness, bridge depth, end pieces, hinge placement, tapered temples and the precise joint between temples and front.`,
+          `Use the photographs only for construction and studio quality. Do not copy their clear front, black temples, sunglass tint, rivets, pins, engraving or branding; use the order specification below.`,
         ]
       : []),
     `Editorial product photograph of one real pair of premium bespoke eyeglasses.`,
@@ -42,12 +43,13 @@ function buildPrompt(spec: PreviewSpec): string {
     `temples in acetate "${spec.templeCode || spec.frontCode || "dark tortoise"}".`,
     `Finish: ${spec.finish || "shiny hand-polished"}.`,
     spec.lensTintCode?.startsWith("SUN-")
-      ? `UV400 sun lenses in ${({ "SUN-GRY": "solid smoke grey", "SUN-BRN": "solid espresso brown", "SUN-G15": "solid G-15 green" } as Record<string, string>)[spec.lensTintCode] ?? "smoke grey"}, visibly tinted on both lenses; correctly seated hinges and rivets, hand-polished acetate edge detail,`
+      ? `UV400 sun lenses in ${({ "SUN-GRY": "solid smoke grey", "SUN-BRN": "solid espresso brown", "SUN-G15": "solid G-15 green" } as Record<string, string>)[spec.lensTintCode] ?? "smoke grey"}, visibly tinted on both lenses; hinges hidden inside the frame, hand-polished acetate edge detail,`
       : spec.lensTintCode?.startsWith("PH-")
-        ? `Partially activated photochromic lenses in ${({ "PH-BRN": "espresso brown", "PH-GRN": "bottle green", "PH-GRY": "graphite grey" } as Record<string, string>)[spec.lensTintCode] ?? "grey"}; correctly seated hinges and rivets, hand-polished acetate edge detail,`
-        : `Clear neutral demo lenses, correctly seated hinges and rivets, hand-polished acetate edge detail,`,
+        ? `Partially activated photochromic lenses in ${({ "PH-BRN": "espresso brown", "PH-GRN": "bottle green", "PH-GRY": "graphite grey" } as Record<string, string>)[spec.lensTintCode] ?? "grey"}; hinges hidden inside the frame, hand-polished acetate edge detail,`
+        : `Clear neutral demo lenses, hinges hidden inside the frame, hand-polished acetate edge detail,`,
     `high-key professional product photography on a clean warm off-white seamless background, controlled softbox reflections, precise translucent acetate refraction and a crisp natural contact shadow,`,
     `three-quarter front angle with the complete frame and both temples legible, no face, no model, no branding, no text, no logos,`,
+    NO_DECORATION_RULES,
     `no drawing lines, no sketch, no floating hardware, no fused temples, no extra bridge, no asymmetry, ultra-realistic premium catalogue still.`,
   ].join(" ");
 }
