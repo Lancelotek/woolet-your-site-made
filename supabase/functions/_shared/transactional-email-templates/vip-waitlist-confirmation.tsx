@@ -15,15 +15,64 @@ import type { TemplateEntry } from './registry.ts'
 
 interface Props {
   reserveUrl?: string
+  /** Public Kickstarter campaign is live: no $1 step, one CTA to the campaign. */
+  live?: boolean
+  campaignUrl?: string
 }
 
 const GOLD = '#CAA449'
 const INK = '#0f0f0f'
 const PAPER = '#f0ece4'
 
+const LiveEmail = ({ campaignUrl }: { campaignUrl: string }) => (
+  <Html lang="en" dir="ltr">
+    <Head />
+    <Preview>Woolet is live on Kickstarter. Here's your link.</Preview>
+    <Body style={main}>
+      <Container style={container}>
+        <Section style={brandRow}>
+          <Text style={brand}>WOOLET</Text>
+          <Text style={brandSub}>Eyewear for wide faces</Text>
+        </Section>
+
+        <Heading style={h1}>Woolet is live on Kickstarter</Heading>
+
+        <Text style={body}>
+          Thanks for signing up. The campaign is open now, with prices you won't see in our
+          shop. Early-bird rewards are limited.
+        </Text>
+
+        <Section style={ctaWrap}>
+          <Link href={campaignUrl} style={cta}>
+            Back Woolet on Kickstarter →
+          </Link>
+        </Section>
+
+        <Hr style={hr} />
+
+        <Heading as="h3" style={h3}>Why Woolet</Heading>
+        <Text style={body}>
+          158 mm signature front, keyhole bridge and a 145–160 mm bespoke range —
+          built for faces that standard eyewear pinches. Hand made in EU from
+          Italian Mazzucchelli acetate.
+        </Text>
+
+        <Hr style={hr} />
+
+        <Text style={footer}>
+          You're getting this email because you signed up at woolet.co.
+        </Text>
+        <Text style={footer}>Woolet · Eyewear engineered for 155 mm+ faces.</Text>
+      </Container>
+    </Body>
+  </Html>
+)
+
 const Email = ({
   reserveUrl = 'https://woolet.co/en/lp/kickstarter',
-}: Props) => (
+  live = false,
+  campaignUrl = '',
+}: Props) => live && campaignUrl ? <LiveEmail campaignUrl={campaignUrl} /> : (
   <Html lang="en" dir="ltr">
     <Head />
     <Preview>You're on the Woolet early-access list — here's what happens next.</Preview>
@@ -77,7 +126,8 @@ const Email = ({
 
 export const template = {
   component: Email,
-  subject: "You're on the Woolet early-access list",
+  subject: (data) =>
+    data?.live ? "Woolet is live on Kickstarter - your link" : "You're on the Woolet early-access list",
   displayName: 'VIP — Early access confirmation',
   previewData: {
     reserveUrl: 'https://woolet.co/en/lp/kickstarter',

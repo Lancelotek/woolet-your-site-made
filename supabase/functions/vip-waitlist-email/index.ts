@@ -12,6 +12,12 @@ const BodySchema = z.object({
 
 const RESERVE_URL = "https://woolet.co/en/lp/kickstarter#vip-form";
 
+// Keep in sync with src/config/kickstarter.ts (KICKSTARTER_LIVE_AT_MS / KICKSTARTER_SITE_REF).
+const KICKSTARTER_LIVE_AT_MS = Date.UTC(2026, 9, 29, 14, 0, 0);
+const CAMPAIGN_URL =
+  "https://www.kickstarter.com/projects/wooletco/woolet-finally-glasses-that-actually-fit-wider-faces" +
+  "?ref=4rxoly&utm_source=woolet_site&utm_medium=email&utm_campaign=ks_live&utm_term=site_lp&utm_content=vip_confirmation";
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
   if (req.method !== "POST") {
@@ -44,7 +50,11 @@ Deno.serve(async (req) => {
   try {
     const result = await sendTemplateEmailAndLog("vip-waitlist-confirmation", email, {
       idempotencyKey: `vip-waitlist-confirmation-${email}`,
-      templateData: { reserveUrl: RESERVE_URL },
+      templateData: {
+        reserveUrl: RESERVE_URL,
+        live: Date.now() >= KICKSTARTER_LIVE_AT_MS,
+        campaignUrl: CAMPAIGN_URL,
+      },
     });
     return new Response(JSON.stringify({ ok: true, sent: result.sent }), {
       status: 200,
