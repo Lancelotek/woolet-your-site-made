@@ -30,6 +30,14 @@ export const isKickstarterLive = (now: number = Date.now()): boolean => {
   return now >= KICKSTARTER_LIVE_AT_MS;
 };
 
-/** Live campaign link with a Kickstarter referral tag (see woolet-ks-referral-tags-2026-10-10.csv). */
-export const kickstarterLiveHref = (ref: string, slot = ref) =>
-  `${KICKSTARTER_URL}?ref=${encodeURIComponent(ref)}&utm_source=woolet_site&utm_medium=site&utm_campaign=ks_live&utm_content=${encodeURIComponent(slot)}`;
+/**
+ * Kickstarter custom referral tag "Woolet" (dashboard -> Custom Referral Tags).
+ * Only tags generated in the dashboard count under "Pledged via custom referrers";
+ * any other ?ref value lands in "external referrers" with no breakdown.
+ * The site placement goes to utm_term / utm_content instead.
+ */
+export const KICKSTARTER_SITE_REF = "4rxoly";
+
+/** Live campaign link: the "Woolet" custom referral tag + placement in UTMs. */
+export const kickstarterLiveHref = (placement: string, slot = placement) =>
+  `${KICKSTARTER_URL}?ref=${KICKSTARTER_SITE_REF}&utm_source=woolet_site&utm_medium=site&utm_campaign=ks_live&utm_term=${encodeURIComponent(placement)}&utm_content=${encodeURIComponent(slot)}`;

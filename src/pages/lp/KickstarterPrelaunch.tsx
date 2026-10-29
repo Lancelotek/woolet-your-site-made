@@ -8,10 +8,10 @@ import { supabase } from "@/integrations/supabase/client";
 import { getAttribution } from "@/lib/attribution";
 import { buildLeadAttribution } from "@/lib/meta-capi";
 import { pushGtmEvent } from "@/lib/gtm";
-import { resolveHeroVariant } from "@/content/ksHeroVariants";
+import { resolveHeroVariant, LIVE_EYEBROW, liveHeroSub, DEFAULT_HERO_VARIANT } from "@/content/ksHeroVariants";
 import { Button } from "@/components/ui/button";
 import { ReserveCheckoutButton } from "@/components/ReserveCheckoutButton";
-import { isKickstarterLive } from "@/config/kickstarter";
+import { isKickstarterLive, kickstarterLiveHref } from "@/config/kickstarter";
 import KickstarterCountdown from "@/components/KickstarterCountdown";
 const ImageLightbox = lazy(() => import("@/components/ImageLightbox"));
 import { persistRef, resolveReferredBy } from "@/lib/referral";
@@ -58,6 +58,9 @@ const renderSubTokens = (text: string) =>
     acc.push(<span key={`t${i}`}>{part}</span>);
     return acc;
   }, []);
+
+const LIVE_META_DESCRIPTION =
+  "Premium Milanese acetate eyewear, hand made in the EU, engineered for wide faces 155 mm+. Live on Kickstarter now, at Kickstarter-only prices.";
 
 // ---------- Tester testimonial ----------
 // DRAFT — quote and attribution pending written approval from the tester.
@@ -252,6 +255,8 @@ const VipForm = ({
   const [errorNonce, setErrorNonce] = useState(0);
 
   const [step, setStep] = useState<1 | 2>(1);
+  // Campaign live: one step only (email -> thank-you page with the campaign link).
+  const live = useMemo(() => isKickstarterLive(), []);
   useEffect(() => {
     if (step !== 2) { setSkipVisible(false); return; }
     const t = window.setTimeout(() => setSkipVisible(true), 8000);
@@ -321,7 +326,7 @@ const VipForm = ({
     if (!email.trim()) {
       setErrorNonce((n) => n + 1);
       setErrorKind("invalid");
-      setError("Enter your email to lock $114");
+      setError(live ? "Enter your email to get the Kickstarter link" : "Enter your email to lock $114");
       flashTarget(inputRef.current?.form ?? null);
       inputRef.current?.focus();
       inputRef.current?.scrollIntoView({ block: "center", behavior: "smooth" });
@@ -501,7 +506,7 @@ const VipForm = ({
       >
         Privacy Policy
       </Link>{" "}
-      and agree to receive launch emails. Unsubscribe anytime.
+      and agree to receive {live ? "campaign" : "launch"} emails. Unsubscribe anytime.
     </p>
   );
 
@@ -654,7 +659,7 @@ const VipForm = ({
       className="flex flex-col gap-3"
       style={{ maxWidth: compact ? 560 : "100%", margin: compact ? "0 auto" : undefined }}
     >
-      <StepBar step={1} emailInputId={`vip-email${idSuffix}`} />
+      {!live && <StepBar step={1} emailInputId={`vip-email${idSuffix}`} />}
       <div className={compact ? "flex flex-col sm:flex-row gap-2" : "flex flex-col gap-2"}>
         <label htmlFor={`vip-email${idSuffix}`} className="sr-only">
           Your email address
@@ -712,7 +717,7 @@ const VipForm = ({
           }}
           onMouseLeave={(e) => (e.currentTarget.style.background = GOLD)}
         >
-          {loading ? "Sending…" : "Claim Your Early Access"}
+          {loading ? "Sending…" : live ? "Get the Kickstarter link" : "Claim Your Early Access"}
         </button>
       </div>
 
@@ -735,18 +740,36 @@ const VipForm = ({
       {consent}
 
 
-      <p
-        style={{
-          fontFamily: "Barlow, sans-serif",
-          fontSize: 11,
-          color: "hsl(var(--signup-helper))",
-          letterSpacing: "0.04em",
-          textAlign: compact ? "center" : "left",
-          marginTop: 2,
-        }}
-      >
-        Step 1 of 2 · Email now, reservation next.
-      </p>
+      {live ? (
+        <a
+          href={kickstarterLiveHref("site_lp", `skip_${formLocation}`)}
+          onClick={() => pushGtmEvent("kickstarter_live_click", { slot: `skip_${formLocation}`, source: "kickstarter_lp" })}
+          style={{
+            fontFamily: "Barlow, sans-serif",
+            fontSize: 12,
+            color: "hsl(var(--signup-helper))",
+            textDecoration: "underline",
+            textUnderlineOffset: 3,
+            textAlign: compact ? "center" : "left",
+            marginTop: 2,
+          }}
+        >
+          Or go straight to Kickstarter
+        </a>
+      ) : (
+        <p
+          style={{
+            fontFamily: "Barlow, sans-serif",
+            fontSize: 11,
+            color: "hsl(var(--signup-helper))",
+            letterSpacing: "0.04em",
+            textAlign: compact ? "center" : "left",
+            marginTop: 2,
+          }}
+        >
+          Step 1 of 2 · Email now, reservation next.
+        </p>
+      )}
     </form>
   );
 };
@@ -1039,6 +1062,11 @@ const KickstarterPrelaunch = () => {
     [utmContentParam],
   );
 
+  // Public campaign is live: page copy points to Kickstarter, no $1 step.
+  const live = useMemo(() => isKickstarterLive(), []);
+  const heroEyebrow = live && heroVariant === DEFAULT_HERO_VARIANT ? LIVE_EYEBROW : heroVariant.eyebrow;
+  const heroSub = live ? liveHeroSub(heroVariant.sub) : heroVariant.sub;
+
   const [activeImg, setActiveImg] = useState(0);
   const galleryTouch = useRef<{ x: number; y: number } | null>(null);
   const gallerySwiped = useRef(false);
@@ -1194,7 +1222,9 @@ const KickstarterPrelaunch = () => {
     () => [
       {
         q: "Do I pay anything now?",
-        a: "No. This page only joins you to the VIP list. You'll pledge on Kickstarter at launch if you want a pair.",
+        a: live
+          ? "No. The form only sends you the campaign link. You pay when you pledge on Kickstarter."
+          : "No. This page only joins you to the VIP list. You'll pledge on Kickstarter at launch if you want a pair.",
       },
       {
         q: "What if 158 mm doesn't fit me?",
@@ -1214,10 +1244,12 @@ const KickstarterPrelaunch = () => {
       },
       {
         q: "What exactly do VIPs get?",
-        a: "Four things: early access to FitLens, the Bespoke configurator, up to 40% off retail, and the private VIP Facebook group with direct access to the founder.",
+        a: live
+          ? "Four things: FitLens, the Bespoke configurator, Kickstarter-only prices below retail, and the private VIP Facebook group with direct access to the founder."
+          : "Four things: early access to FitLens, the Bespoke configurator, up to 40% off retail, and the private VIP Facebook group with direct access to the founder.",
       },
     ],
-    []
+    [live]
   );
 
   return (
@@ -1234,7 +1266,7 @@ const KickstarterPrelaunch = () => {
         <title>Woolet Kickstarter VIP — Eyewear for Wide Faces (155 mm+)</title>
         <meta
           name="description"
-          content="Premium Milanese acetate eyewear, hand made in the EU, engineered for wide faces 155 mm+. Join the VIP list for early access and up to 40% off the $190 retail price."
+          content={live ? LIVE_META_DESCRIPTION : "Premium Milanese acetate eyewear, hand made in the EU, engineered for wide faces 155 mm+. Join the VIP list for early access and up to 40% off the $190 retail price."}
         />
         <link rel="preload" as="image" type="image/webp" href={imageVariant(ksFit158.url, 1000)} imageSrcSet={imageSrcSet(ksFit158.url, [640, 1000])} imageSizes="(min-width: 768px) 50vw, 100vw" fetchPriority="high" />
         <meta name="robots" content="index,follow" />
@@ -1244,7 +1276,7 @@ const KickstarterPrelaunch = () => {
         <meta property="og:title" content="Woolet Kickstarter VIP — Eyewear for Wide Faces (155 mm+)" />
         <meta
           property="og:description"
-          content="Premium Milanese acetate eyewear, hand made in the EU, engineered for wide faces 155 mm+. VIP early access and up to 40% off."
+          content={live ? LIVE_META_DESCRIPTION : "Premium Milanese acetate eyewear, hand made in the EU, engineered for wide faces 155 mm+. VIP early access and up to 40% off."}
         />
         <meta property="og:url" content="https://woolet.co/en/lp/kickstarter" />
         <meta property="og:type" content="website" />
@@ -1253,7 +1285,7 @@ const KickstarterPrelaunch = () => {
         <meta property="og:locale" content="en_US" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Woolet Kickstarter VIP — Eyewear for Wide Faces (155 mm+)" />
-        <meta name="twitter:description" content="Premium Milanese acetate eyewear, hand made in the EU, engineered for wide faces 155 mm+. VIP early access and up to 40% off." />
+        <meta name="twitter:description" content={live ? LIVE_META_DESCRIPTION : "Premium Milanese acetate eyewear, hand made in the EU, engineered for wide faces 155 mm+. VIP early access and up to 40% off."} />
         <meta name="twitter:image" content={heroManAsset.url} />
         <script type="application/ld+json">{commerceJson({
           "@context": "https://schema.org",
@@ -1527,7 +1559,7 @@ const KickstarterPrelaunch = () => {
 
           {/* Right on desktop, first on mobile — headline + email field above the fold */}
           <div className="order-1 md:order-2">
-            <Eyebrow>{heroVariant.eyebrow}</Eyebrow>
+            <Eyebrow>{heroEyebrow}</Eyebrow>
             <h1
               style={{
                 fontFamily: "'Cormorant Garamond', 'Newsreader', serif",
@@ -1550,7 +1582,7 @@ const KickstarterPrelaunch = () => {
                 maxWidth: 520,
               }}
             >
-              {renderSubTokens(heroVariant.sub)}
+              {renderSubTokens(heroSub)}
             </p>
 
             <div style={{ marginTop: 24 }}>
@@ -1608,10 +1640,15 @@ const KickstarterPrelaunch = () => {
                 t: "Bespoke configurator",
                 d: "Design your own frame: 4 shapes, 60 colour and size combinations, any width from 145 to 160 mm, built to measure.",
               },
-              {
-                t: "Up to 40% off",
-                d: "Lock the lowest price we'll ever offer — up to 40% off the $190 retail, reserved for VIPs at launch.",
-              },
+              live
+                ? {
+                    t: "Kickstarter-only prices",
+                    d: "Campaign rewards sit below our shop prices, and early-bird tiers are limited. Back it while they last.",
+                  }
+                : {
+                    t: "Up to 40% off",
+                    d: "Lock the lowest price we'll ever offer — up to 40% off the $190 retail, reserved for VIPs at launch.",
+                  },
               {
                 t: "Facebook VIP group",
                 d: "Join the private VIP group: behind-the-scenes updates, early votes on colours, and a direct line to the founder.",
@@ -1945,7 +1982,7 @@ const KickstarterPrelaunch = () => {
       {/* MID CTA BAND */}
       <section style={{ background: "#0b0a09", borderTop: `1px solid ${HAIRLINE}`, borderBottom: `1px solid ${HAIRLINE}` }}>
         <div className="max-w-3xl mx-auto px-5 sm:px-8 py-16 text-center">
-          <Eyebrow>Join the VIP list</Eyebrow>
+          <Eyebrow>{live ? "Live on Kickstarter" : "Join the VIP list"}</Eyebrow>
           <h2
             style={{
               fontFamily: "'Cormorant Garamond', serif",
@@ -1957,7 +1994,11 @@ const KickstarterPrelaunch = () => {
               marginBottom: 24,
             }}
           >
-            Early access, up to <em style={{ color: GOLD, fontStyle: "italic" }}>40% off</em>, and FitLens before launch.
+            {live ? (
+              <>Kickstarter-only prices, <em style={{ color: GOLD, fontStyle: "italic" }}>for a limited time.</em></>
+            ) : (
+              <>Early access, up to <em style={{ color: GOLD, fontStyle: "italic" }}>40% off</em>, and FitLens before launch.</>
+            )}
           </h2>
           <div id="vip-section-mid">
             <VipForm utmSource={utmSource} idSuffix="-mid" referredBy={referredBy} heroVariant={heroVariantKey} compact onJoined={() => { setHasJoined(true); setActiveFormSuffix("-mid"); }} onResolved={markResolved} />
@@ -2080,11 +2121,18 @@ const KickstarterPrelaunch = () => {
             Three steps.
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-px mt-12" style={{ background: HAIRLINE }}>
-            {[
-              { n: "01", t: "Join the VIP list", d: "Email only — no payment, no commitment." },
-              { n: "02", t: "We email you at launch", d: "You'll be first in line the moment we go live on Kickstarter." },
-              { n: "03", t: "Follow now, pledge at launch", d: "Kickstarter emails you from their own domain the minute we go live." },
-            ].map((s) => {
+            {(live
+              ? [
+                  { n: "01", t: "Leave your email", d: "We send you the campaign link and the updates that matter." },
+                  { n: "02", t: "Pick your reward", d: "Choose your frame on Kickstarter. Early-bird tiers are limited." },
+                  { n: "03", t: "Back Woolet", d: "You pay on Kickstarter. Delivery dates are listed on each reward." },
+                ]
+              : [
+                  { n: "01", t: "Join the VIP list", d: "Email only — no payment, no commitment." },
+                  { n: "02", t: "We email you at launch", d: "You'll be first in line the moment we go live on Kickstarter." },
+                  { n: "03", t: "Follow now, pledge at launch", d: "Kickstarter emails you from their own domain the minute we go live." },
+                ]
+            ).map((s) => {
               const tappable = s.n === "03";
               return (
               <div
@@ -2129,8 +2177,8 @@ const KickstarterPrelaunch = () => {
             })}
           </div>
           <div className="mt-10 flex flex-wrap items-center gap-4">
-            {hasJoined ? (
-              <KickstarterFollowCta slot="how_it_works" />
+            {live || hasJoined ? (
+              <KickstarterFollowCta slot="how_it_works" label={live ? "Back us on" : "Follow us on"} />
             ) : (
               <span style={{ fontSize: 12.5, color: TAUPE, lineHeight: 1.5 }}>
                 We'll send you the Kickstarter link the moment we launch.
@@ -2238,18 +2286,24 @@ const KickstarterPrelaunch = () => {
               marginBottom: 20,
             }}
           >
-            Be first when the campaign <em style={{ color: GOLD, fontStyle: "italic" }}>goes live.</em>
+            {live ? (
+              <>Woolet is <em style={{ color: GOLD, fontStyle: "italic" }}>live on Kickstarter.</em></>
+            ) : (
+              <>Be first when the campaign <em style={{ color: GOLD, fontStyle: "italic" }}>goes live.</em></>
+            )}
           </h2>
           <p style={{ color: TAUPE, fontSize: 15, lineHeight: 1.6, marginBottom: 28, maxWidth: 520, marginInline: "auto" }}>
-            One email. Early access to FitLens, the Bespoke configurator, and Early Bird pricing from $114 against the $190 retail price.
+            {live
+              ? "Leave your email and we'll send you the campaign link, or go straight to Kickstarter."
+              : "One email. Early access to FitLens, the Bespoke configurator, and Early Bird pricing from $114 against the $190 retail price."}
           </p>
           <div id="vip-section-final">
 <VipForm utmSource={utmSource} idSuffix="-final" referredBy={referredBy} heroVariant={heroVariantKey} compact onJoined={() => { setHasJoined(true); setActiveFormSuffix("-final"); }} onResolved={markResolved} />
           </div>
-          {hasJoined && hasResolved ? (
+          {live || (hasJoined && hasResolved) ? (
             <div className="mt-8 flex flex-col items-center gap-3">
-              <span style={{ ...eyebrowStyle, color: TAUPE, fontSize: 11 }}>Or follow the campaign</span>
-              <KickstarterFollowCta slot="final_cta" label="Follow us on" />
+              <span style={{ ...eyebrowStyle, color: TAUPE, fontSize: 11 }}>{live ? "Or skip the email" : "Or follow the campaign"}</span>
+              <KickstarterFollowCta slot="final_cta" label={live ? "Back us on" : "Follow us on"} />
             </div>
           ) : (
             <p
@@ -2290,7 +2344,7 @@ const KickstarterPrelaunch = () => {
           pointerEvents: stickyVisible && !inputFocused ? "auto" : "none",
         }}
       >
-        {hasJoined && !hasResolved ? (
+        {!live && hasJoined && !hasResolved ? (
           <button
             type="button"
             onClick={() => {
@@ -2312,7 +2366,7 @@ const KickstarterPrelaunch = () => {
             Lock $114 — pay $1 now
           </button>
         ) : hasJoined ? (
-          <KickstarterFollowCta slot="sticky_mobile" label="Follow us on" />
+          <KickstarterFollowCta slot="sticky_mobile" label={live ? "Back us on" : "Follow us on"} />
         ) : (
           <button
             type="button"
@@ -2332,7 +2386,7 @@ const KickstarterPrelaunch = () => {
               cursor: "pointer",
             }}
           >
-            Get Early Access
+            {live ? "Get the Kickstarter link" : "Get Early Access"}
           </button>
         )}
       </div>
@@ -2376,8 +2430,10 @@ const KickstarterPrelaunch = () => {
             isMobile={isMobile}
             visible={lightboxOpen}
             cta={{
-              label: "Reserve founder price — $1",
-              caption: "158 mm · Italian Mazzucchelli acetate · 30 frames at $114, then $190",
+              label: live ? "Get the Kickstarter link" : "Reserve founder price — $1",
+              caption: live
+                ? "158 mm · Italian Mazzucchelli acetate · Live on Kickstarter"
+                : "158 mm · Italian Mazzucchelli acetate · 30 frames at $114, then $190",
               onClick: handleLightboxCta,
             }}
           />

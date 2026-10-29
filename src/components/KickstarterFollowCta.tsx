@@ -1,4 +1,4 @@
-import { KICKSTARTER_URL } from "@/config/kickstarter";
+import { KICKSTARTER_URL, isKickstarterLive, kickstarterLiveHref } from "@/config/kickstarter";
 import { pushGtmEvent } from "@/lib/gtm";
 import kickstarterWordmark from "@/assets/kickstarter-wordmark-white.png";
 
@@ -10,7 +10,9 @@ const HAIRLINE_STRONG = "rgba(255,255,255,0.18)";
 const CREAM = "#EDE9DE";
 
 export const kickstarterFollowHref = (slot: string) =>
-  `${KICKSTARTER_URL}?utm_source=woolet_site&utm_medium=lp&utm_campaign=ks_prelaunch&utm_content=${slot}`;
+  isKickstarterLive()
+    ? kickstarterLiveHref("site_lp", slot)
+    : `${KICKSTARTER_URL}?utm_source=woolet_site&utm_medium=lp&utm_campaign=ks_prelaunch&utm_content=${slot}`;
 
 /** The white Kickstarter wordmark CTA. Keep styling identical across both LP and confirmed page. */
 export const KickstarterFollowCta = ({

@@ -126,3 +126,18 @@ export function resolveHeroVariant(
   if (fallback !== "default" && VARIANTS[fallback]) return { key: fallback, variant: VARIANTS[fallback] };
   return { key: "default", variant: DEFAULT_HERO_VARIANT };
 }
+
+/** Eyebrow shown on the default variant once the campaign is live. */
+export const LIVE_EYEBROW = "Live on Kickstarter";
+
+/**
+ * Live-campaign version of a hero sub line: drops the prelaunch tail
+ * ("Launching soon on Kickstarter. Join the VIP list ... {{40off}} ...") and
+ * points to the open campaign instead. The $114 / 40% founder price is not
+ * public on Kickstarter, so it is not promised here.
+ */
+export function liveHeroSub(sub: string): string {
+  const cut = sub.search(/\s*(Launching soon on Kickstarter\.|Join the VIP list)/);
+  const head = (cut >= 0 ? sub.slice(0, cut) : sub).trim();
+  return `${head} Live on Kickstarter now, at prices you won't see in our shop.`;
+}

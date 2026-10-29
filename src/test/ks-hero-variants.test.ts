@@ -40,3 +40,15 @@ describe("resolveHeroVariant", () => {
     expect(DEFAULT_HERO_VARIANT.h1).toBe("Eyewear built for wide faces.");
   });
 });
+
+import { liveHeroSub, VARIANTS } from "@/content/ksHeroVariants";
+
+describe("liveHeroSub", () => {
+  it("drops the prelaunch VIP / 40% tail from every variant", () => {
+    for (const v of [DEFAULT_HERO_VARIANT, ...Object.values(VARIANTS)]) {
+      const out = liveHeroSub(v.sub);
+      expect(out).not.toMatch(/40off|Join the VIP list|Launching soon/);
+      expect(out).toMatch(/Live on Kickstarter now/);
+    }
+  });
+});
