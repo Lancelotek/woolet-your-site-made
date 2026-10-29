@@ -13,3 +13,6 @@ export const COMPOSITION_RULES = [
   "No props, no coloured backdrop, no face, no text, no model, no branding, no logos or printed markings anywhere, including inside the temples.",
 ].join(" ");
 export const compositionRulesFor = (shape: string) => [COMPOSITION_RULES, ...(compositionReferenceFor(shape) ? ["The LAST image is the Round composition reference, the authority ONLY for camera angle, framing, lighting and background. Never copy its shape, colours, finish or lenses. Never copy its lens shape, bridge or proportions. Copy only camera angle, framing, light and background."] : [])].join(" ");
+/** Bespoke frames carry no visible hardware: hinges are hidden inside the acetate. */
+export const NO_DECORATION_RULES =
+  "HARD HARDWARE CONSTRAINTS: plain acetate only. No visible rivets, pins, studs, dots, screws or metal accents anywhere on the front or on the temples, including the end pieces and the outer side of the temples near the hinge. No decorative inlays, wires, trims or ornaments. Hinges are hidden on the inside of the frame and must not show from the outside.";
