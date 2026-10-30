@@ -16,6 +16,8 @@ import { blogMetaBySlug } from "@/lib/blog-meta";
 import { alternateLangsFor, alternatesFor } from "@/lib/blog-slug-map";
 import { t, isValidLang, type Lang } from "@/lib/i18n";
 import { trackFitCtas } from "@/lib/blog-cta-tracking";
+import { isKickstarterLive, kickstarterLiveHref } from "@/config/kickstarter";
+import { pushGtmEvent } from "@/lib/gtm";
 import { BLOG_AIO_ENHANCEMENTS, blogModifiedDate, enrichBlogContent } from "@/content/blog-aio";
 import BridgeFitExplainer from "@/components/BridgeFitExplainer";
 import { BRIDGE_BLOG_INTRO_START } from "@/content/bridgeFit";
@@ -42,8 +44,17 @@ function extractH2s(html: string): { id: string; text: string }[] {
   return results;
 }
 
+/** Live-campaign inline box (raw HTML: the article body is injected as HTML). */
+function ksInlineCta(lang: Lang, href: string): string {
+  const copy = lang === "pl"
+    ? { h: "Oprawki dla twarzy 155-161 mm", p: "158 mm frontu, włoski acetat Mazzucchelli, ręcznie robione w UE. Early Bird na Kickstarterze: $114 (potem $190).", b: "Zobacz na Kickstarterze" }
+    : { h: "Frames built for 155-161 mm faces", p: "158 mm front, Italian Mazzucchelli acetate, hand made in the EU. Early Bird on Kickstarter: $114 (then $190).", b: "See it on Kickstarter" };
+  return `<div class="woolet-inline-cta woolet-ks-cta"><p><strong>${copy.h}</strong><br/>${copy.p}</p><a href="${href}" target="_blank" rel="noopener" data-ks-cta="1">${copy.b} →</a></div>`;
+}
+
 /** Detect size-breakdown lists and add IDs to H2s, inject inline CTAs after every 3rd H2 */
-function processContent(html: string, lang: Lang, exactContent = false): string {
+function processContent(html: string, lang: Lang, exactContent = false, slug = ""): string {
+  const ksLive = isKickstarterLive();
   // Add IDs to H2s
   let h2Count = 0;
   let processed = html.replace(/<h2([^>]*)>(.*?)<\/h2>/gi, (full, attrs, inner) => {
@@ -57,7 +68,13 @@ function processContent(html: string, lang: Lang, exactContent = false): string 
     const ctaBtn = lang === "pl" ? "Dołącz" : "Join Waitlist";
 
     let cta = "";
-    if (!exactContent && h2Count > 1 && (h2Count - 1) % 3 === 0) {
+    if (ksLive) {
+      // Campaign live: send readers straight to Kickstarter after the first
+      // section, then after every 3rd H2 (2nd, 5th, 8th...).
+      if (!exactContent && h2Count >= 2 && (h2Count - 2) % 3 === 0) {
+        cta = ksInlineCta(lang, kickstarterLiveHref("blog_inline", `${slug || "blog"}_h${h2Count}`));
+      }
+    } else if (!exactContent && h2Count > 1 && (h2Count - 1) % 3 === 0) {
       cta = `<div class="woolet-inline-cta"><p>${ctaText}</p><a href="/${lang === "de" ? "de" : "en"}/lp/kickstarter">${ctaBtn}</a></div>`;
     }
 
@@ -170,7 +187,7 @@ const BlogPost = () => {
     [post],
   );
   const headings = useMemo(() => extractH2s(enhancedContent), [enhancedContent]);
-  const processedContent = useMemo(() => processContent(enhancedContent, currentLang, post?.exactContent), [enhancedContent, currentLang, post?.exactContent]);
+  const processedContent = useMemo(() => processContent(enhancedContent, currentLang, post?.exactContent, post?.slug), [enhancedContent, currentLang, post?.exactContent, post?.slug]);
   const showFitLensHook = currentLang === "en" && BLOG_FITLENS_HOOK_POSTS.has(slug);
   const showBridgeFit = currentLang === "en" && slug === "glasses-for-wide-nose-bridge-21-22mm-explained";
   const [introContent, remainingContent] = useMemo(
@@ -199,6 +216,18 @@ const BlogPost = () => {
     if (!bodyRef.current || !post) return;
     return trackFitCtas(bodyRef.current, { slug: post.slug, lang: currentLang });
   }, [processedContent, post?.slug, currentLang]);
+
+  // Live Kickstarter boxes are injected as raw HTML: one delegated listener.
+  useEffect(() => {
+    const el = bodyRef.current;
+    if (!el || !post) return;
+    const onClick = (e: MouseEvent) => {
+      const a = (e.target as HTMLElement).closest<HTMLAnchorElement>("a[data-ks-cta]");
+      if (a) pushGtmEvent("ks_cta_click", { placement: "blog_inline", page_path: `/${currentLang}/blog/${post.slug}` });
+    };
+    el.addEventListener("click", onClick);
+    return () => el.removeEventListener("click", onClick);
+  }, [post, currentLang]);
 
 
   if (!post) {
@@ -425,6 +454,17 @@ const BlogPost = () => {
             {post.faq?.map((item) => <div key={item.q} className="my-5"><h3>{item.q}</h3><p>{item.a}</p></div>)}
           </section>}
         </div>
+
+        {isKickstarterLive() && (
+          <div className="woolet-blog-content">
+            <div
+              onClick={(e) => {
+                if ((e.target as HTMLElement).closest("a")) pushGtmEvent("ks_cta_click", { placement: "blog_end", page_path: `/${currentLang}/blog/${post.slug}` });
+              }}
+              dangerouslySetInnerHTML={{ __html: ksInlineCta(currentLang, kickstarterLiveHref("blog_end", post.slug)) }}
+            />
+          </div>
+        )}
 
         <RelatedPosts currentSlug={post.slug} lang={currentLang} />
 
