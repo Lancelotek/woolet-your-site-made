@@ -17,6 +17,7 @@ import { prefersReducedMotion } from "@/hooks/use-motion-once";
 import { pushGtmEvent } from "@/lib/gtm";
 import { isKickstarterLive, kickstarterLiveHref } from "@/config/kickstarter";
 import { ksLiveCta } from "@/components/KickstarterLiveBar";
+import KickstarterFundedBadge from "@/components/KickstarterFundedBadge";
 import { isValidLang, dirForLang, type Lang } from "@/lib/i18n";
 import { hrefFor } from "@/i18n/routeRegistry";
 import {
@@ -762,6 +763,12 @@ const Index = () => {
                   <FrameWidthMeter copy={copy} lang={lang} />
                 )}
               </div>
+
+              {isKickstarterLive() && (
+                <div className="order-2 lg:order-none flex lg:pt-2">
+                  <KickstarterFundedBadge placement="home_hero" lang={lang} />
+                </div>
+              )}
 
               <div className="order-2 lg:order-none flex flex-col sm:flex-row gap-3 lg:pt-2">
 
