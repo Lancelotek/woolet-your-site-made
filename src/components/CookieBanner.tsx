@@ -531,13 +531,38 @@ const CookieBanner = () => {
         borderRadius: isDesktop ? 12 : 8,
         border: `1px solid ${BORDER}`,
         boxShadow: "0 24px 60px rgba(0,0,0,0.45)",
-        padding: isDesktop ? 32 : 16,
+        padding: isDesktop ? 32 : 12,
         fontFamily: "'Archivo', system-ui, sans-serif",
         fontSize: isDesktop ? 15 : 14,
         lineHeight: 1.55,
       }}
     >
-      {!customizing && (
+      {!customizing && !isDesktop && (
+        <>
+          {/* Mobile: compact (~130px instead of ~250px) so it does not cover the hero.
+              Accept and Reject stay equal in size and weight (legal parity). */}
+          <p style={{ margin: 0, marginBottom: 10, color: MUTED, fontSize: 12, lineHeight: 1.45 }}>
+            {t.body}{" "}
+            <a href={`/${locale === "pl" ? "pl" : "en"}/privacy-policy`} style={linkStyle}>
+              {t.policy}
+            </a>
+            {" · "}
+            <button onClick={openCustomize} type="button" style={{ ...linkButtonStyle, padding: 0, fontSize: 11 }}>
+              {t.customize}
+            </button>
+          </p>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+            <button onClick={acceptAll} style={{ ...btnPrimary, padding: "10px 10px" }} type="button">
+              {t.accept}
+            </button>
+            <button onClick={rejectAll} style={{ ...btnSecondary, padding: "10px 10px" }} type="button">
+              {t.reject}
+            </button>
+          </div>
+        </>
+      )}
+
+      {!customizing && isDesktop && (
         <>
           <p
             style={{

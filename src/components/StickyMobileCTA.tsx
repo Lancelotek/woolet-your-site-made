@@ -69,6 +69,10 @@ const StickyMobileCTA = ({ count = 23 }: { count?: number }) => {
     ? (lang === "pl" ? "Wesprzyj na Kickstarterze →" : "Back us on Kickstarter →")
     : t(lang, "sticky.cta");
 
+  // While the campaign is live the site-wide KickstarterStickyCta takes over:
+  // this bar depends on #waitlist-form, which no longer renders after launch.
+  if (isKickstarterLive()) return null;
+
   return (
     <div
       className={`fixed bottom-0 left-0 right-0 flex items-center justify-between md:hidden transition-all duration-500 ease-out ${
