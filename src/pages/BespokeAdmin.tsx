@@ -83,6 +83,8 @@ interface Detail {
     photo_url: string | null;
     vto_url: string | null;
     geometry_url: string | null;
+    /** Strict side profile with a card on the cheek - nose-bridge height. */
+    profile_url?: string | null;
     preview_url?: string | null;
   };
 }
@@ -406,6 +408,7 @@ export default function BespokeAdmin() {
       await add(d.files.photo_url, `customer-photo-${ref}.jpg`);
       await add(d.files.vto_url, `on-face-${ref}.png`);
       await add(d.files.geometry_url, `geometry-${ref}.png`);
+      await add(d.files.profile_url ?? null, `side-profile-${ref}.jpg`);
       zip.file(
         `order-data-${ref}.json`,
         JSON.stringify({ order: d.order, photo: d.photo, scan: d.scan }, null, 2),
@@ -1212,13 +1215,14 @@ function DetailView({
         <Field label="Production" value={o.production_blocked ? "Paused — fit needs review" : "Clear"} />
       </Group>
 
-      {(detail.files.photo_url || detail.files.vto_url || detail.files.preview_url || o.ai_preview_url) && (
+      {(detail.files.photo_url || detail.files.vto_url || detail.files.profile_url || detail.files.preview_url || o.ai_preview_url) && (
         <section style={{ marginTop: 22 }}>
           <h3 style={{ fontFamily: SERIF, fontSize: 20, margin: "0 0 10px" }}>Images</h3>
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
             {[
               { url: (detail.files.preview_url ?? o.ai_preview_url) as string | null, label: "Frame preview", alt: renderAltFromParts({ shape: o.frame_name, front: o.front_code, temple: o.temple_code, finish: o.finish_id, lensType: o.lens_type, lensTint: o.lens_tint_code }) },
               { url: detail.files.photo_url, label: "Customer photo" },
+              { url: detail.files.profile_url ?? null, label: "Side profile (nose bridge)" },
               { url: detail.files.vto_url, label: "On the face" },
               { url: detail.files.geometry_url, label: "Geometry" },
             ]

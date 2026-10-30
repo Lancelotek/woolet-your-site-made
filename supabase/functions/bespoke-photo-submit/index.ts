@@ -13,7 +13,7 @@ const supabase = createClient(
 
 const SID_RE = /^[A-Za-z0-9_-]{20,200}$/;
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-const CONSENT_VERSION = "bespoke-photo-v1";
+const CONSENT_VERSION = "bespoke-photo-v2";
 const IP_SALT = Deno.env.get("CONSENT_IP_SALT") ?? "";
 /** Anything beyond this gap between photo and scan pauses production. */
 const DELTA_BLOCK_MM = 4;
@@ -88,6 +88,50 @@ Deno.serve(async (req) => {
 
     const scanRef = order?.session_ref ?? sessionRef;
 
+    const ip =
+      req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
+      req.headers.get("cf-connecting-ip") ??
+      "";
+
+    const profilePath = str(body?.profilePath, 400);
+
+    // Side photo added to an order whose front photo is already on file
+    // (e.g. taken in the configurator before paying). Touches only the
+    // profile and the consent that now covers it.
+    if (body?.profileOnly === true) {
+      if (!order) return json({ error: "order_required" }, 400);
+      if (!profilePath) return json({ error: "profile_required" }, 400);
+      let { data: existing } = await supabase
+        .from("bespoke_order_photos")
+        .select("id")
+        .eq("order_id", order.id)
+        .maybeSingle();
+      if (!existing && order.session_ref) {
+        ({ data: existing } = await supabase
+          .from("bespoke_order_photos")
+          .select("id")
+          .eq("session_ref", order.session_ref)
+          .is("order_id", null)
+          .maybeSingle());
+      }
+      if (!existing) return json({ error: "front_photo_missing" }, 409);
+      const { error: updErr } = await supabase
+        .from("bespoke_order_photos")
+        .update({
+          profile_path: profilePath,
+          profile_uploaded_at: new Date().toISOString(),
+          consent_text: consentText,
+          consent_version: str(body?.consentVersion, 40) ?? CONSENT_VERSION,
+          consent_at: new Date().toISOString(),
+          consent_ip_hash: await hashIp(ip),
+          consent_locale: str(body?.locale, 10) ?? "en",
+          consent_withdrawn_at: null,
+        })
+        .eq("id", existing.id);
+      if (updErr) throw updErr;
+      return json({ ok: true, profileOnly: true });
+    }
+
     // Cross-check the photo against the scan, when we have one to compare to.
     let scanTt: number | null = null;
     if (scanRef) {
@@ -104,11 +148,6 @@ Deno.serve(async (req) => {
     const photoTt = num(body?.photoTempleToTempleMm);
     const delta = photoTt != null && scanTt != null ? Math.round(Math.abs(photoTt - scanTt) * 100) / 100 : null;
 
-    const ip =
-      req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-      req.headers.get("cf-connecting-ip") ??
-      "";
-
     const row = {
       order_id: order?.id ?? null,
       session_ref: scanRef,
@@ -117,6 +156,8 @@ Deno.serve(async (req) => {
       photo_path: str(body?.photoPath, 400),
       geometry_path: str(body?.geometryPath, 400),
       vto_path: str(body?.vtoPath, 400),
+      profile_path: profilePath,
+      profile_uploaded_at: profilePath ? new Date().toISOString() : null,
       photo_width_px: num(body?.photoWidthPx),
       photo_height_px: num(body?.photoHeightPx),
       card_px: num(body?.cardPx),

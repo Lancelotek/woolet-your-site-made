@@ -30,14 +30,14 @@ Deno.serve(async (req) => {
 
     const { data: rows, error } = await supabase
       .from("bespoke_order_photos")
-      .select("id, photo_path, geometry_path, vto_path")
+      .select("id, photo_path, geometry_path, vto_path, profile_path")
       .eq("session_ref", sessionRef)
       .is("order_id", null);
     if (error) throw error;
     if (!rows?.length) return json({ ok: true, removed: 0 });
 
     const paths = rows
-      .flatMap((r) => [r.photo_path, r.geometry_path, r.vto_path])
+      .flatMap((r) => [r.photo_path, r.geometry_path, r.vto_path, r.profile_path])
       .filter(Boolean) as string[];
     if (paths.length) await supabase.storage.from("bespoke-photos").remove(paths);
 
@@ -48,6 +48,7 @@ Deno.serve(async (req) => {
         photo_path: null,
         geometry_path: null,
         vto_path: null,
+        profile_path: null,
         consent_withdrawn_at: new Date().toISOString(),
       })
       .in("id", rows.map((r) => r.id));
