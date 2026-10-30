@@ -1,10 +1,16 @@
 import { useLocation } from "react-router-dom";
 import { isKickstarterLive, kickstarterLiveHref } from "@/config/kickstarter";
 import { pushGtmEvent } from "@/lib/gtm";
+import { KS_FUNDED, ksFundedLabel } from "@/components/KickstarterFundedBadge";
 
 /** Live-campaign label per language; anything not listed falls back to English. */
-export const ksLiveLabel = (lang: string): string =>
-  lang === "pl" ? "Jesteśmy na Kickstarterze - wesprzyj teraz" : "We're live on Kickstarter - back it now";
+export const ksLiveLabel = (lang: string): string => {
+  if (KS_FUNDED) {
+    const cta = lang === "pl" ? "wesprzyj teraz" : lang === "de" ? "jetzt unterstützen" : "back it now";
+    return `✓ ${ksFundedLabel(lang)} - Kickstarter - ${cta}`;
+  }
+  return lang === "pl" ? "Jesteśmy na Kickstarterze - wesprzyj teraz" : "We're live on Kickstarter - back it now";
+};
 
 /** Short button label (fits one line on a phone). */
 export const ksLiveCta = (lang: string): string =>
