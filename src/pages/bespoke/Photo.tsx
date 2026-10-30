@@ -35,22 +35,30 @@ import {
 // v2 (30.10.2026): consent covers two photos - front and side profile.
 const CONSENT_VERSION = "bespoke-photo-v2";
 
-// v1 consent wording. Shown verbatim, stored byte for byte with the record.
+// v2 consent wording. Shown verbatim, stored byte for byte with the record.
 // Polish version is shown on the PL route; English is the default.
 const CONSENT_TEXT: Record<string, string> = {
   en: "I agree that JAY23 LLC (Woolet) stores these photographs (front and side) and my face measurements and shares them with its manufacturing partner in the EU for the sole purpose of producing and verifying my bespoke frame. The photographs and the virtual try-on render are deleted 90 days after delivery. I can withdraw this consent at any time at support@woolet.co; withdrawal stops production of the frame.",
   pl: "Wyrażam zgodę na przechowywanie przez JAY23 LLC (Woolet) tych zdjęć (z przodu i z profilu) oraz moich wymiarów twarzy i przekazanie ich partnerowi produkcyjnemu w UE wyłącznie w celu wykonania i weryfikacji mojej oprawki bespoke. Zdjęcia i wizualizacja przymiarki są usuwane 90 dni po dostawie. Zgodę mogę wycofać w każdej chwili pod adresem support@woolet.co; wycofanie zatrzymuje produkcję oprawki.",
 };
 
-const AGREE_LABEL: Record<string, string> = {
-  en: "I agree to the above.",
-  pl: "Wyrażam zgodę na powyższe.",
+// Consent is given by the send button itself - an active, informed act
+// (GDPR art. 4(11), 7). Never a pre-ticked box: that is not consent (CJEU
+// C-673/17 Planet49). The text above the button is stored with the record.
+const SEND_LABEL: Record<string, string> = {
+  en: "Agree & send to the workshop",
+  pl: "Zgadzam się i wysyłam do warsztatu",
+};
+
+const SEND_NOTE: Record<string, string> = {
+  en: "Tapping the button gives the consent above. Nothing is sent before that.",
+  pl: "Kliknięcie przycisku oznacza zgodę powyżej. Wcześniej nic nie jest wysyłane.",
 };
 
 /** Anything beyond this gap between photo and scan pauses production. */
 const DELTA_WARN_MM = 4;
 
-type Stage = "consent" | "capture" | "card" | "temples" | "review" | "profile" | "done";
+type Stage = "onfile" | "capture" | "card" | "temples" | "review" | "profile" | "done";
 
 /** Longest edge of the side photo we store. Plenty for reading the bridge. */
 const PROFILE_MAX_PX = 2400;
@@ -109,8 +117,7 @@ export default function BespokePhoto() {
     [scanTempleToTempleMm, frame.widthMm],
   );
 
-  const [stage, setStage] = useState<Stage>("consent");
-  const [consent, setConsent] = useState(false);
+  const [stage, setStage] = useState<Stage>("capture");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState<{ deltaMm: number | null; needsReview: boolean; profileOnly?: boolean } | null>(null);
@@ -135,7 +142,11 @@ export default function BespokePhoto() {
     supabase.functions
       .invoke("bespoke-photo-upload-url", { body: { sid, probe: true } })
       .then(({ data }) => {
-        if (live && data?.existing) setPhotoOnFile(data.existing);
+        if (live && data?.existing && data.existing.status !== "purged") {
+          setPhotoOnFile(data.existing);
+          // Offer "add / retake" only while the buyer has not started a new photo.
+          setStage((prev) => (prev === "capture" ? "onfile" : prev));
+        }
       })
       .catch(() => undefined);
     return () => {
@@ -379,8 +390,8 @@ export default function BespokePhoto() {
     try {
       await supabase.functions.invoke("bespoke-consent-withdraw", { body: { sid } });
       setResult(null);
-      setStage("consent");
-      setConsent(false);
+      setStage("capture");
+      setPhotoOnFile(null);
       setImageEl(null);
       setImageUrl(null);
       setProfileFile(null);
@@ -423,7 +434,7 @@ export default function BespokePhoto() {
             </p>
           )}
 
-          {stage === "consent" && photoOnFile && photoOnFile.status !== "purged" && (
+          {stage === "onfile" && photoOnFile && (
             <section className={`mt-8 ${card}`}>
               <div className="flex items-start gap-3">
                 <Check className="mt-0.5 h-5 w-5 shrink-0 text-[#36C46A]" aria-hidden />
@@ -448,7 +459,7 @@ export default function BespokePhoto() {
                   className={photoOnFile.has_profile ? secondaryBtn : primaryBtn}
                   onClick={() => {
                     setProfileOnly(true);
-                    setPhotoOnFile(null);
+                    setStage("profile");
                   }}
                 >
                   <UserRound className="h-4 w-4" aria-hidden /> {photoOnFile.has_profile ? "Retake the side photo" : "Add the side photo"}
@@ -458,50 +469,12 @@ export default function BespokePhoto() {
                   className={secondaryBtn}
                   onClick={() => {
                     setProfileOnly(false);
-                    setPhotoOnFile(null);
+                    setStage("capture");
                   }}
                 >
                   Retake both photos
                 </button>
               </div>
-            </section>
-          )}
-
-          {stage === "consent" && !photoOnFile && (
-            <section className={`mt-8 ${card}`}>
-              <div className="flex items-start gap-3">
-                <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-gold" aria-hidden />
-                <div>
-                  <h2 className="font-display text-xl font-light text-[#F8F8F6]">Your photo, your call</h2>
-                  <p className="mt-2 text-sm leading-relaxed text-cream-dim">{consentText}</p>
-                </div>
-              </div>
-              <label className="mt-6 flex min-h-[48px] cursor-pointer items-start gap-3 text-sm text-cream">
-                <input
-                  type="checkbox"
-                  checked={consent}
-                  onChange={(e) => {
-                    setConsent(e.target.checked);
-                    if (e.target.checked) clarityEvent("bespoke_photo_consent_given");
-                  }}
-                  className="mt-1 h-5 w-5 accent-[#CAA449]"
-                />
-                <span>{AGREE_LABEL[locale]}</span>
-              </label>
-              <button
-                type="button"
-                className={`mt-6 ${primaryBtn}`}
-                disabled={!consent}
-                onClick={() => setStage(profileOnly ? "profile" : "capture")}
-              >
-                Continue
-              </button>
-              <p className="mt-4 text-xs text-cream-dim/70">
-                Both photos are required for every Bespoke order - we start cutting only after they
-                arrive. Questions? <a href="mailto:support@woolet.co" className="underline">support@woolet.co</a>
-                {" · "}
-                <Link to="/en/bespoke/measurements" className="underline">Back to my measurements</Link>
-              </p>
             </section>
           )}
 
@@ -558,6 +531,13 @@ export default function BespokePhoto() {
                   e.target.value = "";
                 }}
               />
+              <p className="mt-4 text-xs text-cream-dim/70">
+                Both photos are required for every Bespoke order - we start cutting only after they
+                arrive. Nothing leaves your phone until you send it at the end. Questions?{" "}
+                <a href="mailto:support@woolet.co" className="underline">support@woolet.co</a>
+                {" · "}
+                <Link to="/en/bespoke/measurements" className="underline">Back to my measurements</Link>
+              </p>
             </section>
           )}
 
@@ -691,15 +671,28 @@ export default function BespokePhoto() {
                 </figure>
               )}
 
+              {profilePreview && (
+                <div className="mt-6 flex items-start gap-3 border border-cream/10 bg-[#080807] p-4">
+                  <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-gold" aria-hidden />
+                  <div>
+                    <p className="text-[11px] uppercase tracking-[0.18em] text-gold">Your photos, your call</p>
+                    <p className="mt-2 text-xs leading-relaxed text-cream-dim">{consentText}</p>
+                  </div>
+                </div>
+              )}
+
               <div className="mt-6 flex flex-wrap gap-3">
                 {profilePreview ? (
                   <button
                     type="button"
                     className={primaryBtn}
                     disabled={busy}
-                    onClick={profileOnly ? submitProfileOnly : submit}
+                    onClick={() => {
+                      clarityEvent("bespoke_photo_consent_given");
+                      void (profileOnly ? submitProfileOnly() : submit());
+                    }}
                   >
-                    {busy ? "Sending…" : "Send to the workshop"}
+                    {busy ? "Sending…" : SEND_LABEL[locale]}
                   </button>
                 ) : (
                   <button type="button" className={primaryBtn} onClick={() => profileRef.current?.click()}>
@@ -709,12 +702,15 @@ export default function BespokePhoto() {
                 <button type="button" className={secondaryBtn} onClick={() => profileRef.current?.click()}>
                   <Upload className="h-4 w-4" aria-hidden /> {profilePreview ? "Retake" : "Upload a photo"}
                 </button>
-                {!profileOnly && (
-                  <button type="button" className={secondaryBtn} onClick={() => setStage("review")}>
-                    Back
-                  </button>
-                )}
+                <button
+                  type="button"
+                  className={secondaryBtn}
+                  onClick={() => setStage(profileOnly ? "onfile" : "review")}
+                >
+                  Back
+                </button>
               </div>
+              {profilePreview && <p className="mt-3 text-xs text-cream-dim/70">{SEND_NOTE[locale]}</p>}
               <input
                 ref={profileRef}
                 type="file"
