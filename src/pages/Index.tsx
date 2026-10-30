@@ -15,6 +15,8 @@ import SEO from "@/components/SEO";
 import HeroSymptoms from "@/components/HeroSymptoms";
 import { prefersReducedMotion } from "@/hooks/use-motion-once";
 import { pushGtmEvent } from "@/lib/gtm";
+import { isKickstarterLive, kickstarterLiveHref } from "@/config/kickstarter";
+import { ksLiveCta } from "@/components/KickstarterLiveBar";
 import { isValidLang, dirForLang, type Lang } from "@/lib/i18n";
 import { hrefFor } from "@/i18n/routeRegistry";
 import {
@@ -763,6 +765,25 @@ const Index = () => {
 
               <div className="order-2 lg:order-none flex flex-col sm:flex-row gap-3 lg:pt-2">
 
+                {isKickstarterLive() ? (
+                <a
+                  href={kickstarterLiveHref("home_hero", "hero_primary")}
+                  onClick={() => {
+                    pushGtmEvent("hero_cta_primary_click", { location: "home_hero", dest: "kickstarter_live" });
+                    if (heroTracked) trackHeroCtaClick(heroVariant.id, "join_list");
+                  }}
+                  className="woolet-cta-lift inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline bg-gold hover:bg-gold-light"
+                  style={{
+                    color: "hsl(var(--background))",
+                    fontFamily: "Barlow, sans-serif",
+                    fontWeight: 500,
+                    fontSize: "0.78rem",
+                    padding: "18px 28px",
+                  }}
+                >
+                  {ksLiveCta(lang)} →
+                </a>
+                ) : (
                 <Link
                   to={hrefFor("lp.kickstarter", lang)}
                   onClick={() => {
@@ -783,6 +804,7 @@ const Index = () => {
                 >
                   {copy.ctaPrimary}
                 </Link>
+                )}
                 <Link
                   to={hrefFor("collection", lang)}
                   onClick={() => {

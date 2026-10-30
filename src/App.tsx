@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import CookieBanner from "@/components/CookieBanner";
+import KickstarterLiveBar from "@/components/KickstarterLiveBar";
 import PageViewTracker from "@/components/PageViewTracker";
 import Redirects from "@/components/Redirects";
 import { AuthProvider } from "@/lib/auth-context";
@@ -224,6 +225,7 @@ const App = () => (
         <AuthProvider>
         <Redirects />
         <PageViewTracker />
+        <KickstarterLiveBar />
         
         <Suspense fallback={<div className="min-h-screen bg-background" />}>
         <Routes>
