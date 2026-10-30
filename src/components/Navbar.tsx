@@ -7,6 +7,8 @@ import { pushGtmEvent } from "@/lib/gtm";
 import { Menu, X, User } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import DeReservationCta from "@/components/de/DeReservationCta";
+import { isKickstarterLive, kickstarterLiveHref } from "@/config/kickstarter";
+import { ksLiveCta } from "@/components/KickstarterLiveBar";
 const ResumeBuildBar = lazy(() => import("@/components/bespoke/ResumeBuildBar"));
 
 const Navbar = () => {
@@ -65,6 +67,9 @@ const Navbar = () => {
     currentKey && hasLocalized(currentKey, targetLang)
       ? `${langNames[targetLang]}`
       : `Woolet — site in ${langNames[targetLang]}`;
+
+  const ksLive = isKickstarterLive();
+  const ksHref = kickstarterLiveHref("nav", "navbar");
 
   return (
     <>
@@ -183,6 +188,15 @@ const Navbar = () => {
           )}
           {lang === "de" ? (
             <DeReservationCta source="header" variant="compact" />
+          ) : ksLive ? (
+            <a
+              href={ksHref}
+              className="no-underline uppercase tracking-[0.2em] bg-gold hover:bg-gold-light transition-colors"
+              style={{ fontSize: "0.72rem", padding: "7px 14px", borderRadius: 2, color: "#080807", fontWeight: 600 }}
+              onClick={() => pushGtmEvent("kickstarter_live_click", { slot: "navbar", nav_lang: lang })}
+            >
+              {ksLiveCta(lang)}
+            </a>
           ) : (
             <Link
               to={hrefFor("lp.kickstarter", lang)}
@@ -324,6 +338,20 @@ const Navbar = () => {
               <div className="px-6 py-1">
                 <DeReservationCta source="header" variant="compact" className="h-12 w-full rounded-sm font-body text-[11px] font-semibold uppercase tracking-[0.18em]" />
               </div>
+            ) : ksLive ? (
+              <a
+                href={ksHref}
+                className="block w-full px-6 py-1 no-underline"
+                style={{ fontSize: "0.72rem" }}
+                onClick={() => {
+                  setMenuOpen(false);
+                  pushGtmEvent("kickstarter_live_click", { slot: "navbar_mobile", nav_lang: lang });
+                }}
+              >
+                <span className="block py-3.5 text-center uppercase tracking-[0.2em] bg-gold" style={{ color: "#080807", fontWeight: 600 }}>
+                  {ksLiveCta(lang)}
+                </span>
+              </a>
             ) : (
               <Link
                 to={hrefFor("lp.kickstarter", lang)}

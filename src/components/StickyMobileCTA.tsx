@@ -2,6 +2,7 @@ import { hrefFor, localePath } from "@/i18n/routeRegistry";
 import { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { t, isValidLang, type Lang } from "@/lib/i18n";
+import { isKickstarterLive, kickstarterLiveHref } from "@/config/kickstarter";
 
 const TOP_BUFFER_PX = 110;
 const BOTTOM_BUFFER_PX = 140;
@@ -58,11 +59,15 @@ const StickyMobileCTA = ({ count = 23 }: { count?: number }) => {
   }, []);
 
   const scrollToForm = useCallback(() => {
-    window.location.href = hrefFor("lp.kickstarter", lang);
+    window.location.href = isKickstarterLive()
+      ? kickstarterLiveHref("sticky_mobile", "sticky_cta")
+      : hrefFor("lp.kickstarter", lang);
   }, [lang]);
 
   const spotsText = t(lang, "sticky.spots");
-  const ctaText = t(lang, "sticky.cta");
+  const ctaText = isKickstarterLive()
+    ? (lang === "pl" ? "Wesprzyj na Kickstarterze →" : "Back us on Kickstarter →")
+    : t(lang, "sticky.cta");
 
   return (
     <div
