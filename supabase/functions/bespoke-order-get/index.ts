@@ -56,7 +56,7 @@ Deno.serve(async (req) => {
     const masked = em ? em.replace(/^(.).*(@.*)$/, "$1***$2") : null;
     const { data: photoConsent, error: consentError } = await supabase
       .from("bespoke_order_photos")
-      .select("consent_at, consent_withdrawn_at, consent_version, consent_locale, vto_path")
+      .select("consent_at, consent_withdrawn_at, consent_version, consent_locale, vto_path, profile_path")
       .eq("order_id", data.id)
       .order("consent_at", { ascending: false })
       .limit(1)
@@ -154,6 +154,8 @@ Deno.serve(async (req) => {
               consent_withdrawn_at: photoConsent.consent_withdrawn_at,
               consent_version: photoConsent.consent_version,
               consent_locale: photoConsent.consent_locale,
+              // Side photo on file (nose-bridge height). Never the path itself.
+              has_profile: Boolean((photoConsent as any).profile_path),
             }
           : null,
         try_on_url: tryOnUrl,

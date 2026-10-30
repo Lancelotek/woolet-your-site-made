@@ -17,10 +17,10 @@ const supabase = createClient(
 
 const SID_RE = /^[A-Za-z0-9_-]{20,200}$/;
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-const KINDS = ["photo", "geometry", "vto"] as const;
+const KINDS = ["photo", "geometry", "vto", "profile"] as const;
 type Kind = (typeof KINDS)[number];
 
-const EXT: Record<Kind, string> = { photo: "jpg", geometry: "png", vto: "png" };
+const EXT: Record<Kind, string> = { photo: "jpg", geometry: "png", vto: "png", profile: "jpg" };
 
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), {
@@ -56,11 +56,15 @@ Deno.serve(async (req) => {
     }
 
     // Does a photo already exist for this order/session?
-    const q = supabase.from("bespoke_order_photos").select("status, uploaded_at, session_ref").limit(1);
+    const q = supabase.from("bespoke_order_photos").select("status, uploaded_at, session_ref, profile_path").limit(1);
     const { data: existingRows } = order
       ? await q.eq("order_id", order.id)
       : await q.eq("session_ref", sessionRef!).is("order_id", null);
-    const existing = existingRows?.[0] ?? null;
+    const row = existingRows?.[0] ?? null;
+    // Report whether a side photo exists, never its storage path.
+    const existing = row
+      ? { status: row.status, uploaded_at: row.uploaded_at, session_ref: row.session_ref, has_profile: Boolean(row.profile_path) }
+      : null;
 
     if (probe) {
       return json({ existing: existing?.status === "pending" ? null : existing });

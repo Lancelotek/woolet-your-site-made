@@ -184,6 +184,7 @@ Deno.serve(async (req) => {
           photo_url: await sign(photo?.photo_path),
           vto_url: await sign(photo?.vto_path),
           geometry_url: await sign(photo?.geometry_path),
+          profile_url: await sign((photo as any)?.profile_path),
           preview_url: await signPreview((order as any).ai_preview_path),
         },
       });
@@ -355,7 +356,7 @@ Deno.serve(async (req) => {
 
       const { data: photoRows } = await admin
         .from("bespoke_order_photos")
-        .select("photo_path, geometry_path, vto_path")
+        .select("photo_path, geometry_path, vto_path, profile_path")
         .eq("order_id", id);
 
       for (const table of [
@@ -376,7 +377,7 @@ Deno.serve(async (req) => {
       // Best-effort storage cleanup — failures here must not fail the delete.
       try {
         const photoPaths = (photoRows ?? [])
-          .flatMap((r) => [r.photo_path, r.geometry_path, r.vto_path])
+          .flatMap((r) => [r.photo_path, r.geometry_path, r.vto_path, r.profile_path])
           .filter((p): p is string => Boolean(p));
         if (photoPaths.length) await admin.storage.from("bespoke-photos").remove(photoPaths);
         if (order.brief_path) await admin.storage.from("bespoke-cad").remove([order.brief_path]);

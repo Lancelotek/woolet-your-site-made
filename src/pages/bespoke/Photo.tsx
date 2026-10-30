@@ -9,9 +9,10 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
-import { Camera, Check, CreditCard, ScanFace, ShieldCheck, Sun, Upload } from "lucide-react";
+import { Camera, Check, CreditCard, Ruler, ScanFace, ShieldCheck, Smartphone, Sun, Upload, UserRound } from "lucide-react";
 
 import SEO from "@/components/SEO";
+import ProfilePhotoIllustration from "@/components/ProfilePhotoIllustration";
 import type { Lang } from "@/lib/i18n";
 import { supabase } from "@/integrations/supabase/client";
 import { findFrame } from "@/data/frames";
@@ -31,13 +32,14 @@ import {
   type Point,
 } from "@/lib/bespoke-photo-geometry";
 
-const CONSENT_VERSION = "bespoke-photo-v1";
+// v2 (30.10.2026): consent covers two photos - front and side profile.
+const CONSENT_VERSION = "bespoke-photo-v2";
 
 // v1 consent wording. Shown verbatim, stored byte for byte with the record.
 // Polish version is shown on the PL route; English is the default.
 const CONSENT_TEXT: Record<string, string> = {
-  en: "I agree that JAY23 LLC (Woolet) stores this photograph and my face measurements and shares them with its manufacturing partner in the EU for the sole purpose of producing and verifying my bespoke frame. The photograph and the virtual try-on render are deleted 90 days after delivery. I can withdraw this consent at any time at support@woolet.co; withdrawal stops production of the frame.",
-  pl: "Wyrażam zgodę na przechowywanie przez JAY23 LLC (Woolet) tego zdjęcia oraz moich wymiarów twarzy i przekazanie ich partnerowi produkcyjnemu w UE wyłącznie w celu wykonania i weryfikacji mojej oprawki bespoke. Zdjęcie i wizualizacja przymiarki są usuwane 90 dni po dostawie. Zgodę mogę wycofać w każdej chwili pod adresem support@woolet.co; wycofanie zatrzymuje produkcję oprawki.",
+  en: "I agree that JAY23 LLC (Woolet) stores these photographs (front and side) and my face measurements and shares them with its manufacturing partner in the EU for the sole purpose of producing and verifying my bespoke frame. The photographs and the virtual try-on render are deleted 90 days after delivery. I can withdraw this consent at any time at support@woolet.co; withdrawal stops production of the frame.",
+  pl: "Wyrażam zgodę na przechowywanie przez JAY23 LLC (Woolet) tych zdjęć (z przodu i z profilu) oraz moich wymiarów twarzy i przekazanie ich partnerowi produkcyjnemu w UE wyłącznie w celu wykonania i weryfikacji mojej oprawki bespoke. Zdjęcia i wizualizacja przymiarki są usuwane 90 dni po dostawie. Zgodę mogę wycofać w każdej chwili pod adresem support@woolet.co; wycofanie zatrzymuje produkcję oprawki.",
 };
 
 const AGREE_LABEL: Record<string, string> = {
@@ -48,7 +50,10 @@ const AGREE_LABEL: Record<string, string> = {
 /** Anything beyond this gap between photo and scan pauses production. */
 const DELTA_WARN_MM = 4;
 
-type Stage = "consent" | "capture" | "card" | "temples" | "review" | "done";
+type Stage = "consent" | "capture" | "card" | "temples" | "review" | "profile" | "done";
+
+/** Longest edge of the side photo we store. Plenty for reading the bridge. */
+const PROFILE_MAX_PX = 2400;
 
 const round1 = (n: number) => Math.round(n * 10) / 10;
 
@@ -58,6 +63,36 @@ const INSTRUCTIONS = [
   { icon: ScanFace, title: "Both ears in frame", body: "Chin level, glasses off, hair tucked behind the ears." },
   { icon: Camera, title: "One straight-on shot", body: "Arm's length, camera at eye height. Do not crop it afterwards." },
 ];
+
+// Side photo: shows where the nose bridge starts against the eye line, which
+// the front photo cannot. That decides how low the bridge of the frame sits.
+const PROFILE_INSTRUCTIONS = [
+  { icon: UserRound, title: "Exactly side-on", body: "Turn your head 90°. Ear, eye and the whole nose bridge visible, nothing in front of the nose." },
+  { icon: CreditCard, title: "Card on the same cheek", body: "Flat against the cheek facing the camera, long edge level, card numbers turned away." },
+  { icon: Smartphone, title: "Camera at eye height", body: "50 cm or more away. Ask someone to take it, or prop the phone up - no selfie at arm's length." },
+  { icon: Ruler, title: "Look straight ahead", body: "Chin level, glasses off, hair tucked behind the ear. Do not crop the photo." },
+];
+
+/** Re-encode the side photo as a JPEG no larger than PROFILE_MAX_PX. */
+async function profileToJpeg(file: File): Promise<Blob> {
+  const url = URL.createObjectURL(file);
+  try {
+    const img = await new Promise<HTMLImageElement>((resolve, reject) => {
+      const el = new Image();
+      el.onload = () => resolve(el);
+      el.onerror = () => reject(new Error("decode_failed"));
+      el.src = url;
+    });
+    const scale = Math.min(1, PROFILE_MAX_PX / Math.max(img.naturalWidth, img.naturalHeight));
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.round(img.naturalWidth * scale);
+    canvas.height = Math.round(img.naturalHeight * scale);
+    canvas.getContext("2d")?.drawImage(img, 0, 0, canvas.width, canvas.height);
+    return await canvasToBlob(canvas, "image/jpeg", 0.9);
+  } finally {
+    URL.revokeObjectURL(url);
+  }
+}
 
 export default function BespokePhoto() {
   const { lang = "en" } = useParams<{ lang?: string }>();
@@ -78,10 +113,15 @@ export default function BespokePhoto() {
   const [consent, setConsent] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
-  const [result, setResult] = useState<{ deltaMm: number | null; needsReview: boolean } | null>(null);
+  const [result, setResult] = useState<{ deltaMm: number | null; needsReview: boolean; profileOnly?: boolean } | null>(null);
+  // Side photo. `profileOnly` = the front photo is already on file and the
+  // buyer only adds the side photo.
+  const [profileOnly, setProfileOnly] = useState(false);
+  const [profileFile, setProfileFile] = useState<File | null>(null);
+  const [profilePreview, setProfilePreview] = useState<string | null>(null);
   // A photo may already exist — taken in the configurator before paying, and
   // attached to this order by the payment webhook.
-  const [photoOnFile, setPhotoOnFile] = useState<{ status: string; uploaded_at: string | null } | null>(null);
+  const [photoOnFile, setPhotoOnFile] = useState<{ status: string; uploaded_at: string | null; has_profile?: boolean } | null>(null);
 
   // Paid customers only — keep the session (upgrade) and mark the page view.
   useEffect(() => {
@@ -110,6 +150,17 @@ export default function BespokePhoto() {
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const fileRef = useRef<HTMLInputElement | null>(null);
+  const profileRef = useRef<HTMLInputElement | null>(null);
+
+  const onProfileFile = (file: File) => {
+    setError(null);
+    if (!file.type.startsWith("image/")) return setError("That file could not be opened as a photo.");
+    setProfileFile(file);
+    setProfilePreview((prev) => {
+      if (prev) URL.revokeObjectURL(prev);
+      return URL.createObjectURL(file);
+    });
+  };
   const frameImgRef = useRef<HTMLImageElement | null>(null);
 
   // Preload the configurator pattern used for the try-on outline.
@@ -209,6 +260,7 @@ export default function BespokePhoto() {
   const submit = async () => {
     if (!sid) return setError("This link is missing its order reference.");
     if (!canvasRef.current || !imageEl || !mmPerPx || !templeToTempleMm || !cardPx) return;
+    if (!profileFile) return setError("Add the side photo first.");
     setBusy(true);
     setError(null);
     try {
@@ -233,6 +285,7 @@ export default function BespokePhoto() {
         ["photo", await canvasToBlob(exports.photo, "image/jpeg", 0.92), "image/jpeg"],
         ["geometry", await canvasToBlob(exports.geometry, "image/png"), "image/png"],
         ["vto", await canvasToBlob(exports.vto, "image/png"), "image/png"],
+        ["profile", await profileToJpeg(profileFile), "image/jpeg"],
       ];
 
       for (const [kind, blob, contentType] of uploads) {
@@ -253,6 +306,7 @@ export default function BespokePhoto() {
           photoPath: signed.uploads.photo.path,
           geometryPath: signed.uploads.geometry.path,
           vtoPath: signed.uploads.vto.path,
+          profilePath: signed.uploads.profile?.path ?? null,
           photoWidthPx: w,
           photoHeightPx: h,
           cardPx,
@@ -279,6 +333,47 @@ export default function BespokePhoto() {
     }
   };
 
+  const submitProfileOnly = async () => {
+    if (!sid) return setError("This link is missing its order reference.");
+    if (!profileFile) return setError("Add the side photo first.");
+    setBusy(true);
+    setError(null);
+    try {
+      const { data: signed, error: signErr } = await supabase.functions.invoke(
+        "bespoke-photo-upload-url",
+        { body: { sid } },
+      );
+      const target = signed?.uploads?.profile;
+      if (signErr || !target) throw new Error("We could not prepare the upload.");
+      const { error: upErr } = await supabase.storage
+        .from("bespoke-photos")
+        .uploadToSignedUrl(target.path, target.token, await profileToJpeg(profileFile), {
+          contentType: "image/jpeg",
+        });
+      if (upErr) throw upErr;
+      const { error: subErr } = await supabase.functions.invoke("bespoke-photo-submit", {
+        body: {
+          sid,
+          profileOnly: true,
+          profilePath: target.path,
+          consentGiven: true,
+          consentText,
+          consentVersion: CONSENT_VERSION,
+          locale,
+        },
+      });
+      if (subErr) throw subErr;
+      setResult({ deltaMm: null, needsReview: false, profileOnly: true });
+      clarityEvent("bespoke_profile_uploaded");
+      setStage("done");
+    } catch (err) {
+      console.error("[bespoke-photo:profile]", err);
+      setError("We could not save your side photo. Please try again in a moment.");
+    } finally {
+      setBusy(false);
+    }
+  };
+
   const withdraw = async () => {
     setBusy(true);
     try {
@@ -288,12 +383,16 @@ export default function BespokePhoto() {
       setConsent(false);
       setImageEl(null);
       setImageUrl(null);
+      setProfileFile(null);
+      setProfilePreview(null);
+      setProfileOnly(false);
     } finally {
       setBusy(false);
     }
   };
 
   useEffect(() => () => { if (imageUrl) URL.revokeObjectURL(imageUrl); }, [imageUrl]);
+  useEffect(() => () => { if (profilePreview) URL.revokeObjectURL(profilePreview); }, [profilePreview]);
 
   const eyebrow = "text-[11px] uppercase tracking-[0.18em] text-gold";
   const card = "border border-cream/10 bg-[#16140F] p-6 sm:p-8";
@@ -309,12 +408,13 @@ export default function BespokePhoto() {
         <div className="mx-auto max-w-3xl">
           <p className={eyebrow}>Photo for the workshop · required</p>
           <h1 className="mt-3 font-display text-3xl font-light text-[#F8F8F6] sm:text-4xl">
-            One photo, and we cut to your face
+            Two photos, and we cut to your face
           </h1>
           <p className="mt-3 max-w-xl text-sm leading-relaxed text-cream-dim">
-            Hold any bank card flat against your cheek and take a straight-on photo. The card
-            gives us a true scale, so we can check your measurements and show you the frames on
-            your own face before we cut them.
+            Hold any bank card flat against your cheek and take one photo straight on and one from
+            the side. The card gives us a true scale. The front photo checks your width, the side
+            photo shows how high your nose bridge sits - so the frame rests on your nose, not on
+            your cheeks.
           </p>
 
           {error && (
@@ -329,7 +429,7 @@ export default function BespokePhoto() {
                 <Check className="mt-0.5 h-5 w-5 shrink-0 text-[#36C46A]" aria-hidden />
                 <div>
                   <h2 className="font-display text-xl font-light text-[#F8F8F6]">
-                    Photo already on file — retake?
+                    {photoOnFile.has_profile ? "Photos already on file — retake?" : "Front photo already on file"}
                   </h2>
                   <p className="mt-2 text-sm leading-relaxed text-cream-dim">
                     You saved a fit photo while designing your frame, and it is attached to this order.
@@ -337,9 +437,33 @@ export default function BespokePhoto() {
                   </p>
                 </div>
               </div>
-              <button type="button" className={`mt-6 ${secondaryBtn}`} onClick={() => setPhotoOnFile(null)}>
-                Take a new photo
-              </button>
+              {!photoOnFile.has_profile && (
+                <p className="mt-4 text-sm leading-relaxed text-cream-dim">
+                  One more is needed: a photo from the side, so we can see how high your nose bridge sits.
+                </p>
+              )}
+              <div className="mt-6 flex flex-wrap gap-3">
+                <button
+                  type="button"
+                  className={photoOnFile.has_profile ? secondaryBtn : primaryBtn}
+                  onClick={() => {
+                    setProfileOnly(true);
+                    setPhotoOnFile(null);
+                  }}
+                >
+                  <UserRound className="h-4 w-4" aria-hidden /> {photoOnFile.has_profile ? "Retake the side photo" : "Add the side photo"}
+                </button>
+                <button
+                  type="button"
+                  className={secondaryBtn}
+                  onClick={() => {
+                    setProfileOnly(false);
+                    setPhotoOnFile(null);
+                  }}
+                >
+                  Retake both photos
+                </button>
+              </div>
             </section>
           )}
 
@@ -368,13 +492,13 @@ export default function BespokePhoto() {
                 type="button"
                 className={`mt-6 ${primaryBtn}`}
                 disabled={!consent}
-                onClick={() => setStage("capture")}
+                onClick={() => setStage(profileOnly ? "profile" : "capture")}
               >
                 Continue
               </button>
               <p className="mt-4 text-xs text-cream-dim/70">
-                The photo is required for every Bespoke order - we start cutting only after it
-                arrives. Questions? <a href="mailto:support@woolet.co" className="underline">support@woolet.co</a>
+                Both photos are required for every Bespoke order - we start cutting only after they
+                arrive. Questions? <a href="mailto:support@woolet.co" className="underline">support@woolet.co</a>
                 {" · "}
                 <Link to="/en/bespoke/measurements" className="underline">Back to my measurements</Link>
               </p>
@@ -383,7 +507,8 @@ export default function BespokePhoto() {
 
           {stage === "capture" && (
             <section className={`mt-8 ${card}`}>
-              <h2 className="font-display text-xl font-light text-[#F8F8F6]">Take the photo</h2>
+              <p className={eyebrow}>Photo 1 of 2 · front</p>
+              <h2 className="mt-2 font-display text-xl font-light text-[#F8F8F6]">Take the front photo</h2>
               <figure className="mt-5 flex flex-col gap-4 border border-cream/10 bg-[#080807] p-4 sm:flex-row sm:items-center">
                 <img
                   src="/images/bespoke/fit-photo-example.webp"
@@ -510,8 +635,8 @@ export default function BespokePhoto() {
                   </button>
                 )}
                 {stage === "review" && (
-                  <button type="button" className={primaryBtn} disabled={busy} onClick={submit}>
-                    {busy ? "Sending…" : "Send to the workshop"}
+                  <button type="button" className={primaryBtn} onClick={() => setStage("profile")}>
+                    Next: side photo
                   </button>
                 )}
                 <button type="button" className={secondaryBtn} onClick={() => setStage("capture")}>
@@ -521,14 +646,102 @@ export default function BespokePhoto() {
             </section>
           )}
 
+          {stage === "profile" && (
+            <section className={`mt-8 ${card}`}>
+              <p className={eyebrow}>{profileOnly ? "Side photo" : "Photo 2 of 2 · side"}</p>
+              <h2 className="mt-2 font-display text-xl font-light text-[#F8F8F6]">Take the side photo</h2>
+              <p className="mt-2 max-w-xl text-sm leading-relaxed text-cream-dim">
+                From the front we see how wide your nose bridge is. From the side we see how high it
+                starts. A low bridge needs a frame that sits lower and deeper, or it slides down
+                onto your cheeks.
+              </p>
+              <figure className="mt-5 border border-cream/10 bg-[#080807] px-2 py-4 sm:p-6">
+                <div className="mx-auto max-w-[460px]">
+                  <ProfilePhotoIllustration />
+                </div>
+                <figcaption className="mt-3 text-center text-xs text-cream-dim">
+                  Side photo, like this - the numbers match the steps below.
+                </figcaption>
+              </figure>
+              <ol className="mt-5 grid gap-4 sm:grid-cols-2">
+                {PROFILE_INSTRUCTIONS.map(({ icon: Icon, title, body }, i) => (
+                  <li key={title} className="border border-cream/10 bg-[#080807] p-4">
+                    <div className="flex items-center gap-3">
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center border border-gold/50 text-gold">
+                        <Icon className="h-4 w-4" aria-hidden />
+                      </span>
+                      <span className="text-[11px] uppercase tracking-[0.18em] text-gold">Step {i + 1}</span>
+                    </div>
+                    <p className="mt-3 text-sm text-cream">{title}</p>
+                    <p className="mt-1 text-xs leading-relaxed text-cream-dim">{body}</p>
+                  </li>
+                ))}
+              </ol>
+
+              {profilePreview && (
+                <figure className="mt-5">
+                  <img
+                    src={profilePreview}
+                    alt="Your side photo"
+                    className="mx-auto max-h-[420px] w-auto border border-cream/10"
+                  />
+                  <figcaption className="mt-2 text-center text-xs text-cream-dim">
+                    Ear, eye, nose bridge and the whole card visible? Then send it.
+                  </figcaption>
+                </figure>
+              )}
+
+              <div className="mt-6 flex flex-wrap gap-3">
+                {profilePreview ? (
+                  <button
+                    type="button"
+                    className={primaryBtn}
+                    disabled={busy}
+                    onClick={profileOnly ? submitProfileOnly : submit}
+                  >
+                    {busy ? "Sending…" : "Send to the workshop"}
+                  </button>
+                ) : (
+                  <button type="button" className={primaryBtn} onClick={() => profileRef.current?.click()}>
+                    <Camera className="h-4 w-4" aria-hidden /> Take the side photo
+                  </button>
+                )}
+                <button type="button" className={secondaryBtn} onClick={() => profileRef.current?.click()}>
+                  <Upload className="h-4 w-4" aria-hidden /> {profilePreview ? "Retake" : "Upload a photo"}
+                </button>
+                {!profileOnly && (
+                  <button type="button" className={secondaryBtn} onClick={() => setStage("review")}>
+                    Back
+                  </button>
+                )}
+              </div>
+              <input
+                ref={profileRef}
+                type="file"
+                accept="image/*"
+                capture="environment"
+                className="sr-only"
+                onChange={(e) => {
+                  const f = e.target.files?.[0];
+                  if (f) onProfileFile(f);
+                  e.target.value = "";
+                }}
+              />
+            </section>
+          )}
+
           {stage === "done" && (
             <section className={`mt-8 ${card}`}>
               <div className="flex items-start gap-3">
                 <Check className="mt-0.5 h-5 w-5 shrink-0 text-[#36C46A]" aria-hidden />
                 <div>
-                  <h2 className="font-display text-xl font-light text-[#F8F8F6]">Photo received</h2>
+                  <h2 className="font-display text-xl font-light text-[#F8F8F6]">
+                    {result?.profileOnly ? "Side photo received" : "Photos received"}
+                  </h2>
                   <p className="mt-2 text-sm leading-relaxed text-cream-dim">
-                    {result?.needsReview
+                    {result?.profileOnly
+                      ? "Side photo received. We check your nose bridge against the frame before we cut."
+                      : result?.needsReview
                       ? "Your photo reads a little differently from your scan, so we will check it by hand before cutting. We will email you if anything needs confirming."
                       : "Your photo matches your measurements. Your frames go into production as planned — two weeks from here."}
                   </p>
@@ -540,7 +753,7 @@ export default function BespokePhoto() {
                 </div>
               </div>
               <button type="button" className={`mt-6 ${secondaryBtn}`} disabled={busy} onClick={withdraw}>
-                Delete my photo
+                Delete my photos
               </button>
             </section>
           )}

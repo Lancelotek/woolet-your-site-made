@@ -96,6 +96,7 @@ type OrderSummary = {
     consent_withdrawn_at: string | null;
     consent_version: string | null;
     consent_locale: string | null;
+    has_profile?: boolean;
   } | null;
   try_on_url?: string | null;
   shipping_name: string | null;
@@ -193,7 +194,11 @@ export default function BespokeMeasurements() {
   const [order, setOrder] = useState<OrderSummary | null>(null);
   // The fit photo with a card is required for every Bespoke order, on top of
   // the FitLens scan: it is the workshop's independent check of the width.
-  const hasFitPhoto = Boolean(order?.photo_consent && !order.photo_consent.consent_withdrawn_at);
+  // Both photos count: the front checks the width, the side shows how high
+  // the nose bridge sits. A front-only order is sent back for the side photo.
+  const hasFitPhoto = Boolean(
+    order?.photo_consent && !order.photo_consent.consent_withdrawn_at && order.photo_consent.has_profile,
+  );
   const photoHref = `/en/bespoke/photo?sid=${encodeURIComponent(sid)}`;
   const [discoverySource, setDiscoverySource] = useState<BespokeDiscoverySource | "">("");
   const [form, setForm] = useState<FormState>(EMPTY);
@@ -797,9 +802,9 @@ export default function BespokeMeasurements() {
                       </p>
                       {!hasFitPhoto && (
                         <p className="mt-4 rounded-sm border border-gold/60 bg-gold/10 px-4 py-3 text-sm text-cream leading-relaxed">
-                          <strong className="text-gold">One step left - required.</strong> Take one photo
-                          with a bank card held flat against your cheek. We start cutting only after it
-                          arrives.
+                          <strong className="text-gold">One step left - required.</strong> Take two photos
+                          with a bank card held flat against your cheek - one straight on, one from the
+                          side. We start cutting only after they arrive.
                         </p>
                       )}
                       <div className="mt-5 flex flex-col sm:flex-row gap-3">
@@ -807,7 +812,7 @@ export default function BespokeMeasurements() {
                           href={photoHref}
                           className="inline-flex min-h-[48px] items-center justify-center bg-gold px-6 text-[12px] uppercase tracking-[0.18em] text-[#1F1B16] transition-colors hover:bg-gold-light"
                         >
-                          {hasFitPhoto ? "Retake fit photo" : "Take the fit photo"}
+                          {hasFitPhoto ? "Retake fit photos" : "Take the fit photos"}
                         </a>
                         <button
                           type="button"
@@ -821,7 +826,7 @@ export default function BespokeMeasurements() {
                       </div>
                       <p className="mt-3 text-cream-dim text-xs leading-relaxed">
                         {hasFitPhoto
-                          ? "Fit photo received. We check it against your scan before we cut."
+                          ? "Fit photos received. We check them against your scan before we cut."
                           : "Required for every Bespoke order. The card gives us a true scale, so we can double-check your scan and show you the frames on your own face before we cut them."}
                       </p>
                       {shipping.line1 && (
@@ -1066,8 +1071,9 @@ export default function BespokeMeasurements() {
                               to tip. Put both in the notes with what is wrong with that pair.
                             </li>
                             <li>
-                              Photo with a card (required): after you submit, take one photo with a bank
-                              card flat against your cheek, glasses off, facing the camera in daylight.
+                              Photos with a card (required): after you submit, take two photos with a bank
+                              card flat against your cheek, glasses off, in daylight - one straight on,
+                              one from the side.
                             </li>
                           </ol>
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -1113,12 +1119,12 @@ export default function BespokeMeasurements() {
                       className="inline-flex items-center gap-2 bg-cream text-ink px-6 py-3 text-[12px] uppercase tracking-[0.22em] font-medium rounded-sm hover:bg-gold transition disabled:opacity-60"
                     >
                       {submitting && <Loader2 size={14} className="animate-spin" />}
-                      {submitting ? "Sending…" : hasFitPhoto ? "Submit measurements" : "Submit & take the fit photo"}
+                      {submitting ? "Sending…" : hasFitPhoto ? "Submit measurements" : "Submit & take the fit photos"}
                     </button>
                     <p className="text-cream-dim/70 text-[11px]">
                       {hasFitPhoto
                         ? "You can resubmit this form later; we use the latest values."
-                        : "Next: one photo with a bank card on your cheek (required)."}
+                        : "Next: two photos with a bank card on your cheek - front and side (required)."}
                     </p>
                   </div>
                 </form>
