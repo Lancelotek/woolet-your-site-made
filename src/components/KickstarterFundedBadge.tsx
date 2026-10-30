@@ -19,14 +19,7 @@ export const ksFundedLabel = (lang: string): string =>
           ? "Gefinancierd in 24 uur"
           : "Funded in 24 hours";
 
-const CheckIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
-    <path d="M7.5 12.5l3 3 6-6.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
-/** Small pill badge, links to the live campaign. Renders nothing before launch. */
+/** Official Kickstarter "Just funded" badge (Kickstarter badge kit), links to the live campaign. Renders nothing before launch. */
 export default function KickstarterFundedBadge({ placement = "badge", lang: langProp }: { placement?: string; lang?: string }) {
   const { pathname } = useLocation();
   if (!KS_FUNDED || !isKickstarterLive()) return null;
@@ -36,23 +29,18 @@ export default function KickstarterFundedBadge({ placement = "badge", lang: lang
     <a
       href={kickstarterLiveHref(placement, "funded_badge")}
       onClick={() => pushGtmEvent("kickstarter_live_click", { slot: "funded_badge", placement, path: pathname })}
-      className="inline-flex items-center gap-2 no-underline uppercase self-start"
-      style={{
-        background: "#E1FCEB",
-        color: "#2E6644",
-        border: "1px solid rgba(46,102,68,0.35)",
-        borderRadius: 999,
-        fontFamily: "Barlow, sans-serif",
-        fontWeight: 600,
-        fontSize: "0.72rem",
-        letterSpacing: "0.16em",
-        padding: "7px 14px",
-        lineHeight: 1,
-      }}
+      className="inline-block self-start transition-transform hover:-translate-y-0.5"
       aria-label={`${ksFundedLabel(lang)} - Kickstarter`}
     >
-      <CheckIcon />
-      {ksFundedLabel(lang)} · Kickstarter
+      <img
+        src="/brand/kickstarter-just-funded.png"
+        alt="Just funded on Kickstarter"
+        width={108}
+        height={75}
+        loading="eager"
+        decoding="async"
+        style={{ display: "block", width: 108, height: "auto" }}
+      />
     </a>
   );
 }
