@@ -233,8 +233,6 @@ export type Database = {
           order_id: string | null
           photo_height_px: number | null
           photo_path: string | null
-          profile_path: string | null
-          profile_uploaded_at: string | null
           photo_temple_to_temple_mm: number | null
           photo_width_px: number | null
           scan_temple_to_temple_mm: number | null
@@ -266,8 +264,6 @@ export type Database = {
           order_id?: string | null
           photo_height_px?: number | null
           photo_path?: string | null
-          profile_path?: string | null
-          profile_uploaded_at?: string | null
           photo_temple_to_temple_mm?: number | null
           photo_width_px?: number | null
           scan_temple_to_temple_mm?: number | null
@@ -299,8 +295,6 @@ export type Database = {
           order_id?: string | null
           photo_height_px?: number | null
           photo_path?: string | null
-          profile_path?: string | null
-          profile_uploaded_at?: string | null
           photo_temple_to_temple_mm?: number | null
           photo_width_px?: number | null
           scan_temple_to_temple_mm?: number | null
