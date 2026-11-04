@@ -46,7 +46,7 @@ const ExtraLargeOversizedEyeglasses = () => (
       {
         question: "Can I go larger than 158 mm?",
         answer:
-          "Yes. Bespoke covers 145 to 160 mm of front width in four shapes, with a 20–26 mm bridge and temples up to 155 mm. Same Italian Mazzucchelli acetate, hand made in the EU to your measurement, from $480 with lenses included.",
+          "Yes. Bespoke covers 145 to 160 mm of front width in four shapes, with a 20–26 mm bridge and temples up to 155 mm. Same Italian Mazzucchelli acetate, hand made in the EU to your measurement, $480 frame only; Plano +$30, Blue Light +$84.",
       },
       {
         question: "How do I know if I need extra large?",
