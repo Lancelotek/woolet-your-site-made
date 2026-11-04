@@ -2178,6 +2178,47 @@ export function StepReview({
     };
   }, [reviewLensKey, reviewBaseKey]);
 
+  // Straight-on front view (generated once per combination, then served from
+  // the shared render cache in the database). Shown first in the review.
+  const frontHistoryKey = `${reviewLensKey}|front`;
+  const [frontUrl, setFrontUrl] = useState<string | null>(() => getLatestPreviewUrl(frontHistoryKey));
+  const [frontState, setFrontState] = useState<"idle" | "loading" | "error">("idle");
+  const [reviewView, setReviewView] = useState<"front" | "angle">("front");
+  useEffect(() => {
+    let cancelled = false;
+    const local = getLatestPreviewUrl(frontHistoryKey);
+    setFrontUrl(local);
+    setFrontState("idle");
+    if (local) return;
+    const body = renderRequestBody(config, true);
+    if (!body) return;
+    setFrontState("loading");
+    // mode "render": returns the cached front view when it exists, otherwise
+    // generates it, hosts it and records it in bespoke_render_cache.
+    supabase.functions
+      .invoke("bespoke-preview-render", { body: { ...body, view: "front" } })
+      .then(({ data, error }) => {
+        if (cancelled) return;
+        const url = (data as { imageUrl?: string } | null)?.imageUrl;
+        if (error || !url) {
+          setFrontState("error");
+          return;
+        }
+        rememberRender(frontHistoryKey, url);
+        setFrontUrl(url);
+        setFrontState("idle");
+        pushCfg("cfg_front_view_ready", { frame: config.frameId ?? "", cached: Boolean((data as { cached?: boolean }).cached) });
+      })
+      .catch(() => !cancelled && setFrontState("error"));
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [frontHistoryKey]);
+
+  const showFront = reviewView === "front" && Boolean(frontUrl);
+  const shownUrl = showFront ? frontUrl : renderUrl;
+
   const downloadCard = async () => {
     if (cardPending) return;
     setCardPending(true);
@@ -2213,12 +2254,46 @@ export function StepReview({
 
       {frame && (
         <div className="rounded-[14px] border border-cream/10 overflow-hidden bg-background/40">
-          <div className="aspect-[16/9] flex items-center justify-center" style={{ background: "#EFE9DF" }}>
+          <div className="relative aspect-[16/9] flex items-center justify-center" style={{ background: "#EFE9DF" }}>
             <img
-              src={renderUrl ?? frame.url}
-              alt={renderUrl ? renderAltForConfig(config, Boolean(getLatestPreviewUrl(reviewLensKey)) && reviewLensKey !== reviewBaseKey) : `Woolet Bespoke ${frame.name} — ${frame.shape} pattern for wide faces, made-to-measure in the EU`}
-              className={renderUrl ? "h-full w-full object-contain" : "max-h-full max-w-[60%] object-contain"}
+              src={shownUrl ?? frame.url}
+              alt={
+                showFront
+                  ? `${renderAltForConfig(config, reviewLensKey !== reviewBaseKey)} - front view`
+                  : renderUrl
+                    ? renderAltForConfig(config, Boolean(getLatestPreviewUrl(reviewLensKey)) && reviewLensKey !== reviewBaseKey)
+                    : `Woolet Bespoke ${frame.name} — ${frame.shape} pattern for wide faces, made-to-measure in the EU`
+              }
+              className={shownUrl ? "h-full w-full object-contain" : "max-h-full max-w-[60%] object-contain"}
             />
+            {reviewView === "front" && frontState === "loading" && !frontUrl && (
+              <div className="absolute inset-x-0 bottom-3 flex justify-center">
+                <span className="inline-flex items-center gap-2 rounded-full bg-black/70 px-3 py-1.5 text-[11px] uppercase tracking-[0.16em] text-cream">
+                  <Loader2 size={12} className="animate-spin" /> Rendering front view…
+                </span>
+              </div>
+            )}
+          </div>
+          <div className="flex gap-2 px-5 pt-4" role="tablist" aria-label="Preview angle">
+            {([
+              ["front", "Front view"],
+              ["angle", "3/4 view"],
+            ] as const).map(([id, label]) => (
+              <button
+                key={id}
+                type="button"
+                role="tab"
+                aria-selected={reviewView === id}
+                onClick={() => setReviewView(id)}
+                className={`rounded-full border px-3 py-1.5 text-[11px] uppercase tracking-[0.16em] transition ${reviewView === id ? "border-gold/60 text-gold-light" : "border-cream/15 text-cream-dim hover:text-cream"}`}
+              >
+                {label}
+                {id === "front" && frontState === "loading" && !frontUrl && <Loader2 size={11} className="ml-1.5 inline animate-spin" />}
+              </button>
+            ))}
+            {reviewView === "front" && frontState === "error" && !frontUrl && (
+              <span className="self-center text-[11px] text-cream-dim">Front view unavailable - showing 3/4.</span>
+            )}
           </div>
           <div className="p-5">
             <Button variant="ghost" onClick={() => onEdit(1)} className="h-auto p-0 text-left font-display text-cream text-2xl font-light hover:bg-transparent">{frame.name} <span className="text-gold-light text-xs ml-2">Edit</span></Button>

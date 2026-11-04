@@ -35,6 +35,7 @@ export type CfgEvent =
   | "cfg_next_click"
   | "cfg_preview_open"
   | "cfg_auto_render"
+  | "cfg_front_view_ready"
   | "cfg_card_colour"
   | "cfg_generate_click"
   | "cfg_render_ready"

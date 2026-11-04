@@ -44,3 +44,19 @@ describe("plain Bespoke front", () => {
     expect(PLAIN_FRONT_RULE).toMatch(/no visible pins, rivets, dots/);
   });
 });
+
+describe("front view for the review step", () => {
+  it("uses straight-on rules, a separate cache key and no 3/4 reference", async () => {
+    const { compositionRulesForView, viewKey, FRONT_COMPOSITION_RULES, PLAIN_FRONT_RULE } = await import("../../supabase/functions/_shared/bespoke-composition");
+    expect(compositionRulesForView("Round", "front")).toContain("FRONT VIEW");
+    expect(compositionRulesForView("Round", "front")).not.toContain("Three-quarter");
+    expect(compositionRulesForView("Round", "front")).not.toContain("LAST image");
+    expect(compositionRulesForView("Aviator", "front")).toContain(PLAIN_FRONT_RULE);
+    expect(compositionRulesForView("Round", "angle")).toBe(compositionRulesFor("Round"));
+    expect(FRONT_COMPOSITION_RULES).toContain("perfectly symmetric");
+    expect(viewKey("v2|round|a|b|matte|plano|-", "front")).toBe("v2|round|a|b|matte|plano|-|front");
+    expect(viewKey("v2|round|a|b|matte|plano|-", "angle")).toBe("v2|round|a|b|matte|plano|-");
+    const source = readFileSync("supabase/functions/bespoke-preview-render/index.ts", "utf8");
+    expect(source).toContain('const compositionReference = view === "angle" ? compositionReferenceFor(shape) : null;');
+  });
+});
