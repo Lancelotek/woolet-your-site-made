@@ -278,7 +278,7 @@ Deno.serve(async (req) => {
       `The finish must be unmistakable at a glance and applied consistently to the front, the temples and the edges.`,
       `Front width about ${widthMm} mm with a bridge of about ${bridgeMm} mm, so the pair reads wide and generously proportioned.`,
       lensInstruction(lensType, lensName, lensTint),
-      `Correctly seated hinges and rivets, accurate acetate edge detail,`,
+      `Concealed hinges with no visible pins on the front, accurate acetate edge detail,`,
        compositionRulesFor(shape),
        `Precise transparency and refraction where the acetate is translucent, accurate premium product photography.`,
       `no drawing lines, no sketch, no floating hardware, no fused temples, no extra bridge, no asymmetry, ultra-realistic premium catalogue still.`,
