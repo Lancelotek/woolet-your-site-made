@@ -24,6 +24,7 @@ import {
   SUN_TINTS,
   SUN_TINT_NOTE,
   LENS_TYPES,
+  ACTIVE_LENS_TYPES,
   READING_STRENGTHS,
   findLensTint,
   findSunTint,
@@ -375,7 +376,7 @@ export const buildPreviewKey = (
   tintCode?: string | null,
 ) =>
   [frameId, frontId, templeId, finishId].join("|") +
-  (lensId && lensId !== "plano" ? `|${lensId}${tintCode ? `|${tintCode}` : ""}` : "");
+  (lensId && lensId !== "plano" && lensId !== "none" ? `|${lensId}${tintCode ? `|${tintCode}` : ""}` : "");
 
 // Renders are large base64 data URLs, so localStorage can refuse them. The
 // in-memory mirror keeps the current session's renders available to every
@@ -2060,7 +2061,7 @@ export function StepLenses({ config, update }: StepProps) {
       <div>
         <div className={labelClass}>Lens type</div>
         <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {LENS_TYPES.map((l) => {
+          {ACTIVE_LENS_TYPES.map((l) => {
             const active = config.lensTypeId === l.id;
             return (
               <button
@@ -2089,19 +2090,23 @@ export function StepLenses({ config, update }: StepProps) {
                   className="relative w-16 h-16 shrink-0 overflow-hidden bg-cream/[0.03] border border-cream/10"
                   style={{ borderRadius: 2 }}
                 >
-                  <img
-                    src={l.image}
-                    alt={`${l.name} lens option for Woolet Bespoke wide-face eyewear — ${l.description}`}
-                    loading="lazy"
-                    className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-                  />
+                  {l.image ? (
+                    <img
+                      src={l.image}
+                      alt={`${l.name} lens option for Woolet Bespoke wide-face eyewear — ${l.description}`}
+                      loading="lazy"
+                      className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+                    />
+                  ) : (
+                    <span className="absolute inset-3 rounded-full border border-dashed border-cream/30" aria-hidden />
+                  )}
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-baseline justify-between gap-3">
                     <span className="text-cream text-sm whitespace-normal">{l.name}</span>
                     {active && <Check size={15} className="text-gold-light shrink-0" aria-hidden />}
                     <span className="text-gold-light text-xs shrink-0">
-                      {l.priceEur > 0 ? formatAddOn(l.priceEur) : null}
+                      {l.priceEur > 0 ? formatAddOn(l.priceEur) : "Free"}
                     </span>
                   </div>
                   <div className="text-cream-dim text-[0.72rem] mt-1">{l.description}</div>
