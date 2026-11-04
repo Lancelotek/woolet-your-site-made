@@ -58,6 +58,12 @@ describe("bespoke price table", () => {
     expect(applyPercentOff(48000, 100)).toBe(100);
   });
 
+  it("adds the engraving fee as soon as engraving is selected, before any text", () => {
+    const base = { ...INITIAL_CONFIG, frameId: "aviator", lensTypeId: "none" };
+    expect(computePricing({ ...base, engravingEnabled: true, engravingText: "" }).totalEur).toBe(BESPOKE_PRICES.frameUsd + BESPOKE_PRICES.engravingUsd);
+    expect(computePricing({ ...base, engravingEnabled: false, engravingText: "MC" }).totalEur).toBe(BESPOKE_PRICES.frameUsd);
+  });
+
   it("configurator total follows a live price change at once", () => {
     const config = { ...INITIAL_CONFIG, frameId: "aviator", lensTypeId: "plano" };
     expect(computePricing(config).totalEur).toBe(BESPOKE_PRICES.frameUsd + BESPOKE_PRICES.planoUsd);

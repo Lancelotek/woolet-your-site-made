@@ -169,7 +169,10 @@ export function computePricing(config: BespokeConfig, prices: PriceTable = getPr
   const q = quoteBespoke(prices, {
     frameId: findFrame(config.frameId)?.id ?? config.frameId ?? "",
     lensTypeId: config.lensTypeId ?? "none",
-    engraving: hasEngraving(config),
+    // Charge from the moment the buyer picks "Add engraving", not after the
+    // first keystroke. Step 4 cannot be completed (so checkout cannot open)
+    // while engraving is on and the text is empty.
+    engraving: config.engravingEnabled,
   });
   return {
     basePriceEur: q.baseUsd,
