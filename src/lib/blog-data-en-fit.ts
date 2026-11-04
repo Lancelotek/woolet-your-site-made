@@ -166,7 +166,7 @@ ${FITLENS_CTA(
 
 <p>The full explanation of why the industry stops where it does — and what it means for pricing, tooling and availability — is in <a href="/en/blog/why-glasses-dont-fit-155mm-problem" style="color:#A07A2A;">why glasses don't fit at 155 mm</a>. If you want the practical version, with what to buy and what to skip, start with the <a href="/en/blog/glasses-for-wide-faces-guide" style="color:#A07A2A;">complete wide-face fit guide</a>.</p>
 
-<p>For reference, both Woolet signature frames are cut at a 158 mm front: the <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> at 53□26-150 and the <a href="/en/products/009" style="color:#A07A2A;">009 Soft Square</a> at 54□25-150. Both sit in a 155–161 mm fit band. Below 155 mm or above 161 mm, Bespoke covers 145–160 mm in four shapes.</p>
+<p>For reference, both Woolet signature frames are cut at a 158 mm front: the <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> at 53□26-150 and the <a href="/en/products/009" style="color:#A07A2A;">009 Soft Square</a> at 54□25-150. Both sit in a 155–161 mm fit band. Below 155 mm, Bespoke covers 145–160 mm in four shapes.</p>
 
 <p>The point is not that you need a particular frame. It is that the pain you are feeling has a number attached to it, and once you know that number the problem stops being mysterious.</p>
 

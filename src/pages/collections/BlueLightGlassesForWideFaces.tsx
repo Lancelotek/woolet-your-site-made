@@ -95,7 +95,7 @@ const faqs = [
   },
   {
     q: "How do I know if 158 mm is right for me?",
-    a: "Measure across the widest point of your face, temple to temple. 155–161 mm is the signature range. Under 155 mm or over 161 mm, bespoke covers 145–160 mm. FitLens does the same measurement from your phone camera in about a minute if you would rather not use a ruler.",
+    a: "Measure across the widest point of your face, temple to temple. 155–161 mm is the signature range. Under 155 mm, bespoke covers 145–160 mm. FitLens does the same measurement from your phone camera in about a minute if you would rather not use a ruler.",
   },
 ];
 
