@@ -1212,7 +1212,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
       noscriptHtml: `<h1>Extra Wide Glasses</h1>
 <h2>What counts as extra wide glasses?</h2>
 <p>In this sizing scale, Extra-wide means frames for faces measuring 145–154 mm. Faces measuring 155 mm or more are XL / specialty wide and need a purpose-built front; Woolet uses a 158 mm front for its 155–161 mm standard fit range.</p>
-<table><thead><tr><th>Face width (mm)</th><th>Frame front (mm)</th><th>Fit route</th></tr></thead><tbody><tr><td>145–154 mm</td><td>145–157 mm</td><td>Bespoke</td></tr><tr><td>155–161 mm</td><td>158 mm</td><td>Standard 007 or 009</td></tr><tr><td>Above 161 mm</td><td>160 mm max</td><td>No stock or bespoke frame yet - email support@woolet.co and we will advise</td></tr></tbody></table>
+<table><thead><tr><th>Face width (mm)</th><th>Frame front (mm)</th><th>Fit route</th></tr></thead><tbody><tr><td>145–154 mm</td><td>145–157 mm</td><td>Bespoke</td></tr><tr><td>155–161 mm</td><td>158 mm</td><td>Standard 007 or 009</td></tr><tr><td>Above 161 mm</td><td>—</td><td>No stock or bespoke frame yet - email support@woolet.co and we will advise</td></tr></tbody></table>
 <p>Both shapes are prescription-ready, with 53 × 47.6 mm and 54 × 44 mm lens areas for single-vision or progressive lenses. Italian Mazzucchelli acetate, hand made in EU. The shop is sold out until the Kickstarter campaign ends; a $1 reservation locks the $114 founding-member price against the $190 MSRP.</p>`,
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
@@ -1353,7 +1353,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
 <li><strong>Material:</strong> thin plastics lose tension when stretched; Mazzucchelli acetate from Milan, Italy holds its shape at 158 mm, which is why a budget <a href="/en/compare/zenni-alternative">Zenni alternative built for wide faces</a> reads differently on the face.</li>
 <li><strong>Hinges:</strong> constant outward pressure loosens standard hinges within months, and short arms make it worse — <a href="/en/temple/150mm">150 mm temple arms</a> keep the load off the joint.</li>
 <li><strong>Bridge:</strong> narrow 16–18 mm bridges pinch; the 26 mm keyhole bridge on <a href="/en/products/007">Woolet 007</a> and the 25 mm on <a href="/en/products/009">Woolet 009</a> distribute weight instead.</li>
-<li><strong>Market:</strong> wide sizing is treated as a filter, not a design brief; past 161 mm the <a href="/en/bespoke">bespoke programme</a> covers 145–160 mm.</li>
+<li><strong>Market:</strong> wide sizing is treated as a filter, not a design brief; below 155 mm the <a href="/en/bespoke">bespoke programme</a> covers 145–160 mm.</li>
 </ol>
 <h2>What Woolet does differently</h2>
 <p>Every Woolet frame is built at a 158 mm signature front width (fit range 155–161 mm), hand made in EU from Mazzucchelli acetate from Milan, Italy, with a bespoke tier covering 145–160 mm. <a href="/en/fit">Check your fit in 60 seconds</a>.</p>`,

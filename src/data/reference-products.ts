@@ -307,7 +307,7 @@ export const REF_PRODUCTS: RefProduct[] = [
     colourDot: "#CAA449",
     priceUsd: BESPOKE_FACTS.regularPrice,
     tagline: `Four shapes, any width ${BESPOKE_FACTS.frontWidth}. ${BESPOKE_FACTS.origin}. Standard prescription lenses and worldwide shipping included at ${BESPOKE_FACTS.regularPriceLabel}. Specialty upgrades cost extra.`,
-    intro: "The signature frames are 158 mm and fit faces from 155 to 161 mm. When you sit outside that - narrower, or wider than 161 - this is the one built to your numbers instead of to a size chart. An AI-Fit measurement reads your temple-to-temple width, bridge and temple length, and the frame is cut to those figures.",
+    intro: "The signature frames are 158 mm and fit faces from 155 to 161 mm. When you sit outside that - narrower than 155 mm - this is the one built to your numbers instead of to a size chart. An AI-Fit measurement reads your temple-to-temple width, bridge and temple length, and the frame is cut to those figures.",
     body: [
       "Crown Panto - a straight brow line gives you the structure of a rectangle across the top, then the lens curves away underneath. This is a separate Bespoke design from the standard Woolet 007.",
       "Round - fully circular lenses, a keyhole bridge, no horizontal line anywhere. Because nothing runs straight across your brow, nothing marks the width.",
