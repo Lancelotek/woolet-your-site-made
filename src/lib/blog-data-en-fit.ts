@@ -1068,7 +1068,7 @@ ${FITLENS_CTA(
       },
       {
         q: "Can I get photochromic glasses wider than 160 mm?",
-        a: "Yes. Woolet Bespoke is built to any front width from 145 to 160 mm with a photochromic lens option, from $480.",
+        a: "Yes. Woolet Bespoke is built to any front width from 145 to 160 mm, from $480: order the frame only and your optician fits photochromic prescription lenses.",
       },
       {
         q: "Do photochromic lenses work for cycling to work?",
@@ -1125,19 +1125,19 @@ ${ANSWER("Glasses that turn into sunglasses use photochromic lenses, often calle
 <tr>
 <td style="${TD}border-bottom:1px solid #F0EBE1;"><a href="/en/bespoke" style="color:#A07A2A;">Woolet Bespoke</a></td>
 <td style="${TD}border-bottom:1px solid #F0EBE1;">Any width 145-160 mm, 4 shapes</td>
-<td style="${TD}border-bottom:1px solid #F0EBE1;">Photochromic lens option</td>
+<td style="${TD}border-bottom:1px solid #F0EBE1;">Frame only - your optician fits photochromic lenses</td>
 <td style="${TD}border-bottom:1px solid #F0EBE1;">From $480</td>
 <td style="${TD}border-bottom:1px solid #F0EBE1;">You fall outside 155-161 mm or want a shape built to your face</td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>Both Woolet stock frames ship with demo lenses, ready for your optician to glaze with prescription photochromic lenses. Bespoke goes the other way: you pick the photochromic option in the configurator, and the frame arrives with its lenses fitted. Every oversized option is gathered on the <a href="/en/collections/big-glasses-frames" style="color:#A07A2A;">oversized glasses</a> page.</p>
+<p>Both Woolet stock frames ship with demo lenses, ready for your optician to glaze with prescription photochromic lenses. Bespoke works the same way: order the frame only, and your optician fits photochromic prescription lenses. Every oversized option is gathered on the <a href="/en/collections/big-glasses-frames" style="color:#A07A2A;">oversized glasses</a> page.</p>
 
 <h2>How long does Bespoke take?</h2>
 <p>Production takes two weeks after you approve the 3D model of your frame. Each Bespoke frame is hand made in the EU from Italian Mazzucchelli acetate, cut to the measurements of one face - yours.</p>
 
-${FITLENS_CTA("Your face width decides which of the two paths above is yours. Bespoke covers any front width from 145 to 160 mm, in four shapes, with photochromic as a lens option - and it starts from your measurements, not a size chart.", "Design your Bespoke frame - 145 to 160 mm", "/en/bespoke", "Bespoke · hand made in the EU")}
+${FITLENS_CTA("Your face width decides which of the two paths above is yours. Bespoke covers any front width from 145 to 160 mm, in four shapes, frame only for your optician's photochromic lenses - and it starts from your measurements, not a size chart.", "Design your Bespoke frame - 145 to 160 mm", "/en/bespoke", "Bespoke · hand made in the EU")}
 
 <h2>FAQ</h2>
 <h3>Are glasses that turn into sunglasses worth it?</h3>
@@ -1153,7 +1153,7 @@ ${FITLENS_CTA("Your face width decides which of the two paths above is yours. Be
 <p>Yes. Order a Woolet 007 or 009 with a 158 mm front for $190 and have your optician fit prescription photochromic lenses.</p>
 
 <h3>Can I get photochromic glasses wider than 160 mm?</h3>
-<p>Yes. Woolet Bespoke is built to any front width from 145 to 160 mm with a photochromic lens option, from $480.</p>
+<p>Yes. Woolet Bespoke is built to any front width from 145 to 160 mm, from $480: order the frame only and your optician fits photochromic prescription lenses.</p>
 
 <h3>Do photochromic lenses work for cycling to work?</h3>
 <p>For commuting and everyday rides, yes: they darken outside and clear when you arrive. For sport riding at speed, use dedicated cycling glasses with a wraparound shape.</p>

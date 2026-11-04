@@ -313,10 +313,10 @@ const BespokePage = () => {
                  {BESPOKE_FACTS.h1}
               </h1>
               <p className="text-cream-dim leading-relaxed max-w-xl" style={{ fontSize: "1.05rem" }}>
-                 Woolet Bespoke is made-to-measure eyewear in any front width within {BESPOKE_FACTS.frontWidth}, with a {BESPOKE_FACTS.bridge} bridge and {BESPOKE_FACTS.temples} temples, made from {BESPOKE_FACTS.material} and hand made in the EU for $480 USD including standard prescription lenses and free worldwide shipping; specialty lens upgrades cost extra.
+                 Woolet Bespoke is made-to-measure eyewear in any front width within {BESPOKE_FACTS.frontWidth}, with a {BESPOKE_FACTS.bridge} bridge and {BESPOKE_FACTS.temples} temples, made from {BESPOKE_FACTS.material} and hand made in the EU for $480 USD with free worldwide shipping. Lenses are optional: clear Plano +$30, Blue Light +$84, or frame only for your optician.
               </p>
               <p className="text-cream-dim leading-relaxed max-w-xl mb-10" style={{ fontSize: "0.85rem" }}>
-                Photochromic lenses, often called transition lenses, darken outdoors and clear inside — see{" "}
+                Want photochromic (transition) lenses? Order the frame only and have your optician fit them - see{" "}
                 <Link to="/en/blog/glasses-that-turn-into-sunglasses-wide-face" className="text-gold-light underline underline-offset-4">
                   how photochromic glasses work on a wide face
                 </Link>.
@@ -536,7 +536,7 @@ const BespokePage = () => {
               Woolet Bespoke is a made-to-measure frame, not a stock size or colour swap. Front widths run from 145–160 mm, bridges from 20-26 mm and temples from 145-155 mm. The finished frame is made for one wearer.
             </p>
             <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.95rem" }}>
-              The regular price is $480 USD with standard prescription lenses and free worldwide shipping. Specialty lens upgrades cost extra in the configurator. The $299 price was a <Link to={BESPOKE_FACTS.kickstarterPath} className="text-gold-light underline">Kickstarter-only backer price</Link>, not a shop offer. Your phone-camera scan starts the remote measurement process; you approve the 3D model before production.
+              The regular price is $480 USD with free worldwide shipping. Lenses are optional: clear Plano +$30, Blue Light +$84, or frame only for your optician. The $299 price was a <Link to={BESPOKE_FACTS.kickstarterPath} className="text-gold-light underline">Kickstarter-only backer price</Link>, not a shop offer. Your phone-camera scan starts the remote measurement process; you approve the 3D model before production.
             </p>
           </div>
         </section>
@@ -569,7 +569,7 @@ const BespokePage = () => {
                 { label: "Bridge width", woolet: BESPOKE_FACTS.bridge, stock: "26 mm (007), 25 mm (009)" },
                 { label: "Temple length", woolet: BESPOKE_FACTS.temples, stock: "150 mm (007 and 009)" },
                 { label: "Measurement method", woolet: "Phone-camera scan and model approval", stock: "Fixed dimensions" },
-                { label: "Regular price", woolet: "$480 USD, standard prescription lenses and worldwide shipping included; specialty upgrades cost extra", stock: "See stock product pages" },
+                { label: "Regular price", woolet: "$480 USD with free worldwide shipping; lenses optional (Plano +$30, Blue Light +$84) or frame only", stock: "See stock product pages" },
                 { label: "Made in", woolet: "EU, Italian acetate", stock: "EU" },
               ].map((row, i) => (
                 <div
@@ -743,7 +743,7 @@ const BespokePage = () => {
               <em className="italic text-gold-light">Mazzucchelli 1849</em> acetate. Hand made in the EU.
             </h2>
             <p className="text-cream-dim leading-relaxed max-w-2xl" style={{ fontSize: "0.95rem" }}>
-               The frame is hand made in the EU from Italian Mazzucchelli 1849 cellulose acetate. The regular $480 USD price includes standard prescription lenses and free worldwide shipping; specialty upgrades cost extra. First Bespoke pairs have shipped to customers abroad, including Vietnam. Each frame carries a 5-year warranty.
+               The frame is hand made in the EU from Italian Mazzucchelli 1849 cellulose acetate. The regular $480 USD price includes free worldwide shipping; lenses are optional (clear Plano +$30, Blue Light +$84) and prescription lenses are fitted by your own optician. First Bespoke pairs have shipped to customers abroad, including Vietnam. Each frame carries a 5-year warranty.
             </p>
           </div>
         </section>

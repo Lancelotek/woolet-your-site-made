@@ -45,7 +45,7 @@ const OversizedRoundGlasses = () => (
       {
         question: "What do oversized round glasses cost?",
         answer:
-          "$190 for eyeglasses with demo lenses ready for your prescription, $210 with UV400 sun, blue light or reading lenses. Bespoke at any width from 145 to 160 mm starts at $480 with lenses included.",
+          "$190 for eyeglasses with demo lenses ready for your prescription, $210 with UV400 sun, blue light or reading lenses. Bespoke at any width from 145 to 160 mm is $480, lenses optional: Plano +$30, Blue Light +$84.",
       },
     ]}
   />

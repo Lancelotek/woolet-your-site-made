@@ -141,18 +141,25 @@ export interface LensType {
   name: string;
   priceEur: number;
   description: string;
-  /** Studio shot of the lens type. */
-  image: string;
+  /** Studio shot of the lens type. Absent for the frame-only option. */
+  image?: string;
+  /** Kept for past orders and admin, hidden from the picker. */
+  retired?: boolean;
 }
 
 // Prices are USD. Each lens = supplier price (EUR) + $20 fitting, converted to USD.
 export const LENS_TYPES: LensType[] = [
-  { id: "plano",       name: "Plano - clear, no correction",      priceEur: 0,  description: "Clear lenses with no optical correction, cut and fitted to your frame. Ideal when your optician will fit prescription lenses later.", image: singleVisionImg },
+  { id: "none",        name: "No lenses - frame only",             priceEur: 0,  description: "Frame only, no lenses fitted. Your optician fits your own lenses." },
+  { id: "plano",       name: "Plano - clear, no correction",      priceEur: 30, description: "Clear lenses with no optical correction, cut and fitted to your frame. Ideal when your optician will fit prescription lenses later.", image: singleVisionImg },
   { id: "blue-light",  name: "Blue Light Lenses",                 priceEur: 84, description: "Optional filter coating for screen use.",        image: blueLightImg },
-  { id: "reading",     name: "Reading Lenses",                    priceEur: 60, description: "Single-vision magnification for near work.",     image: singleVisionImg },
-  { id: "photochromic",name: "Photochromic",                      priceEur: 84, description: "Clear indoors, darkens in daylight.",            image: progressiveImg },
-  { id: "sun-uv400",   name: "Sun Lenses (UV400)",                priceEur: 48, description: "Full UV400 tinted sun lenses.",                  image: sunTintedImg },
+  { id: "reading",     name: "Reading Lenses",                    priceEur: 60, description: "Single-vision magnification for near work.",     image: singleVisionImg, retired: true },
+  { id: "photochromic",name: "Photochromic",                      priceEur: 84, description: "Clear indoors, darkens in daylight.",            image: progressiveImg, retired: true },
+  { id: "sun-uv400",   name: "Sun Lenses (UV400)",                priceEur: 48, description: "Full UV400 tinted sun lenses.",                  image: sunTintedImg, retired: true },
 ];
+
+/** Lens options offered in the configurator: no lenses, plano, blue light. */
+export const ACTIVE_LENS_TYPES = LENS_TYPES.filter((l) => !l.retired);
+
 
 /* ───── Photochromic lens tint ─────
    Only applies to the "photochromic" lens type. No price impact.

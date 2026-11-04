@@ -236,7 +236,7 @@ const RefProductPage = () => {
                 ) : (
                   <>
                     <span style={{ fontFamily: SERIF, fontSize: 34, lineHeight: 1 }}>${product.priceUsd}</span>
-                    <span style={{ fontSize: 13, color: T.inkMute }}>{isBespoke ? "standard prescription lenses included; specialty upgrades cost extra" : "frame with demo lens"}</span>
+                    <span style={{ fontSize: 13, color: T.inkMute }}>{isBespoke ? "free worldwide shipping; lenses optional" : "frame with demo lens"}</span>
                   </>
                 )}
               </div>
@@ -322,7 +322,7 @@ const RefProductPage = () => {
                     <li key={l.name} style={{ padding: "12px 0", borderBottom: `1px solid ${T.hair}` }}>
                       <div style={{ display: "flex", justifyContent: "space-between", gap: 16, alignItems: "baseline" }}>
                         <span style={{ fontSize: 14, color: T.ink }}>{l.name}</span>
-                        <span style={{ fontFamily: SERIF, fontSize: 17 }}>{isBespoke ? "See configurator" : `$${l.priceUsd}`}</span>
+                        <span style={{ fontFamily: SERIF, fontSize: 17 }}>{isBespoke ? (l.priceUsd ? `+$${l.priceUsd}` : "Free") : `$${l.priceUsd}`}</span>
                       </div>
                       <div style={{ fontSize: 13, lineHeight: 1.55, color: T.inkMute, marginTop: 4 }}>{l.note}</div>
                     </li>
