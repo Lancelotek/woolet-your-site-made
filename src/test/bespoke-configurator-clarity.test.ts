@@ -40,9 +40,10 @@ describe("Bespoke configurator clarity", () => {
   });
 });
 describe("Engraving default", () => {
-  it("charges nothing for enabled-but-empty engraving and clears legacy Tom Smith", async () => {
+  it("shows the fee once engraving is selected and clears legacy Tom Smith", async () => {
     const { clearLegacyEngraving } = await import("@/lib/bespoke-state");
-    expect(computePricing({ ...INITIAL_CONFIG, engravingEnabled: true, engravingText: "" }).totalEur).toBe(480);
+    // Selected but not typed yet: the total already shows +$10 (step 4 blocks checkout until text is entered).
+    expect(computePricing({ ...INITIAL_CONFIG, engravingEnabled: true, engravingText: "" }).totalEur).toBe(490);
     const cleared = clearLegacyEngraving({ ...INITIAL_CONFIG, engravingEnabled: true, engravingText: "Tom Smith" });
     expect(cleared.engravingText).toBe("");
     expect(computePricing(cleared).totalEur).toBe(480);
