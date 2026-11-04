@@ -71,7 +71,7 @@ export default function FitBespoke() {
     <>
       <SEO
         title={`Bespoke Sizing ${BESPOKE_FRONT_WIDTH_RANGE} — Woolet Made-to-Measure`}
-        description={`Woolet Bespoke: ${BESPOKE_FRONT_WIDTH_RANGE} front, ${BESPOKE_BRIDGE_RANGE} bridge, ${BESPOKE_FACTS.temples} temples. ${BESPOKE_FACTS.regularPriceLabel} with standard prescription lenses and free worldwide shipping. Hand made in the EU from Italian Mazzucchelli acetate.`}
+        description={`Woolet Bespoke: ${BESPOKE_FRONT_WIDTH_RANGE} front, ${BESPOKE_BRIDGE_RANGE} bridge, ${BESPOKE_FACTS.temples} temples. ${BESPOKE_FACTS.regularPriceLabel} with free worldwide shipping, lenses optional. Hand made in the EU from Italian Mazzucchelli acetate.`}
         lang="en"
         path="/fit/bespoke"
         jsonLd={JSON_LD}

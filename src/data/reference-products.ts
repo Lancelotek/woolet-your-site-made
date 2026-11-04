@@ -306,7 +306,7 @@ export const REF_PRODUCTS: RefProduct[] = [
     colour: "Any Mazzucchelli colour",
     colourDot: "#CAA449",
     priceUsd: BESPOKE_FACTS.regularPrice,
-    tagline: `Four shapes, any width ${BESPOKE_FACTS.frontWidth}. ${BESPOKE_FACTS.origin}. Standard prescription lenses and worldwide shipping included at ${BESPOKE_FACTS.regularPriceLabel}. Specialty upgrades cost extra.`,
+    tagline: `Four shapes, any width ${BESPOKE_FACTS.frontWidth}. ${BESPOKE_FACTS.origin}. ${BESPOKE_FACTS.offer}`,
     intro: "The signature frames are 158 mm and fit faces from 155 to 161 mm. When you sit outside that - narrower than 155 mm - this is the one built to your numbers instead of to a size chart. An AI-Fit measurement reads your temple-to-temple width, bridge and temple length, and the frame is cut to those figures.",
     body: [
       "Crown Panto - a straight brow line gives you the structure of a rectangle across the top, then the lens curves away underneath. This is a separate Bespoke design from the standard Woolet 007.",
@@ -319,7 +319,7 @@ export const REF_PRODUCTS: RefProduct[] = [
       ["Shapes", "Aviator, Rectangle, Crown Panto, Round"],
       ["Width", "Any width 145–160 mm, built to measure"],
       ["Colours", "Full Mazzucchelli range - 60 colour and size combinations"],
-      ["Lenses", "Standard prescription lenses included; specialty upgrades such as photochromic and progressive cost extra in the configurator"],
+      ["Lenses", BESPOKE_FACTS.lenses],
       ["Measurement", "AI-Fit scan from your phone camera"],
       ["Material", BESPOKE_FACTS.material],
       ["Production", BESPOKE_FACTS.origin],
@@ -329,10 +329,9 @@ export const REF_PRODUCTS: RefProduct[] = [
       ["Lead time", BESPOKE_FACTS.leadTime],
     ],
     lensOptions: [
-      { name: "Reading", priceUsd: 480, note: "Single-vision magnification to your strength. Consult the configurator for any applicable lens upgrade price." },
-      { name: "Sun UV400", priceUsd: 480, note: "Full UVA and UVB block. Consult the configurator for any applicable lens upgrade price." },
-      { name: "Blue light", priceUsd: 480, note: "Filtering with a faint warm tint. Consult the configurator for any applicable lens upgrade price." },
-      { name: "Photochromic", priceUsd: 480, note: "Clear indoors, darkens in sunlight. Paid upgrade in the configurator." },
+      { name: "No lenses - frame only", priceUsd: 0, note: "Your optician fits your own lenses, prescription included." },
+      { name: "Plano - clear, no correction", priceUsd: 30, note: "Clear lenses without optical correction, cut and fitted to your frame." },
+      { name: "Blue Light Lenses", priceUsd: 84, note: "Filter coating for screen use." },
     ],
     images: [
       { src: `${F}woolet-bespoke-shape-crown-panto-black.jpg`, alt: "Woolet Bespoke Crown Panto shape in black acetate", caption: "Crown Panto" },
@@ -347,7 +346,7 @@ export const REF_PRODUCTS: RefProduct[] = [
     siblings: [],
     shopUrl: "https://shop.woolet.co/products/woolet-bespoke-custom-fit-eyewear",
     metaTitle: `Woolet Bespoke - Made-to-measure acetate glasses, ${BESPOKE_FACTS.frontWidth}`,
-    metaDescription: `Four shapes, any width ${BESPOKE_FACTS.frontWidth}, ${BESPOKE_FACTS.material}, ${BESPOKE_FACTS.origin.toLowerCase()}, standard prescription lenses included at ${BESPOKE_FACTS.regularPriceLabel}; specialty upgrades cost extra. Reference product page.`,
+    metaDescription: `Four shapes, any width ${BESPOKE_FACTS.frontWidth}, ${BESPOKE_FACTS.material}, ${BESPOKE_FACTS.origin.toLowerCase()}, ${BESPOKE_FACTS.regularPriceLabel} with free shipping, lenses optional. Reference product page.`,
   },
   // ---------- The Box ----------
   {
