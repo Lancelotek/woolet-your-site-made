@@ -32,6 +32,21 @@ const FITLENS_KEY = "pk_live_OuBrFjXWKeNygZku6WyJHeFW_8d55SVqIrleeFfrzuQ";
  */
 const FIT_LANGS: Lang[] = ["en", "pl", "fr", "es", "de", "ar", "ja", "nl", "ko"];
 const PILL_ID = "__fitlens-manual-fallback";
+const BACKDROP_ID = "__fitlens-backdrop";
+/** FitLens draws its panel as a 412 px drawer pinned to the right edge of the frame. */
+const FITLENS_DRAWER_PX = 412;
+/**
+ * On desktop the webcam sits at the top centre of the screen. A drawer on the
+ * right makes people look sideways at the preview instead of into the camera,
+ * which ruins the frontal photo. Wide screens therefore get the frame shrunk to
+ * the drawer width and centred, so the panel reads as a modal under the camera.
+ */
+function isCenteredScanViewport(): boolean {
+  return typeof window.matchMedia === "function" && window.matchMedia("(min-width: 768px)").matches;
+}
+function removeBackdrop() {
+  document.getElementById(BACKDROP_ID)?.remove();
+}
 
 function pageLang(): Lang {
   const l = (document.documentElement.lang || "en").slice(0, 2) as Lang;
@@ -103,6 +118,7 @@ export function useFitLensScript(options?: {
     });
 
     return () => {
+      removeBackdrop();
       frameRef.current?.remove();
       frameRef.current = null;
       if (scriptRef.current && scriptRef.current.parentNode) {
@@ -219,6 +235,7 @@ export function useFitLensScript(options?: {
       }
       openedAtRef.current = null;
       removeManualPill();
+      removeBackdrop();
       frameRef.current?.remove();
       frameRef.current = null;
     }
@@ -275,8 +292,23 @@ export function useFitLensScript(options?: {
     frame.setAttribute("allow", `camera ${origin}; microphone ${origin}; fullscreen`);
     frame.setAttribute("allowfullscreen", "");
     frame.setAttribute("aria-modal", "true");
-    frame.style.cssText =
-      "position:fixed;inset:0;width:100%;height:100%;border:0;z-index:2147483646;background:rgba(11,18,32,.32)";
+    if (isCenteredScanViewport()) {
+      // Centred modal: our own scrim behind a drawer-wide frame.
+      const backdrop = document.createElement("div");
+      backdrop.id = BACKDROP_ID;
+      backdrop.setAttribute("aria-hidden", "true");
+      backdrop.style.cssText =
+        "position:fixed;inset:0;z-index:2147483645;background:rgba(11,18,32,.55)";
+      document.body.appendChild(backdrop);
+      frame.style.cssText =
+        `position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);` +
+        `width:${FITLENS_DRAWER_PX}px;height:min(860px,calc(100vh - 48px));` +
+        "border:0;border-radius:12px;overflow:hidden;z-index:2147483646;" +
+        "background:transparent;box-shadow:0 24px 80px rgba(0,0,0,.45)";
+    } else {
+      frame.style.cssText =
+        "position:fixed;inset:0;width:100%;height:100%;border:0;z-index:2147483646;background:rgba(11,18,32,.32)";
+    }
 
     const debug = /[?&]debug=1\b/.test(window.location.search) ? "&debug=1" : "";
     // Pseudonymous only: a random per-attempt reference and the page language.

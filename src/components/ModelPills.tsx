@@ -120,7 +120,7 @@ const ModelPills = (_props: ModelPillsProps = {}) => {
 
   return (
     <div>
-      <div className="text-cream-dim uppercase tracking-[0.24em] mb-3" style={{ fontSize: "0.72rem" }}>
+      <div className="text-cream-dim uppercase tracking-[0.18em] mb-3" style={{ fontSize: "0.8rem" }}>
         {t(lang, "collection.title")}
       </div>
       <div className="flex gap-3 flex-col sm:flex-row">
