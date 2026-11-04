@@ -1,5 +1,6 @@
 import { PayMeasureNotice } from "@/components/bespoke/PayMeasureNotice";
 import type { PatternRender } from "@/lib/bespoke-pattern-renders";
+import { CARD_DOT_COLOR_IDS, type FrontRenderMap } from "@/lib/bespoke-front-renders";
 import { imageVariant } from "@/lib/optimized-image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -88,7 +89,16 @@ function acknowledgeChoice(button: HTMLButtonElement) {
 
 /* ───── Step 1 · Pattern ───── */
 
-export function StepFrame({ config, update, patternRenders = {} }: StepProps & { patternRenders?: Record<string, PatternRender> }) {
+export function StepFrame({
+  config,
+  update,
+  patternRenders = {},
+  frontRenders = {},
+}: StepProps & { patternRenders?: Record<string, PatternRender>; frontRenders?: FrontRenderMap }) {
+  // Colour shown on each card. The chosen card follows the buyer's front acetate.
+  const [cardColour, setCardColour] = useState<Record<string, string>>({});
+  const dotColours = CARD_DOT_COLOR_IDS.map((id) => COLORS.find((c) => c.id === id)).filter(Boolean) as typeof COLORS;
+  const moreCount = ACTIVE_COLORS.length - dotColours.length;
   return (
     <div className="space-y-10">
       <header>
@@ -103,16 +113,25 @@ export function StepFrame({ config, update, patternRenders = {} }: StepProps & {
 
       <div>
       <p className="cfg-body text-cream-dim mb-4">
-        Photos show example colours. You choose any acetate colour and finish - matte, hand-polished or brushed - in the next steps.
+        Tap a colour to see the front in that acetate. All {ACTIVE_COLORS.length} acetates, temples and finish come in the next step.
       </p>
       <div className="cfg-choicegrid grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
         {FRAMES.map((f) => {
           const active = config.frameId === f.id;
-          const example = patternRenders[f.id];
+          const renders = frontRenders[f.id] ?? {};
+          const colourId = cardColour[f.id] ?? (active && config.frontColorId && renders[config.frontColorId] ? config.frontColorId : null);
+          const colour = colourId ? COLORS.find((c) => c.id === colourId) : undefined;
+          const shown = (colourId && renders[colourId]) || patternRenders[f.id];
+          const pick = (id: string) => {
+            setCardColour((prev) => ({ ...prev, [f.id]: id }));
+            if (!active) update("frameId", f.id);
+            update("frontColorId", id);
+            pushCfg("cfg_card_colour", { shape: f.id, colour: id });
+          };
           return (
+            <div key={f.id} className={`cfg-card cfg-card--dots group ${active ? "cfg-card--active" : ""}`}>
             <Button
               variant="ghost"
-              key={f.id}
               onClick={(e) => {
                 acknowledgeChoice(e.currentTarget);
                 if (active) {
@@ -122,8 +141,9 @@ export function StepFrame({ config, update, patternRenders = {} }: StepProps & {
                   return;
                 }
                 update("frameId", f.id);
+                if (colourId) update("frontColorId", colourId);
               }}
-              className={`cfg-card group text-left block h-auto p-0 whitespace-normal ${active ? "cfg-card--active" : ""}`}
+              className="text-left block w-full h-auto p-0 whitespace-normal rounded-none hover:bg-transparent"
               aria-pressed={active}
             >
               <div
@@ -131,16 +151,16 @@ export function StepFrame({ config, update, patternRenders = {} }: StepProps & {
                 style={{ background: "#EFE9DF", aspectRatio: "16 / 9" }}
               >
                 <img
-                  src={example?.public_url ?? imageVariant(f.url, 240)}
+                  src={shown?.public_url ?? imageVariant(f.url, 240)}
                   width={521}
                   height={312}
                   decoding="async"
-                  alt={example?.alt_text ?? `Woolet Bespoke ${f.name} pattern — ${f.shape} silhouette for wide faces (${f.widthMm} mm reference)`}
+                  alt={shown?.alt_text ?? `Woolet Bespoke ${f.name} pattern — ${f.shape} silhouette for wide faces (${f.widthMm} mm reference)`}
                   loading="eager"
-                  className={`w-full h-full object-contain ${example ? "" : "p-6"} transition-transform duration-500 group-hover:scale-[1.03]`}
+                  className={`w-full h-full object-contain ${shown ? "" : "p-6"} transition-transform duration-500 group-hover:scale-[1.03]`}
                 />
-                {example && <>
-                  <span className="cfg-example-colour">Example colour</span>
+                {shown && <>
+                  <span className="cfg-example-colour">{colour ? colour.name : "Example colour"}</span>
                   <span className="cfg-pattern-inset"><img src={imageVariant(f.url, 240)} alt={`${f.name} pattern outline`} />Pattern</span>
                 </>}
                 {active && (
@@ -153,13 +173,33 @@ export function StepFrame({ config, update, patternRenders = {} }: StepProps & {
                 )}
               </div>
 
-              <div className="px-4 py-4">
+              <div className="px-4 pt-4">
                 <div className="cfg-card__name" style={{ fontSize: 17 }}>{f.name}</div>
                 <div className="cfg-card__code mt-1">
                   <CfgInfoTrigger section="fit">Cut to your face · reference {f.widthMm} mm</CfgInfoTrigger>
                 </div>
               </div>
             </Button>
+              <div className="cfg-carddots" role="group" aria-label={`${f.name} front colours`}>
+                {dotColours.map((c) => {
+                  const on = colourId === c.id;
+                  return (
+                    <button
+                      key={c.id}
+                      type="button"
+                      className={`cfg-carddot ${on ? "cfg-carddot--on" : ""}`}
+                      style={{ backgroundImage: `url(${imageVariant(c.image, 80)})`, backgroundColor: c.hex }}
+                      aria-label={`${f.name} in ${c.name}`}
+                      aria-pressed={on}
+                      title={c.name}
+                      onClick={() => pick(c.id)}
+                      onMouseEnter={() => { const u = renders[c.id]?.public_url; if (u) { const i = new Image(); i.src = u; } }}
+                    />
+                  );
+                })}
+                {moreCount > 0 && <span className="cfg-carddots__more">+{moreCount}</span>}
+              </div>
+            </div>
           );
         })}
       </div>
@@ -1662,7 +1702,7 @@ export function StepTempleLength({ config, update }: StepProps) {
   return (
     <div className="space-y-8">
       <header>
-        <div className="cfg-eyebrow">Step 4 — Temple length</div>
+        <div className="cfg-eyebrow">Step 3 — Temple length</div>
         <h2 className="cfg-h1 mt-3">
           Choose your <em className="cfg-em">temple length</em>
         </h2>
@@ -1730,7 +1770,7 @@ export function StepEngraving({ config, update }: StepProps) {
   return (
     <div className="space-y-8">
       <header>
-        <div className={sectionKicker}>Step 4</div>
+        <div className={sectionKicker}>Step 4 — Engraving</div>
         <h2 className={sectionTitle}>Write your name on the frame <span className="text-cream-dim text-base ml-2">{formatAddOn(ENGRAVING_FEE_EUR)} · optional</span></h2>
         <p className="text-cream-dim mt-2 max-w-xl text-sm leading-relaxed">
           CNC-engraved on the inner left temple by our European atelier. Permanent and non-returnable. Adds 2–3 days to production. The right temple always carries the Woolet logo.
@@ -2010,7 +2050,7 @@ export function StepLenses({ config, update }: StepProps) {
   return (
     <div className="space-y-10">
       <header>
-        <div className={sectionKicker}>Step 6 — Lenses</div>
+        <div className={sectionKicker}>Step 5 — Lenses</div>
         <h2 className={sectionTitle}>Lenses & prescription</h2>
         <p className="text-cream-dim mt-2 max-w-xl text-sm leading-relaxed">
           Choose how you want to use your glasses. We will confirm the technical lens specification with you before production.
@@ -2149,7 +2189,7 @@ export function StepReview({
   return (
     <div className="space-y-8">
       <header>
-        <div className={sectionKicker}>Step 7 — Review &amp; pay</div>
+        <div className={sectionKicker}>Step 6 — Review &amp; pay</div>
         <h2 className={sectionTitle}><Button type="button" variant="ghost" onClick={() => onEdit(1)} className="h-auto p-0 font-display text-cream text-2xl sm:text-3xl whitespace-normal hover:bg-transparent hover:text-cream">Confirm your <em className="italic text-gold-light">pattern</em> <span className="text-gold-light text-xs ml-2">Edit</span></Button></h2>
         <p className="text-cream-dim mt-2 max-w-xl text-sm leading-relaxed">
           You are paying for the pattern, acetate and lens configuration you selected. The made-to-measure fit scan is booked <em className="italic text-gold-light">after</em> payment — no measurements are taken until we have your order confirmed.
@@ -2177,9 +2217,9 @@ export function StepReview({
         <Row step={2} label="Front acetate" value={front ? <span className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: front.hex }} /> {front.name}</span> : null} />
         <Row step={2} label="Temple acetate" value={temple ? <span className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: temple.hex }} /> {temple.name}</span> : null} />
         <Row step={2} label="Finish" value={finish?.name} />
-        <Row step={5} label="Engraving" value={hasEngraving(config) ? `"${config.engravingText.trim()}" · ${formatAddOn(ENGRAVING_FEE_EUR)}` : "—"} />
+        <Row step={4} label="Engraving" value={hasEngraving(config) ? `"${config.engravingText.trim()}" · ${formatAddOn(ENGRAVING_FEE_EUR)}` : "—"} />
         <Row
-          step={6} label="Lenses"
+          step={5} label="Lenses"
           value={lens ? <span className="inline-flex items-center justify-end gap-2">{selectedLensTint(config) && <span className="w-3 h-3 shrink-0 rounded-full border border-cream/20" style={{ background: selectedLensTint(config)?.hex }} />}{formatLensWithStrength(lens.name, config)} · {formatAddOn(lens.priceEur)}</span> : null}
         />
         <div className="flex items-baseline justify-between gap-4 py-3 border-b border-cream/10"><span className="text-cream-dim text-xs uppercase tracking-[0.16em]">Shipping</span><span className="text-gold-light text-sm">Free · worldwide</span></div>
@@ -2249,7 +2289,7 @@ export function StepReview({
         <p className="text-cream-dim text-xs">
           {renderUrl
             ? "Includes your AI preview, specification and price."
-            : "Includes your specification and price. Generate an AI preview in step 3 to add it to the card."}
+            : "Includes your specification and price. Pick your acetates in step 2 to add the render to the card."}
         </p>
         {cardError && <p className="text-xs text-red-300" role="alert">{cardError}</p>}
       </div>

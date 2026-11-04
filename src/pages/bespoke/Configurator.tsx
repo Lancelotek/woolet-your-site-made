@@ -24,18 +24,21 @@ import {
   PREVIEW_UPDATED_EVENT,
   lookupCachedRender,
   rememberRender,
+  renderRequestBody,
 } from "./steps";
+import { supabase } from "@/integrations/supabase/client";
+import { getSessionRef } from "@/lib/scan-session-ref";
+import { PREVIEW_FINISH_ID, PREVIEW_TEMPLE_ID, loadFrontRenders, type FrontRenderMap } from "@/lib/bespoke-front-renders";
 import { loadPatternRenders, type PatternRender } from "@/lib/bespoke-pattern-renders";
 import { renderAltForConfig } from "@/lib/bespoke-render-alt";
-import StepPreview from "./StepPreview";
 import {
   CfgInfoProvider,
   CfgInfoTrigger,
   CfgNavProvider,
   PreviewLightbox,
-  REQUEST_PREVIEW_EVENT,
   pushCfg,
   trackBespokeFunnel,
+  useRenderBudget,
 } from "./cfg-shell";
 import { useParams, useNavigate } from "react-router-dom";
 import { loadNotoSansKr } from "@/lib/noto-sans-kr";
@@ -63,7 +66,6 @@ const ConfiguratorPage = () => {
   useConfiguratorFonts();
   const { config, update, pricing, reset, replace } = useBespokeConfig();
   const { lang: routeLang } = useParams<{ lang?: string }>();
-  const previewLocale: "en" | "pl" = routeLang === "pl" ? "pl" : "en";
   const [step, setStep] = useState<StepId>(() => {
     if (typeof window === "undefined") return 1;
     const raw = new URLSearchParams(window.location.search).get("step");
@@ -148,16 +150,40 @@ const ConfiguratorPage = () => {
   const pdMm = config.measurements.pd ?? 66;
   const fitFromScan = !!config.scanCompletedAt;
 
-  // Latest AI-generated preview for the current selection (frame + acetates + finish).
-  // Reads from the same localStorage store used by AiPreviewPanel and re-checks
-  // whenever the panel dispatches PREVIEW_UPDATED_EVENT.
-  const baseKey = buildPreviewKey(config.frameId, config.frontColorId, config.templeColorId, config.finishId);
-  const lensKey = buildPreviewKey(config.frameId, config.frontColorId, config.templeColorId, config.finishId, config.lensTypeId, lensTintCode(config));
+  // ── Live render ──
+  // The picture follows the build: a front colour shows instantly (pre-generated
+  // front with Deep matte black temples, matte), and once the buyer picks a temple
+  // colour or finish the full combination is looked up and, when missing, rendered
+  // automatically. The same picture stays on screen through every later step.
+  const [frontRenders, setFrontRenders] = useState<FrontRenderMap>({});
+  useEffect(() => {
+    let cancelled = false;
+    void loadFrontRenders().then((m) => { if (!cancelled) setFrontRenders(m); });
+    return () => { cancelled = true; };
+  }, []);
+  const frontOnlyUrl = config.frameId && config.frontColorId
+    ? frontRenders[config.frameId]?.[config.frontColorId]?.public_url ?? null
+    : null;
+  const renderConfig: BespokeConfig = {
+    ...config,
+    templeColorId: config.templeColorId ?? PREVIEW_TEMPLE_ID,
+    finishId: config.finishId ?? PREVIEW_FINISH_ID,
+  };
+  const baseKey = buildPreviewKey(renderConfig.frameId, renderConfig.frontColorId, renderConfig.templeColorId, renderConfig.finishId);
+  const lensKey = buildPreviewKey(renderConfig.frameId, renderConfig.frontColorId, renderConfig.templeColorId, renderConfig.finishId, config.lensTypeId, lensTintCode(config));
   const previewKey = `${lensKey}::${baseKey}`;
   const resolvePreview = () => getLatestPreviewUrl(lensKey) ?? getLatestPreviewUrl(baseKey);
   const [aiPreviewUrl, setAiPreviewUrl] = useState<string | null>(resolvePreview);
+  const [rendering, setRendering] = useState(false);
+  const [renderNote, setRenderNote] = useState<string | null>(null);
+  const sessionRef = useMemo(() => (typeof window === "undefined" ? "" : getSessionRef()), []);
+  const budget = useRenderBudget(sessionRef);
+  const budgetRef = useRef(budget);
+  budgetRef.current = budget;
+  const currentKey = useRef(previewKey);
+  currentKey.current = previewKey;
+
   useEffect(() => {
-    setAiPreviewUrl(resolvePreview());
     const refresh = () => setAiPreviewUrl(resolvePreview());
     window.addEventListener(PREVIEW_UPDATED_EVENT, refresh);
     window.addEventListener("storage", refresh);
@@ -165,25 +191,77 @@ const ConfiguratorPage = () => {
       window.removeEventListener(PREVIEW_UPDATED_EVENT, refresh);
       window.removeEventListener("storage", refresh);
     };
-  }, [previewKey]);
-
-  // Shared render cache: show a hosted render for this exact set in the
-  // "Your build" panel as soon as the buyer picks it (no AI call).
-  useEffect(() => {
-    if (!config.frameId || !config.frontColorId || !config.templeColorId || !config.finishId) return;
-    let cancelled = false;
-    const t = window.setTimeout(async () => {
-      const lensHit = config.lensTypeId ? await lookupCachedRender(config, true) : null;
-      if (cancelled) return;
-      // Set the panel image directly: rememberRender only writes storage and
-      // fires no event, so a restored config on first load kept the drawing.
-      if (lensHit) { rememberRender(lensKey, lensHit.imageUrl); setAiPreviewUrl(lensHit.imageUrl); trackBespokeFunnel("bespoke_preview_shown", { status: "cached" }); return; }
-      const baseHit = await lookupCachedRender(config, false);
-      if (!cancelled && baseHit) { rememberRender(baseKey, baseHit.imageUrl); setAiPreviewUrl(baseHit.imageUrl); trackBespokeFunnel("bespoke_preview_shown", { status: "cached" }); }
-    }, 300);
-    return () => { cancelled = true; window.clearTimeout(t); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [previewKey]);
+
+  useEffect(() => {
+    setRenderNote(null);
+    setRendering(false);
+    if (!config.frameId || !config.frontColorId) { setAiPreviewUrl(null); return; }
+    const local = resolvePreview();
+    setAiPreviewUrl(local);
+    if (local) return;
+    const key = previewKey;
+    let cancelled = false;
+    const t = window.setTimeout(async () => {
+      if (config.lensTypeId && config.lensTypeId !== "plano") {
+        const lensHit = await lookupCachedRender(renderConfig, true);
+        if (cancelled) return;
+        if (lensHit) { rememberRender(lensKey, lensHit.imageUrl); setAiPreviewUrl(lensHit.imageUrl); trackBespokeFunnel("bespoke_preview_shown", { status: "cached" }); return; }
+      }
+      const preset = frontRenders[config.frameId!]?.[config.frontColorId!]?.public_url;
+      if (preset && baseKey === buildPreviewKey(config.frameId, config.frontColorId, PREVIEW_TEMPLE_ID, PREVIEW_FINISH_ID)) {
+        rememberRender(baseKey, preset);
+        setAiPreviewUrl(preset);
+        return;
+      }
+      const baseHit = await lookupCachedRender(renderConfig, false);
+      if (cancelled) return;
+      if (baseHit) { rememberRender(baseKey, baseHit.imageUrl); setAiPreviewUrl(baseHit.imageUrl); trackBespokeFunnel("bespoke_preview_shown", { status: "cached" }); return; }
+      // Not rendered yet: generate it now - no button, no extra step.
+      if (budgetRef.current.remaining <= 0) {
+        setRenderNote("Render limit for this visit reached - your colours are listed below the picture.");
+        return;
+      }
+      const body = renderRequestBody(renderConfig, false);
+      if (!body) return;
+      budgetRef.current.consume();
+      setRendering(true);
+      pushCfg("cfg_auto_render", { step });
+      try {
+        const { data, error } = await supabase.functions.invoke("bespoke-preview-render", { body });
+        if (error) throw error;
+        const url = (data as { imageUrl?: string })?.imageUrl;
+        if (!url) throw new Error("No preview returned");
+        if ((data as { cached?: boolean })?.cached) budgetRef.current.refund();
+        rememberRender(baseKey, url);
+        trackBespokeFunnel("bespoke_preview_shown", { status: (data as { cached?: boolean })?.cached ? "cached" : "generated" });
+        if (currentKey.current === key) setAiPreviewUrl(url);
+      } catch (e) {
+        budgetRef.current.refund();
+        trackBespokeFunnel("bespoke_preview_shown", { status: "failed" });
+        pushCfg("cfg_render_failed", { reason: String((e as Error)?.message ?? "unknown").slice(0, 80) });
+        if (currentKey.current === key) setRenderNote("The render did not load this time - your colours are listed below the picture.");
+      } finally {
+        if (currentKey.current === key) setRendering(false);
+      }
+    }, frontOnlyUrl ? 150 : 600);
+    return () => { cancelled = true; window.clearTimeout(t); };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [previewKey, frontRenders]);
+
+  const appPanelRef = useRef<HTMLElement>(null);
+  // Desktop app shell fills the viewport under the site-wide Kickstarter bar.
+  const scopeRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const measure = () => {
+      const bar = document.querySelector<HTMLElement>("[data-ks-live-bar]");
+      scopeRef.current?.style.setProperty("--cfg-offset", `${bar?.offsetHeight ?? 0}px`);
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, []);
 
   // A double tap during the step animation must not skip a step.
   const stepChangedAt = useRef(0);
@@ -192,6 +270,7 @@ const ConfiguratorPage = () => {
     setStep(n);
     setVisited((prev) => (prev.includes(n) ? prev : [...prev, n]));
     if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
+    appPanelRef.current?.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const goNext = () => {
@@ -201,15 +280,18 @@ const ConfiguratorPage = () => {
   };
 
   // Step 2 never opens with a dead Next button: empty pickers get the house
-  // black sheet and the first finish (no finish carries a surcharge). Existing
+  // black sheet and a matte finish (no finish carries a surcharge). Black temples
+  // plus matte is exactly the pre-generated front preview, so the picture is
+  // instant until the buyer chooses a temple colour. Existing
   // choices from the URL, a restored session or cloud sync are never replaced.
   const [defaulted, setDefaulted] = useState<{ front?: boolean; temple?: boolean; finish?: boolean }>({});
   useEffect(() => {
     if (step !== 2) return;
     const next: { front?: boolean; temple?: boolean; finish?: boolean } = {};
-    if (!config.frontColorId) { update("frontColorId", DEFAULT_ACETATE_ID); next.front = true; }
-    if (!config.templeColorId) { update("templeColorId", DEFAULT_ACETATE_ID); next.temple = true; }
-    if (!config.finishId) { update("finishId", FINISHES[0].id); next.finish = true; }
+    // Selections arriving in the URL land in the same tick - never overwrite them.
+    if (!config.frontColorId && !urlOverrides.frontColorId) { update("frontColorId", DEFAULT_ACETATE_ID); next.front = true; }
+    if (!config.templeColorId && !urlOverrides.templeColorId) { update("templeColorId", DEFAULT_ACETATE_ID); next.temple = true; }
+    if (!config.finishId && !urlOverrides.finishId) { update("finishId", PREVIEW_FINISH_ID); next.finish = true; }
     if (next.front || next.temple || next.finish) setDefaulted((prev) => ({ ...prev, ...next }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step]);
@@ -295,11 +377,14 @@ const ConfiguratorPage = () => {
   // be in has to answer the tap: a picture opens larger, an empty stage sends the
   // buyer to the choice that fills it.
   const example = patternRenders[frame?.id ?? "aviator"];
-  const stageSrc = aiPreviewUrl ?? (step === 1 ? example?.public_url : null) ?? frame?.url ?? null;
+  const stageSrc = aiPreviewUrl ?? frontOnlyUrl ?? example?.public_url ?? frame?.url ?? null;
+  const showsExample = !aiPreviewUrl && !frontOnlyUrl && Boolean(example);
   const renderAlt = renderAltForConfig(config, Boolean(getLatestPreviewUrl(lensKey)) && lensKey !== baseKey);
   const stageAlt = aiPreviewUrl
     ? renderAlt
-    : step === 1 && example ? example.alt_text : frame
+    : frontOnlyUrl && frame && config.frontColorId
+      ? frontRenders[frame.id]?.[config.frontColorId]?.alt_text ?? renderAlt
+    : example ? example.alt_text : frame
       ? `Woolet Bespoke ${frame.name} — ${frame.shape} pattern for wide faces`
       : "";
   const lightboxCaption = `${frame ? frame.name : "Your pattern"} · ${front ? front.name : "acetate to choose"} · cut to your face`;
@@ -310,12 +395,7 @@ const ConfiguratorPage = () => {
       setLightboxOpen(true);
       return;
     }
-    if (!frame) {
-      goTo(1);
-      return;
-    }
-    goTo(3);
-    window.setTimeout(() => window.dispatchEvent(new CustomEvent(REQUEST_PREVIEW_EVENT)), 350);
+    goTo(frame ? 2 : 1);
   };
 
   const handleMobileNext = () => {
@@ -344,12 +424,11 @@ const ConfiguratorPage = () => {
   };
 
   const StepBody =
-    step === 1 ? <StepFrame config={config} update={update} patternRenders={patternRenders} /> :
+    step === 1 ? <StepFrame config={config} update={update} patternRenders={patternRenders} frontRenders={frontRenders} /> :
     step === 2 ? <StepColor config={config} update={colorUpdate} defaults={defaulted} /> :
-    step === 3 ? <StepPreview config={config} update={update} locale={previewLocale} /> :
-    step === 4 ? <StepTempleLength config={config} update={update} /> :
-    step === 5 ? <StepEngraving config={config} update={update} /> :
-    step === 6 ? <StepLenses config={config} update={update} /> :
+    step === 3 ? <StepTempleLength config={config} update={update} /> :
+    step === 4 ? <StepEngraving config={config} update={update} /> :
+    step === 5 ? <StepLenses config={config} update={update} /> :
                  <StepReview config={config} onSave={handleSave} saved={saved} onEdit={(n) => goTo(n as StepId)} />;
 
   return (
@@ -358,7 +437,7 @@ const ConfiguratorPage = () => {
     {lightboxOpen && stageSrc && (
       <PreviewLightbox src={stageSrc} alt={stageAlt} caption={lightboxCaption} onClose={() => setLightboxOpen(false)} />
     )}
-    <div className="cfg-scope min-h-screen">
+    <div ref={scopeRef} className="cfg-scope cfg-app min-h-screen">
       <SEO
         title="Bespoke Configurator - Woolet"
         description="Design your made-to-order bio-acetate eyewear for wide faces and wide bridges. Hand made in EU from Mazzucchelli acetate."
@@ -413,8 +492,8 @@ const ConfiguratorPage = () => {
           </ol>
         </div>
 
-        {/* ── Mobile live preview — hidden on steps that already show a large image ── */}
-        {step !== 3 && step !== STEPS.length && (
+        {/* ── Mobile live preview — follows the build on every step but review ── */}
+        {step !== STEPS.length && (
           <div className="cfg-mobilepreview lg:hidden">
              <button
                type="button"
@@ -425,11 +504,13 @@ const ConfiguratorPage = () => {
               {stageSrc ? <img src={stageSrc} alt={stageAlt} /> : (
                 <span className="cfg-mobilepreview__place">Select a pattern</span>
               )}
+              {rendering && <span className="cfg-rendering"><Loader2 size={14} className="animate-spin" /> Adding your temples…</span>}
               <span className="cfg-stage__badge" aria-hidden>
                 {stageSrc ? <Maximize2 size={13} /> : <Sparkles size={13} />}
               </span>
              </button>
-            {step === 1 && !aiPreviewUrl && example && <p className="text-xs text-cream-dim px-5 mt-2">Example - your colours come in step 2</p>}
+            {showsExample && <p className="text-xs text-cream-dim px-5 mt-2">Example colour - tap a colour to see yours</p>}
+            {renderNote && <p className="text-xs text-cream-dim px-5 mt-2" role="status">{renderNote}</p>}
             <div className="cfg-mobilepreview__meta">
               <span>{frame ? frame.name : "No pattern yet"}</span>
               {front && <span className="cfg-mobilepreview__dot" style={{ background: front.hex }} aria-hidden />}
@@ -440,12 +521,66 @@ const ConfiguratorPage = () => {
         )}
 
 
-        {/* ── Main two-column layout ── */}
-        <main className="cfg-container pt-10 pb-32">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-12">
-            <section>
-              {StepBody}
-              <div className="hidden lg:block">
+        {/* ── Main: phone = single column; desktop = app (live stage left, options right) ── */}
+        <main className="cfg-container cfg-app-main pt-10 pb-32">
+          <div className="cfg-app-grid">
+            {/* Live stage — the picture travels with the build through every step */}
+            <aside className="cfg-app-stage hidden lg:flex" aria-label="Your build">
+              <div
+                className="cfg-app-stage__img cfg-stage--tappable"
+                role="button"
+                tabIndex={0}
+                aria-label={stageSrc ? "Open larger preview" : "Choose a pattern"}
+                onClick={handleStageTap}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    handleStageTap();
+                  }
+                }}
+              >
+                {stageSrc ? <img key={stageSrc} src={stageSrc} alt={stageAlt} className="cfg-app-stage__pic" /> : (
+                  <div className="cfg-rail__placeholder">Select a pattern</div>
+                )}
+                {showsExample && <span className="cfg-app-stage__tag">Example colour</span>}
+                {rendering && <span className="cfg-rendering"><Loader2 size={14} className="animate-spin" /> Adding your temple colour…</span>}
+                <span className="cfg-stage__badge" aria-hidden>
+                  {stageSrc ? <Maximize2 size={13} /> : <Sparkles size={13} />}
+                </span>
+              </div>
+              {renderNote && <p className="text-xs text-cream-dim" role="status">{renderNote}</p>}
+
+              <div className="cfg-app-summary">
+                <div className="cfg-app-summary__title">
+                  <span className="cfg-rail__eyebrow">Your build</span>
+                  <span className="cfg-app-summary__name">{frame ? frame.name : "Choose a pattern"}</span>
+                </div>
+                <dl className="cfg-app-summary__chips">
+                  <SpecChip label="Front" value={front ? <><Swatch hex={front.hex} /> {front.name}</> : "—"} onClick={() => goTo(2)} />
+                  <SpecChip label="Temples" value={temple ? <><Swatch hex={temple.hex} /> {temple.name}</> : front ? "Black until you choose" : "—"} onClick={() => goTo(2)} />
+                  <SpecChip label="Finish" value={finish?.name ?? "—"} onClick={() => goTo(2)} />
+                  <SpecChip label="Temple length" value={formatTempleLength(config.templeLengthMm, config.templeLengthIsCustom)} onClick={() => goTo(3)} />
+                  <SpecChip label="Engraving" value={hasEngraving(config) ? `“${config.engravingText.trim()}”` : "—"} onClick={() => goTo(4)} />
+                  <SpecChip label="Lenses" value={lens ? formatLensWithStrength(lens.name, config) : "—"} onClick={() => goTo(5)} />
+                </dl>
+                <div className="cfg-app-summary__foot">
+                  <CfgInfoTrigger section="fit" className="cfg-info-trigger--block">{frame ? `${frame.widthMm} mm reference · cut to your face` : "Cut to your face"}</CfgInfoTrigger>
+                  <button onClick={handleReset} className="cfg-rail__reset">Start over</button>
+                </div>
+              </div>
+            </aside>
+
+            {/* Options panel — scrolls on its own; the action bar never moves */}
+            <section className="cfg-app-panel" ref={appPanelRef}>
+              <div className="cfg-app-panel__body">
+                {StepBody}
+              </div>
+              <div className="cfg-app-nav hidden lg:block">
+                <div className="cfg-app-nav__total">
+                  <span className="cfg-eyebrow">Total</span>
+                  <CfgInfoTrigger section="price" className="cfg-rail__price cfg-info-trigger--block">{formatEur(stepTotal)}</CfgInfoTrigger>
+                  <span className="cfg-app-nav__ship">Free shipping · 2-week build</span>
+                </div>
                  <StepNav
                   step={step}
                   total={STEPS.length}
@@ -459,92 +594,6 @@ const ConfiguratorPage = () => {
                  {step === 2 && !stepComplete && <button type="button" onClick={showMissing} className="cfg-acetate-missing block text-left text-sm text-gold-light mt-3 underline decoration-dotted underline-offset-4" role="status">Choose {acetateMissing} to continue.</button>}
               </div>
             </section>
-
-            {/* Sticky build rail */}
-            <aside className="hidden lg:block">
-              <div className="cfg-rail">
-                <div className="cfg-rail__eyebrow">Your build</div>
-
-                <div
-                  className="cfg-rail__photo cfg-stage--tappable"
-                  style={{ background: "#EFE9DF" }}
-                  role="button"
-                  tabIndex={0}
-                  aria-label={stageSrc ? "Open larger preview" : "Choose a pattern"}
-                  onClick={handleStageTap}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      handleStageTap();
-                    }
-                  }}
-                >
-                  {stageSrc ? <img src={stageSrc} alt={stageAlt} className="max-h-full max-w-full object-contain" /> : (
-                    <div className="cfg-rail__placeholder">Select a pattern</div>
-                  )}
-                  <span className="cfg-stage__badge" aria-hidden>
-                    {stageSrc ? <Maximize2 size={13} /> : <Sparkles size={13} />}
-                  </span>
-                </div>
-
-                {step === 1 && !aiPreviewUrl && example && <p className="text-xs text-cream-dim mt-3">Example - your colours come in step 2</p>}
-                <dl className="cfg-rail__specs">
-                  <SpecRow label="Pattern" value={frame ? `${frame.name}` : "—"} />
-                  <SpecRow label="Ref width" value={frame ? <CfgInfoTrigger section="fit" className="cfg-info-trigger--block">{frame.widthMm} mm · cut to face</CfgInfoTrigger> : "—"} />
-                  <SpecRow label="Temple length" value={formatTempleLength(config.templeLengthMm, config.templeLengthIsCustom)} />
-                  <SpecRow
-                    label="Front"
-                    value={
-                      front ? (
-                        <span className="inline-flex items-center gap-2">
-                          <Swatch hex={front.hex} />
-                          <span>{front.name}</span>
-                        </span>
-                      ) : "—"
-                    }
-                  />
-                  <SpecRow
-                    label="Temple"
-                    value={
-                      temple ? (
-                        <span className="inline-flex items-center gap-2">
-                          <Swatch hex={temple.hex} />
-                          <span>{temple.name}</span>
-                        </span>
-                      ) : "—"
-                    }
-                  />
-                  <SpecRow label="Finish" value={finish?.name ?? "—"} />
-                  <SpecRow label="Engraving" value={hasEngraving(config) ? `“${config.engravingText.trim()}”` : "—"} />
-                  <SpecRow label="Lenses" value={lens ? <span className="inline-flex items-center gap-2">{selectedLensTint(config) && <span className="w-3 h-3 shrink-0 rounded-full border border-cream/20" style={{ background: selectedLensTint(config)?.hex }} />}{formatLensWithStrength(lens.name, config)}</span> : "—"} />
-                </dl>
-
-                <div className="cfg-rail__total">
-                  <div className="flex items-baseline justify-between">
-                    <span className="cfg-eyebrow">Total</span>
-                    <CfgInfoTrigger section="price" className="cfg-rail__price cfg-info-trigger--block">{formatEur(stepTotal)}</CfgInfoTrigger>
-                  </div>
-                  <ul className="cfg-rail__lines">
-                    <li><span>Bespoke frame</span><span>{formatEur(pricing.basePriceEur)}</span></li>
-                    {pricing.engravingEur > 0 && <li><span>Engraving</span><span>{formatAddOn(pricing.engravingEur)}</span></li>}
-                    {pricing.lensEur > 0 && <li><span>{lens?.name ?? "Lenses"}</span><span>{formatAddOn(pricing.lensEur)}</span></li>}
-                    <li><span>Shipping</span><CfgInfoTrigger section="price" className="cfg-info-trigger--block" style={{ color: "var(--cfg-gold-bright)" }}>Free · worldwide</CfgInfoTrigger></li>
-                  </ul>
-                </div>
-
-                <button
-                  onClick={goNext}
-                  disabled={!isStepComplete(step, config) || step === STEPS.length}
-                  className="cfg-cta mt-5"
-                >
-                  {step === STEPS.length ? "Done" : <>Continue <ChevronRight size={14} /></>}
-                </button>
-
-                <button onClick={handleReset} className="cfg-rail__reset">
-                  Start over
-                </button>
-              </div>
-            </aside>
           </div>
         </main>
 
@@ -582,7 +631,7 @@ const ConfiguratorPage = () => {
                 if (payPending) return;
                 setPayPending(true);
                 pushCfg("cfg_pay_click");
-                trackBespokeFunnel("bespoke_pay_click", { step: 7 });
+                trackBespokeFunnel("bespoke_pay_click", { step: STEPS.length });
                 handleSave();
                 navigate("/en/bespoke/checkout");
                 return;
@@ -608,6 +657,13 @@ const ConfiguratorPage = () => {
 
 const Swatch = ({ hex }: { hex: string }) => (
   <span className="inline-block w-2.5 h-2.5 rounded-full" style={{ background: hex, boxShadow: "inset 0 0 0 1px rgba(239,233,223,0.18)" }} />
+);
+
+const SpecChip = ({ label, value, onClick }: { label: string; value: React.ReactNode; onClick: () => void }) => (
+  <button type="button" className="cfg-app-chip" onClick={onClick}>
+    <dt>{label}</dt>
+    <dd>{value}</dd>
+  </button>
 );
 
 const SpecRow = ({ label, value }: { label: string; value: React.ReactNode }) => (
@@ -1570,6 +1626,88 @@ const ConfiguratorStyles = () => (
       padding: 14px 26px; min-height: 44px; cursor: pointer;
     }
     .cfg-lightbox__next:hover { background: #D8B86A; }
+
+    /* ── Pattern cards: colour dots ── */
+    .cfg-card--dots:hover { transform: none; }
+    .cfg-card--dots > button:hover .cfg-card__photo img { transform: scale(1.03); }
+    .cfg-carddots { display: flex; align-items: center; gap: 8px; padding: 12px 16px 16px; }
+    .cfg-carddot {
+      width: 22px; height: 22px; border-radius: 999px; flex: none;
+      background-size: cover; background-position: center;
+      box-shadow: inset 0 0 0 1px rgba(239,233,223,0.25);
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .cfg-carddot:hover { transform: scale(1.12); }
+    .cfg-carddot:focus-visible { outline: 2px solid var(--cfg-gold); outline-offset: 2px; }
+    .cfg-carddot--on { box-shadow: 0 0 0 2px var(--cfg-ink), 0 0 0 3.5px var(--cfg-gold); }
+    .cfg-carddots__more { font-size: 11px; letter-spacing: .08em; color: var(--cfg-muted); margin-left: 2px; }
+    .cfg-card__photo img { transition: opacity .25s ease, transform .5s ease; }
+
+    /* ── Rendering overlay ── */
+    .cfg-rendering {
+      position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%);
+      display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
+      padding: 7px 12px; border-radius: 999px;
+      background: rgba(11,10,9,0.82); color: var(--cfg-cream);
+      font-size: 12px; letter-spacing: .02em;
+      pointer-events: none;
+    }
+
+    /* ── Desktop: configurator as an app ── */
+    @media (min-width: 1024px) {
+      .cfg-scope.cfg-app { height: calc(100vh - var(--cfg-offset, 0px)); height: calc(100dvh - var(--cfg-offset, 0px)); min-height: 0; overflow: hidden; display: flex; flex-direction: column; }
+      .cfg-scope.cfg-app > div { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+      .cfg-app .cfg-topbar { position: relative; padding: 12px 0; flex: none; }
+      .cfg-app .cfg-stepper-wrap { flex: none; padding-top: 14px; padding-bottom: 14px; max-width: none; border-bottom: 1px solid var(--cfg-border); }
+      .cfg-app .cfg-topbar > .cfg-container { max-width: none; }
+      .cfg-app-main.cfg-container { flex: 1; min-height: 0; max-width: none; padding: 0 !important; margin: 0; }
+      .cfg-app-grid { display: grid; grid-template-columns: minmax(0, 1fr) clamp(460px, 40vw, 620px); height: 100%; }
+      .cfg-app-stage { flex-direction: column; gap: 14px; min-height: 0; padding: 24px 28px 20px 32px; }
+      .cfg-app-stage__img {
+        position: relative; flex: 1; min-height: 0;
+        display: flex; align-items: center; justify-content: center;
+        background: var(--cfg-cream); border-radius: 4px; overflow: hidden;
+      }
+      .cfg-app-stage__pic { max-width: 94%; max-height: 94%; object-fit: contain; animation: cfg-fadein .35s ease; }
+      @keyframes cfg-fadein { from { opacity: .35; } to { opacity: 1; } }
+      @media (prefers-reduced-motion: reduce) { .cfg-app-stage__pic { animation: none; } }
+      .cfg-app-stage__tag { position: absolute; top: 12px; left: 12px; background: var(--cfg-ink); color: var(--cfg-cream); font-size: 11px; padding: 4px 8px; }
+      .cfg-app-stage .cfg-stage__badge { right: 12px; bottom: 12px; width: 30px; height: 30px; }
+      .cfg-app-summary { flex: none; display: flex; flex-direction: column; gap: 10px; }
+      .cfg-app-summary__title { display: flex; align-items: baseline; gap: 14px; }
+      .cfg-app-summary__title .cfg-rail__eyebrow { margin: 0; }
+      .cfg-app-summary__name { font-family: 'Newsreader', serif; font-size: 22px; color: var(--cfg-cream); }
+      .cfg-app-summary__chips { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 0; }
+      .cfg-app-chip {
+        text-align: left; padding: 6px 10px; min-width: 0;
+        border: 1px solid var(--cfg-border-strong); border-radius: 2px; background: var(--cfg-panel);
+        transition: border-color .15s ease;
+      }
+      .cfg-app-chip:hover { border-color: var(--cfg-gold); }
+      .cfg-app-chip dt { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--cfg-muted); }
+      .cfg-app-chip dd { margin: 2px 0 0; font-size: 13px; color: var(--cfg-cream); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; align-items: center; gap: 6px; }
+      .cfg-app-summary__foot { display: flex; align-items: center; justify-content: space-between; gap: 16px; font-size: 12px; color: var(--cfg-muted); }
+      .cfg-app-summary__foot .cfg-rail__reset { margin: 0; width: auto; }
+      .cfg-app-panel {
+        min-height: 0; overflow-y: auto; overscroll-behavior: contain;
+        display: flex; flex-direction: column;
+        border-left: 1px solid var(--cfg-border); background: var(--cfg-ink);
+      }
+      .cfg-app-panel__body { flex: 1; padding: 28px 32px 32px; }
+      .cfg-app-panel__body .cfg-h1 { font-size: clamp(30px, 2.6vw, 40px); }
+      .cfg-app-nav {
+        position: sticky; bottom: 0; z-index: 5;
+        padding: 14px 32px 18px; background: var(--cfg-ink);
+        border-top: 1px solid var(--cfg-border);
+      }
+      .cfg-app-nav > div:not(.cfg-app-nav__total) { margin-top: 10px !important; padding-top: 0 !important; border-top: 0 !important; }
+      .cfg-app-nav__total { display: flex; align-items: baseline; gap: 12px; }
+      .cfg-app-nav__total .cfg-rail__price { font-size: 22px; }
+      .cfg-app-nav__ship { margin-left: auto; font-size: 11px; letter-spacing: .08em; color: var(--cfg-muted); }
+    }
+    @media (max-width: 1023px) {
+      .cfg-app-grid { display: block; }
+    }
   `}</style>
 );
 
