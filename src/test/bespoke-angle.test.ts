@@ -35,3 +35,12 @@ describe("fixed-angle Bespoke renders", () => {
     expect(source).not.toContain("1fff96e7");
   });
 });
+describe("plain Bespoke front", () => {
+  it("every shape's render rules forbid front pins and rivets", async () => {
+    const { PLAIN_FRONT_RULE } = await import("../../supabase/functions/_shared/bespoke-composition");
+    for (const shape of ["Aviator", "Rectangle", "Crown Panto", "Round"]) {
+      expect(compositionRulesFor(shape)).toContain(PLAIN_FRONT_RULE);
+    }
+    expect(PLAIN_FRONT_RULE).toMatch(/no visible pins, rivets, dots/);
+  });
+});
