@@ -1,3 +1,4 @@
+import { BESPOKE_COPY, BESPOKE_PRICES } from "@/content/bespokePrices";
 import { SHIP_COUNTRIES, shippingDetails, priceValidUntil } from "@/seo/commerce-schema";
 
 export const BESPOKE_FACTS = {
@@ -6,25 +7,25 @@ export const BESPOKE_FACTS = {
   frontWidth: "145-160 mm",
   bridge: "20-26 mm",
   temples: "145-155 mm",
-  regularPrice: 480,
-  regularPriceLabel: "$480 USD",
-  kickstarterPrice: 299,
-  kickstarterPriceLabel: "$299 USD",
-  kickstarterLabel: "Kickstarter backer price: $299 (campaign only)",
+  regularPrice: BESPOKE_PRICES.frameUsd,
+  regularPriceLabel: `${BESPOKE_COPY.frame} USD`,
+  kickstarterPrice: BESPOKE_PRICES.kickstarterUsd,
+  kickstarterPriceLabel: `${BESPOKE_COPY.kickstarter} USD`,
+  kickstarterLabel: `Kickstarter backer price: ${BESPOKE_COPY.kickstarter} (campaign only)`,
   kickstarterPath: "/en/lp/kickstarter",
   leadTime: "2 weeks of production from approval of the 3D model, then shipping",
   material: "Italian Mazzucchelli 1849 cellulose acetate",
   origin: "Hand made in EU",
   warranty: "5 years",
   shipping: "Free worldwide shipping",
-  lenses: "Lenses optional: clear Plano (no correction) +$30, Blue Light +$84, or frame only for your own optician",
+  lenses: `Lenses optional: clear Plano (no correction) ${BESPOKE_COPY.plano}, Blue Light ${BESPOKE_COPY.blueLight}, or frame only for your own optician`,
   lensOptions: [
     { name: "No lenses - frame only", priceUsd: 0 },
-    { name: "Plano - clear, no correction", priceUsd: 30 },
-    { name: "Blue Light Lenses", priceUsd: 84 },
+    { name: "Plano - clear, no correction", priceUsd: BESPOKE_PRICES.planoUsd },
+    { name: "Blue Light Lenses", priceUsd: BESPOKE_PRICES.blueLightUsd },
   ],
   /** One-line offer used across pages, metadata and schema. */
-  offer: "$480 USD with free worldwide shipping. Lenses are optional: clear Plano +$30, Blue Light +$84, or frame only for your optician to glaze.",
+  offer: `${BESPOKE_COPY.frame} USD with free worldwide shipping. Lenses are optional: clear Plano ${BESPOKE_COPY.plano}, Blue Light ${BESPOKE_COPY.blueLight}, or frame only for your optician to glaze.`,
   prescription: "Bespoke does not include prescription lenses. Order the frame only and your optician fits your prescription lenses.",
   shapes: ["Aviator", "Rectangle", "Crown Panto", "Round"],
   process: [
@@ -38,7 +39,7 @@ export const BESPOKE_FACTS = {
 } as const;
 
 export const BESPOKE_META_DESCRIPTION =
-  "Made-to-measure glasses in any width from 145-160 mm. $480 with free worldwide shipping, lenses optional. Hand made in the EU from Italian acetate.";
+  `Made-to-measure glasses in any width from 145-160 mm. ${BESPOKE_COPY.frame} with free worldwide shipping, lenses optional. Hand made in the EU from Italian acetate.`;
 
 export const BESPOKE_GUIDE = [
   {
@@ -63,7 +64,7 @@ export const BESPOKE_GUIDE = [
   },
   {
     heading: "What the regular price includes",
-    text: "The regular Woolet Bespoke price is $480 USD for the made-to-measure frame with free worldwide shipping. Lenses are optional: clear Plano lenses without correction cost $30, Blue Light lenses $84, or you order the frame only and your optician fits your own lenses. Prescription lenses are not part of the configurator. The $299 amount is a Kickstarter backer price during the campaign only, not a regular offer on the Woolet site and not the price of the product in search results. The order summary shows the lens option and its price separately, so the quoted total reflects what you actually chose.",
+    text: `The regular Woolet Bespoke price is ${BESPOKE_COPY.frame} USD for the made-to-measure frame with free worldwide shipping. Lenses are optional: clear Plano lenses without correction cost ${BESPOKE_COPY.plano.slice(1)}, Blue Light lenses ${BESPOKE_COPY.blueLight.slice(1)}, or you order the frame only and your optician fits your own lenses. Prescription lenses are not part of the configurator. The ${BESPOKE_COPY.kickstarter} amount is a Kickstarter backer price during the campaign only, not a regular offer on the Woolet site and not the price of the product in search results. The order summary shows the lens option and its price separately, so the quoted total reflects what you actually chose.`,
   },
   {
     heading: "Material and place of manufacture",
@@ -71,7 +72,7 @@ export const BESPOKE_GUIDE = [
   },
   {
     heading: "Approval, production and delivery",
-    text: "The six steps are a phone-camera fit scan, configuration, a preview, approval of the made-to-measure 3D model, handmade production and worldwide shipping. Production takes 2 weeks from model approval, then shipping begins. Two weeks is not a promise that an order placed today will arrive in two weeks: measurement review and delivery transit are separate stages. Free worldwide shipping is part of the regular $480 USD offer. First Bespoke pairs have already shipped internationally, including to Vietnam. The delivery destination affects transit time, while the approved model establishes when the production period starts.",
+    text: `The six steps are a phone-camera fit scan, configuration, a preview, approval of the made-to-measure 3D model, handmade production and worldwide shipping. Production takes 2 weeks from model approval, then shipping begins. Two weeks is not a promise that an order placed today will arrive in two weeks: measurement review and delivery transit are separate stages. Free worldwide shipping is part of the regular ${BESPOKE_COPY.frame} USD offer. First Bespoke pairs have already shipped internationally, including to Vietnam. The delivery destination affects transit time, while the approved model establishes when the production period starts.`,
   },
 ] as const;
 
@@ -85,12 +86,12 @@ export const isBespokeDiscoverySource = (value: unknown): value is BespokeDiscov
 
 export const BESPOKE_FAQS = [
   { q: "Can I get custom-fit glasses online without visiting a store?", a: "Yes. Woolet Bespoke uses a phone-camera fit scan that takes about 60 seconds. We use the measurements to prepare a made-to-measure 3D model for your approval, so no store or atelier visit is required." },
-  { q: "How much do custom-made glasses cost?", a: "Woolet Bespoke costs $480 USD for the made-to-measure frame with free worldwide shipping. Lenses are optional: clear Plano +$30, Blue Light +$84, or frame only for your optician. During the Kickstarter campaign, backers get Bespoke for $299. The $299 Kickstarter backer price is available only through the campaign and is not sold as a $299 offer on woolet.co." },
+  { q: "How much do custom-made glasses cost?", a: `Woolet Bespoke costs ${BESPOKE_COPY.frame} USD for the made-to-measure frame with free worldwide shipping. Lenses are optional: clear Plano ${BESPOKE_COPY.plano}, Blue Light ${BESPOKE_COPY.blueLight}, or frame only for your optician. During the Kickstarter campaign, backers get Bespoke for ${BESPOKE_COPY.kickstarter}. The ${BESPOKE_COPY.kickstarter} Kickstarter backer price is available only through the campaign and is not sold as a ${BESPOKE_COPY.kickstarter} offer on woolet.co.` },
   { q: "Are bespoke glasses worth it?", a: "Bespoke can be worth it when standard frames pinch, slide, sit crooked or never align correctly with your face. It also suits someone who wants a one-of-one frame. The value is the individually set width, bridge and temple length rather than a logo or a stock size." },
   { q: "Can you make glasses for an asymmetrical face?", a: "Yes. The scan and review process can account for differences between the two sides of a face, including ear height and how a frame sits. The final geometry is reviewed before the 3D model is approved and production begins." },
   { q: "Can I order custom glasses for a narrow face?", a: "Yes. Woolet Bespoke is not only for wide faces. It covers any front width from 145-160 mm, including narrower measurements below the stock Woolet fit range." },
   { q: "How do you measure my face remotely?", a: "A phone-camera AI fit scan measures the face in about 60 seconds. The order flow also lets you confirm measurements and provide supporting information before the workshop cuts the frame." },
-  { q: "Can I use my prescription?", a: "Yes, through your own optician. Bespoke does not include prescription lenses: order the frame only and your optician fits your prescription lenses into it. In the configurator you can also choose clear Plano lenses (+$30) or Blue Light lenses (+$84)." },
+  { q: "Can I use my prescription?", a: `Yes, through your own optician. Bespoke does not include prescription lenses: order the frame only and your optician fits your prescription lenses into it. In the configurator you can also choose clear Plano lenses (${BESPOKE_COPY.plano}) or Blue Light lenses (${BESPOKE_COPY.blueLight}).` },
   { q: "What if my bespoke glasses do not fit?", a: "Woolet checks the scan, measurements and approved 3D model before cutting. The frame is covered by the Woolet Fit Promise and a 5-year warranty. Contact support if the delivered fit does not match the approved specification." },
   { q: "Do you ship bespoke glasses to my country?", a: "Woolet Bespoke includes free worldwide shipping. First Bespoke pairs have already shipped to customers abroad, including Vietnam." },
   { q: "How long does Woolet Bespoke take?", a: "Production takes 2 weeks from your approval of the made-to-measure 3D model. Shipping starts after production, and transit time depends on the destination." },
@@ -100,7 +101,7 @@ export function bespokeProductJsonLd(url = "https://woolet.co/en/bespoke", image
   return {
     "@context": "https://schema.org", "@type": "Product", "@id": `${url}#product`,
     name: BESPOKE_FACTS.name, url,
-    description: `${BESPOKE_FACTS.frontWidth} made-to-measure eyeglasses in ${BESPOKE_FACTS.material}, hand made in the EU. Free worldwide shipping included; lenses optional (clear Plano +$30, Blue Light +$84).`,
+    description: `${BESPOKE_FACTS.frontWidth} made-to-measure eyeglasses in ${BESPOKE_FACTS.material}, hand made in the EU. Free worldwide shipping included; lenses optional (clear Plano ${BESPOKE_COPY.plano}, Blue Light ${BESPOKE_COPY.blueLight}).`,
     image: [image], brand: { "@type": "Brand", name: "Woolet" }, material: BESPOKE_FACTS.material, sku: "WOOLET-BESPOKE",
     warranty: { "@type": "WarrantyPromise", durationOfWarranty: { "@type": "QuantitativeValue", value: 5, unitCode: "ANN" } },
     additionalProperty: [
@@ -110,7 +111,7 @@ export function bespokeProductJsonLd(url = "https://woolet.co/en/bespoke", image
       { "@type": "PropertyValue", name: "Production time", value: BESPOKE_FACTS.leadTime },
     ],
     offers: {
-      "@type": "Offer", price: "480.00", priceCurrency: "USD", availability: "https://schema.org/InStock", url,
+      "@type": "Offer", price: BESPOKE_COPY.frameSchema, priceCurrency: "USD", availability: "https://schema.org/InStock", url,
       priceValidUntil: priceValidUntil(),
       itemCondition: "https://schema.org/NewCondition", eligibleRegion: { "@type": "Place", name: "Worldwide" },
       // ISO 3166-1 alpha-2 codes + transitTime via the shared helper (GSC Merchant listings).

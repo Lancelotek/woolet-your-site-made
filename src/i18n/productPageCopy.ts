@@ -1,3 +1,4 @@
+import { BESPOKE_COPY as PRICE } from "@/content/bespokePrices";
 /**
  * Localised copy for the product detail pages (/:lang/products/007, /009, /bespoke).
  *
@@ -360,9 +361,9 @@ type BespokeCopy = {
 export const BESPOKE_COPY: Record<PdpLang, BespokeCopy> = {
   en: {
     title: "Woolet Bespoke — Custom Acetate Glasses Cut to Your Face",
-    metaDescription: "Woolet Bespoke: 145–160 mm custom frames, hand made in the EU from Italian acetate. $480 with free worldwide shipping, lenses optional.",
+    metaDescription: `Woolet Bespoke: 145–160 mm custom frames, hand made in the EU from Italian acetate. ${PRICE.frame} with free worldwide shipping, lenses optional.`,
     ogTitle: "Woolet Bespoke — Custom Acetate Glasses",
-    ogDescription: "Woolet Bespoke: 145–160 mm custom frames, $480 with free worldwide shipping. Lenses optional: Plano +$30, Blue Light +$84.",
+    ogDescription: `Woolet Bespoke: 145–160 mm custom frames, ${PRICE.frame} with free worldwide shipping. Lenses optional: Plano ${PRICE.plano}, Blue Light ${PRICE.blueLight}.`,
     heroAlt: "Woolet Bespoke — custom acetate frame silhouette",
     viewShape: (s) => `View ${s}`,
     thumbAlt: (s) => `Woolet Bespoke ${s} silhouette`,
@@ -373,10 +374,10 @@ export const BESPOKE_COPY: Record<PdpLang, BespokeCopy> = {
     h2: "Bespoke Italian Mazzucchelli acetate glasses cut to your exact face — four silhouettes, front width 145–160 mm, bridge and temples cut to your measurements.",
     foundingPrice: "Founding Price",
     reservePre: "Reserve today for ",
-    reservePost: " — fully refundable deposit. Locks in the founding price; SRP $480 at launch.",
+    reservePost: ` — fully refundable deposit. Locks in the founding price; SRP ${PRICE.frame} at launch.`,
     modelLabel: "Model",
     model009: "009 Square",
-    cta: "Reserve for $1 — Lock $299",
+    cta: `Reserve for $1 — Lock ${PRICE.kickstarter}`,
     fitCta: "Check your fit — Free quiz",
     benefits: [
       "Cut to your exact face — no fit compromises",
@@ -454,9 +455,9 @@ export const BESPOKE_COPY: Record<PdpLang, BespokeCopy> = {
   },
   nl: {
     title: "Woolet Bespoke — acetaatbril op maat van je gezicht",
-    metaDescription: "Woolet Bespoke op maat, 145–160 mm. Handgemaakt in de EU van Italiaans acetaat. $480 met gratis wereldwijde verzending, glazen optioneel.",
+    metaDescription: `Woolet Bespoke op maat, 145–160 mm. Handgemaakt in de EU van Italiaans acetaat. ${PRICE.frame} met gratis wereldwijde verzending, glazen optioneel.`,
     ogTitle: "Woolet Bespoke — acetaatbril op maat",
-    ogDescription: "Woolet Bespoke - 145–160 mm, $480 met gratis wereldwijde verzending. Glazen optioneel: Plano +$30, blauw licht +$84.",
+    ogDescription: `Woolet Bespoke - 145–160 mm, ${PRICE.frame} met gratis wereldwijde verzending. Glazen optioneel: Plano ${PRICE.plano}, blauw licht ${PRICE.blueLight}.`,
     heroAlt: "Woolet Bespoke - silhouet van een acetaatmontuur op maat",
     viewShape: (s) => `Bekijk ${s}`,
     thumbAlt: (s) => `Woolet Bespoke ${s}-silhouet`,
@@ -467,10 +468,10 @@ export const BESPOKE_COPY: Record<PdpLang, BespokeCopy> = {
     h2: "Bespoke bril van Italiaans Mazzucchelli-acetaat, precies op jouw gezicht gesneden: vier silhouetten, frontbreedte 145–160 mm, brug en veren op jouw maten.",
     foundingPrice: "Founding-prijs",
     reservePre: "Reserveer vandaag voor ",
-    reservePost: " - volledig terugbetaalbare aanbetaling. Zet de founding-prijs vast; adviesprijs $480 bij de lancering.",
+    reservePost: ` - volledig terugbetaalbare aanbetaling. Zet de founding-prijs vast; adviesprijs ${PRICE.frame} bij de lancering.`,
     modelLabel: "Model",
     model009: "009 Vierkant",
-    cta: "Reserveer voor $1 - zet $299 vast",
+    cta: `Reserveer voor $1 - zet ${PRICE.kickstarter} vast`,
     fitCta: "Check je pasvorm - gratis quiz",
     benefits: [
       "Precies op jouw gezicht gesneden - geen compromissen in pasvorm",

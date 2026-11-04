@@ -1,3 +1,4 @@
+import { BESPOKE_COPY } from "@/content/bespokePrices";
 /**
  * Korean (ko) locale content — SINGLE SOURCE OF TRUTH for every /ko route.
  *
@@ -106,7 +107,7 @@ const BESPOKE_BULLETS = [
   "브릿지 폭과 다리 길이도 함께 조정",
   "이탈리아 마주켈리 아세테이트, 그리스에서 손으로 제작",
   "주문 후 2주 발송",
-  "$480, 렌즈 선택 (프레임만 무료·플라노 +$30·블루라이트 +$84)",
+  `${BESPOKE_COPY.frame}, 렌즈 선택 (프레임만 무료·플라노 ${BESPOKE_COPY.plano}·블루라이트 ${BESPOKE_COPY.blueLight})`,
 ];
 
 const FIT_CTAS: KoCta[] = [
@@ -149,7 +150,7 @@ export const koPages: Record<string, KoPageConfig> = {
         list: [
           "4가지 모양, 60가지 색상과 사이즈 조합",
           "주문 후 2주면 발송",
-          "$480, 렌즈 선택 (프레임만 무료·플라노 +$30·블루라이트 +$84)",
+          `${BESPOKE_COPY.frame}, 렌즈 선택 (프레임만 무료·플라노 ${BESPOKE_COPY.plano}·블루라이트 ${BESPOKE_COPY.blueLight})`,
           "그리스에서 손으로 제작",
         ],
       },
@@ -182,7 +183,7 @@ export const koPages: Record<string, KoPageConfig> = {
       },
       {
         q: "158mm보다 넓게 만들 수 있나요?",
-        a: "비스포크로 145mm부터 160mm까지 제작합니다. 주문 후 2주, $480이며 렌즈는 선택입니다.",
+        a: `비스포크로 145mm부터 160mm까지 제작합니다. 주문 후 2주, ${BESPOKE_COPY.frame}이며 렌즈는 선택입니다.`,
       },
     ],
     englishEquivalent: "/en",
@@ -259,7 +260,7 @@ export const koPages: Record<string, KoPageConfig> = {
       {
         h2: "실측 162mm 이상이라면 비스포크",
         body:
-          "비스포크는 145mm부터 160mm까지 원하는 폭으로 만듭니다. 4가지 모양, 60가지 색상과 사이즈 조합, 주문 후 2주, $480 (렌즈 선택).",
+          `비스포크는 145mm부터 160mm까지 원하는 폭으로 만듭니다. 4가지 모양, 60가지 색상과 사이즈 조합, 주문 후 2주, ${BESPOKE_COPY.frame} (렌즈 선택).`,
         ctas: FIT_CTAS,
       },
       {
@@ -321,7 +322,7 @@ export const koPages: Record<string, KoPageConfig> = {
       },
       {
         h2: "더 넓은 폭이 필요하다면",
-        body: "비스포크로 145-160mm까지 만듭니다. $480 (렌즈 선택), 주문 후 2주.",
+        body: `비스포크로 145-160mm까지 만듭니다. ${BESPOKE_COPY.frame} (렌즈 선택), 주문 후 2주.`,
       },
       {
         h2: "한국 배송",

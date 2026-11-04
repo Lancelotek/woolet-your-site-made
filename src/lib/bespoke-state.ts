@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { DEFAULT_TEMPLE_LENGTH_MM, ENGRAVING_FEE_EUR, findLensTint, findSunTint, isValidTempleLength, ACTIVE_LENS_TYPES, LENS_TYPES, resolveActiveColorId, type LensTint, type MeasurementKey, type ReadingStrength } from "@/data/bespoke-options";
+import { DEFAULT_TEMPLE_LENGTH_MM, findLensTint, findSunTint, isValidTempleLength, ACTIVE_LENS_TYPES, resolveActiveColorId, type LensTint, type MeasurementKey, type ReadingStrength } from "@/data/bespoke-options";
 import { findFrame } from "@/data/frames";
+import { getPriceTable, quoteBespoke, usePriceTable, type PriceTable } from "@/lib/bespoke-pricing";
 
 export type Measurements = Partial<Record<MeasurementKey, number>>;
 
@@ -145,7 +146,9 @@ export function useBespokeConfig() {
     setConfig({ ...next, updatedAt: new Date().toISOString() });
   }, []);
 
-  const pricing = useMemo(() => computePricing(config), [config]);
+  // Live prices: re-computes the moment a price changes in the admin panel.
+  const prices = usePriceTable();
+  const pricing = useMemo(() => computePricing(config, prices), [config, prices]);
 
   return { config, update, reset, replace, pricing };
 }
@@ -157,17 +160,22 @@ export interface Pricing {
   totalEur: number;
 }
 
-export function computePricing(config: BespokeConfig): Pricing {
-  const frame = findFrame(config.frameId);
-  const basePriceEur = frame?.basePriceEur ?? 480;
-  const engravingEur = hasEngraving(config) ? ENGRAVING_FEE_EUR : 0;
-  const lens = LENS_TYPES.find((l) => l.id === config.lensTypeId);
-  const lensEur = lens?.priceEur ?? 0;
+/**
+ * Price a configuration. Uses the live table from `bespoke_pricing` (see
+ * src/lib/bespoke-pricing.ts); the checkout function runs the same
+ * `quoteBespoke`, so the shown total is the charged total.
+ */
+export function computePricing(config: BespokeConfig, prices: PriceTable = getPriceTable()): Pricing {
+  const q = quoteBespoke(prices, {
+    frameId: findFrame(config.frameId)?.id ?? config.frameId ?? "",
+    lensTypeId: config.lensTypeId ?? "none",
+    engraving: hasEngraving(config),
+  });
   return {
-    basePriceEur,
-    engravingEur,
-    lensEur,
-    totalEur: basePriceEur + engravingEur + lensEur,
+    basePriceEur: q.baseUsd,
+    engravingEur: q.engravingUsd,
+    lensEur: config.lensTypeId ? q.lensUsd : 0,
+    totalEur: q.totalUsd,
   };
 }
 

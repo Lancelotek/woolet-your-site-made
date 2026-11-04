@@ -1,3 +1,4 @@
+import { BESPOKE_COPY } from "@/content/bespokePrices";
 /**
  * Single source of truth for commerce-related schema.org fragments
  * (MerchantReturnPolicy, OfferShippingDetails, pricing constants).
@@ -26,8 +27,8 @@ export const SHIP_COUNTRIES = [
 /** Canonical pricing (USD) — checkout charges USD in every locale. */
 export const LIST_PRICE = "190.00";      // regular price, shown struck through
 export const SALE_PRICE = "114.00";      // current pre-order price actually charged
-export const BESPOKE_PRICE = "480.00";   // regular Woolet Bespoke price
-export const BESPOKE_LIST_PRICE = "480.00";
+export const BESPOKE_PRICE = BESPOKE_COPY.frameSchema;   // regular Woolet Bespoke price
+export const BESPOKE_LIST_PRICE = BESPOKE_COPY.frameSchema;
 export const PRICE_CURRENCY = "USD";
 /**
  * Last day of the NEXT calendar year relative to the render/build date

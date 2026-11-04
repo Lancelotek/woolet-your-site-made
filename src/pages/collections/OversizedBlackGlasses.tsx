@@ -1,3 +1,4 @@
+import { BESPOKE_COPY } from "@/content/bespokePrices";
 import CollectionPage from "@/components/CollectionPage";
 
 const OversizedBlackGlasses = () => (
@@ -14,7 +15,7 @@ const OversizedBlackGlasses = () => (
       "<strong>Hand-polished bevels.</strong> Black is unforgiving — every machining mark shows. The 007 and 009 are hand-finished so the edge catches light cleanly instead of looking dusty.",
       "<strong>25–26 mm keyhole bridge</strong> distributes weight on a wider nose and keeps the bridge from rocking — critical for an oversized black frame where any tilt is visually obvious.",
       "<strong>Two shapes</strong>: the round 007 reads as classic, the soft-square 009 reads as structured. Same 158 mm front, same 150 mm temples, same Italian Mazzucchelli acetate, hand made in EU — pick by face shape and intent.",
-      "<strong>Bespoke 145–160 mm</strong> in the same deep black acetate if standard isn't wide enough, hand made in the EU from $480.",
+      `<strong>Bespoke 145–160 mm</strong> in the same deep black acetate if standard isn't wide enough, hand made in the EU from ${BESPOKE_COPY.frame}.`,
     ]}
     faqs={[
       {
@@ -45,7 +46,7 @@ const OversizedBlackGlasses = () => (
       {
         question: "What do oversized black glasses cost?",
         answer:
-          "$190 for eyeglasses with demo lenses ready for your prescription, $210 with UV400 sun, blue light or reading lenses. Bespoke at any width from 145 to 160 mm is $480, lenses optional: Plano +$30, Blue Light +$84.",
+          `$190 for eyeglasses with demo lenses ready for your prescription, $210 with UV400 sun, blue light or reading lenses. Bespoke at any width from 145 to 160 mm is ${BESPOKE_COPY.frame}, lenses optional: Plano ${BESPOKE_COPY.plano}, Blue Light ${BESPOKE_COPY.blueLight}.`,
       },
     ]}
   />

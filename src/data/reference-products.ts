@@ -1,3 +1,4 @@
+import { BESPOKE_PRICES } from "@/content/bespokePrices";
 /**
  * Reference product pages - /en/ref/:slug
  * Read-only product cards for creator platforms (Influee, Billo, Grin, TikTok Shop briefs).
@@ -330,8 +331,8 @@ export const REF_PRODUCTS: RefProduct[] = [
     ],
     lensOptions: [
       { name: "No lenses - frame only", priceUsd: 0, note: "Your optician fits your own lenses, prescription included." },
-      { name: "Plano - clear, no correction", priceUsd: 30, note: "Clear lenses without optical correction, cut and fitted to your frame." },
-      { name: "Blue Light Lenses", priceUsd: 84, note: "Filter coating for screen use." },
+      { name: "Plano - clear, no correction", priceUsd: BESPOKE_PRICES.planoUsd, note: "Clear lenses without optical correction, cut and fitted to your frame." },
+      { name: "Blue Light Lenses", priceUsd: BESPOKE_PRICES.blueLightUsd, note: "Filter coating for screen use." },
     ],
     images: [
       { src: `${F}woolet-bespoke-shape-crown-panto-black.jpg`, alt: "Woolet Bespoke Crown Panto shape in black acetate", caption: "Crown Panto" },

@@ -1,3 +1,4 @@
+import { BESPOKE_COPY } from "@/content/bespokePrices";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
@@ -38,8 +39,8 @@ const About = () => {
           <p className="mt-5 text-sm sm:text-base leading-relaxed text-muted-foreground">
             Signature frames have a $190 MSRP. A $1 reservation at woolet.co locks the $114
             Founding Member price, 40% off MSRP, while shop.woolet.co remains sold out through the
-            Kickstarter campaign. Bespoke is $480 with free worldwide shipping, lenses optional
-            (Plano +$30, Blue Light +$84); the Kickstarter backer price is $299. Bespoke production takes two
+            Kickstarter campaign. Bespoke is {BESPOKE_COPY.frame} with free worldwide shipping, lenses optional
+            (Plano {BESPOKE_COPY.plano}, Blue Light {BESPOKE_COPY.blueLight}); the Kickstarter backer price is {BESPOKE_COPY.kickstarter}. Bespoke production takes two
             weeks after approval of the 3D model, then shipping. Woolet frames carry a 5-year
             warranty.
           </p>

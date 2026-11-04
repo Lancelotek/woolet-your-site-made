@@ -1,3 +1,4 @@
+import { BESPOKE_COPY } from "@/content/bespokePrices";
 /**
  * Shared interaction shell for the Bespoke configurator.
  *
@@ -92,11 +93,11 @@ const SECTIONS: { id: CfgInfoSection; title: string; body: ReactNode }[] = [
   },
   {
     id: "price",
-    title: "What $480 covers",
+    title: `What ${BESPOKE_COPY.frame} covers`,
     body: (
       <ul>
         <li>Hand made in the EU from Italian Mazzucchelli acetate.</li>
-        <li>Lenses are optional: frame only (free), clear Plano +$30 or Blue Light +$84, itemized in your build.</li>
+        <li>Lenses are optional: frame only (free), clear Plano {BESPOKE_COPY.plano} or Blue Light {BESPOKE_COPY.blueLight}, itemized in your build.</li>
         <li>Free worldwide shipping.</li>
         <li>2 weeks from order to dispatch.</li>
       </ul>

@@ -1,5 +1,7 @@
 // All non-frame configuration options + pricing.
 
+import { BESPOKE_PRICES } from "@/content/bespokePrices";
+
 import p632 from "@/assets/configurator/acetate/p632-0006.jpg.asset.json";
 import a102 from "@/assets/configurator/acetate/a102-8421.jpg.asset.json";
 import a332 from "@/assets/configurator/acetate/a332-1203.jpg.asset.json";
@@ -122,7 +124,8 @@ export const FINISHES = [
 
 export type FinishId = (typeof FINISHES)[number]["id"];
 
-export const ENGRAVING_FEE_EUR = 10;
+/** Default engraving fee (USD). Live value: `engravingPrice(usePriceTable())`. */
+export const ENGRAVING_FEE_EUR = BESPOKE_PRICES.engravingUsd;
 export const ENGRAVING_MAX_CHARS = 20;
 // Customer name is engraved CNC on the LEFT temple only.
 // Right temple always carries the Woolet logo.
@@ -147,11 +150,12 @@ export interface LensType {
   retired?: boolean;
 }
 
-// Prices are USD. Each lens = supplier price (EUR) + $20 fitting, converted to USD.
+// Prices are USD defaults. Each lens = supplier price (EUR) + $20 fitting, converted to USD.
+// Live prices come from table `bespoke_pricing` - read them with `lensPrice(usePriceTable(), id)`.
 export const LENS_TYPES: LensType[] = [
   { id: "none",        name: "No lenses - frame only",             priceEur: 0,  description: "Frame only, no lenses fitted. Your optician fits your own lenses." },
-  { id: "plano",       name: "Plano - clear, no correction",      priceEur: 30, description: "Clear lenses with no optical correction, cut and fitted to your frame. Ideal when your optician will fit prescription lenses later.", image: singleVisionImg },
-  { id: "blue-light",  name: "Blue Light Lenses",                 priceEur: 84, description: "Optional filter coating for screen use.",        image: blueLightImg },
+  { id: "plano",       name: "Plano - clear, no correction",      priceEur: BESPOKE_PRICES.planoUsd, description: "Clear lenses with no optical correction, cut and fitted to your frame. Ideal when your optician will fit prescription lenses later.", image: singleVisionImg },
+  { id: "blue-light",  name: "Blue Light Lenses",                 priceEur: BESPOKE_PRICES.blueLightUsd, description: "Optional filter coating for screen use.",        image: blueLightImg },
   { id: "reading",     name: "Reading Lenses",                    priceEur: 60, description: "Single-vision magnification for near work.",     image: singleVisionImg, retired: true },
   { id: "photochromic",name: "Photochromic",                      priceEur: 84, description: "Clear indoors, darkens in daylight.",            image: progressiveImg, retired: true },
   { id: "sun-uv400",   name: "Sun Lenses (UV400)",                priceEur: 48, description: "Full UV400 tinted sun lenses.",                  image: sunTintedImg, retired: true },
