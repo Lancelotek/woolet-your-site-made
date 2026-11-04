@@ -1,6 +1,7 @@
+import { BESPOKE_PRICES } from "@/content/bespokePrices";
 import { renderAltFromParts } from "@/lib/bespoke-render-alt";
 import { RenderCacheAdmin } from "@/components/admin/RenderCacheAdmin";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Check, Copy } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -507,6 +508,7 @@ export default function BespokeAdmin() {
 
         {error && <div style={{ color: "#e2725b", fontSize: 13, marginBottom: 16 }}>{error}</div>}
 
+        <PricingBlock password={password} />
         <RenderCacheAdmin password={password} />
         <StageFilterBar
           orders={rows as unknown as Record<string, unknown>[]}
@@ -667,6 +669,142 @@ export default function BespokeAdmin() {
  * home; this writes the database fallback row. The value is never read back —
  * only whether one is set and when it last changed.
  */
+// ---------------------------------------------------------------------------
+// Pricing: live Bespoke prices (table bespoke_pricing) and discount codes.
+// A save is live in the configurator within seconds and in the next checkout.
+// ---------------------------------------------------------------------------
+interface PriceRow { key: string; label: string; amount_usd: number | string; updated_at: string }
+interface CouponRow { code: string; percent_off: number; active: boolean; note: string | null }
+
+const CODE_DEFAULTS: Record<string, number> = {
+  "frame:base": BESPOKE_PRICES.frameUsd,
+  "lens:plano": BESPOKE_PRICES.planoUsd,
+  "lens:blue-light": BESPOKE_PRICES.blueLightUsd,
+  "engraving": BESPOKE_PRICES.engravingUsd,
+};
+
+function PricingBlock({ password }: { password: string }) {
+  const [prices, setPrices] = useState<PriceRow[] | null>(null);
+  const [coupons, setCoupons] = useState<CouponRow[]>([]);
+  const [draft, setDraft] = useState<Record<string, string>>({});
+  const [busy, setBusy] = useState(false);
+  const [msg, setMsg] = useState<string | null>(null);
+  const [newCode, setNewCode] = useState({ code: "", percent: "", note: "" });
+
+  const call = async (body: Record<string, unknown>) => {
+    setBusy(true);
+    setMsg(null);
+    const { data, error } = await supabase.functions.invoke("bespoke-pricing-admin", { body: { password, ...body } });
+    setBusy(false);
+    if (error || data?.error) {
+      setMsg(data?.error ?? error?.message ?? "Request failed");
+      return false;
+    }
+    setPrices(data.prices ?? []);
+    setCoupons(data.coupons ?? []);
+    setDraft(Object.fromEntries((data.prices ?? []).map((p: PriceRow) => [p.key, String(Number(p.amount_usd))])));
+    return true;
+  };
+
+  useEffect(() => {
+    if (password) void call({ action: "get" });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [password]);
+
+  const changed = (prices ?? []).filter((p) => draft[p.key] !== undefined && Number(draft[p.key]) !== Number(p.amount_usd));
+  const offCode = (prices ?? []).filter((p) => CODE_DEFAULTS[p.key] !== undefined && Number(p.amount_usd) !== CODE_DEFAULTS[p.key]);
+  const btn = { background: "none", border: `1px solid ${T.hair}`, color: T.dim, padding: "8px 12px", borderRadius: 2, fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase" as const, cursor: "pointer" };
+  const input = { padding: "8px 10px", background: T.bg, border: `1px solid ${T.hair}`, color: T.ink, borderRadius: 2, fontFamily: SANS, fontSize: 14 };
+
+  return (
+    <section style={{ marginBottom: 32, border: `1px solid ${T.hair}`, borderRadius: 3, background: T.panel, padding: 20, maxWidth: 720 }}>
+      <h2 style={{ fontFamily: SERIF, fontSize: 22, margin: "0 0 6px" }}>Pricing</h2>
+      <p style={{ color: T.dim, fontSize: 13, margin: "0 0 14px", lineHeight: 1.6 }}>
+        Prices in USD. A save goes live at once: open configurators update within seconds and every new checkout charges the new price.
+      </p>
+      {prices === null ? (
+        <p style={{ color: T.mute, fontSize: 13 }}>{msg ?? "Loading…"}</p>
+      ) : (
+        <>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 120px 150px", gap: "8px 12px", alignItems: "center" }}>
+            {prices.map((p) => (
+              <Fragment key={p.key}>
+                <label htmlFor={`price-${p.key}`} style={{ fontSize: 14 }}>
+                  {p.label} <span style={{ color: T.mute, fontSize: 11 }}>{p.key}</span>
+                </label>
+                <input
+                  id={`price-${p.key}`}
+                  inputMode="decimal"
+                  value={draft[p.key] ?? ""}
+                  onChange={(e) => setDraft((d) => ({ ...d, [p.key]: e.target.value }))}
+                  style={{ ...input, textAlign: "right" }}
+                />
+                <span style={{ color: T.mute, fontSize: 11 }}>changed {fmtDate(p.updated_at)}</span>
+              </Fragment>
+            ))}
+          </div>
+          <div style={{ display: "flex", gap: 8, marginTop: 14, alignItems: "center", flexWrap: "wrap" }}>
+            <button
+              type="button"
+              disabled={busy || changed.length === 0}
+              onClick={() => void call({ action: "save_prices", prices: changed.map((p) => ({ key: p.key, amount_usd: draft[p.key] })) }).then((ok) => ok && setMsg("Saved - live now."))}
+              style={{ background: T.gold, border: "none", color: "#1f1b16", padding: "10px 16px", borderRadius: 2, fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", fontWeight: 600, cursor: changed.length ? "pointer" : "not-allowed", opacity: changed.length ? 1 : 0.5 }}
+            >
+              {busy ? "Saving…" : changed.length ? `Save ${changed.length} price${changed.length > 1 ? "s" : ""}` : "No changes"}
+            </button>
+            {changed.length > 0 && (
+              <button type="button" style={btn} onClick={() => setDraft(Object.fromEntries(prices.map((p) => [p.key, String(Number(p.amount_usd))])))}>
+                Undo
+              </button>
+            )}
+          </div>
+          {offCode.length > 0 && (
+            <p style={{ color: T.gold, fontSize: 12, marginTop: 12, lineHeight: 1.6 }}>
+              Configurator and checkout use the new price. Site copy (FAQ, blog, Google schema, llms.txt) still prints{" "}
+              {offCode.map((p) => `${p.label} $${CODE_DEFAULTS[p.key]}`).join(", ")} - update src/content/bespokePrices.ts and publish.
+            </p>
+          )}
+
+          <h3 style={{ fontFamily: SERIF, fontSize: 18, margin: "24px 0 8px" }}>Discount codes</h3>
+          {coupons.length === 0 && <p style={{ color: T.mute, fontSize: 13 }}>No codes.</p>}
+          {coupons.map((c) => (
+            <div key={c.code} style={{ display: "flex", gap: 10, alignItems: "center", padding: "6px 0", borderBottom: `1px solid ${T.hair}`, opacity: c.active ? 1 : 0.5 }}>
+              <span style={{ fontFamily: "monospace", fontSize: 13, minWidth: 160 }}>{c.code}</span>
+              <span style={{ fontSize: 13, minWidth: 60 }}>−{c.percent_off}%</span>
+              <span style={{ color: T.mute, fontSize: 12, flex: 1 }}>{c.note ?? ""}</span>
+              <button type="button" style={btn} disabled={busy} onClick={() => void call({ action: "save_coupon", coupon: { ...c, active: !c.active } })}>
+                {c.active ? "Disable" : "Enable"}
+              </button>
+              <button
+                type="button"
+                style={btn}
+                disabled={busy}
+                onClick={() => { if (window.confirm(`Delete code ${c.code}?`)) void call({ action: "delete_coupon", code: c.code }); }}
+              >
+                Delete
+              </button>
+            </div>
+          ))}
+          <form
+            style={{ display: "flex", gap: 8, marginTop: 12, flexWrap: "wrap" }}
+            onSubmit={(e) => {
+              e.preventDefault();
+              void call({ action: "save_coupon", coupon: { code: newCode.code, percent_off: Number(newCode.percent), note: newCode.note, active: true } })
+                .then((ok) => ok && setNewCode({ code: "", percent: "", note: "" }));
+            }}
+          >
+            <input aria-label="New code" placeholder="CODE" value={newCode.code} onChange={(e) => setNewCode((n) => ({ ...n, code: e.target.value.toUpperCase() }))} style={{ ...input, width: 170, fontFamily: "monospace" }} />
+            <input aria-label="Percent off" placeholder="% off" inputMode="numeric" value={newCode.percent} onChange={(e) => setNewCode((n) => ({ ...n, percent: e.target.value }))} style={{ ...input, width: 80 }} />
+            <input aria-label="Note" placeholder="Note (optional)" value={newCode.note} onChange={(e) => setNewCode((n) => ({ ...n, note: e.target.value }))} style={{ ...input, flex: "1 1 160px" }} />
+            <button type="submit" disabled={busy || !newCode.code || !newCode.percent} style={btn}>Add code</button>
+          </form>
+        </>
+      )}
+      {msg && prices !== null && <p style={{ color: T.dim, fontSize: 12, marginTop: 10 }}>{msg}</p>}
+    </section>
+  );
+}
+
 function IntegrationSecretBlock({ password }: { password: string }) {
   const [value, setValue] = useState("");
   const [status, setStatus] = useState<{ is_set: boolean; source: string; updated_at: string | null } | null>(null);

@@ -1,3 +1,4 @@
+import { BESPOKE_COPY } from "@/content/bespokePrices";
 import type { BlogPost } from "./blog-data";
 
 /**
@@ -1068,7 +1069,7 @@ ${FITLENS_CTA(
       },
       {
         q: "Can I get photochromic glasses wider than 160 mm?",
-        a: "Yes. Woolet Bespoke is built to any front width from 145 to 160 mm, from $480: order the frame only and your optician fits photochromic prescription lenses.",
+        a: `Yes. Woolet Bespoke is built to any front width from 145 to 160 mm, from ${BESPOKE_COPY.frame}: order the frame only and your optician fits photochromic prescription lenses.`,
       },
       {
         q: "Do photochromic lenses work for cycling to work?",
@@ -1126,7 +1127,7 @@ ${ANSWER("Glasses that turn into sunglasses use photochromic lenses, often calle
 <td style="${TD}border-bottom:1px solid #F0EBE1;"><a href="/en/bespoke" style="color:#A07A2A;">Woolet Bespoke</a></td>
 <td style="${TD}border-bottom:1px solid #F0EBE1;">Any width 145-160 mm, 4 shapes</td>
 <td style="${TD}border-bottom:1px solid #F0EBE1;">Frame only - your optician fits photochromic lenses</td>
-<td style="${TD}border-bottom:1px solid #F0EBE1;">From $480</td>
+<td style="${TD}border-bottom:1px solid #F0EBE1;">From ${BESPOKE_COPY.frame}</td>
 <td style="${TD}border-bottom:1px solid #F0EBE1;">You fall outside 155-161 mm or want a shape built to your face</td>
 </tr>
 </tbody>
@@ -1153,7 +1154,7 @@ ${FITLENS_CTA("Your face width decides which of the two paths above is yours. Be
 <p>Yes. Order a Woolet 007 or 009 with a 158 mm front for $190 and have your optician fit prescription photochromic lenses.</p>
 
 <h3>Can I get photochromic glasses wider than 160 mm?</h3>
-<p>Yes. Woolet Bespoke is built to any front width from 145 to 160 mm, from $480: order the frame only and your optician fits photochromic prescription lenses.</p>
+<p>Yes. Woolet Bespoke is built to any front width from 145 to 160 mm, from ${BESPOKE_COPY.frame}: order the frame only and your optician fits photochromic prescription lenses.</p>
 
 <h3>Do photochromic lenses work for cycling to work?</h3>
 <p>For commuting and everyday rides, yes: they darken outside and clear when you arrive. For sport riding at speed, use dedicated cycling glasses with a wraparound shape.</p>

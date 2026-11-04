@@ -1,3 +1,4 @@
+import { BESPOKE_COPY } from "@/content/bespokePrices";
 /**
  * Pure per-route SEO metadata. No React, no DOM, no side effects.
  *
@@ -870,9 +871,9 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
       nl: {
         title: "Woolet Bespoke — acetaatbril op maat van je gezicht",
         description:
-          "Bespoke Italiaanse Mazzucchelli-acetaatbril, gesneden op jouw gezicht. Vier silhouetten, maten 145-160 mm. $480 met gratis wereldwijde verzending, glazen optioneel.",
+          `Bespoke Italiaanse Mazzucchelli-acetaatbril, gesneden op jouw gezicht. Vier silhouetten, maten 145-160 mm. ${BESPOKE_COPY.frame} met gratis wereldwijde verzending, glazen optioneel.`,
         noscriptHtml: `<h1>Woolet Bespoke — acetaatbril op maat</h1>
-<p>Bespoke Italiaanse Mazzucchelli-acetaatbril, gesneden op jouw gezicht, in vier silhouetten: Aviator, Rectangle, Crown Panto en Round. Maten 145-160 mm. Handgemaakt in de EU. $480 met gratis wereldwijde verzending. Glazen optioneel: Plano +$30, blauw licht +$84, of alleen het montuur voor je opticien.</p>`,
+<p>Bespoke Italiaanse Mazzucchelli-acetaatbril, gesneden op jouw gezicht, in vier silhouetten: Aviator, Rectangle, Crown Panto en Round. Maten 145-160 mm. Handgemaakt in de EU. ${BESPOKE_COPY.frame} met gratis wereldwijde verzending. Glazen optioneel: Plano ${BESPOKE_COPY.plano}, blauw licht ${BESPOKE_COPY.blueLight}, of alleen het montuur voor je opticien.</p>`,
       },
       fr: {
         title: "Woolet Bespoke — lunettes en acétate sur mesure, taillées pour votre visage",
@@ -1146,7 +1147,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
       description:
         "UV400 sunglasses for big heads: 158 mm front, 25–26 mm bridge, 150 mm temples, Italian Mazzucchelli acetate. $210. Built for 155 mm+ faces.",
       noscriptHtml: `<h1>Oversized Sunglasses for Men</h1>
-<p>Properly oversized men's sunglasses for wide faces (155 mm+). 158 mm front width, 25–26 mm keyhole bridge, 150 mm temples, Italian Mazzucchelli acetate, hand made in EU. Two shapes (Woolet 007 round, 009 soft square), $210 with UV400 sun lenses. Bespoke 145–160 mm from $480. See all <a href="/en/collections/big-glasses-frames">oversized glasses</a>.</p>`,
+<p>Properly oversized men's sunglasses for wide faces (155 mm+). 158 mm front width, 25–26 mm keyhole bridge, 150 mm temples, Italian Mazzucchelli acetate, hand made in EU. Two shapes (Woolet 007 round, 009 soft square), $210 with UV400 sun lenses. Bespoke 145–160 mm from ${BESPOKE_COPY.frame}. See all <a href="/en/collections/big-glasses-frames">oversized glasses</a>.</p>`,
     });
   }
   if (path === "/collections/sunglasses-for-big-heads") {

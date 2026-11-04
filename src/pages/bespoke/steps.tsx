@@ -1,3 +1,4 @@
+import { engravingPrice, lensPrice, usePriceTable } from "@/lib/bespoke-pricing";
 import { PayMeasureNotice } from "@/components/bespoke/PayMeasureNotice";
 import type { PatternRender } from "@/lib/bespoke-pattern-renders";
 import FramedRender from "@/components/bespoke/FramedRender";
@@ -1760,6 +1761,7 @@ export function StepTempleLength({ config, update }: StepProps) {
 
 /* ───── Step 4 · Engraving ───── */
 export function StepEngraving({ config, update }: StepProps) {
+  const prices = usePriceTable();
   const remaining = ENGRAVING_MAX_CHARS - config.engravingText.length;
 
   const enable = () => {
@@ -1777,7 +1779,7 @@ export function StepEngraving({ config, update }: StepProps) {
     <div className="space-y-8">
       <header>
         <div className={sectionKicker}>Step 4 — Engraving</div>
-        <h2 className={sectionTitle}>Write your name on the frame <span className="text-cream-dim text-base ml-2">{formatAddOn(ENGRAVING_FEE_EUR)} · optional</span></h2>
+        <h2 className={sectionTitle}>Write your name on the frame <span className="text-cream-dim text-base ml-2">{formatAddOn(engravingPrice(prices))} · optional</span></h2>
         <p className="text-cream-dim mt-2 max-w-xl text-sm leading-relaxed">
           CNC-engraved on the inner left temple by our European atelier. Permanent and non-returnable. Adds 2–3 days to production. The right temple always carries the Woolet logo.
         </p>
@@ -1809,7 +1811,7 @@ export function StepEngraving({ config, update }: StepProps) {
           />
           <div className="flex items-baseline justify-between gap-2">
             <span className="text-cream text-base">Add engraving</span>
-            <span className="text-gold-light text-[0.78rem]">{formatAddOn(ENGRAVING_FEE_EUR)}</span>
+            <span className="text-gold-light text-[0.78rem]">{formatAddOn(engravingPrice(prices))}</span>
           </div>
           <p className="text-cream-dim text-[0.8rem] leading-relaxed mt-2">Your name, initials or a date on the inner left temple.</p>
         </label>
@@ -2053,6 +2055,7 @@ function ReadingStrengthPanel({ config, update }: StepProps) {
 
 /* ───── Step 5 ───── */
 export function StepLenses({ config, update }: StepProps) {
+  const prices = usePriceTable();
   return (
     <div className="space-y-10">
       <header>
@@ -2111,7 +2114,7 @@ export function StepLenses({ config, update }: StepProps) {
                     <span className="text-cream text-sm whitespace-normal">{l.name}</span>
                     {active && <Check size={15} className="text-gold-light shrink-0" aria-hidden />}
                     <span className="text-gold-light text-xs shrink-0">
-                      {l.priceEur > 0 ? formatAddOn(l.priceEur) : "Free"}
+                      {lensPrice(prices, l.id) > 0 ? formatAddOn(lensPrice(prices, l.id)) : "Free"}
                     </span>
                   </div>
                   <div className="text-cream-dim text-[0.72rem] mt-1">{l.description}</div>
@@ -2142,6 +2145,7 @@ export function StepReview({
   saved: boolean;
   onEdit: (step: number) => void;
 }) {
+  const prices = usePriceTable();
   const [payPending, setPayPending] = useState(false);
   const [cardPending, setCardPending] = useState(false);
   const [cardError, setCardError] = useState<string | null>(null);
@@ -2151,7 +2155,8 @@ export function StepReview({
   const finish = FINISHES.find((f) => f.id === config.finishId);
   const lens = LENS_TYPES.find((l) => l.id === config.lensTypeId);
 
-  const { engravingEur, lensEur, totalEur: total } = computePricing(config);
+  const pricing = computePricing(config, prices);
+  const { engravingEur, lensEur, totalEur: total } = pricing;
 
   const navigate = useNavigate();
 
@@ -2227,10 +2232,10 @@ export function StepReview({
         <Row step={2} label="Front acetate" value={front ? <span className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: front.hex }} /> {front.name}</span> : null} />
         <Row step={2} label="Temple acetate" value={temple ? <span className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: temple.hex }} /> {temple.name}</span> : null} />
         <Row step={2} label="Finish" value={finish?.name} />
-        <Row step={4} label="Engraving" value={hasEngraving(config) ? `"${config.engravingText.trim()}" · ${formatAddOn(ENGRAVING_FEE_EUR)}` : "—"} />
+        <Row step={4} label="Engraving" value={hasEngraving(config) ? `"${config.engravingText.trim()}" · ${formatAddOn(engravingPrice(prices))}` : "—"} />
         <Row
           step={5} label="Lenses"
-          value={lens ? <span className="inline-flex items-center justify-end gap-2">{selectedLensTint(config) && <span className="w-3 h-3 shrink-0 rounded-full border border-cream/20" style={{ background: selectedLensTint(config)?.hex }} />}{formatLensWithStrength(lens.name, config)} · {formatAddOn(lens.priceEur)}</span> : null}
+          value={lens ? <span className="inline-flex items-center justify-end gap-2">{selectedLensTint(config) && <span className="w-3 h-3 shrink-0 rounded-full border border-cream/20" style={{ background: selectedLensTint(config)?.hex }} />}{formatLensWithStrength(lens.name, config)} · {formatAddOn(lensPrice(prices, lens.id))}</span> : null}
         />
         <div className="flex items-baseline justify-between gap-4 py-3 border-b border-cream/10"><span className="text-cream-dim text-xs uppercase tracking-[0.16em]">Shipping</span><span className="text-gold-light text-sm">Free · worldwide</span></div>
         <div className="flex items-baseline justify-between gap-4 py-4">
@@ -2244,7 +2249,7 @@ export function StepReview({
       </div>
 
       <div className="space-y-2 text-sm text-cream-dim" aria-label="Price breakdown">
-        <div className="flex justify-between gap-4"><span>Bespoke frame</span><span>{formatEur(computePricing(config).basePriceEur)}</span></div>
+        <div className="flex justify-between gap-4"><span>Bespoke frame</span><span>{formatEur(pricing.basePriceEur)}</span></div>
         {engravingEur > 0 && <div className="flex justify-between gap-4"><span>Engraving</span><span>{formatAddOn(engravingEur)}</span></div>}
         {lensEur > 0 && <div className="flex justify-between gap-4"><span>{lens?.name}</span><span>{formatAddOn(lensEur)}</span></div>}
       </div>

@@ -1,3 +1,4 @@
+import { refreshBespokePrices, usePriceTable } from "@/lib/bespoke-pricing";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { getGaCheckoutMetadataAsync } from "@/lib/ga-ids";
 import { getOppref, oaiqBespokeCheckoutStarted, oaiqBespokeOrderCreated, oaiqIdentifyHash } from "@/lib/openai-pixel";
@@ -40,8 +41,6 @@ import { BESPOKE_DISCOVERY_SOURCES, isBespokeDiscoverySource, type BespokeDiscov
 
 const PURCHASE_TRACKED_KEY = "woolet_bespoke_purchase_tracked_v1";
 
-// Client-side mirror of the server coupon table (server is the source of truth).
-const COUPONS: Record<string, number> = { KICKSTARTER2026: 40, MAREK: 100 };
 
 const SummaryRow = ({ label, value }: { label: string; value: React.ReactNode }) => (
   <div className="flex items-baseline justify-between gap-4 py-2.5 border-b border-cream/10 last:border-b-0">
@@ -57,7 +56,9 @@ export default function BespokeCheckout() {
   const { session } = useAuth();
   const isSignedIn = Boolean(session);
   const { config } = useBespokeConfig();
-  const pricing = computePricing(config);
+  // Live prices: the summary and the Stripe session follow any price change.
+  const prices = usePriceTable();
+  const pricing = computePricing(config, prices);
 
   const frame = findFrame(config.frameId);
   const front = COLORS.find((c) => c.id === config.frontColorId);
@@ -87,13 +88,15 @@ export default function BespokeCheckout() {
   // --- Coupon -----------------------------------------------------------
   const [couponInput, setCouponInput] = useState("");
   const [appliedCoupon, setAppliedCoupon] = useState<string | null>(null);
+  // Percent off as confirmed by the server (coupons live in table bespoke_coupons).
+  const [couponPercent, setCouponPercent] = useState(0);
+  const [couponChecking, setCouponChecking] = useState(false);
   const [couponError, setCouponError] = useState<string | null>(null);
   const [source, setSource] = useState<BespokeDiscoverySource | "">(() => {
     try { const saved = localStorage.getItem("wlt_bespoke_source"); return isBespokeDiscoverySource(saved) ? saved : ""; }
     catch { return ""; }
   });
   const [sourceError, setSourceError] = useState(false);
-  const couponPercent = appliedCoupon ? COUPONS[appliedCoupon] ?? 0 : 0;
   useEffect(() => {
     const refresh = () => {
       setAiPreviewUrl(resolvePreview());
@@ -315,6 +318,12 @@ export default function BespokeCheckout() {
 
     const { data, error } = await supabase.functions.invoke("create-bespoke-checkout", {
       body: {
+        // The server prices the selection itself; amountUsd is only a cross-check.
+        selection: {
+          frameId: frame?.id ?? config.frameId,
+          lensTypeId: config.lensTypeId ?? "none",
+          engraving: hasEngraving(config),
+        },
         amountUsd: pricing.totalEur,
         couponCode: appliedCoupon ?? undefined,
         productName,
@@ -337,9 +346,14 @@ export default function BespokeCheckout() {
         data.sessionId,
       );
     }
+    // Price changed between page load and checkout: pull the new table so the
+    // summary matches what Stripe shows.
+    if (typeof data.listPriceUsd === "number" && data.listPriceUsd !== pricing.totalEur) {
+      void refreshBespokePrices();
+    }
     return data.clientSecret as string;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pricing.totalEur, productName, description, returnUrl, buildEventPayload, appliedCoupon, source]);
+  }, [pricing.totalEur, config.lensTypeId, config.frameId, productName, description, returnUrl, buildEventPayload, appliedCoupon, source]);
 
   return (
     <>
@@ -425,7 +439,7 @@ export default function BespokeCheckout() {
 
                 {source ? (
                   <div className="bg-white text-[#0B0A09] overflow-hidden" style={{ borderRadius: 4 }}>
-                    <EmbeddedCheckoutProvider key={`${appliedCoupon ?? "no-coupon"}:${source}`} stripe={getStripe()} options={{ fetchClientSecret }}>
+                    <EmbeddedCheckoutProvider key={`${appliedCoupon ?? "no-coupon"}:${source}:${pricing.totalEur}`} stripe={getStripe()} options={{ fetchClientSecret }}>
                       <EmbeddedCheckout />
                     </EmbeddedCheckoutProvider>
                   </div>
@@ -611,7 +625,7 @@ export default function BespokeCheckout() {
                           </span>
                           <button
                             type="button"
-                            onClick={() => { setAppliedCoupon(null); setCouponInput(""); }}
+                            onClick={() => { setAppliedCoupon(null); setCouponPercent(0); setCouponInput(""); }}
                             className="text-cream-dim hover:text-cream text-[10px] uppercase tracking-[0.16em] underline underline-offset-4"
                           >
                             Remove
@@ -620,15 +634,22 @@ export default function BespokeCheckout() {
                       ) : (
                         <form
                           className="mt-2 flex gap-2"
-                          onSubmit={(e) => {
+                          onSubmit={async (e) => {
                             e.preventDefault();
                             const code = couponInput.trim().toUpperCase();
-                            if (!code) return;
-                            if (!COUPONS[code]) {
+                            if (!code || couponChecking) return;
+                            setCouponChecking(true);
+                            const { data, error } = await supabase.functions.invoke("create-bespoke-checkout", {
+                              body: { action: "validate_coupon", couponCode: code },
+                            });
+                            setCouponChecking(false);
+                            const percent = Number(data?.percentOff);
+                            if (error || !data?.valid || !Number.isFinite(percent)) {
                               setCouponError("This code isn’t valid.");
                               return;
                             }
                             setCouponError(null);
+                            setCouponPercent(percent);
                             setAppliedCoupon(code);
                             pushGtmEvent("coupon_applied", buildEventPayload({ coupon_code: code }));
                           }}

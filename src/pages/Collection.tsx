@@ -1,3 +1,4 @@
+import { BESPOKE_COPY } from "@/content/bespokePrices";
 import { hrefFor } from "@/i18n/routeRegistry";
 import { useParams, Link } from "react-router-dom";
 import NotFound from "@/pages/NotFound";
@@ -280,7 +281,7 @@ const Collection = () => {
                           {f.name}
                         </div>
                         <div className="font-display text-gold-light" style={{ fontSize: 17, fontWeight: 400 }}>
-                          $480
+                          {BESPOKE_COPY.frame}
                         </div>
                       </div>
                       <div className="text-cream-dim/80 mt-1" style={{ fontSize: 11, letterSpacing: "0.16em", textTransform: "uppercase" }}>

@@ -36,7 +36,7 @@ export default defineTool({
         widthMm: "145–160 (cut to face)",
         bridgeMm: "custom",
         preOrderUsd: 480,
-        regularUsd: 480,
+        regularUsd: 480, // keep = BESPOKE_PRICES.frameUsd (literal: this file is bundled into a Deno function)
         url: "https://woolet.co/en/bespoke",
       },
     ];

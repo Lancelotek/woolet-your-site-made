@@ -1,4 +1,14 @@
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.4";
 import { type StripeEnv, createStripeClient } from "../_shared/stripe.ts";
+import {
+  BESPOKE_FRAME_IDS,
+  BESPOKE_LENS_IDS,
+  applyPercentOff,
+  mergePriceRows,
+  quoteBespoke,
+  type BespokeSelection,
+  type PriceTable,
+} from "../_shared/bespoke-pricing.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -7,7 +17,11 @@ const corsHeaders = {
 };
 
 interface Body {
-  amountUsd: number; // total price in dollars (e.g. 500)
+  action?: "checkout" | "validate_coupon";
+  /** What the buyer configured. The server prices it from table bespoke_pricing. */
+  selection?: BespokeSelection;
+  /** Total the browser displayed. Cross-check only - never charged. */
+  amountUsd?: number;
   productName: string; // e.g. "Woolet Bespoke — Aviator"
   description?: string; // longer description for the buyer
   customerEmail?: string;
@@ -17,13 +31,43 @@ interface Body {
   couponCode?: string;
 }
 
-// Server-side coupon table — never trust a client-supplied discount.
-const COUPONS: Record<string, { percentOff: number }> = {
-  KICKSTARTER2026: { percentOff: 40 },
-  // Internal end-to-end test code. Stripe cannot charge $0, so the order is
-  // created at the $1 platform minimum.
-  MAREK: { percentOff: 100 },
-};
+const SUPABASE_URL = Deno.env.get("SUPABASE_URL") ?? "";
+const SERVICE_ROLE = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
+
+// Used only when table bespoke_coupons cannot be read (e.g. before the
+// migration lands). The table is the source of truth.
+const FALLBACK_COUPONS: Record<string, number> = { KICKSTARTER2026: 40 };
+
+const db = () => (SUPABASE_URL && SERVICE_ROLE ? createClient(SUPABASE_URL, SERVICE_ROLE, { auth: { persistSession: false } }) : null);
+
+async function loadPrices(): Promise<{ table: PriceTable; source: "db" | "defaults" }> {
+  const client = db();
+  if (!client) return { table: mergePriceRows([]), source: "defaults" };
+  const { data, error } = await client.from("bespoke_pricing").select("key, amount_usd");
+  if (error || !Array.isArray(data)) {
+    console.warn("[create-bespoke-checkout] price table unavailable, using defaults:", error?.message);
+    return { table: mergePriceRows([]), source: "defaults" };
+  }
+  return { table: mergePriceRows(data), source: "db" };
+}
+
+async function findCoupon(code: string): Promise<number | null> {
+  if (!code) return null;
+  const client = db();
+  if (client) {
+    const { data, error } = await client
+      .from("bespoke_coupons")
+      .select("percent_off, active")
+      .eq("code", code)
+      .maybeSingle();
+    if (!error) {
+      const pct = Number(data?.percent_off);
+      return data?.active && Number.isFinite(pct) && pct > 0 && pct <= 100 ? pct : null;
+    }
+    console.warn("[create-bespoke-checkout] coupon table unavailable, using fallback:", error.message);
+  }
+  return FALLBACK_COUPONS[code] ?? null;
+}
 
 const DISCOVERY_SOURCES = new Set([
   "ChatGPT", "Other AI assistant (Perplexity, Gemini, Claude)", "Google", "Instagram",
@@ -41,9 +85,20 @@ Deno.serve(async (req) => {
 
   try {
     const body = (await req.json()) as Body;
-    if (typeof body?.amountUsd !== "number" || body.amountUsd < 1 || body.amountUsd > 10000) {
-      throw new Error("Invalid amountUsd");
+    const couponKey = (body?.couponCode ?? "").trim().toUpperCase().slice(0, 40);
+
+    if (body?.action === "validate_coupon") {
+      const percentOff = await findCoupon(couponKey);
+      return new Response(JSON.stringify({ valid: percentOff !== null, percentOff: percentOff ?? 0 }), {
+        status: 200,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
+
+    const sel = body?.selection;
+    if (!sel || typeof sel !== "object") throw new Error("Missing selection");
+    if (!(BESPOKE_FRAME_IDS as readonly string[]).includes(sel.frameId)) throw new Error("Invalid frame");
+    if (!(BESPOKE_LENS_IDS as readonly string[]).includes(sel.lensTypeId)) throw new Error("Invalid lens option");
     if (!body?.productName || body.productName.length > 200) {
       throw new Error("Invalid productName");
     }
@@ -56,14 +111,19 @@ Deno.serve(async (req) => {
 
     const stripe = createStripeClient(body.environment);
 
-    const couponKey = (body.couponCode ?? "").trim().toUpperCase().slice(0, 40);
-    const coupon = couponKey ? COUPONS[couponKey] : undefined;
-    if (couponKey && !coupon) throw new Error("Invalid coupon code");
+    const percentOff = couponKey ? await findCoupon(couponKey) : null;
+    if (couponKey && percentOff === null) throw new Error("Invalid coupon code");
 
-    const grossCents = Math.round(body.amountUsd * 100);
-    const amountInCents = coupon
-      ? Math.max(100, Math.round((grossCents * (100 - coupon.percentOff)) / 100))
-      : grossCents;
+    // The charge is priced here, from the live table - never from the browser.
+    const { table, source: priceSource } = await loadPrices();
+    const quote = quoteBespoke(table, { frameId: sel.frameId, lensTypeId: sel.lensTypeId, engraving: Boolean(sel.engraving) });
+    const grossCents = Math.round(quote.totalUsd * 100);
+    const amountInCents = percentOff ? applyPercentOff(grossCents, percentOff) : grossCents;
+    if (amountInCents < 100) throw new Error("Invalid amount");
+
+    if (typeof body.amountUsd === "number" && Math.round(body.amountUsd * 100) !== grossCents) {
+      console.warn(`[create-bespoke-checkout] browser showed $${body.amountUsd}, charging list $${quote.totalUsd}`);
+    }
 
     const cleanMeta: Record<string, string> = { flow: "bespoke" };
     if (body.metadata) {
@@ -75,10 +135,15 @@ Deno.serve(async (req) => {
       throw new Error("Invalid discovery source");
     }
 
-    if (coupon) {
+    cleanMeta.list_price_usd = (grossCents / 100).toFixed(2);
+    // Frame / lens / engraving split, e.g. "480+30+10". Stripe allows 50 keys, so one key.
+    cleanMeta.price_breakdown_usd = `${quote.baseUsd}+${quote.lensUsd}+${quote.engravingUsd} (${priceSource})`;
+    if (typeof body.amountUsd === "number" && Math.round(body.amountUsd * 100) !== grossCents) {
+      cleanMeta.client_amount_usd = body.amountUsd.toFixed(2);
+    }
+    if (percentOff) {
       cleanMeta.coupon_code = couponKey;
-      cleanMeta.coupon_percent_off = String(coupon.percentOff);
-      cleanMeta.list_price_usd = (grossCents / 100).toFixed(2);
+      cleanMeta.coupon_percent_off = String(percentOff);
     }
 
     // Buyer IP capture (for Meta CAPI in payments-webhook).
@@ -104,7 +169,7 @@ Deno.serve(async (req) => {
           price_data: {
             currency: "usd",
             product_data: {
-              name: coupon ? `${body.productName} (${coupon.percentOff}% off · ${couponKey})` : body.productName,
+              name: percentOff ? `${body.productName} (${percentOff}% off · ${couponKey})` : body.productName,
               ...(body.description && { description: body.description.slice(0, 500) }),
             },
             unit_amount: amountInCents,
@@ -123,7 +188,7 @@ Deno.serve(async (req) => {
       metadata: cleanMeta,
     });
 
-    return new Response(JSON.stringify({ clientSecret: session.client_secret, sessionId: session.id, amountCents: amountInCents }), {
+    return new Response(JSON.stringify({ clientSecret: session.client_secret, sessionId: session.id, amountCents: amountInCents, listPriceUsd: quote.totalUsd }), {
       status: 200,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });

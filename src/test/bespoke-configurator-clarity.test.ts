@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { computePricing, INITIAL_CONFIG } from "@/lib/bespoke-state";
-import { LENS_TYPES } from "@/data/bespoke-options";
+import { ACTIVE_LENS_TYPES } from "@/data/bespoke-options";
 import { selectPatternRenders } from "@/lib/bespoke-pattern-renders";
 import { trackBespokeFunnel } from "@/pages/bespoke/cfg-shell";
 
@@ -9,7 +9,8 @@ describe("Bespoke configurator clarity", () => {
     expect(computePricing(INITIAL_CONFIG).totalEur).toBe(480);
   });
 
-  it.each(LENS_TYPES)("itemizes $name without hidden acetate/finish charges", (lens) => {
+  // Retired lens options cannot be ordered (checkout rejects them), so only active ones are priced.
+  it.each(ACTIVE_LENS_TYPES)("itemizes $name without hidden acetate/finish charges", (lens) => {
     const price = computePricing({ ...INITIAL_CONFIG, frameId: "round", frontColorId: "a332-1203", finishId: "brushed", lensTypeId: lens.id, engravingEnabled: true, engravingText: "MC" });
     expect(price.basePriceEur).toBe(480);
     expect(price.engravingEur).toBe(10);

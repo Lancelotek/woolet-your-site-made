@@ -2,6 +2,7 @@
 // references — the frame is cut to the buyer's measurements after payment.
 
 import aviatorImg from "@/assets/configurator/frames/aviator-reference.jpg.asset.json";
+import { BESPOKE_PRICES } from "@/content/bespokePrices";
 import rectangleImg from "@/assets/configurator/frames/rectangle.png.asset.json";
 import crownPantoImg from "@/assets/configurator/frames/crown-panto.png.asset.json";
 import roundImg from "@/assets/configurator/frames/round.png.asset.json";
@@ -23,7 +24,8 @@ export interface Frame {
   bridgeMm: number;
 }
 
-const BASE = 480;
+// Default only - live frame price comes from table `bespoke_pricing`.
+const BASE = BESPOKE_PRICES.frameUsd;
 
 const FRAMES_BASE: Omit<Frame, "gallery">[] = [
   { id: "aviator",     name: "Aviator",     shape: "Aviator",     url: aviatorImg.url,    basePriceEur: BASE, widthMm: 158, bridgeMm: 22 },
