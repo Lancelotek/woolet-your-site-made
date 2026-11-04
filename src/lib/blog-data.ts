@@ -199,7 +199,7 @@ ${blogFitLensHookHtml()}
     <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Under 140 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">135–142 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Any mainstream retailer. Nothing here applies to you.</td></tr>
     <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">140–154 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">142–154 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Extended-fit lines, or Woolet bespoke from 145 mm. Signature 158 mm is too wide.</td></tr>
     <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;"><strong>155–161 mm</strong></td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;"><strong>158 mm</strong></td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">The Woolet signature range. <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> or <a href="/en/products/009" style="color:#A07A2A;">009 Soft-Square</a>, both cut at 158 mm.</td></tr>
-<tr><td style="padding:10px 12px;">Above 161 mm</td><td style="padding:10px 12px;">Widest Woolet front is 160 mm (bespoke); measure first</td><td style="padding:10px 12px;">Bespoke only, within the 145–160 mm range. Above 160 mm we do not build.</td></tr>
+<tr><td style="padding:10px 12px;">Above 161 mm</td><td style="padding:10px 12px;">No stock or bespoke frame yet - email support@woolet.co and we will advise</td><td style="padding:10px 12px;">Bespoke only, within the 145–160 mm range. Above 160 mm we do not build.</td></tr>
   </tbody>
 </table>
 
@@ -771,7 +771,7 @@ ${blogFitLensHookHtml()}
     <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Under 140 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">135–142 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Standard</td></tr>
     <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">140–154 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">142–154 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Large / extended fit</td></tr>
     <tr style="background:#FBF7EE;"><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;"><strong>155–161 mm</strong></td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;"><strong>158 mm</strong></td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Wide — <a href="/en/size/158mm" style="color:#A07A2A;">Woolet signature</a></td></tr>
-<tr><td style="padding:10px 12px;">Above 161 mm</td><td style="padding:10px 12px;">Widest Woolet front is 160 mm (bespoke); measure first</td><td style="padding:10px 12px;">Bespoke (145–160 mm)</td></tr>
+<tr><td style="padding:10px 12px;">Above 161 mm</td><td style="padding:10px 12px;">No stock or bespoke frame yet - email support@woolet.co and we will advise</td><td style="padding:10px 12px;">Bespoke (145–160 mm)</td></tr>
   </tbody>
 </table>
 
