@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { DEFAULT_TEMPLE_LENGTH_MM, ENGRAVING_FEE_EUR, findLensTint, findSunTint, isValidTempleLength, LENS_TYPES, resolveActiveColorId, type LensTint, type MeasurementKey, type ReadingStrength } from "@/data/bespoke-options";
+import { DEFAULT_TEMPLE_LENGTH_MM, ENGRAVING_FEE_EUR, findLensTint, findSunTint, isValidTempleLength, ACTIVE_LENS_TYPES, LENS_TYPES, resolveActiveColorId, type LensTint, type MeasurementKey, type ReadingStrength } from "@/data/bespoke-options";
 import { findFrame } from "@/data/frames";
 
 export type Measurements = Partial<Record<MeasurementKey, number>>;
@@ -104,7 +104,8 @@ const loadInitial = (): BespokeConfig => {
     if (!raw) return INITIAL_CONFIG;
     const parsed = JSON.parse(raw) as BespokeConfig;
     const next = clearLegacyEngraving({ ...INITIAL_CONFIG, ...parsed });
-    if (!["plano", "blue-light", "reading", "photochromic", "sun-uv400"].includes(next.lensTypeId ?? "")) {
+    // Only lens options still offered survive a restored session; retired ones are picked again.
+    if (!ACTIVE_LENS_TYPES.some((l) => l.id === next.lensTypeId)) {
       next.lensTypeId = null;
       next.lensMaterialId = null;
       next.lensCoatingId = null;
@@ -259,6 +260,7 @@ export const formatLensWithStrength = (lensName: string, config: BespokeConfig):
  *  e.g. "Photochromic / Transition · Espresso Brown (PH-BRN)". */
 export const lensOrderValue = (lensName: string, config: BespokeConfig): string => {
   const tint = selectedLensTint(config);
+  if (config.lensTypeId === "none") return "No lenses (frame only)";
   if (config.lensTypeId === "plano") return `${lensName} (no Rx)`;
   return tint ? `${lensName} - ${tint.name} (${tint.code})` : lensName;
 };

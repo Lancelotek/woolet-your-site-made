@@ -204,7 +204,7 @@ const ConfiguratorPage = () => {
     const key = previewKey;
     let cancelled = false;
     const t = window.setTimeout(async () => {
-      if (config.lensTypeId && config.lensTypeId !== "plano") {
+      if (config.lensTypeId && config.lensTypeId !== "plano" && config.lensTypeId !== "none") {
         const lensHit = await lookupCachedRender(renderConfig, true);
         if (cancelled) return;
         if (lensHit) { rememberRender(lensKey, lensHit.imageUrl); setAiPreviewUrl(lensHit.imageUrl); trackBespokeFunnel("bespoke_preview_shown", { status: "cached" }); return; }
