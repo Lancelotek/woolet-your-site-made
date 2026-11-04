@@ -469,7 +469,7 @@ const ProductTabs = () => {
         {tab === "fit" && (
           <p>
             Woolet is built for faces measuring 155 mm or more temple-to-temple. If your face is between 155 and
-161 mm, the standard 007 or 009 will fit. If you're outside that range, bespoke covers 145–160 mm.
+ mm, the standard 007 or 009 will fit. If you're outside that range, bespoke covers 145–160 mm.
             Run the AI Fit Wizard from a single front-on photo to know for sure.
           </p>
         )}

@@ -21,8 +21,7 @@ const SIZE_ROWS: Array<{
 const FAQS = [
   {
     q: "How do I know if I need bespoke instead of stock?",
-    a: "Run the AI Fit Scan. If it returns a face width between 155 and
-161 mm with a 25-26 mm bridge, stock Woolet 007 or 009 may fit. Below 155 mm, or with a bridge outside 25-26 mm, Bespoke may be a better fit within its available range.",
+    a: "Run the AI Fit Scan. If it returns a face width between 155 and 161 mm with a 25-26 mm bridge, stock Woolet 007 or 009 may fit. Below 155 mm, or with a bridge outside 25-26 mm, Bespoke may be a better fit within its available range.",
   },
   {
     q: "What does bespoke actually control?",
