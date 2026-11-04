@@ -75,13 +75,14 @@ const RESULTS: Record<Band, {
     title: "Average width — you have plenty of options",
     range: "138–154 mm temple-to-temple",
     honest:
-      "Every mainstream brand builds for you. Woolet's 158 mm will feel one size too big on most of this range. If you're at the top end (150–154 mm) and standard frames still pinch, look at Ray-Ban Large, Persol's wider models, or Moscot Lemtosh XL first.",
+      "Every mainstream brand builds for you. Woolet's 158 mm will feel one size too big on most of this range. If you're at 145–154 mm and standard frames still pinch, Woolet Bespoke is made to your exact width (145–160 mm).",
     cta: { label: "Measure precisely with AI Fit Wizard", href: "/en/fit" },
+    secondary: { label: "Explore Woolet Bespoke", href: "/en/bespoke" },
     tone: "muted",
   },
   wide: {
     title: "Wide face — this is the Woolet range",
-    range: "153–163 mm temple-to-temple",
+    range: "155–161 mm temple-to-temple",
     honest:
       "This is exactly what Woolet 007 and 009 are engineered for: 158 mm front, 25–26 mm keyhole bridge, Italian Mazzucchelli acetate. Mainstream brands stop right before your face begins.",
     cta: { label: "See Woolet 007 & 009", href: "/en/collection" },
@@ -89,11 +90,11 @@ const RESULTS: Record<Band, {
     tone: "match",
   },
   "extra-wide": {
-    title: "Extra-wide face — bespoke territory",
+    title: "Wide face, beyond our current range",
     range: "162 mm and above",
     honest:
-      "Even our stock 158 mm will bow at the temples. Woolet Bespoke is cut to your exact face width (up to 160 mm) and bridge (20–26 mm), using Italian acetate and hand made in the EU.",
-    cta: { label: "Explore Woolet Bespoke", href: "/en/bespoke" },
+      "Our widest frame today is 160 mm, so neither stock nor bespoke would fit you honestly. Email us at support@woolet.co or join the list and we'll advise you personally.",
+    cta: { label: "Email support@woolet.co", href: "mailto:support@woolet.co" },
     secondary: { label: "Measure first with AI Fit Wizard", href: "/en/fit" },
     tone: "bespoke",
   },

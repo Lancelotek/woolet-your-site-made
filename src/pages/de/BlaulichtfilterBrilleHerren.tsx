@@ -82,7 +82,7 @@ const faqs = [
   },
   {
     q: "Gibt es Blaulichtfilter-Brillen in XXL für Herren?",
-    a: `Ja. Beide Herrenmodelle — 007 Rund und 009 Soft Square — haben ${S007.frameWidth} mm Frontbreite, was etwa 58–62 cm Kopfumfang abdeckt. Der Blaulichtfilter ist bei beiden eine Glasoption. Die Maßanfertigung deckt 145 bis 160 mm ab — für schmalere Gesichter oder eine andere Form bzw. Farbe. Über 163 mm Gesichtsbreite: schreib an support@woolet.co.`,
+    a: `Ja. Beide Herrenmodelle — 007 Rund und 009 Soft Square — haben ${S007.frameWidth} mm Frontbreite, was etwa 58–62 cm Kopfumfang abdeckt. Der Blaulichtfilter ist bei beiden eine Glasoption. Die Maßanfertigung deckt 145 bis 160 mm ab — für schmalere Gesichter oder eine andere Form bzw. Farbe. Über 161 mm Gesichtsbreite: schreib an support@woolet.co.`,
   },
   {
     q: "Wie breit ist die Woolet-Fassung genau?",
@@ -98,7 +98,7 @@ const faqs = [
   },
   {
     q: "Woher weiß ich, ob 158 mm zu mir passen?",
-    a: "158 mm passen typischerweise bei 153–163 mm Gesichtsbreite. Miss mit einem Lineal vor dem Spiegel von Schläfe zu Schläfe, oder lass FitLens das mit der Handykamera erledigen — rund eine Minute. Außerhalb von 153–163 mm greift die Maßanfertigung von 145 bis 160 mm.",
+    a: "158 mm passen typischerweise bei 155–161 mm Gesichtsbreite. Miss mit einem Lineal vor dem Spiegel von Schläfe zu Schläfe, oder lass FitLens das mit der Handykamera erledigen — rund eine Minute. Außerhalb von 155–161 mm greift die Maßanfertigung von 145 bis 160 mm.",
   },
 ];
 
@@ -409,7 +409,7 @@ const BlaulichtfilterBrilleHerren = () => {
             >
               <div style={{ fontFamily: SERIF, fontSize: 20, marginBottom: 6 }}>Maßanfertigung — 145 bis 160 mm</div>
               <div style={{ fontSize: 13, color: "rgba(237,231,217,0.7)", lineHeight: 1.55, marginBottom: 12 }}>
-                Außerhalb von 153–163 mm? Gleiches Mazzucchelli-Acetat, deine Frontbreite, handgefertigt in der EU.
+                Außerhalb von 155–161 mm? Gleiches Mazzucchelli-Acetat, deine Frontbreite, handgefertigt in der EU.
               </div>
               <span style={{ fontSize: 11, color: T.gold, letterSpacing: "1.5px", textTransform: "uppercase" }}>Maßanfertigung ansehen →</span>
             </Link>

@@ -44,7 +44,7 @@ const STEPS = [
   {
     n: "02",
     title: "Pledge at $114",
-    body: "Your $1 is credited to the pledge. Pick 007 Round or 009 Soft Square, in Black, Havana or Silver Clear.",
+    body: "Your $1 is credited to the pledge. Pick 007 Round or 009 Soft Square, in Black, Havana or Silver Clear. The Founder Edition 009 has a 24 mm bridge (54-24-150).",
   },
   {
     n: "03",
@@ -141,14 +141,14 @@ export default function ThankYouReserved() {
       section("WHAT HAPPENS NEXT", [
         "1. Launch day: you get a private pledge link by email, before the public sees the page.",
         "2. Pledge at your founder price. Your $1 is credited to the pledge.",
-        "3. Pick your shape and colour: 007 Round or 009 Soft Square, Black, Havana or Silver Clear.",
+        "3. Pick your shape and colour: 007 Round or 009 Soft Square, Black, Havana or Silver Clear. Founder Edition 009: 24 mm bridge (54-24-150).",
         "4. Frames ship after the campaign, in the box with the felt case.",
       ]);
 
       section(
         "THE NUMBERS",
         [
-          "Front width 158 mm · fit range 153-163 mm · Italian Mazzucchelli acetate · hand made in EU",
+          "Front width 158 mm · fit range 155-161 mm · Italian Mazzucchelli acetate · hand made in EU",
           "Not sure about your width? Twenty seconds with your phone camera: woolet.co/en/fit",
         ],
         true,

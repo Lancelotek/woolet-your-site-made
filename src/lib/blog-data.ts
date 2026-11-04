@@ -199,7 +199,7 @@ ${blogFitLensHookHtml()}
     <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Under 140 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">135–142 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Any mainstream retailer. Nothing here applies to you.</td></tr>
     <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">140–154 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">142–154 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Extended-fit lines, or Woolet bespoke from 145 mm. Signature 158 mm is too wide.</td></tr>
     <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;"><strong>155–161 mm</strong></td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;"><strong>158 mm</strong></td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">The Woolet signature range. <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> or <a href="/en/products/009" style="color:#A07A2A;">009 Soft-Square</a>, both cut at 158 mm.</td></tr>
-<tr><td style="padding:10px 12px;">Above 161 mm</td><td style="padding:10px 12px;">Widest Woolet front is 160 mm (bespoke); measure first</td><td style="padding:10px 12px;">Bespoke only, within the 145–160 mm range. Above 160 mm we do not build.</td></tr>
+<tr><td style="padding:10px 12px;">Above 161 mm</td><td style="padding:10px 12px;">No stock or bespoke frame yet - email support@woolet.co and we will advise</td><td style="padding:10px 12px;">Bespoke only, within the 145–160 mm range. Above 160 mm we do not build.</td></tr>
   </tbody>
 </table>
 
@@ -771,7 +771,7 @@ ${blogFitLensHookHtml()}
     <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Under 140 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">135–142 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Standard</td></tr>
     <tr><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">140–154 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">142–154 mm</td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Large / extended fit</td></tr>
     <tr style="background:#FBF7EE;"><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;"><strong>155–161 mm</strong></td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;"><strong>158 mm</strong></td><td style="padding:10px 12px;border-bottom:1px solid #F0EDE6;">Wide — <a href="/en/size/158mm" style="color:#A07A2A;">Woolet signature</a></td></tr>
-<tr><td style="padding:10px 12px;">Above 161 mm</td><td style="padding:10px 12px;">Widest Woolet front is 160 mm (bespoke); measure first</td><td style="padding:10px 12px;">Bespoke (145–160 mm)</td></tr>
+<tr><td style="padding:10px 12px;">Above 161 mm</td><td style="padding:10px 12px;">No stock or bespoke frame yet - email support@woolet.co and we will advise</td><td style="padding:10px 12px;">Bespoke (145–160 mm)</td></tr>
   </tbody>
 </table>
 
@@ -2100,7 +2100,7 @@ ${blogFitLensHookHtml()}
       },
       {
         q: "What face width counts as bespoke territory?",
-        a: "Most mainstream brands cap at 145–148 mm. Woolet's stock 158 mm frames fit faces from 155–161 mm. Within Woolet's 145–160 mm bespoke range, widths below 155 mm or above 161 mm are bespoke territory.",
+        a: "Most mainstream brands cap at 145–148 mm. Woolet's stock 158 mm frames fit faces from 155–161 mm. Within Woolet's 145–160 mm bespoke range, widths below 155 mm are bespoke territory.",
       },
       {
         q: "How much do bespoke glasses cost?",
@@ -2112,7 +2112,7 @@ ${blogFitLensHookHtml()}
       },
       {
         q: "Bespoke vs stock — how do I decide?",
-        a: "Run the AI Fit Scan first. If your face width lands between 155 and 161 mm with a 25–26 mm bridge, stock Woolet 007 or 009 will fit. If you're below 155 mm, above 161 mm, or your bridge falls outside 25–26 mm, bespoke is the only path that gets you a frame that actually fits.",
+        a: "Run the AI Fit Scan first. If your face width lands between 155 and 161 mm with a 25–26 mm bridge, stock Woolet 007 or 009 will fit. If you're below 155 mm, or your bridge falls outside 25–26 mm, bespoke is the only path that gets you a frame that actually fits.",
       },
     ],
     content: `
@@ -2122,7 +2122,7 @@ ${blogFitLensHookHtml()}
 
 <div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">In one line</div>
-  <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">Bespoke eyewear is for the faces Woolet's stock frames can't fit — below 155 mm, above 161 mm, or with a bridge outside the 25–26 mm keyhole standard. Woolet bespoke covers 145–160 mm, hand-cut from a single block of Italian Mazzucchelli acetate.</p>
+  <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">Bespoke eyewear is for the faces Woolet's stock frames can't fit — below 155 mm, or with a bridge outside the 25–26 mm keyhole standard. Woolet bespoke covers 145–160 mm, hand-cut from a single block of Italian Mazzucchelli acetate.</p>
 </div>
 
 <h2>Why Woolet Bespoke runs from 145 mm to 160 mm</h2>
@@ -2224,7 +2224,7 @@ ${blogFitLensHookHtml()}
 
 <h2>Next steps</h2>
 
-<p>Start with the <a href="/en/fit">AI Fit Scan</a> - it helps determine whether you're in stock territory (155–161 mm) or bespoke (145–154 mm, or above 161 mm up to the 160 mm bespoke maximum). If you're already certain you need bespoke, go straight to <a href="/en/fit/bespoke">the bespoke size reference</a> or <a href="/en/bespoke">explore Woolet Bespoke</a>.</p>
+<p>Start with the <a href="/en/fit">AI Fit Scan</a> - it helps determine whether you're in stock territory (155–161 mm) or bespoke (145–154 mm). If you're already certain you need bespoke, go straight to <a href="/en/fit/bespoke">the bespoke size reference</a> or <a href="/en/bespoke">explore Woolet Bespoke</a>.</p>
 
 <h2>Related articles</h2>
 <ul>
@@ -2280,7 +2280,7 @@ ${blogFitLensHookHtml()}
 
 <ul>
 <li><strong>Face width 155–161 mm:</strong> a stock wide-fit frame is usually the right call. Woolet 007 and 009 both ship at 158 mm and cost $190.</li>
-<li><strong>Face width 145–154 mm, or above 161 mm:</strong> stock will not fit cleanly. Made-to-measure is the honest answer. Woolet Bespoke runs 145–160 mm — the widest Woolet front is 160 mm; measure first if you are above 161 mm.</li>
+<li><strong>Face width 145–154 mm:</strong> stock will not fit cleanly. Made-to-measure is the honest answer. Woolet Bespoke runs 145–160 mm — the widest Woolet front is 160 mm; measure first if you are above 161 mm.</li>
 <li><strong>Strongly asymmetric face or unusual bridge:</strong> made-to-measure is the only path. Even a "wide fit" stock frame assumes symmetry.</li>
 <li><strong>You just want a unique frame:</strong> a customised stock frame (engraved, custom colour) is usually a better value than full bespoke unless the geometry actually requires it.</li>
 </ul>
@@ -2366,7 +2366,7 @@ ${blogFitLensHookHtml()}
 
 <p>The frame itself is cut to your face. Woolet's bespoke tier covers 145–160 mm of front width with a matching bridge and temple grid. The $480 regular price includes standard prescription lenses and free worldwide shipping; specialty upgrades cost extra.</p>
 
-<p>Right path if your face is below 155 mm or above 161 mm within Woolet's 145–160 mm bespoke range, or if you have an asymmetric bridge, strong cheekbone projection, or any other geometry that stock cannot accommodate.</p>
+<p>Right path if your face is below 155 mm within Woolet's 145–160 mm bespoke range, or if you have an asymmetric bridge, strong cheekbone projection, or any other geometry that stock cannot accommodate.</p>
 
 <h3>3. Full custom (frame + lens cut together)</h3>
 
@@ -2423,7 +2423,7 @@ ${blogFitLensHookHtml()}
       { q: "How much do bespoke glasses cost in 2026?", a: "Traditional ateliers (Tom Davies, Nakanishi, Italian houses in Cadore) charge $800–$3,000 per frame. Luxury fashion houses (Cartier, Chrome Hearts) charge $2,000–$15,000. Woolet Bespoke costs $480 with standard prescription lenses and free worldwide shipping; specialty upgrades cost extra. It is hand made in the EU." },
       { q: "How much do Tom Davies bespoke glasses cost?", a: "Tom Davies bespoke runs roughly £950–£2,500 (about $1,200–$3,200) depending on material and complexity. The price includes two in-person fitter consultations and the workshop labour, which is most of the cost." },
       { q: "Why are bespoke glasses so expensive?", a: "Most of the cost is human labour — fitter visits, CAD drafting, bench finishing — not material. The acetate block itself costs about $25–$60. Cutting it costs $40–$120 of CNC time. Everything else is people: typically 8–16 hours of skilled labour per frame at workshop rates." },
-      { q: "Are bespoke glasses worth the money?", a: "If your face is outside the 153–163 mm stock fit range, yes — there is no equivalent stock option that fits. If you are inside the stock range, only if you specifically want a unique shape or material. For most 153–163 mm faces, a wide-fit stock frame at $190 is the better buy." },
+      { q: "Are bespoke glasses worth the money?", a: "If your face is outside the 155–161 mm stock fit range, yes — there is no equivalent stock option that fits. If you are inside the stock range, only if you specifically want a unique shape or material. For most 155–161 mm faces, a wide-fit stock frame at $190 is the better buy." },
     ],
     content: `
 <p>Search for "bespoke glasses cost" and you'll see numbers from $300 to $15,000 quoted for what sounds like the same thing — a frame cut to your face from Italian acetate. The spread is real, and once you understand what drives it, you can pick the right tier instead of overpaying or underbuying.</p>

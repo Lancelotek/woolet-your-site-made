@@ -44,12 +44,13 @@ const TRUST_COPY: Record<CardType, string> = {
 };
 
 const SKU_DETAIL: Record<Exclude<Sku, "bespoke">, { shape: string; widthMm: number; bridgeMm: number; range: string }> = {
-  "007": { shape: "Round / Panto", widthMm: 158, bridgeMm: 26, range: "153–163 mm" },
-  "009": { shape: "Soft Square",   widthMm: 158, bridgeMm: 25, range: "153–163 mm" },
+  "007": { shape: "Round / Panto", widthMm: 158, bridgeMm: 26, range: "155–161 mm" },
+  "009": { shape: "Soft Square",   widthMm: 158, bridgeMm: 25, range: "155–161 mm" },
 };
 
 // Single-size catalog: one 158 mm width with a 26 mm bridge.
-// Faces outside the 153–163 mm sweet spot are routed to Bespoke (145–160 mm).
+// Routing: 155–161 mm → signature 007/009; under 155 mm → Bespoke (145–160 mm);
+// above 161 mm → no product yet, the result view asks them to contact support.
 const recommendSku = (faceWidthMm: number): Sku => {
   if (faceWidthMm < 155 || faceWidthMm > 161) return "bespoke";
   return "009";
@@ -1201,6 +1202,27 @@ function ResultStep({
       price_msrp: 190,
     });
   }, [measurement, fomoVariant]);
+
+  if (measurement.recommendedSku === "bespoke" && measurement.faceWidthMm > 161) {
+    return (
+      <div className="max-w-xl mx-auto flex flex-col gap-7 animate-fade-in">
+        <div className="woolet-eyebrow">
+          <div className="woolet-eyebrow-line" />
+          <span className="woolet-eyebrow-text">YOUR MEASUREMENT</span>
+        </div>
+        <h2 className="font-display text-woolet-white" style={{ fontSize: "clamp(2rem, 4vw, 2.6rem)", fontWeight: 300 }}>
+          Your face is <em className="italic text-gold-light">beyond our range</em>.
+        </h2>
+        <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.95rem" }}>
+          We measured a face width of {measurement.faceWidthMm} mm. That's wider than any frame we make today, stock or bespoke.
+          Email us at support@woolet.co or join the list, and we'll advise you personally.
+        </p>
+        <a href="mailto:support@woolet.co" style={goldButtonStyle}>
+          Email support@woolet.co
+        </a>
+      </div>
+    );
+  }
 
   if (measurement.recommendedSku === "bespoke") {
     return (

@@ -160,7 +160,7 @@ const Footer = ({ lang: langProp }: { lang?: Lang } = {}) => {
               className="text-cream-dim/70 max-w-[280px] leading-relaxed text-pretty"
               style={{ fontSize: "0.78rem" }}
             >
-              {lang === "de" ? "Mazzucchelli-Acetat für breite Gesichter (153-163 mm), handgefertigt in der EU." : "Italian Mazzucchelli acetate eyewear for wide faces (153–163 mm). Hand made in EU."}
+              {lang === "de" ? "Mazzucchelli-Acetat für breite Gesichter (155-161 mm), handgefertigt in der EU." : "Italian Mazzucchelli acetate eyewear for wide faces (155–161 mm). Hand made in EU."}
             </p>
             <div className="flex gap-4 mt-2">
               {socials.map((s) => (
