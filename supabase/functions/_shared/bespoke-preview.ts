@@ -8,6 +8,7 @@ import {
   AVIATOR_REFERENCE_URLS,
   isAviatorShape,
 } from "./aviator-references.ts";
+import { PLAIN_FRONT_RULE } from "./bespoke-composition.ts";
 
 type Db = {
   from: (t: string) => any;
@@ -42,13 +43,14 @@ function buildPrompt(spec: PreviewSpec): string {
     `temples in acetate "${spec.templeCode || spec.frontCode || "dark tortoise"}".`,
     `Finish: ${spec.finish || "shiny hand-polished"}.`,
     spec.lensTintCode?.startsWith("SUN-")
-      ? `UV400 sun lenses in ${({ "SUN-GRY": "solid smoke grey", "SUN-BRN": "solid espresso brown", "SUN-G15": "solid G-15 green" } as Record<string, string>)[spec.lensTintCode] ?? "smoke grey"}, visibly tinted on both lenses; correctly seated hinges and rivets, hand-polished acetate edge detail,`
+      ? `UV400 sun lenses in ${({ "SUN-GRY": "solid smoke grey", "SUN-BRN": "solid espresso brown", "SUN-G15": "solid G-15 green" } as Record<string, string>)[spec.lensTintCode] ?? "smoke grey"}, visibly tinted on both lenses; concealed hinges with no visible pins on the front, hand-polished acetate edge detail,`
       : spec.lensTintCode?.startsWith("PH-")
-        ? `Partially activated photochromic lenses in ${({ "PH-BRN": "espresso brown", "PH-GRN": "bottle green", "PH-GRY": "graphite grey" } as Record<string, string>)[spec.lensTintCode] ?? "grey"}; correctly seated hinges and rivets, hand-polished acetate edge detail,`
-        : `Clear neutral demo lenses, correctly seated hinges and rivets, hand-polished acetate edge detail,`,
+        ? `Partially activated photochromic lenses in ${({ "PH-BRN": "espresso brown", "PH-GRN": "bottle green", "PH-GRY": "graphite grey" } as Record<string, string>)[spec.lensTintCode] ?? "grey"}; concealed hinges with no visible pins on the front, hand-polished acetate edge detail,`
+        : `Clear neutral demo lenses, concealed hinges with no visible pins on the front, hand-polished acetate edge detail,`,
     `high-key professional product photography on a clean warm off-white seamless background, controlled softbox reflections, precise translucent acetate refraction and a crisp natural contact shadow,`,
     `three-quarter front angle with the complete frame and both temples legible, no face, no model, no branding, no text, no logos,`,
     `no drawing lines, no sketch, no floating hardware, no fused temples, no extra bridge, no asymmetry, ultra-realistic premium catalogue still.`,
+    PLAIN_FRONT_RULE,
   ].join(" ");
 }
 
