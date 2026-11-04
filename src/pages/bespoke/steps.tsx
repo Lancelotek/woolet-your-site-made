@@ -1,5 +1,6 @@
 import { PayMeasureNotice } from "@/components/bespoke/PayMeasureNotice";
 import type { PatternRender } from "@/lib/bespoke-pattern-renders";
+import FramedRender from "@/components/bespoke/FramedRender";
 import { CARD_DOT_COLOR_IDS, type FrontRenderMap } from "@/lib/bespoke-front-renders";
 import { imageVariant } from "@/lib/optimized-image";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -122,7 +123,7 @@ export function StepFrame({
           const renders = frontRenders[f.id] ?? {};
           const colourId = cardColour[f.id] ?? (active && config.frontColorId && renders[config.frontColorId] ? config.frontColorId : null);
           const colour = colourId ? COLORS.find((c) => c.id === colourId) : undefined;
-          const shown = (colourId && renders[colourId]) || patternRenders[f.id];
+          const shown = (colourId && renders[colourId]) || patternRenders[f.id] || renders[CARD_DOT_COLOR_IDS[0]] || Object.values(renders)[0];
           const pick = (id: string) => {
             setCardColour((prev) => ({ ...prev, [f.id]: id }));
             if (!active) update("frameId", f.id);
@@ -151,15 +152,19 @@ export function StepFrame({
                 className="cfg-card__photo relative"
                 style={{ background: "#EFE9DF", aspectRatio: "16 / 9" }}
               >
-                <img
-                  src={shown?.public_url ?? imageVariant(f.url, 240)}
-                  width={521}
-                  height={312}
-                  decoding="async"
-                  alt={shown?.alt_text ?? `Woolet Bespoke ${f.name} pattern — ${f.shape} silhouette for wide faces (${f.widthMm} mm reference)`}
-                  loading="eager"
-                  className={`w-full h-full object-contain ${shown ? "" : "p-6"} transition-transform duration-500 group-hover:scale-[1.03]`}
-                />
+                {shown ? (
+                  <FramedRender src={shown.public_url} alt={shown.alt_text} aspect="fill" fill={0.8} maxFillH={0.78} />
+                ) : (
+                  <img
+                    src={imageVariant(f.url, 240)}
+                    width={521}
+                    height={312}
+                    decoding="async"
+                    alt={`Woolet Bespoke ${f.name} pattern — ${f.shape} silhouette for wide faces (${f.widthMm} mm reference)`}
+                    loading="eager"
+                    className="w-full h-full object-contain p-6"
+                  />
+                )}
                 {shown && <>
                   <span className="cfg-example-colour">{colour ? colour.name : "Example colour"}</span>
                   <span className="cfg-pattern-inset"><img src={imageVariant(f.url, 240)} alt={`${f.name} pattern outline`} />Pattern</span>
