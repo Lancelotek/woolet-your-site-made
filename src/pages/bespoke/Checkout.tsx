@@ -73,7 +73,8 @@ export default function BespokeCheckout() {
 
   const findLatestPreview = (history: ReturnType<typeof loadPreviewHistory>): string | null => {
     let latest: { url: string; ts: number } | null = null;
-    Object.values(history).forEach((list) => {
+    // Front-view renders ("|front" keys) never stand in for the order's 3/4 preview.
+    Object.entries(history).filter(([k]) => !k.endsWith("|front")).forEach(([, list]) => {
       list.forEach((entry) => {
         if (!latest || entry.ts > latest.ts) latest = entry;
       });
@@ -147,6 +148,7 @@ export default function BespokeCheckout() {
     reading_strength_left: config.readingStrengthLeft ?? "",
     reading_strength_right: config.readingStrengthRight ?? "",
     ai_preview_url: (aiPreviewUrl ?? fallbackPreviewUrl ?? "").slice(0, 500),
+    ai_front_preview_url: (getLatestPreviewUrl(`${lensKey}|front`) ?? "").slice(0, 500),
     // Pseudonymous link back to the fit scan. Carries no personal detail.
     scan_session_ref: readSessionRef() ?? "",
     source,

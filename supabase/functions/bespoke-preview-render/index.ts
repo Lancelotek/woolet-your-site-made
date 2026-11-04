@@ -9,7 +9,7 @@ import {
   isAviatorShape,
 } from "../_shared/aviator-references.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.58.0";
-import { compositionReferenceFor, compositionRulesFor, shapeConstraint } from "../_shared/bespoke-composition.ts";
+import { compositionReferenceFor, compositionRulesForView, shapeConstraint, viewKey, type RenderView } from "../_shared/bespoke-composition.ts";
 import {
   RENDER_BUCKET, PROMPT_VERSION, buildKeyV2, buildAlt, buildStoragePath,
   publicUrlFor, decodeDataUrl,
@@ -43,6 +43,8 @@ interface Body {
   lensType?: string | null; // "plano" | "sun-uv400" | "photochromic" | "blue-light" | "reading"
   lensName?: string | null;
   lensTint?: string | null;
+  /** "angle" (default, 3/4 catalogue view) or "front" (straight-on, review step). */
+  view?: RenderView;
 }
 
 // The finish is the single most visible material property in the render, and
@@ -180,7 +182,8 @@ Deno.serve(async (req) => {
         templeCode: row.temple_code, templeName: row.temple_name,
         frontColor: `${row.front_name} (${row.front_code})`, templeColor: `${row.temple_name} (${row.temple_code})`,
         finish: row.finish, finishId: /brushed|scratched/i.test(row.finish) ? "brushed" : /matte/i.test(row.finish) ? "matte" : "shiny",
-        lensType: row.lens_type, lensTint: row.lens_tint, patternUrl: patterns[shapeSlug] };
+        lensType: row.lens_type, lensTint: row.lens_tint, patternUrl: patterns[shapeSlug],
+        view: row.view === "front" ? "front" : "angle" };
     }
     const shape = String(body?.shape || "").slice(0, 60);
     const frontColor = String(body?.frontColor || "").slice(0, 120);
@@ -206,8 +209,10 @@ Deno.serve(async (req) => {
     const templeName = String(body?.templeName || nameOf(templeColor)).slice(0, 80);
     const finishKey = String(body?.finishId || finish).slice(0, 40);
     const legacyKey = body?.legacyKey ? String(body.legacyKey).slice(0, 200) : "";
-    const key = buildKeyV2({ shape, frontCode, templeCode, finish: finishKey, lensType, lensTint });
-    const alt = buildAlt({ shape, frontName, templeName, finish, lensType, lensTint });
+    const view: RenderView = body?.view === "front" ? "front" : "angle";
+    const key = viewKey(buildKeyV2({ shape, frontCode, templeCode, finish: finishKey, lensType, lensTint }), view);
+    const angleAlt = buildAlt({ shape, frontName, templeName, finish, lensType, lensTint });
+    const alt = view === "front" ? angleAlt.replace("eyeglasses,", "eyeglasses seen from the front,") : angleAlt;
     const isPlano = !lensType || lensType === "plano";
 
     const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
@@ -217,7 +222,7 @@ Deno.serve(async (req) => {
 
     const findCached = async () => {
       const keys = [key];
-      if (isPlano && legacyKey) keys.push(`v1|${legacyKey.trim().toLowerCase()}`);
+      if (isPlano && legacyKey && view === "angle") keys.push(`v1|${legacyKey.trim().toLowerCase()}`);
       const { data } = await admin
         .from("bespoke_render_cache")
         .select("id, selection_key, public_url, alt_text, hits")
@@ -279,7 +284,7 @@ Deno.serve(async (req) => {
       `Front width about ${widthMm} mm with a bridge of about ${bridgeMm} mm, so the pair reads wide and generously proportioned.`,
       lensInstruction(lensType, lensName, lensTint),
       `Concealed hinges with no visible pins on the front, accurate acetate edge detail,`,
-       compositionRulesFor(shape),
+       compositionRulesForView(shape, view),
        `Precise transparency and refraction where the acetate is translucent, accurate premium product photography.`,
       `no drawing lines, no sketch, no floating hardware, no fused temples, no extra bridge, no asymmetry, ultra-realistic premium catalogue still.`,
       `HARD SHAPE CONSTRAINTS: ${shapeConstraint(shape) || "Preserve the Aviator technical drawing and construction rules exactly."}`,
@@ -301,7 +306,8 @@ Deno.serve(async (req) => {
       }
     };
      if (!usePattern) return json({ error: "A pattern drawing is required for fixed-angle generation" }, 400);
-     const compositionReference = compositionReferenceFor(shape);
+     // The 3/4 composition reference would pull a front view back to the angle.
+     const compositionReference = view === "angle" ? compositionReferenceFor(shape) : null;
      const refUrls = [patternUrl, ...(aviator ? AVIATOR_CONSTRUCTION_REFERENCES : []), ...(compositionReference ? [compositionReference] : [])];
     const inlined = await Promise.all(refUrls.map(inlineImage));
 
@@ -341,7 +347,7 @@ Deno.serve(async (req) => {
 
     // Host the PNG and record it once; a concurrent request for the same set
     // loses the insert race and returns the winner's image.
-     const storagePath = await buildStoragePath({ key: `${key}|${PROMPT_VERSION}|${crypto.randomUUID()}`, shape, frontName, templeName, finish, lensType, lensTint });
+     const storagePath = await buildStoragePath({ key: `${key}|${PROMPT_VERSION}|${crypto.randomUUID()}`, shape: view === "front" ? `${shape} front view` : shape, frontName, templeName, finish, lensType, lensTint });
     const { error: upErr } = await admin.storage
       .from(RENDER_BUCKET)
       .upload(storagePath, decodeDataUrl(dataUrl), { contentType: "image/png", upsert: true, cacheControl: "31536000" });
@@ -355,6 +361,8 @@ Deno.serve(async (req) => {
         temple_code: templeCode, temple_name: templeName, finish, lens_type: lensType || "plano",
         lens_tint: lensTint || null, storage_path: storagePath, public_url: publicUrl, alt_text: alt,
         model: MODEL, prompt_version: PROMPT_VERSION, hits: 1, last_served_at: new Date().toISOString(),
+        // Column added by migration 20261104180000; only written for front renders so 3/4 renders never depend on it.
+        ...(view === "front" ? { view } : {}),
        };
      // Regenerate in place only after upload succeeds; preserve legacy keys and old URLs used by orders.
      const { error: writeError } = regenerationId
