@@ -63,17 +63,19 @@ const Collection = () => {
                 className="font-display text-woolet-white leading-[1.05] mb-5"
                 style={{ fontSize: "clamp(2rem, 3.6vw, 3rem)", fontWeight: 300 }}
               >
-                The collection —{" "}
+                Two frames, 158 mm wide.{" "}
                 <em className="italic text-gold-light" style={{ fontStyle: "italic" }}>
-                  built only in wide.
+                  Or cut to your face.
                 </em>
               </h1>
               <p
                 className="text-cream-dim leading-relaxed max-w-2xl"
                 style={{ fontSize: "1rem" }}
               >
-                Two shapes — round 007 and soft-square 009 — with a 158 mm front,
-                plus bespoke from 145–160 mm. Italian Mazzucchelli acetate, hand made in the EU.
+                Pick the round 007 or the soft-square 009. Both measure 158 mm across the
+                front, where most frames stop at 140. Need another width? We make bespoke
+                frames from 145 to 160 mm. Every pair is Italian Mazzucchelli acetate, hand
+                made in the EU.
               </p>
             </div>
           </section>
@@ -160,13 +162,13 @@ const Collection = () => {
                       >
                         <div
                           className="text-gold-light/80 group-hover:underline"
-                          style={{ fontSize: 9.5, letterSpacing: "0.22em", textTransform: "uppercase" }}
+                          style={{ fontSize: 11.5, letterSpacing: "0.16em", textTransform: "uppercase" }}
                         >
                           {panel.eyebrow} →
                         </div>
                         <div
                           className="text-cream mt-1"
-                          style={{ fontSize: 12, letterSpacing: "0.18em", textTransform: "uppercase", fontWeight: 500 }}
+                          style={{ fontSize: 15, letterSpacing: "0.12em", textTransform: "uppercase", fontWeight: 500 }}
                         >
                           {panel.label}
                         </div>
@@ -175,20 +177,32 @@ const Collection = () => {
                   ))}
                 </div>
 
-                <p className="text-center mt-4 mb-0" style={{ fontSize: 13 }}>
+                <p className="text-center mt-6 mb-0" style={{ fontSize: 16 }}>
                   <Link
                     to={hrefFor("fit", lang)}
                     className="text-gold-light hover:text-gold no-underline border-b border-gold/40 hover:border-gold-light transition-colors"
                   >
-                    Not sure which? Scan your face in 60 seconds →
+                    Not sure which fits? Measure your face in 60 seconds →
                   </Link>
                 </p>
 
-                <figcaption
-                  className="text-cream-dim/80 mt-4 text-center hidden sm:block"
-                  style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase" }}
-                >
-                  150 mm bespoke · 158 mm signature · 160 mm bespoke extra wide
+                {/* Desktop: readable labels under each portrait (the ones baked into
+                    the image are too small to read at page width). */}
+                <figcaption className="hidden sm:grid grid-cols-3 gap-4 mt-4 text-center">
+                  {[
+                    { who: "Average to wide faces", what: "150 mm · Bespoke" },
+                    { who: "Medium to large heads", what: "158 mm · 007 and 009" },
+                    { who: "Large heads, broad faces", what: "160 mm · Bespoke" },
+                  ].map((c) => (
+                    <div key={c.what}>
+                      <div className="text-cream" style={{ fontSize: 15, fontWeight: 500 }}>
+                        {c.what}
+                      </div>
+                      <div className="text-cream-dim mt-1" style={{ fontSize: 14 }}>
+                        {c.who}
+                      </div>
+                    </div>
+                  ))}
                 </figcaption>
               </figure>
             </div>
