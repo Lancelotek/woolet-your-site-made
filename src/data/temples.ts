@@ -132,7 +132,7 @@ export const TEMPLES: TempleEntry[] = [
     subhead:
       "152 mm is 2 mm above signature. Bespoke, for larger heads (62–63 cm) where signature arms sit forward.",
     intro:
-      "152 mm temples are long-arm territory — designed for face widths at the top of our signature range (161–163 mm) paired with a head circumference around 62–63 cm. Bespoke, in the same Italian Mazzucchelli acetate.",
+      "152 mm temples are long-arm territory — designed for face widths at the top of our signature range (around 160–161 mm) paired with a head circumference around 62–63 cm. Bespoke, in the same Italian Mazzucchelli acetate.",
     fitVerdict:
       "Bespoke only. Signature is 150 mm; 152 mm is 2 mm longer. If your head measures 62 cm+ and signature arms sit forward of the ear, this is the right fit.",
     hubLinkPhrase: "Signature is 150 mm",
@@ -141,7 +141,7 @@ export const TEMPLES: TempleEntry[] = [
       "Need 152 mm temples? Most frames stop at 145 mm. Woolet builds 145–155 mm temples to measure on a 145–160 mm front. Italian Mazzucchelli acetate, hand made in EU.",
     bespokeNote:
       "152 mm is long bespoke — pairs well with 160–162 mm bespoke fronts.",
-    bestFor: "Widest faces (161–163 mm) with 62–63 cm head circumference.",
+    bestFor: "Widest signature faces (160–161 mm) with 62–63 cm head circumference.",
     faq: [
       { q: "How long is a 152 mm temple in inches?", a: "About 6.0 in. Mainstream tops out around 5.7 in (145 mm); 152 mm is firmly long." },
       { q: "Do I need 152 mm temples if I have a wide face?", a: "Only if your head circumference is also large (~62 cm+). Face width and head circumference are different measurements — FitLens or a soft tape confirms." },

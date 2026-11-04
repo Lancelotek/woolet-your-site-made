@@ -184,9 +184,9 @@ export const SIZES: SizeEntry[] = [
     subhead:
       "Comfortably inside the signature band. The 158 mm frame is built for exactly this face width.",
     intro:
-      "160 mm sits in the middle of our signature range. Our 158 mm frame is engineered for the 155–161 mm band, and 160 mm is where fit is most forgiving. If you want a millimetre-exact match, bespoke covers 145–160 mm — but you don't need it at 160.",
+      "160 mm sits inside our signature range, near its upper end. Our 158 mm frame is engineered for the 155–161 mm band, so at 160 mm the fit is close and secure. If you want a millimetre-exact match, bespoke covers 145–160 mm — but you don't need it at 160.",
     fitVerdict:
-      "Yes — 160 mm is dead centre of our signature 155–161 mm fit range. The 158 mm frame is the fit.",
+      "Yes — 160 mm is inside our signature 155–161 mm fit range, near the upper end. The 158 mm frame is the fit.",
     metaDescription:
       "160 mm wide glasses: our signature 158 mm fits perfectly. Italian Mazzucchelli acetate, hand made in EU. Bespoke 145–160 mm.",
     bespokeNote:

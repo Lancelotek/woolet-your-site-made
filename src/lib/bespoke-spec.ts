@@ -16,8 +16,8 @@ export const BESPOKE_SPEC = {
   templeMin: 145,
   templeMax: 155,
   stockFrontWidth: 158,
-  stockFitMin: 153,
-  stockFitMax: 163,
+  stockFitMin: 155,
+  stockFitMax: 161,
 } as const;
 
 /** "145–160 mm" — en dash, the canonical way the front width is written in copy. */

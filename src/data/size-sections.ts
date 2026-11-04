@@ -228,7 +228,7 @@ export const SIZE_SECTIONS: Record<string, SizeSection[]> = {
     {
       h2: "Does the 158 mm signature fit a 160 mm face?",
       body: [
-        "Yes, and it is the fit we would recommend before bespoke. At 160 mm you are 2 mm inside the designed 155–161 mm range, sitting toward the upper end. In practice that means the frame reads as close-fitting rather than loose: the arms make light contact just ahead of the ear and stay there.",
+        "Yes, and it is the fit we would recommend before bespoke. At 160 mm you are 1 mm inside the upper edge of the designed 155–161 mm range. In practice that means the frame reads as close-fitting rather than loose: the arms make light contact just ahead of the ear and stay there.",
         "Some wearers at 160 mm prefer that contact and some prefer air. If you want the frame to sit off the temple entirely, bespoke at 160 mm gives you a millimetre-exact front and the ease moves into the temple angle instead.",
       ],
       table: {
