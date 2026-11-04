@@ -12,9 +12,9 @@ describe("Bespoke sun lens colours", () => {
 
   it("requires a sun tint and includes its name and code in the order", () => {
     const noTint = { ...INITIAL_CONFIG, lensTypeId: "sun-uv400" };
-    expect(isStepComplete(6, noTint)).toBe(false);
+    expect(isStepComplete(5, noTint)).toBe(false);
     const chosen = { ...noTint, lensTintId: "g15" };
-    expect(isStepComplete(6, chosen)).toBe(true);
+    expect(isStepComplete(5, chosen)).toBe(true);
     expect(lensTintCode(chosen)).toBe("SUN-G15");
     expect(lensOrderValue("Sun Lenses (UV400)", chosen)).toBe("Sun Lenses (UV400) - G-15 Green (SUN-G15)");
     expect(selectedLensTint({ ...chosen, lensTypeId: "blue-light" })).toBeUndefined();

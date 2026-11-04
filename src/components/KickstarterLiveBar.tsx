@@ -29,6 +29,7 @@ export default function KickstarterLiveBar() {
   return (
     <a
       href={href}
+      data-ks-live-bar=""
       onClick={() => pushGtmEvent("kickstarter_live_click", { slot: "live_bar", path: pathname })}
       className="block w-full text-center no-underline uppercase"
       style={{
