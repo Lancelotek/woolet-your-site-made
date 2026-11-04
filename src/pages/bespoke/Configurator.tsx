@@ -42,6 +42,7 @@ import {
 } from "./cfg-shell";
 import { useParams, useNavigate } from "react-router-dom";
 import { loadNotoSansKr } from "@/lib/noto-sans-kr";
+import FramedRender from "@/components/bespoke/FramedRender";
 
 
 // Google Fonts: Newsreader + Archivo. Loaded once on mount — scoped to this page only.
@@ -376,7 +377,7 @@ const ConfiguratorPage = () => {
   // The preview stage is the most-tapped element on the page. Every state it can
   // be in has to answer the tap: a picture opens larger, an empty stage sends the
   // buyer to the choice that fills it.
-  const example = patternRenders[frame?.id ?? "aviator"];
+  const example = patternRenders[frame?.id ?? "aviator"] ?? frontRenders[frame?.id ?? "aviator"]?.[PREVIEW_TEMPLE_ID];
   const stageSrc = aiPreviewUrl ?? frontOnlyUrl ?? example?.public_url ?? frame?.url ?? null;
   const showsExample = !aiPreviewUrl && !frontOnlyUrl && Boolean(example);
   const renderAlt = renderAltForConfig(config, Boolean(getLatestPreviewUrl(lensKey)) && lensKey !== baseKey);
@@ -501,7 +502,7 @@ const ConfiguratorPage = () => {
               aria-label={stageSrc ? "Open larger preview" : "Choose a pattern"}
                onClick={stageSrc ? handleStageTap : showPatternMissing}
             >
-              {stageSrc ? <img src={stageSrc} alt={stageAlt} /> : (
+              {stageSrc ? <FramedRender src={stageSrc} alt={stageAlt} aspect="fill" fill={0.84} maxFillH={0.82} /> : (
                 <span className="cfg-mobilepreview__place">Select a pattern</span>
               )}
               {rendering && <span className="cfg-rendering"><Loader2 size={14} className="animate-spin" /> Adding your temples…</span>}
@@ -539,7 +540,7 @@ const ConfiguratorPage = () => {
                   }
                 }}
               >
-                {stageSrc ? <img key={stageSrc} src={stageSrc} alt={stageAlt} className="cfg-app-stage__pic" /> : (
+                {stageSrc ? <FramedRender src={stageSrc} alt={stageAlt} aspect="fill" fill={0.8} maxFillH={0.78} imgClassName="cfg-app-stage__pic" /> : (
                   <div className="cfg-rail__placeholder">Select a pattern</div>
                 )}
                 {showsExample && <span className="cfg-app-stage__tag">Example colour</span>}
@@ -1405,19 +1406,17 @@ const ConfiguratorStyles = () => (
         border-bottom: 1px solid var(--cfg-border);
         padding: 5px 20px 5px;
         margin-top: 8px;
-        max-height: 156px; overflow: hidden;
+        overflow: hidden;
       }
       .cfg-mobilepreview__stage {
-        height: 92px;
+        position: relative; width: 100%;
+        height: clamp(140px, 42vw, 200px);
         background: var(--cfg-cream);
         border-radius: 2px;
         display: flex; align-items: center; justify-content: center;
         overflow: hidden;
       }
-      .cfg-mobilepreview__stage img {
-        max-height: 100%; max-width: 92%; object-fit: contain;
-        mix-blend-mode: multiply;
-      }
+
       .cfg-mobilepreview__place {
         font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #8F897B;
       }
@@ -1642,6 +1641,8 @@ const ConfiguratorStyles = () => (
     .cfg-carddot--on { box-shadow: 0 0 0 2px var(--cfg-ink), 0 0 0 3.5px var(--cfg-gold); }
     .cfg-carddots__more { font-size: 11px; letter-spacing: .08em; color: var(--cfg-muted); margin-left: 2px; }
     .cfg-card__photo img { transition: opacity .25s ease, transform .5s ease; }
+    .cfg-card--dots .cfg-pattern-inset { width: 64px; right: 6px; bottom: 6px; padding: 3px; font-size: 9px; opacity: .92; }
+    .cfg-card--dots .cfg-pattern-inset img { width: 100%; height: 26px; }
 
     /* ── Rendering overlay ── */
     .cfg-rendering {
@@ -1668,7 +1669,7 @@ const ConfiguratorStyles = () => (
         display: flex; align-items: center; justify-content: center;
         background: var(--cfg-cream); border-radius: 4px; overflow: hidden;
       }
-      .cfg-app-stage__pic { max-width: 94%; max-height: 94%; object-fit: contain; animation: cfg-fadein .35s ease; }
+      .cfg-app-stage__pic { animation: cfg-fadein .35s ease; }
       @keyframes cfg-fadein { from { opacity: .35; } to { opacity: 1; } }
       @media (prefers-reduced-motion: reduce) { .cfg-app-stage__pic { animation: none; } }
       .cfg-app-stage__tag { position: absolute; top: 12px; left: 12px; background: var(--cfg-ink); color: var(--cfg-cream); font-size: 11px; padding: 4px 8px; }
