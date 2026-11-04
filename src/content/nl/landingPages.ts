@@ -80,10 +80,10 @@ export const nlPages: Record<string, NlPageConfig> = {
     slug: "grote-brillen-heren",
     eyebrow: "Woolet · Grote brillen heren",
     h1: "Grote brillen voor heren — ontworpen voor brede gezichten (155 mm+)",
-    sub: "Eén standaard frontbreedte van 158 mm, voor gezichten van 153–163 mm. Keyhole-brug van 25–26 mm voor bredere neusruggen. Italiaans Mazzucchelli-acetaat, handgemaakt in de EU. Twee vormen: rond (007) en zacht vierkant (009).",
-    metaTitle: "Grote brillen heren 153–163 mm | Woolet — Italiaans acetaat",
+    sub: "Eén standaard frontbreedte van 158 mm, voor gezichten van 155–161 mm. Keyhole-brug van 25–26 mm voor bredere neusruggen. Italiaans Mazzucchelli-acetaat, handgemaakt in de EU. Twee vormen: rond (007) en zacht vierkant (009).",
+    metaTitle: "Grote brillen heren 155–161 mm | Woolet — Italiaans acetaat",
     metaDescription:
-      "Grote brillen voor heren met een breed gezicht: 158 mm front voor 153–163 mm, plus bespoke 145–160 mm. 26 mm keyhole-brug, Italiaans acetaat, handgemaakt in de EU.",
+      "Grote brillen voor heren met een breed gezicht: 158 mm front voor 155–161 mm, plus bespoke 145–160 mm. 26 mm keyhole-brug, Italiaans acetaat, handgemaakt in de EU.",
     primaryKeyword: "grote brillen heren",
     ctaPrimaryLabel: "Meet je gezicht (60 s)",
     ctaPrimaryHref: "/nl/fit",
@@ -94,7 +94,7 @@ export const nlPages: Record<string, NlPageConfig> = {
       "Grote maten in de reguliere optiek stoppen meestal rond 148–150 mm. Voor gezichten van 155 mm en breder blijft er dan weinig over: monturen die knellen op de slapen, veren die te kort zijn en een brug die op je neus drukt. Woolet begint daar juist: alle standaardmaten zijn 155 mm of breder.",
     proofH2: "Twee vormen. Één eerlijk breedtebereik.",
     proofBody:
-      "De 007 (rond) en 009 (zacht vierkant) hebben één standaardmaat — een 158 mm front voor gezichten van 153–163 mm — met een 25–26 mm keyhole-brug en veren van 150 mm. Wie erboven of eronder valt, gaat naar Bespoke: 145–160 mm, in stappen van 1 mm. Alles gesneden uit Italiaans Mazzucchelli 1849 acetaat.",
+      "De 007 (rond) en 009 (zacht vierkant) hebben één standaardmaat — een 158 mm front voor gezichten van 155–161 mm — met een 25–26 mm keyhole-brug en veren van 150 mm. Wie erboven of eronder valt, gaat naar Bespoke: 145–160 mm, in stappen van 1 mm. Alles gesneden uit Italiaans Mazzucchelli 1849 acetaat.",
     proofBullets: [
       { label: "Standaardbreedte", value: "158 mm" },
       { label: "Bespoke bereik", value: "145 – 160 mm" },
@@ -107,7 +107,7 @@ export const nlPages: Record<string, NlPageConfig> = {
     faqs: [
       {
         q: "Vanaf welke gezichtsbreedte past een Woolet?",
-        a: "De standaard 158 mm front past gezichten van 153–163 mm. Bespoke dekt 145–160 mm, de breedste front die we maken.",
+        a: "De standaard 158 mm front past gezichten van 155–161 mm. Bespoke dekt 145–160 mm, de breedste front die we maken.",
       },
       {
         q: "Wat is een keyhole-brug en waarom 26 mm?",

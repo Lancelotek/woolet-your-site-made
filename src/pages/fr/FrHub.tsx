@@ -20,7 +20,7 @@ const colors = {
 };
 
 const secondaryLinks: { to: string; label: string; sub: string }[] = [
-  { to: "/fr/collection", label: "La collection", sub: "Woolet 007 & 009 — front 158 mm, visages de 153 à 163 mm" },
+  { to: "/fr/collection", label: "La collection", sub: "Woolet 007 & 009 — front 158 mm, visages de 155 à 161 mm" },
   { to: "/fr/blog/meilleures-lunettes-pour-grosses-tetes-2026", label: "Meilleures lunettes pour grosses têtes 2026", sub: "Comparatif des montures les plus larges réellement disponibles" },
   { to: "/fr/blog/quelle-taille-de-lunettes-de-soleil-visage-large", label: "Quelle taille de solaires pour un visage large ?", sub: "Guide rapide : largeur de face, pont, branches" },
   { to: "/fr/products/007", label: "Woolet 007 — rond, 158 mm", sub: "Pont keyhole, acétate italien Mazzucchelli" },
@@ -41,10 +41,10 @@ export default function FrHub() {
     <>
       <Helmet>
         <html lang="fr" dir="ltr" />
-        <title>Lunettes pour visages larges et grosses têtes 153–163 mm | Woolet</title>
+        <title>Lunettes pour visages larges et grosses têtes 155–161 mm | Woolet</title>
         <meta
           name="description"
-          content="Woolet — lunettes larges pour grosses têtes : front 158 mm pour visages de 153 à 163 mm. Acétate italien Mazzucchelli 1849, fait main en UE. Mesurez votre visage en 60 secondes."
+          content="Woolet — lunettes larges pour grosses têtes : front 158 mm pour visages de 155 à 161 mm. Acétate italien Mazzucchelli 1849, fait main en UE. Mesurez votre visage en 60 secondes."
         />
         <meta name="keywords" content="lunettes pour visages larges, lunettes larges, lunettes grosses têtes, lunettes XXL homme, lunettes 161 mm, lunettes 160 mm, acétate Mazzucchelli, lunettes nez large" />
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
@@ -56,8 +56,8 @@ export default function FrHub() {
         <meta property="og:site_name" content="Woolet" />
         <meta property="og:locale" content="fr_FR" />
         <meta property="og:locale:alternate" content="en_US" />
-        <meta property="og:title" content="Lunettes pour visages larges et grosses têtes — Woolet 153–163 mm" />
-        <meta property="og:description" content="Acétate italien Mazzucchelli. Front 158 mm pour visages de 153 à 163 mm, bespoke de 145 à 160 mm. Mesuré, pas deviné — avec FitLens en 60 secondes." />
+        <meta property="og:title" content="Lunettes pour visages larges et grosses têtes — Woolet 155–161 mm" />
+        <meta property="og:description" content="Acétate italien Mazzucchelli. Front 158 mm pour visages de 155 à 161 mm, bespoke de 145 à 160 mm. Mesuré, pas deviné — avec FitLens en 60 secondes." />
         <meta property="og:url" content={`${SITE}/fr`} />
         <meta property="og:image" content={`${SITE}/og-image.png`} />
         <meta property="og:image:width" content="1200" />
@@ -66,7 +66,7 @@ export default function FrHub() {
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Lunettes pour visages larges et grosses têtes — Woolet" />
-        <meta name="twitter:description" content="Front 158 mm, visages de 153 à 163 mm. Acétate italien Mazzucchelli. Mesurez votre visage en 60 secondes." />
+        <meta name="twitter:description" content="Front 158 mm, visages de 155 à 161 mm. Acétate italien Mazzucchelli. Mesurez votre visage en 60 secondes." />
         <meta name="twitter:image" content={`${SITE}/og-image.png`} />
 
         <script type="application/ld+json">{JSON.stringify({
@@ -152,7 +152,7 @@ export default function FrHub() {
                 marginTop: 18,
               }}
             >
-              Acétate italien Mazzucchelli 1849. Une seule largeur standard : front 158 mm pour visages de 153 à 163 mm, plus le bespoke de 145 à 160 mm. Mesuré, pas deviné — avec FitLens en 60 secondes.
+              Acétate italien Mazzucchelli 1849. Une seule largeur standard : front 158 mm pour visages de 155 à 161 mm, plus le bespoke de 145 à 160 mm. Mesuré, pas deviné — avec FitLens en 60 secondes.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <Link

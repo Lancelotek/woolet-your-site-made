@@ -34,7 +34,7 @@ type Shot = {
 const SHOTS: Shot[] = [
   {
     src: "/ads/2026-10-ks-launch/woolet-ks-countdown-01-launching-oct29-4x5.jpg",
-    alt: "Man with a wide face wearing Woolet 007 Round black acetate glasses, headline: Glasses that finally fit. Live October 29 on Kickstarter. 158 mm front for 153-163 mm faces.",
+    alt: "Man with a wide face wearing Woolet 007 Round black acetate glasses, headline: Glasses that finally fit. Live October 29 on Kickstarter. 158 mm front for 155-161 mm faces.",
     label: "Coming Oct 29",
   },
   {

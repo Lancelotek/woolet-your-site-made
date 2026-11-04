@@ -100,7 +100,7 @@ export const TEMPLES: TempleEntry[] = [
     subhead:
       "This is the signature temple on both the 007 Round and 009 Soft Square. 150 mm at an 11° bend, matched to the 158 mm front width.",
     intro:
-      "150 mm is the signature temple length on both Woolet shapes. It's the honest match for a 158 mm front on a 153–163 mm face — long enough to reach past the temples and hook the ear cleanly, short enough not to overshoot. 11° tip bend, 5-barrel PVD Gunmetal hinges, Italian Mazzucchelli acetate.",
+      "150 mm is the signature temple length on both Woolet shapes. It's the honest match for a 158 mm front on a 155–161 mm face — long enough to reach past the temples and hook the ear cleanly, short enough not to overshoot. 11° tip bend, 5-barrel PVD Gunmetal hinges, Italian Mazzucchelli acetate.",
     fitVerdict:
       "Yes — 150 mm is exactly the signature temple on both 007 and 009. No bespoke, no upcharge. This is the fit.",
     metaTitle: "150 mm Temple Glasses for Wide Faces and Wide Temples",
@@ -108,11 +108,11 @@ export const TEMPLES: TempleEntry[] = [
       "150 mm temple glasses: the Woolet signature. Italian Mazzucchelli acetate, hand made in EU. 158 mm front · 25–26 mm keyhole bridge · 150 mm temples.",
     bespokeNote:
       "Bespoke keeps 150 mm as the default and lets you shift 5 mm shorter or 5 mm longer if your measurement demands it.",
-    bestFor: "Wide faces (153–163 mm) with average-to-large head circumference — the canonical Woolet fit.",
+    bestFor: "Wide faces (155–161 mm) with average-to-large head circumference — the canonical Woolet fit.",
     disambiguation: {
       h2: "Wide temples: width or length?",
       body: [
-        "People searching for wide temples are usually describing one of two different measurements, and the fix is different for each. Temple width is how wide the frame is where it passes the sides of your head — that is governed by the front width, 158 mm on both Woolet shapes, sized for a 153–163 mm face. Temple length is the arm itself, from hinge to the bend behind your ear: 150 mm on both shapes, 145–155 mm in bespoke.",
+        "People searching for wide temples are usually describing one of two different measurements, and the fix is different for each. Temple width is how wide the frame is where it passes the sides of your head — that is governed by the front width, 158 mm on both Woolet shapes, sized for a 155–161 mm face. Temple length is the arm itself, from hinge to the bend behind your ear: 150 mm on both shapes, 145–155 mm in bespoke.",
         "The symptom tells you which number is wrong. Pressure at the sides of your head, red marks above the ears, a dull ache after an hour — that is width; the front is too narrow and the arms are being forced outward. The frame creeping forward and sliding down your nose, or arms that end before they reach the bend behind your ear — that is length. Width cannot be adjusted after moulding. Length can be built to your measurement.",
       ],
     },

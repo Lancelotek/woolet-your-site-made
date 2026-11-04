@@ -191,7 +191,7 @@ export const BRIDGES: BridgeEntry[] = [
       "25 mm bridge glasses: the Woolet 009 Soft Square, 54□25-150. Italian acetate. Signature 158 mm front · 007 26 mm keyhole · 009 25 mm · Bespoke 20–26 mm.",
     bespokeNote:
       "Bespoke lets you keep a 25 mm bridge on any bespoke shape and any front from 145 to 160 mm.",
-    bestFor: "Wide noses on 153–163 mm faces who want the soft-square shape.",
+    bestFor: "Wide noses on 155–161 mm faces who want the soft-square shape.",
     faq: [
       { q: "Is 25 mm a very wide bridge?", a: "Yes. Standard bridges run 16–18 mm and most brands stop at 18–20 mm. 25 mm is built for wide noses on wide faces." },
       { q: "25 mm vs the 26 mm keyhole — which fits better?", a: "25 mm (009) sits on a soft-square lens; 26 mm keyhole (007) uses open geometry on a round lens. Shape preference and nose shape decide." },
@@ -214,7 +214,7 @@ export const BRIDGES: BridgeEntry[] = [
       "26 mm keyhole bridge glasses: the Woolet 007 Round, 53□26-150. Italian acetate. Signature 158 mm front · 007 26 mm keyhole · 009 25 mm · Bespoke 20–26 mm.",
     bespokeNote:
       "26 mm is also the widest bridge we build in bespoke, on any shape and any front from 145 to 160 mm.",
-    bestFor: "Wide noses on 153–163 mm faces — the widest Woolet bridge.",
+    bestFor: "Wide noses on 155–161 mm faces — the widest Woolet bridge.",
     faq: [
       { q: "What's a keyhole bridge?", a: "An open, notched bridge shape that rests on the sides of the nose rather than the top. It spreads weight on a wider nose without pinching." },
       { q: "Is 26 mm the widest bridge Woolet offers?", a: "Yes. 26 mm is the 007 signature and the top of the bespoke range." },
