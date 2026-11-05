@@ -558,6 +558,34 @@ ${shot("woolet-too-small-m9-never-your-face-007-4x5.jpg", "Man in his fifties wi
     return meta;
   }
 
+  // ----- Bespoke social carousel: unlinked, noindex, English only.
+  // The six carousel images live under public/ads/2026-11-bespoke-social/ (manifest.json
+  // carries the same alt text); this page carries the alt text in markup.
+  if (path === "/creatives/bespoke") {
+    const shot = (file: string, alt: string) =>
+      `<img src="/ads/2026-11-bespoke-social/${file}" width="1080" height="1350" alt="${escapeHtml(alt)}" />`;
+    const meta = base(
+      "/en/creatives/bespoke",
+      "en",
+      {
+        title: "Woolet Bespoke - design your own glasses",
+        description:
+          "Woolet Bespoke social images: four shapes, 15 Mazzucchelli acetates, two-colour fronts and temples, three finishes.",
+        noscriptHtml: `<h1>Woolet Bespoke: design your own glasses</h1>
+<p>Pick the shape, the Mazzucchelli acetate for the front and the temples, and the finish.</p>
+${shot("woolet-bespoke-carousel-01-design-them-4x5.jpg", "Woolet Bespoke custom glasses: round frame with a British racing green acetate front and amber tortoise temples, headline: Don't pick glasses. Design them. Shape, acetate and finish chosen separately.")}
+${shot("woolet-bespoke-carousel-02-four-shapes-4x5.jpg", "Woolet Bespoke frame shapes in amber tortoise acetate: Round, Crown Panto, Rectangle and Aviator glasses, headline: Four shapes. Same acetate.")}
+${shot("woolet-bespoke-carousel-03-acetates-4x5.jpg", "Woolet Bespoke rectangle glasses in six Mazzucchelli acetates: amber tortoise, racing green, deep matte black, ice translucent, rouge and sunflower, headline: 15 Mazzucchelli acetates, hand finished in the EU.")}
+${shot("woolet-bespoke-carousel-04-two-colours-4x5.jpg", "Woolet Bespoke two-colour glasses with a different acetate on the front and the temples: navy with sunflower, amber tortoise with racing green, rouge aviator with deep matte black, slate grain with amber tortoise, headline: Two colours. One frame.")}
+${shot("woolet-bespoke-carousel-05-finishes-4x5.jpg", "Woolet Bespoke Crown Panto glasses in tortoise acetate shown in three finishes: matte, brushed and hand polished.")}
+${shot("woolet-bespoke-carousel-06-nobody-else-4x5.jpg", "Woolet Bespoke custom eyeglasses, headline: Nobody else wears yours. 4 shapes, 15 front acetates, 15 temple acetates and 3 finishes make 2,700 builds. Design yours at woolet.co/en/bespoke.")}`,
+      },
+      { image: "/ads/2026-11-bespoke-social/woolet-bespoke-carousel-01-design-them-4x5.jpg" },
+    );
+    meta.robots = "noindex, follow"; // unlinked creative sheet, never indexed
+    return meta;
+  }
+
   // ----- Kickstarter launch countdown ads: unlinked, noindex, English only.
   // The six ad images live under public/ads/2026-10-ks-launch/ (manifest.json
   // carries the same alt text); this page carries the alt text in markup.
@@ -2312,6 +2340,7 @@ const STATIC_ROUTES = [
   "/en/creatives/stretch-goals",
   "/en/creatives/ks-launch",
   "/en/creatives/too-small",
+  "/en/creatives/bespoke",
   "/fr/blog",
   "/nl/blog",
   "/de",
