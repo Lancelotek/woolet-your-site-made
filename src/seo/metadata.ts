@@ -573,11 +573,11 @@ ${shot("woolet-too-small-m9-never-your-face-007-4x5.jpg", "Man in his fifties wi
           "Woolet Bespoke social images: four shapes, 15 Mazzucchelli acetates, two-colour fronts and temples, three finishes.",
         noscriptHtml: `<h1>Woolet Bespoke: design your own glasses</h1>
 <p>Pick the shape, the Mazzucchelli acetate for the front and the temples, and the finish.</p>
-${shot("woolet-bespoke-carousel-01-design-them-4x5.jpg", "Woolet Bespoke custom glasses: round frame with a British racing green acetate front and amber tortoise temples, headline: Don't pick glasses. Design them. Shape, acetate and finish chosen separately.")}
-${shot("woolet-bespoke-carousel-02-four-shapes-4x5.jpg", "Woolet Bespoke frame shapes in amber tortoise acetate: Round, Crown Panto, Rectangle and Aviator glasses, headline: Four shapes. Same acetate.")}
-${shot("woolet-bespoke-carousel-03-acetates-4x5.jpg", "Woolet Bespoke rectangle glasses in six Mazzucchelli acetates: amber tortoise, racing green, deep matte black, ice translucent, rouge and sunflower, headline: 15 Mazzucchelli acetates, hand finished in the EU.")}
-${shot("woolet-bespoke-carousel-04-two-colours-4x5.jpg", "Woolet Bespoke two-colour glasses with a different acetate on the front and the temples: navy with sunflower, amber tortoise with racing green, rouge aviator with deep matte black, slate grain with amber tortoise, headline: Two colours. One frame.")}
-${shot("woolet-bespoke-carousel-05-finishes-4x5.jpg", "Woolet Bespoke Crown Panto glasses in tortoise acetate shown in three finishes: matte, brushed and hand polished.")}
+${shot("woolet-bespoke-carousel-01-design-them-4x5.jpg", "Woolet Bespoke custom glasses: rectangle frame with a British racing green acetate front and amber tortoise temples, headline: Don't pick glasses. Design them. Shape, acetate and finish chosen separately.")}
+${shot("woolet-bespoke-carousel-02-four-shapes-4x5.jpg", "Woolet Bespoke frame shapes with a dark tortoise acetate front and deep matte black temples: Round, Crown Panto, Rectangle and Aviator glasses, headline: Four shapes. Same acetate.")}
+${shot("woolet-bespoke-carousel-03-acetates-4x5.jpg", "Woolet Bespoke rectangle glasses in six Mazzucchelli acetate fronts with black temples: dark tortoise, racing green, navy, ice translucent, emerald rose and nude beige, headline: 15 Mazzucchelli acetates, hand finished in the EU.")}
+${shot("woolet-bespoke-carousel-04-two-colours-4x5.jpg", "Woolet Bespoke two-colour glasses with a different acetate on the front and the temples: dark tortoise with nude beige, amber mint chip with ice translucent, deep matte black with emerald rose, dark tortoise with navy, headline: Two colours. One frame.")}
+${shot("woolet-bespoke-carousel-05-finishes-4x5.jpg", "Woolet Bespoke round glasses in deep matte black acetate shown in three finishes: matte, brushed and hand polished.")}
 ${shot("woolet-bespoke-carousel-06-nobody-else-4x5.jpg", "Woolet Bespoke custom eyeglasses, headline: Nobody else wears yours. 4 shapes, 15 front acetates, 15 temple acetates and 3 finishes make 2,700 builds. Design yours at woolet.co/en/bespoke.")}`,
       },
       { image: "/ads/2026-11-bespoke-social/woolet-bespoke-carousel-01-design-them-4x5.jpg" },

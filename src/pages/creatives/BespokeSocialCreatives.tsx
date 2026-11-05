@@ -32,27 +32,27 @@ type Shot = {
 const SHOTS: Shot[] = [
   {
     src: "/ads/2026-11-bespoke-social/woolet-bespoke-carousel-01-design-them-4x5.jpg",
-    alt: "Woolet Bespoke custom glasses: round frame with a British racing green acetate front and amber tortoise temples, headline: Don't pick glasses. Design them. Shape, acetate and finish chosen separately.",
+    alt: "Woolet Bespoke custom glasses: rectangle frame with a British racing green acetate front and amber tortoise temples, headline: Don't pick glasses. Design them. Shape, acetate and finish chosen separately.",
     label: "01 \u00b7 Design them",
   },
   {
     src: "/ads/2026-11-bespoke-social/woolet-bespoke-carousel-02-four-shapes-4x5.jpg",
-    alt: "Woolet Bespoke frame shapes in amber tortoise acetate: Round, Crown Panto, Rectangle and Aviator glasses, headline: Four shapes. Same acetate.",
+    alt: "Woolet Bespoke frame shapes with a dark tortoise acetate front and deep matte black temples: Round, Crown Panto, Rectangle and Aviator glasses, headline: Four shapes. Same acetate.",
     label: "02 \u00b7 Four shapes",
   },
   {
     src: "/ads/2026-11-bespoke-social/woolet-bespoke-carousel-03-acetates-4x5.jpg",
-    alt: "Woolet Bespoke rectangle glasses in six Mazzucchelli acetates: amber tortoise, racing green, deep matte black, ice translucent, rouge and sunflower, headline: 15 Mazzucchelli acetates, hand finished in the EU.",
+    alt: "Woolet Bespoke rectangle glasses in six Mazzucchelli acetate fronts with black temples: dark tortoise, racing green, navy, ice translucent, emerald rose and nude beige, headline: 15 Mazzucchelli acetates, hand finished in the EU.",
     label: "03 \u00b7 Acetates",
   },
   {
     src: "/ads/2026-11-bespoke-social/woolet-bespoke-carousel-04-two-colours-4x5.jpg",
-    alt: "Woolet Bespoke two-colour glasses with a different acetate on the front and the temples: navy with sunflower, amber tortoise with racing green, rouge aviator with deep matte black, slate grain with amber tortoise, headline: Two colours. One frame.",
+    alt: "Woolet Bespoke two-colour glasses with a different acetate on the front and the temples: dark tortoise with nude beige, amber mint chip with ice translucent, deep matte black with emerald rose, dark tortoise with navy, headline: Two colours. One frame.",
     label: "04 \u00b7 Two colours",
   },
   {
     src: "/ads/2026-11-bespoke-social/woolet-bespoke-carousel-05-finishes-4x5.jpg",
-    alt: "Woolet Bespoke Crown Panto glasses in tortoise acetate shown in three finishes: matte, brushed and hand polished.",
+    alt: "Woolet Bespoke round glasses in deep matte black acetate shown in three finishes: matte, brushed and hand polished.",
     label: "05 \u00b7 Finishes",
   },
   {
