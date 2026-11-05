@@ -116,6 +116,30 @@ export type Database = {
         }
         Relationships: []
       }
+      bespoke_coupons: {
+        Row: {
+          active: boolean
+          code: string
+          note: string | null
+          percent_off: number
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          code: string
+          note?: string | null
+          percent_off: number
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          code?: string
+          note?: string | null
+          percent_off?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       bespoke_crm_events: {
         Row: {
           created_at: string
@@ -635,6 +659,30 @@ export type Database = {
         }
         Relationships: []
       }
+      bespoke_pricing: {
+        Row: {
+          amount_usd: number
+          key: string
+          label: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          amount_usd: number
+          key: string
+          label: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          amount_usd?: number
+          key?: string
+          label?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       bespoke_render_cache: {
         Row: {
           alt_text: string
@@ -656,6 +704,7 @@ export type Database = {
           storage_path: string
           temple_code: string | null
           temple_name: string | null
+          view: string
         }
         Insert: {
           alt_text: string
@@ -677,6 +726,7 @@ export type Database = {
           storage_path: string
           temple_code?: string | null
           temple_name?: string | null
+          view?: string
         }
         Update: {
           alt_text?: string
@@ -698,6 +748,7 @@ export type Database = {
           storage_path?: string
           temple_code?: string | null
           temple_name?: string | null
+          view?: string
         }
         Relationships: []
       }
