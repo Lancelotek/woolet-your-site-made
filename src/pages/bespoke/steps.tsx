@@ -2219,10 +2219,24 @@ export function StepReview({
     const body = renderRequestBody(config, true);
     if (!body) return;
     setFrontState("loading");
-    // mode "render": returns the cached front view when it exists, otherwise
-    // generates it, hosts it and records it in bespoke_render_cache.
-    supabase.functions
-      .invoke("bespoke-preview-render", { body: { ...body, view: "front" } })
+    // The front view is built from this pair's own 3/4 render, so a pair that
+    // was never rendered gets its 3/4 view first (cached or generated), then
+    // the front. Both calls return the cached image when it exists.
+    const hasAngle = Boolean(getLatestPreviewUrl(reviewLensKey) ?? getLatestPreviewUrl(reviewBaseKey));
+    const ensureAngle = hasAngle
+      ? Promise.resolve(true)
+      : supabase.functions.invoke("bespoke-preview-render", { body }).then(({ data, error }) => {
+          const url = (data as { imageUrl?: string } | null)?.imageUrl;
+          if (error || !url) return false;
+          rememberRender(reviewLensKey, url);
+          if (!cancelled) setRenderUrl(url);
+          return true;
+        });
+    ensureAngle
+      .then((ok) => {
+        if (!ok) throw new Error("3/4 render failed");
+        return supabase.functions.invoke("bespoke-preview-render", { body: { ...body, view: "front" } });
+      })
       .then(({ data, error }) => {
         if (cancelled) return;
         const url = (data as { imageUrl?: string } | null)?.imageUrl;
@@ -2233,7 +2247,7 @@ export function StepReview({
         rememberRender(frontHistoryKey, url);
         setFrontUrl(url);
         setFrontState("idle");
-        pushCfg("cfg_front_view_ready", { frame: config.frameId ?? "", cached: Boolean((data as { cached?: boolean }).cached) });
+        pushCfg("cfg_front_view_ready", { frame: config.frameId ?? "", cached: Boolean((data as { cached?: boolean }).cached), angle_generated: !hasAngle });
       })
       .catch(() => !cancelled && setFrontState("error"));
     return () => {
@@ -2292,10 +2306,10 @@ export function StepReview({
               }
               className={shownUrl ? "h-full w-full object-contain" : "max-h-full max-w-[60%] object-contain"}
             />
-            {reviewView === "front" && frontState === "loading" && !frontUrl && (
+            {frontState === "loading" && (reviewView === "front" ? !frontUrl : !renderUrl) && (
               <div className="absolute inset-x-0 bottom-3 flex justify-center">
                 <span className="inline-flex items-center gap-2 rounded-full bg-black/70 px-3 py-1.5 text-[11px] uppercase tracking-[0.16em] text-cream">
-                  <Loader2 size={12} className="animate-spin" /> Rendering front view…
+                  <Loader2 size={12} className="animate-spin" /> {renderUrl ? "Rendering front view…" : "Rendering your frame…"}
                 </span>
               </div>
             )}
@@ -2317,7 +2331,10 @@ export function StepReview({
                 {id === "front" && frontState === "loading" && !frontUrl && <Loader2 size={11} className="ml-1.5 inline animate-spin" />}
               </button>
             ))}
-            {reviewView === "front" && frontState === "error" && !frontUrl && (
+            {frontState === "error" && !shownUrl && (
+              <span className="self-center text-[11px] text-cream-dim">Preview unavailable - showing the pattern sketch.</span>
+            )}
+            {reviewView === "front" && frontState === "error" && !frontUrl && renderUrl && (
               <span className="self-center text-[11px] text-cream-dim">Front view unavailable - showing 3/4.</span>
             )}
           </div>
