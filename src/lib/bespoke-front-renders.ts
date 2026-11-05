@@ -60,3 +60,56 @@ export function loadFrontRenders(): Promise<FrontRenderMap> {
 /** True when the selection is exactly a pre-generated front-only preview. */
 export const isFrontOnlySelection = (templeId: string | null | undefined, finishId: string | null | undefined) =>
   (!templeId || templeId === PREVIEW_TEMPLE_ID) && (!finishId || finishId === PREVIEW_FINISH_ID);
+
+/**
+ * Full front × temple previews for one pattern (matte, plano), pre-generated for
+ * every active acetate pair. Picking any front and temple colour then swaps the
+ * picture from memory - no lookup call, no render. Other finishes still go
+ * through the normal lookup/render path.
+ */
+export type ComboRenderMap = Record<string, Record<string, PatternRender>>; // frontColorId → templeColorId → render
+
+const comboCache = new Map<string, Promise<ComboRenderMap>>();
+
+export function loadComboRenders(frameId: string): Promise<ComboRenderMap> {
+  const hit = comboCache.get(frameId);
+  if (hit) return hit;
+  const frame = FRAMES.find((f) => f.id === frameId);
+  if (!frame) return Promise.resolve({});
+  const byCode = new Map(ACTIVE_COLORS.map((c) => [norm(c.code), c.id]));
+  const p = (async () => {
+    try {
+      const { data, error } = await supabase
+        .from("bespoke_render_cache")
+        .select("selection_key,shape,public_url,alt_text")
+        .like("selection_key", `v2|${norm(frame.shape)}|%|${PREVIEW_FINISH_ID}|plano|-`);
+      if (error) return {};
+      const map: ComboRenderMap = {};
+      for (const row of data ?? []) {
+        const [, , front, temple] = row.selection_key.split("|");
+        const f = byCode.get(front);
+        const t = byCode.get(temple);
+        if (!f || !t) continue;
+        (map[f] ??= {})[t] = { shape: row.shape, public_url: row.public_url, alt_text: row.alt_text };
+      }
+      return map;
+    } catch {
+      return {};
+    }
+  })();
+  comboCache.set(frameId, p);
+  // A failed load must not stick for the whole visit.
+  p.then((m) => { if (!Object.keys(m).length) comboCache.delete(frameId); });
+  return p;
+}
+
+/** Warm the browser cache so a temple tap swaps the picture without a download wait. */
+export function preloadRenders(urls: (string | undefined)[]) {
+  if (typeof window === "undefined") return;
+  for (const u of urls) {
+    if (!u) continue;
+    const img = new Image();
+    img.decoding = "async";
+    img.src = u;
+  }
+}
