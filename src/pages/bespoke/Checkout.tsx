@@ -459,9 +459,9 @@ export default function BespokeCheckout() {
                   <div className="flex items-start gap-3">
                     <ShieldCheck className="text-gold-light shrink-0 mt-0.5" size={20} />
                     <div>
-                      <div className="text-cream text-sm font-medium">The Woolet Fit Promise</div>
+                      <div className="text-cream text-sm font-medium">Built from your measurements</div>
                       <p className="text-cream-dim text-[12px] leading-relaxed mt-1">
-                        Every bespoke pair is hand-cut in the EU with Italian materials from your verified measurements. If the fit isn&rsquo;t right within 30 days of delivery, we remake the frame — on us. No restocking fees, no small print.
+                        Every bespoke pair is hand-cut in the EU with Italian materials from your verified measurements. Production starts after you approve the 3D model and takes 2 weeks. 5-year warranty on hinges, rims and finish.
                       </p>
                     </div>
                   </div>

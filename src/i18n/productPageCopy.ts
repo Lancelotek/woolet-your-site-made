@@ -399,7 +399,7 @@ export const BESPOKE_COPY: Record<PdpLang, BespokeCopy> = {
     guaranteeTitle: "Woolet Guarantee",
     guarantees: [
       ["30-Day Returns", "No questions asked. Full refund if the frames don't meet expectations."],
-      ["Fit Guarantee", "Cut to your measurements — if the frame doesn't fit, free re-cut."],
+      ["5-Year Warranty", "Hinges, rims and finish covered against manufacturing defects."],
       ["Mazzucchelli Since 1849", "Italian acetate used by Tom Ford and Oliver Peoples."],
       ["Free Shipping + Insurance", "Insured courier delivery with real-time tracking."],
     ],
@@ -446,7 +446,7 @@ export const BESPOKE_COPY: Record<PdpLang, BespokeCopy> = {
     guaranteeTitle: "Garantie Woolet",
     guarantees: [
       ["Retours sous 30 jours", "Sans justification. Remboursement intégral si la monture ne répond pas à vos attentes."],
-      ["Garantie d'ajustement", "Taillée selon vos mesures - si la monture ne vous va pas, nous la retaillons gratuitement."],
+      ["Garantie 5 ans", "Charnières, cercles et finition couverts contre les défauts de fabrication."],
       ["Mazzucchelli depuis 1849", "L'acétate italien utilisé par Tom Ford et Oliver Peoples."],
       ["Livraison offerte + assurance", "Livraison assurée par transporteur avec suivi en temps réel."],
     ],
@@ -493,7 +493,7 @@ export const BESPOKE_COPY: Record<PdpLang, BespokeCopy> = {
     guaranteeTitle: "Woolet-garantie",
     guarantees: [
       ["30 dagen retour", "Zonder opgaaf van reden. Volledige terugbetaling als het montuur niet aan je verwachtingen voldoet."],
-      ["Pasvormgarantie", "Op jouw maten gesneden - past het montuur niet, dan snijden we het gratis opnieuw."],
+      ["5 jaar garantie", "Scharnieren, randen en afwerking gedekt tegen fabricagefouten."],
       ["Mazzucchelli sinds 1849", "Italiaans acetaat dat ook Tom Ford en Oliver Peoples gebruiken."],
       ["Gratis verzending + verzekering", "Verzekerde levering per koerier met realtime track & trace."],
     ],

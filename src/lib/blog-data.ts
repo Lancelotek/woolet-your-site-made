@@ -2508,7 +2508,6 @@ ${blogFitLensHookHtml()}
 <li>CAD renders for your approval before any material is cut</li>
 <li>Italian acetate (Mazzucchelli M49 or equivalent) or a clearly named alternative material</li>
 <li>Hand-finishing — not just CNC-cut and shipped</li>
-<li>A remake guarantee if the dimensional fit is wrong on delivery</li>
 <li>Clear terms for which lenses are included and what each costs</li>
 </ul>
 
