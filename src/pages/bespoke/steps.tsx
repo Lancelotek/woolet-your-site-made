@@ -2180,7 +2180,7 @@ export function StepReview({
 
   // Straight-on front view (generated once per combination, then served from
   // the shared render cache in the database). Shown first in the review.
-  const frontHistoryKey = `${reviewLensKey}|front`;
+  const frontHistoryKey = `${reviewLensKey}|front2`;
   const [frontUrl, setFrontUrl] = useState<string | null>(() => getLatestPreviewUrl(frontHistoryKey));
   const [frontState, setFrontState] = useState<"idle" | "loading" | "error">("idle");
   const [reviewView, setReviewView] = useState<"front" | "angle">("front");

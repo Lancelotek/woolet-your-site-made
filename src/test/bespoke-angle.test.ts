@@ -54,7 +54,7 @@ describe("front view for the review step", () => {
     expect(compositionRulesForView("Aviator", "front")).toContain(PLAIN_FRONT_RULE);
     expect(compositionRulesForView("Round", "angle")).toBe(compositionRulesFor("Round"));
     expect(FRONT_COMPOSITION_RULES).toContain("perfectly symmetric");
-    expect(viewKey("v2|round|a|b|matte|plano|-", "front")).toBe("v2|round|a|b|matte|plano|-|front");
+    expect(viewKey("v2|round|a|b|matte|plano|-", "front")).toBe("v2|round|a|b|matte|plano|-|front2");
     expect(viewKey("v2|round|a|b|matte|plano|-", "angle")).toBe("v2|round|a|b|matte|plano|-");
     const source = readFileSync("supabase/functions/bespoke-preview-render/index.ts", "utf8");
     expect(source).toContain('const compositionReference = view === "angle" ? compositionReferenceFor(shape) : null;');

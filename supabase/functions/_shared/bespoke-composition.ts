@@ -18,12 +18,16 @@ export const PLAIN_FRONT_RULE =
 export const compositionRulesFor = (shape: string) => [COMPOSITION_RULES, PLAIN_FRONT_RULE, ...(compositionReferenceFor(shape) ? ["The LAST image is the Round composition reference, the authority ONLY for camera angle, framing, lighting and background. Never copy its shape, colours, finish or lenses. Never copy its lens shape, bridge or proportions. Copy only camera angle, framing, light and background."] : [])].join(" ");
 export type RenderView = "angle" | "front";
 
-/** Straight-on front view (owner request 04.11.2026): shown in the review step next to the 3/4 render. */
+/** Owner's reference photo for the front view pose (05.11.2026): flat, straight-on, temples folded behind the front. */
+export const FRONT_POSE_REFERENCE_URL = "https://woolet.co/bespoke-shapes/front-view-reference.jpg";
+
+/** Straight-on front view (owner request 04.11.2026, pose fixed 05.11.2026): shown in the review step next to the 3/4 render. */
 export const FRONT_COMPOSITION_RULES = [
   "Image 1 is the geometry authority.",
-  "FRONT VIEW: camera exactly level with the frame, perfectly square to the front, zero rotation and zero tilt - the view an optician has looking straight at the glasses.",
-  "HARD CAMERA CONSTRAINTS: the front is perfectly symmetric left to right; both lenses the same size; the bridge on the vertical centre line; the open temples point straight back away from the camera so only their hinge ends and a thin sliver of each temple show at the outer corners.",
-  "Centre the complete front, filling about 75% of image width; entire frame inside the image, nothing cropped.",
+  "FRONT VIEW, NOT A 3/4 VIEW: the camera looks straight at the front of the glasses, exactly level with them, perfectly square to the front, zero rotation, zero tilt, zero perspective - like a flat catalogue packshot of folded glasses lying face-on to the camera.",
+  "Both temples are FOLDED CLOSED behind the front, crossing each other horizontally behind the lenses, visible through clear lenses or translucent acetate; the temples never extend away from the front and never point toward the upper right.",
+  "HARD CAMERA CONSTRAINTS: the front is perfectly symmetric left to right; both lenses identical in size and shape; the bridge on the vertical centre line; the top edge of the front is horizontal; no side of the front and no outer surface of a temple faces the camera.",
+  "Landscape composition about 2:1. Centre the complete front, filling about 80% of image width; entire frame inside the image, nothing cropped.",
   "Same seamless warm cream studio backdrop and soft even softbox light as a premium catalogue still, with a soft contact shadow below the frame.",
   "No props, no coloured backdrop, no face, no text, no model, no branding, no logos or printed markings anywhere.",
 ].join(" ");
@@ -33,4 +37,5 @@ export const compositionRulesForView = (shape: string, view: RenderView) =>
   view === "front" ? [FRONT_COMPOSITION_RULES, PLAIN_FRONT_RULE].join(" ") : compositionRulesFor(shape);
 
 /** Cache key suffix: 3/4 keys stay unchanged so existing renders keep working. */
-export const viewKey = (key: string, view: RenderView) => (view === "front" ? `${key}|front` : key);
+// "front2": front renders made before the folded straight-on pose (05.11.2026) came out as 3/4 views and are not reused.
+export const viewKey = (key: string, view: RenderView) => (view === "front" ? `${key}|front2` : key);
