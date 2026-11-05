@@ -207,7 +207,7 @@ export const STEPS: StepMeta[] = [
   { id: 2, label: "Choose acetate",        shortLabel: "Acetate" },
   { id: 3, label: "Temple length",         shortLabel: "Temples" },
   { id: 4, label: "Engraving",             shortLabel: "Engraving" },
-  { id: 5, label: "Lenses & prescription", shortLabel: "Lenses" },
+  { id: 5, label: "Lenses", shortLabel: "Lenses" },
   { id: 6, label: "Review & pay",          shortLabel: "Review" },
 ];
 

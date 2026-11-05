@@ -22,7 +22,8 @@ export const ksLiveCta = (lang: string): string =>
  */
 export default function KickstarterLiveBar() {
   const { pathname } = useLocation();
-  if (!isKickstarterLive() || pathname.includes("/admin")) return null;
+  // Hidden in the Bespoke funnel: the Founder Edition bar pulled buyers out of the configurator.
+  if (!isKickstarterLive() || pathname.includes("/admin") || pathname.includes("/bespoke")) return null;
   const lang = pathname.split("/")[1] || "en";
   const href = kickstarterLiveHref("topbar", "live_bar");
   const barStyle = {

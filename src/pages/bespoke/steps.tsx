@@ -102,6 +102,7 @@ export function StepFrame({
   const [cardColour, setCardColour] = useState<Record<string, string>>({});
   const dotColours = CARD_DOT_COLOR_IDS.map((id) => COLORS.find((c) => c.id === id)).filter(Boolean) as typeof COLORS;
   const moreCount = ACTIVE_COLORS.length - dotColours.length;
+  const patternNav = useCfgNav();
   return (
     <div className="space-y-10">
       <header>
@@ -204,7 +205,21 @@ export function StepFrame({
                     />
                   );
                 })}
-                {moreCount > 0 && <span className="cfg-carddots__more">+{moreCount}</span>}
+                {moreCount > 0 && (
+                  <button
+                    type="button"
+                    className="cfg-carddots__more"
+                    aria-label={`See all ${moreCount + dotColours.length} acetates for ${f.name}`}
+                    onClick={() => {
+                      if (!active) update("frameId", f.id);
+                      if (colourId) update("frontColorId", colourId);
+                      pushCfg("cfg_card_more", { shape: f.id });
+                      window.setTimeout(() => patternNav.onNext?.(), 650);
+                    }}
+                  >
+                    +{moreCount}
+                  </button>
+                )}
               </div>
             </div>
           );
@@ -1855,8 +1870,9 @@ export function StepEngraving({ config, update }: StepProps) {
                 onChange={(e) => onTextChange(e.target.value)}
                 maxLength={ENGRAVING_MAX_CHARS}
                 placeholder="e.g. Tom Smith"
+                id="cfg-engraving-text"
                 autoFocus
-                className="w-full px-4 py-3 pr-16 rounded-[10px] bg-background border border-cream/15 text-cream text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/40"
+                className="w-full px-4 py-3 pr-16 rounded-[10px] bg-background border border-cream/15 text-cream text-base sm:text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/40"
               />
               <span className={`absolute right-3 top-1/2 -translate-y-1/2 text-[0.72rem] tabular-nums ${remaining === 0 ? "text-gold-light" : "text-cream-dim/70"}`}>
                 {remaining}
@@ -2086,7 +2102,7 @@ export function StepLenses({ config, update }: StepProps) {
     <div className="space-y-10">
       <header>
         <div className={sectionKicker}>Step 5 — Lenses</div>
-        <h2 className={sectionTitle}>Lenses & prescription</h2>
+        <h2 className={sectionTitle}>Lenses</h2>
         <p className="text-cream-dim mt-2 max-w-xl text-sm leading-relaxed">
           Choose how you want to use your glasses. We will confirm the technical lens specification with you before production.
         </p>
@@ -2366,9 +2382,9 @@ export function StepReview({
         <div className="cfg-eyebrow" style={{ color: "#C2A05A" }}>What happens after payment</div>
         <ol className="mt-4 space-y-3 text-cream text-sm">
           <li><span className="font-mono text-gold-light text-[11px] mr-3">01</span> Your order is confirmed and paid.</li>
-          <li><span className="font-mono text-gold-light text-[11px] mr-3">02</span> We email you a private link to the AI fit scan (or book a studio appointment).</li>
+          <li><span className="font-mono text-gold-light text-[11px] mr-3">02</span> We email you a private link to the AI fit scan, plus where to upload two photos with a card (front and profile).</li>
           <li><span className="font-mono text-gold-light text-[11px] mr-3">03</span> Our optician verifies your measurements within 24&nbsp;h.</li>
-          <li><span className="font-mono text-gold-light text-[11px] mr-3">04</span> The pattern is cut in the EU to your exact millimetres — 3–4 weeks to ship, <em className="italic text-gold-light not-italic">free worldwide</em>.</li>
+          <li><span className="font-mono text-gold-light text-[11px] mr-3">04</span> Hand-made in the EU to your exact millimetres - a 2-week build, <em className="italic text-gold-light not-italic">free worldwide shipping</em>.</li>
         </ol>
       </div>
 
