@@ -70,7 +70,8 @@ export const INITIAL_CONFIG: BespokeConfig = {
   engravingPositionId: null,
   engravingFontId: null,
   engravingOffset: { x: 0, y: 0 },
-  lensTypeId: null,
+  // Default: frame only - the total starts at the bare frame price.
+  lensTypeId: "none",
   readingStrengthMode: null,
   readingStrength: null,
   readingStrengthLeft: null,
@@ -105,9 +106,9 @@ const loadInitial = (): BespokeConfig => {
     if (!raw) return INITIAL_CONFIG;
     const parsed = JSON.parse(raw) as BespokeConfig;
     const next = clearLegacyEngraving({ ...INITIAL_CONFIG, ...parsed });
-    // Only lens options still offered survive a restored session; retired ones are picked again.
+    // Unpicked or retired lens options fall back to the "No lenses" default.
     if (!ACTIVE_LENS_TYPES.some((l) => l.id === next.lensTypeId)) {
-      next.lensTypeId = null;
+      next.lensTypeId = "none";
       next.lensMaterialId = null;
       next.lensCoatingId = null;
     }
