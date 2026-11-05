@@ -28,7 +28,7 @@ import {
 } from "./steps";
 import { supabase } from "@/integrations/supabase/client";
 import { getSessionRef } from "@/lib/scan-session-ref";
-import { PREVIEW_FINISH_ID, PREVIEW_TEMPLE_ID, loadFrontRenders, type FrontRenderMap } from "@/lib/bespoke-front-renders";
+import { PREVIEW_FINISH_ID, PREVIEW_TEMPLE_ID, loadComboRenders, loadFrontRenders, preloadRenders, type ComboRenderMap, type FrontRenderMap } from "@/lib/bespoke-front-renders";
 import { loadPatternRenders, type PatternRender } from "@/lib/bespoke-pattern-renders";
 import { renderAltForConfig } from "@/lib/bespoke-render-alt";
 import {
@@ -162,6 +162,19 @@ const ConfiguratorPage = () => {
     void loadFrontRenders().then((m) => { if (!cancelled) setFrontRenders(m); });
     return () => { cancelled = true; };
   }, []);
+  // Every front × temple pair of the chosen pattern (matte) is pre-generated:
+  // load them once per pattern and warm the images for the current front.
+  const [comboRenders, setComboRenders] = useState<ComboRenderMap>({});
+  useEffect(() => {
+    if (!config.frameId) { setComboRenders({}); return; }
+    let cancelled = false;
+    void loadComboRenders(config.frameId).then((m) => { if (!cancelled) setComboRenders(m); });
+    return () => { cancelled = true; };
+  }, [config.frameId]);
+  useEffect(() => {
+    if (!config.frontColorId) return;
+    preloadRenders(Object.values(comboRenders[config.frontColorId] ?? {}).map((r) => r.public_url));
+  }, [comboRenders, config.frontColorId]);
   const frontOnlyUrl = config.frameId && config.frontColorId
     ? frontRenders[config.frameId]?.[config.frontColorId]?.public_url ?? null
     : null;
@@ -202,6 +215,17 @@ const ConfiguratorPage = () => {
     const local = resolvePreview();
     setAiPreviewUrl(local);
     if (local) return;
+    // Pre-generated pair (matte, no lens tint): show it straight from memory.
+    const lensSimple = !config.lensTypeId || config.lensTypeId === "plano" || config.lensTypeId === "none";
+    const combo = renderConfig.finishId === PREVIEW_FINISH_ID && renderConfig.templeColorId
+      ? comboRenders[config.frontColorId]?.[renderConfig.templeColorId]
+      : undefined;
+    if (combo && lensSimple) {
+      rememberRender(baseKey, combo.public_url);
+      setAiPreviewUrl(combo.public_url);
+      trackBespokeFunnel("bespoke_preview_shown", { status: "cached" });
+      return;
+    }
     const key = previewKey;
     let cancelled = false;
     const t = window.setTimeout(async () => {
@@ -249,7 +273,7 @@ const ConfiguratorPage = () => {
     }, frontOnlyUrl ? 150 : 600);
     return () => { cancelled = true; window.clearTimeout(t); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [previewKey, frontRenders]);
+  }, [previewKey, frontRenders, comboRenders]);
 
   const appPanelRef = useRef<HTMLElement>(null);
   // Desktop app shell fills the viewport under the site-wide Kickstarter bar.
