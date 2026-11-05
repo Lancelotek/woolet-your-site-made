@@ -398,7 +398,7 @@ export const BESPOKE_COPY: Record<PdpLang, BespokeCopy> = {
     ],
     guaranteeTitle: "Woolet Guarantee",
     guarantees: [
-      ["5-Year Warranty", "Hinges, rims and finish covered against manufacturing defects."],
+      ["30-Day Returns", "No questions asked. Full refund if the frames don't meet expectations."],
       ["Fit Guarantee", "Cut to your measurements — if the frame doesn't fit, free re-cut."],
       ["Mazzucchelli Since 1849", "Italian acetate used by Tom Ford and Oliver Peoples."],
       ["Free Shipping + Insurance", "Insured courier delivery with real-time tracking."],
@@ -445,7 +445,7 @@ export const BESPOKE_COPY: Record<PdpLang, BespokeCopy> = {
     ],
     guaranteeTitle: "Garantie Woolet",
     guarantees: [
-      ["Garantie 5 ans", "Charnières, cercles et finition couverts contre les défauts de fabrication."],
+      ["Retours sous 30 jours", "Sans justification. Remboursement intégral si la monture ne répond pas à vos attentes."],
       ["Garantie d'ajustement", "Taillée selon vos mesures - si la monture ne vous va pas, nous la retaillons gratuitement."],
       ["Mazzucchelli depuis 1849", "L'acétate italien utilisé par Tom Ford et Oliver Peoples."],
       ["Livraison offerte + assurance", "Livraison assurée par transporteur avec suivi en temps réel."],
@@ -516,8 +516,8 @@ export const PRODUCT_FAQ_I18N: Record<Exclude<PdpLang, "en">, FaqItem[]> = {
       a: "Mesurez la largeur de votre visage d'une tempe à l'autre. Si le résultat atteint 155 mm ou plus, Woolet est conçue précisément pour vous. Notre quiz d'ajustement sur /en/fit vous aide à confirmer votre taille en 60 secondes. Si la monture ne vous va toujours pas, nous l'échangeons gratuitement grâce à notre Garantie d'ajustement.",
     },
     {
-      q: "Et si la monture ne me va pas ?",
-      a: "Vérifiez votre largeur avec le scan d'ajustement de 60 secondes avant de commander : 158 mm convient aux visages de 155 à 161 mm. En dehors de cette plage, le Bespoke est taillé selon vos mesures. Chaque monture est garantie 5 ans.",
+      q: "Puis-je retourner les lunettes si elles ne me conviennent pas ?",
+      a: "Oui. Vous disposez de 30 jours pour les retourner, sans justification. Nous remboursons l'intégralité du montant sur votre moyen de paiement d'origine. Renvoyez simplement la monture dans son emballage d'origine.",
     },
     {
       q: "En quoi Woolet diffère-t-elle des lunettes pour visage large moins chères ?",

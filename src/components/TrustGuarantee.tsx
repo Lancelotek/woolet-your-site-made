@@ -46,8 +46,8 @@ const IconShield = () => (
 const guaranteeItems = [
   {
     icon: <IconReturn />,
-    title: "5-Year Warranty",
-    description: "Hinges, rims and finish are covered against manufacturing defects for five years.",
+    title: "30-Day Returns — No Questions Asked",
+    description: "If the frames don't meet your expectations, we'll refund your money. No hassle.",
   },
   {
     icon: <IconFit />,

@@ -8,8 +8,8 @@ export const PRODUCT_FAQ: FaqItem[] = [
     a: "Measure your face width from temple to temple. If the result is 155mm or more — Woolet is designed specifically for you. Our fit quiz at /en/fit will help you confirm your size in 60 seconds. If the frames still don't fit — we'll exchange them for free under our Fit Guarantee.",
   },
   {
-    q: "What if the frames don't fit?",
-    a: "Check your width with the 60-second fit scan before you order. Woolet 158 mm fits faces from 155 to 161 mm; outside that range, Bespoke is built to your measurements. Every frame has a 5-year warranty.",
+    q: "Can I return the glasses if they don't suit me?",
+    a: "Yes. You have 30 days to return them with no questions asked. We'll refund the full amount to your original payment method. Just send the frames back in the original packaging.",
   },
   {
     q: "How is Woolet different from cheaper wide-face glasses?",

@@ -195,7 +195,7 @@ const faqs = [
   },
   {
     q: "What if they don't fit?",
-    a: "Check your width with the 60-second fit scan before you order: 158 mm fits faces from 155 to 161 mm. Outside that range, Bespoke is cut to your measurements. Every frame has a 5-year warranty.",
+    a: "You have 30 days from delivery to return them for a full refund, no questions asked. Standard frames only — bespoke are cut to your measurements.",
   },
   {
     q: "How long is shipping?",
@@ -376,7 +376,7 @@ const BuyBox = () => {
             }}
           >
             {[
-              "5-year warranty",
+              "30-day fit guarantee",
               "Free worldwide shipping",
               "Hand made in EU",
               "Free AI Fit Wizard",
@@ -529,7 +529,7 @@ const Shop = () => {
           letterSpacing: "0.08em",
         }}
       >
-        Hand made in EU · Free worldwide shipping · 5-year warranty ·{" "}
+        Hand made in EU · Free worldwide shipping · 30-day fit guarantee ·{" "}
         <span style={{ color: GOLD }}>40% off — join the list</span>
       </div>
 
@@ -669,7 +669,7 @@ const Shop = () => {
               <GhostBtn href="#fit-wizard">Find my fit</GhostBtn>
             </div>
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 32 }}>
-              {["Hand made in EU", "Mazzucchelli acetate", "5-year warranty"].map((b) => (
+              {["Hand made in EU", "Mazzucchelli acetate", "30-day fit guarantee"].map((b) => (
                 <span
                   key={b}
                   style={{
@@ -981,7 +981,7 @@ const Shop = () => {
                   ["Italian Mazzucchelli acetate", "yes", "yes", "no", "sometimes"],
                   ["Hand made in EU", "yes", "yes", "no", "no"],
                   ["AI at-home fit check", "yes", "no", "yes", "no"],
-                  ["5-year warranty", "yes", "no", "no", "no"],
+                  ["Fit guarantee (30 days)", "yes", "varies", "yes", "no"],
                 ].map((row, i) => (
                   <tr key={i} style={{ borderTop: `1px solid ${HAIR}` }}>
                     <td style={{ padding: 16, color: CREAM }}>{row[0]}</td>
@@ -1060,13 +1060,13 @@ const Shop = () => {
             margin: "0 0 96px",
           }}
         >
-          <Eyebrow>The 5-year promise</Eyebrow>
+          <Eyebrow>The 30-day promise</Eyebrow>
           <h2 style={{ ...serif, color: HEADING, fontSize: "clamp(32px, 4vw, 52px)", margin: "16px auto 20px", maxWidth: 820, lineHeight: 1.15 }}>
-            Measure first. Wear them for years.
+            Wear them for 30 days. If they don't fit, send them back.
           </h2>
           <p style={{ ...sans, color: MUTED, fontSize: 16, lineHeight: 1.75, maxWidth: 620, margin: "0 auto 36px" }}>
-            A 60-second fit scan before you order, and a 5-year warranty on hinges, rims and finish.
-            We only make one thing — frames that fit wide faces.
+            Full refund, no re-stocking fee, no questions. We only make one thing — frames that fit
+            wide faces — and we'd rather have your trust than a sale.
           </p>
           <PrimaryBtn as="a" href="#buy">Shop with confidence</PrimaryBtn>
         </section>
@@ -1136,7 +1136,7 @@ const Shop = () => {
             {[
               { h: "Shop", links: ["007 Round", "009 Soft-square", "Bespoke", "Fit Wizard"] },
               { h: "Learn", links: ["The Fit", "Craftsmanship", "Compare", "Reviews"] },
-              { h: "Support", links: ["5-year warranty", "Shipping", "Contact", "FAQ"] },
+              { h: "Support", links: ["30-day guarantee", "Shipping", "Contact", "FAQ"] },
             ].map((col) => (
               <div key={col.h}>
                 <div style={{ ...sans, color: GOLD, textTransform: "uppercase", letterSpacing: "0.18em", fontSize: 11, marginBottom: 16 }}>
