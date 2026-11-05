@@ -9,7 +9,7 @@ import {
   isAviatorShape,
 } from "../_shared/aviator-references.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.58.0";
-import { compositionReferenceFor, compositionRulesForView, shapeConstraint, viewKey, type RenderView } from "../_shared/bespoke-composition.ts";
+import { FRONT_POSE_REFERENCE_URL, compositionReferenceFor, compositionRulesForView, shapeConstraint, viewKey, type RenderView } from "../_shared/bespoke-composition.ts";
 import {
   RENDER_BUCKET, PROMPT_VERSION, buildKeyV2, buildAlt, buildStoragePath,
   publicUrlFor, decodeDataUrl,
@@ -269,7 +269,13 @@ Deno.serve(async (req) => {
       usePattern
         ? `Reproduce that silhouette faithfully: identical lens shape and lens depth, identical bridge type and position (do not add or remove a brow bar or a second bridge), identical end-piece and temple placement, identical proportion between lens width and bridge.`
         : `Classic ${shape} silhouette.`,
-      ...(aviator
+      ...(view === "front"
+        ? [
+            `Image 2 is the finished 3/4 render of this exact pair: copy its acetate colours, pattern, finish, thickness and lenses exactly, only the camera changes.`,
+            `The LAST image is the pose reference for a front view: copy ONLY its straight-on camera, the folded temples crossing behind the front and the centred framing. Never copy its frame shape, clear acetate, metal temple cores, pins, dark backdrop or lighting.`,
+          ]
+        : []),
+      ...(aviator && view === "angle"
         ? [
              `Images 2 onward are photographs of the same physical Aviator construction from different angles. Use them only to understand real thickness, edge polish, bridge depth, end-piece geometry, hinge placement, two-pin temple attachment, temple taper and how each temple joins the front without a gap or invented connector.`,
               `The technical drawing in image 1 remains the authority for the front silhouette. The text alone decides the camera angle; construction photographs must never decide the angle.`,
@@ -308,7 +314,19 @@ Deno.serve(async (req) => {
      if (!usePattern) return json({ error: "A pattern drawing is required for fixed-angle generation" }, 400);
      // The 3/4 composition reference would pull a front view back to the angle.
      const compositionReference = view === "angle" ? compositionReferenceFor(shape) : null;
-     const refUrls = [patternUrl, ...(aviator ? AVIATOR_CONSTRUCTION_REFERENCES : []), ...(compositionReference ? [compositionReference] : [])];
+     let refUrls = [patternUrl, ...(aviator ? AVIATOR_CONSTRUCTION_REFERENCES : []), ...(compositionReference ? [compositionReference] : [])];
+     if (view === "front") {
+       // Front view: the 3/4 photos of the Aviator construction pull the camera back to an angle,
+       // so the front uses only the drawing, this pair's own 3/4 render and the owner's pose photo.
+       const angleKeys = [
+         buildKeyV2({ shape, frontCode, templeCode, finish: finishKey, lensType, lensTint }),
+         buildKeyV2({ shape, frontCode, templeCode, finish: finishKey, lensType: "plano", lensTint: null }),
+       ];
+       const { data: angleRows } = await admin.from("bespoke_render_cache").select("selection_key, public_url").in("selection_key", angleKeys);
+       const angleUrl = angleKeys.map((k) => angleRows?.find((r) => r.selection_key === k)?.public_url).find(Boolean);
+       if (!angleUrl) return json({ error: "Render the 3/4 view of this combination first" }, 409);
+       refUrls = [patternUrl, angleUrl, FRONT_POSE_REFERENCE_URL];
+     }
     const inlined = await Promise.all(refUrls.map(inlineImage));
 
     const content = usePattern
