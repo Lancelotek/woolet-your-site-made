@@ -7,6 +7,8 @@ import { trackGoogleAdsConversion } from "@/lib/google-ads";
 import { trackReservationPurchase } from "@/lib/ga4-purchase";
 import { oaiqReservation } from "@/lib/openai-pixel";
 import wooletLogoAsset from "@/assets/woolet-logo.png.asset.json";
+import FounderEditionClaim from "@/components/FounderEditionClaim";
+import { FOUNDER_EDITION as F } from "@/config/kickstarter";
 
 const wooletLogo = wooletLogoAsset.url;
 
@@ -38,18 +40,18 @@ const eyebrow: React.CSSProperties = {
 const STEPS = [
   {
     n: "01",
-    title: "Launch day",
-    body: "A private pledge link lands in your inbox before the public page opens.",
+    title: "Open your Founder link",
+    body: "The Founder Edition is a hidden reward on Kickstarter. It opens from the button above - we also email you the same link.",
   },
   {
     n: "02",
-    title: "Pledge at $114",
-    body: "Your $1 is credited to the pledge. Pick 007 Round or 009 Soft Square, in Black, Havana or Silver Clear. The Founder Edition 009 has a 24 mm bridge (54-24-150).",
+    title: "Pledge $114",
+    body: "009 Black, Founder Edition: 24 mm bridge (54-24-150), magnetic box, special case and the Clip-On Cloth ($45 value).",
   },
   {
     n: "03",
-    title: "Frames ship after the campaign",
-    body: "158 mm front, Italian Mazzucchelli acetate, hand made in EU, felt case in the box.",
+    title: "Ships right after the campaign",
+    body: "Founder frames are already made. 158 mm front, Italian Mazzucchelli acetate.",
   },
 ];
 
@@ -134,15 +136,13 @@ export default function ThankYouReserved() {
       };
 
       section("WHAT YOU JUST DID", [
-        "$1 today reserves 40% off retail on your Woolet frame during the Kickstarter campaign.",
-        "Retail $190 - your founder price $114. Sun, blue light and readers priced the same way.",
+        "$1 unlocked the hidden Founder Edition reward on Kickstarter.",
+        "Woolet 009 Black, 24 mm bridge: $114 instead of $190, with a $45 box.",
       ]);
 
       section("WHAT HAPPENS NEXT", [
-        "1. Launch day: you get a private pledge link by email, before the public sees the page.",
-        "2. Pledge at your founder price. Your $1 is credited to the pledge.",
-        "3. Pick your shape and colour: 007 Round or 009 Soft Square, Black, Havana or Silver Clear. Founder Edition 009: 24 mm bridge (54-24-150).",
-        "4. Frames ship after the campaign, in the box with the felt case.",
+        "1. Open your Founder link (also in your email) and pledge $114.",
+        "2. Founder frames are already made and ship right after the campaign.",
       ]);
 
       section(
@@ -153,10 +153,6 @@ export default function ThankYouReserved() {
         ],
         true,
       );
-
-      section("REFUNDS", [
-        "Changed your mind? Reply to any Woolet email and the $1 goes back the same day. No questions.",
-      ]);
 
       doc.setFont("helvetica", "normal");
       doc.setFontSize(8);
@@ -219,13 +215,11 @@ export default function ThankYouReserved() {
             </svg>
           </div>
           <div style={{ ...eyebrow, marginTop: 24 }}>Reservation confirmed</div>
-          <h1 className="tyr-h1">Your price is locked.</h1>
+          <h1 className="tyr-h1">$1 received. You're a Founder.</h1>
           <p style={{ color: T.muted, fontSize: 16, lineHeight: 1.7, maxWidth: 460, margin: "20px auto 0" }}>
-            $1 received. 40% off retail is yours for the whole Kickstarter campaign - $190 becomes $114 on any Woolet frame.
+            The Founder Edition is ${F.price} instead of ${F.srp} in the shop. Only {F.total} were made.
           </p>
-          <p style={{ color: T.goldDim, fontSize: 13, marginTop: 16 }}>
-            $114 locked - only 30 frames go at this price on Kickstarter. Fully refundable until launch.
-          </p>
+          <FounderEditionClaim placement="thank_you_reserved" />
           {paid && <div style={{ maxWidth: 520, margin: "0 auto" }}><HeardFromQuestion sessionId={paymentRef} /></div>}
         </section>
 
@@ -278,11 +272,10 @@ export default function ThankYouReserved() {
             </Link>
           </div>
 
-          {/* 6. Refund line */}
+          {/* 6. Support line */}
           <p style={{ color: T.muted, fontSize: 13, lineHeight: 1.7, textAlign: "center", marginTop: 40 }}>
-            Changed your mind? Reply to any Woolet email or write to{" "}
-            <a href={`mailto:${SUPPORT_EMAIL}`} style={{ color: T.gold, textDecoration: "none" }}>{SUPPORT_EMAIL}</a>{" "}
-            - the $1 goes back the same day.
+            Questions about fit or size? Write to{" "}
+            <a href={`mailto:${SUPPORT_EMAIL}`} style={{ color: T.gold, textDecoration: "none" }}>{SUPPORT_EMAIL}</a>.
           </p>
         </section>
       </main>

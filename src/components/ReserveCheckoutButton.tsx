@@ -6,7 +6,7 @@ import { pushGtmEvent } from "@/lib/gtm";
 import { getLastTouchCheckoutMetadata } from "@/lib/attribution";
 import { getGaCheckoutMetadataAsync } from "@/lib/ga-ids";
 import { Button } from "@/components/ui/button";
-import { isKickstarterLive, kickstarterLiveHref } from "@/config/kickstarter";
+import { isReservationOpen, kickstarterLiveHref } from "@/config/kickstarter";
 
 const StripeCheckoutModalLazy = lazy(() =>
   import("@/components/StripeCheckoutModal").then((m) => ({ default: m.StripeCheckoutModal })),
@@ -115,7 +115,7 @@ export function ReserveCheckoutButton({
   const handleClick = async () => {
     if (loading || open) return;
     // Tab opened before launch: never start a $1 session after it.
-    if (isKickstarterLive()) {
+    if (!isReservationOpen()) {
       pushGtmEvent("kickstarter_live_click", { ...(eventParams ?? {}), slot: "reserve_button" });
       window.location.href = liveHref;
       return;
@@ -147,7 +147,7 @@ export function ReserveCheckoutButton({
   };
 
   // After the public launch the $1 reservation is closed: the same slot links to the campaign.
-  if (isKickstarterLive()) {
+  if (!isReservationOpen()) {
     return (
       <Button asChild id={id} className={className} style={style}>
         <a

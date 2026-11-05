@@ -15,6 +15,7 @@ import type { TemplateEntry } from './registry.ts'
 
 interface Props {
   vipUrl?: string
+  founderUrl?: string
   amountFormatted?: string
   orderRef?: string
 }
@@ -23,14 +24,17 @@ const GOLD = '#CAA449'
 const INK = '#0f0f0f'
 const PAPER = '#f0ece4'
 
+// Secret Kickstarter reward "VIP Founder Edition - 009 Black"; ref=5fn1u9 = KS custom tag "ML Founders 114".
+const FOUNDER_URL =
+  'https://www.kickstarter.com/projects/wooletco/woolet-finally-glasses-that-actually-fit-wider-faces?secret_reward_token=6d3cff02&ref=5fn1u9'
+
 const Email = ({
-  vipUrl = 'https://woolet.co/en/lp/kickstarter/vip-confirmed?paid=1',
-  amountFormatted = '$1.00',
+  founderUrl = FOUNDER_URL,
   orderRef = '',
 }: Props) => (
   <Html lang="en" dir="ltr">
     <Head />
-    <Preview>Your 40% OFF founding-member price is reserved.</Preview>
+    <Preview>Your Founder Edition link - 009 Black, $114 instead of $190.</Preview>
     <Body style={main}>
       <Container style={container}>
         <Section style={brandRow}>
@@ -38,39 +42,33 @@ const Email = ({
           <Text style={brandSub}>Eyewear for wide faces</Text>
         </Section>
 
-        <Heading style={h1}>Your 40% OFF is reserved</Heading>
+        <Heading style={h1}>You're a Founder</Heading>
 
         <Text style={body}>
-          Payment received. Your founding-member price is locked: <strong>$114</strong>{' '}
-          instead of $190, with free shipping. The {amountFormatted} you paid is deducted
-          from your pledge on launch day.
+          Your $1 unlocked the Founder Edition on Kickstarter: <strong>009 Black</strong> with a 24 mm
+          bridge, <strong>$114</strong> instead of $190 in the shop.
+        </Text>
+        <Text style={body}>
+          It comes in a magnetic box with a special case and the Clip-On Cloth ($45 value). The 30
+          Founder frames are already made, so yours ships right after the campaign.
         </Text>
 
         <Section style={card}>
-          <Text style={badge}>FOUNDING MEMBER</Text>
-          <Text style={cardTitle}>Your VIP page</Text>
+          <Text style={badge}>FOUNDER EDITION</Text>
           <Text style={body}>
-            Keep this link — it holds your reservation details and your referral link.
+            The reward is hidden on Kickstarter. It opens only from this link:
           </Text>
           <Section style={ctaWrap}>
-            <Link href={vipUrl} style={cta}>
-              Open my VIP page →
+            <Link href={founderUrl} style={cta}>
+              Claim my Founder frame - $114
             </Link>
           </Section>
-          <Text style={small}>{vipUrl}</Text>
         </Section>
 
         <Hr style={hr} />
 
-        <Heading as="h3" style={h3}>What happens next</Heading>
         <Text style={body}>
-          1. We email you the minute the Kickstarter campaign opens — you get first access.
-        </Text>
-        <Text style={body}>
-          2. You pledge at $114 and pick 007 (round) or 009 (square), both 158 mm.
-        </Text>
-        <Text style={body}>
-          3. Need a wider or narrower front? Bespoke covers 145–160 mm.
+          Questions about fit or size? Reply to this email.
         </Text>
 
         {orderRef ? <Text style={small}>Reference: {orderRef}</Text> : null}
@@ -78,7 +76,7 @@ const Email = ({
         <Hr style={hr} />
 
         <Text style={footer}>
-          You're getting this email because you reserved a founding-member spot at woolet.co.
+          You're getting this email because you reserved the Founder Edition at woolet.co.
         </Text>
         <Text style={footer}>Woolet · Eyewear engineered for 155 mm+ faces.</Text>
       </Container>
@@ -88,10 +86,10 @@ const Email = ({
 
 export const template = {
   component: Email,
-  subject: 'Your 40% OFF is reserved — here is your VIP link',
-  displayName: 'VIP — Reservation paid',
+  subject: 'Your Founder Edition link - 009 Black, $114',
+  displayName: 'VIP — Reservation paid (Founder Edition link)',
   previewData: {
-    vipUrl: 'https://woolet.co/en/lp/kickstarter/vip-confirmed?paid=1',
+    founderUrl: FOUNDER_URL,
     amountFormatted: '$1.00',
     orderRef: 'cs_test_123',
   },

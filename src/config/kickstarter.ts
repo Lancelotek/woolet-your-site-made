@@ -41,3 +41,47 @@ export const KICKSTARTER_SITE_REF = "4rxoly";
 /** Live campaign link: the "Woolet" custom referral tag + placement in UTMs. */
 export const kickstarterLiveHref = (placement: string, slot = placement) =>
   `${KICKSTARTER_URL}?ref=${KICKSTARTER_SITE_REF}&utm_source=woolet_site&utm_medium=site&utm_campaign=ks_live&utm_term=${encodeURIComponent(placement)}&utm_content=${encodeURIComponent(slot)}`;
+
+/**
+ * $1 founder reservation, reopened 05.11.2026 for the rest of the campaign.
+ * $1 -> secret Kickstarter reward "VIP Founder Edition - 009 Black" ($114, SRP $190, + $45 box).
+ * Closes at the campaign deadline (Fri 04.12.2026); keep in sync with
+ * supabase/functions/create-checkout/index.ts (RESERVATION_CLOSE_AT_MS).
+ * QA: ?reserve_closed=1 previews the closed state for the tab session, ?reserve_closed=0 clears it.
+ */
+export const RESERVATION_CLOSE_AT_MS = Date.UTC(2026, 11, 4, 14, 0, 0);
+const RESERVE_CLOSED_PREVIEW_KEY = "wlt_reserve_closed_preview";
+
+export const isReservationOpen = (now: number = Date.now()): boolean => {
+  if (typeof window !== "undefined") {
+    try {
+      const flag = new URLSearchParams(window.location.search).get("reserve_closed");
+      if (flag === "1") sessionStorage.setItem(RESERVE_CLOSED_PREVIEW_KEY, "1");
+      if (flag === "0") sessionStorage.removeItem(RESERVE_CLOSED_PREVIEW_KEY);
+      if (sessionStorage.getItem(RESERVE_CLOSED_PREVIEW_KEY) === "1") return false;
+    } catch {
+      /* storage blocked - fall back to the clock */
+    }
+  }
+  return now < RESERVATION_CLOSE_AT_MS;
+};
+
+/** Founder Edition facts used in $1 copy. Update FOUNDER_LEFT when pledges come in. */
+export const FOUNDER_EDITION = {
+  model: "009 Black",
+  bridgeMm: 24,
+  price: 114,
+  srp: 190,
+  boxValue: 45,
+  total: 30,
+  left: 22,
+} as const;
+
+/**
+ * Secret Kickstarter reward (Founder Edition), only for $1 reservations.
+ * ref=5fn1u9 = Kickstarter custom tag "ML Founders 114" (dashboard-generated, so it counts).
+ */
+export const KICKSTARTER_FOUNDER_REF = "5fn1u9";
+export const KICKSTARTER_FOUNDER_TOKEN = "6d3cff02";
+export const kickstarterFounderHref = (placement: string) =>
+  `${KICKSTARTER_URL}?secret_reward_token=${KICKSTARTER_FOUNDER_TOKEN}&ref=${KICKSTARTER_FOUNDER_REF}&utm_source=woolet_site&utm_medium=site&utm_campaign=ks_founder&utm_term=${encodeURIComponent(placement)}`;

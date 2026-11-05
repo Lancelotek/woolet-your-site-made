@@ -11,7 +11,7 @@ import { pushGtmEvent } from "@/lib/gtm";
 import { resolveHeroVariant, LIVE_EYEBROW, liveHeroSub, DEFAULT_HERO_VARIANT } from "@/content/ksHeroVariants";
 import { Button } from "@/components/ui/button";
 import { ReserveCheckoutButton } from "@/components/ReserveCheckoutButton";
-import { isKickstarterLive, kickstarterLiveHref } from "@/config/kickstarter";
+import { FOUNDER_EDITION, isKickstarterLive, isReservationOpen, kickstarterLiveHref } from "@/config/kickstarter";
 import KickstarterCountdown from "@/components/KickstarterCountdown";
 const ImageLightbox = lazy(() => import("@/components/ImageLightbox"));
 import { persistRef, resolveReferredBy } from "@/lib/referral";
@@ -255,8 +255,11 @@ const VipForm = ({
   const [errorNonce, setErrorNonce] = useState(0);
 
   const [step, setStep] = useState<1 | 2>(1);
-  // Campaign live: one step only (email -> thank-you page with the campaign link).
+  // Campaign live. While the $1 reservation is open (until the deadline) the form keeps
+  // two steps: email -> $1 unlocks the hidden Founder Edition reward. After it closes:
+  // email -> thank-you page with the campaign link.
   const live = useMemo(() => isKickstarterLive(), []);
+  const reserveOpen = useMemo(() => isReservationOpen(), []);
   useEffect(() => {
     if (step !== 2) { setSkipVisible(false); return; }
     const t = window.setTimeout(() => setSkipVisible(true), 8000);
@@ -266,7 +269,7 @@ const VipForm = ({
   const step2ViewedRef = useRef(false);
 
   useEffect(() => {
-    if (!reopenReserve || isKickstarterLive()) return;
+    if (!reopenReserve || !isReservationOpen()) return;
     try {
       const saved = JSON.parse(sessionStorage.getItem("woolet_vip_confirm") ?? "null") as { email?: string } | null;
       if (!saved?.email || !EMAIL_RE.test(saved.email)) return;
@@ -300,14 +303,14 @@ const VipForm = ({
       : "https://woolet.co/en/lp/kickstarter/vip-confirmed?paid=1&session_id={CHECKOUT_SESSION_ID}";
 
   // After the public launch there is no $1 step: email -> thank-you page with the campaign link.
-  const goToLiveThankYou = (confirmedEmail: string) => {
+  const goToLiveThankYou = (confirmedEmail: string, reserved = false) => {
     try {
       localStorage.setItem(VIP_RESOLVED_KEY, "1");
     } catch {
       /* ignore */
     }
     onResolved?.();
-    navigate("/en/lp/kickstarter/vip-confirmed", { state: { email: confirmedEmail, name: "" } });
+    navigate("/en/lp/kickstarter/vip-confirmed", { state: { email: confirmedEmail, name: "", reserved } });
   };
 
   const markJoined = () => {
@@ -326,7 +329,7 @@ const VipForm = ({
     if (!email.trim()) {
       setErrorNonce((n) => n + 1);
       setErrorKind("invalid");
-      setError(live ? "Enter your email to get the Kickstarter link" : "Enter your email to lock $114");
+      setError(live && !reserveOpen ? "Enter your email to get the Kickstarter link" : live ? "Enter your email to unlock the Founder Edition" : "Enter your email to lock $114");
       flashTarget(inputRef.current?.form ?? null);
       inputRef.current?.focus();
       inputRef.current?.scrollIntoView({ block: "center", behavior: "smooth" });
@@ -363,9 +366,10 @@ const VipForm = ({
         body: { email: normalizedEmail },
       });
       if (statusData?.reserved && isKickstarterLive()) {
+        // Already paid $1: straight to the Founder Edition link.
         setLoading(false);
         markJoined();
-        goToLiveThankYou(normalizedEmail);
+        goToLiveThankYou(normalizedEmail, true);
         return;
       }
       if (statusData?.reserved) {
@@ -461,7 +465,7 @@ const VipForm = ({
       setEmail(normalizedEmail);
       setLoading(false);
       markJoined();
-      if (isKickstarterLive()) {
+      if (isKickstarterLive() && !isReservationOpen()) {
         goToLiveThankYou(normalizedEmail);
         return;
       }
@@ -516,7 +520,7 @@ const VipForm = ({
         <div id={`vip-form${idSuffix}`} className="w-full min-h-[100dvh] md:min-h-0 md:max-w-[540px] md:border md:border-border md:bg-card px-6 py-8 md:px-12 md:py-10 flex flex-col justify-center gap-5">
         <StepBar step={2} />
         <h2 id="ks-step2-title" className="text-[2.25rem] leading-[1.08] md:text-[3rem] text-foreground">
-          <button type="button" className="text-left cursor-pointer" onClick={() => document.getElementById(`vip-reserve${idSuffix}`)?.focus({ preventScroll: false })}>$1 today locks your <em className="text-primary">$114</em> founder price (then $190).</button>
+          <button type="button" className="text-left cursor-pointer" onClick={() => document.getElementById(`vip-reserve${idSuffix}`)?.focus({ preventScroll: false })}>{live ? <>$1 unlocks the Founder Edition: <em className="text-primary">${FOUNDER_EDITION.price}</em> instead of ${FOUNDER_EDITION.srp}.</> : <>$1 today locks your <em className="text-primary">$114</em> founder price (then $190).</>}</button>
         </h2>
         <figure className="flex items-center gap-4 m-0 py-3 border-y border-border">
           <img src={gregSquare} alt="Greg wearing a Woolet frame" width={80} height={80} className="w-20 h-20 object-cover shrink-0" />
@@ -525,7 +529,7 @@ const VipForm = ({
         <KickstarterCountdown note="Founders with a $1 reservation get in at 9:00 AM ET - one hour before everyone." />
         <ReserveCheckoutButton
           id={`vip-reserve${idSuffix}`}
-          label="Lock $114 - pay $1 now"
+          label={live ? "Unlock for $1" : "Lock $114 - pay $1 now"}
           priceId={RESERVATION_PRICE_ID}
           customerEmail={email}
           returnUrl={returnUrl}
@@ -548,9 +552,19 @@ const VipForm = ({
           style={ctaButtonStyle}
         />
         <div className="text-sm leading-relaxed text-muted-foreground space-y-2" aria-label="Reservation details">
-          <p>Prescription lenses? Available when you choose your frames.</p>
-          <p>What if 158 mm doesn't fit? Check your size with FitLens before you pledge.</p>
-          <p>$1 is fully refundable, or applied to your order.</p>
+          {live ? (
+            <>
+              <p>{FOUNDER_EDITION.model}, {FOUNDER_EDITION.bridgeMm} mm bridge - already made, ships right after the campaign.</p>
+              <p>Magnetic box, special case and the Clip-On Cloth (${FOUNDER_EDITION.boxValue} value). {FOUNDER_EDITION.left} of {FOUNDER_EDITION.total} left.</p>
+              <p>What if 158 mm doesn't fit? Check your size with FitLens before you pledge.</p>
+            </>
+          ) : (
+            <>
+              <p>Prescription lenses? Available when you choose your frames.</p>
+              <p>What if 158 mm doesn't fit? Check your size with FitLens before you pledge.</p>
+              <p>$1 is fully refundable, or applied to your order.</p>
+            </>
+          )}
         </div>
         <p className="text-xs text-muted-foreground">This is a one-time Woolet reservation, not a Kickstarter pledge or subscription.</p>
         <Link
@@ -569,7 +583,7 @@ const VipForm = ({
           style={{ opacity: skipVisible ? 1 : 0, pointerEvents: skipVisible ? "auto" : "none", transition: "opacity 0.6s ease", visibility: skipVisible ? "visible" : "hidden" }}
           className="mt-auto md:mt-4 self-center max-w-full text-center text-xs text-muted-foreground underline underline-offset-4 py-3"
         >
-          Skip for now — stay on the free VIP list
+          {live ? "Skip for now" : "Skip for now — stay on the free VIP list"}
         </Link>
         </div>
       </div>
@@ -659,7 +673,7 @@ const VipForm = ({
       className="flex flex-col gap-3"
       style={{ maxWidth: compact ? 560 : "100%", margin: compact ? "0 auto" : undefined }}
     >
-      {!live && <StepBar step={1} emailInputId={`vip-email${idSuffix}`} />}
+      {(!live || reserveOpen) && <StepBar step={1} emailInputId={`vip-email${idSuffix}`} />}
       <div className={compact ? "flex flex-col sm:flex-row gap-2" : "flex flex-col gap-2"}>
         <label htmlFor={`vip-email${idSuffix}`} className="sr-only">
           Your email address
@@ -717,7 +731,7 @@ const VipForm = ({
           }}
           onMouseLeave={(e) => (e.currentTarget.style.background = GOLD)}
         >
-          {loading ? "Sending…" : live ? "Get the Kickstarter link" : "Claim Your Early Access"}
+          {loading ? "Sending…" : live && reserveOpen ? "Unlock the Founder Edition" : live ? "Get the Kickstarter link" : "Claim Your Early Access"}
         </button>
       </div>
 
@@ -1064,6 +1078,7 @@ const KickstarterPrelaunch = () => {
 
   // Public campaign is live: page copy points to Kickstarter, no $1 step.
   const live = useMemo(() => isKickstarterLive(), []);
+  const reserveOpen = useMemo(() => isReservationOpen(), []);
   const heroEyebrow = live && heroVariant === DEFAULT_HERO_VARIANT ? LIVE_EYEBROW : heroVariant.eyebrow;
   const heroSub = live ? liveHeroSub(heroVariant.sub) : heroVariant.sub;
 
@@ -2387,7 +2402,7 @@ const KickstarterPrelaunch = () => {
               cursor: "pointer",
             }}
           >
-            {live ? "Get the Kickstarter link" : "Get Early Access"}
+            {live && reserveOpen ? "Unlock the Founder Edition" : live ? "Get the Kickstarter link" : "Get Early Access"}
           </button>
         )}
       </div>
@@ -2431,7 +2446,7 @@ const KickstarterPrelaunch = () => {
             isMobile={isMobile}
             visible={lightboxOpen}
             cta={{
-              label: live ? "Get the Kickstarter link" : "Reserve founder price — $1",
+              label: live && reserveOpen ? "Unlock the Founder Edition" : live ? "Get the Kickstarter link" : "Reserve founder price — $1",
               caption: live
                 ? "158 mm · Italian Mazzucchelli acetate · Live on Kickstarter"
                 : "158 mm · Italian Mazzucchelli acetate · 30 frames at $114, then $190",

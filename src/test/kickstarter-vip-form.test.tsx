@@ -29,10 +29,10 @@ vi.mock("@/integrations/supabase/client", () => ({
 vi.mock("@/lib/gtm", () => ({ pushGtmEvent: vi.fn() }));
 
 // Launch switch is controlled per test so the suite does not depend on the real clock.
-const ks = vi.hoisted(() => ({ live: false }));
+const ks = vi.hoisted(() => ({ live: false, reserveOpen: true }));
 vi.mock("@/config/kickstarter", async () => {
   const actual = await vi.importActual<typeof import("@/config/kickstarter")>("@/config/kickstarter");
-  return { ...actual, isKickstarterLive: () => ks.live };
+  return { ...actual, isKickstarterLive: () => ks.live, isReservationOpen: () => ks.reserveOpen };
 });
 
 import KickstarterPrelaunch from "@/pages/lp/KickstarterPrelaunch";
@@ -49,6 +49,7 @@ const renderPage = () =>
 describe("Kickstarter VIP form — email-only submission", () => {
   beforeEach(async () => {
     ks.live = false;
+    ks.reserveOpen = true;
     navigateMock.mockReset();
     (window as unknown as { dataLayer?: unknown[] }).dataLayer = [];
     const { supabase } = await import("@/integrations/supabase/client");
@@ -163,8 +164,25 @@ describe("Kickstarter VIP form — email-only submission", () => {
     }
   });
 
-  it("after the Kickstarter launch skips the $1 step and opens the thank-you page", async () => {
+  it("during the live campaign keeps the $1 step for the Founder Edition", async () => {
     ks.live = true;
+    renderPage();
+    const form = document.getElementById("vip-section-hero") as HTMLFormElement;
+    const emailInput = form.querySelector('input[type="email"]') as HTMLInputElement;
+    const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    fireEvent.change(emailInput, { target: { value: "founder@example.com" } });
+    await waitFor(() => expect(submitBtn.disabled).toBe(false));
+    fireEvent.click(submitBtn);
+
+    await waitFor(() =>
+      expect(screen.getByRole("dialog", { name: /\$1 unlocks the Founder Edition/ })).toBeTruthy(),
+    );
+    expect(navigateMock).not.toHaveBeenCalled();
+  });
+
+  it("after the $1 reservation closes skips the $1 step and opens the thank-you page", async () => {
+    ks.live = true;
+    ks.reserveOpen = false;
     renderPage();
     const form = document.getElementById("vip-section-hero") as HTMLFormElement;
     const emailInput = form.querySelector('input[type="email"]') as HTMLInputElement;
@@ -175,7 +193,7 @@ describe("Kickstarter VIP form — email-only submission", () => {
 
     await waitFor(() =>
       expect(navigateMock).toHaveBeenCalledWith("/en/lp/kickstarter/vip-confirmed", {
-        state: { email: "live@example.com", name: "" },
+        state: { email: "live@example.com", name: "", reserved: false },
       }),
     );
     expect(screen.queryByRole("dialog", { name: /\$1 today locks your/ })).toBeNull();

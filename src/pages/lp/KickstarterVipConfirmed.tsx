@@ -4,7 +4,8 @@ import { Link, useLocation, useNavigate, useSearchParams } from "react-router-do
 import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
 import { KickstarterFollowCta } from "@/components/KickstarterFollowCta";
-import { isKickstarterLive, kickstarterLiveHref } from "@/config/kickstarter";
+import { FOUNDER_EDITION as F, isKickstarterLive, isReservationOpen, kickstarterLiveHref } from "@/config/kickstarter";
+import FounderEditionClaim from "@/components/FounderEditionClaim";
 import { trackGoogleAdsConversion } from "@/lib/google-ads";
 import { trackReservationPurchase } from "@/lib/ga4-purchase";
 import { oaiqReservation } from "@/lib/openai-pixel";
@@ -15,7 +16,7 @@ const logo = logoAsset.url;
 const KS_LAUNCH_DATE_LABEL = "October 29, 2026";
 const LIVE_HREF = kickstarterLiveHref("site_lp", "thank_you");
 
-type LocationState = { email?: string; name?: string } | null;
+type LocationState = { email?: string; name?: string; reserved?: boolean } | null;
 
 const KickstarterVipConfirmed = () => {
   const navigate = useNavigate();
@@ -133,12 +134,37 @@ const KickstarterVipConfirmed = () => {
             You're in{name ? `, ${name}` : ""}.
           </p>
           <h1 className="font-display text-woolet-white leading-[1.1] text-[2rem] sm:text-[2.75rem] mb-4">
-            {paid ? "Your 40% OFF is reserved." : live ? "Thank you. Woolet is live on Kickstarter." : "You're on the VIP list."}
+            {paid ? "$1 received. You're a Founder." : state?.reserved ? "You're already a Founder." : live ? "You're on the list." : "You're on the VIP list."}
           </h1>
-          {live ? (
+          {paid || state?.reserved ? (
+            <FounderEditionClaim placement={paid ? "vip_confirmed_paid" : "vip_confirmed_reserved"} />
+          ) : live && isReservationOpen() ? (
             <>
               <p className="text-[#D8D4CC] text-base sm:text-lg leading-relaxed max-w-lg">
-                The campaign is open now. Early-bird frames are limited - back Woolet before they're gone.
+                Woolet is live on Kickstarter. $1 unlocks the hidden Founder Edition: 009 Black, ${F.price} instead of ${F.srp},
+                with a ${F.boxValue} box. {F.left} of {F.total} left.
+              </p>
+              <Link
+                to="/en/reserve?utm_source=woolet_site&utm_medium=site&utm_campaign=thank_you"
+                onClick={() => pushGtmEvent("founder_unlock_click", { slot: "thank_you" })}
+                className="mt-7 flex items-center justify-center w-full sm:w-auto sm:inline-flex bg-primary text-primary-foreground font-body uppercase tracking-[0.22em] text-xs px-8 py-4 rounded-sm hover:bg-gold-light transition-colors touch-manipulation"
+                style={{ minHeight: 56 }}
+              >
+                Unlock the Founder Edition - $1
+              </Link>
+              <a
+                href={LIVE_HREF}
+                onClick={trackLiveClick}
+                onAuxClick={trackLiveClick}
+                className="mt-5 text-sm text-[#B8B3A8] underline underline-offset-4"
+              >
+                Or see the campaign on Kickstarter
+              </a>
+            </>
+          ) : live ? (
+            <>
+              <p className="text-[#D8D4CC] text-base sm:text-lg leading-relaxed max-w-lg">
+                The campaign is open now. Back Woolet on Kickstarter.
               </p>
               <a
                 href={LIVE_HREF}
@@ -160,7 +186,7 @@ const KickstarterVipConfirmed = () => {
               className="mt-5 text-[12px] uppercase tracking-[0.22em] text-primary border rounded-sm px-4 py-3"
               style={{ borderColor: "hsl(var(--gold) / 0.35)" }}
             >
-              $1 reservation confirmed · Refundable · Applied to your pledge
+              $1 reservation confirmed
             </p>
           )}
           {paid && <HeardFromQuestion sessionId={paymentRef} />}

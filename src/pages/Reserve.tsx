@@ -1,5 +1,5 @@
 import KickstarterLiveRedirect from "@/components/KickstarterLiveRedirect";
-import { isKickstarterLive } from "@/config/kickstarter";
+import { FOUNDER_EDITION as F, isReservationOpen } from "@/config/kickstarter";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import SEO from "@/components/SEO";
 import { Link } from "react-router-dom";
@@ -29,9 +29,9 @@ const C = {
 };
 
 const BULLETS = [
-  "158 mm standard width - bespoke 145–160 mm",
-  "Italian acetate, hand made in EU",
-  "5-year warranty",
+  "009 Black, 24 mm bridge - already made, ships right after the campaign",
+  "Magnetic box, special case and the Clip-On Cloth ($45 value)",
+  "158 mm front, fits 155-161 mm faces · 5-year warranty",
 ];
 
 type Touch = {
@@ -194,9 +194,9 @@ function ReserveOpen() {
         <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: C.gold, margin: 0 }}>
           Founders Edition
         </p>
-        <h1 className="rsv-h1">Lock $114 - pay $1 now</h1>
+        <h1 className="rsv-h1">$1 unlocks the Founder Edition</h1>
         <p style={{ fontSize: 16, lineHeight: 1.55, color: C.body, margin: "0 0 20px" }}>
-          $1 today = founder price locked. 30 frames at $114 on Kickstarter (regular $190).
+          A hidden Kickstarter reward: ${F.price} instead of ${F.srp} in the shop. {F.left} of {F.total} left.
         </p>
         <ul style={{ listStyle: "none", padding: 0, margin: "0 0 28px", display: "grid", gap: 8 }}>
           {BULLETS.map((b) => (
@@ -228,7 +228,7 @@ function ReserveOpen() {
               cursor: "pointer",
             }}
           >
-            Lock $114 - pay $1 now
+            Unlock for $1
           </button>
         ) : (
         <div style={{ background: "#fff", borderRadius: 2, overflow: "hidden", position: "relative", minHeight: 320 }}>
@@ -314,8 +314,8 @@ function ReserveOpen() {
   );
 }
 
-// $1 reservation closes at the public Kickstarter launch; old email/bio links land on the campaign.
+// $1 reservation is open until the Kickstarter deadline; after it, old email/bio links land on the campaign.
 export default function Reserve() {
-  if (isKickstarterLive()) return <KickstarterLiveRedirect refTag="site_reserve" slot="reserve_page" />;
+  if (!isReservationOpen()) return <KickstarterLiveRedirect refTag="site_reserve" slot="reserve_page" />;
   return <ReserveOpen />;
 }
