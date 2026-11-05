@@ -268,9 +268,9 @@ async function buildProductCard(input: ProductCardInput) {
   // ── Price (left) + next steps (right), side by side so the card stays one page
   const steps = [
     "Your order is confirmed and paid.",
-    "We email you a private link to the AI fit scan (or book a studio appointment).",
+    "We email you a private link to the AI fit scan, plus where to upload two photos with a card (front and profile).",
     "An optician checks your measurements within 24 hours.",
-    "The pattern is cut in the EU to your exact millimetres - 3-4 weeks to ship, free worldwide.",
+    "Hand-made in the EU to your exact millimetres - a 2-week build, free worldwide shipping.",
   ];
   const GAP = 10;
   const COL = (CW - GAP) / 2;

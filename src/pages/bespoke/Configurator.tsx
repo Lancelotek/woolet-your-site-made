@@ -337,6 +337,7 @@ const ConfiguratorPage = () => {
   }, [step]);
 
   const [navHint, setNavHint] = useState(false);
+  const [navHintText, setNavHintText] = useState<string | null>(null);
   const [payPending, setPayPending] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const stepComplete = isStepComplete(step, config);
@@ -352,7 +353,9 @@ const ConfiguratorPage = () => {
       ? "Pick a pattern first"
       : step === 2 && firstMissing
         ? `Pick ${firstMissing === "finish" ? "a finish" : `${firstMissing} acetate`} first`
-        : null;
+        : step === 4 && config.engravingEnabled && !config.engravingText.trim()
+          ? "Add your text first"
+          : null;
   const flash = (el: HTMLElement | null) => {
     if (!el) return;
     el.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -428,6 +431,15 @@ const ConfiguratorPage = () => {
     if (!stepComplete) {
       if (step === 1) { showPatternMissing(); return; }
       if (step === 2) { showMissing(); return; }
+      if (step === 4 && config.engravingEnabled && !config.engravingText.trim()) {
+        const input = document.getElementById("cfg-engraving-text") as HTMLInputElement | null;
+        input?.scrollIntoView({ behavior: "smooth", block: "center" });
+        input?.focus({ preventScroll: true });
+        setNavHintText("Type your engraving or choose No engraving");
+        setNavHint(true);
+        window.setTimeout(() => { setNavHint(false); setNavHintText(null); }, 4000);
+        return;
+      }
       const grid = document.querySelector<HTMLElement>(
         "main.cfg-container .cfg-swatchstrip, main.cfg-container .cfg-choicegrid"
       );
@@ -642,7 +654,7 @@ const ConfiguratorPage = () => {
                <div className="cfg-mobilebar__note text-gold-light" role="status">Choose a pattern to continue.</div>
              ) : navHint && step !== 2 ? (
               <div className="cfg-mobilebar__note" style={{ color: "#C13A2E" }} role="status">
-                Pick an option to continue
+                {navHintText ?? "Pick an option to continue"}
               </div>
             ) : step === 2 && !stepComplete ? (
               <button type="button" onClick={showMissing} className="cfg-mobilebar__note text-gold-light text-left underline decoration-dotted underline-offset-2" role="status">Choose {acetateMissing} to continue.</button>
@@ -906,6 +918,7 @@ const ConfiguratorStyles = () => (
     .cfg-back:hover { color: var(--cfg-cream); }
 
     /* Sync pill */
+    .cfg-sync--off { border-color: transparent !important; background: transparent !important; padding-left: 0; padding-right: 0; }
     .cfg-sync {
       display: inline-flex; align-items: center; gap: 8px;
       padding: 7px 12px;
@@ -1660,10 +1673,13 @@ const ConfiguratorStyles = () => (
       box-shadow: inset 0 0 0 1px rgba(239,233,223,0.25);
       transition: transform .15s ease, box-shadow .15s ease;
     }
+    .cfg-carddot { position: relative; }
+    .cfg-carddot::after { content: ""; position: absolute; inset: -7px; }
     .cfg-carddot:hover { transform: scale(1.12); }
     .cfg-carddot:focus-visible { outline: 2px solid var(--cfg-gold); outline-offset: 2px; }
     .cfg-carddot--on { box-shadow: 0 0 0 2px var(--cfg-ink), 0 0 0 3.5px var(--cfg-gold); }
-    .cfg-carddots__more { font-size: 11px; letter-spacing: .08em; color: var(--cfg-muted); margin-left: 2px; }
+    .cfg-carddots__more { font-size: 11px; letter-spacing: .08em; color: var(--cfg-cream); margin-left: 2px; min-height: 36px; padding: 0 10px; border: 1px solid var(--cfg-border-strong); border-radius: 999px; background: transparent; cursor: pointer; }
+    .cfg-carddots__more:hover { border-color: var(--cfg-gold); color: var(--cfg-gold); }
     .cfg-card__photo img { transition: opacity .25s ease, transform .5s ease; }
     .cfg-card--dots .cfg-pattern-inset { width: 64px; right: 6px; bottom: 6px; padding: 3px; font-size: 9px; opacity: .92; }
     .cfg-card--dots .cfg-pattern-inset img { width: 100%; height: 26px; }

@@ -37,6 +37,7 @@ export type CfgEvent =
   | "cfg_auto_render"
   | "cfg_front_view_ready"
   | "cfg_card_colour"
+  | "cfg_card_more"
   | "cfg_generate_click"
   | "cfg_render_ready"
   | "cfg_signin_gate_shown"
