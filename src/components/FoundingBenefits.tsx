@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { FOUNDER_EDITION as F } from "@/config/kickstarter";
 
 /**
  * Founding-member value props — mirrors the Kickstarter LP.
@@ -6,9 +7,9 @@ import { useEffect, useRef, useState } from "react";
  */
 
 const BENEFITS: { title: string; sub: string }[] = [
-  { title: "40% off launch price", sub: "$114 instead of $190 — locked in at checkout" },
-  { title: "Free worldwide shipping", sub: "No minimum order value" },
-  { title: "48h early access", sub: "First pick of colours & models before public launch" },
+  { title: `$${F.price} instead of $${F.srp}`, sub: `${F.model}, ${F.bridgeMm} mm bridge - a hidden reward on Kickstarter, unlocked with $1` },
+  { title: `$${F.boxValue} box included`, sub: "Magnetic box, special case and the Clip-On Cloth" },
+  { title: "Ships right after the campaign", sub: `Already made - ${F.left} of ${F.total} left` },
 ];
 
 export const FoundingBenefits = ({ compact = false }: { compact?: boolean }) => {
@@ -32,7 +33,7 @@ export const FoundingBenefits = ({ compact = false }: { compact?: boolean }) => 
           className="uppercase tracking-[0.28em] text-primary"
           style={{ fontSize: "12px", fontFamily: "Barlow, sans-serif", fontWeight: 600 }}
         >
-          Founding member
+          Founder Edition
         </span>
       </div>
       {BENEFITS.map((b, i) => (

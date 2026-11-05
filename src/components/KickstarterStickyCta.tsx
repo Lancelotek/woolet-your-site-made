@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import { isKickstarterLive, kickstarterLiveHref } from "@/config/kickstarter";
+import { Link, useLocation } from "react-router-dom";
+import { FOUNDER_EDITION, FOUNDER_SIGNUP_PATH, founderCtaActive, isKickstarterLive, kickstarterLiveHref } from "@/config/kickstarter";
 import { pushGtmEvent } from "@/lib/gtm";
 
 /**
@@ -14,10 +14,16 @@ const EXCLUDED =
 
 const SHOW_AFTER_PX = 420;
 
+const F = FOUNDER_EDITION;
 const COPY: Record<string, { note: string; cta: string }> = {
-  en: { note: "Early Bird: $114, then $190", cta: "Back us on Kickstarter →" },
-  pl: { note: "Early Bird: $114, potem $190", cta: "Wesprzyj na Kickstarterze →" },
-  de: { note: "Early Bird: $114, danach $190", cta: "Auf Kickstarter unterstützen →" },
+  en: { note: `$${F.price} instead of $${F.srp} · ${F.left} left`, cta: "Founder Edition →" },
+  pl: { note: `$${F.price} zamiast $${F.srp} · zostało ${F.left}`, cta: "Founder Edition →" },
+  de: { note: `$${F.price} statt $${F.srp} · noch ${F.left}`, cta: "Founder Edition →" },
+};
+const COPY_KS: Record<string, string> = {
+  en: "Back us on Kickstarter →",
+  pl: "Wesprzyj na Kickstarterze →",
+  de: "Auf Kickstarter unterstützen →",
 };
 
 export default function KickstarterStickyCta() {
@@ -45,11 +51,19 @@ export default function KickstarterStickyCta() {
   const copy = COPY[lang] ?? COPY.en;
   const slot = pathname.replace(/^\/|\/$/g, "").replace(/\//g, "-") || "home";
 
+  const founder = founderCtaActive();
+  const Tag = (founder ? Link : "a") as React.ElementType;
+  const target = founder
+    ? { to: FOUNDER_SIGNUP_PATH }
+    : { href: kickstarterLiveHref("sticky_mobile", slot) };
+
   return (
     <>
-      <a
-        href={kickstarterLiveHref("sticky_mobile", slot)}
-        onClick={() => pushGtmEvent("ks_cta_click", { placement: "sticky_mobile", page_path: pathname })}
+      <Tag
+        {...target}
+        onClick={() =>
+          pushGtmEvent(founder ? "founder_cta_click" : "ks_cta_click", { placement: "sticky_mobile", page_path: pathname })
+        }
         className={`sticky-mobile-cta md:hidden fixed bottom-0 left-0 right-0 flex items-center justify-between no-underline transition-all duration-300 ease-out ${
           visible ? "translate-y-0 opacity-100 pointer-events-auto" : "translate-y-full opacity-0 pointer-events-none"
         }`}
@@ -65,9 +79,11 @@ export default function KickstarterStickyCta() {
           fontFamily: "'Barlow', sans-serif",
         }}
       >
-        <span style={{ fontWeight: 400, fontSize: 11, color: "rgba(0,0,0,0.72)" }}>{copy.note}</span>
-        <span style={{ fontWeight: 600, fontSize: 13, letterSpacing: "0.5px" }}>{copy.cta}</span>
-      </a>
+        {founder && <span style={{ fontWeight: 400, fontSize: 11, color: "rgba(0,0,0,0.72)" }}>{copy.note}</span>}
+        <span style={{ fontWeight: 600, fontSize: 13, letterSpacing: "0.5px", marginLeft: founder ? undefined : "auto", marginRight: founder ? undefined : "auto" }}>
+          {founder ? copy.cta : COPY_KS[lang] ?? COPY_KS.en}
+        </span>
+      </Tag>
     </>
   );
 }

@@ -15,7 +15,7 @@ import SEO from "@/components/SEO";
 import HeroSymptoms from "@/components/HeroSymptoms";
 import { prefersReducedMotion } from "@/hooks/use-motion-once";
 import { pushGtmEvent } from "@/lib/gtm";
-import { isKickstarterLive, kickstarterLiveHref } from "@/config/kickstarter";
+import { FOUNDER_SIGNUP_PATH, founderCtaActive, founderCtaLong, isKickstarterLive, kickstarterLiveHref } from "@/config/kickstarter";
 import { ksLiveCta } from "@/components/KickstarterLiveBar";
 import KickstarterFundedBadge from "@/components/KickstarterFundedBadge";
 import { isValidLang, dirForLang, type Lang } from "@/lib/i18n";
@@ -772,7 +772,25 @@ const Index = () => {
 
               <div className="order-2 lg:order-none flex flex-col sm:flex-row gap-3 lg:pt-2">
 
-                {isKickstarterLive() ? (
+                {founderCtaActive() ? (
+                <Link
+                  to={FOUNDER_SIGNUP_PATH}
+                  onClick={() => {
+                    pushGtmEvent("hero_cta_primary_click", { location: "home_hero", dest: "founder_signup" });
+                    if (heroTracked) trackHeroCtaClick(heroVariant.id, "join_list");
+                  }}
+                  className="woolet-cta-lift inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline bg-gold hover:bg-gold-light"
+                  style={{
+                    color: "hsl(var(--background))",
+                    fontFamily: "Barlow, sans-serif",
+                    fontWeight: 500,
+                    fontSize: "0.78rem",
+                    padding: "18px 28px",
+                  }}
+                >
+                  {founderCtaLong(lang)} →
+                </Link>
+                ) : isKickstarterLive() ? (
                 <a
                   href={kickstarterLiveHref("home_hero", "hero_primary")}
                   onClick={() => {

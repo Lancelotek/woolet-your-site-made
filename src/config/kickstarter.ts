@@ -85,3 +85,28 @@ export const KICKSTARTER_FOUNDER_REF = "5fn1u9";
 export const KICKSTARTER_FOUNDER_TOKEN = "6d3cff02";
 export const kickstarterFounderHref = (placement: string) =>
   `${KICKSTARTER_URL}?secret_reward_token=${KICKSTARTER_FOUNDER_TOKEN}&ref=${KICKSTARTER_FOUNDER_REF}&utm_source=woolet_site&utm_medium=site&utm_campaign=ks_founder&utm_term=${encodeURIComponent(placement)}`;
+
+/**
+ * Site CTAs while the $1 reservation is open (decision 05.11.2026): every main CTA
+ * sends visitors to the signup LP (email -> $1 -> Founder Edition), not straight
+ * to Kickstarter - pledges come from email + $1, not from direct traffic.
+ * No UTMs on this internal link, so ad attribution (first/last touch) stays intact.
+ */
+export const FOUNDER_SIGNUP_PATH = "/en/lp/kickstarter";
+
+export const founderCtaActive = (): boolean => isKickstarterLive() && isReservationOpen();
+
+/** Short button label (fits one line on a phone). */
+export const founderCtaShort = (_lang: string): string => `Founder Edition - $${FOUNDER_EDITION.price}`;
+
+/** Long label for the hero button. */
+export const founderCtaLong = (lang: string): string =>
+  lang === "pl" ? "Odblokuj Founder Edition" : lang === "de" ? "Founder Edition freischalten" : "Unlock the Founder Edition";
+
+/** Site-wide top bar text. */
+export const founderBarLabel = (lang: string): string => {
+  const F = FOUNDER_EDITION;
+  if (lang === "pl") return `Founder Edition $${F.price} zamiast $${F.srp} - zostało ${F.left} z ${F.total}`;
+  if (lang === "de") return `Founder Edition $${F.price} statt $${F.srp} - noch ${F.left} von ${F.total}`;
+  return `Founder Edition: $${F.price} instead of $${F.srp} - ${F.left} of ${F.total} left`;
+};

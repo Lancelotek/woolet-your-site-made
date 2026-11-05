@@ -1,5 +1,5 @@
-import { useLocation } from "react-router-dom";
-import { isKickstarterLive, kickstarterLiveHref } from "@/config/kickstarter";
+import { Link, useLocation } from "react-router-dom";
+import { FOUNDER_SIGNUP_PATH, founderBarLabel, founderCtaActive, isKickstarterLive, kickstarterLiveHref } from "@/config/kickstarter";
 import { pushGtmEvent } from "@/lib/gtm";
 import { KS_FUNDED, ksFundedLabel } from "@/components/KickstarterFundedBadge";
 
@@ -25,6 +25,32 @@ export default function KickstarterLiveBar() {
   if (!isKickstarterLive() || pathname.includes("/admin")) return null;
   const lang = pathname.split("/")[1] || "en";
   const href = kickstarterLiveHref("topbar", "live_bar");
+  const barStyle = {
+    background: "#CAA449",
+    color: "#080807",
+    fontFamily: "Barlow, sans-serif",
+    fontWeight: 600,
+    fontSize: "0.74rem",
+    letterSpacing: "0.18em",
+    padding: "11px 16px",
+    position: "relative" as const,
+    zIndex: 60,
+  };
+
+  // While the $1 reservation is open the bar sells the Founder Edition via the signup LP.
+  if (founderCtaActive()) {
+    return (
+      <Link
+        to={FOUNDER_SIGNUP_PATH}
+        data-ks-live-bar=""
+        onClick={() => pushGtmEvent("founder_cta_click", { slot: "live_bar", path: pathname })}
+        className="block w-full text-center no-underline uppercase"
+        style={barStyle}
+      >
+        {founderBarLabel(lang)} →
+      </Link>
+    );
+  }
 
   return (
     <a
