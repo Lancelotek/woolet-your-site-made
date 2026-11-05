@@ -963,6 +963,32 @@ export function AiPreviewPanel({
   );
 }
 
+/**
+ * Line glyphs next to the acetate pickers, so the buyer sees which part of the
+ * frame each sheet goes on. The part being chosen is drawn solid, the rest faint.
+ */
+const PartIcon = ({ part }: { part: "front" | "temple" }) => {
+  const on = "var(--cfg-cream, #efe9df)";
+  const off = "rgba(239,233,223,0.28)";
+  return part === "front" ? (
+    <svg className="cfg-part-icon" viewBox="0 0 56 22" width="56" height="22" aria-hidden focusable="false">
+      <g fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M2 7h3M51 7h3" stroke={off} />
+        <rect x="5" y="3" width="19" height="15" rx="6" stroke={on} />
+        <rect x="32" y="3" width="19" height="15" rx="6" stroke={on} />
+        <path d="M24 8c1.6-2 6.4-2 8 0" stroke={on} />
+      </g>
+    </svg>
+  ) : (
+    <svg className="cfg-part-icon" viewBox="0 0 56 22" width="56" height="22" aria-hidden focusable="false">
+      <g fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="3" width="5" height="15" rx="2" stroke={off} />
+        <path d="M7 7h36c3 0 5 1.5 6.5 4l3 6" stroke={on} />
+      </g>
+    </svg>
+  );
+};
+
 const DEFAULT_TAG = <span className="ml-2 text-[10px] uppercase tracking-[0.14em] text-gold-light/80">Default - tap another to change</span>;
 
 export function StepColor({ config, update, defaults = {} }: StepProps & { defaults?: { front?: boolean; temple?: boolean; finish?: boolean } }) {
@@ -979,7 +1005,7 @@ export function StepColor({ config, update, defaults = {} }: StepProps & { defau
       </header>
 
       <div id="cfg-group-front">
-        <div className={labelClass}>Front acetate</div>
+        <div className={`${labelClass} flex items-center gap-3`}><PartIcon part="front" />Front acetate</div>
         <div className="mt-3"><ColorSwatchGrid selected={config.frontColorId} onSelect={(id) => update("frontColorId", id)} /></div>
         {front && (
           <div className="text-cream text-xs mt-2">{front.name}{defaults.front && DEFAULT_TAG}</div>
@@ -987,7 +1013,7 @@ export function StepColor({ config, update, defaults = {} }: StepProps & { defau
       </div>
 
       <div id="cfg-group-temple">
-        <div className={labelClass}>Temple acetate <span className="text-cream-dim/70 font-normal normal-case tracking-normal">— 4 mm sheets only</span></div>
+        <div className={`${labelClass} flex items-center gap-3`}><PartIcon part="temple" /><span>Temple acetate <span className="text-cream-dim/70 font-normal normal-case tracking-normal">- 4 mm sheets only</span></span></div>
         <div className="mt-3"><ColorSwatchGrid selected={config.templeColorId} onSelect={(id) => update("templeColorId", id)} thicknessMm={4} /></div>
         {temple && (
           <div className="text-cream text-xs mt-2">{temple.name}{defaults.temple && DEFAULT_TAG}</div>
