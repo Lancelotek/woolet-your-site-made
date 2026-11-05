@@ -1425,22 +1425,6 @@ const KickstarterPrelaunch = () => {
           <Link to="/en" className="flex items-center gap-2" aria-label="Woolet home">
             <img src={logo} width={32} height={32} decoding="async" alt="Woolet" style={{ height: 32, width: "auto" }} />
           </Link>
-          <div className="flex items-center gap-3">
-            <span
-              className="hidden sm:inline-flex"
-              style={{
-                ...eyebrowStyle,
-                color: GOLD,
-                border: `1px solid ${GOLD}`,
-                padding: "5px 10px",
-                fontSize: 10,
-                letterSpacing: "0.14em",
-                whiteSpace: "nowrap",
-              }}
-            >
-              Soon on Kickstarter
-            </span>
-          </div>
         </div>
       </header>
 
