@@ -1551,7 +1551,7 @@ The more architectural choice. At wider sizes the soft-square shape reads as int
 
 - Choose shape on preference: 007 round for softer features, 009 soft square for more structure.
 
-- Confirm with the 30-day return window. If the size feels off in person, exchange for the next size up or down.
+- Confirm with the 60-second fit scan before you order. Outside 155-161 mm, go bespoke.
 
 The combination of an oval face and a wider front is one of the easiest to fit once you stop trying to make 140 mm frames work. Start with the size, finish with the shape.
 
@@ -1578,7 +1578,7 @@ A: Yes. Standard clear lenses are included; blue-light, photochromic, and prescr
 A: Frames are cut, hand-filed, and polished in the European Union from Italian Mazzucchelli acetate. Woolet does not claim "Made in Italy" — the acetate is Italian, the craftsmanship is EU-based.
 
 **Q: What is Woolet's return policy?**
-A: 30-day returns with no questions asked, plus a Fit Guarantee — if the AI Fit Wizard result matches but the frame doesn't feel right, exchange is free.
+A: A 5-year warranty, plus a Fit Guarantee — if the AI Fit Wizard result matches but the frame doesn't feel right, exchange is free.
 
 **Q: Is this the same Woolet that made smart wallets?**
 A: Yes. Woolet started in 2015 with a smart wallet created by Marek Cieśla after his friend Teodor kept losing his wallet. On Kickstarter, 2,627 backers pledged $332,694. Wallets shipped worldwide for years before phones and AirTags closed that chapter. Today, the same founder makes glasses for wide faces with a 158 mm front width, first designed with a four-person family workshop in Bielsko-Biała, Poland, using Italian acetate. Full story: https://woolet.co/en/our-story.

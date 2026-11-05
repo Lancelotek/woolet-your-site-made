@@ -130,7 +130,7 @@ export default function DeProduct({ modelId }: { modelId: "007" | "009" }) {
               <li>✓ Passt Gesichtern mit 155-161 mm Breite - <Link to="/de/fit" className="text-primary underline underline-offset-4">in 60 Sekunden messen</Link></li>
               <li>✓ Mazzucchelli-Acetat, handgefertigt in der EU</li>
               <li>✓ Verglasungsfertig für Einstärken- und Gleitsichtgläser</li>
-              <li>✓ Kostenloser Versand nach Deutschland, 30 Tage Rückgabe</li>
+              <li>✓ Kostenloser Versand nach Deutschland, 5 Jahre Garantie</li>
             </ul>
 
             <p className="font-body text-sm text-cream-dim">Schmaler oder breiter? <Link to="/de/bespoke" className="text-primary underline underline-offset-4">Maßanfertigung von 145 bis 160 mm</Link></p>

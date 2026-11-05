@@ -74,7 +74,7 @@ export const FOUNDER_EDITION = {
   srp: 190,
   boxValue: 45,
   total: 30,
-  left: 22,
+  left: 19,
 } as const;
 
 /**

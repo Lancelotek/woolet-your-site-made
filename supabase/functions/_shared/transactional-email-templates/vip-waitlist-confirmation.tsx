@@ -18,6 +18,10 @@ interface Props {
   /** Public Kickstarter campaign is live: no $1 step, one CTA to the campaign. */
   live?: boolean
   campaignUrl?: string
+  /** $1 reservation open (until the KS deadline): send E1 "Never too small again" instead. */
+  founderOpen?: boolean
+  founderReserveUrl?: string
+  founderLeft?: number
 }
 
 const GOLD = '#CAA449'
@@ -68,11 +72,56 @@ const LiveEmail = ({ campaignUrl }: { campaignUrl: string }) => (
   </Html>
 )
 
+// E1 of the "Never Too Small Again" sequence (approved by Marek 05.11.2026).
+const FounderEmail = ({ reserveUrl, left }: { reserveUrl: string; left: number }) => (
+  <Html lang="en" dir="ltr">
+    <Head />
+    <Preview>158 mm, built for your face.</Preview>
+    <Body style={main}>
+      <Container style={container}>
+        <Text style={body}>Hi,</Text>
+        <Text style={body}>You're on the list. The Woolet shop opens mid-December.</Text>
+        <Text style={body}>
+          How many frames have you sent back because they looked small on your face?
+        </Text>
+        <Text style={body}>
+          It was never your face. Most frames stop at 140-148 mm. Woolet is 158 mm wide and fits
+          faces from 155 to 161 mm. No marks on your temples. No arms bending outward.
+        </Text>
+        <Text style={body}>
+          You don't have to wait for December. I had 30 Founder frames made: 009 Black, $114
+          instead of $190 in the shop. {left} are left.
+        </Text>
+        <Section style={ctaWrap}>
+          <Link href={reserveUrl} style={cta}>
+            Unlock the Founder Edition - $1
+          </Link>
+        </Section>
+        <Text style={body}>Marek</Text>
+        <Text style={body}>
+          P.S. The $1 opens a hidden reward on Kickstarter. That's the only place the Founder
+          price exists.
+        </Text>
+        <Hr style={hr} />
+        <Text style={footer}>
+          You're getting this email because you signed up at woolet.co.
+        </Text>
+        <Text style={footer}>Woolet · Eyewear engineered for 155 mm+ faces.</Text>
+      </Container>
+    </Body>
+  </Html>
+)
+
 const Email = ({
   reserveUrl = 'https://woolet.co/en/lp/kickstarter',
   live = false,
   campaignUrl = '',
-}: Props) => live && campaignUrl ? <LiveEmail campaignUrl={campaignUrl} /> : (
+  founderOpen = false,
+  founderReserveUrl = '',
+  founderLeft = 19,
+}: Props) => live && founderOpen && founderReserveUrl ? (
+  <FounderEmail reserveUrl={founderReserveUrl} left={founderLeft} />
+) : live && campaignUrl ? <LiveEmail campaignUrl={campaignUrl} /> : (
   <Html lang="en" dir="ltr">
     <Head />
     <Preview>You're on the Woolet early-access list — here's what happens next.</Preview>
@@ -127,7 +176,11 @@ const Email = ({
 export const template = {
   component: Email,
   subject: (data) =>
-    data?.live ? "Woolet is live on Kickstarter - your link" : "You're on the Woolet early-access list",
+    data?.live && data?.founderOpen
+      ? "Never too small again"
+      : data?.live
+        ? "Woolet is live on Kickstarter - your link"
+        : "You're on the Woolet early-access list",
   displayName: 'VIP — Early access confirmation',
   previewData: {
     reserveUrl: 'https://woolet.co/en/lp/kickstarter',

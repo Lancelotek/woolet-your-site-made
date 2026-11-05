@@ -20,7 +20,7 @@ const WideFaceGlasses = () => (
       { question: "Are Woolet frames adjustable after purchase?", answer: "Yes — any qualified optician can do micro-adjustments on the temples and nose pads. But adjustment cannot add real width to a frame that was molded too narrow. Starting from the correct size is the only way to a clean, all-day fit." },
       { question: "Can I get prescription lenses?", answer: "Yes. Woolet frames accept standard single-vision and progressive Rx lenses. Take your prescription and the frame to your optician — frame width does not affect lens compatibility." },
       { question: "How long does pre-order shipping take?", answer: "Founding-member pre-orders ship in waves through 2026. You will see your wave assignment in the confirmation email and on the thank-you page after checkout." },
-      { question: "What if the fit is wrong when the frames arrive?", answer: "We offer a 30-day return window. If 158 mm does not feel right in person, exchange for bespoke or refund." },
+      { question: "What if the fit is wrong when the frames arrive?", answer: "Check your width with the 60-second fit scan before you order. If you measure outside 155-161 mm, Bespoke is built to your measurements." },
     ]}
   />
 );

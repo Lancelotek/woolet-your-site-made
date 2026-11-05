@@ -188,7 +188,7 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
       {/* Trust strip */}
       <div ref={trustStripRef} style={{ display: "flex", justifyContent: "center", gap: 16, flexWrap: "wrap", padding: "8px 0", marginBottom: 12 }}>
         {[
-          { icon: <RotateCcw size={11} strokeWidth={1.5} color="#9A8E7E" />, text: "30-Day Returns" },
+          { icon: <RotateCcw size={11} strokeWidth={1.5} color="#9A8E7E" />, text: "5-Year Warranty" },
           { icon: <Ruler size={11} strokeWidth={1.5} color="#9A8E7E" />, text: "Fit Guarantee" },
           { icon: <span style={{ fontSize: 11, lineHeight: 1 }}>🇪🇺</span>, text: "Mazzucchelli acetate" },
           { icon: (

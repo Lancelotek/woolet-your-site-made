@@ -2410,7 +2410,7 @@ const KickstarterPrelaunch = () => {
 
       <div className="max-w-6xl mx-auto px-5 sm:px-8 pb-8" style={{ textAlign: "center" }}>
         <p style={{ fontFamily: "Barlow, sans-serif", fontSize: 12, color: TAUPE, letterSpacing: "0.04em", lineHeight: 1.6 }}>
-          30-day returns · Free worldwide shipping · Hand made in the EU
+          5-year warranty · Free worldwide shipping · Hand made in the EU
         </p>
       </div>
 

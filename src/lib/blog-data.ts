@@ -1804,7 +1804,7 @@ ${blogFitLensHookHtml()}
 <li>Measure temple to temple. Under 155 mm, mainstream brands work and oval-face shape rules apply unchanged.</li>
 <li>At 155 mm+, use the AI Fit Wizard to pick a Woolet size (158 mm) or move to bespoke if you are outside 152–168 mm.</li>
 <li>Choose shape on preference: 007 round for softer features, 009 soft square for more structure.</li>
-<li>Confirm with the 30-day return window. If the size feels off in person, exchange for the next size up or down.</li>
+<li>Confirm with the 60-second fit scan before you order. Outside 155-161 mm, go bespoke.</li>
 </ol>
 
 <p>The combination of an oval face and a wider front is one of the easiest to fit once you stop trying to make 140 mm frames work. Start with the size, finish with the shape.</p>
