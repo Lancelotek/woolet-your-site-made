@@ -101,7 +101,16 @@ Deno.serve(async (req) => {
   try {
     const body = (await req.json().catch(() => ({}))) as {
       password?: string;
-      action?: "list" | "detail";
+      // Every action this endpoint actually branches on; the old narrower
+      // union made the later comparisons read as unreachable.
+      action?:
+        | "list"
+        | "detail"
+        | "render_preview"
+        | "lookup_reference_glasses"
+        | "brief_upload_url"
+        | "brief_confirm"
+        | "brief_download";
       id?: string;
     };
     const provided = body.password ?? req.headers.get("x-admin-password") ?? "";

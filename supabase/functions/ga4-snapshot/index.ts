@@ -26,7 +26,9 @@ function b64url(input: ArrayBuffer | string): string {
   return btoa(bin).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
 }
 
-function pemToPkcs8(pem: string): Uint8Array {
+// The explicit ArrayBuffer backing is what crypto.subtle.importKey wants;
+// a bare `Uint8Array` annotation widens it to ArrayBufferLike.
+function pemToPkcs8(pem: string): Uint8Array<ArrayBuffer> {
   const body = pem
     .replace(/-----BEGIN [^-]+-----/g, "")
     .replace(/-----END [^-]+-----/g, "")

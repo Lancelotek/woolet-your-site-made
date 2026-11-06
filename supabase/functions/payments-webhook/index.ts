@@ -8,14 +8,17 @@ import { parseConsentFlag, sendOpenAiEvent } from "../_shared/openai-capi.ts";
 import { parseGaClientReference } from "../_shared/ga-client-reference.ts";
 
 
-let _supabase: ReturnType<typeof createClient> | null = null;
+// `ReturnType<typeof createClient>` instantiates the generic factory's defaults
+// and collapses every table payload to `never`, so take the type from a real
+// (non-generic) call site instead.
+const makeSupabase = () =>
+  createClient(
+    Deno.env.get("SUPABASE_URL")!,
+    Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
+  );
+let _supabase: ReturnType<typeof makeSupabase> | null = null;
 function getSupabase() {
-  if (!_supabase) {
-    _supabase = createClient(
-      Deno.env.get("SUPABASE_URL")!,
-      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
-    );
-  }
+  if (!_supabase) _supabase = makeSupabase();
   return _supabase;
 }
 

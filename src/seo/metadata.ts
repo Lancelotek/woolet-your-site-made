@@ -1048,7 +1048,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
         ? {
             title: "Proces Woolet — jak powstają nasze oprawy z włoskiego octanu",
             description:
-              "Jak powstaje oprawa Woolet: 13 etapów w ok. 14 dni — od CAD po czyszczenie ultradźwiękowe. Ręcznie wykończona w UE z octanu Mazzucchelli z Mediolanu, dopasowana do szerszych twarzy.",
+              "Jak powstaje oprawa Woolet: 13 etapów w ~14 dni — od CAD po czyszczenie ultradźwiękowe. Ręcznie wykończona w UE z octanu Mazzucchelli z Mediolanu, dopasowana do szerszych twarzy.",
             noscriptHtml: `<h1>Proces Woolet</h1>
 <p>Każda oprawa Woolet powstaje wokół jednej twarzy — Twojej. Od pierwszego cyfrowego szkicu po końcowe płukanie ultradźwiękowe przechodzi przez ręce i maszyny kilkanaście razy. 13 etapów. W większości ręcznie. Włoski octan Mazzucchelli.</p>
 <ol>${steps.map(([n, t]) => `<li><strong>${escapeHtml(n)}</strong> — ${escapeHtml(t)}</li>`).join("")}</ol>

@@ -12,13 +12,17 @@
 import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
 import { createClient } from "npm:@supabase/supabase-js@2";
 
-let _supabase: ReturnType<typeof createClient> | null = null;
+// `ReturnType<typeof createClient>` collapses table payloads to `never`; take
+// the type from a real (non-generic) call site instead.
+const makeSupabase = (url: string, key: string) =>
+  createClient(url, key, { auth: { persistSession: false } });
+let _supabase: ReturnType<typeof makeSupabase> | null = null;
 function getSupabase() {
   if (!_supabase) {
     const url = Deno.env.get("SUPABASE_URL");
     const key = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
     if (!url || !key) return null;
-    _supabase = createClient(url, key, { auth: { persistSession: false } });
+    _supabase = makeSupabase(url, key);
   }
   return _supabase;
 }

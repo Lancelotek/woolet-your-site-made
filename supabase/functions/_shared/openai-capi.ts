@@ -68,9 +68,12 @@ export function clientIp(req: Request): string | null {
   return xff?.split(",")[0]?.trim() || req.headers.get("cf-connecting-ip") || req.headers.get("x-real-ip");
 }
 
-let _sb: ReturnType<typeof createClient> | null = null;
-const sb = () =>
-  (_sb ??= createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!));
+// `ReturnType<typeof createClient>` collapses table payloads to `never`; take
+// the type from a real (non-generic) call site instead.
+const makeSb = () =>
+  createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
+let _sb: ReturnType<typeof makeSb> | null = null;
+const sb = () => (_sb ??= makeSb());
 
 export async function sendOpenAiEvent(
   e: OpenAiEventInput,
