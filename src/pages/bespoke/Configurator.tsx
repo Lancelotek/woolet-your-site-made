@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Check, ChevronLeft, ChevronRight, Cloud, CloudOff, Loader2, Maximize2, Ruler, Sparkles } from "lucide-react";
 import SEO from "@/components/SEO";
 import { oaiqBespokeViewed } from "@/lib/openai-pixel";
-import { COLORS, FINISHES, LENS_TYPES, RETIRED_COLOR_FALLBACK_ID as DEFAULT_ACETATE_ID, formatTempleLength, resolveActiveColorId } from "@/data/bespoke-options";
+import { ACTIVE_LENS_TYPES, COLORS, FINISHES, LENS_TYPES, RETIRED_COLOR_FALLBACK_ID as DEFAULT_ACETATE_ID, formatTempleLength, resolveActiveColorId } from "@/data/bespoke-options";
 import { findFrame } from "@/data/frames";
 import { STEPS, hasEngraving, formatEur, formatAddOn, formatLensWithStrength, isStepComplete, lensTintCode, selectedLensTint, useBespokeConfig, type BespokeConfig, type StepId } from "@/lib/bespoke-state";
 import { clarityEvent, claritySet } from "@/lib/clarity";
@@ -43,6 +43,7 @@ import {
 import { useParams, useNavigate } from "react-router-dom";
 import { loadNotoSansKr } from "@/lib/noto-sans-kr";
 import FramedRender from "@/components/bespoke/FramedRender";
+import SaveDesignByEmail from "@/components/bespoke/SaveDesignByEmail";
 
 
 // Google Fonts: Newsreader + Archivo. Loaded once on mount — scoped to this page only.
@@ -102,6 +103,9 @@ const ConfiguratorPage = () => {
     if (finishParam && FINISHES.some((f) => f.id === finishParam)) next.finishId = finishParam;
     const tl = Number(params.get("tl"));
     if (Number.isFinite(tl) && tl > 0) next.templeLengthMm = tl;
+    // Saved-design emails carry the lens choice too (photochromic/sun need a tint, so only tint-free lenses).
+    const lensParam = params.get("lens");
+    if (lensParam && ACTIVE_LENS_TYPES.some((l) => l.id === lensParam) && lensParam !== "photochromic" && lensParam !== "sun-uv400") next.lensTypeId = lensParam;
     return next;
   }, []);
   const { status, isSignedIn, lastSavedAt } = useBespokeCloudSync({ config, setConfig: replace, overrides: urlOverrides });
@@ -131,6 +135,7 @@ const ConfiguratorPage = () => {
     if (finishId && FINISHES.some((f) => f.id === finishId)) update("finishId", finishId);
     const tl = Number(params.get("tl"));
     if (Number.isFinite(tl) && tl > 0) update("templeLengthMm", tl);
+    if (urlOverrides.lensTypeId) update("lensTypeId", urlOverrides.lensTypeId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -562,6 +567,9 @@ const ConfiguratorPage = () => {
               {temple && <span className="cfg-mobilepreview__dot" style={{ background: temple.hex }} aria-hidden />}
               {finish && <span className="cfg-mobilepreview__finish">{finish.name}</span>}
             </div>
+            <div className="px-5">
+              <SaveDesignByEmail config={config} renderUrl={aiPreviewUrl} placement="mobile_preview" />
+            </div>
           </div>
         )}
 
@@ -608,6 +616,7 @@ const ConfiguratorPage = () => {
                   <SpecChip label="Engraving" value={hasEngraving(config) ? `“${config.engravingText.trim()}”` : "—"} onClick={() => goTo(4)} />
                   <SpecChip label="Lenses" value={lens ? formatLensWithStrength(lens.name, config) : "—"} onClick={() => goTo(5)} />
                 </dl>
+                <SaveDesignByEmail config={config} renderUrl={aiPreviewUrl} placement="desktop_stage" />
                 <div className="cfg-app-summary__foot">
                   <CfgInfoTrigger section="fit" className="cfg-info-trigger--block">{frame ? `${frame.widthMm} mm reference · cut to your face` : "Cut to your face"}</CfgInfoTrigger>
                   <button onClick={handleReset} className="cfg-rail__reset">Start over</button>
@@ -619,6 +628,11 @@ const ConfiguratorPage = () => {
             <section className="cfg-app-panel" ref={appPanelRef}>
               <div className="cfg-app-panel__body">
                 {StepBody}
+                {step === STEPS.length && (
+                  <div className="lg:hidden mt-6">
+                    <SaveDesignByEmail config={config} renderUrl={aiPreviewUrl} placement="mobile_review" />
+                  </div>
+                )}
               </div>
               <div className="cfg-app-nav hidden lg:block">
                 {/* The whole block opens the itemized total: Clarity logged dead
@@ -1648,6 +1662,32 @@ const ConfiguratorStyles = () => (
       color: #EFE9DF; padding: 14px 16px; border-radius: 2px; font-size: 16px;
     }
     .cfg-authform__error { color: #E8A0A0; font-size: 13px; }
+
+    /* ── "Email me this design" — secondary, never competes with the CTA ── */
+    .cfg-savedesign__link {
+      display: inline-block; margin-top: 12px; padding: 0; background: none; border: 0;
+      color: var(--cfg-muted); font-size: 13px; text-decoration: underline;
+      text-decoration-style: dotted; text-underline-offset: 4px; cursor: pointer;
+    }
+    .cfg-savedesign__link:hover { color: var(--cfg-gold); }
+    .cfg-savedesign { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; font-size: 13px; color: var(--cfg-text); }
+    .cfg-savedesign--done { flex-direction: row; align-items: center; gap: 6px; color: var(--cfg-gold); }
+    .cfg-savedesign__label { color: var(--cfg-text); }
+    .cfg-savedesign__row { display: flex; gap: 8px; }
+    .cfg-savedesign__row input {
+      flex: 1; min-width: 0; background: rgba(239,233,223,0.04); border: 1px solid rgba(239,233,223,0.16);
+      color: var(--cfg-cream); padding: 10px 12px; border-radius: 2px; font-size: 16px;
+    }
+    .cfg-savedesign__row input:focus { outline: none; border-color: var(--cfg-gold); }
+    .cfg-savedesign__send {
+      padding: 0 16px; border: 1px solid var(--cfg-gold); background: transparent; color: var(--cfg-gold);
+      font-size: 12px; letter-spacing: .14em; text-transform: uppercase; border-radius: 2px; cursor: pointer;
+    }
+    .cfg-savedesign__send:disabled { opacity: .6; }
+    .cfg-savedesign__optin { display: flex; gap: 8px; align-items: flex-start; color: var(--cfg-muted); font-size: 12px; }
+    .cfg-savedesign__optin input { margin-top: 2px; accent-color: var(--cfg-gold); }
+    .cfg-savedesign__note { color: var(--cfg-muted); font-size: 12px; }
+    .cfg-savedesign__error { color: #E8A0A0; font-size: 12px; }
     @media (min-width: 768px) {
       .cfg-sheet { align-items: center; }
       .cfg-sheet__panel { border-radius: 2px; max-height: 76vh; }

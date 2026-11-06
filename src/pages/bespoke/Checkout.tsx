@@ -38,6 +38,7 @@ import { BESPOKE_PURCHASED_KEY } from "@/components/bespoke/ResumeBuildBar";
 import { readSessionRef } from "@/lib/scan-session-ref";
 import BespokeCaseHero from "@/components/BespokeCaseHero";
 import { BESPOKE_DISCOVERY_SOURCES, isBespokeDiscoverySource, type BespokeDiscoverySource } from "@/content/bespokeFacts";
+import { buildDesignUrl, designSummary, readSavedEmail } from "@/lib/bespoke-saved-design";
 
 const PURCHASE_TRACKED_KEY = "woolet_bespoke_purchase_tracked_v1";
 
@@ -331,7 +332,12 @@ export default function BespokeCheckout() {
         productName,
         description,
         returnUrl,
-        metadata: { ...metadata, ...(await getGaCheckoutMetadataAsync()), ...(getOppref() ? { openai_oppref: getOppref() } : {}) },
+        // Known email (saved design / scan) prefills Stripe: one field less for the buyer,
+        // and an abandoned session can be followed up by payments-webhook.
+        customerEmail: readSavedEmail() ?? config.scanContactEmail ?? undefined,
+        metadata: { ...metadata, ...(await getGaCheckoutMetadataAsync()),
+          bespoke_design_url: buildDesignUrl(config, "bespoke_abandoned_checkout"),
+          bespoke_design_summary: designSummary(config), ...(getOppref() ? { openai_oppref: getOppref() } : {}) },
         environment: getStripeEnvironment(),
       },
     });

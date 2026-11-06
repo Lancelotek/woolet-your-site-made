@@ -180,7 +180,11 @@ Deno.serve(async (req) => {
       mode: "payment",
       ui_mode: "embedded_page",
       return_url: body.returnUrl,
-      ...(body.customerEmail && { customer_email: body.customerEmail }),
+      // 2 h instead of Stripe's 24 h default: payments-webhook follows up an
+      // abandoned Bespoke checkout on checkout.session.expired, so the reminder
+      // reaches the buyer the same day (06.11.2026).
+      expires_at: Math.floor(Date.now() / 1000) + 2 * 60 * 60,
+      ...(body.customerEmail && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(body.customerEmail) && { customer_email: body.customerEmail.slice(0, 200) }),
       payment_intent_data: {
         description: body.productName,
         metadata: cleanMeta,

@@ -308,6 +308,22 @@ async function tagMailerLiteBespokePaid(input: {
         },
       }),
     });
+    if (res.ok) {
+      // Paid: leave "Bespoke Saved Design" so its sequence stops (the automation
+      // exits subscribers who no longer match the trigger group).
+      try {
+        const json = await res.clone().json();
+        const subscriberId = json?.data?.id;
+        if (subscriberId) {
+          await fetch(`https://connect.mailerlite.com/api/subscribers/${subscriberId}/groups/203419177747220382`, {
+            method: "DELETE",
+            headers: { Authorization: `Bearer ${apiKey}` },
+          });
+        }
+      } catch (e) {
+        console.error("[mailerlite:bespoke] saved-design group removal failed", e);
+      }
+    }
     if (!res.ok) {
       const bodyText = await res.text();
       console.error("[mailerlite:bespoke] non-ok", res.status, bodyText);
@@ -393,8 +409,73 @@ async function markMailerLiteAbandonedCheckout(
   }
 }
 
+const MAILERLITE_GROUP_BESPOKE_SAVED = "203419177747220382"; // Bespoke Saved Design
+const BESPOKE_DESIGN_URL_RE = /^https:\/\/woolet\.co\/en\/bespoke\/configurator\?[\w=&%.\-]{1,400}$/;
+
+/**
+ * Abandoned Bespoke checkout: the buyer reached Stripe with a known email and
+ * the session expired unpaid. They join "Bespoke Saved Design", whose sequence
+ * links back to their exact build. Follow-ups stay off for EU buyers (no opt-in).
+ */
+async function handleBespokeCheckoutExpired(session: any) {
+  const email = String(session?.customer_details?.email || session?.customer_email || "").trim().toLowerCase();
+  const designUrl = String(session?.metadata?.bespoke_design_url ?? "");
+  if (!email || !BESPOKE_DESIGN_URL_RE.test(designUrl)) {
+    console.log("[payments-webhook] bespoke expired without email/design url", session?.id);
+    return;
+  }
+  const apiKey = Deno.env.get("MAILERLITE_API_KEY");
+  if (!apiKey) return;
+  const EU = new Set(["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE","IT","LV","LT","LU","MT","NL","PL","PT","RO","SK","SI","ES","SE","IS","LI","NO","GB","CH"]);
+  const country = String(session?.customer_details?.address?.country ?? "").toUpperCase();
+  try {
+    // A buyer who paid in another session must not get "your build is waiting".
+    const lookup = await fetch(`https://connect.mailerlite.com/api/subscribers/${encodeURIComponent(email)}`, {
+      headers: { Authorization: `Bearer ${apiKey}` },
+    });
+    let existingFollowups = "";
+    if (lookup.ok) {
+      const json = await lookup.json();
+      const groups: Array<{ id: string }> = json?.data?.groups ?? [];
+      if (groups.some((g) => String(g.id) === MAILERLITE_GROUP_BESPOKE_PAID)) return;
+      existingFollowups = String(json?.data?.fields?.bespoke_followups ?? "");
+    }
+    const res = await fetch("https://connect.mailerlite.com/api/subscribers", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
+      body: JSON.stringify({
+        email,
+        groups: [MAILERLITE_GROUP_BESPOKE_SAVED],
+        fields: {
+          bespoke_design_url: designUrl,
+          bespoke_design_summary: String(session?.metadata?.bespoke_design_summary ?? "").slice(0, 200),
+          bespoke_saved_from: "abandoned_checkout",
+          // Keep an explicit opt-in; otherwise follow-ups only outside the EU.
+          bespoke_followups: existingFollowups === "yes" ? "yes" : (country && !EU.has(country) ? "yes" : "no"),
+        },
+      }),
+    });
+    if (!res.ok) {
+      const bodyText = await res.text();
+      console.error("[mailerlite:bespoke-abandon] non-ok", res.status, bodyText);
+      await getSupabase().from("server_event_log").insert({
+        source: "payments-webhook",
+        event_name: "MailerLiteBespokeAbandonFailed",
+        status: "error",
+        request_summary: { stripe_session_id: session?.id },
+        error: bodyText,
+      });
+    }
+  } catch (e) {
+    console.error("[mailerlite:bespoke-abandon] error", e);
+  }
+}
+
 async function handleCheckoutExpired(session: any) {
-  if (session?.metadata?.flow === "bespoke") return;
+  if (session?.metadata?.flow === "bespoke") {
+    await handleBespokeCheckoutExpired(session);
+    return;
+  }
   // Only count a $1 checkout as abandoned when the visitor clicked pay AND
   // engaged with the Stripe form. Pre-created sessions are ignored.
   const cd = session?.customer_details ?? {};
