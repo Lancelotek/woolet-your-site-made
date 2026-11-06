@@ -218,6 +218,12 @@ const WAITLIST_ENG_GROUP_ID = "181841182994728358"; // Woolet Waitlist ENG (gene
 const AI_SCAN_GROUP_ID = "189356132351870087";      // AI Scan leads
 const BESPOKE_GROUP_ID = "189449279680546761";      // Bespoke configurator waitlist
 const VIP_DE_GROUP_ID = "202036716615238949";       // Woolet VIP DE (German sequence, 22.10.2026)
+const BESPOKE_SAVED_GROUP_ID = "203419177747220382"; // Bespoke Saved Design (configurator "Email me this design", 06.11.2026)
+
+// Saved-design links may only point at our own configurator / render storage,
+// so a crafted request cannot put a foreign link into our emails.
+const DESIGN_URL_RE = /^https:\/\/woolet\.co\/en\/bespoke\/configurator\?[\w=&%.\-]{1,400}$/;
+const RENDER_URL_RE = /^https:\/\/[a-z0-9-]+\.supabase\.co\/storage\/v1\/object\/public\/[\w\-/.%]{1,400}$/;
 
 async function mlFetch(apiKey: string, path: string, method: string, body?: unknown) {
   const res = await fetch(`${MAILERLITE_API}${path}`, {
@@ -258,6 +264,11 @@ async function ensureCustomFields(apiKey: string) {
     { name: "last_touch", type: "text" },
     { name: "heard_from", type: "text" },
     { name: "days_to_pay", type: "text" },
+    { name: "bespoke_design_url", type: "text" },
+    { name: "bespoke_design_summary", type: "text" },
+    { name: "bespoke_render_url", type: "text" },
+    { name: "bespoke_followups", type: "text" },
+    { name: "bespoke_saved_from", type: "text" },
   ];
 
   for (const field of fields) {
@@ -337,6 +348,8 @@ export const handler = async (req: Request): Promise<Response> => {
       groups.push(AI_SCAN_GROUP_ID);
     } else if (source === "bespoke") {
       groups.push(BESPOKE_GROUP_ID);
+    } else if (source === "bespoke_save") {
+      groups.push(BESPOKE_SAVED_GROUP_ID);
     } else if (source === "kickstarter") {
       // Dedicated Kickstarter VIP group for campaign reporting
       groups.push(VIP_GROUP_ID);
@@ -379,6 +392,23 @@ export const handler = async (req: Request): Promise<Response> => {
     if (isHatCard) {
       subscriberFields.head_cm = String(Math.round(headCmNum * 10) / 10);
       subscriberFields.temple_width_est = String(templeWidthMm(headCmNum));
+    }
+
+    // Configurator "Email me this design": restore link, render and consent.
+    if (source === "bespoke_save") {
+      const designUrl = String(reqBody.bespoke_design_url ?? "");
+      if (!DESIGN_URL_RE.test(designUrl)) {
+        return new Response(
+          JSON.stringify({ success: false, error: "Invalid design link" }),
+          { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+      subscriberFields.bespoke_design_url = designUrl;
+      const renderUrl = String(reqBody.bespoke_render_url ?? "");
+      subscriberFields.bespoke_render_url = RENDER_URL_RE.test(renderUrl) ? renderUrl : "";
+      subscriberFields.bespoke_design_summary = String(reqBody.bespoke_design_summary ?? "").replace(/[<>]/g, "").slice(0, 200);
+      subscriberFields.bespoke_followups = reqBody.bespoke_followups === "yes" ? "yes" : "no";
+      subscriberFields.bespoke_saved_from = "configurator";
     }
 
     // Journey attribution: first_* fill-if-empty, last_touch always overwrites.
