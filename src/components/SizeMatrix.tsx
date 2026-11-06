@@ -10,6 +10,7 @@ type Row = {
   bridge: string;
   lens: string;
   face: string;
+  href: string;
   bespoke?: boolean;
 };
 
@@ -31,9 +32,9 @@ const SizeMatrix = ({
   const HeadingTag = semantic ? "h2" : "div";
 
   const rows: Row[] = [
-    { sku: "Woolet 007", shapeKey: "matrix.shape_round", width: "158 mm", bridge: "26 mm", lens: "53 x 47.6", face: "~155–161 mm" },
-    { sku: "Woolet 009", shapeKey: "matrix.shape_square", width: "158 mm", bridge: "25 mm", lens: "54 x 44", face: "~155–161 mm" },
-    { sku: t(lang, "matrix.sku_bespoke"), shapeKey: "matrix.shape_either", width: "145–160 mm", bridge: "16–24 mm", lens: t(lang, "matrix.lens_custom"), face: "<155 mm", bespoke: true },
+    { sku: "Woolet 007", shapeKey: "matrix.shape_round", width: "158 mm", bridge: "26 mm", lens: "53 x 47.6", face: "~155–161 mm", href: hrefFor("products.007", lang) },
+    { sku: "Woolet 009", shapeKey: "matrix.shape_square", width: "158 mm", bridge: "25 mm", lens: "54 x 44", face: "~155–161 mm", href: hrefFor("products.009", lang) },
+    { sku: t(lang, "matrix.sku_bespoke"), shapeKey: "matrix.shape_either", width: "145–160 mm", bridge: "16–24 mm", lens: t(lang, "matrix.lens_custom"), face: "<155 mm", href: bespokeHref, bespoke: true },
   ];
 
   return (
@@ -73,9 +74,13 @@ const SizeMatrix = ({
             <span>{t(lang, "matrix.col_face")}</span>
           </div>
           {rows.map((r) => (
-            <div
+            // Whole row is the link: Clarity logged dead clicks on the
+            // 009 "Soft Square" cell (06.11.2026) - visitors expect the row to open the model.
+            <Link
               key={r.sku}
-              className="grid items-center px-5 py-4 transition-colors"
+              to={r.href}
+              aria-label={`${r.sku} - ${t(lang, r.shapeKey)}`}
+              className="grid items-center px-5 py-4 transition-colors no-underline group hover:bg-[hsl(var(--gold)/0.04)]"
               style={{
                 gridTemplateColumns: "1.3fr 1.4fr 1fr 0.9fr 0.9fr 1.1fr",
                 borderBottom: "1px solid hsl(0 0% 100% / 0.055)",
@@ -83,7 +88,7 @@ const SizeMatrix = ({
               }}
             >
               <span className="font-display flex items-center gap-2" style={{ fontSize: "1rem", color: "hsl(var(--gold))" }}>
-                {r.bespoke ? <Link to={bespokeHref} className="hover:underline">{r.sku}</Link> : r.sku}
+                <span className="group-hover:underline">{r.sku}</span>
                 {r.bespoke && (
                   <span
                     className="uppercase tracking-[0.18em]"
@@ -105,23 +110,25 @@ const SizeMatrix = ({
               <span className="text-foreground" style={{ fontSize: "0.85rem" }}>{r.bridge}</span>
               <span className="text-foreground" style={{ fontSize: "0.85rem" }}>{r.lens}</span>
               <span className="text-foreground" style={{ fontSize: "0.85rem" }}>{r.face}</span>
-            </div>
+            </Link>
           ))}
         </div>
 
         {/* Mobile cards */}
         <div className="md:hidden grid gap-3">
           {rows.map((r) => (
-            <div
+            <Link
               key={r.sku}
-              className="p-4"
+              to={r.href}
+              aria-label={`${r.sku} - ${t(lang, r.shapeKey)}`}
+              className="block p-4 no-underline"
               style={{
                 border: "1px solid hsl(0 0% 100% / 0.08)",
                 background: r.bespoke ? "hsl(var(--gold) / 0.03)" : "transparent",
               }}
             >
               <div className="flex items-center justify-between mb-2">
-                <span className="font-display" style={{ fontSize: "1.15rem", color: "hsl(var(--gold))" }}>{r.bespoke ? <Link to={bespokeHref} className="hover:underline">{r.sku}</Link> : r.sku}</span>
+                <span className="font-display" style={{ fontSize: "1.15rem", color: "hsl(var(--gold))" }}>{r.sku} →</span>
                 {r.bespoke && (
                   <span
                     className="uppercase tracking-[0.18em]"
@@ -136,7 +143,7 @@ const SizeMatrix = ({
                 <div><span className="text-cream-dim uppercase tracking-wider" style={{ fontSize: "0.7rem" }}>{t(lang, "matrix.m_lens")}</span><div className="text-foreground">{r.lens}</div></div>
                 <div><span className="text-cream-dim uppercase tracking-wider" style={{ fontSize: "0.7rem" }}>{t(lang, "matrix.m_face")}</span><div className="text-foreground">{r.face}</div></div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 

@@ -144,6 +144,14 @@ const ConfiguratorPage = () => {
   // One shared total for rail, mobile bar and review: always the full sum of
   // every current selection, whichever step is open.
   const stepTotal = pricing.totalEur;
+  // Itemized lines for the price sheet - same numbers as every other surface.
+  const priceLines = useMemo(() => {
+    const lines = [{ label: frame ? `Bespoke frame · ${frame.name}` : "Bespoke frame", amount: formatEur(pricing.basePriceEur) }];
+    lines.push({ label: `Lenses · ${lens ? lens.name : "No lenses"}`, amount: formatAddOn(pricing.lensEur) });
+    if (config.engravingEnabled) lines.push({ label: "Engraving", amount: formatAddOn(pricing.engravingEur) });
+    lines.push({ label: "Shipping", amount: "Free" });
+    return lines;
+  }, [frame, lens, pricing, config.engravingEnabled]);
 
   // Fit numbers — from scan if present, else brand reference defaults.
   const faceMm = config.measurements.faceWidth ?? 161;
@@ -469,7 +477,7 @@ const ConfiguratorPage = () => {
                  <StepReview config={config} onSave={handleSave} saved={saved} onEdit={(n) => goTo(n as StepId)} />;
 
   return (
-    <CfgInfoProvider>
+    <CfgInfoProvider priceLines={priceLines} priceTotal={formatEur(stepTotal)}>
     <CfgNavProvider value={{ nextLabel: step === STEPS.length ? null : STEPS[step]?.shortLabel ?? null, onNext: goNext }}>
     {lightboxOpen && stageSrc && (
       <PreviewLightbox src={stageSrc} alt={stageAlt} caption={lightboxCaption} onClose={() => setLightboxOpen(false)} />
@@ -613,11 +621,13 @@ const ConfiguratorPage = () => {
                 {StepBody}
               </div>
               <div className="cfg-app-nav hidden lg:block">
-                <div className="cfg-app-nav__total">
+                {/* The whole block opens the itemized total: Clarity logged dead
+                    clicks on the label and the shipping line (04-05.11.2026). */}
+                <CfgInfoTrigger section="price" className="cfg-app-nav__total cfg-app-nav__total--trigger">
                   <span className="cfg-eyebrow">Total</span>
-                  <CfgInfoTrigger section="price" className="cfg-rail__price cfg-info-trigger--block">{formatEur(stepTotal)}</CfgInfoTrigger>
-                  <span className="cfg-app-nav__ship">Free shipping · 2-week build</span>
-                </div>
+                  <span className="cfg-rail__price">{formatEur(stepTotal)}</span>
+                  <span className="cfg-app-nav__ship">Free shipping · 2-week build · <span className="cfg-app-nav__details">See breakdown</span></span>
+                </CfgInfoTrigger>
                  <StepNav
                   step={step}
                   total={STEPS.length}
@@ -659,7 +669,7 @@ const ConfiguratorPage = () => {
             ) : step === 2 && !stepComplete ? (
               <button type="button" onClick={showMissing} className="cfg-mobilebar__note text-gold-light text-left underline decoration-dotted underline-offset-2" role="status">Choose {acetateMissing} to continue.</button>
             ) : (
-              <div className="cfg-mobilebar__note">2-week build · free shipping</div>
+              <CfgInfoTrigger section="price" className="cfg-mobilebar__note">2-week build · free shipping</CfgInfoTrigger>
             )}
           </div>
           <button
@@ -1623,6 +1633,15 @@ const ConfiguratorStyles = () => (
     .cfg-sheet__body p, .cfg-sheet__body li { color: #B9B1A3; font-size: 14px; line-height: 1.6; margin: 0 0 8px; }
     .cfg-sheet__body ul { margin: 0; padding-left: 18px; }
     .cfg-sheet__body section.is-target h3 { color: #CAA449; }
+    .cfg-sheet__lines { margin: 4px 0 14px; padding: 10px 12px; border: 1px solid rgba(239,233,223,0.1); border-radius: 10px; }
+    .cfg-sheet__line { display: flex; justify-content: space-between; gap: 12px; padding: 4px 0; font-size: 14px; color: #B9B1A3; }
+    .cfg-sheet__line dt, .cfg-sheet__line dd { margin: 0; }
+    .cfg-sheet__line dd { color: #EFE9DF; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .cfg-sheet__line--total { margin-top: 6px; padding-top: 8px; border-top: 1px solid rgba(239,233,223,0.1); color: #EFE9DF; font-weight: 500; }
+    .cfg-sheet__line--total dd { color: #CAA449; }
+    .cfg-app-nav__total--trigger { cursor: pointer; text-decoration: none; }
+    .cfg-app-nav__total--trigger::after { inset: 0; }
+    .cfg-app-nav__details { text-decoration: underline dotted; text-underline-offset: 3px; color: #CAA449; }
     .cfg-authform { display: flex; flex-direction: column; gap: 12px; padding-top: 14px; }
     .cfg-authform input {
       background: rgba(239,233,223,0.04); border: 1px solid rgba(239,233,223,0.16);

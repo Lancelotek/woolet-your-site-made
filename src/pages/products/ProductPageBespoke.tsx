@@ -204,12 +204,21 @@ const ProductPageBespoke = () => {
             {/* RIGHT — Buy panel */}
             <section style={{ maxWidth: 520 }}>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 14 }}>
+                {/* Lens chips look selectable, so they act: each opens the configurator
+                    (Clarity 05.11.2026 - triple dead clicks on "Frame only"). */}
                 {b.tags.map((tag) => (
-                  <span key={tag} style={{
-                    fontFamily: SANS, fontSize: 11, letterSpacing: "0.12em",
-                    textTransform: "uppercase", padding: "4px 10px",
-                    border: `1px solid ${T.hairStrong}`, color: T.inkDim, borderRadius: 999,
-                  }}>{tag}</span>
+                  <Link
+                    key={tag}
+                    to="/en/bespoke/configurator"
+                    onClick={() => pushGtmEvent("pdp_bespoke_lens_chip_click", { chip: tag, dest: "bespoke_configurator" })}
+                    aria-label={`${tag} - choose lenses in the configurator`}
+                    style={{
+                      fontFamily: SANS, fontSize: 11, letterSpacing: "0.12em",
+                      textTransform: "uppercase", padding: "4px 10px",
+                      border: `1px solid ${T.hairStrong}`, color: T.inkDim, borderRadius: 999,
+                      textDecoration: "none", cursor: "pointer",
+                    }}
+                  >{tag}</Link>
                 ))}
                 <span style={{
                   fontFamily: SANS, fontSize: 11, letterSpacing: "0.12em",
