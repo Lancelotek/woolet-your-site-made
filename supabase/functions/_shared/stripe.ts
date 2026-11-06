@@ -23,8 +23,10 @@ export function createStripeClient(env: StripeEnv): Stripe {
 
   return new Stripe(connectionApiKey, {
     apiVersion: "2026-03-25.dahlia",
-    httpClient: Stripe.createFetchHttpClient((url: string | URL, init?: RequestInit) => {
-      const gatewayUrl = url.toString().replace("https://api.stripe.com", GATEWAY_STRIPE_BASE);
+    // Let the fetch handler take Stripe's own parameter type (`RequestInfo | URL`);
+    // a narrower annotation here fails Stripe's overload resolution.
+    httpClient: Stripe.createFetchHttpClient((input, init) => {
+      const gatewayUrl = input.toString().replace("https://api.stripe.com", GATEWAY_STRIPE_BASE);
       return fetch(gatewayUrl, {
         ...init,
         headers: {
