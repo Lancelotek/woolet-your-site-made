@@ -22,10 +22,19 @@ import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { pushGtmEvent } from "@/lib/gtm";
 import { clarityEvent } from "@/lib/clarity";
+import { trackBespokeStage } from "@/lib/ga4-funnel";
 
 export function trackBespokeFunnel(event: "bespoke_step_view" | "bespoke_preview_shown" | "bespoke_pay_click", data?: Record<string, string | number | boolean>) {
   clarityEvent(event);
   pushGtmEvent(event, data);
+  // GA4 key events for campaign optimisation (see src/lib/ga4-funnel.ts).
+  if (event === "bespoke_step_view") {
+    trackBespokeStage("start", { bespoke_step: Number(data?.step ?? 1) || 1 });
+  } else if (event === "bespoke_preview_shown" && data?.status !== "failed") {
+    trackBespokeStage("preview", { preview_status: String(data?.status ?? "shown") });
+  } else if (event === "bespoke_pay_click") {
+    trackBespokeStage("checkout", { bespoke_step: Number(data?.step ?? 0) || 0 });
+  }
 }
 
 /* ───── Instrumentation ───── */

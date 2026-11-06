@@ -84,6 +84,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth-context";
 import { clarityEvent, claritySet } from "@/lib/clarity";
 import { pushGtmEvent } from "@/lib/gtm";
+import { trackFitScanComplete } from "@/lib/ga4-funnel";
 
 const GOLD = "#CAA449";
 const BG = "#080807";
@@ -4631,6 +4632,8 @@ export default function FitScan() {
         quiz_delta_mm: rec.deltaMm,
         scan_raw_face_mm: mRaw.faceWidthMm,
       });
+      // GA4 key event (one per session across scan methods).
+      trackFitScanComplete({ method: "camera_native", faceWidthMm: m.faceWidthMm });
       // CLARITY EVENT: scan_completed + tag session with the measured width bucket.
       clarityEvent("scan_completed");
       claritySet("scan_result", String(m.faceWidthMm));

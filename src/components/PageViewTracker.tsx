@@ -5,6 +5,7 @@ import { trackMetaEvent } from "@/lib/meta-capi";
 import { initMetaPixelDirect, trackMetaPixelPageView } from "@/lib/meta-pixel";
 import { initGoogleAds } from "@/lib/google-ads";
 import { captureLastTouch } from "@/lib/attribution";
+import { syncHeroVariantContext } from "@/lib/ga4-funnel";
 
 const isProdHost = () => {
   if (typeof window === "undefined") return false;
@@ -27,6 +28,8 @@ const PageViewTracker = () => {
   useEffect(() => {
     captureLastTouch();
     if (isProdHost()) {
+      // Sticky hero variant as GTM context before the page_view (user property headline_variant).
+      syncHeroVariantContext();
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({
         event: "page_view",

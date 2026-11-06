@@ -198,12 +198,13 @@ async function fireGa4Conversion(
       const sid = Number(meta.ga_session_id);
       if (meta.ga_session_id && Number.isFinite(sid)) params.session_id = sid;
       if (flow === "reservation") {
-        params.items = [{ item_id: "reservation_1usd", item_name: "Founder reservation $1", price: value, quantity: 1 }];
+        params.items = [{ item_id: "reservation_1usd", item_name: "Founder reservation $1", item_category: "reservation", price: value, quantity: 1 }];
       }
       if (flow === "bespoke") {
         params.items = [{
           item_id: meta.frame || "bespoke",
           item_name: meta.frame_name || "Woolet Bespoke",
+          item_category: "bespoke",
           price: value,
           quantity: 1,
         }];
