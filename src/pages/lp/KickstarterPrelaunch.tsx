@@ -361,6 +361,30 @@ const VipForm = ({
       referred_by: resolvedRef,
     });
 
+    // Speed (06.11.2026): the subscribe call takes ~4.5 s. It starts in parallel
+    // with the reservation check, and the $1 step opens as soon as the check
+    // returns (~1 s); the subscribe and its Lead events finish in the background.
+    // One event_id shared by the server CAPI Lead (mailerlite-subscribe),
+    // the browser Meta Lead tag and the GTM waitlist_signup push.
+    const leadAttribution = buildLeadAttribution();
+    const metaEventId = leadAttribution.meta_event_id;
+    const subscribePromise = supabase.functions.invoke("mailerlite-subscribe", {
+      body: {
+        ...getAttribution(),
+        ...leadAttribution,
+        email: normalizedEmail,
+        name: "",
+        source: "kickstarter",
+        referred_by: resolvedRef,
+        meta_event_id: metaEventId,
+        hero_variant: heroVariant,
+      },
+    });
+    // Never an unhandled rejection when we stop awaiting it (paid-email branches).
+    subscribePromise.catch(() => undefined);
+    const toStep2Early = !(isKickstarterLive() && !isReservationOpen());
+    let advanced = false;
+
     try {
       const { data: statusData } = await supabase.functions.invoke("vip-reservation-status", {
         body: { email: normalizedEmail },
@@ -387,23 +411,25 @@ const VipForm = ({
         return;
       }
 
-      // One event_id shared by the server CAPI Lead (mailerlite-subscribe),
-      // the browser Meta Lead tag and the GTM waitlist_signup push.
-      const leadAttribution = buildLeadAttribution();
-      const metaEventId = leadAttribution.meta_event_id;
+      if (toStep2Early) {
+        // Open the $1 step now; the email is already known, Stripe gets it there.
+        try {
+          sessionStorage.setItem("woolet_vip_confirm", JSON.stringify({ email: normalizedEmail, name: "" }));
+        } catch {
+          /* ignore */
+        }
+        setEmail(normalizedEmail);
+        setLoading(false);
+        markJoined();
+        setStep(2);
+        advanced = true;
+        window.setTimeout(() => {
+          const reserve = document.getElementById(`vip-reserve${idSuffix}`);
+          reserve?.focus({ preventScroll: true });
+        }, 80);
+      }
 
-      const { data, error: fnError } = await supabase.functions.invoke("mailerlite-subscribe", {
-        body: {
-          ...getAttribution(),
-          ...leadAttribution,
-          email: normalizedEmail,
-          name: "",
-          source: "kickstarter",
-          referred_by: resolvedRef,
-          meta_event_id: metaEventId,
-          hero_variant: heroVariant,
-        },
-      });
+      const { data, error: fnError } = await subscribePromise;
       if (fnError) throw fnError;
       if (data && !data.success) throw new Error(data.error || "Subscription failed");
 
@@ -462,6 +488,7 @@ const VipForm = ({
         provider: "mailerlite",
       });
 
+      if (advanced) return;
       setEmail(normalizedEmail);
       setLoading(false);
       markJoined();
@@ -484,7 +511,10 @@ const VipForm = ({
         referred_by: resolvedRef,
         provider: "mailerlite",
         error_message: message.slice(0, 200),
+        after_step2: advanced,
       });
+      // Already on the $1 step: the buyer keeps going, the failure is only logged.
+      if (advanced) return;
       setErrorKind("generic");
       setError(message);
       setLoading(false);
