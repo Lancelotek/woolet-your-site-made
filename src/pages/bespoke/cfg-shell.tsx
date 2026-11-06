@@ -116,7 +116,23 @@ const SECTIONS: { id: CfgInfoSection; title: string; body: ReactNode }[] = [
   },
 ];
 
-export function CfgInfoProvider({ children }: { children: ReactNode }) {
+/** One itemized line of the live build total, shown at the top of the price sheet. */
+export interface CfgPriceLine {
+  label: string;
+  amount: string;
+}
+
+export function CfgInfoProvider({
+  children,
+  priceLines,
+  priceTotal,
+}: {
+  children: ReactNode;
+  /** Live itemized build (frame, lenses, engraving). Clarity 04-05.11.2026: buyers
+   *  clicked the total expecting to see what it is made of. */
+  priceLines?: CfgPriceLine[];
+  priceTotal?: string;
+}) {
   const [section, setSection] = useState<CfgInfoSection | null>(null);
   const panelRef = useRef<HTMLDivElement>(null);
 
@@ -156,6 +172,22 @@ export function CfgInfoProvider({ children }: { children: ReactNode }) {
               {SECTIONS.map((s) => (
                 <section key={s.id} id={`cfg-info-${s.id}`} className={s.id === section ? "is-target" : undefined}>
                   <h3>{s.title}</h3>
+                  {s.id === "price" && priceLines && priceLines.length > 0 && (
+                    <dl className="cfg-sheet__lines" aria-label="Your build, itemized">
+                      {priceLines.map((l) => (
+                        <div key={l.label} className="cfg-sheet__line">
+                          <dt>{l.label}</dt>
+                          <dd>{l.amount}</dd>
+                        </div>
+                      ))}
+                      {priceTotal && (
+                        <div className="cfg-sheet__line cfg-sheet__line--total">
+                          <dt>Total</dt>
+                          <dd>{priceTotal}</dd>
+                        </div>
+                      )}
+                    </dl>
+                  )}
                   {s.body}
                 </section>
               ))}

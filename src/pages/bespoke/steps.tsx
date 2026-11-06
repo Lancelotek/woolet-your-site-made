@@ -2198,6 +2198,7 @@ export function StepReview({
   const lens = LENS_TYPES.find((l) => l.id === config.lensTypeId);
 
   const pricing = computePricing(config, prices);
+  const [reviewZoom, setReviewZoom] = useState(false);
   const { engravingEur, lensEur, totalEur: total } = pricing;
 
   const navigate = useNavigate();
@@ -2296,7 +2297,23 @@ export function StepReview({
 
       {frame && (
         <div className="rounded-[14px] border border-cream/10 overflow-hidden bg-background/40">
-          <div className="relative aspect-[16/9] flex items-center justify-center" style={{ background: "#EFE9DF" }}>
+          {/* Tappable: Clarity logged dead clicks on this picture (04-05.11.2026);
+              buyers want a closer look before paying. */}
+          <div
+            className="relative aspect-[16/9] flex items-center justify-center cursor-zoom-in"
+            style={{ background: "#EFE9DF" }}
+            role="button"
+            tabIndex={0}
+            aria-label="Open larger preview"
+            onClick={() => { if (shownUrl) { pushCfg("cfg_preview_open", { step: 6 }); setReviewZoom(true); } }}
+            onKeyDown={(e) => {
+              if ((e.key === "Enter" || e.key === " ") && shownUrl) {
+                e.preventDefault();
+                pushCfg("cfg_preview_open", { step: 6 });
+                setReviewZoom(true);
+              }
+            }}
+          >
             <img
               src={shownUrl ?? frame.url}
               alt={
@@ -2316,6 +2333,14 @@ export function StepReview({
               </div>
             )}
           </div>
+          {reviewZoom && shownUrl && (
+            <PreviewLightbox
+              src={shownUrl}
+              alt={`${renderAltForConfig(config, false)} - larger preview`}
+              caption={`${frame.name} · ${reviewView === "front" && frontUrl ? "front view" : "3/4 view"}`}
+              onClose={() => setReviewZoom(false)}
+            />
+          )}
           <div className="flex gap-2 px-5 pt-4" role="tablist" aria-label="Preview angle">
             {([
               ["front", "Front view"],

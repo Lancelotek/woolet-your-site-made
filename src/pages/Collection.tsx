@@ -253,10 +253,13 @@ const Collection = () => {
                 {FRAMES.map((f) => (
                   <Link
                     key={f.id}
-                    to={`/en/bespoke?shape=${f.id}`}
+                    // Straight into the configurator with the shape chosen: the
+                    // landing hop (/en/bespoke?shape=) lost visitors before "Build" (Clarity 05.11.2026).
+                    to={`/en/bespoke/configurator?shape=${f.id}`}
                     onClick={() =>
                       pushGtmEvent("collection_bespoke_shape_click", {
                         location: "collection_bespoke",
+                        dest: "bespoke_configurator",
                         shape: f.id,
                         shape_name: f.name,
                       })
