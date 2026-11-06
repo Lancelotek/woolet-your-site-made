@@ -77,9 +77,12 @@ describe("SEO metadata — /pl/process", () => {
     expect(meta.description.length).toBeLessThanOrEqual(180);
   });
 
-  it("canonicalises to the EN page and is noindex", () => {
-    expect(meta.canonical).toBe(`${SITE_URL}/en/process`);
-    expect(meta.robots ?? "").toMatch(/noindex/i);
+  // /pl/process is a real translated page (see the comment in
+  // src/seo/metadata.ts): it self-canonicalises and stays indexable, which
+  // matches the `process.pl` entry in the route registry cluster.
+  it("self-canonicalises to the PL page and stays indexable", () => {
+    expect(meta.canonical).toBe(`${SITE_URL}/pl/process`);
+    expect(meta.robots ?? "index, follow").not.toMatch(/noindex/i);
   });
 
   it("ships a complete HowTo JSON-LD with all 13 steps", () => {
