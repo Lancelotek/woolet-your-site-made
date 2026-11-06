@@ -45,11 +45,22 @@ export default function FounderEditionClaim({ placement }: { placement: string }
         Your Founder frame is already made.
       </h2>
       <p style={{ color: "#D8D4CC", fontSize: 15, lineHeight: 1.65, margin: "14px 0 0" }}>
-        {F.model} with a {F.bridgeMm} mm bridge. ${F.price} instead of ${F.srp}, with a magnetic box, a special case and
-        the Clip-On Cloth (${F.boxValue} value). Ships right after the campaign.
+        This reward is hidden on Kickstarter - it isn't on the campaign page. It opens only from your private link below.
       </p>
-      <p style={{ color: "#9A8E7E", fontSize: 13, lineHeight: 1.6, margin: "10px 0 20px" }}>
-        {F.left} of {F.total} left. The reward is hidden on Kickstarter - it opens only from this link.
+      <ul style={{ listStyle: "none", padding: 0, margin: "16px 0 0", display: "grid", gap: 10 }}>
+        {[
+          `${F.model}, ${F.bridgeMm} mm bridge: $${F.price} instead of $${F.srp} in the shop.`,
+          `The Founder Box ($${F.boxValue} value): magnetic box, special case and the Clip-On Cloth.`,
+          `Already made - ships right after the campaign ends on ${F.campaignEndLabel}.`,
+        ].map((line) => (
+          <li key={line} style={{ display: "flex", gap: 10, color: "#D8D4CC", fontSize: 14, lineHeight: 1.55 }}>
+            <span aria-hidden="true" style={{ color: "#CAA449" }}>✓</span>
+            <span>{line}</span>
+          </li>
+        ))}
+      </ul>
+      <p style={{ color: "#9A8E7E", fontSize: 13, lineHeight: 1.6, margin: "16px 0 20px" }}>
+        {F.left} of {F.total} left. We also emailed you this link.
       </p>
       <a
         href={href}

@@ -9,7 +9,7 @@ import { FOUNDER_EDITION as F } from "@/config/kickstarter";
 const BENEFITS: { title: string; sub: string }[] = [
   { title: `$${F.price} instead of $${F.srp}`, sub: `${F.model}, ${F.bridgeMm} mm bridge - a hidden reward on Kickstarter, unlocked with $1` },
   { title: `$${F.boxValue} box included`, sub: "Magnetic box, special case and the Clip-On Cloth" },
-  { title: "Ships right after the campaign", sub: `Already made - ${F.left} of ${F.total} left` },
+  { title: `Ships right after ${F.campaignEndLabel}`, sub: `Already made - ${F.left} of ${F.total} left` },
 ];
 
 export const FoundingBenefits = ({ compact = false }: { compact?: boolean }) => {

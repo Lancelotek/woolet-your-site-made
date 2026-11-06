@@ -522,11 +522,28 @@ const VipForm = ({
         <h2 id="ks-step2-title" className="text-[2.25rem] leading-[1.08] md:text-[3rem] text-foreground">
           <button type="button" className="text-left cursor-pointer" onClick={() => document.getElementById(`vip-reserve${idSuffix}`)?.focus({ preventScroll: false })}>{live ? <>$1 unlocks the Founder Edition: <em className="text-primary">${FOUNDER_EDITION.price}</em> instead of ${FOUNDER_EDITION.srp}.</> : <>$1 today locks your <em className="text-primary">$114</em> founder price (then $190).</>}</button>
         </h2>
-        <figure className="flex items-center gap-4 m-0 py-3 border-y border-border">
-          <img src={gregSquare} alt="Greg wearing a Woolet frame" width={80} height={80} className="w-20 h-20 object-cover shrink-0" />
-          <figcaption className="text-sm leading-relaxed text-muted-foreground italic">“{GREG_QUOTE}” <span className="block not-italic text-xs mt-1">{GREG_ATTRIBUTION}</span></figcaption>
-        </figure>
-        <KickstarterCountdown note="Founders with a $1 reservation get in at 9:00 AM ET - one hour before everyone." />
+        {live ? (
+          <ul className="m-0 p-0 list-none space-y-3" aria-label="What $1 unlocks">
+            {[
+              <><strong className="text-foreground font-medium">A private Kickstarter reward.</strong> It isn't on the campaign page - it opens only from your link, on the next screen and in your inbox.</>,
+              <><strong className="text-foreground font-medium">Already made.</strong> {FOUNDER_EDITION.model}, {FOUNDER_EDITION.bridgeMm} mm bridge - ships right after the campaign ends on {FOUNDER_EDITION.campaignEndLabel}.</>,
+              <><strong className="text-foreground font-medium">The Founder Box (${FOUNDER_EDITION.boxValue} value).</strong> Magnetic box, special case and the Clip-On Cloth - in no other reward, not in the shop.</>,
+            ].map((item, i) => (
+              <li key={i} className="flex gap-3 text-[15px] leading-relaxed text-muted-foreground">
+                <span aria-hidden="true" className="text-primary shrink-0 leading-relaxed">✓</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <>
+            <figure className="flex items-center gap-4 m-0 py-3 border-y border-border">
+              <img src={gregSquare} alt="Greg wearing a Woolet frame" width={80} height={80} className="w-20 h-20 object-cover shrink-0" />
+              <figcaption className="text-sm leading-relaxed text-muted-foreground italic">“{GREG_QUOTE}” <span className="block not-italic text-xs mt-1">{GREG_ATTRIBUTION}</span></figcaption>
+            </figure>
+            <KickstarterCountdown note="Founders with a $1 reservation get in at 9:00 AM ET - one hour before everyone." />
+          </>
+        )}
         <ReserveCheckoutButton
           id={`vip-reserve${idSuffix}`}
           label={live ? "Unlock for $1" : "Lock $114 - pay $1 now"}
@@ -554,9 +571,14 @@ const VipForm = ({
         <div className="text-sm leading-relaxed text-muted-foreground space-y-2" aria-label="Reservation details">
           {live ? (
             <>
-              <p>{FOUNDER_EDITION.model}, {FOUNDER_EDITION.bridgeMm} mm bridge - already made, ships right after the campaign.</p>
-              <p>Magnetic box, special case and the Clip-On Cloth (${FOUNDER_EDITION.boxValue} value). {FOUNDER_EDITION.left} of {FOUNDER_EDITION.total} left.</p>
-              <p>What if 158 mm doesn't fit? Check your size with FitLens before you pledge.</p>
+              <p className="text-center text-foreground">{FOUNDER_EDITION.left} of {FOUNDER_EDITION.total} left · ${FOUNDER_EDITION.srp} in the shop from mid-December</p>
+              <p className="text-center">Pay $1 → get your private link → pledge ${FOUNDER_EDITION.price} on Kickstarter.</p>
+              <figure className="flex items-center gap-4 m-0 !mt-5 py-3 border-y border-border">
+                <img src={gregSquare} alt="Greg wearing a Woolet frame" width={64} height={64} className="w-16 h-16 object-cover shrink-0" />
+                <figcaption className="text-sm leading-relaxed text-muted-foreground italic">“{GREG_QUOTE}” <span className="block not-italic text-xs mt-1">{GREG_ATTRIBUTION}</span></figcaption>
+              </figure>
+              <p>Free shipping · 5-year warranty · Italian Mazzucchelli acetate, 158 mm front for 155-161 mm faces.</p>
+              <p>Not sure 158 mm fits? Check your size with FitLens before you pledge.</p>
             </>
           ) : (
             <>

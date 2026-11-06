@@ -29,8 +29,9 @@ const C = {
 };
 
 const BULLETS = [
-  "009 Black, 24 mm bridge - already made, ships right after the campaign",
-  "Magnetic box, special case and the Clip-On Cloth ($45 value)",
+  `A private Kickstarter reward - not on the campaign page; your link arrives right after you pay`,
+  `${F.model}, ${F.bridgeMm} mm bridge - already made, ships right after the campaign ends on ${F.campaignEndLabel}`,
+  `The Founder Box: magnetic box, special case and the Clip-On Cloth ($${F.boxValue} value) - in no other reward`,
   "158 mm front, fits 155-161 mm faces · 5-year warranty",
 ];
 

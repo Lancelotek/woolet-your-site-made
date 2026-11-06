@@ -75,6 +75,8 @@ export const FOUNDER_EDITION = {
   boxValue: 45,
   total: 30,
   left: 19,
+  /** Kickstarter deadline (= RESERVATION_CLOSE_AT_MS). Founder frames are made and ship right after it. */
+  campaignEndLabel: "December 4",
 } as const;
 
 /**

@@ -45,13 +45,13 @@ const STEPS = [
   },
   {
     n: "02",
-    title: "Pledge $114",
-    body: "009 Black, Founder Edition: 24 mm bridge (54-24-150), magnetic box, special case and the Clip-On Cloth ($45 value).",
+    title: `Pledge $${F.price}`,
+    body: `${F.model}, Founder Edition: 24 mm bridge (54-24-150), magnetic box, special case and the Clip-On Cloth ($${F.boxValue} value). Not in any other reward.`,
   },
   {
     n: "03",
-    title: "Ships right after the campaign",
-    body: "Founder frames are already made. 158 mm front, Italian Mazzucchelli acetate.",
+    title: `Ships right after ${F.campaignEndLabel}`,
+    body: `Founder frames are already made. The campaign ends on ${F.campaignEndLabel} and yours ships right after. Free shipping, 5-year warranty.`,
   },
 ];
 
@@ -142,7 +142,7 @@ export default function ThankYouReserved() {
 
       section("WHAT HAPPENS NEXT", [
         "1. Open your Founder link (also in your email) and pledge $114.",
-        "2. Founder frames are already made and ship right after the campaign.",
+        `2. Founder frames are already made and ship right after the campaign ends on ${F.campaignEndLabel}.`,
       ]);
 
       section(

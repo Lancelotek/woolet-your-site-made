@@ -34,7 +34,7 @@ const Email = ({
 }: Props) => (
   <Html lang="en" dir="ltr">
     <Head />
-    <Preview>Your Founder Edition link - 009 Black, $114 instead of $190.</Preview>
+    <Preview>Not on the Kickstarter page. Already made, ships right after the campaign ends on December 4.</Preview>
     <Body style={main}>
       <Container style={container}>
         <Section style={brandRow}>
@@ -42,34 +42,40 @@ const Email = ({
           <Text style={brandSub}>Eyewear for wide faces</Text>
         </Section>
 
-        <Heading style={h1}>You're a Founder</Heading>
+        <Heading style={h1}>Your Founder Edition link</Heading>
 
         <Text style={body}>
-          Your $1 unlocked the Founder Edition on Kickstarter: <strong>009 Black</strong> with a 24 mm
-          bridge, <strong>$114</strong> instead of $190 in the shop.
-        </Text>
-        <Text style={body}>
-          It comes in a magnetic box with a special case and the Clip-On Cloth ($45 value). The 30
-          Founder frames are already made, so yours ships right after the campaign.
+          Your $1 unlocked a reward you won't find on the Kickstarter page. It opens only from the
+          link below.
         </Text>
 
         <Section style={card}>
-          <Text style={badge}>FOUNDER EDITION</Text>
-          <Text style={body}>
-            The reward is hidden on Kickstarter. It opens only from this link:
+          <Text style={badge}>FOUNDER EDITION · HIDDEN REWARD</Text>
+          <Text style={item}>
+            <span style={tick}>✓</span> <strong>009 Black</strong>, 24 mm bridge: <strong>$114</strong> instead of $190 in the shop
+          </Text>
+          <Text style={item}>
+            <span style={tick}>✓</span> The Founder Box ($45 value): magnetic box, special case and the Clip-On Cloth - in no other
+            reward
+          </Text>
+          <Text style={item}>
+            <span style={tick}>✓</span> Already made - ships right after the campaign ends on December 4
           </Text>
           <Section style={ctaWrap}>
             <Link href={founderUrl} style={cta}>
               Claim my Founder frame - $114
             </Link>
           </Section>
+          <Text style={smallCard}>19 of 30 left. Free shipping, 5-year warranty.</Text>
         </Section>
 
-        <Hr style={hr} />
-
         <Text style={body}>
-          Questions about fit or size? Reply to this email.
+          Not sure 158 mm fits? Check your width in 60 seconds at{' '}
+          <Link href="https://woolet.co/en/fit" style={textLink}>woolet.co/en/fit</Link>. Questions:{' '}
+          <Link href="mailto:support@woolet.co" style={textLink}>support@woolet.co</Link>.
         </Text>
+
+        <Hr style={hr} />
 
         {orderRef ? <Text style={small}>Reference: {orderRef}</Text> : null}
 
@@ -86,7 +92,7 @@ const Email = ({
 
 export const template = {
   component: Email,
-  subject: 'Your Founder Edition link - 009 Black, $114',
+  subject: 'Your hidden Founder Edition link - 009 Black, $114',
   displayName: 'VIP — Reservation paid (Founder Edition link)',
   previewData: {
     founderUrl: FOUNDER_URL,
@@ -162,6 +168,17 @@ const badge: React.CSSProperties = {
   color: GOLD,
   margin: '0 0 10px',
 }
+const item: React.CSSProperties = {
+  fontSize: 15,
+  lineHeight: 1.5,
+  color: '#333',
+  margin: '0 0 8px',
+  paddingLeft: 18,
+  textIndent: -18,
+}
+const tick: React.CSSProperties = { color: GOLD, fontWeight: 700 }
+const smallCard: React.CSSProperties = { fontSize: 13, lineHeight: 1.5, color: '#6b6357', margin: '6px 0 0' }
+const textLink: React.CSSProperties = { color: INK, textDecoration: 'underline' }
 const ctaWrap: React.CSSProperties = { margin: '18px 0 8px' }
 const cta: React.CSSProperties = {
   display: 'inline-block',
