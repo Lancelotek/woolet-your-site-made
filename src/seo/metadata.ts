@@ -558,6 +558,30 @@ ${shot("woolet-too-small-m9-never-your-face-007-4x5.jpg", "Man in his fifties wi
     return meta;
   }
 
+  // ----- Bespoke video ad: unlinked, noindex, English only.
+  // The two MP4s and their posters live under public/ads/2026-11-bespoke-video/ (manifest.json
+  // carries the same descriptions); this page carries them in markup.
+  if (path === "/creatives/bespoke-video") {
+    const clip = (file: string, desc: string, w: number, h: number) =>
+      `<figure><video src="/ads/2026-11-bespoke-video/${file}" poster="/ads/2026-11-bespoke-video/${file.replace(".mp4", "-poster.jpg")}" width="${w}" height="${h}" controls muted playsinline preload="metadata" aria-label="${escapeHtml(desc)}"></video><figcaption>${escapeHtml(desc)}</figcaption></figure>`;
+    const meta = base(
+      "/en/creatives/bespoke-video",
+      "en",
+      {
+        title: "Woolet Bespoke video - design your own glasses",
+        description:
+          "Woolet Bespoke video ad: four shapes, 15 Mazzucchelli acetates, two-colour fronts and temples, frame width built to your face scan.",
+        noscriptHtml: `<h1>Woolet Bespoke: don't pick glasses, design them</h1>
+<p>Video ads for Woolet Bespoke custom glasses: pick the shape, the Mazzucchelli acetate for the front and the temples, and get a frame width built to your face scan.</p>
+${clip("woolet-bespoke-design-them-9x16.mp4", "Woolet Bespoke video ad (vertical 9:16, 18 seconds): design your own custom acetate glasses. Four frame shapes - Round, Crown Panto, Rectangle and Aviator. 15 Mazzucchelli acetates, shown in dark tortoise, British racing green, ice translucent, slate grain and amber tortoise. Two-colour builds with a different acetate on the front and the temples: racing green with amber tortoise, deep matte black with slate grain, racing green with ice translucent. Frame width built to your face scan, 145 to 160 mm, hand made in the EU in a 2-week build. Headlines: Don't pick glasses. Design them. Nobody else wears yours. 2,700 possible builds. Design yours at woolet.co/en/bespoke.", 1080, 1920)}
+${clip("woolet-bespoke-design-them-4x5.mp4", "Woolet Bespoke video ad (portrait 4:5, 18 seconds): design your own custom acetate glasses. Four frame shapes - Round, Crown Panto, Rectangle and Aviator. 15 Mazzucchelli acetates, shown in dark tortoise, British racing green, ice translucent, slate grain and amber tortoise. Two-colour builds with a different acetate on the front and the temples: racing green with amber tortoise, deep matte black with slate grain, racing green with ice translucent. Frame width built to your face scan, 145 to 160 mm, hand made in the EU in a 2-week build. Headlines: Don't pick glasses. Design them. Nobody else wears yours. 2,700 possible builds. Design yours at woolet.co/en/bespoke.", 1080, 1350)}`,
+      },
+      { image: "/ads/2026-11-bespoke-video/woolet-bespoke-design-them-4x5-poster.jpg" },
+    );
+    meta.robots = "noindex, follow"; // unlinked creative sheet, never indexed
+    return meta;
+  }
+
   // ----- Bespoke social carousel: unlinked, noindex, English only.
   // The six carousel images live under public/ads/2026-11-bespoke-social/ (manifest.json
   // carries the same alt text); this page carries the alt text in markup.
@@ -2341,6 +2365,7 @@ const STATIC_ROUTES = [
   "/en/creatives/ks-launch",
   "/en/creatives/too-small",
   "/en/creatives/bespoke",
+  "/en/creatives/bespoke-video",
   "/fr/blog",
   "/nl/blog",
   "/de",

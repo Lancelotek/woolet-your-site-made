@@ -61,6 +61,7 @@ const StretchGoals = lazy(() => import("./pages/creatives/StretchGoals.tsx"));
 const KsLaunchCreatives = lazy(() => import("./pages/creatives/KsLaunchCreatives.tsx"));
 const TooSmallCreatives = lazy(() => import("./pages/creatives/TooSmallCreatives.tsx"));
 const BespokeSocialCreatives = lazy(() => import("./pages/creatives/BespokeSocialCreatives.tsx"));
+const BespokeVideoCreatives = lazy(() => import("./pages/creatives/BespokeVideoCreatives.tsx"));
 const About = lazy(() => import("./pages/About.tsx"));
 const OurStory = lazy(() => import("./pages/OurStory.tsx"));
 const Process = lazy(() => import("./pages/Process.tsx"));
@@ -296,6 +297,8 @@ const App = () => (
           <Route path="/en/creatives/too-small" element={<TooSmallCreatives />} />
           {/* Unlinked, noindex creative sheet for the Bespoke social carousel. */}
           <Route path="/en/creatives/bespoke" element={<BespokeSocialCreatives />} />
+          {/* Unlinked, noindex creative sheet for the Bespoke video ad. */}
+          <Route path="/en/creatives/bespoke-video" element={<BespokeVideoCreatives />} />
           {/* NL: native product URLs (avoid 301 to /en to preserve NL SEO signals) */}
           <Route path="/nl/products/007" element={<ProductPage007 />} />
           <Route path="/nl/products/009" element={<ProductPage009 />} />
