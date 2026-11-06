@@ -6,6 +6,7 @@ import type { Lang } from "@/lib/i18n";
 import { getSessionRef } from "@/lib/scan-session-ref";
 import { clarityEvent, claritySet } from "@/lib/clarity";
 import { pushGtmEvent } from "@/lib/gtm";
+import { trackFitScanComplete } from "@/lib/ga4-funnel";
 import { MEASUREMENT_RANGES } from "@/data/bespoke-options";
 import {
   bucketFaceWidth,
@@ -193,6 +194,13 @@ export function useFitLensScript(options?: {
         } else if (!fitLensBucketSentRef.current && fw != null && fw >= min && fw <= max) {
           claritySet("fitlens_face_width_bucket", bucketFaceWidth(fw));
         }
+        // GA4 key event: one fit_scan_complete per session with the fit class
+        // (exact mm stays on the page; only the bucket is sent).
+        trackFitScanComplete({
+          method: "fitlens",
+          faceWidthMm: fw != null && fw >= min && fw <= max ? fw : null,
+          bucket: fitLensBucket,
+        });
         if (!resultSeenRef.current) {
           resultSeenRef.current = true;
           // Give the embed a window to dispatch its own event first. Page-side

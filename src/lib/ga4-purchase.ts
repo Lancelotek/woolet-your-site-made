@@ -49,6 +49,7 @@ export const trackReservationPurchase = (
         {
           item_id: "reservation_1usd",
           item_name: "Founder reservation $1",
+          item_category: "reservation",
           price: 1,
           quantity: 1,
         },

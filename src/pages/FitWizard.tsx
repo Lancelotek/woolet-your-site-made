@@ -9,6 +9,7 @@ import CardPositionIllustration from "@/components/CardPositionIllustration";
 import SocialProofToast from "@/components/SocialProofToast";
 import { StripeCheckoutModal } from "@/components/StripeCheckoutModal";
 import { isValidLang, type Lang } from "@/lib/i18n";
+import { trackFitScanComplete } from "@/lib/ga4-funnel";
 import { FoundingBenefits, FoundingUrgency } from "@/components/FoundingBenefits";
 
 const FOUNDING_DEPOSIT_PRICE_ID = "founding_member_deposit_1usd";
@@ -1195,6 +1196,7 @@ function ResultStep({
       confidence: measurement.confidence,
       fomo_variant: fomoVariant,
     });
+    trackFitScanComplete({ method: "wizard", faceWidthMm: measurement.faceWidthMm });
     pushEvent("fit_fomo_variant_assigned", {
       variant: fomoVariant,
       recommended_sku: measurement.recommendedSku,
