@@ -308,6 +308,22 @@ async function tagMailerLiteBespokePaid(input: {
         },
       }),
     });
+    if (res.ok) {
+      // Paid: leave "Bespoke Saved Design" so its sequence stops (the automation
+      // exits subscribers who no longer match the trigger group).
+      try {
+        const json = await res.clone().json();
+        const subscriberId = json?.data?.id;
+        if (subscriberId) {
+          await fetch(`https://connect.mailerlite.com/api/subscribers/${subscriberId}/groups/203419177747220382`, {
+            method: "DELETE",
+            headers: { Authorization: `Bearer ${apiKey}` },
+          });
+        }
+      } catch (e) {
+        console.error("[mailerlite:bespoke] saved-design group removal failed", e);
+      }
+    }
     if (!res.ok) {
       const bodyText = await res.text();
       console.error("[mailerlite:bespoke] non-ok", res.status, bodyText);
