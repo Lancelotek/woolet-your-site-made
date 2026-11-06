@@ -295,6 +295,91 @@ ${ANSWER(
   <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">The standard chart stops at about 150 mm of front width, fitting a face of roughly 154 mm. Faces do not stop there. A meaningful share of adult men measure 155–165 mm temple to temple, and for them every row above is a compromise. That gap — not style, not budget — is why this article exists and why Woolet builds at 158 mm.</p>
 </div>
 
+<h2>Frame size by front width: 126–165 mm, row by row</h2>
+
+<p>Searching for one number, such as a 134 mm or 140 mm frame size? Find it below. Each row gives the band, the face width that size fits (within about 3 mm) and a typical standard marking that reaches it, using the estimate lens × 2 + bridge + about 6 mm for rims and hinges.</p>
+
+<div style="overflow-x:auto;-webkit-overflow-scrolling:touch;margin:24px 0;">
+<table class="frame-size-chart" style="width:100%;min-width:480px;border-collapse:collapse;font-family:'Barlow',sans-serif;font-size:13.5px;">
+  <thead>
+    <tr style="background:#16140F;color:#EDE9DE;border-bottom:1px solid #C9A84C;">
+      <th style="${TH}">Front width</th>
+      <th style="${TH}">Band</th>
+      <th style="${TH}">Fits a face of</th>
+      <th style="${TH}">Typical marking</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr id="frame-126mm" style="border-bottom:1px solid #2A251C;">
+      <td style="${TD}"><strong>126 mm</strong></td><td style="${TD}">XS</td><td style="${TD}">123–129 mm</td><td style="${TD}">~51□18</td>
+    </tr>
+    <tr id="frame-128mm" style="border-bottom:1px solid #2A251C;background:#191611;">
+      <td style="${TD}"><strong>128 mm</strong></td><td style="${TD}">S</td><td style="${TD}">125–131 mm</td><td style="${TD}">~52□18</td>
+    </tr>
+    <tr id="frame-130mm" style="border-bottom:1px solid #2A251C;">
+      <td style="${TD}"><strong>130 mm</strong></td><td style="${TD}">S</td><td style="${TD}">127–133 mm</td><td style="${TD}">~53□18</td>
+    </tr>
+    <tr id="frame-132mm" style="border-bottom:1px solid #2A251C;background:#191611;">
+      <td style="${TD}"><strong>132 mm</strong></td><td style="${TD}">M</td><td style="${TD}">129–135 mm</td><td style="${TD}">~54□18</td>
+    </tr>
+    <tr id="frame-134mm" style="border-bottom:1px solid #2A251C;">
+      <td style="${TD}"><strong>134 mm</strong></td><td style="${TD}">M</td><td style="${TD}">131–137 mm</td><td style="${TD}">~55□18</td>
+    </tr>
+    <tr id="frame-135mm" style="border-bottom:1px solid #2A251C;background:#191611;">
+      <td style="${TD}"><strong>135 mm</strong></td><td style="${TD}">M</td><td style="${TD}">132–138 mm</td><td style="${TD}">~55□19</td>
+    </tr>
+    <tr id="frame-136mm" style="border-bottom:1px solid #2A251C;">
+      <td style="${TD}"><strong>136 mm</strong></td><td style="${TD}">M</td><td style="${TD}">133–139 mm</td><td style="${TD}">~56□18</td>
+    </tr>
+    <tr id="frame-138mm" style="border-bottom:1px solid #2A251C;background:#191611;">
+      <td style="${TD}"><strong>138 mm</strong></td><td style="${TD}">M</td><td style="${TD}">135–141 mm</td><td style="${TD}">~57□18</td>
+    </tr>
+    <tr id="frame-140mm" style="border-bottom:1px solid #2A251C;">
+      <td style="${TD}"><strong>140 mm</strong></td><td style="${TD}">L</td><td style="${TD}">137–143 mm</td><td style="${TD}">~58□18</td>
+    </tr>
+    <tr id="frame-142mm" style="border-bottom:1px solid #2A251C;background:#191611;">
+      <td style="${TD}"><strong>142 mm</strong></td><td style="${TD}">L</td><td style="${TD}">139–145 mm</td><td style="${TD}">54–56□19–21</td>
+    </tr>
+    <tr id="frame-144mm" style="border-bottom:1px solid #2A251C;">
+      <td style="${TD}"><strong>144 mm</strong></td><td style="${TD}">L</td><td style="${TD}">141–147 mm</td><td style="${TD}">54–56□19–21</td>
+    </tr>
+    <tr id="frame-145mm" style="border-bottom:1px solid #2A251C;background:#191611;">
+      <td style="${TD}"><strong>145 mm</strong></td><td style="${TD}">XL</td><td style="${TD}">142–148 mm</td><td style="${TD}">56–58□20–22</td>
+    </tr>
+    <tr id="frame-146mm" style="border-bottom:1px solid #2A251C;">
+      <td style="${TD}"><strong>146 mm</strong></td><td style="${TD}">XL</td><td style="${TD}">143–149 mm</td><td style="${TD}">56–58□20–22</td>
+    </tr>
+    <tr id="frame-148mm" style="border-bottom:1px solid #2A251C;background:#191611;">
+      <td style="${TD}"><strong>148 mm</strong></td><td style="${TD}">XXL</td><td style="${TD}">145–151 mm</td><td style="${TD}">58–60□20–22</td>
+    </tr>
+    <tr id="frame-150mm" style="border-bottom:1px solid #2A251C;">
+      <td style="${TD}"><strong>150 mm</strong></td><td style="${TD}">XXL</td><td style="${TD}">147–153 mm</td><td style="${TD}">58–60□20–22</td>
+    </tr>
+    <tr id="frame-152mm" style="border-bottom:1px solid #2A251C;background:#191611;">
+      <td style="${TD}"><strong>152 mm</strong></td><td style="${TD}">Off the standard chart</td><td style="${TD}">149–155 mm</td><td style="${TD}">rarely made; check the front width in mm</td>
+    </tr>
+    <tr id="frame-155mm" style="border-bottom:1px solid #2A251C;">
+      <td style="${TD}"><strong>155 mm</strong></td><td style="${TD}">Off the standard chart</td><td style="${TD}">152–158 mm</td><td style="${TD}">rarely made; check the front width in mm</td>
+    </tr>
+    <tr id="frame-158mm" style="border-bottom:1px solid #2A251C;background:#191611;">
+      <td style="${TD}"><strong style="color:#C9A84C;">158 mm</strong></td><td style="${TD}">Off the standard chart (Woolet 158)</td><td style="${TD}">155–161 mm</td><td style="${TD}">rarely made; check the front width in mm</td>
+    </tr>
+    <tr id="frame-160mm" style="border-bottom:1px solid #2A251C;">
+      <td style="${TD}"><strong>160 mm</strong></td><td style="${TD}">Off the standard chart</td><td style="${TD}">157–163 mm</td><td style="${TD}">rarely made; check the front width in mm</td>
+    </tr>
+    <tr id="frame-162mm" style="border-bottom:1px solid #2A251C;background:#191611;">
+      <td style="${TD}"><strong>162 mm</strong></td><td style="${TD}">Off the standard chart</td><td style="${TD}">159–165 mm</td><td style="${TD}">rarely made; check the front width in mm</td>
+    </tr>
+    <tr id="frame-165mm" style="border-bottom:1px solid #2A251C;">
+      <td style="${TD}"><strong>165 mm</strong></td><td style="${TD}">Off the standard chart</td><td style="${TD}">162–168 mm</td><td style="${TD}">rarely made; check the front width in mm</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>Above 150 mm the marking stops predicting the front: a 54□25 Woolet front reaches 158 mm because of the rims and hinge blocks the three printed numbers never mention.</p>
+
+
 <h2>How to read a frame size from your current glasses</h2>
 
 <p>Take your glasses off and look at the inside of the left temple arm, or occasionally the inside of the bridge. You will find something like <strong>54□21-140</strong>.</p>
@@ -606,6 +691,33 @@ ${ANSWER(
 </ul>
 
 <p>And the counter-example that makes the point: a 54□25 with wide rims and generous hinge blocks reaches 158 mm. The three printed numbers account for 130 mm of that; the remaining 28 mm is material either side of the lenses that the marking simply never mentions.</p>
+
+<h2>Common markings decoded: 52-18, 54-17, 55-17, 55-18-145</h2>
+
+<p>The markings people search for most, worked through with the same estimate. Find yours, read the front width, and compare it with your face width.</p>
+
+<div style="overflow-x:auto;-webkit-overflow-scrolling:touch;margin:24px 0;">
+<table style="width:100%;min-width:560px;border-collapse:collapse;font-family:'Barlow',sans-serif;font-size:14px;">
+  <thead><tr style="border-bottom:2px solid #c9a84c;"><th style="${TH}">Marking</th><th style="${TH}">Lens</th><th style="${TH}">Bridge</th><th style="${TH}">Temple</th><th style="${TH}">Front width (est.)</th><th style="${TH}">Fits a face of</th></tr></thead>
+  <tbody>
+    <tr style="border-bottom:1px solid #e5e0d6;"><td style="${TD}"><strong>52-18-140</strong> (52□18 140)</td><td style="${TD}">52 mm</td><td style="${TD}">18 mm</td><td style="${TD}">140 mm</td><td style="${TD}"><strong>~128 mm</strong></td><td style="${TD}">up to ~131 mm</td></tr>
+    <tr style="border-bottom:1px solid #e5e0d6;background:#f4f1ea;"><td style="${TD}"><strong>52-18-145</strong> (52□18 145)</td><td style="${TD}">52 mm</td><td style="${TD}">18 mm</td><td style="${TD}">145 mm</td><td style="${TD}"><strong>~128 mm</strong></td><td style="${TD}">up to ~131 mm</td></tr>
+    <tr style="border-bottom:1px solid #e5e0d6;"><td style="${TD}"><strong>53-17-140</strong> (53□17 140)</td><td style="${TD}">53 mm</td><td style="${TD}">17 mm</td><td style="${TD}">140 mm</td><td style="${TD}"><strong>~129 mm</strong></td><td style="${TD}">up to ~132 mm</td></tr>
+    <tr style="border-bottom:1px solid #e5e0d6;background:#f4f1ea;"><td style="${TD}"><strong>54-17-145</strong> (54□17 145)</td><td style="${TD}">54 mm</td><td style="${TD}">17 mm</td><td style="${TD}">145 mm</td><td style="${TD}"><strong>~131 mm</strong></td><td style="${TD}">up to ~134 mm</td></tr>
+    <tr style="border-bottom:1px solid #e5e0d6;"><td style="${TD}"><strong>54-18-140</strong> (54□18 140)</td><td style="${TD}">54 mm</td><td style="${TD}">18 mm</td><td style="${TD}">140 mm</td><td style="${TD}"><strong>~132 mm</strong></td><td style="${TD}">up to ~135 mm</td></tr>
+    <tr style="border-bottom:1px solid #e5e0d6;background:#f4f1ea;"><td style="${TD}"><strong>54-19-145</strong> (54□19 145)</td><td style="${TD}">54 mm</td><td style="${TD}">19 mm</td><td style="${TD}">145 mm</td><td style="${TD}"><strong>~133 mm</strong></td><td style="${TD}">up to ~136 mm</td></tr>
+    <tr style="border-bottom:1px solid #e5e0d6;"><td style="${TD}"><strong>55-17-145</strong> (55□17 145)</td><td style="${TD}">55 mm</td><td style="${TD}">17 mm</td><td style="${TD}">145 mm</td><td style="${TD}"><strong>~133 mm</strong></td><td style="${TD}">up to ~136 mm</td></tr>
+    <tr style="border-bottom:1px solid #e5e0d6;background:#f4f1ea;"><td style="${TD}"><strong>55-18-145</strong> (55□18 145)</td><td style="${TD}">55 mm</td><td style="${TD}">18 mm</td><td style="${TD}">145 mm</td><td style="${TD}"><strong>~134 mm</strong></td><td style="${TD}">up to ~137 mm</td></tr>
+    <tr style="border-bottom:1px solid #e5e0d6;"><td style="${TD}"><strong>56-17-145</strong> (56□17 145)</td><td style="${TD}">56 mm</td><td style="${TD}">17 mm</td><td style="${TD}">145 mm</td><td style="${TD}"><strong>~135 mm</strong></td><td style="${TD}">up to ~138 mm</td></tr>
+    <tr style="border-bottom:1px solid #e5e0d6;background:#f4f1ea;"><td style="${TD}"><strong>54-21-145</strong> (54□21 145)</td><td style="${TD}">54 mm</td><td style="${TD}">21 mm</td><td style="${TD}">145 mm</td><td style="${TD}"><strong>~135 mm</strong></td><td style="${TD}">up to ~138 mm</td></tr>
+    <tr style="border-bottom:1px solid #e5e0d6;"><td style="${TD}"><strong>57-18-145</strong> (57□18 145)</td><td style="${TD}">57 mm</td><td style="${TD}">18 mm</td><td style="${TD}">145 mm</td><td style="${TD}"><strong>~138 mm</strong></td><td style="${TD}">up to ~141 mm</td></tr>
+    <tr style="border-bottom:1px solid #e5e0d6;background:#f4f1ea;"><td style="${TD}"><strong>58-16-145</strong> (58□16 145)</td><td style="${TD}">58 mm</td><td style="${TD}">16 mm</td><td style="${TD}">145 mm</td><td style="${TD}"><strong>~138 mm</strong></td><td style="${TD}">up to ~141 mm</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>Every marking in the table lands between 128 and 138 mm. If your face measures 150 mm or more, none of them reaches it, whatever the lens number says.</p>
+
 
 <h2>Why the printed numbers hide the number that matters</h2>
 

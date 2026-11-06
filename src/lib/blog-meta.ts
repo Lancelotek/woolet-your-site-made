@@ -42,10 +42,10 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
       "Oversized means big lenses. Wide-fit means a big front. Most oversized frames stop at 130–145 mm — see the 158 mm specs and how to measure which one you need.",
   },
   "how-to-measure-face-width-for-glasses": {
-    metaTitle: "How to Measure Face Width for Glasses (Free 60-Second Scan)",
+    metaTitle: "How to Measure Face Width for Glasses (Ruler or Phone)",
     exactTitle: true,
     metaDescription:
-      "Skip the ruler. Your phone camera measures your face width in 60 seconds and gives you your frame size. Plus the manual method and a size chart.",
+      "Hold a ruler flat across your temples and read the mm, or let your phone camera measure it in 60 seconds. Then match the number to your frame size.",
   },
   "what-is-italian-acetate-premium-eyewear": {
     metaTitle: "What Is Italian Acetate? Mazzucchelli, Explained",
@@ -58,7 +58,7 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
       "Glasses pinch your temples? It isn't your head — it's the industry. Here's why most frames stop at 148 mm and how the 155 mm problem gets fixed.",
   },
   "round-vs-square-glasses-wide-face": {
-    metaTitle: "Round vs Square Glasses: Which Suits Your Face? (Quick Rule)",
+    metaTitle: "Round vs Square Glasses: Which Suits Your Face? (Photos)",
     exactTitle: true,
     metaDescription:
       "Round face? Go square. Square jaw? Go round. The 30-second rule, side-by-side photos, and the one fit check that matters more than shape on a wide face.",
@@ -99,7 +99,7 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
       "Most sunglasses stop at 140 mm. Wide faces need 150-160 mm. See the chart, the 3 numbers to check and the frames that fit.",
   },
   "how-to-tell-if-your-face-is-wide-or-narrow": {
-    metaTitle: "Wide or Narrow Face? Average Face Width + How to Check Yours",
+    metaTitle: "Average Face Width Is 141.9 mm: Is Yours Wide or Narrow?",
     exactTitle: true,
     metaDescription:
       "The average face is 141.9 mm wide. Check yours with a ruler or your phone camera, see if you count as narrow, average or wide, and which frame width fits.",
@@ -293,10 +293,10 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
       "Photochromic lenses darken outdoors and clear up inside. How they work, the real downsides, and two ways to get them in a 145-160 mm frame for wide faces.",
   },
   "eyeglass-frame-size-chart": {
-    metaTitle: "Eyeglass Frame Size Chart: What 52-18-145 Means (+ Wide Sizes)",
+    metaTitle: "Eyeglass Frame Size Chart: 126–165 mm + What 52-18-145 Means",
     exactTitle: true,
     metaDescription:
-      "Read any frame size in seconds: lens, bridge, temple. Size chart from small to extra wide (160 mm), and how to match it to your face width.",
+      "Frame size chart in mm, row by row from 126 to 165 mm: the band, the face width each size fits and the marking to look for. Plus how to read 52-18-145.",
   },
   "temple-to-temple-measurement": {
     metaTitle: "Temple Length vs Temple-to-Temple — What's the Difference?",
@@ -304,9 +304,9 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
       "Temple length is the arm (135–150 mm). Temple-to-temple is your head. Only one decides fit — a clear table and why Woolet uses a 150 mm temple.",
   },
   "numbers-on-glasses-frames-meaning": {
-    metaTitle: "What Do the Numbers on Glasses Mean? 54-21-145 Explained",
+    metaTitle: "What Do Numbers on Glasses Mean? 54-17, 55-18-145 Decoded",
     exactTitle: true,
     metaDescription:
-      "54-21-145 = lens 54 mm, bridge 21 mm, temple 145 mm. None of them is your frame's total width. Decode your frame and see whether it is wide enough in 2 minutes.",
+      "54-17-145 = lens 54 mm, bridge 17 mm, temple 145 mm. A table of common markings (52-18, 55-17, 55-18-145) with the frame width each gives and who it fits.",
   },
 };
