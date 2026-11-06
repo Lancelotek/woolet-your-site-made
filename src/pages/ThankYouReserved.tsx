@@ -37,23 +37,6 @@ const eyebrow: React.CSSProperties = {
   color: T.gold,
 };
 
-const STEPS = [
-  {
-    n: "01",
-    title: "Open your Founder link",
-    body: "The Founder Edition is a hidden reward on Kickstarter. It opens from the button above - we also email you the same link.",
-  },
-  {
-    n: "02",
-    title: `Pledge $${F.price}`,
-    body: `${F.model}, Founder Edition: 24 mm bridge (54-24-150), magnetic box, special case and the Clip-On Cloth ($${F.boxValue} value). Not in any other reward.`,
-  },
-  {
-    n: "03",
-    title: `Ships right after ${F.campaignEndLabel}`,
-    body: `Founder frames are already made. The campaign ends on ${F.campaignEndLabel} and yours ships right after. Free shipping, 5-year warranty.`,
-  },
-];
 
 export default function ThankYouReserved() {
   const [params] = useSearchParams();
@@ -215,34 +198,9 @@ export default function ThankYouReserved() {
             </svg>
           </div>
           <div style={{ ...eyebrow, marginTop: 24 }}>Reservation confirmed</div>
-          <h1 className="tyr-h1">$1 received. You're a Founder.</h1>
-          <p style={{ color: T.muted, fontSize: 16, lineHeight: 1.7, maxWidth: 460, margin: "20px auto 0" }}>
-            The Founder Edition is ${F.price} instead of ${F.srp} in the shop. Only {F.total} were made.
-          </p>
+          <h1 className="tyr-h1" style={{ marginBottom: 20 }}>$1 received. Your Founder link is ready.</h1>
           <FounderEditionClaim placement="thank_you_reserved" />
           {paid && <div style={{ maxWidth: 520, margin: "0 auto" }}><HeardFromQuestion sessionId={paymentRef} /></div>}
-        </section>
-
-        {/* 3. What happens next */}
-        <section className="tyr-section" style={{ borderTop: `1px solid ${T.hairline}` }}>
-          <div style={eyebrow}>What happens next</div>
-          <div style={{ marginTop: 28 }}>
-            {STEPS.map((s, i) => (
-              <div
-                key={s.n}
-                style={{
-                  display: "flex", gap: 24, padding: "24px 0",
-                  borderTop: i === 0 ? "none" : `1px solid ${T.hairline}`,
-                }}
-              >
-                <div style={{ ...eyebrow, paddingTop: 3, minWidth: 28 }}>{s.n}</div>
-                <div>
-                  <div style={{ fontWeight: 500, color: T.heading, fontSize: 16 }}>{s.title}</div>
-                  <p style={{ color: T.muted, fontSize: 15, lineHeight: 1.7, margin: "8px 0 0" }}>{s.body}</p>
-                </div>
-              </div>
-            ))}
-          </div>
         </section>
 
         {/* 4. VIP group card */}

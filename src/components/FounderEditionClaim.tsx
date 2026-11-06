@@ -2,7 +2,8 @@ import { FOUNDER_EDITION as F, kickstarterFounderHref } from "@/config/kickstart
 import { pushGtmEvent } from "@/lib/gtm";
 
 /**
- * Shown after a paid $1 reservation: the secret Kickstarter reward link (Founder Edition).
+ * Shown after a paid $1 reservation: one big button to the secret Kickstarter reward (Founder Edition).
+ * Kept minimal on purpose (decision 06.11.2026): the thank-you page only hands over the link.
  * The link carries the dashboard-generated Kickstarter tag, so pledges show up under custom referrers.
  */
 export default function FounderEditionClaim({ placement }: { placement: string }) {
@@ -10,57 +11,10 @@ export default function FounderEditionClaim({ placement }: { placement: string }
   const track = () => pushGtmEvent("founder_claim_click", { placement });
 
   return (
-    <div
-      style={{
-        border: "1px solid rgba(202,164,73,0.45)",
-        padding: "28px 24px",
-        margin: "28px auto 0",
-        maxWidth: 520,
-        textAlign: "left",
-        background: "rgba(255,255,255,0.02)",
-      }}
-    >
-      <p
-        style={{
-          fontFamily: "Barlow, sans-serif",
-          textTransform: "uppercase",
-          letterSpacing: "0.18em",
-          fontSize: 11,
-          color: "#CAA449",
-          margin: 0,
-        }}
-      >
-        Founder Edition unlocked
-      </p>
-      <h2
-        style={{
-          fontFamily: '"Cormorant Garamond", Cormorant, serif',
-          fontWeight: 300,
-          fontSize: 30,
-          lineHeight: 1.15,
-          color: "#F8F8F6",
-          margin: "12px 0 0",
-        }}
-      >
-        Your Founder frame is already made.
-      </h2>
-      <p style={{ color: "#D8D4CC", fontSize: 15, lineHeight: 1.65, margin: "14px 0 0" }}>
-        This reward is hidden on Kickstarter - it isn't on the campaign page. It opens only from your private link below.
-      </p>
-      <ul style={{ listStyle: "none", padding: 0, margin: "16px 0 0", display: "grid", gap: 10 }}>
-        {[
-          `${F.model}, ${F.bridgeMm} mm bridge: $${F.price} instead of $${F.srp} in the shop.`,
-          `The Founder Box ($${F.boxValue} value): magnetic box, special case and the Clip-On Cloth.`,
-          `Already made - ships right after the campaign ends on ${F.campaignEndLabel}.`,
-        ].map((line) => (
-          <li key={line} style={{ display: "flex", gap: 10, color: "#D8D4CC", fontSize: 14, lineHeight: 1.55 }}>
-            <span aria-hidden="true" style={{ color: "#CAA449" }}>✓</span>
-            <span>{line}</span>
-          </li>
-        ))}
-      </ul>
-      <p style={{ color: "#9A8E7E", fontSize: 13, lineHeight: 1.6, margin: "16px 0 20px" }}>
-        {F.left} of {F.total} left. We also emailed you this link.
+    <div style={{ margin: "8px auto 0", maxWidth: 520, width: "100%", textAlign: "center" }}>
+      <p style={{ color: "#D8D4CC", fontSize: 16, lineHeight: 1.6, margin: "0 0 22px" }}>
+        Your hidden Founder reward is open - it isn't on the Kickstarter page. {F.model}, ${F.price} instead of ${F.srp}, with
+        the ${F.boxValue} Founder Box.
       </p>
       <a
         href={href}
@@ -70,12 +24,13 @@ export default function FounderEditionClaim({ placement }: { placement: string }
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          minHeight: 56,
+          minHeight: 64,
           background: "#CAA449",
           color: "#0B0A09",
           fontFamily: "Barlow, sans-serif",
-          fontSize: 13,
-          letterSpacing: "0.18em",
+          fontSize: 14,
+          fontWeight: 600,
+          letterSpacing: "0.16em",
           textTransform: "uppercase",
           textDecoration: "none",
           borderRadius: 2,
@@ -83,8 +38,11 @@ export default function FounderEditionClaim({ placement }: { placement: string }
           textAlign: "center",
         }}
       >
-        Claim my Founder frame - ${F.price}
+        Open my Founder reward on Kickstarter
       </a>
+      <p style={{ color: "#9A8E7E", fontSize: 13, lineHeight: 1.6, margin: "14px 0 0" }}>
+        Already made - ships right after the campaign ends on {F.campaignEndLabel}. We also emailed you this link.
+      </p>
     </div>
   );
 }

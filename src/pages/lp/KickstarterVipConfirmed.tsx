@@ -130,11 +130,13 @@ const KickstarterVipConfirmed = () => {
           <div className="w-12 h-12 rounded-full border border-primary/50 flex items-center justify-center text-primary text-lg mb-6">
             ✓
           </div>
-          <p className="text-primary uppercase tracking-[0.28em] text-[12px] mb-4">
-            You're in{name ? `, ${name}` : ""}.
-          </p>
+          {!(paid || state?.reserved) && (
+            <p className="text-primary uppercase tracking-[0.28em] text-[12px] mb-4">
+              You're in{name ? `, ${name}` : ""}.
+            </p>
+          )}
           <h1 className="font-display text-woolet-white leading-[1.1] text-[2rem] sm:text-[2.75rem] mb-4">
-            {paid ? "$1 received. You're a Founder." : state?.reserved ? "You're already a Founder." : live ? "You're on the list." : "You're on the VIP list."}
+            {paid ? "$1 received. Your Founder link is ready." : state?.reserved ? "Your Founder link is ready." : live ? "You're on the list." : "You're on the VIP list."}
           </h1>
           {paid || state?.reserved ? (
             <FounderEditionClaim placement={paid ? "vip_confirmed_paid" : "vip_confirmed_reserved"} />
@@ -179,14 +181,6 @@ const KickstarterVipConfirmed = () => {
           ) : (
             <p className="text-[#D8D4CC] text-base sm:text-lg leading-relaxed max-w-lg">
               Watch your inbox on <span className="text-woolet-white">{KS_LAUNCH_DATE_LABEL}</span> — we'll send your hidden-pledge link the moment the campaign opens.
-            </p>
-          )}
-          {paid && (
-            <p
-              className="mt-5 text-[12px] uppercase tracking-[0.22em] text-primary border rounded-sm px-4 py-3"
-              style={{ borderColor: "hsl(var(--gold) / 0.35)" }}
-            >
-              $1 reservation confirmed
             </p>
           )}
           {paid && <HeardFromQuestion sessionId={paymentRef} />}
