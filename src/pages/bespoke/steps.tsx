@@ -1,5 +1,4 @@
 import { engravingPrice, lensPrice, usePriceTable } from "@/lib/bespoke-pricing";
-import { PayMeasureNotice } from "@/components/bespoke/PayMeasureNotice";
 import type { PatternRender } from "@/lib/bespoke-pattern-renders";
 import FramedRender from "@/components/bespoke/FramedRender";
 import { CARD_DOT_COLOR_IDS, type FrontRenderMap } from "@/lib/bespoke-front-renders";
@@ -2411,10 +2410,15 @@ export function StepReview({
           <li><span className="font-mono text-gold-light text-[11px] mr-3">02</span> We email you a private link to the AI fit scan, plus where to upload two photos with a card (front and profile).</li>
           <li><span className="font-mono text-gold-light text-[11px] mr-3">03</span> Our optician verifies your measurements within 24&nbsp;h.</li>
           <li><span className="font-mono text-gold-light text-[11px] mr-3">04</span> Hand-made in the EU to your exact millimetres - a 2-week build, <em className="italic text-gold-light not-italic">free worldwide shipping</em>.</li>
+          <li><span className="font-mono text-gold-light text-[11px] mr-3">05</span> Not the right fit? We send you a code for 50% off a new frame.</li>
         </ol>
       </div>
 
-      <PayMeasureNotice />
+      {/* Fit promise at the pay button (decision 07.11.2026) - replaces the second
+          "pay, then measure" notice, which repeated the intro paragraph. */}
+      <p className="text-cream text-sm" style={{ borderLeft: "2px solid #C2A05A", paddingLeft: 12 }}>
+        <strong className="text-gold-light">Fit promise.</strong> Not the right fit? You get 50% off a new frame.
+      </p>
       <div className="flex flex-col sm:flex-row sm:items-center gap-4">
         <Button
           onClick={() => {
