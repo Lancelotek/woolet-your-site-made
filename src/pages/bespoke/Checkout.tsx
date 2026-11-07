@@ -415,7 +415,7 @@ export default function BespokeCheckout() {
                   {/* Trust row */}
                   <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-[11px] uppercase tracking-[0.16em] text-cream-dim">
                     <li className="inline-flex items-center gap-1.5"><Lock size={12} className="text-gold-light" /> 256-bit secure</li>
-                    <li className="inline-flex items-center gap-1.5"><ShieldCheck size={12} className="text-gold-light" /> Fit guaranteed</li>
+                    <li className="inline-flex items-center gap-1.5"><ShieldCheck size={12} className="text-gold-light" /> Wrong fit? 50% off a new frame</li>
                     
                     <li className="inline-flex items-center gap-1.5"><Scissors size={12} className="text-gold-light" /> Cut in the EU</li>
                     <li className="inline-flex items-center gap-1.5"><Truck size={12} className="text-gold-light" /> Free shipping</li>
