@@ -177,13 +177,21 @@ const ConfiguratorPage = () => {
   }, []);
   // Every front × temple pair of the chosen pattern (matte) is pre-generated:
   // load them once per pattern and warm the images for the current front.
-  const [comboRenders, setComboRenders] = useState<ComboRenderMap>({});
+  // The map is tagged with the pattern it was loaded for. It is keyed only by
+  // colour ids, so right after a pattern switch the previous pattern's map must
+  // never answer for the new one (that showed e.g. a Rectangle under "Aviator").
+  const [comboState, setComboState] = useState<{ frameId: string | null; map: ComboRenderMap }>({ frameId: null, map: {} });
   useEffect(() => {
-    if (!config.frameId) { setComboRenders({}); return; }
+    if (!config.frameId) { setComboState({ frameId: null, map: {} }); return; }
+    const frameId = config.frameId;
     let cancelled = false;
-    void loadComboRenders(config.frameId).then((m) => { if (!cancelled) setComboRenders(m); });
+    void loadComboRenders(frameId).then((m) => { if (!cancelled) setComboState({ frameId, map: m }); });
     return () => { cancelled = true; };
   }, [config.frameId]);
+  const comboRenders: ComboRenderMap = useMemo(
+    () => (comboState.frameId === config.frameId ? comboState.map : {}),
+    [comboState, config.frameId],
+  );
   useEffect(() => {
     if (!config.frontColorId) return;
     preloadRenders(Object.values(comboRenders[config.frontColorId] ?? {}).map((r) => r.public_url));

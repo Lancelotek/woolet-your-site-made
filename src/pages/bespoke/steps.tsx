@@ -404,6 +404,26 @@ export const buildPreviewKey = (
 // later step even when nothing can be written to the device.
 const memoryPreviews: PreviewHistory = {};
 
+/**
+ * Hosted renders live under /renders/<frameId>/. A render filed under another
+ * pattern's key is a stale mix-up (old pattern shown after a switch) - drop it
+ * so the device stops showing the wrong frame.
+ */
+const RENDER_FOLDER = /\/renders\/([a-z0-9-]+)\//i;
+export const renderFitsKey = (key: string, url: string) => {
+  const folder = url.match(RENDER_FOLDER)?.[1]?.toLowerCase();
+  if (!folder) return true;
+  return folder === key.split("|")[0]?.toLowerCase();
+};
+const cleanHistory = (h: PreviewHistory): PreviewHistory => {
+  const out: PreviewHistory = {};
+  for (const [k, list] of Object.entries(h)) {
+    const kept = (list ?? []).filter((e) => e?.url && renderFitsKey(k, e.url));
+    if (kept.length) out[k] = kept;
+  }
+  return out;
+};
+
 export const loadPreviewHistory = (): PreviewHistory => {
   if (typeof window === "undefined") return {};
   let stored: PreviewHistory = {};
@@ -413,7 +433,7 @@ export const loadPreviewHistory = (): PreviewHistory => {
   } catch {
     stored = {};
   }
-  return { ...stored, ...memoryPreviews };
+  return cleanHistory({ ...stored, ...memoryPreviews });
 };
 
 export const getLatestPreviewUrl = (key: string): string | null => {
@@ -519,6 +539,7 @@ export async function lookupCachedRender(
 /** Put a hosted render at the top of the local history for a selection key. */
 export const rememberRender = (key: string, url: string) => {
   const history = loadPreviewHistory();
+  if (!renderFitsKey(key, url)) return history;
   const prev = history[key] ?? [];
   if (prev[0]?.url === url) return history;
   const next = { ...history, [key]: [{ url, ts: Date.now() }, ...prev.filter((e) => e.url !== url)].slice(0, MAX_PER_KEY) };
