@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Link } from "react-router-dom";
-import { Check, ChevronLeft, ChevronRight, Cloud, CloudOff, Loader2, Maximize2, Ruler, Sparkles } from "lucide-react";
+import { Check, ChevronLeft, ChevronRight, Cloud, Loader2, Maximize2, Ruler, Sparkles } from "lucide-react";
 import SEO from "@/components/SEO";
 import { oaiqBespokeViewed } from "@/lib/openai-pixel";
 import { ACTIVE_LENS_TYPES, COLORS, FINISHES, LENS_TYPES, RETIRED_COLOR_FALLBACK_ID as DEFAULT_ACETATE_ID, formatTempleLength, resolveActiveColorId } from "@/data/bespoke-options";
@@ -342,7 +342,8 @@ const ConfiguratorPage = () => {
   // Clarity funnel: tag every step change, and mark the session complete when
   // the buyer reaches the final review step. No personal data is ever sent.
   useEffect(() => {
-    const name = STEPS[step - 1]?.shortLabel.toLowerCase() ?? "unknown";
+    // Fixed analytics names: on-screen labels may change, GTM/Clarity history must not.
+    const name = (["pattern", "acetate", "temples", "engraving", "lenses", "review"] as const)[step - 1] ?? "unknown";
     claritySet("bespoke_step", `${step}-${name}`);
     pushCfg("cfg_step_view", { step });
     trackBespokeFunnel("bespoke_step_view", { step, step_name: name });
@@ -363,7 +364,7 @@ const ConfiguratorPage = () => {
   const blockedLabel = stepComplete || step === STEPS.length
     ? null
     : step === 1
-      ? "Pick a pattern first"
+      ? "Pick a shape first"
       : step === 2 && firstMissing
         ? `Pick ${firstMissing === "finish" ? "a finish" : `${firstMissing} acetate`} first`
         : step === 4 && config.engravingEnabled && !config.engravingText.trim()
@@ -428,7 +429,7 @@ const ConfiguratorPage = () => {
     : example ? example.alt_text : frame
       ? `Woolet Bespoke ${frame.name} — ${frame.shape} pattern for wide faces`
       : "";
-  const lightboxCaption = `${frame ? frame.name : "Your pattern"} · ${front ? front.name : "acetate to choose"} · cut to your face`;
+  const lightboxCaption = `${frame ? frame.name : "Your shape"} · ${front ? front.name : "acetate to choose"} · cut to your face`;
 
   const handleStageTap = () => {
     if (stageSrc) {
@@ -543,16 +544,18 @@ const ConfiguratorPage = () => {
         </div>
 
         {/* ── Mobile live preview — follows the build on every step but review ── */}
-        {step !== STEPS.length && (
+        {/* Step 1 without a shape: the cards already show every shape, and an
+            example Aviator up here drew taps that did nothing (Clarity 07.11.2026). */}
+        {step !== STEPS.length && !(step === 1 && !frame) && (
           <div className="cfg-mobilepreview lg:hidden">
              <button
                type="button"
               className="cfg-mobilepreview__stage"
-              aria-label={stageSrc ? "Open larger preview" : "Choose a pattern"}
+              aria-label={stageSrc ? "Open larger preview" : "Choose a shape"}
                onClick={stageSrc ? handleStageTap : showPatternMissing}
             >
               {stageSrc ? <FramedRender src={stageSrc} alt={stageAlt} aspect="fill" fill={0.84} maxFillH={0.82} /> : (
-                <span className="cfg-mobilepreview__place">Select a pattern</span>
+                <span className="cfg-mobilepreview__place">Select a shape</span>
               )}
               {rendering && <span className="cfg-rendering"><Loader2 size={14} className="animate-spin" /> Adding your temples…</span>}
               <span className="cfg-stage__badge" aria-hidden>
@@ -562,7 +565,7 @@ const ConfiguratorPage = () => {
             {showsExample && <p className="text-xs text-cream-dim px-5 mt-2">Example colour - tap a colour to see yours</p>}
             {renderNote && <p className="text-xs text-cream-dim px-5 mt-2" role="status">{renderNote}</p>}
             <div className="cfg-mobilepreview__meta">
-              <span>{frame ? frame.name : "No pattern yet"}</span>
+              <span>{frame ? frame.name : "No shape yet"}</span>
               {front && <span className="cfg-mobilepreview__dot" style={{ background: front.hex }} aria-hidden />}
               {temple && <span className="cfg-mobilepreview__dot" style={{ background: temple.hex }} aria-hidden />}
               {finish && <span className="cfg-mobilepreview__finish">{finish.name}</span>}
@@ -593,7 +596,7 @@ const ConfiguratorPage = () => {
                 }}
               >
                 {stageSrc ? <FramedRender src={stageSrc} alt={stageAlt} aspect="fill" fill={0.8} maxFillH={0.78} imgClassName="cfg-app-stage__pic" /> : (
-                  <div className="cfg-rail__placeholder">Select a pattern</div>
+                  <div className="cfg-rail__placeholder">Select a shape</div>
                 )}
                 {showsExample && <span className="cfg-app-stage__tag">Example colour</span>}
                 {rendering && <span className="cfg-rendering"><Loader2 size={14} className="animate-spin" /> Adding your temple colour…</span>}
@@ -831,9 +834,9 @@ const SyncBadge = ({
 }) => {
   if (!isSignedIn) {
     return (
-      <span className="cfg-sync cfg-sync--off">
-        <CloudOff size={11} />
-        <span>Saved on this device</span>
+      <span className="cfg-sync cfg-sync--off" role="status">
+        <Check size={11} aria-hidden />
+        <span>Progress saved</span>
       </span>
     );
   }
@@ -942,7 +945,7 @@ const ConfiguratorStyles = () => (
     .cfg-back:hover { color: var(--cfg-cream); }
 
     /* Sync pill */
-    .cfg-sync--off { border-color: transparent !important; background: transparent !important; padding-left: 0; padding-right: 0; }
+    .cfg-sync--off { border-color: transparent !important; background: transparent !important; padding-left: 0; padding-right: 0; cursor: default; user-select: none; text-transform: none !important; letter-spacing: 0.02em !important; }
     .cfg-sync {
       display: inline-flex; align-items: center; gap: 8px;
       padding: 7px 12px;

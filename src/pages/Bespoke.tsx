@@ -300,9 +300,12 @@ const BespokePage = () => {
 
       <main className="bg-background text-foreground min-h-screen">
         {/* Hero */}
-        <section className="relative w-full px-5 sm:px-8 lg:px-16 py-20 sm:py-28">
+        <section className="relative w-full px-5 sm:px-8 lg:px-16 py-10 sm:py-28">
           <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-16 items-center">
-            <div>
+            {/* Mobile (Clarity 07.11.2026): the CTA sat 16 px above the fold under a
+                9-line spec paragraph. On mobile it now follows the H1; the full
+                spec paragraph (GEO copy) stays in the DOM right below it. */}
+            <div className="flex flex-col">
               <div className="woolet-eyebrow mb-5">
                 <div className="woolet-eyebrow-line" />
                  <span className="woolet-eyebrow-text" style={{ cursor: "default" }}>BESPOKE · {BESPOKE_FACTS.frontWidth.toUpperCase()}</span>
@@ -313,17 +316,17 @@ const BespokePage = () => {
               >
                  {BESPOKE_FACTS.h1}
               </h1>
-              <p className="text-cream-dim leading-relaxed max-w-xl" style={{ fontSize: "1.05rem" }}>
+              <p className="order-3 lg:order-none text-cream-dim leading-relaxed max-w-xl" style={{ fontSize: "1.05rem" }}>
                  Woolet Bespoke is made-to-measure eyewear in any front width within {BESPOKE_FACTS.frontWidth}, with a {BESPOKE_FACTS.bridge} bridge and {BESPOKE_FACTS.temples} temples, made from {BESPOKE_FACTS.material} and hand made in the EU for {BESPOKE_COPY.frame} USD with free worldwide shipping. Lenses are optional: clear Plano {BESPOKE_COPY.plano}, Blue Light {BESPOKE_COPY.blueLight}, or frame only for your optician.
               </p>
-              <p className="text-cream-dim leading-relaxed max-w-xl mb-10" style={{ fontSize: "0.85rem" }}>
+              <p className="order-3 lg:order-none text-cream-dim leading-relaxed max-w-xl mb-10" style={{ fontSize: "0.85rem" }}>
                 Want photochromic (transition) lenses? Order the frame only and have your optician fit them - see{" "}
                 <Link to="/en/blog/glasses-that-turn-into-sunglasses-wide-face" className="text-gold-light underline underline-offset-4">
                   how photochromic glasses work on a wide face
                 </Link>.
               </p>
 
-              <div ref={heroCtaRef} className="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-5">
+              <div ref={heroCtaRef} className="order-2 lg:order-none mb-10 lg:mb-0 flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-5">
                 <Link
                    to={cfgHref}
                   className="inline-flex items-center justify-center uppercase tracking-[0.22em] no-underline transition-all"

@@ -106,7 +106,7 @@ export function StepFrame({
   return (
     <div className="space-y-10">
       <header>
-        <div className="cfg-eyebrow">Step 1 — Pattern</div>
+        <div className="cfg-eyebrow">Step 1 — Shape</div>
         <h2 className="cfg-h1 mt-3">
           Choose your frame <em className="cfg-em">silhouette</em>
         </h2>
@@ -169,7 +169,7 @@ export function StepFrame({
                 )}
                 {shown && <>
                   <span className="cfg-example-colour">{colour ? colour.name : "Example colour"}</span>
-                  <span className="cfg-pattern-inset"><img src={imageVariant(f.url, 240)} alt={`${f.name} pattern outline`} />Pattern</span>
+                  <span className="cfg-pattern-inset"><img src={imageVariant(f.url, 240)} alt={`${f.name} shape outline`} />Shape</span>
                 </>}
                 {active && (
                   <span
@@ -214,7 +214,8 @@ export function StepFrame({
                       if (!active) update("frameId", f.id);
                       if (colourId) update("frontColorId", colourId);
                       pushCfg("cfg_card_more", { shape: f.id });
-                      window.setTimeout(() => patternNav.onNext?.(), 650);
+                      // 650 ms read as "nothing happened" (dead clicks on +N, Clarity 07.11.2026).
+                      window.setTimeout(() => patternNav.onNext?.(), 120);
                     }}
                   >
                     +{moreCount}
@@ -2370,7 +2371,7 @@ export function StepReview({
       )}
 
       <div className="rounded-[14px] border border-cream/10 bg-background/40 px-5">
-        <Row step={1} label="Pattern" value={frame ? `${frame.name}` : null} />
+        <Row step={1} label="Shape" value={frame ? `${frame.name}` : null} />
         <Row step={2} label="Front acetate" value={front ? <span className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: front.hex }} /> {front.name}</span> : null} />
         <Row step={2} label="Temple acetate" value={temple ? <span className="inline-flex items-center gap-2"><span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: temple.hex }} /> {temple.name}</span> : null} />
         <Row step={2} label="Finish" value={finish?.name} />
