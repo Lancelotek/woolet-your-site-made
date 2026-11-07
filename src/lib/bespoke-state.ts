@@ -203,7 +203,7 @@ export interface StepMeta {
 // There is no separate preview step: the live render follows the build from
 // step 1 (front colour) through review.
 export const STEPS: StepMeta[] = [
-  { id: 1, label: "Choose pattern",        shortLabel: "Pattern" },
+  { id: 1, label: "Choose shape",          shortLabel: "Shape" },
   { id: 2, label: "Choose acetate",        shortLabel: "Acetate" },
   { id: 3, label: "Temple length",         shortLabel: "Temples" },
   { id: 4, label: "Engraving",             shortLabel: "Engraving" },

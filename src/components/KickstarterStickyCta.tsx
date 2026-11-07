@@ -10,7 +10,7 @@ import { pushGtmEvent } from "@/lib/gtm";
  * campaign. Pages with their own bottom bar or a task flow are excluded.
  */
 const EXCLUDED =
-  /\/(admin|crm|account|payments|creatives|thank-you|danke|reserve|oauth)(\/|$)|\/lp\/|\/bespoke\/(checkout|configurator|measurements|photo|scan|shipping)|\/fit\/(scan|wizard|quick|manual|bespoke)/;
+  /\/(admin|crm|account|payments|creatives|thank-you|danke|reserve|oauth)(\/|$)|\/lp\/|\/bespoke(\/|$)|\/products\/bespoke(\/|$)|\/lunettes-sur-mesure(\/|$)|\/fit\/(scan|wizard|quick|manual|bespoke)/;
 
 const SHOW_AFTER_PX = 420;
 
