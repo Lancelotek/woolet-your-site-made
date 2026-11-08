@@ -74,6 +74,7 @@ const BespokeMeasurements = lazy(() => import("./pages/bespoke/Measurements.tsx"
 const BespokeShipping = lazy(() => import("./pages/bespoke/Shipping.tsx"));
 const BespokeMeasure = lazy(() => import("./pages/bespoke/Measure.tsx"));
 const BespokePhoto = lazy(() => import("./pages/bespoke/Photo.tsx"));
+const BespokeVideo = lazy(() => import("./pages/bespoke/Video.tsx"));
 
 const VipJoin = lazy(() => import("./pages/VipJoin.tsx"));
 const Gone = lazy(() => import("./pages/Gone.tsx"));
@@ -314,6 +315,7 @@ const App = () => (
           <Route path="/:lang/the-box" element={<Navigate to="/en/the-box" replace />} />
           <Route path="/:lang/process" element={<RedirectToEn to="/process" />} />
           <Route path="/en/bespoke" element={<Bespoke />} />
+          <Route path="/en/bespoke/video" element={<BespokeVideo />} />
           <Route path="/en/bespoke/configurator" element={<BespokeConfigurator />} />
           <Route path="/:lang/bespoke/configurator" element={<Navigate to="/en/bespoke/configurator" replace />} />
           <Route path="/en/bespoke/scan" element={<BespokeScan />} />

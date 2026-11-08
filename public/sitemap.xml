@@ -185,6 +185,9 @@
     <loc>https://woolet.co/en/bespoke/configurator</loc>
   </url>
   <url>
+    <loc>https://woolet.co/en/bespoke/video</loc>
+  </url>
+  <url>
     <loc>https://woolet.co/en/blog</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/blog"/>
     <xhtml:link rel="alternate" hreflang="pl" href="https://woolet.co/pl/blog"/>

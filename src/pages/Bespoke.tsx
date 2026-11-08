@@ -368,6 +368,9 @@ const BespokePage = () => {
                   className="block w-full h-full border-0"
                 />
               </div>
+              <Link to="/en/bespoke/video" className="mt-4 inline-block text-gold-light underline underline-offset-4 text-sm">
+                Watch how Bespoke is built (28 s) →
+              </Link>
             </div>
           </div>
         </section>
