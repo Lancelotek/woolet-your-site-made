@@ -53,6 +53,7 @@ import { BLOG_AIO_ENHANCEMENTS, blogModifiedDate, enrichBlogContent } from "@/co
 export { blogModifiedMonthLabel } from "@/content/blog-aio";
 import { BESPOKE_FACTS, BESPOKE_FAQS, BESPOKE_GUIDE, BESPOKE_META_DESCRIPTION, bespokeProductJsonLd as canonicalBespokeProduct, bespokeFaqJsonLd } from "@/content/bespokeFacts";
 export { BESPOKE_FACTS, BESPOKE_FAQS } from "@/content/bespokeFacts";
+import { BESPOKE_VIDEO, bespokeVideoJsonLd } from "@/content/bespokeVideo";
 import {
   RETURN_POLICY,
   shippingDetails,
@@ -1971,6 +1972,36 @@ ${c.slug === "persol-alternative" || c.slug === "zenni-alternative" ? `<p>From $
     }, { image: `${SITE_URL}/box/woolet-box-3D-closed.png`, type: "article" });
   }
 
+  // ----- /en/bespoke/video - watch page for the Bespoke YouTube Short.
+  // Google indexes a video only when it is the page's main content, so the
+  // embed on /en/bespoke gets this dedicated page. Data: src/content/bespokeVideo.ts.
+  if (path === "/bespoke/video" && lang === "en") {
+    const v = BESPOKE_VIDEO;
+    return base(
+      route,
+      lang,
+      {
+        title: "Woolet Bespoke video - how made-to-measure glasses are built",
+        description: v.metaDescription,
+        noscriptHtml: `<article><iframe src="${v.embedUrl}" title="${escapeHtml(v.name)}" width="360" height="640" allowfullscreen></iframe>
+<h1>${escapeHtml(v.h1)}</h1>
+<p>${escapeHtml(v.description)}</p>
+<h2>What the video shows</h2><ol>${v.steps.map((s) => `<li><strong>${escapeHtml(s.title)}</strong> - ${escapeHtml(s.text)}</li>`).join("")}</ol>
+<p>${escapeHtml(BESPOKE_FACTS.name)}: front width ${BESPOKE_FACTS.frontWidth}, bridge ${BESPOKE_FACTS.bridge}, temples ${BESPOKE_FACTS.temples}. ${escapeHtml(BESPOKE_FACTS.offer)}</p>
+<p><a href="/en/bespoke/configurator">Build your frame</a> · <a href="/en/bespoke">Everything about Woolet Bespoke</a></p></article>`,
+      },
+      { image: v.thumbnailUrl, type: "article" },
+      [
+        bespokeVideoJsonLd(),
+        breadcrumbJsonLd([
+          { name: "Woolet", url: `${SITE_URL}/en` },
+          { name: "Bespoke", url: `${SITE_URL}/en/bespoke` },
+          { name: "Video", url: `${SITE_URL}${v.path}` },
+        ]),
+      ],
+    );
+  }
+
   // ----- /en/bespoke (canonical bespoke landing)
   if (path === "/bespoke" && lang === "en") {
     return base(
@@ -2359,6 +2390,7 @@ const STATIC_ROUTES = [
   "/en/collections/oversized-round-glasses",
   "/en/collections/keyhole-bridge-glasses",
   "/en/bespoke",
+  "/en/bespoke/video",
   "/de/bespoke",
   "/en/the-box",
   "/en/creatives/stretch-goals",

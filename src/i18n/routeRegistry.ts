@@ -101,6 +101,7 @@ export const ROUTES = {
   theBox:                { en: "/en/the-box" },
   fit:                   { en: "/en/fit", de: "/de/fit" },
   fitWizard:             { en: "/en/fit/wizard" },
+  bespokeVideo:          { en: "/en/bespoke/video" },
   bespokeScan:           { en: "/en/bespoke/scan" },
   bespokeMeasurements:   { en: "/en/bespoke/measurements" },
   bespokeConfigurator:   { en: "/en/bespoke/configurator" },

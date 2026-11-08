@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-25T17:43:50.253Z",
-  "totalRoutes": 388,
+  "generatedAt": "2026-11-08T19:21:56.126Z",
+  "totalRoutes": 391,
   "blogSlugs": {
     "de": [
       "beste-brillen-fuer-grosse-koepfe-2026",
@@ -148,6 +148,7 @@
     "/en/bespoke/photo",
     "/en/bespoke/scan",
     "/en/bespoke/shipping",
+    "/en/bespoke/video",
     "/en/blog",
     "/en/blog/acetate-vs-tr90-glasses",
     "/en/blog/are-my-glasses-too-small-for-my-face",
@@ -221,6 +222,8 @@
     "/en/compare/ray-ban-alternative",
     "/en/compare/warby-parker-alternative",
     "/en/compare/zenni-alternative",
+    "/en/creatives/bespoke",
+    "/en/creatives/bespoke-video",
     "/en/creatives/ks-launch",
     "/en/creatives/stretch-goals",
     "/en/creatives/too-small",
