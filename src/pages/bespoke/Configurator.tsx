@@ -423,6 +423,39 @@ const ConfiguratorPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [config.frameId]);
 
+  // Meta optimization signal for the Bespoke campaign: a finished design (the
+  // buyer reaches the review step with every earlier step complete) fires
+  // AddToCart once per session. CustomizeProduct is not available as a
+  // conversion event under the Sales objective; AddToCart is, and it fires far
+  // more often than InitiateCheckout, so the ad set can exit learning.
+  useEffect(() => {
+    if (step !== STEPS.length) return;
+    for (let s = 1; s < STEPS.length; s++) {
+      if (!isStepComplete(s as StepId, config)) return;
+    }
+    const chosen = findFrame(config.frameId);
+    if (!chosen) return;
+    const eventId = trackMetaEventOnce("AddToCart", "addtocart:bespoke", {
+      custom: {
+        content_type: "product",
+        content_ids: [chosen.id],
+        content_name: `Woolet Bespoke - ${chosen.name}`,
+        value: pricing.totalEur,
+        currency: "USD",
+      },
+    });
+    if (eventId) {
+      pushGtmEvent("bespoke_design_complete", {
+        event_id: eventId,
+        content_id: chosen.id,
+        content_name: `Woolet Bespoke - ${chosen.name}`,
+        value: pricing.totalEur,
+        currency: "USD",
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step]);
+
   // The preview stage is the most-tapped element on the page. Every state it can
   // be in has to answer the tap: a picture opens larger, an empty stage sends the
   // buyer to the choice that fills it.
