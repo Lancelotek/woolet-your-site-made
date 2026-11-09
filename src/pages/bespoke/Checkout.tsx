@@ -371,9 +371,12 @@ export default function BespokeCheckout() {
       <div className="min-h-screen bg-background text-cream">
         <header className="border-b border-cream/10">
           <div className="max-w-6xl mx-auto px-5 sm:px-8 py-5 flex items-center justify-between gap-4">
+            {/* Mobile: no back control above the card fields - Clarity showed a buyer
+                mis-tapping it while Stripe's form was still growing. "Edit your build"
+                lives under the order summary instead. */}
             <button
               onClick={() => navigate("/en/bespoke/configurator")}
-              className="inline-flex items-center gap-2 text-cream-dim hover:text-cream text-[11px] uppercase tracking-[0.2em] transition"
+              className="hidden sm:inline-flex items-center gap-2 text-cream-dim hover:text-cream text-[11px] uppercase tracking-[0.2em] transition"
             >
               <ChevronLeft size={14} /> Back to configurator
             </button>
@@ -446,10 +449,23 @@ export default function BespokeCheckout() {
                 </div>
 
                 {source ? (
-                  <div className="bg-white text-[#0B0A09] overflow-hidden" style={{ borderRadius: 4 }}>
+                  <div
+                    className="relative bg-white text-[#0B0A09] overflow-hidden min-h-[640px] sm:min-h-[560px]"
+                    style={{ borderRadius: 4 }}
+                  >
+                    {/* Reserved height + skeleton: the embedded form loads into this box
+                        instead of pushing the page down (mobile CLS was 0.21-0.27). */}
+                    <div className="absolute inset-0 p-6 space-y-4 pointer-events-none" aria-hidden="true">
+                      <div className="h-4 w-1/3 bg-[#0B0A09]/[0.06] rounded animate-pulse" />
+                      <div className="h-11 w-full bg-[#0B0A09]/[0.06] rounded animate-pulse" />
+                      <div className="h-11 w-full bg-[#0B0A09]/[0.06] rounded animate-pulse" />
+                      <div className="h-11 w-2/3 bg-[#0B0A09]/[0.06] rounded animate-pulse" />
+                    </div>
+                    <div className="relative bg-white">
                     <EmbeddedCheckoutProvider key={`${appliedCoupon ?? "no-coupon"}:${source}:${pricing.totalEur}`} stripe={getStripe()} options={{ fetchClientSecret }}>
                       <EmbeddedCheckout />
                     </EmbeddedCheckoutProvider>
+                    </div>
                   </div>
                 ) : (
                   <button type="button" onClick={() => { setSourceError(true); document.getElementById("bespoke-source")?.focus(); }} className="min-h-[56px] w-full bg-gold text-background text-xs uppercase tracking-[0.2em]">
@@ -620,6 +636,13 @@ export default function BespokeCheckout() {
                       <SummaryRow label="Lenses" value={lens ? <span className="inline-flex items-center justify-end gap-2">{selectedLensTint(config) && <span className="w-3 h-3 shrink-0 rounded-full border border-cream/20" style={{ background: selectedLensTint(config)?.hex }} />}{formatLensWithStrength(lens.name, config)}</span> : undefined} />
                       <SummaryRow label="Shipping" value={<span className="text-gold-light">Free · worldwide</span>} />
                     </div>
+
+                    <Link
+                      to="/en/bespoke/configurator"
+                      className="mt-3 inline-flex items-center gap-1.5 text-cream-dim hover:text-cream text-[11px] uppercase tracking-[0.18em] underline underline-offset-4"
+                    >
+                      <ChevronLeft size={12} /> Edit your build
+                    </Link>
 
                     {/* Coupon */}
                     <div className="pt-4 mt-3 border-t border-cream/15">

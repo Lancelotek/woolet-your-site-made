@@ -1186,6 +1186,13 @@ const ConfiguratorStyles = () => (
       box-shadow: 0 0 0 1px var(--cfg-gold);
     }
     .cfg-scope .cfg-choice--pressed { animation: cfg-choice-tap 400ms ease-out; }
+    .cfg-scope .cfg-choice--already::after {
+      content: "Selected"; position: absolute; left: 50%; bottom: 10px; transform: translateX(-50%);
+      padding: 3px 9px; border-radius: 999px; background: #CAA449; color: #1F1B16;
+      font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; white-space: nowrap;
+      pointer-events: none; z-index: 2; animation: cfg-already 1400ms ease-out forwards;
+    }
+    @keyframes cfg-already { 0%, 75% { opacity: 1; } 100% { opacity: 0; } }
     .cfg-scope .cfg-choicegrid--attention { animation: cfg-choice-tap 650ms ease-out 2; }
     @keyframes cfg-choice-tap {
       50% { box-shadow: 0 0 0 3px var(--cfg-gold); }

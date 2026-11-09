@@ -82,11 +82,20 @@ const cardOuter = "rounded-[14px] border border-cream/10 bg-background/40 transi
 const cardActive = "border-gold/60 bg-gold/[0.04] ring-1 ring-gold/30";
 
 // A re-tap on a selected choice should acknowledge the tap without rewriting the build.
-function acknowledgeChoice(button: HTMLButtonElement) {
+function acknowledgeChoice(button: HTMLElement) {
   button.classList.remove("cfg-choice--pressed");
   void button.offsetWidth;
   button.classList.add("cfg-choice--pressed");
   window.setTimeout(() => button.classList.remove("cfg-choice--pressed"), 450);
+}
+
+// Clarity: dead clicks clustered on pre-selected defaults (Standard temple, Shiny
+// finish, default acetate) - the tap changed nothing visible. Say so in place.
+function confirmAlreadySelected(el: HTMLElement) {
+  el.classList.remove("cfg-choice--already");
+  void el.offsetWidth;
+  el.classList.add("cfg-choice--already");
+  window.setTimeout(() => el.classList.remove("cfg-choice--already"), 1400);
 }
 
 /* ───── Step 1 · Pattern ───── */
@@ -330,7 +339,7 @@ function ColorSwatchGrid({
               key={c.id}
               onClick={(e) => {
                 acknowledgeChoice(e.currentTarget);
-                if (active) pulseMobilePreview();
+                if (active) { confirmAlreadySelected(e.currentTarget); pulseMobilePreview(); }
                 else onSelect(c.id);
               }}
               onMouseEnter={() => { if (selected) setHoveredId(c.id); }}
@@ -1025,7 +1034,7 @@ const PartIcon = ({ part }: { part: "front" | "temple" }) => {
   );
 };
 
-const DEFAULT_TAG = <span className="ml-2 text-[10px] uppercase tracking-[0.14em] text-gold-light/80">Default - tap another to change</span>;
+const DEFAULT_TAG = <span className="ml-2 text-[10px] uppercase tracking-[0.14em] text-gold-light/80">Pre-selected - tap another swatch to change</span>;
 
 export function StepColor({ config, update, defaults = {} }: StepProps & { defaults?: { front?: boolean; temple?: boolean; finish?: boolean } }) {
   const front = COLORS.find((c) => c.id === config.frontColorId);
@@ -1066,7 +1075,8 @@ export function StepColor({ config, update, defaults = {} }: StepProps & { defau
                 key={f.id}
                 onClick={(e) => {
                   acknowledgeChoice(e.currentTarget);
-                  if (!active) update("finishId", f.id);
+                  if (active) confirmAlreadySelected(e.currentTarget);
+                  else update("finishId", f.id);
                 }}
                 aria-pressed={active}
                 className={`group relative overflow-hidden text-left transition ${
@@ -1787,7 +1797,13 @@ export function StepTempleLength({ config, update }: StepProps) {
           return (
             <label
               key={t.mm}
-              className={`${cardOuter} ${active ? cardActive : "hover:border-cream/25"} block cursor-pointer p-4 focus-within:ring-2 focus-within:ring-gold/60`}
+              onClick={(e) => {
+                // Label clicks re-dispatch on the hidden radio; react once.
+                if (!active || (e.target as HTMLElement).tagName === "INPUT") return;
+                acknowledgeChoice(e.currentTarget);
+                confirmAlreadySelected(e.currentTarget);
+              }}
+              className={`${cardOuter} ${active ? cardActive : "hover:border-cream/25"} relative block cursor-pointer p-4 focus-within:ring-2 focus-within:ring-gold/60`}
             >
               <input
                 type="radio"
@@ -1798,11 +1814,21 @@ export function StepTempleLength({ config, update }: StepProps) {
               />
               <div className="flex items-baseline justify-between gap-2">
                 <span className="text-cream text-base">{t.label}</span>
-                {t.recommended && (
-                  <span className="text-[0.62rem] uppercase tracking-[0.18em] text-gold-light border border-gold/40 px-2 py-0.5">
-                    Standard
+                <span className="inline-flex items-center gap-2">
+                  {t.recommended && (
+                    <span className="text-[0.62rem] uppercase tracking-[0.18em] text-gold-light border border-gold/40 px-2 py-0.5">
+                      Standard
+                    </span>
+                  )}
+                  <span
+                    aria-hidden="true"
+                    className={`inline-flex items-center justify-center w-[22px] h-[22px] rounded-full transition ${
+                      active ? "bg-[#CAA449]" : "border border-cream/25"
+                    }`}
+                  >
+                    {active && <Check size={13} strokeWidth={3} color="#1F1B16" />}
                   </span>
-                )}
+                </span>
               </div>
               <p className="text-cream-dim text-[0.8rem] leading-relaxed mt-2">{t.descriptor}</p>
             </label>
