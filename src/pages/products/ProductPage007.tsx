@@ -34,9 +34,9 @@ const SERIF = "'Cormorant Garamond', 'EB Garamond', Georgia, serif";
 const SANS = "'Barlow', 'Inter', -apple-system, sans-serif";
 
 const launchColors: FrameColour[] = [
-  { id: "havana", name: "Honey tortoise", dot: "#8B5A2B", img: imgHavana.url },
-  { id: "black", name: "Piano black", dot: "#141414", img: imgBlackAsset.url },
-  { id: "crystal", name: "Crystal", dot: "#E8E4DA", img: imgCrystal.url },
+  { id: "havana", name: "Havana", dot: "#8B5A2B", img: imgHavana.url },
+  { id: "black", name: "Black", dot: "#141414", img: imgBlackAsset.url },
+  { id: "crystal", name: "Silver Clear", dot: "#E8E4DA", img: imgCrystal.url },
 ];
 
 const ProductPage007 = () => {

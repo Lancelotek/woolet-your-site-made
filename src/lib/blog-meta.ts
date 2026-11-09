@@ -299,9 +299,10 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
       "Frame size chart in mm, row by row from 126 to 165 mm: the band, the face width each size fits and the marking to look for. Plus how to read 52-18-145.",
   },
   "temple-to-temple-measurement": {
-    metaTitle: "Temple Length vs Temple-to-Temple — What's the Difference?",
+    metaTitle: "What Is Temple Length on Glasses? 135–150 mm Explained",
+    exactTitle: true,
     metaDescription:
-      "Temple length is the arm (135–150 mm). Temple-to-temple is your head. Only one decides fit — a clear table and why Woolet uses a 150 mm temple.",
+      "Temple length is the arm of your glasses, hinge to tip: usually 135–150 mm, the last number in 54-18-145. Not the same as temple-to-temple width. Table inside.",
   },
   "numbers-on-glasses-frames-meaning": {
     metaTitle: "What Do Numbers on Glasses Mean? 54-17, 55-18-145 Decoded",

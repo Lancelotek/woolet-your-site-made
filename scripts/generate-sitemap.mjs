@@ -73,6 +73,8 @@ const EXCLUDED_PATH_PATTERNS = [
   /^\/(?:[a-z]{2}\/)?account(?:$|\/)/,
   /^\/(?:[a-z]{2}\/)?crm(?:$|\/)/,
   /^\/de\/brille-grosse-koepfe\/?$/,
+  // Paid-traffic landing pages (thin, ad-specific copy) - indexable, not advertised.
+  /^\/(?:[a-z]{2}\/)?lp\/kickstarter\/?$/,
   /^\/(?:[a-z]{2}\/)?bespoke\/(?:checkout|scan|measurements|shipping)(?:$|\/)/,
 ];
 

@@ -63,6 +63,7 @@ const EXCLUDED_PATH_PATTERNS = [
   /^\/(?:[a-z]{2}\/)?bespoke\/(?:checkout|scan|measurements)(?:$|\/)/,
   // Consolidated into /de/brillen-fuer-grosse-koepfe (canonical points there).
   /^\/de\/brille-grosse-koepfe\/?$/,
+  /^\/(?:[a-z]{2}\/)?lp\/kickstarter\/?$/, // paid-traffic LPs (mirrors generate-sitemap)
 ];
 const isExcludedPath = (p) => EXCLUDED_PATH_PATTERNS.some((r) => r.test(p));
 const emitsNoindex = (m) => typeof m?.robots === "string" && /noindex/i.test(m.robots);

@@ -89,9 +89,9 @@ export const ROUTES = {
   },
   impressum: { de: "/de/impressum" },
 
-  // Products — native routes exist in en, fr, nl only.
-  "products.007":     { en: "/en/products/007",     fr: "/fr/products/007",     nl: "/nl/products/007" },
-  "products.009":     { en: "/en/products/009",     fr: "/fr/products/009",     nl: "/nl/products/009" },
+  // Products — native routes exist in en, fr, nl; DE uses /de/produkte/*.
+  "products.007":     { en: "/en/products/007",     fr: "/fr/products/007",     nl: "/nl/products/007", de: "/de/produkte/007" },
+  "products.009":     { en: "/en/products/009",     fr: "/fr/products/009",     nl: "/nl/products/009", de: "/de/produkte/009" },
   "products.bespoke": { en: "/en/products/bespoke", fr: "/fr/products/bespoke", nl: "/nl/products/bespoke" },
 
   // -----------------------------------------------------------------------

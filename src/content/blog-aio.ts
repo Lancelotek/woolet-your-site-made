@@ -3,6 +3,9 @@ export const BLOG_AIO_UPDATED = "2026-09-25";
 /** Per-post dateModified overrides — single source for JSON-LD and visible bylines. */
 export const BLOG_MODIFIED_OVERRIDES: Record<string, string> = {
   "glasses-for-wide-faces-guide": "2026-10-09",
+  // 06.11.2026 (PR #37): new size / marking tables added to the body.
+  "eyeglass-frame-size-chart": "2026-11-06",
+  "numbers-on-glasses-frames-meaning": "2026-11-06",
 };
 
 const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
