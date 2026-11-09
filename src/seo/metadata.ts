@@ -66,6 +66,16 @@ import {
 } from "./commerce-schema";
 
 export const SITE_URL = "https://woolet.co";
+
+/** Byline for blog Article schema: the founder, linked to the brand entity. */
+const ARTICLE_AUTHOR = {
+  "@type": "Person",
+  name: "Marek Cieśla",
+  jobTitle: "Founder, Woolet",
+  url: `${SITE_URL}/en/our-story`,
+  sameAs: ["https://www.linkedin.com/in/marekciesla"],
+  worksFor: { "@id": `${SITE_URL}/#organization` },
+} as const;
 const DEFAULT_OG = `${SITE_URL}/og-image.png`;
 
 export type RouteMeta = {
@@ -778,12 +788,62 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
 
   if (route === "/de/produkte/007" || route === "/de/produkte/009") {
     const id = route.endsWith("007") ? "007" : "009";
-    const shape = id === "007" ? "Rund / Panto" : "Weiches Quadrat / Soft Square";
+    const is007 = id === "007";
+    const shape = is007 ? "Rund / Panto" : "Weiches Quadrat";
+    const lens = is007 ? "53 × 47,6 mm" : "54 × 44 mm";
+    const bridge = is007 ? "26 mm" : "25 mm";
+    const marking = is007 ? "53□26-150" : "54□25-150";
+    const canonical = `${SITE_URL}${route}`;
     return base(route, "de", {
-      title: `Woolet ${id} ${shape} - Brille für breite Gesichter (158 mm) | Woolet`,
-      description: `Woolet ${id} ${shape}: 158 mm Frontbreite, Mazzucchelli-Acetat, handgefertigt in der EU. Founder-Preis ${DE_PRICING.founderPriceEur} € statt ${DE_PRICING.regularPriceEur} € inkl. MwSt.`,
-      noscriptHtml: `<h1>Woolet ${id} ${shape}</h1><p>158 mm Frontbreite für breite Gesichter. Founder-Preis ${DE_PRICING.founderPriceEur} € statt ${DE_PRICING.regularPriceEur} € inkl. MwSt., nur 30 Fassungen.</p><p><a href="/de/kollektion">Kollektion</a> · <a href="/de/fit">Gesicht messen</a></p>`,
-    }, {}, undefined, { de: `${SITE_URL}${route}`, en: `${SITE_URL}/en/products/${id}`, "x-default": `${SITE_URL}/en/products/${id}` });
+      title: `Woolet ${id} ${is007 ? "Rund" : "Quadrat"}: Brille für breite Gesichter, 158 mm`,
+      description: `Woolet ${id} ${shape}: 158 mm Frontbreite, ${bridge} Keyhole-Steg, Mazzucchelli-Acetat, handgefertigt in der EU. Für Gesichter ab 155 mm. ${DE_PRICING.founderPriceEur} € statt ${DE_PRICING.regularPriceEur} €.`,
+      noscriptHtml: `<h1>Woolet ${id} ${shape} - 158 mm Frontbreite</h1>
+<p>Die Woolet ${id} ist eine Acetatbrille für breite Gesichter: eine präzise Größe mit 158 mm Frontbreite, gefertigt aus italienischem Mazzucchelli-Acetat und handgefertigt in der EU. Sie passt zu Gesichtern mit 155-161 mm Breite (von Schläfe zu Schläfe gemessen). Für andere Maße gibt es Bespoke von 145 bis 160 mm.</p>
+<table><caption>Maße Woolet ${id}</caption><tbody>
+<tr><th>Frontbreite</th><td>158 mm</td></tr>
+<tr><th>Glas (B × H)</th><td>${lens}</td></tr>
+<tr><th>Steg</th><td>${bridge} Keyhole</td></tr>
+<tr><th>Bügellänge</th><td>150 mm</td></tr>
+<tr><th>Kennzeichnung</th><td>${marking}</td></tr>
+<tr><th>Scharniere</th><td>5-fach, PVD Gunmetal</td></tr>
+<tr><th>Farben</th><td>Black, Havana, Silver Clear</td></tr>
+<tr><th>Garantie</th><td>5 Jahre</td></tr>
+</tbody></table>
+<p>Founder-Preis ${DE_PRICING.founderPriceEur} € statt ${DE_PRICING.regularPriceEur} € inkl. MwSt., nur ${DE_PRICING.founderLimit} Fassungen.</p>
+<p><a href="/de/kollektion">Kollektion</a> · <a href="/de/fit">Gesicht messen</a> · <a href="/de/brille-fuer-breites-gesicht">Brille für breites Gesicht</a></p>`,
+    }, { image: `${SITE_URL}/og-${id}.png`, type: "product" }, [
+      breadcrumbJsonLd([
+        { name: "Woolet", url: `${SITE_URL}/de` },
+        { name: "Kollektion", url: `${SITE_URL}/de/kollektion` },
+        { name: `Woolet ${id}`, url: canonical },
+      ]),
+      {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        name: `Woolet ${id} ${shape} - Acetatbrille für breite Gesichter (158 mm)`,
+        sku: `WOOLET-${id}`,
+        brand: { "@type": "Brand", name: "Woolet" },
+        material: "Italienisches Mazzucchelli-Acetat",
+        color: "Black, Havana, Silver Clear",
+        image: `${SITE_URL}/og-${id}.png`,
+        width: { "@type": "QuantitativeValue", value: 158, unitCode: "MMT" },
+        additionalProperty: [
+          { "@type": "PropertyValue", name: "Frontbreite", value: "158 mm" },
+          { "@type": "PropertyValue", name: "Steg", value: `${bridge} Keyhole` },
+          { "@type": "PropertyValue", name: "Glas", value: lens },
+          { "@type": "PropertyValue", name: "Bügellänge", value: "150 mm" },
+        ],
+        offers: {
+          "@type": "Offer",
+          url: canonical,
+          price: DE_PRICING.founderPriceEur.toFixed(2),
+          priceCurrency: "EUR",
+          priceValidUntil: DE_PRICING.priceValidUntil,
+          availability: "https://schema.org/PreOrder",
+          seller: { "@type": "Organization", name: "Woolet", url: SITE_URL },
+        },
+      },
+    ], { de: canonical, en: `${SITE_URL}/en/products/${id}`, fr: `${SITE_URL}/fr/products/${id}`, nl: `${SITE_URL}/nl/products/${id}`, "x-default": `${SITE_URL}/en/products/${id}` });
   }
 
   if (route === "/de/danke") {
@@ -836,7 +896,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
           "Round glasses built for wider faces: 158 mm front, keyhole bridge, Italian Mazzucchelli acetate, hand made in EU. Made for 155 mm+ faces. See the fit.",
         noscriptHtml: `<h1>Woolet 007 — Round, 158 mm</h1>
 <p>The Woolet 007 is a round-panto eyewear shape cut from Italian Mazzucchelli cellulose acetate and Hand made in EU. One precise size: 158 mm front width with a 26 mm keyhole bridge. Lens 53 × 47.6 mm, temples 150 mm at 11°, 5-barrel PVD Gunmetal hinges.</p>
- <p>Colours: Honey tortoise, Piano black, Crystal. Pre-order $114 for founding members ($1 deposit locks the price); $190 MSRP at full launch. Bespoke 145–160 mm available.</p>${bridgeFitPrerenderHtml("compact")}`,
+ <p>Colours: Black, Havana, Silver Clear. Pre-order $114 for founding members ($1 deposit locks the price); $190 MSRP at full launch. Bespoke 145–160 mm available.</p>${bridgeFitPrerenderHtml("compact")}`,
       },
       nl: {
         title: "Woolet 007 — ronde panto acetaatbril, 158 mm",
@@ -878,19 +938,19 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
           "Square glasses built for wider faces: 158 mm front, keyhole bridge, Italian Mazzucchelli acetate, hand made in EU. Made for 155 mm+ faces. See the fit.",
         noscriptHtml: `<h1>Woolet 009 — Soft Square, 158 mm</h1>
 <p>The Woolet 009 is a soft-square eyewear shape cut from Italian Mazzucchelli cellulose acetate and Hand made in EU. One precise size: 158 mm front width with a 25 mm keyhole bridge. Lens 54 × 44 mm, temples 150 mm at 11°, 5-barrel PVD Gunmetal hinges.</p>
- <p>Colours: Honey tortoise, Piano black, Crystal. Pre-order $114 for founding members ($1 deposit locks the price); $190 MSRP at full launch. Bespoke 145–160 mm available.</p>${bridgeFitPrerenderHtml("compact")}`,
+ <p>Colours: Black, Havana, Silver Clear. Pre-order $114 for founding members ($1 deposit locks the price); $190 MSRP at full launch. Bespoke 145–160 mm available.</p>${bridgeFitPrerenderHtml("compact")}`,
       },
       nl: {
         title: "Woolet 009 — vierkante acetaatbril, 158 mm",
         description:
-          "Zachte vierkante acetaatbril, 158 mm breed met 20 mm brug. Voor gezichten van 155 mm+. Reserveer voor $1 en zet de $114 founding-prijs vast.",
+          "Zachte vierkante acetaatbril, 158 mm breed met 25 mm keyhole-brug. Voor gezichten van 155 mm+. Reserveer voor $1 en zet de $114 founding-prijs vast.",
         noscriptHtml: `<h1>Woolet 009 — vierkante acetaatbril, 158 mm</h1>
 <p>Zacht vierkant model in Italiaans Mazzucchelli-acetaat, 158 mm breed met keyhole-brug. Glas 54 × 44 mm, veren 150 mm. Handgemaakt in de EU. Voor gezichten van 155 mm+. Reserveer voor $1 en zet de $114 founding-prijs vast (adviesprijs $190). Bespoke 145–160 mm beschikbaar.</p>`,
       },
       fr: {
         title: "Woolet 009 — lunettes carrées en acétate, 158 mm",
         description:
-          "Monture carrée douce en acétate, 158 mm de large avec pont 20 mm. Conçue pour les visages de 155 mm+. Réservez pour 1 $ et bloquez le prix fondateur de 114 $.",
+          "Monture carrée douce en acétate, 158 mm de large avec pont keyhole 25 mm. Conçue pour les visages de 155 mm+. Réservez pour 1 $ et bloquez le prix fondateur de 114 $.",
         noscriptHtml: `<h1>Woolet 009 — lunettes carrées en acétate, 158 mm</h1>
 <p>Monture carrée douce en acétate italien Mazzucchelli, 158 mm de large avec pont keyhole. Verres 54 × 44 mm, branches 150 mm. Façonnée à la main dans l'Union européenne. Conçue pour les visages de 155 mm et plus. Réservez pour 1 $ et bloquez le prix fondateur de 114 $ (prix public 190 $). Sur mesure 145–160 mm.</p>`,
       },
@@ -1563,7 +1623,9 @@ ${enhancement ? `<aside aria-label="Quick answer"><strong>Quick answer</strong><
             url: `${SITE_URL}${route}`,
             datePublished: post.date,
             dateModified: modifiedDate,
-            author: { "@type": "Organization", name: post.author ?? "Woolet", url: SITE_URL },
+            author: post.author
+              ? { "@type": "Organization", name: post.author, url: SITE_URL }
+              : ARTICLE_AUTHOR,
             publisher: {
               "@type": "Organization",
               name: "Woolet",

@@ -6,7 +6,7 @@ import { pushGtmEvent } from "@/lib/gtm";
 export type FrameColour = {
   /** URL slug, e.g. "havana" */
   id: string;
-  /** Canonical display name, e.g. "Honey tortoise" */
+  /** Canonical display name, e.g. "Havana" */
   name: string;
   /** Swatch dot colour */
   dot: string;

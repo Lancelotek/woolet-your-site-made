@@ -14,7 +14,7 @@ User-agent: GoogleBot
 Allow: /
 Disallow: /*/admin/
 
-User-agent: Googlebot-Extended
+User-agent: Google-Extended
 Allow: /
 Disallow: /*/admin/
 
@@ -27,6 +27,10 @@ Allow: /
 Disallow: /*/admin/
 
 User-agent: anthropic-ai
+Allow: /
+Disallow: /*/admin/
+
+User-agent: Applebot-Extended
 Allow: /
 Disallow: /*/admin/
 

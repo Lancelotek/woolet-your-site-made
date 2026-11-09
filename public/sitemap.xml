@@ -133,16 +133,20 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/collection"/>
   </url>
   <url>
-    <loc>https://woolet.co/de/lp/kickstarter</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/lp/kickstarter"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/lp/kickstarter"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/lp/kickstarter"/>
-  </url>
-  <url>
     <loc>https://woolet.co/de/produkte/007</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/products/007"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://woolet.co/fr/products/007"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://woolet.co/nl/products/007"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/produkte/007"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/products/007"/>
   </url>
   <url>
     <loc>https://woolet.co/de/produkte/009</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/products/009"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://woolet.co/fr/products/009"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://woolet.co/nl/products/009"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/produkte/009"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/products/009"/>
   </url>
   <url>
     <loc>https://woolet.co/de/widerruf</loc>
@@ -247,7 +251,7 @@
   </url>
   <url>
     <loc>https://woolet.co/en/blog/eyeglass-frame-size-chart</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-11-06</lastmod>
   </url>
   <url>
     <loc>https://woolet.co/en/blog/glasses-for-wide-faces-guide</loc>
@@ -313,7 +317,7 @@
   </url>
   <url>
     <loc>https://woolet.co/en/blog/numbers-on-glasses-frames-meaning</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-11-06</lastmod>
   </url>
   <url>
     <loc>https://woolet.co/en/blog/oversized-blue-light-glasses-vs-wide-fit</loc>
@@ -514,12 +518,6 @@
     <loc>https://woolet.co/en/lp/5-reasons</loc>
   </url>
   <url>
-    <loc>https://woolet.co/en/lp/kickstarter</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/lp/kickstarter"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/lp/kickstarter"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/lp/kickstarter"/>
-  </url>
-  <url>
     <loc>https://woolet.co/en/lp/why-glasses-fail</loc>
   </url>
   <url>
@@ -536,6 +534,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/products/007"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://woolet.co/fr/products/007"/>
     <xhtml:link rel="alternate" hreflang="nl" href="https://woolet.co/nl/products/007"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/produkte/007"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/products/007"/>
   </url>
   <url>
@@ -543,6 +542,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/products/009"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://woolet.co/fr/products/009"/>
     <xhtml:link rel="alternate" hreflang="nl" href="https://woolet.co/nl/products/009"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/produkte/009"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/products/009"/>
   </url>
   <url>
@@ -670,6 +670,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/products/007"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://woolet.co/fr/products/007"/>
     <xhtml:link rel="alternate" hreflang="nl" href="https://woolet.co/nl/products/007"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/produkte/007"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/products/007"/>
   </url>
   <url>
@@ -677,6 +678,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/products/009"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://woolet.co/fr/products/009"/>
     <xhtml:link rel="alternate" hreflang="nl" href="https://woolet.co/nl/products/009"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/produkte/009"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/products/009"/>
   </url>
   <url>
@@ -799,6 +801,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/products/007"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://woolet.co/fr/products/007"/>
     <xhtml:link rel="alternate" hreflang="nl" href="https://woolet.co/nl/products/007"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/produkte/007"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/products/007"/>
   </url>
   <url>
@@ -806,6 +809,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://woolet.co/en/products/009"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://woolet.co/fr/products/009"/>
     <xhtml:link rel="alternate" hreflang="nl" href="https://woolet.co/nl/products/009"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://woolet.co/de/produkte/009"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://woolet.co/en/products/009"/>
   </url>
   <url>
