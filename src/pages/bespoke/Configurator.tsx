@@ -695,7 +695,8 @@ const ConfiguratorPage = () => {
                   isLast={step === STEPS.length}
                   blockedLabel={blockedLabel}
                 />
-                 {step === 1 && !stepComplete && navHint && <p className="text-sm text-gold-light mt-3" role="status">Choose a pattern to continue.</p>}
+                 {/* Clickable like the step 2 hint: Clarity logged dead clicks on the plain text (08-10.11.2026). */}
+                 {step === 1 && !stepComplete && navHint && <button type="button" onClick={showPatternMissing} className="block text-left text-sm text-gold-light mt-3 underline decoration-dotted underline-offset-4" role="status">Choose a pattern to continue.</button>}
                  {step === 2 && !stepComplete && <button type="button" onClick={showMissing} className="cfg-acetate-missing block text-left text-sm text-gold-light mt-3 underline decoration-dotted underline-offset-4" role="status">Choose {acetateMissing} to continue.</button>}
               </div>
             </section>
@@ -719,7 +720,7 @@ const ConfiguratorPage = () => {
               </CfgInfoTrigger>
             </div>
              {navHint && step === 1 && !stepComplete ? (
-               <div className="cfg-mobilebar__note text-gold-light" role="status">Choose a pattern to continue.</div>
+               <button type="button" onClick={showPatternMissing} className="cfg-mobilebar__note text-gold-light text-left underline decoration-dotted underline-offset-2" role="status">Choose a pattern to continue.</button>
              ) : navHint && step !== 2 ? (
               <div className="cfg-mobilebar__note" style={{ color: "#C13A2E" }} role="status">
                 {navHintText ?? "Pick an option to continue"}
