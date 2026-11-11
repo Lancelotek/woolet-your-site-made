@@ -699,8 +699,8 @@ function WelcomeStep({
               }}
             >
               {lang === "de"
-                ? (isMobile ? "Öffnet sich hier und nutzt deine Frontkamera. Gutes Licht genügt - keine Karte, kein Lineal." : "Öffnet sich hier und nutzt deine Webcam. Gutes Licht genügt - keine Karte, kein Lineal.")
-                : (isMobile ? "Opens right here and uses your front camera. Needs good light — no card, no ruler." : "Opens right here and uses your webcam. Needs good light — no card, no ruler.")}
+                ? (isMobile ? "Öffnet sich hier und nutzt deine Frontkamera. Am besten bei Tageslicht: Bei Kunstlicht kann das Ergebnis zu schmal ausfallen. Keine Karte, kein Lineal." : "Öffnet sich hier und nutzt deine Webcam. Am besten bei Tageslicht: Bei Kunstlicht kann das Ergebnis zu schmal ausfallen. Keine Karte, kein Lineal.")
+                : (isMobile ? "Opens right here and uses your front camera. Scan in daylight - under artificial light the result can come out too narrow. No card, no ruler." : "Opens right here and uses your webcam. Scan in daylight - under artificial light the result can come out too narrow. No card, no ruler.")}
             </p>
           </div>
 
