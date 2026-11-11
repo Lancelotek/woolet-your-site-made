@@ -209,7 +209,7 @@ export default function BespokeShipping() {
                   <select value={fields.country} onChange={set("country")} autoComplete="country" required className={inputCls}>
                     <option value="">Select a country</option>
                     {COUNTRY_CODES.map((code) => (
-                      <option key={code} value={code} className="text-ink">
+                      <option key={code} value={code} className="text-[#1F1B16]">
                         {countryLabel(code)}
                       </option>
                     ))}
@@ -238,7 +238,7 @@ export default function BespokeShipping() {
                   <button
                     type="submit"
                     disabled={!consent || submitting}
-                    className="w-full sm:w-auto min-h-[48px] bg-gold text-ink px-7 py-3 rounded-[2px] text-[12px] uppercase tracking-[0.18em] font-semibold disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gold-light transition"
+                    className="w-full sm:w-auto min-h-[48px] bg-gold text-[#1F1B16] px-7 py-3 rounded-[2px] text-[12px] uppercase tracking-[0.18em] font-semibold disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gold-light transition"
                   >
                     {submitting ? "Saving…" : "Confirm shipping address"}
                   </button>

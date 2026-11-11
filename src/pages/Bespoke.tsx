@@ -737,7 +737,7 @@ const BespokePage = () => {
                 <li key={step} className="grid grid-cols-[auto_1fr] gap-6 sm:gap-10">
                   <span className="font-display text-gold-light" style={{ fontSize: "1.6rem", fontWeight: 300, lineHeight: 1 }}>{String(i + 1).padStart(2, "0")}</span>
                   <div><h3 className="font-display text-woolet-white mb-2" style={{ fontSize: "1.15rem", fontWeight: 400 }}>{step}</h3>
-                  {i === 1 && depositUsd > 0 && <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.9rem" }}>You pay a ${depositUsd} deposit. It covers your fit scan and 3D model and is non-refundable.</p>}
+                  {i === 1 && depositUsd > 0 && <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.9rem" }}>You pay a ${depositUsd} deposit. It covers your fitting and 3D model and is non-refundable.</p>}
                   {i === 3 && depositUsd > 0 && <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.9rem" }}>Approve the model by paying the balance, or ask us to correct it. You have 14 days, and you are free to stop here.</p>}
                   {i === 4 && <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.9rem" }}>Production takes 2 weeks after 3D model approval, then shipping begins.</p>}</div>
                 </li>

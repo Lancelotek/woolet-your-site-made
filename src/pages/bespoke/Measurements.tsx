@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { CheckCircle2, Loader2, Ruler, ScanFace, Sparkles, Truck } from "lucide-react";
+import { Camera, CheckCircle2, CreditCard, Glasses, Loader2, Ruler, Sparkles, Truck, Upload } from "lucide-react";
 import SEO from "@/components/SEO";
 import { COUNTRY_CODES, countryLabel } from "@/data/shipping-countries";
 import { supabase } from "@/integrations/supabase/client";
@@ -8,10 +8,8 @@ import { STORAGE_KEY } from "@/lib/bespoke-state";
 import { READING_STRENGTHS } from "@/data/bespoke-options";
 import { lensWithStrength, needsReadingStrength } from "@/lib/bespoke-gaps";
 import { clarityEvent, claritySet, clarityUpgrade } from "@/lib/clarity";
-import { useFitLensScript } from "@/hooks/use-fitlens-script";
-import { parseFitLensEvent, type FitLensMeasurements } from "@/lib/fitlens-result";
-import { createFitLensResultDedupe } from "@/lib/fitlens-result-dedupe";
-import { recordFitLensEvent, SCAN_SOURCE_LABEL, type ScanSource } from "@/lib/fitlens-verify";
+import type { FitLensMeasurements } from "@/lib/fitlens-result";
+import { SCAN_SOURCE_LABEL, type ScanSource } from "@/lib/fitlens-verify";
 import { BESPOKE_DISCOVERY_SOURCES, isBespokeDiscoverySource, type BespokeDiscoverySource } from "@/content/bespokeFacts";
 
 /** Temple length the customer asked for at checkout — shown for reference only. */
@@ -168,6 +166,53 @@ const EMPTY: FormState = {
 };
 
 
+// The fit photo replaces the camera scan (11.11.2026): one photo with a
+// bank-size card for scale, plus the numbers printed on the buyer's current
+// glasses. The workshop measures from the photo; nothing is computed here.
+const PHOTO_CONSENT_VERSION = "bespoke-photo-v3";
+
+// Shown verbatim above the send button and stored byte for byte with the photo.
+const PHOTO_CONSENT_TEXT =
+  "I agree that JAY23 LLC (Woolet) stores this photograph of my face and the measurements I entered, and shares them with its manufacturing partner in the EU for the sole purpose of measuring, producing and verifying my bespoke frame. The photograph is deleted 90 days after delivery. I can withdraw this consent at any time at support@woolet.co; withdrawal stops production of the frame.";
+
+/** Longest edge of the photo we store. Enough to read the card and the face. */
+const PHOTO_MAX_PX = 2400;
+
+/** First line of the workshop notes: lens width has no column of its own. */
+const GLASSES_NOTE_RE = /^Current glasses[^\n]*\n?/;
+const NO_GLASSES_NOTE = "Current glasses: no numbers given - measure from the photo with the card.";
+
+/** Re-encode as a JPEG no larger than PHOTO_MAX_PX. Also drops EXIF (location). */
+async function photoToJpeg(file: File): Promise<{ blob: Blob; width: number; height: number }> {
+  const url = URL.createObjectURL(file);
+  try {
+    const img = await new Promise<HTMLImageElement>((resolve, reject) => {
+      const el = new Image();
+      el.onload = () => resolve(el);
+      el.onerror = () => reject(new Error("decode_failed"));
+      el.src = url;
+    });
+    const scale = Math.min(1, PHOTO_MAX_PX / Math.max(img.naturalWidth, img.naturalHeight));
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.round(img.naturalWidth * scale);
+    canvas.height = Math.round(img.naturalHeight * scale);
+    canvas.getContext("2d")?.drawImage(img, 0, 0, canvas.width, canvas.height);
+    const blob = await new Promise<Blob>((resolve, reject) =>
+      canvas.toBlob((b) => (b ? resolve(b) : reject(new Error("encode_failed"))), "image/jpeg", 0.9),
+    );
+    return { blob, width: canvas.width, height: canvas.height };
+  } finally {
+    URL.revokeObjectURL(url);
+  }
+}
+
+const PHOTO_TIPS = [
+  "Glasses off, face the camera straight on, both ears visible.",
+  "Hold the card flat against your cheek, long edge level, the whole card in the picture.",
+  "Turn the card so no numbers show - or use a loyalty, gift or ID-size card.",
+  "Daylight from the front, camera at eye height, arm's length away. Do not crop it.",
+];
+
 const num = (v: number | null) => (v === null || v === undefined ? "" : String(v));
 
 function formatAmount(cents: number | null, currency: string | null) {
@@ -192,12 +237,14 @@ export default function BespokeMeasurements() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [order, setOrder] = useState<OrderSummary | null>(null);
-  // The fit photo with a card is required for every Bespoke order, on top of
-  // the FitLens scan: it is the workshop's independent check of the width.
-  // Both photos count: the front checks the width, the side shows how high
-  // the nose bridge sits. A front-only order is sent back for the side photo.
+  // The fit photo with a card is required for every Bespoke order: the card
+  // gives the workshop a true scale. A side photo is optional.
+  // "bespoke-photo-v1" without a side photo is also what an upload that never
+  // finished leaves behind, so it does not count as a photo on file.
   const hasFitPhoto = Boolean(
-    order?.photo_consent && !order.photo_consent.consent_withdrawn_at && order.photo_consent.has_profile,
+    order?.photo_consent &&
+      !order.photo_consent.consent_withdrawn_at &&
+      (order.photo_consent.has_profile || order.photo_consent.consent_version !== "bespoke-photo-v1"),
   );
   const photoHref = `/en/bespoke/photo?sid=${encodeURIComponent(sid)}`;
   const [discoverySource, setDiscoverySource] = useState<BespokeDiscoverySource | "">("");
@@ -227,98 +274,37 @@ export default function BespokeMeasurements() {
   const [scanMono, setScanMono] = useState<{ left: number | null; right: number | null } | null>(null);
   /** Reference of the scan we already hold — shown when measuring a second time. */
   const [priorRef, setPriorRef] = useState<string | null>(null);
-  /** Fallback only: a reference the customer types when they scanned elsewhere. */
-  const [typedRef, setTypedRef] = useState("");
   const scanSectionRef = useRef<HTMLElement | null>(null);
-  const remeasureOpened = useRef(false);
 
-  const sessionRef = order?.session_ref ?? null;
-  // The scan reference is the order's, not the browser's, so a customer who
-  // opens the emailed link on a second device still measures against this order.
-  const { openFitLens } = useFitLensScript({
-    sessionRef,
-    // The order's own manual step lives on this page.
-    onManualFallback: () => {
-      setManualOpen(true);
-      window.setTimeout(
-        () => document.getElementById("bespoke-manual-measure")?.scrollIntoView({ behavior: "smooth", block: "start" }),
-        50,
-      );
-    },
-  });
-  const resultDedupeRef = useRef(createFitLensResultDedupe());
+  // Fit photo, held in the browser until the buyer sends the form.
+  const [photoFile, setPhotoFile] = useState<File | null>(null);
+  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
+  const [photoError, setPhotoError] = useState<string | null>(null);
+  const cameraRef = useRef<HTMLInputElement | null>(null);
+  const uploadRef = useRef<HTMLInputElement | null>(null);
+  /** Lens width printed on the current glasses (the first of the three numbers). */
+  const [glassesLens, setGlassesLens] = useState("");
 
-  // TRUST NOTE: this result arrives as a browser CustomEvent, which anyone can
-  // dispatch from a devtools console — the event alone proves nothing. What we
-  // trust instead: the `signedPayload` JWT (verified server-side against
-  // FitLens's JWKS) and, above it, the server-to-server webhook at
-  // `fitlens-webhook`. Numbers with neither are stored as `fitlens_client` /
-  // unverified and labelled as such. No fake integrity check is added here.
-  const handleScanResult = useCallback(
-    (event: Event) => {
-      const detail = (event as CustomEvent).detail;
-      // The embed and our message bridge can both dispatch the same result.
-      if (resultDedupeRef.current.isDuplicate(detail)) return;
-      const parsed = parseFitLensEvent(detail);
-      const measurements = parsed.measurements;
-      if (Object.keys(measurements).length === 0) {
-        setScanResult(null);
-        setScanError("The scan did not return usable numbers");
-        setManualOpen(true);
-        clarityEvent("bespoke_scan_empty");
-        return;
-      }
-      setScanError(null);
-      setScanResult(measurements);
-      setScanSource("fitlens_client");
-      setScanLocked(true);
-      setForm((f) => {
-        // The scan's `bridge` is the inner-canthal distance (a face
-        // measurement). It must never land in ai_bridge_width_mm, which means
-        // the bridge of a physical frame. The scan's temple length stays in the
-        // scan payload so it cannot pollute the manual column.
-        const next = {
-          ...f,
-          ai_face_width_mm: measurements.faceWidth != null ? String(measurements.faceWidth) : f.ai_face_width_mm,
-          ai_temple_to_temple_mm:
-            measurements.templeToTemple != null ? String(measurements.templeToTemple) : f.ai_temple_to_temple_mm,
-          ai_inner_canthal_mm: measurements.bridge != null ? String(measurements.bridge) : f.ai_inner_canthal_mm,
-          ai_pd_mm: measurements.pd != null ? String(measurements.pd) : f.ai_pd_mm,
-        };
-        setScanOriginal({
-          ai_face_width_mm: next.ai_face_width_mm,
-          ai_temple_to_temple_mm: next.ai_temple_to_temple_mm,
-          ai_inner_canthal_mm: next.ai_inner_canthal_mm,
-          ai_pd_mm: next.ai_pd_mm,
-        });
-        return next;
-      });
+  const onPhotoFile = (file: File) => {
+    setPhotoError(null);
+    if (!file.type.startsWith("image/")) {
+      setPhotoError("That file is not a photo. Choose a JPG or PNG, or take the photo with your camera.");
+      return;
+    }
+    setPhotoFile(file);
+    setPhotoPreview((prev) => {
+      if (prev) URL.revokeObjectURL(prev);
+      return URL.createObjectURL(file);
+    });
+    clarityEvent("bespoke_photo_attached");
+  };
+  useEffect(() => () => { if (photoPreview) URL.revokeObjectURL(photoPreview); }, [photoPreview]);
 
-      clarityEvent("bespoke_scan_completed");
-
-      // Verify (or, failing that, record) the result server-side. The banner
-      // upgrades itself once the server says which source it ended up as.
-      void recordFitLensEvent(parsed, sessionRef, typedRef || null).then(({ source }) =>
-        setScanSource(source),
-      );
-    },
-    [sessionRef, typedRef],
-  );
-
+  // The emailed "Measure again" link lands on the measurement section.
   useEffect(() => {
-    window.addEventListener("fitlens:result", handleScanResult as EventListener);
-    return () => window.removeEventListener("fitlens:result", handleScanResult as EventListener);
-  }, [handleScanResult]);
-
-  // The emailed "Measure again" link should need no typing: scroll to the
-  // measurement section and open the scanner as soon as the order is loaded.
-  useEffect(() => {
-    if (!remeasure || !order || remeasureOpened.current) return;
-    remeasureOpened.current = true;
+    if (!remeasure || !order) return;
     scanSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-    const t = window.setTimeout(() => openFitLens(), 600);
-    return () => window.clearTimeout(t);
-  }, [remeasure, order, openFitLens]);
+  }, [remeasure, order]);
 
   // Clarity: paid customers only ever land here, so keep every session
   // (upgrade) instead of letting Clarity sample it away. No personal data.
@@ -362,8 +348,9 @@ export default function BespokeMeasurements() {
           manual_temple_length_mm: num(data.manual_temple_length_mm),
           manual_head_circumference_mm: num(data.manual_head_circumference_mm),
           manual_ear_to_ear_mm: num(data.manual_ear_to_ear_mm),
-          manual_notes: data.manual_notes ?? "",
+          manual_notes: (data.manual_notes ?? "").replace(GLASSES_NOTE_RE, ""),
         });
+        setGlassesLens((data.manual_notes ?? "").match(/^Current glasses: lens (\d+(?:\.\d+)?)/)?.[1] ?? "");
 
         // A scan already attached to this order (webhook, signed or client)
         // prefills the scan block read-only. `nose_bridge_width_mm` is the
@@ -527,8 +514,81 @@ export default function BespokeMeasurements() {
       document.getElementById("measurement-discovery-source")?.focus();
       return;
     }
+    if (!hasFitPhoto && !photoFile) {
+      setPhotoError("Add your photo with a card - the workshop measures your face from it.");
+      scanSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      clarityEvent("bespoke_form_incomplete");
+      return;
+    }
     setSubmitting(true);
     setError(null);
+    setPhotoError(null);
+
+    // 1. The photo. Sending the form is the consent - see PHOTO_CONSENT_TEXT.
+    if (photoFile) {
+      try {
+        const jpeg = await photoToJpeg(photoFile);
+        const { data: signed, error: signErr } = await supabase.functions.invoke("bespoke-photo-upload-url", {
+          body: { sid },
+        });
+        const target = signed?.uploads?.photo;
+        if (signErr || !target) throw new Error("upload_url_failed");
+        const { error: upErr } = await supabase.storage
+          .from("bespoke-photos")
+          .uploadToSignedUrl(target.path, target.token, jpeg.blob, { contentType: "image/jpeg" });
+        if (upErr) throw upErr;
+        const { error: subErr } = await supabase.functions.invoke("bespoke-photo-submit", {
+          body: {
+            sid,
+            consentGiven: true,
+            consentText: PHOTO_CONSENT_TEXT,
+            consentVersion: PHOTO_CONSENT_VERSION,
+            locale: "en",
+            photoPath: target.path,
+            photoWidthPx: jpeg.width,
+            photoHeightPx: jpeg.height,
+          },
+        });
+        if (subErr) throw subErr;
+        const now = new Date().toISOString();
+        setOrder((o) =>
+          o
+            ? {
+                ...o,
+                photo_consent: {
+                  consent_at: now,
+                  consent_withdrawn_at: null,
+                  consent_version: PHOTO_CONSENT_VERSION,
+                  consent_locale: "en",
+                  has_profile: o.photo_consent?.has_profile ?? false,
+                },
+              }
+            : o,
+        );
+        setPhotoFile(null);
+        clarityEvent("bespoke_photo_uploaded");
+      } catch (err) {
+        console.error("[bespoke-measurements:photo]", err);
+        const decode = err instanceof Error && err.message === "decode_failed";
+        setPhotoError(
+          decode
+            ? "We could not open that photo. Take it with your camera, or choose a JPG or PNG."
+            : "We could not save your photo. Please try again, or email it to support@woolet.co.",
+        );
+        scanSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+        setSubmitting(false);
+        return;
+      }
+    }
+
+    // 2. The numbers. Lens width has no column, so it leads the workshop notes.
+    const glassesNumbers = [
+      glassesLens && `lens ${glassesLens}`,
+      form.manual_bridge_width_mm && `bridge ${form.manual_bridge_width_mm}`,
+      form.manual_temple_length_mm && `temple ${form.manual_temple_length_mm}`,
+    ].filter(Boolean);
+    const glassesNote = glassesNumbers.length ? `Current glasses: ${glassesNumbers.join(" · ")} mm` : NO_GLASSES_NOTE;
+    const workshopNotes = [glassesNote, form.manual_notes.trim()].filter(Boolean).join("\n");
     try {
       const { data, error: fnErr } = await supabase.functions.invoke("bespoke-measurements-submit", {
         body: {
@@ -551,7 +611,7 @@ export default function BespokeMeasurements() {
             temple_length_mm: form.manual_temple_length_mm || null,
             head_circumference_mm: form.manual_head_circumference_mm || null,
             ear_to_ear_mm: form.manual_ear_to_ear_mm || null,
-            notes: form.manual_notes || null,
+            notes: workshopNotes,
           },
           reading: needsStrength
             ? {
@@ -615,11 +675,6 @@ export default function BespokeMeasurements() {
       setSubmitted(true);
       clarityEvent("bespoke_shipping_saved");
       clarityEvent("bespoke_measurements_submitted");
-      // Required next step: no photo on file yet → straight to the photo page.
-      if (!hasFitPhoto) {
-        window.location.assign(photoHref);
-        return;
-      }
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {
 
@@ -634,7 +689,7 @@ export default function BespokeMeasurements() {
     <>
       <SEO
         title="Submit your measurements · Woolet Bespoke"
-        description="Send your AI face-scan and manual measurements so we can cut your Woolet Bespoke frames to fit."
+        description="Send your photo with a card and the numbers from your current glasses so we can cut your Woolet Bespoke frames to fit."
         noindex
       />
       <div className="min-h-screen bg-background text-cream">
@@ -667,8 +722,8 @@ export default function BespokeMeasurements() {
                   One last step — your <em className="text-gold not-italic italic">measurements</em>.
                 </h1>
                 <p className="text-cream-dim mt-3 max-w-xl leading-relaxed">
-                  Two things before the workshop cuts: where to ship, and your measurements -
-                  twenty seconds with your phone camera.
+                  Three things before the workshop cuts: where to ship, one photo with a card, and
+                  the numbers printed on your current glasses.
 
                 </p>
 
@@ -802,18 +857,19 @@ export default function BespokeMeasurements() {
                       </p>
                       {!hasFitPhoto && (
                         <p className="mt-4 rounded-sm border border-gold/60 bg-gold/10 px-4 py-3 text-sm text-cream leading-relaxed">
-                          <strong className="text-gold">One step left - required.</strong> Take two photos
-                          with a bank card held flat against your cheek - one straight on, one from the
-                          side. We start cutting only after they arrive.
+                          <strong className="text-gold">One step left - required.</strong> We still need
+                          your photo with a bank card held flat against your cheek. We start cutting only
+                          after it arrives.{" "}
+                          <button
+                            type="button"
+                            onClick={() => setSubmitted(false)}
+                            className="underline underline-offset-4 hover:text-gold"
+                          >
+                            Add the photo
+                          </button>
                         </p>
                       )}
                       <div className="mt-5 flex flex-col sm:flex-row gap-3">
-                        <a
-                          href={photoHref}
-                          className="inline-flex min-h-[48px] items-center justify-center bg-gold px-6 text-[12px] uppercase tracking-[0.18em] text-[#1F1B16] transition-colors hover:bg-gold-light"
-                        >
-                          {hasFitPhoto ? "Retake fit photos" : "Take the fit photos"}
-                        </a>
                         <button
                           type="button"
                           onClick={handleWorkshopPdf}
@@ -824,11 +880,15 @@ export default function BespokeMeasurements() {
                           {pdfBusy ? "Preparing…" : "Workshop report (PDF)"}
                         </button>
                       </div>
-                      <p className="mt-3 text-cream-dim text-xs leading-relaxed">
-                        {hasFitPhoto
-                          ? "Fit photos received. We check them against your scan before we cut."
-                          : "Required for every Bespoke order. The card gives us a true scale, so we can double-check your scan and show you the frames on your own face before we cut them."}
-                      </p>
+                      {hasFitPhoto && (
+                        <p className="mt-3 text-cream-dim text-xs leading-relaxed">
+                          Photo received. Optional: a{" "}
+                          <a href={photoHref} className="text-cream underline underline-offset-4 hover:text-gold">
+                            side photo
+                          </a>{" "}
+                          shows us how high your nose bridge sits.
+                        </p>
+                      )}
                       {shipping.line1 && (
                         <p data-clarity-mask="true" className="mt-4 text-cream-dim text-sm leading-relaxed">
                           Shipping to: {shipping.name}, {shipping.line1}, {shipping.city}{" "}
@@ -927,8 +987,8 @@ export default function BespokeMeasurements() {
 
                   <section ref={scanSectionRef}>
                     <div className="flex items-center gap-2 text-cream mb-1">
-                      <span className="text-gold"><ScanFace size={16} /></span>
-                      <h2 className="text-lg font-medium">2 · Measure your face</h2>
+                      <span className="text-gold"><CreditCard size={16} /></span>
+                      <h2 className="text-lg font-medium">2 · Photo with a card</h2>
                     </div>
                     {remeasure && (
                       <p className="mb-3 inline-flex rounded-sm bg-gold/15 px-2.5 py-1 text-[11px] uppercase tracking-[0.16em] text-gold">
@@ -936,37 +996,139 @@ export default function BespokeMeasurements() {
                       </p>
                     )}
                     <p className="text-cream-dim text-sm mb-5 max-w-xl leading-relaxed">
-                      Twenty seconds with your phone camera and any bank card. The workshop cuts to
-                      these numbers.
+                      One photo, straight on, with any bank-size card flat against your cheek. Every
+                      such card is 85.6 mm wide, so the workshop reads the true width of your face
+                      from it.
                     </p>
-                    <button
-                      type="button"
-                      onClick={() => openFitLens()}
-                      className="inline-flex min-h-[48px] items-center justify-center bg-gold px-7 text-[12px] uppercase tracking-[0.18em] text-[#1F1B16] transition-colors hover:bg-gold-light"
-                    >
-                      Start the scan
-                    </button>
 
-                    <details className="mt-4">
-                      <summary className="cursor-pointer text-xs text-cream-dim underline underline-offset-4 hover:text-gold">
-                        I have a measurement reference
-                      </summary>
-                      <input
-                        type="text"
-                        value={typedRef}
-                        onChange={(e) => setTypedRef(e.target.value.toUpperCase())}
-                        placeholder="M-7KQ4X2"
-                        aria-label="Measurement reference"
-                        className="mt-2 w-48 rounded-sm border border-cream/20 bg-transparent px-3 py-2 text-sm uppercase tracking-[0.12em] text-cream placeholder:text-cream-dim/50"
+                    <figure className="flex flex-col gap-4 border border-cream/12 bg-cream/[0.03] p-4 sm:flex-row sm:items-center">
+                      <img
+                        src="/images/bespoke/fit-photo-example.webp"
+                        width={720}
+                        height={894}
+                        loading="lazy"
+                        alt="Example photo: a man looks straight at the camera and holds a plain bank-size card flat against his cheek, long edge level, no card numbers visible."
+                        className="w-full max-w-[200px] self-center"
                       />
-                      <p className="mt-1 text-[11px] leading-relaxed text-cream-dim/70">
-                        Only needed if you scanned outside the link we emailed you.
+                      <figcaption>
+                        <span className="block text-[11px] uppercase tracking-[0.18em] text-gold">Like this</span>
+                        <ul className="mt-2 list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-cream-dim">
+                          {PHOTO_TIPS.map((tip) => (
+                            <li key={tip}>{tip}</li>
+                          ))}
+                        </ul>
+                      </figcaption>
+                    </figure>
+
+                    {photoPreview ? (
+                      <div className="mt-5 flex items-center gap-4">
+                        <img
+                          src={photoPreview}
+                          alt="Your photo, ready to send"
+                          data-clarity-mask="true"
+                          className="h-28 w-24 border border-gold/40 object-cover"
+                        />
+                        <div>
+                          <p className="flex items-center gap-2 text-sm text-cream">
+                            <CheckCircle2 size={16} className="text-gold" /> Photo attached
+                          </p>
+                          <p className="mt-1 text-xs leading-relaxed text-cream-dim">
+                            It stays on your device until you send the form below.
+                          </p>
+                          <button
+                            type="button"
+                            onClick={() => uploadRef.current?.click()}
+                            className="mt-2 text-xs text-cream underline underline-offset-4 hover:text-gold"
+                          >
+                            Choose a different photo
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <>
+                        {hasFitPhoto && (
+                          <p className="mt-5 flex items-center gap-2 text-sm text-cream">
+                            <CheckCircle2 size={16} className="text-gold" /> We already have your photo.
+                            Add a new one only to replace it.
+                          </p>
+                        )}
+                        <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+                          <button
+                            type="button"
+                            onClick={() => cameraRef.current?.click()}
+                            className={`inline-flex min-h-[48px] items-center justify-center gap-2 px-7 text-[12px] uppercase tracking-[0.18em] transition-colors ${
+                              hasFitPhoto
+                                ? "border border-cream/25 text-cream hover:border-gold hover:text-gold"
+                                : "bg-gold text-[#1F1B16] hover:bg-gold-light"
+                            }`}
+                          >
+                            <Camera size={15} aria-hidden /> Take the photo
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => uploadRef.current?.click()}
+                            className="inline-flex min-h-[48px] items-center justify-center gap-2 border border-cream/25 px-7 text-[12px] uppercase tracking-[0.18em] text-cream transition-colors hover:border-gold hover:text-gold"
+                          >
+                            <Upload size={15} aria-hidden /> Upload a photo
+                          </button>
+                        </div>
+                      </>
+                    )}
+                    <input
+                      ref={cameraRef}
+                      type="file"
+                      accept="image/*"
+                      capture="user"
+                      aria-label="Take the photo with a card"
+                      className="sr-only"
+                      onChange={(e) => {
+                        const f = e.target.files?.[0];
+                        if (f) onPhotoFile(f);
+                        e.target.value = "";
+                      }}
+                    />
+                    <input
+                      ref={uploadRef}
+                      type="file"
+                      accept="image/*"
+                      aria-label="Upload the photo with a card"
+                      className="sr-only"
+                      onChange={(e) => {
+                        const f = e.target.files?.[0];
+                        if (f) onPhotoFile(f);
+                        e.target.value = "";
+                      }}
+                    />
+                    {photoError && (
+                      <p role="alert" className="mt-4 text-sm text-red-300/90 bg-red-500/10 border border-red-500/30 rounded px-3 py-2">
+                        {photoError}
                       </p>
-                    </details>
+                    )}
+
+                    <div className="mt-10 flex items-center gap-2 text-cream mb-1">
+                      <span className="text-gold"><Glasses size={16} /></span>
+                      <h2 className="text-lg font-medium">3 · The numbers on your current glasses</h2>
+                    </div>
+                    <p className="text-cream-dim text-sm mb-5 max-w-xl leading-relaxed">
+                      Look inside the arm of the glasses that fit you best. Three numbers are printed
+                      there, for example <span className="text-cream">54 □ 20 150</span>: lens width,
+                      bridge and arm length, in millimetres. No glasses, or the print has worn off?
+                      Leave these empty.
+                    </p>
+                    <div className="grid grid-cols-3 gap-3 max-w-md">
+                      <Field label="Lens width" value={glassesLens} onChange={(e) => setGlassesLens(e.target.value)} placeholder="54" />
+                      <Field label="Bridge" value={form.manual_bridge_width_mm} onChange={update("manual_bridge_width_mm")} placeholder="20" />
+                      <Field label="Arm length" value={form.manual_temple_length_mm} onChange={update("manual_temple_length_mm")} placeholder="150" />
+                    </div>
+                    {requestedTempleLength && (
+                      <p className="mt-2 text-[11px] leading-relaxed text-cream-dim/70">
+                        Arm length you asked for at checkout: {requestedTempleLength}
+                      </p>
+                    )}
 
                     {scanError && (
                       <p className="mt-4 text-sm text-red-300/90 bg-red-500/10 border border-red-500/30 rounded px-3 py-2">
-                        {scanError}. Enter them by hand below.
+                        {scanError}.
                       </p>
                     )}
 
@@ -984,7 +1146,7 @@ export default function BespokeMeasurements() {
                           </p>
                         )}
                         <p className="text-cream text-sm leading-relaxed">
-                          Your scan:{" "}
+                          Camera scan already on this order:{" "}
                           {[
                             scanResult.templeToTemple != null &&
                               `temple-to-temple ${scanResult.templeToTemple} mm`,
@@ -1017,16 +1179,8 @@ export default function BespokeMeasurements() {
                             ? "These numbers look wrong - correct manually"
                             : "Correcting by hand - the scan's own numbers are kept on the order"}
                         </button>
-                        <button
-                          type="submit"
-                          disabled={submitting}
-                          className="mt-4 inline-flex min-h-[48px] items-center justify-center gap-2 bg-cream px-6 text-[12px] uppercase tracking-[0.22em] font-medium text-ink transition hover:bg-gold disabled:opacity-60"
-                        >
-                          {submitting && <Loader2 size={14} className="animate-spin" />}
-                          These are my numbers - send to the workshop
-                        </button>
                         <p className="mt-3 text-cream-dim/80 text-xs leading-relaxed">
-                          An optician checks these against your order before anything is cut.
+                          The workshop checks it against your photo before anything is cut.
                         </p>
                       </div>
                     )}
@@ -1038,14 +1192,14 @@ export default function BespokeMeasurements() {
                       className="mt-6 border-t border-cream/12 pt-5"
                     >
                       <summary className="cursor-pointer list-none text-cream text-sm underline underline-offset-4 hover:text-gold">
-                        No camera? Enter the numbers by hand
+                        Measured yourself with a ruler? Add more numbers (optional)
                       </summary>
 
                       <div className="mt-6 space-y-8">
                         <FieldGroup
                           icon={<Sparkles size={16} />}
-                          title="Scan values"
-                          hint="If you already ran the scan somewhere else, paste the numbers it returned. Skip any you didn't get."
+                          title="Numbers from a fit scan"
+                          hint="Only if you already have numbers from a face scan or an optician. Skip any you do not have."
                         >
                           <Field label="Face width (mm)" value={form.ai_face_width_mm} onChange={update("ai_face_width_mm")} placeholder="e.g. 158" />
                           <Field label="Temple-to-temple (mm)" value={form.ai_temple_to_temple_mm} onChange={update("ai_temple_to_temple_mm")} placeholder="e.g. 160" />
@@ -1070,31 +1224,11 @@ export default function BespokeMeasurements() {
                               Your best-fitting pair: front width outer edge to outer edge, arm from hinge
                               to tip. Put both in the notes with what is wrong with that pair.
                             </li>
-                            <li>
-                              Photos with a card (required): after you submit, take two photos with a bank
-                              card flat against your cheek, glasses off, in daylight - one straight on,
-                              one from the side.
-                            </li>
                           </ol>
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <Field label="Face width (mm)" value={form.manual_face_width_mm} onChange={update("manual_face_width_mm")} placeholder="e.g. 155" />
                             <Field label="Temple-to-temple (mm)" value={form.manual_temple_to_temple_mm} onChange={update("manual_temple_to_temple_mm")} placeholder="e.g. 158" />
-                            <Field
-                              label="Bridge of your best-fitting glasses (mm)"
-                              value={form.manual_bridge_width_mm}
-                              onChange={update("manual_bridge_width_mm")}
-                              placeholder="e.g. 20"
-                              note="The number printed inside the arm, between the lenses - not a measurement of your nose."
-                            />
-
                             <Field label="PD (mm)" value={form.manual_pd_mm} onChange={update("manual_pd_mm")} placeholder="e.g. 65" />
-                            <Field
-                              label="Temple length (mm)"
-                              value={form.manual_temple_length_mm}
-                              onChange={update("manual_temple_length_mm")}
-                              placeholder="e.g. 145"
-                              note={requestedTempleLength ? `Requested at checkout: ${requestedTempleLength}` : undefined}
-                            />
                             <Field label="Head circumference (mm)" value={form.manual_head_circumference_mm} onChange={update("manual_head_circumference_mm")} placeholder="e.g. 580" />
                             <Field label="Ear-to-ear over crown (mm)" value={form.manual_ear_to_ear_mm} onChange={update("manual_ear_to_ear_mm")} placeholder="e.g. 200" />
                             <Textarea label="Notes for the workshop" value={form.manual_notes} onChange={update("manual_notes")} placeholder="Preferred fit (snug / relaxed), sensitivities, current frame model that fits well…" />
@@ -1112,19 +1246,27 @@ export default function BespokeMeasurements() {
                     </p>
                   )}
 
-                  <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+                  <div>
+                    {photoFile && (
+                      <div className="mb-4 max-w-xl border border-cream/12 bg-cream/[0.03] p-4">
+                        <p className="text-[11px] uppercase tracking-[0.18em] text-gold">Your consent</p>
+                        <p className="mt-2 text-xs leading-relaxed text-cream-dim">{PHOTO_CONSENT_TEXT}</p>
+                      </div>
+                    )}
                     <button
                       type="submit"
                       disabled={submitting}
-                      className="inline-flex items-center gap-2 bg-cream text-ink px-6 py-3 text-[12px] uppercase tracking-[0.22em] font-medium rounded-sm hover:bg-gold transition disabled:opacity-60"
+                      className="inline-flex min-h-[48px] items-center gap-2 bg-cream text-[#1F1B16] px-6 py-3 text-[12px] uppercase tracking-[0.22em] font-medium rounded-sm hover:bg-gold transition disabled:opacity-60"
                     >
                       {submitting && <Loader2 size={14} className="animate-spin" />}
-                      {submitting ? "Sending…" : hasFitPhoto ? "Submit measurements" : "Submit & take the fit photos"}
+                      {submitting ? "Sending…" : photoFile ? "Agree & send to the workshop" : "Send to the workshop"}
                     </button>
-                    <p className="text-cream-dim/70 text-[11px]">
-                      {hasFitPhoto
-                        ? "You can resubmit this form later; we use the latest values."
-                        : "Next: two photos with a bank card on your cheek - front and side (required)."}
+                    <p className="mt-3 text-cream-dim/70 text-[11px] leading-relaxed">
+                      {photoFile
+                        ? "Tapping the button gives the consent above. Nothing is sent before that."
+                        : hasFitPhoto
+                          ? "You can send this form again later; we use the latest values."
+                          : "Add your photo with a card above to send."}
                     </p>
                   </div>
                 </form>
@@ -1259,7 +1401,7 @@ function CountryField({
       >
         <option value="">Select a country</option>
         {COUNTRY_CODES.map((code) => (
-          <option key={code} value={code} className="text-ink">
+          <option key={code} value={code} className="text-[#1F1B16]">
             {countryLabel(code)}
           </option>
         ))}
