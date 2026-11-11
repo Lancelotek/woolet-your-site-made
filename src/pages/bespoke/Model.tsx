@@ -209,7 +209,7 @@ export default function BespokeModel() {
               </h1>
               <p className="mt-4 text-cream-dim leading-relaxed">
                 The {BALANCE_WINDOW_DAYS} days to approve your 3D model have passed. Nothing more is charged. The{" "}
-                {formatUsdCents(s.depositCents)} deposit covered your fit scan and 3D model and is not refunded.
+                {formatUsdCents(s.depositCents)} deposit covered your fitting and 3D model and is not refunded.
               </p>
               <p className="mt-4 text-cream-dim leading-relaxed">
                 Still want the frame? Write to{" "}
@@ -349,7 +349,7 @@ export default function BespokeModel() {
 
               <p className="mt-10 text-xs text-cream-dim leading-relaxed">
                 Not going ahead? You don't need to do anything. Nothing more is charged unless you approve the model.
-                The {formatUsdCents(s.depositCents)} deposit covered your fit scan and 3D model and is not refunded.
+                The {formatUsdCents(s.depositCents)} deposit covered your fitting and 3D model and is not refunded.
               </p>
             </section>
           )}

@@ -233,7 +233,7 @@ function formatAmount(cents: number | null, currency: string | null) {
 export default function BespokeMeasurements() {
   const [params] = useSearchParams();
   const sid = params.get("sid") ?? "";
-  // Arrives from the "Measure again" button in the measurement summary email.
+  // Arrives from the "Correct my numbers" button in the measurement summary email.
   const remeasure = params.get("remeasure") === "1";
 
   const [loading, setLoading] = useState(true);
@@ -304,7 +304,7 @@ export default function BespokeMeasurements() {
   };
   useEffect(() => () => { if (photoPreview) URL.revokeObjectURL(photoPreview); }, [photoPreview]);
 
-  // The emailed "Measure again" link lands on the measurement section.
+  // The emailed "Correct my numbers" link lands on the measurement section.
   useEffect(() => {
     if (!remeasure || !order) return;
     scanSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -513,11 +513,6 @@ export default function BespokeMeasurements() {
       clarityEvent("bespoke_form_incomplete");
       return;
     }
-    if (!order?.source && !isBespokeDiscoverySource(discoverySource)) {
-      setError("Choose how you found Woolet before submitting.");
-      document.getElementById("measurement-discovery-source")?.focus();
-      return;
-    }
     if (!hasFitPhoto && !photoFile) {
       setPhotoError("Add your photo with a card - the workshop measures your face from it.");
       scanSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -597,7 +592,8 @@ export default function BespokeMeasurements() {
       const { data, error: fnErr } = await supabase.functions.invoke("bespoke-measurements-submit", {
         body: {
           sid,
-          source: order?.source || discoverySource,
+          // Optional: an unanswered question never blocks the form.
+          source: order?.source || discoverySource || null,
           ai: {
             face_width_mm: form.ai_face_width_mm || null,
             temple_to_temple_mm: form.ai_temple_to_temple_mm || null,
@@ -806,8 +802,8 @@ export default function BespokeMeasurements() {
 
               {order && !order.source && (
                 <section className="border border-cream/20 p-5 mb-8">
-                  <label htmlFor="measurement-discovery-source" className="block text-sm text-cream mb-3">How did you find Woolet? *</label>
-                  <select id="measurement-discovery-source" required value={discoverySource} onChange={(e) => setDiscoverySource(isBespokeDiscoverySource(e.target.value) ? e.target.value : "")} className="min-h-[48px] w-full border border-cream/20 bg-background px-3 text-cream">
+                  <label htmlFor="measurement-discovery-source" className="block text-sm text-cream mb-3">How did you find Woolet? <span className="text-cream-dim">(optional)</span></label>
+                  <select id="measurement-discovery-source" value={discoverySource} onChange={(e) => setDiscoverySource(isBespokeDiscoverySource(e.target.value) ? e.target.value : "")} className="min-h-[48px] w-full border border-cream/20 bg-background px-3 text-cream">
                     <option value="">Select one</option>
                     {BESPOKE_DISCOVERY_SOURCES.map((item) => <option key={item} value={item}>{item}</option>)}
                   </select>
