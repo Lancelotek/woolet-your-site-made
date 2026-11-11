@@ -26,6 +26,13 @@ describe("bespoke deposit split", () => {
     expect(splitDeposit(48000, depositPrice(mergePriceRows([]))).plan).toBe("full");
   });
 
+  it("sandbox deposit applies in test mode only", () => {
+    const table = mergePriceRows([{ key: "deposit", amount_usd: 0 }, { key: "deposit_sandbox", amount_usd: 49 }]);
+    expect(depositPrice(table)).toBe(0);
+    expect(depositPrice(table, true)).toBe(49);
+    expect(depositPrice(mergePriceRows([{ key: "deposit", amount_usd: 60 }]), true)).toBe(60);
+  });
+
   it("charges the deposit now and the rest after approval", () => {
     const table = mergePriceRows([{ key: "deposit", amount_usd: "49.00" }]);
     expect(splitDeposit(49000, depositPrice(table))).toEqual({

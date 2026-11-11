@@ -8,14 +8,18 @@
 -- Orders created before this migration keep payment_plan = 'full' and are not
 -- touched by any of the deposit logic.
 
--- 1. Deposit amount lives in the live price table (0 = back to full payment).
+-- 1. Deposit amount lives in the live price table (0 = full payment upfront).
+--    Rollout: the live deposit starts at 0 and the sandbox deposit at 49, so the
+--    flow is tested on the preview site first. Going live = set "Deposit" to 49
+--    in /en/admin/bespoke -> Pricing.
 alter table public.bespoke_pricing drop constraint if exists bespoke_pricing_key_check;
 alter table public.bespoke_pricing
   add constraint bespoke_pricing_key_check
-  check (key ~ '^(frame|lens):[a-z0-9-]+$' or key in ('engraving', 'deposit'));
+  check (key ~ '^(frame|lens):[a-z0-9-]+$' or key in ('engraving', 'deposit', 'deposit_sandbox'));
 
 insert into public.bespoke_pricing (key, label, amount_usd, sort_order) values
-  ('deposit', 'Deposit paid at checkout (0 = full payment upfront)', 49, 60)
+  ('deposit', 'Deposit paid at checkout (0 = full payment upfront)', 0, 60),
+  ('deposit_sandbox', 'Deposit in Stripe test mode only (preview site)', 49, 61)
 on conflict (key) do nothing;
 
 -- 2. Payment columns on the order.

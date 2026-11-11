@@ -88,9 +88,16 @@ export const BALANCE_WINDOW_DAYS = 14;
 /** Day the one reminder email goes out, counted from the day the model was sent. */
 export const BALANCE_REMINDER_DAY = 10;
 
-export const depositPrice = (table: PriceTable) => {
+/**
+ * Deposit in USD, 0 = full payment upfront. In the Stripe sandbox the row
+ * `deposit_sandbox` wins when it is set, so the whole deposit flow can be
+ * tested on the preview site while live buyers still pay in full.
+ */
+export const depositPrice = (table: PriceTable, sandbox = false) => {
+  const ok = (n: unknown): n is number => typeof n === "number" && Number.isFinite(n) && n > 0;
+  if (sandbox && ok(table["deposit_sandbox"])) return table["deposit_sandbox"];
   const n = table["deposit"];
-  return typeof n === "number" && Number.isFinite(n) && n > 0 ? n : 0;
+  return ok(n) ? n : 0;
 };
 
 export interface DepositSplit {

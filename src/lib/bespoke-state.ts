@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { DEFAULT_TEMPLE_LENGTH_MM, findLensTint, findSunTint, isValidTempleLength, ACTIVE_LENS_TYPES, resolveActiveColorId, type LensTint, type MeasurementKey, type ReadingStrength } from "@/data/bespoke-options";
 import { findFrame } from "@/data/frames";
+import { isTestMode } from "@/lib/stripe";
 import { depositPrice, getPriceTable, quoteBespoke, splitDeposit, usePriceTable, type DepositSplit, type PriceTable } from "@/lib/bespoke-pricing";
 
 export type Measurements = Partial<Record<MeasurementKey, number>>;
@@ -185,7 +186,7 @@ export function computePricing(config: BespokeConfig, prices: PriceTable = getPr
     engravingEur: q.engravingUsd,
     lensEur: config.lensTypeId ? q.lensUsd : 0,
     totalEur: q.totalUsd,
-    split: splitDeposit(Math.round(q.totalUsd * 100), depositPrice(prices)),
+    split: splitDeposit(Math.round(q.totalUsd * 100), depositPrice(prices, isTestMode())),
   };
 }
 
