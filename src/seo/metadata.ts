@@ -2569,7 +2569,7 @@ export function getAllRoutes(): string[] {
   }
   const appRoutes = Object.keys(APP_PAGE_METADATA).flatMap((path) => {
     if (path.startsWith("/.lovable/") || path === "/unsubscribe") return [path];
-    if (["/reserve", "/shop", "/upvote", "/fit/quick", "/thank-you/reserved", "/lp/kickstarter/vip-confirmed"].includes(path)) return [`/en${path}`];
+    if (["/reserve", "/founders", "/shop", "/upvote", "/fit/quick", "/thank-you/reserved", "/lp/kickstarter/vip-confirmed"].includes(path)) return [`/en${path}`];
     return SUPPORTED_LANGS.map((locale) => `/${locale}${path}`);
   });
   return [...new Set([...STATIC_ROUTES, ...blogRoutes, ...appRoutes,

@@ -76,6 +76,7 @@ const EXTRA_APP_ROUTES = [
   "/thank-you-fb",
   "/en/thank-you/reserved",
   "/en/reserve",
+  "/en/founders",
   "/en/thank-you",
   "/en/thank-you-fb",
   "/pl/thank-you",

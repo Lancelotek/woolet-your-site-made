@@ -9,6 +9,19 @@ const corsHeaders = {
 // $1 reservation reopened 05.11.2026, open until the campaign deadline (Fri 04.12.2026).
 const RESERVATION_CLOSE_AT_MS = Date.UTC(2026, 11, 4, 14, 0, 0);
 const DEPOSIT_PRICE_IDS = new Set(["founding_member_deposit_1usd"]);
+
+// Founder Edition pre-order on woolet.co (11.11.2026): same offer as the secret
+// Kickstarter reward, for people who won't log in to Kickstarter. Price is fixed
+// here (inline price_data), never taken from the client. Stock is shared with
+// the KS reward: lower the KS reward limit by every frame sold here.
+const FOUNDER_PRICE_ID = "founder_edition_009_114";
+const FOUNDER_AMOUNT_CENTS = 11400;
+const FOUNDER_SITE_CAP = 10;
+const FOUNDER_COUNTRIES = [
+  "US", "CA", "GB", "IE", "DE", "AT", "CH", "FR", "BE", "NL", "LU", "IT", "ES", "PT", "PL", "CZ",
+  "SK", "HU", "DK", "SE", "NO", "FI", "IS", "EE", "LV", "LT", "SI", "HR", "GR", "RO", "BG", "CY",
+  "MT", "AU", "NZ", "JP", "KR", "SG", "HK", "TW", "IL", "AE", "SA", "MX", "BR", "VN",
+] as const;
 const KICKSTARTER_URL =
   "https://www.kickstarter.com/projects/wooletco/woolet-finally-glasses-that-actually-fit-wider-faces?ref=site_lp";
 
@@ -19,6 +32,64 @@ interface Body {
   returnUrl: string;
   environment: StripeEnv;
   metadata?: Record<string, string>;
+}
+
+const json = (status: number, payload: unknown) =>
+  new Response(JSON.stringify(payload), {
+    status,
+    headers: { ...corsHeaders, "Content-Type": "application/json" },
+  });
+
+async function createFounderSession(stripe: any, body: Body, req: Request): Promise<Response> {
+  if (Date.now() >= RESERVATION_CLOSE_AT_MS) return json(410, { error: "closed" });
+
+  // Paid site orders so far (Stripe search index lags ~1 min; fine at this volume).
+  const sold = await stripe.paymentIntents.search({
+    query: "metadata['flow']:'founder_edition' AND status:'succeeded'",
+    limit: 100,
+  });
+  if (sold.data.length >= FOUNDER_SITE_CAP) return json(410, { error: "sold_out" });
+
+  const meta: Record<string, string> = {};
+  for (const [k, v] of Object.entries(body.metadata ?? {})) {
+    if (typeof v === "string" && v.length <= 500) meta[k] = v;
+  }
+  const xff = req.headers.get("x-forwarded-for");
+  const ip = xff?.split(",")[0]?.trim() || req.headers.get("cf-connecting-ip") || req.headers.get("x-real-ip");
+  if (ip && !meta.meta_client_ip_address) meta.meta_client_ip_address = ip.slice(0, 64);
+  if (ip) meta.openai_client_ip = ip.slice(0, 64);
+  const ua = req.headers.get("user-agent");
+  if (ua) meta.openai_client_ua = ua.slice(0, 500);
+  meta.flow = "founder_edition";
+  meta.sku = "founder_009_black_24";
+
+  const session = await stripe.checkout.sessions.create({
+    mode: "payment",
+    ui_mode: "embedded_page",
+    return_url: body.returnUrl,
+    line_items: [{
+      quantity: 1,
+      price_data: {
+        currency: "usd",
+        unit_amount: FOUNDER_AMOUNT_CENTS,
+        product_data: {
+          name: "Woolet Founder Edition - 009 Black (pre-order)",
+          description: "158 mm front, 24 mm bridge, Mazzucchelli acetate. Founder Box included. Ships right after the Kickstarter campaign ends on December 4, 2026.",
+          images: ["https://woolet.co/frames/woolet-009-soft-square-black-eyeglasses.jpg"],
+        },
+      },
+    }],
+    shipping_address_collection: { allowed_countries: [...FOUNDER_COUNTRIES] },
+    phone_number_collection: { enabled: true },
+    expires_at: Math.floor(Date.now() / 1000) + 60 * 60,
+    ...(body.customerEmail && { customer_email: body.customerEmail }),
+    metadata: meta,
+    payment_intent_data: {
+      metadata: meta,
+      description: "Woolet Founder Edition 009 Black - pre-order (woolet.co)",
+    },
+  });
+  return json(200, { clientSecret: session.client_secret });
 }
 
 Deno.serve(async (req) => {
@@ -52,6 +123,10 @@ Deno.serve(async (req) => {
     }
 
     const stripe = createStripeClient(body.environment);
+
+    if (body.priceId === FOUNDER_PRICE_ID) {
+      return await createFounderSession(stripe, body, req);
+    }
 
     const prices = await stripe.prices.list({ lookup_keys: [body.priceId] });
     if (!prices.data.length) throw new Error("Price not found");

@@ -7,6 +7,7 @@ export const APP_PAGE_METADATA: Record<string, { title: string; description: str
   "/bespoke/photo": { title: "Fit photo - Woolet Bespoke", description: "Confirm the fit of your made-to-measure frames.", robots: "noindex, follow" },
   "/bespoke/shipping": { title: "Shipping address · Woolet Bespoke", description: "Confirm where we ship your Woolet Bespoke frame.", robots: "noindex, follow" },
   "/measure": { title: "Measurement", description: "Private measurement page for a Woolet bespoke order.", robots: "noindex, nofollow" },
+  "/founders": { title: "Founder Edition - Woolet", description: "Woolet 009 Black Founder Edition: $114 instead of $190, with the Founder Box. Pre-order on woolet.co, no Kickstarter account needed.", robots: "noindex, nofollow" },
   "/reserve": { title: "Reserve your founder price - Woolet", description: "Reserve your Woolet founder price with a $1 deposit.", robots: "noindex, nofollow" },
   "/fit/wizard": { title: "FitLens Wizard - Measure Your Face | Woolet", description: "Step-by-step wizard for the Woolet FitLens measurement. Face width, bridge and PD in about 60 seconds.", robots: "noindex, follow" },
   "/fit/quick": { title: "Quick fit quiz - find your eyewear size in 30 seconds | Woolet", description: "No camera, no measuring. Answer 3 quick questions about hat size and nose width to get a starting recommendation for wide-face eyewear.", robots: "noindex, follow" },

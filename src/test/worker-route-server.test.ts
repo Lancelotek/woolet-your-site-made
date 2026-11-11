@@ -31,7 +31,7 @@ describe("route-server Worker", () => {
   const MUST_200 = [
     "/en", "/en/bespoke", "/en/bespoke/configurator", "/en/bespoke/checkout",
     "/en/bespoke/checkout?paid=1&session_id=cs_test", "/en/bespoke/scan", "/en/bespoke/measurements",
-    "/en/bespoke/shipping", "/en/bespoke/photo", "/en/measure", "/en/reserve", "/en/thank-you",
+    "/en/bespoke/shipping", "/en/bespoke/photo", "/en/measure", "/en/reserve", "/en/founders", "/en/thank-you",
     "/en/thank-you/reserved", "/thank-you", "/thank-you-fb", "/en/lp/kickstarter",
     "/en/lp/kickstarter/vip-confirmed", "/de/lp/kickstarter", "/en/fit", "/en/fit/wizard",
     "/en/products/007", "/en/products/009", "/en/products/bespoke", "/en/our-story",

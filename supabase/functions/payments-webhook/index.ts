@@ -167,12 +167,12 @@ async function fireMetaPurchase(session: any) {
 async function fireGa4Conversion(
   session: any,
   env: StripeEnv,
-  flow: "reservation" | "bespoke",
+  flow: "reservation" | "bespoke" | "founder",
   paidSource: string,
 ) {
   if (env !== "live") return;
   const eventName = "purchase";
-  const logName = flow === "bespoke" ? "GA4Purchase" : "GA4Reservation";
+  const logName = flow === "bespoke" ? "GA4Purchase" : flow === "founder" ? "GA4FounderEdition" : "GA4Reservation";
   let status: "sent" | "error" | "skipped" = "sent";
   let http: number | null = null;
   let email: string | undefined;
@@ -202,6 +202,9 @@ async function fireGa4Conversion(
       if (meta.ga_session_id && Number.isFinite(sid)) params.session_id = sid;
       if (flow === "reservation") {
         params.items = [{ item_id: "reservation_1usd", item_name: "Founder reservation $1", item_category: "reservation", price: value, quantity: 1 }];
+      }
+      if (flow === "founder") {
+        params.items = [{ item_id: "founder_009_black_24", item_name: "Founder Edition 009 Black", item_category: "founder_edition", price: value, quantity: 1 }];
       }
       if (flow === "bespoke") {
         params.items = [{
@@ -475,7 +478,79 @@ async function handleBespokeCheckoutExpired(session: any) {
   }
 }
 
+const MAILERLITE_GROUP_FOUNDER_SITE = "203832734069556872"; // Founder Edition Paid · woolet.co
+
+/** Founder Edition pre-order paid on woolet.co: MailerLite group (confirmation automation) + order log. */
+async function handleFounderEditionCompleted(session: any, env: StripeEnv, paidSource: string) {
+  const cd = session?.customer_details ?? {};
+  const email = String(cd.email || session?.customer_email || "").trim().toLowerCase();
+  const ship = session?.collected_information?.shipping_details ?? session?.shipping_details ?? null;
+  const addr = (ship?.address ?? cd.address ?? {}) as Record<string, string | null>;
+  try {
+    await getSupabase().from("server_event_log").insert({
+      source: "payments-webhook",
+      event_name: "FounderEditionPaid",
+      event_id: session.id,
+      status: "ok",
+      custom_data: { paid_source: paidSource, value: (session?.amount_total ?? 0) / 100 },
+      request_summary: {
+        stripe_session_id: session.id,
+        stripe_payment_intent: session.payment_intent ?? null,
+        environment: env,
+        email_domain: email.split("@")[1] ?? null,
+        ship_country: addr.country ?? null,
+      },
+    });
+  } catch (e) {
+    console.error("[server_event_log] founder insert failed", e);
+  }
+  if (!email || env === "sandbox") return;
+  const apiKey = Deno.env.get("MAILERLITE_API_KEY");
+  if (!apiKey) return;
+  try {
+    for (const name of ["founder_paid_at", "founder_order_ref"]) {
+      const f = await fetch("https://connect.mailerlite.com/api/fields", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
+        body: JSON.stringify({ name, type: "text" }),
+      });
+      await f.text();
+    }
+    const res = await fetch("https://connect.mailerlite.com/api/subscribers", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
+      body: JSON.stringify({
+        email,
+        status: "active",
+        groups: [MAILERLITE_GROUP_FOUNDER_SITE],
+        fields: {
+          name: ship?.name || cd.name || "",
+          country: addr.country ?? "",
+          founder_paid_at: mlDate(),
+          founder_order_ref: `WLT-FE-${String(session.id).slice(-8).toUpperCase()}`,
+          paid_source: paidSource,
+        },
+      }),
+    });
+    if (!res.ok) {
+      const bodyText = await res.text();
+      console.error("[mailerlite:founder] non-ok", res.status, bodyText);
+      await getSupabase().from("server_event_log").insert({
+        source: "payments-webhook",
+        event_name: "MailerLiteFounderTagFailed",
+        status: "error",
+        request_summary: { stripe_session_id: session.id },
+        error: bodyText,
+      });
+    }
+  } catch (e) {
+    console.error("[mailerlite:founder] error", e);
+  }
+}
+
 async function handleCheckoutExpired(session: any) {
+  // Unpaid Founder Edition sessions must not enter the $1 abandoned-checkout fields.
+  if (session?.metadata?.flow === "founder_edition") return;
   if (session?.metadata?.flow === "bespoke") {
     await handleBespokeCheckoutExpired(session);
     return;
@@ -525,7 +600,7 @@ async function handleCheckoutExpired(session: any) {
  * can never clobber group membership. Fire-and-forget: never rethrows.
  */
 async function handlePaymentFailed(paymentIntent: any) {
-  if (paymentIntent?.metadata?.flow === "bespoke") return;
+  if (paymentIntent?.metadata?.flow === "bespoke" || paymentIntent?.metadata?.flow === "founder_edition") return;
 
   const charge = paymentIntent?.charges?.data?.[0] ?? paymentIntent?.latest_charge ?? null;
   const email: string | undefined =
@@ -1129,6 +1204,20 @@ async function sendOpenAiReservation(session: any) {
 
 async function handleCheckoutCompleted(session: any, env: StripeEnv) {
   const flow = session?.metadata?.flow;
+  if (flow === "founder_edition") {
+    let paidSource = "direct";
+    try {
+      const resolved = await resolvePaidSource(session, createStripeClient(env));
+      paidSource = resolved.paidSource;
+      session.metadata = { ...resolved.metadata, paid_source: paidSource };
+    } catch (e) {
+      console.error("[payments-webhook] founder attribution failed", e);
+    }
+    await handleFounderEditionCompleted(session, env, paidSource);
+    await fireMetaPurchase(session);
+    await fireGa4Conversion(session, env, "founder", paidSource);
+    return;
+  }
   if (flow === "bespoke") {
     await handleBespokeCheckoutCompleted(session, env);
     await fireMetaPurchase(session);
