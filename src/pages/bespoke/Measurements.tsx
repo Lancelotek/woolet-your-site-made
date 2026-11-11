@@ -2,6 +2,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { Camera, CheckCircle2, CreditCard, Glasses, Loader2, Ruler, Sparkles, Truck, Upload } from "lucide-react";
 import SEO from "@/components/SEO";
+import CardPhotoCapture from "@/components/bespoke/CardPhotoCapture";
+import type { CardCheck } from "@/lib/card-photo-check";
 import { COUNTRY_CODES, countryLabel } from "@/data/shipping-countries";
 import { supabase } from "@/integrations/supabase/client";
 import { STORAGE_KEY } from "@/lib/bespoke-state";
@@ -280,7 +282,9 @@ export default function BespokeMeasurements() {
   const [photoFile, setPhotoFile] = useState<File | null>(null);
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const [photoError, setPhotoError] = useState<string | null>(null);
-  const cameraRef = useRef<HTMLInputElement | null>(null);
+  /** Open camera / photo check: the live camera, or a chosen file under review. */
+  const [capture, setCapture] = useState<"camera" | File | null>(null);
+  const [photoCheck, setPhotoCheck] = useState<CardCheck["status"] | null>(null);
   const uploadRef = useRef<HTMLInputElement | null>(null);
   /** Lens width printed on the current glasses (the first of the three numbers). */
   const [glassesLens, setGlassesLens] = useState("");
@@ -1030,17 +1034,25 @@ export default function BespokeMeasurements() {
                         />
                         <div>
                           <p className="flex items-center gap-2 text-sm text-cream">
-                            <CheckCircle2 size={16} className="text-gold" /> Photo attached
+                            <CheckCircle2 size={16} className="text-gold" />{" "}
+                            {photoCheck === "card" ? "Photo attached - card detected" : "Photo attached"}
                           </p>
                           <p className="mt-1 text-xs leading-relaxed text-cream-dim">
                             It stays on your device until you send the form below.
                           </p>
                           <button
                             type="button"
-                            onClick={() => uploadRef.current?.click()}
-                            className="mt-2 text-xs text-cream underline underline-offset-4 hover:text-gold"
+                            onClick={() => setCapture("camera")}
+                            className="mt-2 block text-xs text-cream underline underline-offset-4 hover:text-gold"
                           >
-                            Choose a different photo
+                            Retake the photo
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => uploadRef.current?.click()}
+                            className="mt-2 block text-xs text-cream underline underline-offset-4 hover:text-gold"
+                          >
+                            Upload a different photo
                           </button>
                         </div>
                       </div>
@@ -1055,7 +1067,7 @@ export default function BespokeMeasurements() {
                         <div className="mt-5 flex flex-col gap-3 sm:flex-row">
                           <button
                             type="button"
-                            onClick={() => cameraRef.current?.click()}
+                            onClick={() => setCapture("camera")}
                             className={`inline-flex min-h-[48px] items-center justify-center gap-2 px-7 text-[12px] uppercase tracking-[0.18em] transition-colors ${
                               hasFitPhoto
                                 ? "border border-cream/25 text-cream hover:border-gold hover:text-gold"
@@ -1075,19 +1087,6 @@ export default function BespokeMeasurements() {
                       </>
                     )}
                     <input
-                      ref={cameraRef}
-                      type="file"
-                      accept="image/*"
-                      capture="user"
-                      aria-label="Take the photo with a card"
-                      className="sr-only"
-                      onChange={(e) => {
-                        const f = e.target.files?.[0];
-                        if (f) onPhotoFile(f);
-                        e.target.value = "";
-                      }}
-                    />
-                    <input
                       ref={uploadRef}
                       type="file"
                       accept="image/*"
@@ -1095,10 +1094,30 @@ export default function BespokeMeasurements() {
                       className="sr-only"
                       onChange={(e) => {
                         const f = e.target.files?.[0];
-                        if (f) onPhotoFile(f);
                         e.target.value = "";
+                        if (!f) return;
+                        if (!f.type.startsWith("image/")) return onPhotoFile(f);
+                        setPhotoError(null);
+                        setCapture(f);
                       }}
                     />
+                    {capture && (
+                      <CardPhotoCapture
+                        // A new file is a new review.
+                        key={capture === "camera" ? "camera" : `${capture.name}-${capture.lastModified}`}
+                        source={capture}
+                        onClose={() => setCapture(null)}
+                        onUploadInstead={() => {
+                          setCapture(null);
+                          uploadRef.current?.click();
+                        }}
+                        onAccept={(photo, check) => {
+                          setCapture(null);
+                          setPhotoCheck(check.status);
+                          onPhotoFile(photo);
+                        }}
+                      />
+                    )}
                     {photoError && (
                       <p role="alert" className="mt-4 text-sm text-red-300/90 bg-red-500/10 border border-red-500/30 rounded px-3 py-2">
                         {photoError}
