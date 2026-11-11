@@ -52,6 +52,7 @@ const FACTS: Array<[string, string]> = [
   ["Lenses", "Frame only - your optician fits your prescription"],
   ["Shipping", "Free. Ships from the EU right after your order - no waiting for the campaign to end"],
   ["Customs", "Depending on your country, customs duties or import fees may apply on delivery. They are paid by the recipient"],
+  ["Returns", "Send it back within 14 days of delivery to Marek Ciesla, Kanadyjska 64D, 32-087 Zielonki, Poland for a full refund - or get 50% off any Bespoke frame instead"],
   ["Warranty", "5 years"],
 ];
 
