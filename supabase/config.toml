@@ -61,3 +61,6 @@ verify_jwt = false
 
 [functions.attribution-admin]
 verify_jwt = false
+
+[functions.founder-orders-admin]
+verify_jwt = false

@@ -35,7 +35,7 @@ describe("route-server Worker", () => {
     "/en/thank-you/reserved", "/thank-you", "/thank-you-fb", "/en/lp/kickstarter",
     "/en/lp/kickstarter/vip-confirmed", "/de/lp/kickstarter", "/en/fit", "/en/fit/wizard",
     "/en/products/007", "/en/products/009", "/en/products/bespoke", "/en/our-story",
-    "/en/admin/bespoke", "/en/admin/attribution", "/en/account/sign-in", "/en/account/callback",
+    "/en/admin/bespoke", "/en/admin/attribution", "/en/admin/founders", "/en/account/sign-in", "/en/account/callback",
     "/unsubscribe", "/.lovable/oauth/consent", "/en/ref/009-black", "/ko", "/ja/bespoke",
   ];
   it.each(MUST_200)("200: %s", async (p) => {

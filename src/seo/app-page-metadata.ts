@@ -20,6 +20,7 @@ export const APP_PAGE_METADATA: Record<string, { title: string; description: str
   "/thank-you/reserved": { title: "Reservation confirmed - Woolet", description: "Your Woolet reservation confirmation and next steps.", robots: "noindex, nofollow" },
   "/payments": { title: "Secure Checkout — Woolet", description: "Complete your secure Woolet payment.", robots: "noindex, nofollow" },
   "/admin/bespoke": { title: "Bespoke production — Woolet", description: "Private Woolet Bespoke production administration.", robots: "noindex, nofollow" },
+  "/admin/founders": { title: "Founder orders - Woolet admin", description: "Private Woolet Founder Edition order administration.", robots: "noindex, nofollow" },
   "/admin/attribution": { title: "Attribution - Woolet admin", description: "Private Woolet attribution administration.", robots: "noindex, nofollow" },
   "/upvote": { title: "Woolet — Listed On", description: "Woolet directory listings.", robots: "noindex, nofollow" },
   "/shop": { title: "Woolet Shop - Wide-Face Eyewear", description: "Italian Mazzucchelli acetate eyewear engineered for wide faces. 158 mm front, 26 mm keyhole bridge, Hand made in EU.", robots: "noindex, nofollow" },

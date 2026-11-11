@@ -47,6 +47,7 @@ const CrmGsc = lazy(() => import("./pages/CrmGsc.tsx"));
 const CrmAcquisition = lazy(() => import("./pages/CrmAcquisition.tsx"));
 const BespokeAdmin = lazy(() => import("./pages/BespokeAdmin.tsx"));
 const AttributionAdmin = lazy(() => import("./pages/AttributionAdmin.tsx"));
+const FoundersAdmin = lazy(() => import("./pages/FoundersAdmin.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
 const AdvertorialPage = lazy(() => import("./pages/lp/AdvertorialPage.tsx"));
 const WideBridgeFitGuide = lazy(() => import("./pages/lp/WideBridgeFitGuide.tsx"));
@@ -441,6 +442,7 @@ const App = () => (
           <Route path="/:lang/payments" element={<Payments />} />
           <Route path="/:lang/admin/bespoke" element={<><Helmet><meta name="robots" content="noindex, nofollow" /></Helmet><BespokeAdmin /></>} />
           <Route path="/:lang/admin/attribution" element={<AttributionAdmin />} />
+          <Route path="/:lang/admin/founders" element={<FoundersAdmin />} />
           <Route path="/:lang/crm" element={<NotFound />} />
           <Route path="/:lang/crm/acquisition" element={<NotFound />} />
           <Route path="/:lang/crm/gsc" element={<NotFound />} />
