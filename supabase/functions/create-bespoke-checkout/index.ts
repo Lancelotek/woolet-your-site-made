@@ -178,7 +178,7 @@ Deno.serve(async (req) => {
 
     const baseName = percentOff ? `${body.productName} (${percentOff}% off · ${couponKey})` : body.productName;
     const usd = (cents: number) => `$${(cents / 100).toFixed(2).replace(/\.00$/, "")}`;
-    const depositNote = `Non-refundable deposit for your fit scan and 3D model. Balance ${usd(split.balanceCents)} is due only after you approve the 3D model. Order total ${usd(split.totalCents)}.`;
+    const depositNote = `Non-refundable deposit for your fitting and 3D model. Balance ${usd(split.balanceCents)} is due only after you approve the 3D model. Order total ${usd(split.totalCents)}.`;
 
     const session = await stripe.checkout.sessions.create({
       line_items: [

@@ -123,7 +123,7 @@ export const template = {
       data.customerName || data.customerEmail || ''
     } — ${data.orderRef ?? ''}`.trim(),
   displayName: 'Bespoke — Fit Photo Received',
-  to: 'marek@woolet.co',
+  to: 'support@woolet.co',
   previewData: {
     orderRef: 'WLT-02345C42',
     caseNo: 'B-0007',

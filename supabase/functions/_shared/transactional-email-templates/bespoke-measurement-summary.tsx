@@ -75,9 +75,10 @@ const Email = ({
         </Section>
 
         <Text style={body}>
-          Bespoke frames are cut to the millimetre. A second scan takes twenty
-          seconds and tells us whether the first one landed. When the two agree,
-          we cut. When they differ, I write to you before anything is cut.
+          Bespoke frames are cut to the millimetre. The workshop checks these
+          numbers against your photo with the card before anything is cut. When
+          something does not add up, I write to you first. Spotted a mistake?
+          Open the form and correct it.
         </Text>
 
         <Text style={note}>
@@ -88,7 +89,7 @@ const Email = ({
 
         <Section style={ctaWrap}>
           <Link href={remeasureUrl} style={cta}>
-            Measure again
+            Correct my numbers
           </Link>
         </Section>
 

@@ -105,8 +105,9 @@ const Email = ({
         <Heading as="h2" style={h2}>Next step — send us your measurements</Heading>
         <Text style={body}>
           Bespoke is only Bespoke when it fits <em>you</em>. Open the secure form
-          below and submit either your AI face-scan values, your manual
-          measurements, or both — the workshop uses the tighter of the two.
+          below, add one photo with a bank-size card held against your cheek,
+          and type the numbers printed inside your current glasses. It takes
+          about two minutes.
         </Text>
 
         <Section style={ctaWrap}>
