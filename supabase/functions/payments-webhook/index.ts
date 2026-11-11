@@ -504,6 +504,38 @@ async function handleFounderEditionCompleted(session: any, env: StripeEnv, paidS
   } catch (e) {
     console.error("[server_event_log] founder insert failed", e);
   }
+  // Internal alert to support@woolet.co (template "founder-order-admin"), every paid order.
+  const orderRef = `WLT-FE-${String(session.id).slice(-8).toUpperCase()}`;
+  const shipLine = [
+    ship?.name || cd.name,
+    addr.line1,
+    addr.line2,
+    [addr.postal_code, addr.city].filter(Boolean).join(" "),
+    addr.state,
+    addr.country,
+  ].filter((v) => typeof v === "string" && v.trim()).join(", ");
+  try {
+    await sendTemplateEmailAndLog("founder-order-admin", undefined, {
+      idempotencyKey: `founder-order-admin-${session.id}`,
+      templateData: {
+        orderRef,
+        customerName: ship?.name || cd.name || "",
+        customerEmail: email,
+        phone: String(ship?.phone || cd.phone || ""),
+        address: shipLine,
+        country: addr.country ?? "",
+        amountFormatted: formatAmount(session.amount_total, session.currency),
+        paidSource,
+        adminUrl: "https://woolet.co/en/admin/founders",
+        stripeUrl: session.payment_intent
+          ? `https://dashboard.stripe.com/${env === "sandbox" ? "test/" : ""}payments/${session.payment_intent}`
+          : "",
+      },
+    });
+  } catch (e) {
+    console.error("[payments-webhook:founder] admin alert failed", e);
+  }
+
   if (!email || env === "sandbox") return;
   const apiKey = Deno.env.get("MAILERLITE_API_KEY");
   if (!apiKey) return;
