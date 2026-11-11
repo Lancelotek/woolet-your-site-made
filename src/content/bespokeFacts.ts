@@ -33,7 +33,7 @@ export const BESPOKE_FACTS = {
   process: [
     "Configure shape, acetate colour, finish and lenses, with a preview of your frame",
     "Order online through secure checkout",
-    "AI fit scan with a phone camera in about 60 seconds",
+    "Remote fitting: one photo with a bank card for scale, plus the numbers from your current glasses",
     "Review and approve the made-to-measure 3D model",
     "Handmade production in the EU",
     "Free worldwide shipping",
@@ -58,7 +58,7 @@ export const BESPOKE_GUIDE = [
   },
   {
     heading: "How the remote fitting works",
-    text: "After you order, the fitting begins with a phone-camera fit scan. Measurements provide a starting point for the frame geometry, and the order flow allows you to confirm or supplement them. The scan is not a substitute for reviewing the proposed fit: the made-to-measure 3D model is prepared and shown for approval before production starts. If a measurement needs clarification, it can be checked during that review instead of silently treated as final. The production clock begins only after the 3D model has been approved. The goal is a frame made to a verified specification, not a stock frame chosen by an algorithm alone.",
+    text: "After you order, the fitting begins with one photo: you look straight at the camera and hold a bank-size card flat against your cheek. Every such card is 85.6 mm wide, so the workshop reads your true face width from it. You also type the three numbers printed inside your current glasses. These measurements are a starting point for the frame geometry, not a substitute for reviewing the proposed fit: the made-to-measure 3D model is prepared and shown for approval before production starts. If a measurement needs clarification, it can be checked during that review instead of silently treated as final. The production clock begins only after the 3D model has been approved. The goal is a frame made to a verified specification, not a stock frame chosen by an algorithm alone.",
   },
   {
     heading: "Choosing among the four shapes",
@@ -74,7 +74,7 @@ export const BESPOKE_GUIDE = [
   },
   {
     heading: "Approval, production and delivery",
-    text: `The six steps are configuration with a preview, the order, a phone-camera fit scan, approval of the made-to-measure 3D model, handmade production and worldwide shipping. Production takes 2 weeks from model approval, then shipping begins. Two weeks is not a promise that an order placed today will arrive in two weeks: measurement review and delivery transit are separate stages. Free worldwide shipping is part of the regular ${BESPOKE_COPY.frame} USD offer. First Bespoke pairs have already shipped internationally, including to Vietnam. The delivery destination affects transit time, while the approved model establishes when the production period starts.`,
+    text: `The six steps are configuration with a preview, the order, a fitting photo with a bank card for scale, approval of the made-to-measure 3D model, handmade production and worldwide shipping. Production takes 2 weeks from model approval, then shipping begins. Two weeks is not a promise that an order placed today will arrive in two weeks: measurement review and delivery transit are separate stages. Free worldwide shipping is part of the regular ${BESPOKE_COPY.frame} USD offer. First Bespoke pairs have already shipped internationally, including to Vietnam. The delivery destination affects transit time, while the approved model establishes when the production period starts.`,
   },
 ] as const;
 
@@ -87,14 +87,14 @@ export const isBespokeDiscoverySource = (value: unknown): value is BespokeDiscov
   typeof value === "string" && BESPOKE_DISCOVERY_SOURCES.includes(value as BespokeDiscoverySource);
 
 export const BESPOKE_FAQS = [
-  { q: "Can I get custom-fit glasses online without visiting a store?", a: "Yes. Woolet Bespoke uses a phone-camera fit scan that takes about 60 seconds. We use the measurements to prepare a made-to-measure 3D model for your approval, so no store or atelier visit is required." },
+  { q: "Can I get custom-fit glasses online without visiting a store?", a: "Yes. After you order, you send one photo with a bank-size card held against your cheek and the numbers printed inside your current glasses. It takes about two minutes. We use the measurements to prepare a made-to-measure 3D model for your approval, so no store or atelier visit is required." },
   { q: "How much do custom-made glasses cost?", a: `Woolet Bespoke costs ${BESPOKE_COPY.frame} USD for the made-to-measure frame with free worldwide shipping. Lenses are optional: clear Plano ${BESPOKE_COPY.plano}, Blue Light ${BESPOKE_COPY.blueLight}, or frame only for your optician. During the Kickstarter campaign, backers get Bespoke for ${BESPOKE_COPY.kickstarter}. The ${BESPOKE_COPY.kickstarter} Kickstarter backer price is available only through the campaign and is not sold as a ${BESPOKE_COPY.kickstarter} offer on woolet.co.` },
   { q: "Are bespoke glasses worth it?", a: "Bespoke can be worth it when standard frames pinch, slide, sit crooked or never align correctly with your face. It also suits someone who wants a one-of-one frame. The value is the individually set width, bridge and temple length rather than a logo or a stock size." },
-  { q: "Can you make glasses for an asymmetrical face?", a: "Yes. The scan and review process can account for differences between the two sides of a face, including ear height and how a frame sits. The final geometry is reviewed before the 3D model is approved and production begins." },
+  { q: "Can you make glasses for an asymmetrical face?", a: "Yes. The fitting photo and the review process can account for differences between the two sides of a face, including ear height and how a frame sits. The final geometry is reviewed before the 3D model is approved and production begins." },
   { q: "Can I order custom glasses for a narrow face?", a: "Yes. Woolet Bespoke is not only for wide faces. It covers any front width from 145-160 mm, including narrower measurements below the stock Woolet fit range." },
-  { q: "How do you measure my face remotely?", a: "A phone-camera AI fit scan measures the face in about 60 seconds. The order flow also lets you confirm measurements and provide supporting information before the workshop cuts the frame." },
+  { q: "How do you measure my face remotely?", a: "You take one photo, straight on, with a bank-size card held flat against your cheek. The card is 85.6 mm wide, which gives the workshop a true scale to measure your face. You also enter the numbers printed inside your current glasses, and you approve a 3D model before the workshop cuts the frame." },
   { q: "Can I use my prescription?", a: `Yes, through your own optician. Bespoke does not include prescription lenses: order the frame only and your optician fits your prescription lenses into it. In the configurator you can also choose clear Plano lenses (${BESPOKE_COPY.plano}) or Blue Light lenses (${BESPOKE_COPY.blueLight}).` },
-  { q: "What if my bespoke glasses do not fit?", a: "Woolet checks the scan, measurements and approved 3D model before cutting. The frame is covered by the Woolet Fit Promise and a 5-year warranty. Contact support if the delivered fit does not match the approved specification." },
+  { q: "What if my bespoke glasses do not fit?", a: "Woolet checks your photo, your measurements and the approved 3D model before cutting. The frame is covered by the Woolet Fit Promise and a 5-year warranty. Contact support if the delivered fit does not match the approved specification." },
   { q: "Do you ship bespoke glasses to my country?", a: "Woolet Bespoke includes free worldwide shipping. First Bespoke pairs have already shipped to customers abroad, including Vietnam." },
   { q: "How long does Woolet Bespoke take?", a: "Production takes 2 weeks from your approval of the made-to-measure 3D model. Shipping starts after production, and transit time depends on the destination." },
 ] as const;

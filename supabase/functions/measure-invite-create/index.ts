@@ -44,7 +44,7 @@ Deno.serve(async (req) => {
 
   const { data: order } = await admin
     .from("bespoke_orders")
-    .select("id, customer_email, customer_name")
+    .select("id, customer_email, customer_name, stripe_session_id")
     .eq("id", orderId)
     .maybeSingle();
   if (!order) return json({ error: "not_found" }, 404);
@@ -81,7 +81,12 @@ Deno.serve(async (req) => {
     }
 
     const siteOrigin = (Deno.env.get("WOOLET_APP_ORIGIN") ?? "https://woolet.co").split(",")[0].trim();
-    const url = `${siteOrigin}/en/measure?invite=${token}`;
+    // The invitation opens the fitting form (photo with a card + numbers from
+    // the current glasses). Orders without a checkout session keep the old
+    // one-time measurement link.
+    const url = order.stripe_session_id
+      ? `${siteOrigin}/en/bespoke/measurements?sid=${encodeURIComponent(order.stripe_session_id)}&remeasure=1`
+      : `${siteOrigin}/en/measure?invite=${token}`;
     const orderReference = `WLT-${String(order.id).slice(0, 8).toUpperCase()}`;
 
     if (body.sendEmail !== false && order.customer_email) {

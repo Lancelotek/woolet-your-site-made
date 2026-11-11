@@ -120,7 +120,7 @@ export function StepFrame({
           Choose your frame <em className="cfg-em">silhouette</em>
         </h2>
         <p className="cfg-body mt-4 max-w-xl">
-          Cut to your exact face width after a 60-second scan. Free worldwide shipping.
+          Cut to your exact face width, measured from one photo with a card. Free worldwide shipping.
         </p>
       </header>
 
@@ -238,7 +238,7 @@ export function StepFrame({
       </div>
 
       <p className="text-cream-dim text-xs leading-relaxed max-w-xl" style={{ fontStyle: "italic" }}>
-        Shapes only. Front width, bridge, temple length and lens height are all cut to your scan.
+        Shapes only. Front width, bridge, temple length and lens height are all cut to your measurements.
       </p>
     </div>
   );
@@ -1841,7 +1841,7 @@ export function StepTempleLength({ config, update }: StepProps) {
 
 
       <div className="rounded-[10px] border border-cream/10 bg-cream/[0.02] px-4 py-3 text-[0.8rem] text-cream-dim leading-relaxed">
-        The final temple length is confirmed against your fit scan after payment. If the scan shows a materially
+        The final temple length is confirmed against your fitting photo after payment. If it shows a materially
         different length, our optician contacts you before cutting. Nothing is cut until your measurements are verified.
       </div>
     </div>
@@ -2341,7 +2341,7 @@ export function StepReview({
         <p className="text-cream-dim mt-2 max-w-xl text-sm leading-relaxed">
           {pricing.split.plan === "deposit"
             ? <>{depositTerms(pricing.split)}</>
-            : <>You are paying for the pattern, acetate and lens configuration you selected. The made-to-measure fit scan is booked <em className="italic text-gold-light">after</em> payment — no measurements are taken until we have your order confirmed.</>}
+            : <>You are paying for the pattern, acetate and lens configuration you selected. The made-to-measure fitting - one photo with a card - comes <em className="italic text-gold-light">after</em> payment - no measurements are taken until we have your order confirmed.</>}
         </p>
       </header>
 
