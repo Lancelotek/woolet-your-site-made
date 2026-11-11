@@ -7,7 +7,11 @@ import { TEMPLATES } from './registry.ts'
 // expose sending to the browser.
 
 // Configuration baked in at scaffold time
-const SITE_NAME = "Woolet.co Design"
+// Shown as the sender name in the inbox.
+const SITE_NAME = "Woolet"
+// The emails say "reply to this email", so replies must reach a person, not
+// the noreply@ address they are sent from.
+const DEFAULT_REPLY_TO = "support@woolet.co"
 // SENDER_DOMAIN is the verified sender subdomain FQDN (e.g., "notify.example.com").
 // It MUST match the subdomain delegated to Lovable's nameservers. NEVER use the root domain.
 const SENDER_DOMAIN = "notify.woolet.co"
@@ -80,7 +84,7 @@ export async function sendTemplateEmail(
         purpose: 'transactional',
         label: templateName,
         idempotency_key: options.idempotencyKey || crypto.randomUUID(),
-        reply_to: options.replyTo,
+        reply_to: options.replyTo ?? DEFAULT_REPLY_TO,
       },
       { apiKey, sendUrl: Deno.env.get('LOVABLE_SEND_URL') }
     )
