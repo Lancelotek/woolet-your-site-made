@@ -806,7 +806,7 @@ const VipForm = ({
       {consent}
 
 
-      {live ? (
+      {live && reserveOpen && formLocation !== "final" ? null : live ? (
         <a
           href={kickstarterLiveHref("site_lp", `skip_${formLocation}`)}
           onClick={() => pushGtmEvent("kickstarter_live_click", { slot: `skip_${formLocation}`, source: "kickstarter_lp" })}
@@ -1289,7 +1289,9 @@ const KickstarterPrelaunch = () => {
     () => [
       {
         q: "Do I pay anything now?",
-        a: live
+        a: live && reserveOpen
+          ? `Leaving your email is free. $1 is optional - it unlocks the private Founder Edition reward: $${FOUNDER_EDITION.price} instead of $${FOUNDER_EDITION.srp}.`
+          : live
           ? "No. The form only sends you the campaign link. You pay when you pledge on Kickstarter."
           : "No. This page only joins you to the VIP list. You'll pledge on Kickstarter at launch if you want a pair.",
       },
@@ -1316,7 +1318,7 @@ const KickstarterPrelaunch = () => {
           : "Four things: early access to FitLens, the Bespoke configurator, up to 40% off retail, and the private VIP Facebook group with direct access to the founder.",
       },
     ],
-    [live]
+    [live, reserveOpen]
   );
 
   return (
@@ -2416,6 +2418,27 @@ const KickstarterPrelaunch = () => {
             }}
           >
             Lock $114 — pay $1 now
+          </button>
+        ) : live && reserveOpen && hasJoined && !hasResolved ? (
+          <button
+            type="button"
+            onClick={() => {
+              pushGtmEvent("kickstarter_sticky_cta_click", { slot: "sticky_mobile_reserve" });
+              focusSignupOrReserve();
+            }}
+            style={{
+              ...ctaButtonStyle,
+              flex: 1,
+              textAlign: "center",
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              minHeight: 48,
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            Unlock for $1
           </button>
         ) : hasJoined ? (
           <KickstarterFollowCta slot="sticky_mobile" label={live ? "Back us on" : "Follow us on"} />

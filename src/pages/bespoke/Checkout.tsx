@@ -10,6 +10,7 @@ import { getStripe, getStripeEnvironment } from "@/lib/stripe";
 import { supabase } from "@/integrations/supabase/client";
 import { PaymentTestModeBanner } from "@/components/PaymentTestModeBanner";
 import { PayMeasureNotice } from "@/components/bespoke/PayMeasureNotice";
+import HeardFromQuestion from "@/components/HeardFromQuestion";
 import { useBespokeConfig, hasEngraving, computePricing, formatEur, formatLensWithStrength, lensOrderValue, lensTintCode, selectedLensTint, isStepComplete, readingStrengthMetaValue } from "@/lib/bespoke-state";
 import { findFrame } from "@/data/frames";
 import {
@@ -98,7 +99,6 @@ export default function BespokeCheckout() {
     try { const saved = localStorage.getItem("wlt_bespoke_source"); return isBespokeDiscoverySource(saved) ? saved : ""; }
     catch { return ""; }
   });
-  const [sourceError, setSourceError] = useState(false);
   useEffect(() => {
     const refresh = () => {
       setAiPreviewUrl(resolvePreview());
@@ -307,10 +307,6 @@ export default function BespokeCheckout() {
   }, [buildEventPayload]);
 
   const fetchClientSecret = useCallback(async (): Promise<string> => {
-    if (!source) {
-      setSourceError(true);
-      throw new Error("Choose how you found Woolet before continuing");
-    }
     // --- Analytics: Payment initiated (fires when Stripe requests secret) ---
     pushGtmEvent("payment_initiated", buildEventPayload());
     clarityEvent("bespoke_payment_initiated");
@@ -388,6 +384,8 @@ export default function BespokeCheckout() {
 
         <main className="max-w-6xl mx-auto px-5 sm:px-8 py-10 lg:py-16">
           {paidSessionId && <BespokeCaseHero sessionId={paidSessionId} />}
+          {/* Asked after payment when the optional pre-payment question was skipped. */}
+          {paidSessionId && !source && <div className="max-w-xl mx-auto mb-10"><HeardFromQuestion sessionId={paidSessionId} /></div>}
           {!ready ? (
             <div className="max-w-xl mx-auto text-center py-24">
               <h1 className="font-display text-3xl mb-4">
@@ -427,16 +425,14 @@ export default function BespokeCheckout() {
 
                 <div className="mb-6 border border-cream/15 p-5" style={{ borderRadius: 4 }}>
                   <label htmlFor="bespoke-source" className="block text-[11px] uppercase tracking-[0.2em] text-cream mb-2">
-                    How did you find Woolet? <span className="text-gold-light">*</span>
+                    How did you find Woolet? <span className="text-cream-dim normal-case tracking-normal">(optional)</span>
                   </label>
                   <select
                     id="bespoke-source"
-                    required
                     value={source}
                     onChange={(event) => {
                       const next = event.target.value as BespokeDiscoverySource | "";
                       setSource(next);
-                      setSourceError(false);
                       try { if (next) localStorage.setItem("wlt_bespoke_source", next); }
                       catch { /* storage can be blocked */ }
                     }}
@@ -445,10 +441,9 @@ export default function BespokeCheckout() {
                     <option value="">Select one</option>
                     {BESPOKE_DISCOVERY_SOURCES.map((option) => <option key={option} value={option}>{option}</option>)}
                   </select>
-                  {sourceError && <p className="mt-2 text-sm text-red-300">Choose one option to continue.</p>}
                 </div>
 
-                {source ? (
+                {(
                   <div
                     className="relative bg-white text-[#0B0A09] overflow-hidden min-h-[640px] sm:min-h-[560px]"
                     style={{ borderRadius: 4 }}
@@ -467,10 +462,6 @@ export default function BespokeCheckout() {
                     </EmbeddedCheckoutProvider>
                     </div>
                   </div>
-                ) : (
-                  <button type="button" onClick={() => { setSourceError(true); document.getElementById("bespoke-source")?.focus(); }} className="min-h-[56px] w-full bg-gold text-background text-xs uppercase tracking-[0.2em]">
-                    Choose source to continue
-                  </button>
                 )}
 
                 {/* Guarantee block */}
@@ -604,7 +595,7 @@ export default function BespokeCheckout() {
                           front && (
                             <span className="inline-flex items-center gap-2">
                               <span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: front.hex }} />
-                              <span className="font-mono text-[10px] text-gold-light">{front.code}</span>
+                              <span className="text-right">{front.name} <span className="font-mono text-[10px] text-gold-light">{front.code}</span></span>
                             </span>
                           )
                         }
@@ -615,7 +606,7 @@ export default function BespokeCheckout() {
                           temple && (
                             <span className="inline-flex items-center gap-2">
                               <span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: temple.hex }} />
-                              <span className="font-mono text-[10px] text-gold-light">{temple.code}</span>
+                              <span className="text-right">{temple.name} <span className="font-mono text-[10px] text-gold-light">{temple.code}</span></span>
                             </span>
                           )
                         }
@@ -744,10 +735,10 @@ export default function BespokeCheckout() {
                     After payment
                   </div>
                   <ol className="mt-2 space-y-1.5 text-cream-dim text-[12px] leading-relaxed">
-                    <li>01 · Order confirmed and paid.</li>
-                    <li>02 · You get direct email access to our team at <a href="mailto:support@woolet.co" className="underline underline-offset-2 hover:text-cream" style={{ color: "#C2A05A" }}>support@woolet.co</a> and a private link to your measurement interview.</li>
-                    <li>03 · After you confirm your measurements and product, we send the 3D model design for your approval.</li>
-                    <li>04 · Once approved, production takes two weeks — then it ships, free worldwide.</li>
+                    <li>01 · Your order is confirmed and paid.</li>
+                    <li>02 · We email you a private link to the AI fit scan, plus where to upload two photos with a card (front and profile). You also get direct access to our team at <a href="mailto:support@woolet.co" className="underline underline-offset-2 hover:text-cream" style={{ color: "#C2A05A" }}>support@woolet.co</a>.</li>
+                    <li>03 · Our optician verifies your measurements within 24&nbsp;h, then we send the 3D model for your approval.</li>
+                    <li>04 · Once you approve it: hand-made in the EU to your exact millimetres - a 2-week build, free worldwide shipping.</li>
                   </ol>
                 </div>
               </aside>
