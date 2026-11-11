@@ -43,7 +43,7 @@ const LiveEmail = ({ campaignUrl }: { campaignUrl: string }) => (
 
         <Text style={body}>
           Thanks for signing up. The campaign is open now, with prices you won't see in our
-          shop. Early-bird rewards are limited.
+          shop. Campaign rewards are limited.
         </Text>
 
         <Section style={ctaWrap}>

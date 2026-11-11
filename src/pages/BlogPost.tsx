@@ -47,8 +47,8 @@ function extractH2s(html: string): { id: string; text: string }[] {
 /** Live-campaign inline box (raw HTML: the article body is injected as HTML). */
 function ksInlineCta(lang: Lang, href: string): string {
   const copy = lang === "pl"
-    ? { h: "Oprawki dla twarzy 155-161 mm", p: "158 mm frontu, włoski acetat Mazzucchelli, ręcznie robione w UE. Early Bird na Kickstarterze: $114 (potem $190).", b: "Zobacz na Kickstarterze" }
-    : { h: "Frames built for 155-161 mm faces", p: "158 mm front, Italian Mazzucchelli acetate, hand made in the EU. Early Bird on Kickstarter: $114 (then $190).", b: "See it on Kickstarter" };
+    ? { h: "Oprawki dla twarzy 155-161 mm", p: "158 mm frontu, włoski acetat Mazzucchelli, ręcznie robione w UE. Na Kickstarterze od $114 (potem $190).", b: "Zobacz na Kickstarterze" }
+    : { h: "Frames built for 155-161 mm faces", p: "158 mm front, Italian Mazzucchelli acetate, hand made in the EU. On Kickstarter from $114 (then $190).", b: "See it on Kickstarter" };
   return `<div class="woolet-inline-cta woolet-ks-cta"><p><strong>${copy.h}</strong><br/>${copy.p}</p><a href="${href}" target="_blank" rel="noopener" data-ks-cta="1">${copy.b} →</a></div>`;
 }
 

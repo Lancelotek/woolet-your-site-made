@@ -1708,7 +1708,7 @@ const KickstarterPrelaunch = () => {
               live
                 ? {
                     t: "Kickstarter-only prices",
-                    d: "Campaign rewards sit below our shop prices, and early-bird tiers are limited. Back it while they last.",
+                    d: `Campaign rewards sit below our shop prices until the campaign ends on ${FOUNDER_EDITION.campaignEndLabel}.`,
                   }
                 : {
                     t: "Up to 40% off",
@@ -1837,7 +1837,9 @@ const KickstarterPrelaunch = () => {
                 photo: w007CardAsset.url,
                 photoAlt: "Woolet 007 round frame in black acetate, front view",
                 srp: 190,
-                kickstarter: 114,
+                kickstarter: 129,
+                priceLabel: "Kickstarter price",
+                priceNote: "Kickstarter price for the length of the campaign, then $190 in the shop.",
                 specs: [
                   ["Front width", "158 mm"],
                   ["Bridge", "26 mm keyhole"],
@@ -1852,7 +1854,9 @@ const KickstarterPrelaunch = () => {
                 photo: w009CardAsset.url,
                 photoAlt: "Woolet 009 soft-square frame in black acetate, front view",
                 srp: 190,
-                kickstarter: 114,
+                kickstarter: FOUNDER_EDITION.price,
+                priceLabel: "Founder Edition",
+                priceNote: `Founder Edition: ${FOUNDER_EDITION.model}, ${FOUNDER_EDITION.bridgeMm} mm bridge, with the Founder Box. ${FOUNDER_EDITION.left} of ${FOUNDER_EDITION.total} left - $1 unlocks it.`,
                 specs: [
                   ["Front width", "158 mm"],
                   ["Bridge", "25 mm keyhole"],
@@ -1923,7 +1927,7 @@ const KickstarterPrelaunch = () => {
                             color: GOLD,
                           }}
                         >
-                          from ${m.kickstarter}
+                          {m.priceLabel === "Founder Edition" ? "" : "from "}${m.kickstarter}
                         </span>
                         <span
                           style={{
@@ -1944,7 +1948,7 @@ const KickstarterPrelaunch = () => {
                           marginTop: 2,
                         }}
                       >
-                        Kickstarter Early Bird
+                        {m.priceLabel}
                       </span>
                     </button>
                   </div>
@@ -1978,8 +1982,7 @@ const KickstarterPrelaunch = () => {
                     </dl>
                   </div>
                   <p style={{ marginTop: 16, fontSize: 12, color: TAUPE, lineHeight: 1.6 }}>
-                    Early Bird pricing opens with the campaign and rises once the first tier is
-                    claimed. VIPs get the link first.
+                    {m.priceNote}
                   </p>
                 </div>
               </article>
@@ -2190,7 +2193,7 @@ const KickstarterPrelaunch = () => {
             {(live
               ? [
                   { n: "01", t: "Leave your email", d: "We send you the campaign link and the updates that matter." },
-                  { n: "02", t: "Pick your reward", d: "Choose your frame on Kickstarter. Early-bird tiers are limited." },
+                  { n: "02", t: "Pick your reward", d: `Choose your frame on Kickstarter. Campaign prices end on ${FOUNDER_EDITION.campaignEndLabel}.` },
                   { n: "03", t: "Back Woolet", d: "You pay on Kickstarter. Delivery dates are listed on each reward." },
                 ]
               : [
@@ -2361,7 +2364,7 @@ const KickstarterPrelaunch = () => {
           <p style={{ color: TAUPE, fontSize: 15, lineHeight: 1.6, marginBottom: 28, maxWidth: 520, marginInline: "auto" }}>
             {live
               ? "Leave your email and we'll send you the campaign link, or go straight to Kickstarter."
-              : "One email. Early access to FitLens, the Bespoke configurator, and Early Bird pricing from $114 against the $190 retail price."}
+              : "One email. Early access to FitLens, the Bespoke configurator, and Kickstarter pricing from $114 against the $190 retail price."}
           </p>
           <div id="vip-section-final">
 <VipForm utmSource={utmSource} idSuffix="-final" referredBy={referredBy} heroVariant={heroVariantKey} compact onJoined={() => { setHasJoined(true); setActiveFormSuffix("-final"); }} onResolved={markResolved} />
