@@ -23,26 +23,27 @@ interface Props {
 const Email = ({ customerName, orderReference = '', invitationUrl = '#', expiresAt = '' }: Props) => (
   <Html lang="en" dir="ltr">
     <Head />
-    <Preview>Your private measurement link for order {orderReference}</Preview>
+    <Preview>Your private fitting link for order {orderReference}</Preview>
     <Body style={main}>
       <Container style={container}>
-        <Heading style={h1}>Your measurement link</Heading>
+        <Heading style={h1}>Your fitting link</Heading>
         <Text style={text}>
           {customerName ? `${customerName},` : 'Hello,'} before the workshop cuts your frame we need your
-          measurements. It takes about twenty seconds with your phone camera.
+          measurements: one photo with a bank-size card held against your cheek, and the numbers printed
+          inside your current glasses. It takes about two minutes.
         </Text>
         <Text style={text}>
-          This link is yours alone and belongs to order <strong>{orderReference}</strong>. It works once and
-          expires on {expiresAt}. Please do not forward it.
+          This link is yours alone and belongs to order <strong>{orderReference}</strong>. Please
+          do not forward it.
         </Text>
         <Section style={{ margin: '28px 0' }}>
           <Button href={invitationUrl} style={button}>
-            Start the secure measurement
+            Open my fitting form
           </Button>
         </Section>
         <Text style={small}>
-          Before the camera opens you will see exactly what is measured, who receives it and how long we keep
-          it, and you will be asked to agree. No photo or video leaves your phone — only the millimetres.
+          Before anything is sent you will see what we store, who receives it and how long we keep it, and
+          you will be asked to agree. Turn the card so no numbers show.
         </Text>
         <Hr style={hr} />
         <Text style={small}>
@@ -57,7 +58,7 @@ const Email = ({ customerName, orderReference = '', invitationUrl = '#', expires
 export const template = {
   component: Email,
   subject: (data: Record<string, any>) =>
-    `Finish the measurement for order ${data?.orderReference ?? ''}`.trim(),
+    `Finish the fitting for order ${data?.orderReference ?? ''}`.trim(),
   displayName: 'Bespoke — measurement invitation',
   previewData: {
     customerName: 'Marek',

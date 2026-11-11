@@ -1686,13 +1686,13 @@ function MeasureInviteBlock({ order, password }: { order: Record<string, any>; p
   }, [refresh]);
 
   const state = (i: Record<string, any>) =>
-    i.measurement_scan_id ? "Measured" : i.used_at ? "Opened" : i.revoked_at ? "Cancelled" : Date.parse(i.expires_at) < Date.now() ? "Expired" : "Live";
+    i.measurement_scan_id ? "Scan received" : i.revoked_at ? "Cancelled" : i.used_at ? "Opened" : "Sent";
 
   return (
     <section style={{ marginTop: 22 }}>
-      <h3 style={{ fontFamily: SERIF, fontSize: 20, margin: "0 0 6px" }}>Measurement invitation</h3>
+      <h3 style={{ fontFamily: SERIF, fontSize: 20, margin: "0 0 6px" }}>Fitting form invitation</h3>
       <p style={{ color: T.dim, fontSize: 12, margin: "0 0 10px", lineHeight: 1.6 }}>
-        A personal link, good for one measurement and seven days. Sending a new one cancels the old.
+        Emails the customer their link to the fitting form: one photo with a card and the numbers from their current glasses. Use it to ask for the fitting again.
       </p>
       <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
         <button
@@ -1717,7 +1717,7 @@ function MeasureInviteBlock({ order, password }: { order: Record<string, any>; p
           onClick={() => void call("revoke")}
           style={{ minHeight: 40, padding: "0 16px", background: "transparent", color: T.dim, border: `1px solid ${T.hair}`, borderRadius: 2, fontFamily: SANS, fontSize: 13, cursor: "pointer" }}
         >
-          Cancel open links
+          Cancel old scan links
         </button>
       </div>
       {msg && <p style={{ color: T.dim, fontSize: 12, marginTop: 10 }}>{msg}</p>}
@@ -1725,14 +1725,14 @@ function MeasureInviteBlock({ order, password }: { order: Record<string, any>; p
         <p style={{ marginTop: 8, fontSize: 12, wordBreak: "break-all", color: T.ink }}>
           {link}
           <br />
-          <span style={{ color: T.mute }}>Shown once — copy it now if you want to send it yourself.</span>
+          <span style={{ color: T.mute }}>Copy it if you want to send it yourself.</span>
         </p>
       )}
       {invites.length > 0 && (
         <ul style={{ margin: "12px 0 0", padding: 0, listStyle: "none", color: T.dim, fontSize: 12, lineHeight: 1.8 }}>
           {invites.map((i) => (
             <li key={i.id}>
-              {state(i)} · created {fmtDate(i.created_at)} · expires {fmtDate(i.expires_at)}
+              {state(i)} · {fmtDate(i.created_at)}
             </li>
           ))}
         </ul>
