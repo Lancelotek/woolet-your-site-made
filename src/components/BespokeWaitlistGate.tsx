@@ -200,7 +200,7 @@ const BespokeWaitlistGate = () => {
               <ul className="mb-4 space-y-2">
                 {[
                   "Made to your exact face measurements",
-                  "Early-bird pricing before public launch",
+                  "Launch pricing before the shop opens",
                   "1-on-1 fit review with the design team",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-2.5 text-[0.75rem] text-cream-dim leading-snug">

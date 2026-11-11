@@ -429,7 +429,7 @@ export default function ThankYouFb() {
               </h2>
               <p style={{ ...body, margin: 0 }}>
                 Hit follow and Kickstarter notifies you the minute we go live.
-                Early-bird tiers are capped — followers get in first.
+                Campaign rewards are capped - followers get in first.
               </p>
               <p
                 style={{
