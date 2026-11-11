@@ -147,7 +147,7 @@ export function BalancePanel({
   );
 
   return (
-    <section style={{ marginTop: 22, fontFamily: SANS }}>
+    <section id="bespoke-balance" style={{ marginTop: 22, fontFamily: SANS, scrollMarginTop: 16 }}>
       <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 12 }}>
         <h3 style={{ fontFamily: SERIF, fontSize: 20, margin: "0 0 6px" }}>Deposit & balance</h3>
         <span style={{ fontSize: 11, color: state === "expired" ? T.bad : T.gold }}>{STATE_LABEL[state]}</span>

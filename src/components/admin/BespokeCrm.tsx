@@ -5,6 +5,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Check, Copy } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { buildTimeline, timelineProgress, type TimelineStep } from "@/lib/bespoke-timeline";
 import {
   CRM_STAGES,
   CRM_STAGE_COUNT,
@@ -304,11 +305,14 @@ function CopyButton({ value }: { value: string }) {
 export function PipelinePanel({
   order,
   password,
+  photo,
   initialEvents,
   onOrderChange,
 }: {
   order: Record<string, any>;
   password: string;
+  /** The fit photo row of this order, if one was sent. */
+  photo: Record<string, any> | null;
   initialEvents: CrmEvent[];
   onOrderChange: (patch: Record<string, unknown>) => void;
 }) {
@@ -318,6 +322,9 @@ export function PipelinePanel({
   const [savedNotes, setSavedNotes] = useState<string>(order.crm_notes ?? "");
   const [notes, setNotes] = useState<string>(order.crm_notes ?? "");
   const [shipOpen, setShipOpen] = useState(false);
+  /** Untick for parcels that left before the tracking email existed. */
+  const [notifyShip, setNotifyShip] = useState(true);
+  const [revisions, setRevisions] = useState<Array<{ note: string; created_at: string; resolved_at: string | null }>>([]);
   const [carrier, setCarrier] = useState<string>(order.courier ?? "");
   const [tracking, setTracking] = useState<string>(order.tracking_number ?? "");
   const carrierRef = useRef<HTMLInputElement | null>(null);
@@ -357,6 +364,24 @@ export function PipelinePanel({
   }, [notesDirty]);
 
   const stage = crmStageOf(order);
+
+  // Correction requests live in their own table; re-read them whenever the
+  // model or the balance moved.
+  useEffect(() => {
+    if (order.payment_plan !== "deposit") return;
+    let cancelled = false;
+    void supabase.functions
+      .invoke("bespoke-crm-update", { body: { password, id: order.id, action: "payment" } })
+      .then(({ data }) => {
+        if (!cancelled) setRevisions(((data ?? {}) as Record<string, any>).revisions ?? []);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [order.id, order.payment_plan, order.model_sent_at, order.balance_paid_at, password]);
+
+  const steps = buildTimeline({ order, photo, events, revisions });
+  const progress = timelineProgress(steps);
 
   const call = async (body: Record<string, unknown>) => {
     setBusy(true);
@@ -398,7 +423,29 @@ export function PipelinePanel({
     setEvents((payload.events as CrmEvent[]) ?? []);
     onOrderChange({ ...(payload.patch as Record<string, unknown>), crm_stage: to });
     setShipOpen(false);
-    setMsg({ text: `Moved to ${to}/${CRM_STAGE_COUNT} · ${crmStageLabel(to)}.`, tone: "ok" });
+    setMsg({
+      text:
+        to === SHIPPED_STAGE
+          ? payload.emailed
+            ? "Marked as shipped. The tracking number was emailed to the customer."
+            : "Marked as shipped. No email was sent to the customer."
+          : `Saved · ${crmStageLabel(to)}.`,
+      tone: "ok",
+    });
+  };
+
+  const runStep = async (s: TimelineStep) => {
+    const a = s.action;
+    if (!a) return;
+    if (a.type === "ship") return setShipOpen(true);
+    if (a.type === "stage") return moveTo(s.done ? a.back : a.to);
+    if (a.type === "check") {
+      const payload = await call({ action: "check", key: a.key, done: !s.done });
+      if (!payload) return;
+      setEvents((payload.events as CrmEvent[]) ?? []);
+      onOrderChange((payload.patch as Record<string, unknown>) ?? {});
+      setMsg({ text: s.done ? `Unticked: ${s.label}.` : `Ticked: ${s.label}.`, tone: "ok" });
+    }
   };
 
   const saveNotes = async () => {
@@ -414,125 +461,59 @@ export function PipelinePanel({
   return (
     <section style={{ marginTop: 22 }}>
       <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 12 }}>
-        <h3 style={{ fontFamily: SERIF, fontSize: 20, margin: "0 0 6px" }}>Pipeline</h3>
+        <h3 style={{ fontFamily: SERIF, fontSize: 20, margin: "0 0 6px" }}>Timeline</h3>
         <span style={{ fontSize: 11, color: T.mute }}>
-          {crmStageSummary(stage)}
-          {stage > 1 ? " · click a done step to move back" : ""}
+          {progress.done} of {progress.total} done · {crmStageLabel(stage)}
         </span>
       </div>
 
       <ol style={{ listStyle: "none", margin: "10px 0 0", padding: 0 }}>
-        {CRM_STAGES.map((s) => {
-          const done = s.id < stage;
-          const current = s.id === stage;
-          const reached = crmStageReachedAt(order, s.id);
+        {steps.map((s, n) => {
+          const clickable = Boolean(s.action) && !busy;
+          const who = s.by === "you" ? "You" : s.by === "customer" ? "Customer" : "System";
           return (
             <li
-              key={s.id}
-              style={{
-                display: "flex",
-                alignItems: "flex-start",
-                gap: 12,
-                padding: "10px 0",
-                borderTop: `1px solid ${T.hair}`,
-              }}
+              key={s.key}
+              style={{ display: "flex", alignItems: "flex-start", gap: 12, padding: "10px 0", borderTop: `1px solid ${T.hair}` }}
             >
-              <span
-                aria-hidden="true"
-                style={{
-                  marginTop: 2,
-                  width: 20,
-                  height: 20,
-                  flex: "0 0 20px",
-                  display: "grid",
-                  placeItems: "center",
-                  borderRadius: 2,
-                  fontSize: 10,
-                  fontWeight: 700,
-                  background: done ? T.gold : "none",
-                  color: done ? "#1f1b16" : current ? T.gold : T.mute,
-                  border: `1px solid ${done || current ? "rgba(194,160,90,0.65)" : T.hair}`,
-                }}
-              >
-                {done ? "✓" : s.id}
-              </span>
+              {s.action ? (
+                <input
+                  type="checkbox"
+                  checked={s.done}
+                  disabled={!clickable}
+                  onChange={() => void runStep(s)}
+                  aria-label={s.label}
+                  style={{ margin: "2px 0 0", width: 20, height: 20, flex: "0 0 20px", accentColor: T.gold, cursor: clickable ? "pointer" : "wait" }}
+                />
+              ) : (
+                <span
+                  aria-hidden="true"
+                  title={s.locked ? "Not available yet" : `${who} ticks this`}
+                  style={{
+                    marginTop: 2, width: 20, height: 20, flex: "0 0 20px", display: "grid", placeItems: "center", borderRadius: 2,
+                    fontSize: 11, fontWeight: 700,
+                    background: s.done ? T.gold : "none",
+                    color: s.done ? "#1f1b16" : T.mute,
+                    border: `1px ${s.done ? "solid" : "dashed"} ${s.done ? "rgba(194,160,90,0.65)" : T.hair}`,
+                  }}
+                >
+                  {s.done ? "✓" : ""}
+                </span>
+              )}
               <div style={{ flex: 1, minWidth: 0 }}>
-                {/* Done steps are clickable: a click jumps straight back to that
-                    stage, with the wipe-of-later-dates confirmation in moveTo. */}
-                {done ? (
-                  <button
-                    type="button"
-                    disabled={busy}
-                    onClick={() => void moveTo(s.id)}
-                    title={`Move back to ${s.label}`}
-                    style={{
-                      background: "none",
-                      border: "none",
-                      padding: 0,
-                      fontSize: 13,
-                      color: T.gold,
-                      fontWeight: 400,
-                      cursor: busy ? "wait" : "pointer",
-                      fontFamily: SANS,
-                      textAlign: "left",
-                      textDecoration: "underline",
-                      textDecorationStyle: "dotted",
-                      textUnderlineOffset: 3,
-                      textDecorationColor: "rgba(194,160,90,0.45)",
-                    }}
-                  >
-                    {s.label}
-                  </button>
-                ) : (
-                  <div
-                    style={{
-                      fontSize: 13,
-                      color: current ? T.ink : T.mute,
-                      fontWeight: current ? 600 : 400,
-                    }}
-                  >
-                    {s.label}
-                  </div>
-                )}
-                <div style={{ fontSize: 11, color: T.mute }}>
-                  {reached ? fmtDate(reached) : current ? "Current step" : "Not reached"}
+                <div style={{ fontSize: 13, color: s.done ? T.ink : T.dim, fontWeight: s.done ? 500 : 400 }}>
+                  <span style={{ color: T.mute, marginRight: 6 }}>{n + 1}.</span>
+                  {s.label}
+                </div>
+                <div style={{ fontSize: 11, color: T.mute, lineHeight: 1.5 }}>
+                  {s.at ? fmtDate(s.at) : s.done ? "Done" : "Open"} · {who}
+                  {s.hint ? ` · ${s.hint}` : ""}
                 </div>
               </div>
-              {current && (
-                <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-                  {s.id > 1 && (
-                    <button
-                      type="button"
-                      disabled={busy}
-                      onClick={() => void moveTo(s.id - 1)}
-                      style={{ ...chip(false), color: T.dim }}
-                    >
-                      ← Back
-                    </button>
-                  )}
-                  {s.id < SHIPPED_STAGE && (
-                    <button
-                      type="button"
-                      disabled={busy}
-                      onClick={() => void moveTo(s.id + 1)}
-                      style={{
-                        background: T.gold,
-                        border: "none",
-                        color: "#1f1b16",
-                        padding: "6px 12px",
-                        borderRadius: 2,
-                        fontSize: 10,
-                        letterSpacing: "0.14em",
-                        textTransform: "uppercase",
-                        fontWeight: 600,
-                        cursor: busy ? "wait" : "pointer",
-                        fontFamily: SANS,
-                      }}
-                    >
-                      Mark done
-                    </button>
-                  )}
-                </div>
+              {s.key === "model_sent" && !s.done && order.payment_plan === "deposit" && (
+                <a href="#bespoke-balance" style={{ ...chip(true), textDecoration: "none" }}>
+                  Model sent ↓
+                </a>
               )}
             </li>
           );
@@ -621,20 +602,20 @@ export function PipelinePanel({
 
       <h4 style={{ fontFamily: SERIF, fontSize: 17, margin: "20px 0 4px" }}>Activity</h4>
       {events.length === 0 ? (
-        <p style={{ color: T.mute, fontSize: 12, margin: 0 }}>No stage changes recorded yet.</p>
+        <p style={{ color: T.mute, fontSize: 12, margin: 0 }}>Nothing recorded yet.</p>
       ) : (
         <ul style={{ margin: 0, padding: 0, listStyle: "none", fontSize: 12, color: T.dim, lineHeight: 1.8 }}>
           {events.map((e) => (
             <li key={e.id} style={{ borderTop: `1px solid ${T.hair}`, padding: "7px 0" }}>
               {fmtDate(e.created_at)} ·{" "}
-              {e.to_stage == null ? null : (
+              {e.to_stage == null || e.from_stage === e.to_stage ? null : (
                 <>
                   {e.from_stage ? `${crmStageShort(e.from_stage)} → ` : "Started at "}
                   <span style={{ color: T.ink }}>{crmStageLabel(Number(e.to_stage))}</span>
                 </>
               )}
+              {e.note ? `${e.from_stage === e.to_stage ? "" : " · "}${e.note}` : ""}
               {e.created_by ? ` · ${e.created_by}` : ""}
-              {e.note ? ` · ${e.note}` : ""}
             </li>
           ))}
         </ul>
@@ -656,7 +637,7 @@ export function PipelinePanel({
               Mark as shipped
             </h3>
             <p style={{ color: T.dim, fontSize: 12, margin: "0 0 14px", lineHeight: 1.6 }}>
-              A tracking number is required before an order reaches Shipped. Press Esc to close.
+              A tracking number is required before an order is marked as shipped. Press Esc to close.
             </p>
             {[
               { label: "Carrier", value: carrier, set: setCarrier, placeholder: "DHL Express", ref: carrierRef },
@@ -675,6 +656,7 @@ export function PipelinePanel({
                       void moveTo(SHIPPED_STAGE, {
                         carrier: carrier.trim(),
                         tracking_number: tracking.trim(),
+                        notify: notifyShip,
                       });
                     }
                   }}
@@ -683,6 +665,15 @@ export function PipelinePanel({
                 />
               </label>
             ))}
+            <label style={{ display: "flex", alignItems: "flex-start", gap: 8, margin: "4px 0 12px", fontSize: 12, color: T.dim, lineHeight: 1.5 }}>
+              <input
+                type="checkbox"
+                checked={notifyShip}
+                onChange={(e) => setNotifyShip(e.target.checked)}
+                style={{ marginTop: 2, accentColor: T.gold }}
+              />
+              Email the tracking number to the customer
+            </label>
             <div style={{ display: "flex", gap: 8, marginTop: 6 }}>
               <button
                 type="button"
@@ -691,6 +682,7 @@ export function PipelinePanel({
                   void moveTo(SHIPPED_STAGE, {
                     carrier: carrier.trim(),
                     tracking_number: tracking.trim(),
+                    notify: notifyShip,
                   })
                 }
                 style={{

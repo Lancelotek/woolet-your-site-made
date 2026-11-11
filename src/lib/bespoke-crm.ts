@@ -1,11 +1,13 @@
-// The manual production pipeline shown on the Bespoke admin page. Six stages,
-// moved by hand — nothing here sends an email or a message.
+// Where a Bespoke order stands, in six words. The detail lives on the order
+// timeline (bespoke-timeline.ts); these stages are its short name for the
+// orders table and the filter. Stage 2 and 4 set themselves (fitting form
+// received, model sent); reaching stage 6 emails the tracking number.
 
 export const CRM_STAGES = [
-  { id: 1, label: "Interview / form", short: "Interview" },
-  { id: 2, label: "Live chat", short: "Live chat" },
-  { id: 3, label: "Spec sent to production", short: "Spec sent" },
-  { id: 4, label: "Graphics to client", short: "Graphics" },
+  { id: 1, label: "Waiting for the fitting", short: "Fitting" },
+  { id: 2, label: "Fitting received", short: "Received" },
+  { id: 3, label: "Brief at the workshop", short: "Workshop" },
+  { id: 4, label: "Model with the customer", short: "Model" },
   { id: 5, label: "In production", short: "In production" },
   { id: 6, label: "Shipped", short: "Shipped" },
 ] as const;
@@ -23,10 +25,10 @@ export function crmStageOf(order: Record<string, unknown> | null | undefined): C
 }
 
 export const crmStageLabel = (stage: number) =>
-  CRM_STAGES.find((s) => s.id === stage)?.label ?? "Interview / form";
+  CRM_STAGES.find((s) => s.id === stage)?.label ?? "Waiting for the fitting";
 
 export const crmStageShort = (stage: number) =>
-  CRM_STAGES.find((s) => s.id === stage)?.short ?? "Interview";
+  CRM_STAGES.find((s) => s.id === stage)?.short ?? "Fitting";
 
 /** "3/6 · Spec sent" */
 export const crmStageSummary = (stage: number) =>
@@ -47,6 +49,7 @@ const CRM_ERRORS: Record<string, string> = {
   not_deposit_order: "This order was paid in full at checkout - there is no balance to collect.",
   balance_already_paid: "The balance for this order is already paid.",
   invalid_stage: "That stage does not exist.",
+  unknown_check: "That step cannot be ticked here.",
   invalid_id: "That order could not be found.",
   order_not_found: "That order could not be found.",
   "Invalid password": "Your session expired. Reload the page and sign in again.",

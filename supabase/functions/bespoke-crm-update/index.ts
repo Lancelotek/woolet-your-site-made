@@ -28,6 +28,7 @@ const BESPOKE_PASSWORD = Deno.env.get("BESPOKE_ADMIN_PASSWORD") ?? "";
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const SHIPPED = 6;
 const IN_PRODUCTION = 5;
+const MODEL_WITH_CUSTOMER = 4;
 const SITE_ORIGIN = "https://woolet.co";
 
 const PAYMENT_COLUMNS =
@@ -54,6 +55,13 @@ async function paymentSnapshot(admin: any, id: string) {
     modelUrl: order?.stripe_session_id ? modelPageUrl(SITE_ORIGIN, order.stripe_session_id) : null,
   };
 }
+
+// Manual ticks on the order timeline that have no stage of their own.
+const CHECK_NOTES: Record<string, string> = {
+  model_received: "3D model received from the workshop",
+  delivered: "Delivered to the customer",
+};
+const UNTICKED = " - unticked";
 
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), {
@@ -126,6 +134,11 @@ Deno.serve(async (req) => {
       const now = new Date();
       const due = balanceDueAt(now);
       const resend = Boolean(o.model_sent_at);
+      // The model going out is stage 4 on the timeline; never move an order back.
+      const stageBefore = Number(o.crm_stage ?? 1);
+      const stagePatch = stageBefore < MODEL_WITH_CUSTOMER
+        ? { crm_stage: MODEL_WITH_CUSTOMER, crm_stage_4_at: now.toISOString() }
+        : {};
       const { error: upErr } = await admin
         .from("bespoke_orders")
         .update({
@@ -133,6 +146,7 @@ Deno.serve(async (req) => {
           balance_due_at: due.toISOString(),
           balance_reminder_sent_at: null,
           balance_expired_at: null,
+          ...stagePatch,
         })
         .eq("id", id);
       if (upErr) throw upErr;
@@ -143,8 +157,8 @@ Deno.serve(async (req) => {
         .is("resolved_at", null);
       await admin.from("bespoke_crm_events").insert({
         order_id: id,
-        from_stage: Number(o.crm_stage ?? 1),
-        to_stage: Number(o.crm_stage ?? 1),
+        from_stage: stageBefore,
+        to_stage: Math.max(stageBefore, MODEL_WITH_CUSTOMER),
         note: `${resend ? "Corrected 3D model sent" : "3D model sent"} - balance ${formatUsdCents(o.balance_cents)} due by ${formatDueDate(due)}`,
         created_by: "admin",
       });
@@ -217,6 +231,35 @@ Deno.serve(async (req) => {
       return json({ ok: true, ...(await paymentSnapshot(admin, id)) });
     }
 
+    // Timeline ticks: "model received from the workshop" lives in the activity
+    // log (latest entry wins), "delivered" also stamps delivered_at.
+    if (action === "check") {
+      const key = String(body.key ?? "");
+      const label = CHECK_NOTES[key];
+      if (!label) return json({ error: "unknown_check" }, 400);
+      const done = body.done !== false;
+      const now = new Date().toISOString();
+      if (key === "delivered") {
+        const { error } = await admin.from("bespoke_orders").update({ delivered_at: done ? now : null }).eq("id", id);
+        if (error) throw error;
+      }
+      const stageNow = Number((order as { crm_stage?: number }).crm_stage ?? 1);
+      await admin.from("bespoke_crm_events").insert({
+        order_id: id,
+        from_stage: stageNow,
+        to_stage: stageNow,
+        note: done ? label : `${label}${UNTICKED}`,
+        created_by: "admin",
+      });
+      const { data: events } = await admin
+        .from("bespoke_crm_events")
+        .select("id, from_stage, to_stage, note, created_by, created_at")
+        .eq("order_id", id)
+        .order("created_at", { ascending: false })
+        .limit(100);
+      return json({ ok: true, events: events ?? [], patch: key === "delivered" ? { delivered_at: done ? now : null } : {} });
+    }
+
     if (action === "notes") {
       const notes = text(body.crm_notes, 4000);
       const { error } = await admin.from("bespoke_orders").update({ crm_notes: notes }).eq("id", id);
@@ -269,6 +312,47 @@ Deno.serve(async (req) => {
         created_by: "admin",
       });
 
+      // Shipped: the buyer gets the tracking number, once per tracking number.
+      // `notify: false` skips it (parcels that left before this email existed).
+      let emailed = false;
+      if (to === SHIPPED && from !== SHIPPED && body.notify !== false) {
+        try {
+          const { data: ship } = await admin
+            .from("bespoke_orders")
+            .select("id, case_no, customer_email, customer_name, frame_name, courier, tracking_number")
+            .eq("id", id)
+            .maybeSingle();
+          const s = ship as Record<string, any> | null;
+          if (s?.customer_email) {
+            const ref = s.case_no || `WLT-${String(s.id).slice(0, 8).toUpperCase()}`;
+            const firstName = s.customer_name ? String(s.customer_name).split(" ")[0] : "";
+            await sendTemplateEmailAndLog("bespoke-balance-notice", s.customer_email, {
+              idempotencyKey: `bespoke-shipped-${id}-${s.tracking_number}`,
+              templateData: {
+                subject: `Your Woolet Bespoke frame is on its way (${ref})`,
+                preview: `Tracking number ${s.tracking_number}.`,
+                heading: `${firstName ? `${firstName}, your` : "Your"} frame left the workshop.`,
+                paragraphs: [
+                  `Your ${s.frame_name ?? "Woolet Bespoke"} frame is finished and on its way to you.`,
+                  "When it arrives, wear it for a day. Anything that presses or slips, reply to this email and I will sort it out.",
+                ],
+                rows: [
+                  { label: "Order", value: ref },
+                  ...(s.courier ? [{ label: "Courier", value: String(s.courier) }] : []),
+                  { label: "Tracking number", value: String(s.tracking_number) },
+                ],
+              },
+            });
+            emailed = true;
+            await admin.from("bespoke_crm_events").insert({
+              order_id: id, from_stage: to, to_stage: to, note: "Tracking number emailed to the customer", created_by: "system",
+            });
+          }
+        } catch (e) {
+          console.error("[bespoke-crm-update] shipped email failed", e);
+        }
+      }
+
       const { data: events } = await admin
         .from("bespoke_crm_events")
         .select("id, from_stage, to_stage, note, created_by, created_at")
@@ -276,7 +360,7 @@ Deno.serve(async (req) => {
         .order("created_at", { ascending: false })
         .limit(100);
 
-      return json({ ok: true, crm_stage: to, patch, events: events ?? [] });
+      return json({ ok: true, crm_stage: to, patch, emailed, events: events ?? [] });
     }
 
     return json({ error: "unknown_action" }, 400);

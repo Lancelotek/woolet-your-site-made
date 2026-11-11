@@ -1192,6 +1192,18 @@ function DetailView({
         </button>
       </div>
 
+      {/* The timeline comes first: it is the one place that says what is done,
+          when, and what is next. */}
+      <PipelinePanel
+        order={o}
+        password={password}
+        photo={p}
+        initialEvents={detail.crm_events ?? []}
+        onOrderChange={onOrderChange}
+      />
+
+      <BalancePanel order={{ id: String(o.id) }} password={password} onOrderChange={onOrderChange} />
+
       <Group title="Case">
         <Field
           label="Case number / FitLens producer code"
@@ -1205,7 +1217,6 @@ function DetailView({
             )
           }
         />
-        <Field label="Stage" value={STAGE_LABELS[(o.stage as BespokeStage) ?? "paid"] ?? o.stage} />
         {/* Legacy alias — kept visible here only, so older paperwork and
             MailerLite records still match. */}
         <Field label="Legacy reference" value={`WLT-${String(o.id).slice(0, 8).toUpperCase()}`} />
@@ -1331,15 +1342,6 @@ function DetailView({
           </ul>
         </section>
       )}
-
-      <BalancePanel order={{ id: String(o.id) }} password={password} onOrderChange={onOrderChange} />
-
-      <PipelinePanel
-        order={o}
-        password={password}
-        initialEvents={detail.crm_events ?? []}
-        onOrderChange={onOrderChange}
-      />
 
       <MeasureInviteBlock order={o} password={password} />
 
@@ -1493,15 +1495,17 @@ function InterviewBlock({
   return (
     <>
       <Group
-        title="Fitting interview · reference glasses"
+        title="Reference glasses"
         action={
           <button type="button" style={editBtn} disabled={busy} onClick={() => setDraft(order.reference_glasses_raw ?? "")}>
             {busy ? "Checking…" : "Re-check"}
           </button>
         }
       >
-        <Field label="Interview" value={order.interview_at ? `${fmtDate(order.interview_at)} · ${order.interview_timezone ?? ""}` : "Not booked"} />
-        <Field label="FitLens scan (customer says)" value={order.interview_fitlens_answer} />
+        {order.interview_at && (
+          <Field label="Call held" value={`${fmtDate(order.interview_at)} · ${order.interview_timezone ?? ""}`} />
+        )}
+        {order.interview_fitlens_answer && <Field label="FitLens scan (customer says)" value={order.interview_fitlens_answer} />}
         <Field label="Temple text (as typed)" value={order.reference_glasses_raw} />
         <Field label="Brand / model" value={g ? [g.brand, g.model].filter(Boolean).join(" ") || null : "Lookup pending"} />
         <Field label="Colour" value={g ? [g.colour_code, g.colour_name].filter(Boolean).join(" · ") || null : null} />

@@ -236,6 +236,23 @@ Deno.serve(async (req) => {
       });
     }
 
+    // Timeline: the fitting has arrived. Only ever moves stage 1 -> 2.
+    try {
+      const { data: moved } = await supabase
+        .from("bespoke_orders")
+        .update({ crm_stage: 2, crm_stage_2_at: new Date().toISOString() })
+        .eq("id", (data as { id: string }).id)
+        .or("crm_stage.is.null,crm_stage.eq.1")
+        .select("id");
+      if (moved && moved.length > 0) {
+        await supabase.from("bespoke_crm_events").insert({
+          order_id: (data as { id: string }).id, from_stage: 1, to_stage: 2, note: "Fitting form received", created_by: "system",
+        });
+      }
+    } catch (e) {
+      console.error("[bespoke-measurements-submit] stage update failed", e);
+    }
+
     // Mirror the "how did you find Woolet" answer into MailerLite heard_from.
     try {
       const mlKey = Deno.env.get("MAILERLITE_API_KEY");
