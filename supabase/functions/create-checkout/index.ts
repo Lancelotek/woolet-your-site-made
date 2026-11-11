@@ -75,7 +75,7 @@ async function createFounderSession(stripe: any, body: Body, req: Request): Prom
         product_data: {
           name: "Woolet Founder Edition - 009 Black",
           description: "Black only. 158 mm front, 24 mm bridge, Mazzucchelli acetate. Founder Box included (magnetic box, special case, Clip-On Cloth). Ships from the EU right after your order.",
-          images: ["https://woolet.co/frames/woolet-009-soft-square-black-eyeglasses.jpg"],
+          images: ["https://woolet.co/founders/woolet-founder-edition-009-black-box.jpg"],
         },
       },
     }],

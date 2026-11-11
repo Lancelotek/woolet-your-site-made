@@ -35,12 +35,12 @@ const C = {
   ink: "#1F1B16",
 };
 
+// Real Founder batch only: no rivet dots on the front, no gold decor on the temples
+// (the main-run 009 photos in /frames/ show both, so they must not be used here).
 const PHOTOS = [
-  { src: `${IMG}woolet-009-soft-square-black-eyeglasses.jpg`, alt: "Woolet 009 Black Founder Edition, front view, 158 mm front" },
-  { src: `${IMG}woolet-009-soft-square-black-eyeglasses-on-face.jpg`, alt: "Woolet 009 Black worn on a wide face" },
-  { src: `${IMG}woolet-009-soft-square-black-angle-34.jpg`, alt: "Woolet 009 Black three-quarter view" },
-  { src: `${IMG}woolet-009-soft-square-black-angle-top.jpg`, alt: "Woolet 009 Black top view showing the 158 mm front" },
-  { src: `${IMG}woolet-box-open-frames-cloth.jpg`, alt: "Woolet Founder Box open with the frame and cloth" },
+  { src: "/founders/woolet-founder-edition-009-black-box.jpg", alt: "Woolet 009 Black Founder Edition in the Founder Box with the felt case and Clip-On Cloth" },
+  { src: "/founders/woolet-founder-edition-009-black-hinge.jpg", alt: "Woolet 009 Black Founder Edition close-up - plain black front, no rivets, small w logo inside the temple" },
+  { src: `${IMG}woolet-box-open-frames-cloth.jpg`, alt: "Woolet Founder Box open with the felt case and the Clip-On Cloth" },
   { src: `${IMG}woolet-box-render-closed.jpg`, alt: "Woolet magnetic box closed, gold w on the lid" },
 ];
 
@@ -351,9 +351,9 @@ export default function Founders() {
         .fnd-h1 { font-family: "Cormorant Garamond", Cormorant, serif; font-weight: 300; font-size: 38px; line-height: 1.08; color: ${C.head}; margin: 0 0 14px; }
         .fnd-noacct { margin: 0 0 26px; padding: 14px 16px; border-left: 2px solid ${C.gold}; background: ${C.surface}; font-size: 16px; line-height: 1.5; color: ${C.body}; }
         .fnd-noacct strong { color: ${C.head}; font-weight: 600; }
-        .fnd-gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 0 0 28px; }
+        .fnd-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 0 0 28px; }
         .fnd-gallery img { width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; background: ${C.surface}; border-radius: 2px; }
-        .fnd-gallery img:first-child { grid-column: 1 / -1; aspect-ratio: 4 / 3; }
+        .fnd-gallery img:first-child { grid-column: 1 / -1; aspect-ratio: 1 / 1; }
         .fnd-facts { margin: 0 0 24px; border-top: 1px solid ${C.hair}; }
         .fnd-facts > div { display: grid; grid-template-columns: 110px 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px solid ${C.hair}; }
         .fnd-facts dt { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: ${C.muted}; padding-top: 2px; }
@@ -361,7 +361,6 @@ export default function Founders() {
         @media (min-width: 768px) {
           .fnd-wrap { padding-top: 64px; }
           .fnd-h1 { font-size: 52px; }
-          .fnd-gallery { grid-template-columns: repeat(3, 1fr); }
         }
         @media (max-width: 767px) {
           .fnd-facts > div { grid-template-columns: 1fr; gap: 2px; }
