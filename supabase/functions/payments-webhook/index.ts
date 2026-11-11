@@ -508,7 +508,7 @@ async function handleFounderEditionCompleted(session: any, env: StripeEnv, paidS
   const apiKey = Deno.env.get("MAILERLITE_API_KEY");
   if (!apiKey) return;
   try {
-    for (const name of ["founder_paid_at", "founder_order_ref"]) {
+    for (const name of ["founder_paid_at", "founder_order_ref", "founder_ship_address", "founder_ship_phone"]) {
       const f = await fetch("https://connect.mailerlite.com/api/fields", {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
@@ -528,6 +528,16 @@ async function handleFounderEditionCompleted(session: any, env: StripeEnv, paidS
           country: addr.country ?? "",
           founder_paid_at: mlDate(),
           founder_order_ref: `WLT-FE-${String(session.id).slice(-8).toUpperCase()}`,
+          // Full address goes into the confirmation email so the buyer can check it.
+          founder_ship_address: [
+            ship?.name || cd.name,
+            addr.line1,
+            addr.line2,
+            [addr.postal_code, addr.city].filter(Boolean).join(" "),
+            addr.state,
+            addr.country,
+          ].filter((v) => typeof v === "string" && v.trim()).join(", ").slice(0, 500),
+          founder_ship_phone: String(ship?.phone || cd.phone || "").slice(0, 40),
           paid_source: paidSource,
         },
       }),

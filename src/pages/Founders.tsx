@@ -17,6 +17,7 @@ import { claritySet } from "@/lib/clarity";
  * /en/founders - Founder Edition pre-order paid on woolet.co (decision 11.11.2026):
  * people who reserved for $1 but would not log in to Kickstarter buy here instead.
  * Same offer as the secret KS reward: 009 Black, 24 mm bridge, $114, Founder Box.
+ * Unlike the KS reward, site orders ship right after purchase (decision 11.11.2026).
  * Price and stock cap live server-side in create-checkout (FOUNDER_PRICE_ID).
  */
 const FOUNDER_PRICE_ID = "founder_edition_009_114";
@@ -44,12 +45,13 @@ const PHOTOS = [
 ];
 
 const FACTS: Array<[string, string]> = [
-  ["Frame", `${F.model} - 158 mm front, fits faces 155-161 mm`],
+  ["Frame", `${F.model} only - 158 mm front, fits faces 155-161 mm`],
   ["Bridge", `${F.bridgeMm} mm - Founder batch only (the main run has 25 mm)`],
   ["Made", "Mazzucchelli acetate from Milan, made in a small family workshop in Bielsko-Biała, Poland"],
   ["Founder Box", `Magnetic box, special case and the Clip-On Cloth ($${F.boxValue} value) - not in the shop`],
   ["Lenses", "Frame only - your optician fits your prescription"],
-  ["Shipping", `Free, right after the Kickstarter campaign ends on ${F.campaignEndLabel}. Import duties, where they apply, are paid by the recipient`],
+  ["Shipping", "Free. Ships from the EU right after your order - no waiting for the campaign to end"],
+  ["Customs", "Depending on your country, customs duties or import fees may apply on delivery. They are paid by the recipient"],
   ["Warranty", "5 years"],
 ];
 
@@ -106,8 +108,8 @@ function Paid() {
       <p className="fnd-eyebrow">Founder Edition</p>
       <h1 className="fnd-h1">Your Founder frame is yours.</h1>
       <p style={{ fontSize: 16, lineHeight: 1.6, margin: "0 auto 18px", maxWidth: 460 }}>
-        {F.model}, {F.bridgeMm} mm bridge, with the Founder Box. It ships right after the campaign ends on{" "}
-        {F.campaignEndLabel}. You'll get an email with the confirmation, and another with tracking when it leaves.
+        {F.model}, {F.bridgeMm} mm bridge, with the Founder Box. It ships from the EU right away. You'll get an email
+        with your order and shipping address - check it, and reply to that email when anything needs fixing.
       </p>
       <p style={{ fontSize: 14, color: C.muted, margin: 0 }}>
         Questions? <a href="mailto:support@woolet.co" style={{ color: C.gold }}>support@woolet.co</a>
@@ -227,11 +229,11 @@ function Checkout() {
 
   return (
     <main className="fnd-wrap">
-      <p className="fnd-eyebrow">Founder Edition · pre-order</p>
+      <p className="fnd-eyebrow">Founder Edition · ships now</p>
       <h1 className="fnd-h1">Your Founder frame. No Kickstarter account needed.</h1>
       <p style={{ fontSize: 17, lineHeight: 1.55, margin: "0 0 26px" }}>
         The same Founder reward as on Kickstarter - {F.model}, ${F.price} instead of ${F.srp} in the shop, with the $
-        {F.boxValue} Founder Box. You pay here, on woolet.co, by card.
+        {F.boxValue} Founder Box. You pay here, on woolet.co, by card - and it ships right away.
       </p>
 
       <div className="fnd-gallery">
@@ -252,7 +254,7 @@ function Checkout() {
       <div style={{ display: "flex", alignItems: "baseline", gap: 12, margin: "4px 0 16px" }}>
         <span style={{ fontFamily: '"Cormorant Garamond", serif', fontSize: 44, color: C.head, lineHeight: 1 }}>${F.price}</span>
         <span style={{ fontSize: 16, color: C.muted, textDecoration: "line-through" }}>${F.srp}</span>
-        <span style={{ fontSize: 13, color: C.gold, letterSpacing: "0.08em" }}>Free shipping</span>
+        <span style={{ fontSize: 13, color: C.gold, letterSpacing: "0.08em" }}>Free shipping from the EU</span>
       </div>
 
       {!started ? (
@@ -327,7 +329,7 @@ export default function Founders() {
     <div style={{ minHeight: "100vh", background: C.bg, color: C.body, fontFamily: "Barlow, sans-serif" }}>
       <SEO
         title="Founder Edition - Woolet"
-        description="Woolet 009 Black Founder Edition: $114 instead of $190, with the Founder Box. Pre-order on woolet.co, no Kickstarter account needed."
+        description="Woolet 009 Black Founder Edition: $114 instead of $190, with the Founder Box. Order on woolet.co, no Kickstarter account needed - ships right away."
         path="/founders"
         noindex
         robots="noindex, nofollow"

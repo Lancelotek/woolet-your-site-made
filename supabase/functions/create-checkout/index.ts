@@ -73,20 +73,25 @@ async function createFounderSession(stripe: any, body: Body, req: Request): Prom
         currency: "usd",
         unit_amount: FOUNDER_AMOUNT_CENTS,
         product_data: {
-          name: "Woolet Founder Edition - 009 Black (pre-order)",
-          description: "158 mm front, 24 mm bridge, Mazzucchelli acetate. Founder Box included. Ships right after the Kickstarter campaign ends on December 4, 2026.",
+          name: "Woolet Founder Edition - 009 Black",
+          description: "Black only. 158 mm front, 24 mm bridge, Mazzucchelli acetate. Founder Box included (magnetic box, special case, Clip-On Cloth). Ships from the EU right after your order.",
           images: ["https://woolet.co/frames/woolet-009-soft-square-black-eyeglasses.jpg"],
         },
       },
     }],
     shipping_address_collection: { allowed_countries: [...FOUNDER_COUNTRIES] },
     phone_number_collection: { enabled: true },
+    custom_text: {
+      shipping_address: {
+        message: "Enter the full address with apartment number - the courier needs it. Shipping from the EU is free; customs duties or import fees may apply depending on your country.",
+      },
+    },
     expires_at: Math.floor(Date.now() / 1000) + 60 * 60,
     ...(body.customerEmail && { customer_email: body.customerEmail }),
     metadata: meta,
     payment_intent_data: {
       metadata: meta,
-      description: "Woolet Founder Edition 009 Black - pre-order (woolet.co)",
+      description: "Woolet Founder Edition 009 Black, 24 mm bridge (woolet.co)",
     },
   });
   return json(200, { clientSecret: session.client_secret });
