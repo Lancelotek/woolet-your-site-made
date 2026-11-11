@@ -202,6 +202,11 @@ Deno.serve(async (req) => {
         })
         .eq("id", id);
       if (upErr) throw upErr;
+      await admin
+        .from("bespoke_model_revisions")
+        .update({ resolved_at: new Date().toISOString() })
+        .eq("order_id", id)
+        .is("resolved_at", null);
       await admin.from("bespoke_crm_events").insert({
         order_id: id,
         from_stage: Number(o.crm_stage ?? 1),

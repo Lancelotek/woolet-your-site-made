@@ -90,6 +90,9 @@ Deno.serve(async (req) => {
         // The buyer's own requests, newest first.
         revisions: revisions.map((r) => ({ note: r.note, createdAt: r.created_at, answered: Boolean(r.resolved_at) })),
         canRequestRevision: (state === "awaiting_payment" || state === "revision_requested") && revisions.length < MAX_REVISIONS,
+        // No approval while a correction is open: the buyer would be approving
+        // a model they asked us to change.
+        canPay: state === "awaiting_payment",
       });
     }
 
@@ -121,7 +124,8 @@ Deno.serve(async (req) => {
     }
 
     if (action === "checkout") {
-      if (state !== "awaiting_payment" && state !== "revision_requested") return json({ error: "not_open", state }, 409);
+      if (state === "revision_requested") return json({ error: "correction_open", state }, 409);
+      if (state !== "awaiting_payment") return json({ error: "not_open", state }, 409);
       const balanceCents = Number(order.balance_cents);
       if (!Number.isInteger(balanceCents) || balanceCents < 100) return json({ error: "no_balance" }, 409);
       const returnUrl = String(body.returnUrl ?? "");

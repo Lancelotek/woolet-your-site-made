@@ -33,6 +33,7 @@ interface Status {
   daysLeft: number;
   revisions: Array<{ note: string; createdAt: string; answered: boolean }>;
   canRequestRevision: boolean;
+  canPay?: boolean;
 }
 
 const SID_RE = /^[A-Za-z0-9_-]{20,200}$/;
@@ -163,7 +164,8 @@ export default function BespokeModel() {
 
   const s = status;
   const paid = s?.state === "paid" || (justPaid && s?.state !== "expired");
-  const open = s?.state === "awaiting_payment" || s?.state === "revision_requested";
+  // Approval is closed while a correction is open (older function builds send no canPay).
+  const canPay = s?.state === "awaiting_payment" && s?.canPay !== false;
   const openRequest = s?.revisions.find((r) => !r.answered);
 
   return (
@@ -255,7 +257,8 @@ export default function BespokeModel() {
                 <div role="status" className="mt-6 border border-gold/30 bg-gold/5 p-4 text-sm leading-relaxed text-cream-dim">
                   <strong className="text-cream font-medium">We are correcting your model.</strong> Your request: “
                   {openRequest.note}”. We email you the corrected model, and your {BALANCE_WINDOW_DAYS} days start again
-                  from that day.
+                  from that day. You approve and pay once you have seen it. Changed your mind? Reply to our email and
+                  we reopen the current model for approval.
                 </div>
               )}
 
@@ -269,7 +272,7 @@ export default function BespokeModel() {
                 </p>
               )}
 
-              {open && !paying && (
+              {canPay && !paying && (
                 <div className="mt-8 flex flex-col gap-3">
                   <button
                     type="button"
