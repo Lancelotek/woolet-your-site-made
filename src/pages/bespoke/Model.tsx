@@ -246,8 +246,9 @@ export default function BespokeModel() {
                 {s.firstName ? `${s.firstName}, your` : "Your"} 3D model is <em className="italic text-gold-light">ready</em>.
               </h1>
               <p className="mt-4 text-cream-dim leading-relaxed">
-                We sent the video and the drawing of your frame by email from support@woolet.co. Approve the model by
-                paying the balance, or tell us what to correct.
+                Your 3D model - a video and a drawing with your measurements - is in the email we sent from
+                support@woolet.co. Watch it first, then approve the model by paying the balance, or tell us what to
+                correct.
               </p>
 
               {s.state === "revision_requested" && openRequest && (
@@ -367,14 +368,22 @@ function Summary({ s }: { s: Status }) {
   return (
     <div className="mt-8 border border-cream/10 bg-cream/[0.03] p-5" style={{ borderRadius: 4 }}>
       {s.previewUrl && (
-        <img
-          src={s.previewUrl}
-          alt={`Preview of your ${s.frameName} frame`}
-          loading="lazy"
-          decoding="async"
-          className="w-full h-auto mb-4"
-          style={{ borderRadius: 2 }}
-        />
+        // This is the configurator render, not the 3D model: the model (video
+        // and drawing) is made in the workshop and reaches the buyer by email.
+        <figure className="m-0 mb-4">
+          <img
+            src={s.previewUrl}
+            alt={`Configurator preview of your ${s.frameName} frame`}
+            loading="lazy"
+            decoding="async"
+            className="w-full h-auto"
+            style={{ borderRadius: 2 }}
+          />
+          <figcaption className="mt-2 text-xs text-cream-dim leading-relaxed">
+            Preview of the design you configured. Your 3D model - the video and the drawing with your measurements - is
+            in the email from support@woolet.co.
+          </figcaption>
+        </figure>
       )}
       <dl className="space-y-2 text-sm">
         {rows
