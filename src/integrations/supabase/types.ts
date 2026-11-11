@@ -237,6 +237,38 @@ export type Database = {
           },
         ]
       }
+      bespoke_model_revisions: {
+        Row: {
+          created_at: string
+          id: string
+          note: string
+          order_id: string
+          resolved_at: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          note: string
+          order_id: string
+          resolved_at?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          note?: string
+          order_id?: string
+          resolved_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bespoke_model_revisions_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "bespoke_orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       bespoke_order_photos: {
         Row: {
           card_px: number | null
@@ -354,6 +386,15 @@ export type Database = {
           ai_source: string | null
           ai_temple_to_temple_mm: number | null
           amount_cents: number | null
+          balance_cents: number | null
+          balance_due_at: string | null
+          balance_expired_at: string | null
+          balance_paid_at: string | null
+          balance_paid_cents: number | null
+          balance_paid_manually: boolean
+          balance_payment_intent_id: string | null
+          balance_reminder_sent_at: string | null
+          balance_session_id: string | null
           brief_filename: string | null
           brief_path: string | null
           brief_uploaded_at: string | null
@@ -376,6 +417,7 @@ export type Database = {
           customer_name: string | null
           customer_token: string
           delivered_at: string | null
+          deposit_cents: number | null
           dispatch_note: string | null
           dossier_path: string | null
           dossier_rev: number
@@ -403,8 +445,10 @@ export type Database = {
           manual_temple_to_temple_mm: number | null
           measurements_submitted_at: string | null
           metadata: Json | null
+          model_sent_at: string | null
           mr_no: string | null
           parcel_weight_kg: number | null
+          payment_plan: string
           production_blocked: boolean
           purge_after: string | null
           purged_at: string | null
@@ -443,6 +487,7 @@ export type Database = {
           stripe_payment_intent_id: string | null
           stripe_session_id: string
           temple_code: string | null
+          total_cents: number | null
           tracking_number: string | null
           updated_at: string
           workshop_token: string
@@ -459,6 +504,15 @@ export type Database = {
           ai_source?: string | null
           ai_temple_to_temple_mm?: number | null
           amount_cents?: number | null
+          balance_cents?: number | null
+          balance_due_at?: string | null
+          balance_expired_at?: string | null
+          balance_paid_at?: string | null
+          balance_paid_cents?: number | null
+          balance_paid_manually?: boolean
+          balance_payment_intent_id?: string | null
+          balance_reminder_sent_at?: string | null
+          balance_session_id?: string | null
           brief_filename?: string | null
           brief_path?: string | null
           brief_uploaded_at?: string | null
@@ -481,6 +535,7 @@ export type Database = {
           customer_name?: string | null
           customer_token?: string
           delivered_at?: string | null
+          deposit_cents?: number | null
           dispatch_note?: string | null
           dossier_path?: string | null
           dossier_rev?: number
@@ -508,8 +563,10 @@ export type Database = {
           manual_temple_to_temple_mm?: number | null
           measurements_submitted_at?: string | null
           metadata?: Json | null
+          model_sent_at?: string | null
           mr_no?: string | null
           parcel_weight_kg?: number | null
+          payment_plan?: string
           production_blocked?: boolean
           purge_after?: string | null
           purged_at?: string | null
@@ -548,6 +605,7 @@ export type Database = {
           stripe_payment_intent_id?: string | null
           stripe_session_id: string
           temple_code?: string | null
+          total_cents?: number | null
           tracking_number?: string | null
           updated_at?: string
           workshop_token?: string
@@ -564,6 +622,15 @@ export type Database = {
           ai_source?: string | null
           ai_temple_to_temple_mm?: number | null
           amount_cents?: number | null
+          balance_cents?: number | null
+          balance_due_at?: string | null
+          balance_expired_at?: string | null
+          balance_paid_at?: string | null
+          balance_paid_cents?: number | null
+          balance_paid_manually?: boolean
+          balance_payment_intent_id?: string | null
+          balance_reminder_sent_at?: string | null
+          balance_session_id?: string | null
           brief_filename?: string | null
           brief_path?: string | null
           brief_uploaded_at?: string | null
@@ -586,6 +653,7 @@ export type Database = {
           customer_name?: string | null
           customer_token?: string
           delivered_at?: string | null
+          deposit_cents?: number | null
           dispatch_note?: string | null
           dossier_path?: string | null
           dossier_rev?: number
@@ -613,8 +681,10 @@ export type Database = {
           manual_temple_to_temple_mm?: number | null
           measurements_submitted_at?: string | null
           metadata?: Json | null
+          model_sent_at?: string | null
           mr_no?: string | null
           parcel_weight_kg?: number | null
+          payment_plan?: string
           production_blocked?: boolean
           purge_after?: string | null
           purged_at?: string | null
@@ -653,6 +723,7 @@ export type Database = {
           stripe_payment_intent_id?: string | null
           stripe_session_id?: string
           temple_code?: string | null
+          total_cents?: number | null
           tracking_number?: string | null
           updated_at?: string
           workshop_token?: string
