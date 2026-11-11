@@ -96,7 +96,7 @@ export default function BespokeCheckout() {
   const [couponPercent, setCouponPercent] = useState(0);
   // Deposit plan: the deposit is charged today, the balance after the buyer
   // approves the 3D model. The server prices the charge; this mirrors it.
-  const split = splitDeposit(Math.round(pricing.totalEur * (100 - couponPercent)), depositPrice(prices));
+  const split = splitDeposit(Math.round(pricing.totalEur * (100 - couponPercent)), depositPrice(prices, getStripeEnvironment() === "sandbox"));
   const dueTodayUsd = split.dueNowCents / 100;
   const [couponChecking, setCouponChecking] = useState(false);
   const [couponError, setCouponError] = useState<string | null>(null);

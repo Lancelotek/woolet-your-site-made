@@ -125,7 +125,7 @@ Deno.serve(async (req) => {
 
     // Deposit plan: charge the deposit now, the balance after the buyer approves
     // the 3D model (bespoke-balance). `full` when the deposit row is 0 or absent.
-    const split = splitDeposit(amountInCents, depositPrice(table));
+    const split = splitDeposit(amountInCents, depositPrice(table, body.environment === "sandbox"));
     const chargeCents = split.dueNowCents;
 
     if (typeof body.amountUsd === "number" && Math.round(body.amountUsd * 100) !== grossCents) {

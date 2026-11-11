@@ -20,7 +20,7 @@ const SERVICE_ROLE = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 const ADMIN_PASSWORD = Deno.env.get("ADMIN_CRM_PASSWORD") ?? "";
 const BESPOKE_PASSWORD = Deno.env.get("BESPOKE_ADMIN_PASSWORD") ?? "";
 
-const KEY_RE = /^(?:(?:frame|lens):[a-z0-9-]+|engraving|deposit)$/;
+const KEY_RE = /^(?:(?:frame|lens):[a-z0-9-]+|engraving|deposit|deposit_sandbox)$/;
 const CODE_RE = /^[A-Z0-9_-]{3,40}$/;
 
 const json = (body: unknown, status = 200) =>

@@ -20,6 +20,7 @@ import craft9 from "@/assets/bespoke-craft/woolet-bespoke-shaping-brow-line-prec
 import { BESPOKE_FACTS, BESPOKE_FAQS, BESPOKE_GUIDE, BESPOKE_META_DESCRIPTION, bespokeFaqJsonLd, bespokeProductJsonLd } from "@/content/bespokeFacts";
 import { trackMetaEventOnce } from "@/lib/meta-capi";
 import { depositPrice, usePriceTable } from "@/lib/bespoke-pricing";
+import { isTestMode } from "@/lib/stripe";
 
 type AtelierAlts = [string, string, string, string, string, string, string, string, string];
 type AtelierCopy = {
@@ -189,7 +190,7 @@ const BespokePage = () => {
   const [searchParams] = useSearchParams();
   const shapeParam = searchParams.get("shape");
   // Deposit plan (live value from table bespoke_pricing; 0 = full payment upfront).
-  const depositUsd = depositPrice(usePriceTable());
+  const depositUsd = depositPrice(usePriceTable(), isTestMode());
   const selectedShape = shapeParam && findFrame(shapeParam) ? shapeParam : null;
   const cfgHref = selectedShape ? `/en/bespoke/configurator?shape=${selectedShape}` : "/en/bespoke/configurator";
   const atelier = ATELIER_I18N[(lang ?? "en") as keyof typeof ATELIER_I18N] ?? ATELIER_I18N.en;
