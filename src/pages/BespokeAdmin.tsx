@@ -17,6 +17,7 @@ import {
   UndoBar,
   type CrmEvent,
 } from "@/components/admin/BespokeCrm";
+import { BalancePanel } from "@/components/admin/BespokeBalance";
 
 const T = {
   bg: "#0b0a09",
@@ -1219,7 +1220,7 @@ function DetailView({
         <Field label="Name" value={o.customer_name} />
         <Field label="Discovery source" value={o.source || "Not provided"} />
         <Field label="Email" value={o.customer_email} />
-        <Field label="Paid" value={fmtAmount(o.amount_cents, o.currency)} />
+        <Field label={o.payment_plan === "deposit" ? "Deposit paid" : "Paid"} value={fmtAmount(o.amount_cents, o.currency)} />
         <Field label="Stripe session" value={o.stripe_session_id} />
         </>}
       </Group>
@@ -1330,6 +1331,8 @@ function DetailView({
           </ul>
         </section>
       )}
+
+      <BalancePanel order={{ id: String(o.id) }} password={password} onOrderChange={onOrderChange} />
 
       <PipelinePanel
         order={o}

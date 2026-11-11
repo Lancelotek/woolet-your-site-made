@@ -19,6 +19,7 @@ import craft8 from "@/assets/bespoke-craft/woolet-bespoke-diamond-file-keyhole-b
 import craft9 from "@/assets/bespoke-craft/woolet-bespoke-shaping-brow-line-precision-file.jpg.asset.json";
 import { BESPOKE_FACTS, BESPOKE_FAQS, BESPOKE_GUIDE, BESPOKE_META_DESCRIPTION, bespokeFaqJsonLd, bespokeProductJsonLd } from "@/content/bespokeFacts";
 import { trackMetaEventOnce } from "@/lib/meta-capi";
+import { depositPrice, usePriceTable } from "@/lib/bespoke-pricing";
 
 type AtelierAlts = [string, string, string, string, string, string, string, string, string];
 type AtelierCopy = {
@@ -187,6 +188,8 @@ const BespokePage = () => {
   // every "Build your frame" button then carries that shape into the configurator.
   const [searchParams] = useSearchParams();
   const shapeParam = searchParams.get("shape");
+  // Deposit plan (live value from table bespoke_pricing; 0 = full payment upfront).
+  const depositUsd = depositPrice(usePriceTable());
   const selectedShape = shapeParam && findFrame(shapeParam) ? shapeParam : null;
   const cfgHref = selectedShape ? `/en/bespoke/configurator?shape=${selectedShape}` : "/en/bespoke/configurator";
   const atelier = ATELIER_I18N[(lang ?? "en") as keyof typeof ATELIER_I18N] ?? ATELIER_I18N.en;
@@ -344,6 +347,11 @@ const BespokePage = () => {
                 <Link to="/en/fit" className="text-gold-light underline underline-offset-4 text-sm">
                   Not sure of your width? Take the fit scan
                 </Link>
+                {depositUsd > 0 && (
+                  <p className="basis-full text-cream-dim text-sm leading-relaxed m-0">
+                    Start with a <strong className="text-cream font-medium">${depositUsd} deposit</strong>. You pay the rest only after you approve your 3D model.
+                  </p>
+                )}
               </div>
             </div>
 
@@ -721,13 +729,15 @@ const BespokePage = () => {
               className="font-display text-woolet-white mb-10"
               style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 300 }}
             >
-              Six steps from your scan to a finished frame.
+              Six steps from your design to a finished frame.
             </h2>
             <ol className="space-y-8">
               {BESPOKE_FACTS.process.map((step, i) => (
                 <li key={step} className="grid grid-cols-[auto_1fr] gap-6 sm:gap-10">
                   <span className="font-display text-gold-light" style={{ fontSize: "1.6rem", fontWeight: 300, lineHeight: 1 }}>{String(i + 1).padStart(2, "0")}</span>
                   <div><h3 className="font-display text-woolet-white mb-2" style={{ fontSize: "1.15rem", fontWeight: 400 }}>{step}</h3>
+                  {i === 1 && depositUsd > 0 && <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.9rem" }}>You pay a ${depositUsd} deposit. It covers your fit scan and 3D model and is non-refundable.</p>}
+                  {i === 3 && depositUsd > 0 && <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.9rem" }}>Approve the model by paying the balance, or ask us to correct it. You have 14 days, and you are free to stop here.</p>}
                   {i === 4 && <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.9rem" }}>Production takes 2 weeks after 3D model approval, then shipping begins.</p>}</div>
                 </li>
               ))}

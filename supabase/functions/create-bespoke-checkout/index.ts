@@ -4,6 +4,8 @@ import {
   BESPOKE_FRAME_IDS,
   BESPOKE_LENS_IDS,
   applyPercentOff,
+  depositPrice,
+  splitDeposit,
   mergePriceRows,
   quoteBespoke,
   type BespokeSelection,
@@ -121,6 +123,11 @@ Deno.serve(async (req) => {
     const amountInCents = percentOff ? applyPercentOff(grossCents, percentOff) : grossCents;
     if (amountInCents < 100) throw new Error("Invalid amount");
 
+    // Deposit plan: charge the deposit now, the balance after the buyer approves
+    // the 3D model (bespoke-balance). `full` when the deposit row is 0 or absent.
+    const split = splitDeposit(amountInCents, depositPrice(table));
+    const chargeCents = split.dueNowCents;
+
     if (typeof body.amountUsd === "number" && Math.round(body.amountUsd * 100) !== grossCents) {
       console.warn(`[create-bespoke-checkout] browser showed $${body.amountUsd}, charging list $${quote.totalUsd}`);
     }
@@ -135,6 +142,12 @@ Deno.serve(async (req) => {
       throw new Error("Invalid discovery source");
     }
 
+    cleanMeta.payment_plan = split.plan;
+    cleanMeta.order_total_usd = (split.totalCents / 100).toFixed(2);
+    if (split.plan === "deposit") {
+      cleanMeta.deposit_usd = (split.dueNowCents / 100).toFixed(2);
+      cleanMeta.balance_usd = (split.balanceCents / 100).toFixed(2);
+    }
     cleanMeta.list_price_usd = (grossCents / 100).toFixed(2);
     // Frame / lens / engraving split, e.g. "480+30+10". Stripe allows 50 keys, so one key.
     cleanMeta.price_breakdown_usd = `${quote.baseUsd}+${quote.lensUsd}+${quote.engravingUsd} (${priceSource})`;
@@ -163,16 +176,22 @@ Deno.serve(async (req) => {
       if (cleanMeta[k] !== undefined && !cleanMeta[k]) delete cleanMeta[k];
     }
 
+    const baseName = percentOff ? `${body.productName} (${percentOff}% off · ${couponKey})` : body.productName;
+    const usd = (cents: number) => `$${(cents / 100).toFixed(2).replace(/\.00$/, "")}`;
+    const depositNote = `Non-refundable deposit for your fit scan and 3D model. Balance ${usd(split.balanceCents)} is due only after you approve the 3D model. Order total ${usd(split.totalCents)}.`;
+
     const session = await stripe.checkout.sessions.create({
       line_items: [
         {
           price_data: {
             currency: "usd",
             product_data: {
-              name: percentOff ? `${body.productName} (${percentOff}% off · ${couponKey})` : body.productName,
-              ...(body.description && { description: body.description.slice(0, 500) }),
+              name: split.plan === "deposit" ? `${baseName} - deposit` : baseName,
+              ...(split.plan === "deposit"
+                ? { description: depositNote }
+                : body.description && { description: body.description.slice(0, 500) }),
             },
-            unit_amount: amountInCents,
+            unit_amount: chargeCents,
           },
           quantity: 1,
         },
@@ -185,14 +204,24 @@ Deno.serve(async (req) => {
       // reaches the buyer the same day (06.11.2026).
       expires_at: Math.floor(Date.now() / 1000) + 2 * 60 * 60,
       ...(body.customerEmail && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(body.customerEmail) && { customer_email: body.customerEmail.slice(0, 200) }),
+      ...(split.plan === "deposit" && { custom_text: { submit: { message: depositNote } } }),
       payment_intent_data: {
-        description: body.productName,
+        description: split.plan === "deposit" ? `${body.productName} - deposit` : body.productName,
         metadata: cleanMeta,
       },
       metadata: cleanMeta,
     });
 
-    return new Response(JSON.stringify({ clientSecret: session.client_secret, sessionId: session.id, amountCents: amountInCents, listPriceUsd: quote.totalUsd }), {
+    return new Response(JSON.stringify({
+      clientSecret: session.client_secret,
+      sessionId: session.id,
+      // Charged now (the deposit on the deposit plan).
+      amountCents: chargeCents,
+      totalCents: split.totalCents,
+      balanceCents: split.balanceCents,
+      paymentPlan: split.plan,
+      listPriceUsd: quote.totalUsd,
+    }), {
       status: 200,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });

@@ -28,10 +28,12 @@ export const BESPOKE_FACTS = {
   offer: `${BESPOKE_COPY.frame} USD with free worldwide shipping. Lenses are optional: clear Plano ${BESPOKE_COPY.plano}, Blue Light ${BESPOKE_COPY.blueLight}, or frame only for your optician to glaze.`,
   prescription: "Bespoke does not include prescription lenses. Order the frame only and your optician fits your prescription lenses.",
   shapes: ["Aviator", "Rectangle", "Crown Panto", "Round"],
+  // The real order of events (11.11.2026): design and order first, then the
+  // fit scan. Index 4 is production - Bespoke.tsx prints the lead time under it.
   process: [
+    "Configure shape, acetate colour, finish and lenses, with a preview of your frame",
+    "Order online through secure checkout",
     "AI fit scan with a phone camera in about 60 seconds",
-    "Configure shape, acetate colour, finish and lenses",
-    "Preview the selected frame on your face",
     "Review and approve the made-to-measure 3D model",
     "Handmade production in the EU",
     "Free worldwide shipping",
@@ -56,7 +58,7 @@ export const BESPOKE_GUIDE = [
   },
   {
     heading: "How the remote fitting works",
-    text: "The process begins with a phone-camera fit scan. Measurements provide a starting point for the frame geometry, and the order flow allows you to confirm or supplement them. The scan is not a substitute for reviewing the proposed fit: the made-to-measure 3D model is prepared and shown for approval before production starts. If a measurement needs clarification, it can be checked during that review instead of silently treated as final. The production clock begins only after the 3D model has been approved. The goal is a frame made to a verified specification, not a stock frame chosen by an algorithm alone.",
+    text: "After you order, the fitting begins with a phone-camera fit scan. Measurements provide a starting point for the frame geometry, and the order flow allows you to confirm or supplement them. The scan is not a substitute for reviewing the proposed fit: the made-to-measure 3D model is prepared and shown for approval before production starts. If a measurement needs clarification, it can be checked during that review instead of silently treated as final. The production clock begins only after the 3D model has been approved. The goal is a frame made to a verified specification, not a stock frame chosen by an algorithm alone.",
   },
   {
     heading: "Choosing among the four shapes",
@@ -72,7 +74,7 @@ export const BESPOKE_GUIDE = [
   },
   {
     heading: "Approval, production and delivery",
-    text: `The six steps are a phone-camera fit scan, configuration, a preview, approval of the made-to-measure 3D model, handmade production and worldwide shipping. Production takes 2 weeks from model approval, then shipping begins. Two weeks is not a promise that an order placed today will arrive in two weeks: measurement review and delivery transit are separate stages. Free worldwide shipping is part of the regular ${BESPOKE_COPY.frame} USD offer. First Bespoke pairs have already shipped internationally, including to Vietnam. The delivery destination affects transit time, while the approved model establishes when the production period starts.`,
+    text: `The six steps are configuration with a preview, the order, a phone-camera fit scan, approval of the made-to-measure 3D model, handmade production and worldwide shipping. Production takes 2 weeks from model approval, then shipping begins. Two weeks is not a promise that an order placed today will arrive in two weeks: measurement review and delivery transit are separate stages. Free worldwide shipping is part of the regular ${BESPOKE_COPY.frame} USD offer. First Bespoke pairs have already shipped internationally, including to Vietnam. The delivery destination affects transit time, while the approved model establishes when the production period starts.`,
   },
 ] as const;
 

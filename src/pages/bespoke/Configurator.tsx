@@ -749,7 +749,7 @@ const ConfiguratorPage = () => {
             disabled={payPending}
             className="cfg-cta cfg-cta--mobile"
           >
-            {step === STEPS.length ? (payPending ? <><Loader2 size={14} className="animate-spin" /> Opening checkout…</> : "Pay now") : blockedLabel ?? `Next · ${STEPS[step]?.shortLabel ?? ""}`}
+            {step === STEPS.length ? (payPending ? <><Loader2 size={14} className="animate-spin" /> Opening checkout…</> : pricing.split.plan === "deposit" ? `Pay ${formatEur(pricing.split.dueNowCents / 100)} deposit` : "Pay now") : blockedLabel ?? `Next · ${STEPS[step]?.shortLabel ?? ""}`}
           </button>
         </div>
       </div>

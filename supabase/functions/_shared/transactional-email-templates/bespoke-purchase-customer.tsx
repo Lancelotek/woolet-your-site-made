@@ -24,6 +24,12 @@ interface Props {
   amountFormatted?: string
   orderRef?: string
   measurementsUrl?: string
+  /** Deposit plan: what was paid today and what is due after the 3D model is approved. */
+  paymentPlan?: 'full' | 'deposit'
+  depositFormatted?: string
+  balanceFormatted?: string
+  totalFormatted?: string
+  balanceWindowDays?: number
 }
 
 const GOLD = '#C2A05A'
@@ -41,11 +47,18 @@ const Email = ({
   amountFormatted = '',
   orderRef = '',
   measurementsUrl = 'https://woolet.co/en/bespoke/measurements',
+  paymentPlan = 'full',
+  depositFormatted = '',
+  balanceFormatted = '',
+  totalFormatted = '',
+  balanceWindowDays = 14,
 }: Props) => (
   <Html lang="en" dir="ltr">
     <Head />
     <Preview>
-      Your Woolet Bespoke order is confirmed — one last step to finish the fit.
+      {paymentPlan === 'deposit'
+        ? 'Deposit received - one short step so we can build your 3D model.'
+        : 'Your Woolet Bespoke order is confirmed — one last step to finish the fit.'}
     </Preview>
     <Body style={main}>
       <Container style={container}>
@@ -55,11 +68,19 @@ const Email = ({
         </Section>
 
         <Heading style={h1}>Thank you{customerName ? `, ${customerName}` : ''}.</Heading>
+        {paymentPlan === 'deposit' ? (
+          <Text style={body}>
+            Your deposit is in and your Bespoke order is open. Below is the build
+            you chose - and one short step we need from you so we can prepare
+            your 3D model.
+          </Text>
+        ) : (
         <Text style={body}>
           Your Bespoke order is confirmed. Below is the build we'll be cutting
           by hand in Italy — and one short step we need from you before the
           workshop begins.
         </Text>
+        )}
 
         <Section style={card}>
           <Text style={badge}>YOUR BUILD</Text>
@@ -69,7 +90,15 @@ const Email = ({
           <SpecRow label="Finish" value={finishName} />
           <SpecRow label="Lenses" value={lensName} />
           {engravingText ? <SpecRow label="Engraving" value={`"${engravingText}"`} /> : null}
-          {amountFormatted ? <SpecRow label="Total paid" value={amountFormatted} /> : null}
+          {paymentPlan === 'deposit' ? (
+            <>
+              <SpecRow label="Order total" value={totalFormatted} />
+              <SpecRow label="Deposit paid today" value={depositFormatted || amountFormatted} />
+              <SpecRow label="Balance, due after you approve the 3D model" value={balanceFormatted} />
+            </>
+          ) : amountFormatted ? (
+            <SpecRow label="Total paid" value={amountFormatted} />
+          ) : null}
           {orderRef ? <SpecRow label="Order ref" value={orderRef} /> : null}
         </Section>
 
@@ -93,6 +122,21 @@ const Email = ({
         <Hr style={hr} />
 
         <Heading as="h3" style={h3}>What happens next</Heading>
+        {paymentPlan === 'deposit' ? (
+          <Text style={body}>
+            <strong>1.</strong> You submit measurements (AI + manual).<br />
+            <strong>2.</strong> Our optician verifies them and we email you the
+            3D model of your frame.<br />
+            <strong>3.</strong> You approve the model by paying the balance
+            ({balanceFormatted}), or ask us to correct it. You have {balanceWindowDays} days
+            from the day we send it.<br />
+            <strong>4.</strong> Once approved, your frame is hand made in the EU - a
+            2-week build, then free worldwide shipping.<br />
+            <br />
+            The deposit is non-refundable. You are free to stop after seeing the
+            model - nothing more is charged unless you approve it.
+          </Text>
+        ) : (
         <Text style={body}>
           <strong>1.</strong> You submit measurements (AI + manual).<br />
           <strong>2.</strong> Our optician reviews your build and confirms the
@@ -100,6 +144,7 @@ const Email = ({
           <strong>3.</strong> Cutting starts in Italy. Production takes ~3
           weeks; we ship worldwide, tracked and insured.
         </Text>
+        )}
 
         <Hr style={hr} />
 
@@ -128,7 +173,9 @@ const SpecRow = ({ label, value }: { label: string; value: string }) => {
 export const template = {
   component: Email,
   subject: (data: Record<string, any>) =>
-    `Your Woolet Bespoke order is confirmed — one last step (${data.frameName ?? 'made-to-measure'})`,
+    data?.paymentPlan === 'deposit'
+      ? `Deposit received - one short step for your 3D model (${data.frameName ?? 'made-to-measure'})`
+      : `Your Woolet Bespoke order is confirmed — one last step (${data.frameName ?? 'made-to-measure'})`,
   displayName: 'Bespoke — Customer Confirmation',
   previewData: {
     customerName: 'Marek',

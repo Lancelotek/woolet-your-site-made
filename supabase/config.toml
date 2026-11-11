@@ -64,3 +64,9 @@ verify_jwt = false
 
 [functions.founder-orders-admin]
 verify_jwt = false
+
+[functions.bespoke-balance]
+verify_jwt = false
+
+[functions.bespoke-balance-cron]
+verify_jwt = false

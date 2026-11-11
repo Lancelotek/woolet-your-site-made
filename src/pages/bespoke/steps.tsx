@@ -1,4 +1,5 @@
 import { engravingPrice, lensPrice, usePriceTable } from "@/lib/bespoke-pricing";
+import { afterPaymentSteps, depositTerms } from "@/lib/bespoke-balance";
 import type { PatternRender } from "@/lib/bespoke-pattern-renders";
 import FramedRender from "@/components/bespoke/FramedRender";
 import { CARD_DOT_COLOR_IDS, type FrontRenderMap } from "@/lib/bespoke-front-renders";
@@ -2338,7 +2339,9 @@ export function StepReview({
         <div className={sectionKicker}>Step 6 — Review &amp; pay</div>
         <h2 className={sectionTitle}><Button type="button" variant="ghost" onClick={() => onEdit(1)} className="h-auto p-0 font-display text-cream text-2xl sm:text-3xl whitespace-normal hover:bg-transparent hover:text-cream">Confirm your <em className="italic text-gold-light">pattern</em> <span className="text-gold-light text-xs ml-2">Edit</span></Button></h2>
         <p className="text-cream-dim mt-2 max-w-xl text-sm leading-relaxed">
-          You are paying for the pattern, acetate and lens configuration you selected. The made-to-measure fit scan is booked <em className="italic text-gold-light">after</em> payment — no measurements are taken until we have your order confirmed.
+          {pricing.split.plan === "deposit"
+            ? <>{depositTerms(pricing.split)}</>
+            : <>You are paying for the pattern, acetate and lens configuration you selected. The made-to-measure fit scan is booked <em className="italic text-gold-light">after</em> payment — no measurements are taken until we have your order confirmed.</>}
         </p>
       </header>
 
@@ -2429,12 +2432,24 @@ export function StepReview({
         <div className="flex items-baseline justify-between gap-4 py-3 border-b border-cream/10"><span className="text-cream-dim text-xs uppercase tracking-[0.16em]">Shipping</span><span className="text-gold-light text-sm">Free · worldwide</span></div>
         <div className="flex items-baseline justify-between gap-4 py-4">
           <div className="text-cream text-xs uppercase tracking-[0.2em]">
-            <CfgInfoTrigger section="price" className="cfg-info-trigger--block">Total due today</CfgInfoTrigger>
+            <CfgInfoTrigger section="price" className="cfg-info-trigger--block">{pricing.split.plan === "deposit" ? "Order total" : "Total due today"}</CfgInfoTrigger>
           </div>
           <div className="text-cream text-lg font-display">
             <CfgInfoTrigger section="price" className="cfg-info-trigger--block">{formatEur(total)}</CfgInfoTrigger>
           </div>
         </div>
+        {pricing.split.plan === "deposit" && (
+          <div className="pb-4 space-y-2" aria-label="Payment schedule">
+            <div className="flex items-baseline justify-between gap-4">
+              <span className="text-gold-light text-xs uppercase tracking-[0.2em]">Due today · deposit</span>
+              <span className="text-gold-light text-lg font-display">{formatEur(pricing.split.dueNowCents / 100)}</span>
+            </div>
+            <div className="flex items-baseline justify-between gap-4">
+              <span className="text-cream-dim text-xs uppercase tracking-[0.16em]">After you approve your 3D model</span>
+              <span className="text-cream-dim text-sm">{formatEur(pricing.split.balanceCents / 100)}</span>
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="space-y-2 text-sm text-cream-dim" aria-label="Price breakdown">
@@ -2453,10 +2468,9 @@ export function StepReview({
       >
         <div className="cfg-eyebrow" style={{ color: "#C2A05A" }}>What happens after payment</div>
         <ol className="mt-4 space-y-3 text-cream text-sm">
-          <li><span className="font-mono text-gold-light text-[11px] mr-3">01</span> Your order is confirmed and paid.</li>
-          <li><span className="font-mono text-gold-light text-[11px] mr-3">02</span> We email you a private link to the AI fit scan, plus where to upload two photos with a card (front and profile). You also get direct access to our team at support@woolet.co.</li>
-          <li><span className="font-mono text-gold-light text-[11px] mr-3">03</span> Our optician verifies your measurements within 24&nbsp;h, then we send the 3D model for your approval.</li>
-          <li><span className="font-mono text-gold-light text-[11px] mr-3">04</span> Once you approve it: hand-made in the EU to your exact millimetres - a 2-week build, <em className="italic text-gold-light not-italic">free worldwide shipping</em>.</li>
+          {afterPaymentSteps(pricing.split).map((line, i) => (
+            <li key={i}><span className="font-mono text-gold-light text-[11px] mr-3">{String(i + 1).padStart(2, "0")}</span> {line}</li>
+          ))}
         </ol>
       </div>
 
@@ -2478,7 +2492,7 @@ export function StepReview({
           disabled={payPending}
           className="h-auto w-full sm:w-auto px-8 py-3.5 rounded-sm bg-gold text-background text-xs uppercase tracking-[0.22em] font-medium hover:bg-gold-light transition disabled:opacity-60"
         >
-          {payPending ? <><Loader2 size={14} className="animate-spin inline mr-2" />Opening checkout…</> : <>Pay {formatEur(total)} — secure your pattern</>}
+          {payPending ? <><Loader2 size={14} className="animate-spin inline mr-2" />Opening checkout…</> : pricing.split.plan === "deposit" ? <>Pay {formatEur(pricing.split.dueNowCents / 100)} deposit — start my 3D model</> : <>Pay {formatEur(total)} — secure your pattern</>}
         </Button>
         <span className="text-cream-dim text-[0.78rem] uppercase tracking-[0.18em]">
           Free worldwide shipping · Stripe secure checkout

@@ -5,6 +5,7 @@ export const APP_PAGE_METADATA: Record<string, { title: string; description: str
   "/bespoke/scan": { title: "Bespoke Scan - Woolet", description: "Custom bespoke fit scan.", robots: "noindex, follow" },
   "/bespoke/measurements": { title: "Submit your measurements · Woolet Bespoke", description: "Send your AI face-scan and manual measurements so we can cut your Woolet Bespoke frames to fit.", robots: "noindex, follow" },
   "/bespoke/photo": { title: "Fit photo - Woolet Bespoke", description: "Confirm the fit of your made-to-measure frames.", robots: "noindex, follow" },
+  "/bespoke/model": { title: "Your 3D model · Woolet Bespoke", description: "Approve the 3D model of your Woolet Bespoke frame or ask for a correction.", robots: "noindex, follow" },
   "/bespoke/shipping": { title: "Shipping address · Woolet Bespoke", description: "Confirm where we ship your Woolet Bespoke frame.", robots: "noindex, follow" },
   "/measure": { title: "Measurement", description: "Private measurement page for a Woolet bespoke order.", robots: "noindex, nofollow" },
   "/founders": { title: "Founder Edition - Woolet", description: "Woolet 009 Black Founder Edition: $114 instead of $190, with the Founder Box. Order on woolet.co, no Kickstarter account needed - ships right away.", robots: "noindex, nofollow" },
