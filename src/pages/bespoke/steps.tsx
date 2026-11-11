@@ -2454,10 +2454,9 @@ export function StepReview({
         <div className="cfg-eyebrow" style={{ color: "#C2A05A" }}>What happens after payment</div>
         <ol className="mt-4 space-y-3 text-cream text-sm">
           <li><span className="font-mono text-gold-light text-[11px] mr-3">01</span> Your order is confirmed and paid.</li>
-          <li><span className="font-mono text-gold-light text-[11px] mr-3">02</span> We email you a private link to the AI fit scan, plus where to upload two photos with a card (front and profile).</li>
-          <li><span className="font-mono text-gold-light text-[11px] mr-3">03</span> Our optician verifies your measurements within 24&nbsp;h.</li>
-          <li><span className="font-mono text-gold-light text-[11px] mr-3">04</span> Hand-made in the EU to your exact millimetres - a 2-week build, <em className="italic text-gold-light not-italic">free worldwide shipping</em>.</li>
-          <li><span className="font-mono text-gold-light text-[11px] mr-3">05</span> Not the right fit? We send you a code for 50% off a new frame.</li>
+          <li><span className="font-mono text-gold-light text-[11px] mr-3">02</span> We email you a private link to the AI fit scan, plus where to upload two photos with a card (front and profile). You also get direct access to our team at support@woolet.co.</li>
+          <li><span className="font-mono text-gold-light text-[11px] mr-3">03</span> Our optician verifies your measurements within 24&nbsp;h, then we send the 3D model for your approval.</li>
+          <li><span className="font-mono text-gold-light text-[11px] mr-3">04</span> Once you approve it: hand-made in the EU to your exact millimetres - a 2-week build, <em className="italic text-gold-light not-italic">free worldwide shipping</em>.</li>
         </ol>
       </div>
 

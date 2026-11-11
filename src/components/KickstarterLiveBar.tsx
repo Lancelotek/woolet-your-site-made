@@ -44,7 +44,18 @@ export default function KickstarterLiveBar() {
       <Link
         to={FOUNDER_SIGNUP_PATH}
         data-ks-live-bar=""
-        onClick={() => pushGtmEvent("founder_cta_click", { slot: "live_bar", path: pathname })}
+        onClick={(e) => {
+          pushGtmEvent("founder_cta_click", { slot: "live_bar", path: pathname });
+          // Already on the signup LP: go to the email field instead of a dead self-link.
+          if (pathname.replace(/\/$/, "") === FOUNDER_SIGNUP_PATH) {
+            const input = document.getElementById("vip-email-hero");
+            if (input) {
+              e.preventDefault();
+              input.scrollIntoView({ block: "center", behavior: "smooth" });
+              window.setTimeout(() => input.focus({ preventScroll: true }), 350);
+            }
+          }
+        }}
         className="block w-full text-center no-underline uppercase"
         style={barStyle}
       >
