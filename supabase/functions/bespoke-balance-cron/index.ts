@@ -23,6 +23,10 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 const SITE_ORIGIN = "https://woolet.co";
+/** Days after payment on which the fitting reminders go out. */
+const FIT_REMINDER_DAYS = [2, 5] as const;
+/** After this many days the order is too old for an automatic reminder. */
+const FIT_REMINDER_LAST_DAY = 9;
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
@@ -31,7 +35,7 @@ Deno.serve(async (req) => {
     auth: { persistSession: false },
   });
   const now = new Date();
-  const result = { checked: 0, reminded: 0, expired: 0, paused: 0, errors: 0 };
+  const result = { checked: 0, reminded: 0, expired: 0, paused: 0, errors: 0, fitReminded: 0 };
 
   try {
     const { data: orders, error } = await supabase
@@ -132,6 +136,68 @@ Deno.serve(async (req) => {
       status: 500,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
+  }
+
+  // Fitting reminders: a paid order whose fitting form has not arrived gets one
+  // email on day 2 and one on day 5. Older orders are left to a personal note.
+  try {
+    const since = new Date(now.getTime() - FIT_REMINDER_LAST_DAY * 86400000).toISOString();
+    const { data: waiting, error: waitErr } = await supabase
+      .from("bespoke_orders")
+      .select("id, case_no, stripe_session_id, customer_email, customer_name, frame_name, created_at, crm_stage, stage")
+      .is("measurements_submitted_at", null)
+      .gte("created_at", since)
+      .limit(500);
+    if (waitErr) throw waitErr;
+    for (const o of (waiting ?? []) as Array<Record<string, any>>) {
+      try {
+        if (!o.customer_email || !o.stripe_session_id || o.stage === "cancelled" || Number(o.crm_stage ?? 1) > 2) continue;
+        const ageDays = (now.getTime() - new Date(o.created_at).getTime()) / 86400000;
+        const which = ageDays >= FIT_REMINDER_DAYS[1] ? 2 : ageDays >= FIT_REMINDER_DAYS[0] ? 1 : 0;
+        if (!which) continue;
+        const note = `Fitting reminder ${which} emailed to the customer`;
+        const { count } = await supabase
+          .from("bespoke_crm_events")
+          .select("id", { count: "exact", head: true })
+          .eq("order_id", o.id)
+          .eq("note", note);
+        if ((count ?? 0) > 0) continue;
+        // Log first: a failed send is looked at by a person, never repeated daily.
+        await supabase.from("bespoke_crm_events").insert({
+          order_id: o.id, from_stage: Number(o.crm_stage ?? 1), to_stage: Number(o.crm_stage ?? 1), note, created_by: "system",
+        });
+        const ref = o.case_no || `WLT-${String(o.id).slice(0, 8).toUpperCase()}`;
+        const firstName = o.customer_name ? String(o.customer_name).split(" ")[0] : "";
+        await sendTemplateEmailAndLog("bespoke-balance-notice", o.customer_email, {
+          idempotencyKey: `bespoke-fit-reminder-${which}-${o.id}`,
+          templateData: {
+            subject: which === 1
+              ? `Two minutes so we can start your Woolet Bespoke frame (${ref})`
+              : `Your Woolet Bespoke frame is waiting on one photo (${ref})`,
+            preview: "One photo with a bank card and the numbers from your current glasses.",
+            heading: `${firstName ? `${firstName}, your` : "Your"} frame starts with one photo.`,
+            paragraphs: which === 1
+              ? [
+                  `Your ${o.frame_name ?? "Woolet Bespoke"} order is open, and the workshop is waiting for your fitting.`,
+                  "It takes about two minutes: your shipping address, one photo with a bank-size card held against your cheek, and the three numbers printed inside your current glasses.",
+                ]
+              : [
+                  "Your order is still open, and nothing has been cut. The 3D model of your frame starts the day your fitting arrives.",
+                  "One photo with a bank-size card held against your cheek, the numbers printed inside your current glasses, and your shipping address. No glasses at hand? Send the photo alone.",
+                ],
+            rows: [{ label: "Order", value: ref }],
+            ctaLabel: "Open my fitting form",
+            ctaUrl: `${SITE_ORIGIN}/en/bespoke/measurements?sid=${encodeURIComponent(o.stripe_session_id)}`,
+          },
+        });
+        result.fitReminded += 1;
+      } catch (e) {
+        result.errors += 1;
+        console.error("[bespoke-balance-cron] fitting reminder failed", o.id, e);
+      }
+    }
+  } catch (err) {
+    console.error("[bespoke-balance-cron] fitting reminders", err);
   }
 
   console.log("[bespoke-balance-cron]", JSON.stringify(result));
