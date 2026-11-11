@@ -234,7 +234,11 @@ function Checkout() {
       <h1 className="fnd-h1">Your Founder frame. No Kickstarter account needed.</h1>
       <p style={{ fontSize: 17, lineHeight: 1.55, margin: "0 0 26px" }}>
         The same Founder reward as on Kickstarter - {F.model}, ${F.price} instead of ${F.srp} in the shop, with the $
-        {F.boxValue} Founder Box. You pay here, on woolet.co, by card - and it ships right away.
+        {F.boxValue} Founder Box. It ships right away.
+      </p>
+      <p className="fnd-noacct">
+        <strong>No account to create.</strong> Not on Kickstarter, not here. No sign-up, no password - just your card and
+        your shipping address.
       </p>
 
       <div className="fnd-gallery">
@@ -313,6 +317,12 @@ function Checkout() {
         </div>
       )}
 
+      {!started && (
+        <p style={{ margin: "12px 0 0", fontSize: 13, color: C.muted, textAlign: "center" }}>
+          Guest checkout - no account, no sign-up, no password.
+        </p>
+      )}
+
       <p style={{ margin: "22px 0 0", fontSize: 14, lineHeight: 1.6, color: C.muted }}>
         Not sure about your width?{" "}
         <Link to="/en/fit" style={{ color: C.gold }}>Measure your face in 60 seconds</Link>. Outside 155-161 mm,{" "}
@@ -339,6 +349,8 @@ export default function Founders() {
         .fnd-wrap { max-width: 640px; margin: 0 auto; padding: 40px 20px 72px; }
         .fnd-eyebrow { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: ${C.gold}; margin: 0 0 10px; }
         .fnd-h1 { font-family: "Cormorant Garamond", Cormorant, serif; font-weight: 300; font-size: 38px; line-height: 1.08; color: ${C.head}; margin: 0 0 14px; }
+        .fnd-noacct { margin: 0 0 26px; padding: 14px 16px; border-left: 2px solid ${C.gold}; background: ${C.surface}; font-size: 16px; line-height: 1.5; color: ${C.body}; }
+        .fnd-noacct strong { color: ${C.head}; font-weight: 600; }
         .fnd-gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 0 0 28px; }
         .fnd-gallery img { width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; background: ${C.surface}; border-radius: 2px; }
         .fnd-gallery img:first-child { grid-column: 1 / -1; aspect-ratio: 4 / 3; }
