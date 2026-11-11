@@ -140,6 +140,7 @@ const EXTRA_APP_ROUTES = [
   "/ja/bespoke/measurements",
   "/ar/bespoke/measurements",
   "/es/bespoke/measurements",
+  "/en/bespoke/model",
   "/en/bespoke/shipping",
   "/pl/bespoke/shipping",
   "/de/bespoke/shipping",

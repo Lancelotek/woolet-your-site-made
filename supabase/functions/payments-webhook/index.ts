@@ -4,6 +4,7 @@ import { sendTemplateEmailAndLog } from "../_shared/transactional-email-template
 import { generateOrderPreview } from "../_shared/bespoke-preview.ts";
 import { buildInterviewBookingUrl } from "../_shared/bespoke-case.ts";
 import { ensurePaidStage } from "../_shared/bespoke-stage.ts";
+import { BALANCE_WINDOW_DAYS, formatUsdCents } from "../_shared/bespoke-balance.ts";
 import { parseConsentFlag, sendOpenAiEvent } from "../_shared/openai-capi.ts";
 import { parseGaClientReference } from "../_shared/ga-client-reference.ts";
 
@@ -40,7 +41,7 @@ const sha256Hex = async (input: string): Promise<string> => {
  * same event_id so Meta deduplicates against this Purchase too if the buyer
  * lingered on the success page long enough for a browser Purchase to fire.
  */
-async function fireMetaPurchase(session: any) {
+async function fireMetaPurchase(session: any, eventName: string = "Purchase") {
   const pixelId = Deno.env.get("META_PIXEL_ID");
   const accessToken = Deno.env.get("META_CAPI_ACCESS_TOKEN");
   if (!pixelId || !accessToken) {
@@ -86,8 +87,10 @@ async function fireMetaPurchase(session: any) {
   const currency = (session?.currency ?? "usd").toLowerCase();
 
   const event = {
-    event_name: "Purchase",
-    event_id: meta.meta_event_id || session.id, // dedupes with browser pixel
+    event_name: eventName,
+    // Purchase dedupes with the browser pixel; any other event (the Bespoke
+    // balance) is server-only and must not reuse the deposit's event id.
+    event_id: eventName === "Purchase" ? meta.meta_event_id || session.id : session.id,
     event_time: Math.floor(Date.now() / 1000),
     action_source: "website",
     event_source_url: meta.meta_event_source_url || waitlist?.event_source_url || undefined,
@@ -129,7 +132,7 @@ async function fireMetaPurchase(session: any) {
   try {
     await getSupabase().from("server_event_log").insert({
       source: "payments-webhook",
-      event_name: "Purchase",
+      event_name: eventName,
       event_id: event.event_id,
       email_hash: email ? await sha256Hex(email.trim().toLowerCase()) : null,
       phone_hash: phone ? await sha256Hex(phone.replace(/[^\d]/g, "")) : null,
@@ -167,12 +170,12 @@ async function fireMetaPurchase(session: any) {
 async function fireGa4Conversion(
   session: any,
   env: StripeEnv,
-  flow: "reservation" | "bespoke" | "founder",
+  flow: "reservation" | "bespoke" | "bespoke_balance" | "founder",
   paidSource: string,
 ) {
   if (env !== "live") return;
   const eventName = "purchase";
-  const logName = flow === "bespoke" ? "GA4Purchase" : flow === "founder" ? "GA4FounderEdition" : "GA4Reservation";
+  const logName = flow === "bespoke" ? "GA4Purchase" : flow === "bespoke_balance" ? "GA4BespokeBalance" : flow === "founder" ? "GA4FounderEdition" : "GA4Reservation";
   let status: "sent" | "error" | "skipped" = "sent";
   let http: number | null = null;
   let email: string | undefined;
@@ -207,10 +210,31 @@ async function fireGa4Conversion(
         params.items = [{ item_id: "founder_009_black_24", item_name: "Founder Edition 009 Black", item_category: "founder_edition", price: value, quantity: 1 }];
       }
       if (flow === "bespoke") {
+        // Deposit plan: this purchase is the deposit; the balance arrives later
+        // as a second purchase (flow "bespoke_balance"), so GA4 revenue adds up
+        // to the order total and each stage can be told apart.
+        const deposit = meta.payment_plan === "deposit";
+        if (deposit) {
+          params.payment_stage = "deposit";
+          const orderTotal = Number(meta.order_total_usd);
+          if (Number.isFinite(orderTotal)) params.order_total = orderTotal;
+        }
         params.items = [{
           item_id: meta.frame || "bespoke",
           item_name: meta.frame_name || "Woolet Bespoke",
-          item_category: "bespoke",
+          item_category: deposit ? "bespoke_deposit" : "bespoke",
+          price: value,
+          quantity: 1,
+        }];
+      }
+      if (flow === "bespoke_balance") {
+        params.payment_stage = "balance";
+        const orderTotal = Number(meta.order_total_usd);
+        if (Number.isFinite(orderTotal)) params.order_total = orderTotal;
+        params.items = [{
+          item_id: meta.frame || "bespoke",
+          item_name: meta.frame_name || "Woolet Bespoke",
+          item_category: "bespoke_balance",
           price: value,
           quantity: 1,
         }];
@@ -593,6 +617,9 @@ async function handleFounderEditionCompleted(session: any, env: StripeEnv, paidS
 async function handleCheckoutExpired(session: any) {
   // Unpaid Founder Edition sessions must not enter the $1 abandoned-checkout fields.
   if (session?.metadata?.flow === "founder_edition") return;
+  // An unpaid balance session is not an abandoned $1 checkout; the model page
+  // opens a new one and bespoke-balance-cron owns the reminder.
+  if (session?.metadata?.flow === "bespoke_balance") return;
   if (session?.metadata?.flow === "bespoke") {
     await handleBespokeCheckoutExpired(session);
     return;
@@ -642,7 +669,7 @@ async function handleCheckoutExpired(session: any) {
  * can never clobber group membership. Fire-and-forget: never rethrows.
  */
 async function handlePaymentFailed(paymentIntent: any) {
-  if (paymentIntent?.metadata?.flow === "bespoke" || paymentIntent?.metadata?.flow === "founder_edition") return;
+  if (["bespoke", "bespoke_balance", "founder_edition"].includes(paymentIntent?.metadata?.flow)) return;
 
   const charge = paymentIntent?.charges?.data?.[0] ?? paymentIntent?.latest_charge ?? null;
   const email: string | undefined =
@@ -952,10 +979,22 @@ async function handleBespokeCheckoutCompleted(session: any, env: StripeEnv) {
     shipping_country: keep("shipping_country", addr.country ?? null),
   };
 
-  const { error: upsertErr } = await getSupabase()
-    .from("bespoke_orders")
-    .upsert(
-      {
+  // Deposit plan: amount_cents is what Stripe charged now (the deposit).
+  const usdToCents = (v: string | undefined) => {
+    const n = Number(v);
+    return Number.isFinite(n) && n > 0 ? Math.round(n * 100) : null;
+  };
+  const paymentPlan: "full" | "deposit" = meta.payment_plan === "deposit" ? "deposit" : "full";
+  const totalCents = usdToCents(meta.order_total_usd) ?? amountCents;
+  const balanceCents = paymentPlan === "deposit" ? usdToCents(meta.balance_usd) : 0;
+  const paymentPatch = {
+    payment_plan: paymentPlan,
+    total_cents: totalCents,
+    deposit_cents: paymentPlan === "deposit" ? amountCents : null,
+    balance_cents: balanceCents,
+  };
+
+  const orderRow = {
         stripe_session_id: session.id,
         stripe_payment_intent_id: session.payment_intent ?? null,
         customer_email: email,
@@ -980,9 +1019,17 @@ async function handleBespokeCheckoutCompleted(session: any, env: StripeEnv) {
         session_ref: UUID_RE.test(meta.scan_session_ref ?? "") ? meta.scan_session_ref : null,
         metadata: session.metadata ?? null,
         ...shippingPatch,
-      },
-      { onConflict: "stripe_session_id" },
-    );
+  };
+  let { error: upsertErr } = await getSupabase()
+    .from("bespoke_orders")
+    .upsert({ ...orderRow, ...paymentPatch }, { onConflict: "stripe_session_id" });
+  if (upsertErr && /payment_plan|total_cents|deposit_cents|balance_cents/.test(upsertErr.message ?? "")) {
+    // Payment columns missing (migration not applied yet): never lose the order.
+    console.error("[payments-webhook:bespoke] payment columns missing, saving order without them", upsertErr.message);
+    ({ error: upsertErr } = await getSupabase()
+      .from("bespoke_orders")
+      .upsert(orderRow, { onConflict: "stripe_session_id" }));
+  }
   if (upsertErr) {
     console.error("[payments-webhook:bespoke] upsert failed", upsertErr);
   }
@@ -1104,7 +1151,15 @@ async function handleBespokeCheckoutCompleted(session: any, env: StripeEnv) {
         : ""
     }`,
     engravingText: meta.engraving || "",
-    amountFormatted,
+    // Admin email prints this line as "Total paid".
+    amountFormatted: paymentPlan === "deposit"
+      ? `${amountFormatted} deposit (order total ${formatUsdCents(totalCents)}, balance ${formatUsdCents(balanceCents)} after 3D model approval)`
+      : amountFormatted,
+    paymentPlan,
+    depositFormatted: formatUsdCents(amountCents),
+    balanceFormatted: formatUsdCents(balanceCents),
+    totalFormatted: formatUsdCents(totalCents),
+    balanceWindowDays: BALANCE_WINDOW_DAYS,
     orderRef: session.id,
     paymentIntentId: session.payment_intent ?? "",
     environment: env,
@@ -1130,6 +1185,91 @@ async function handleBespokeCheckoutCompleted(session: any, env: StripeEnv) {
     invoke("bespoke-purchase-customer", email),
     invoke("bespoke-purchase-admin"),
   ]);
+}
+
+/**
+ * Balance of a deposit-plan Bespoke order: the buyer approved the 3D model by
+ * paying. Idempotent - a replayed Stripe event changes nothing and sends nothing.
+ */
+async function handleBespokeBalanceCompleted(session: any, env: StripeEnv): Promise<boolean> {
+  const meta = (session?.metadata ?? {}) as Record<string, string>;
+  const orderId = meta.order_id ?? "";
+  if (!UUID_RE.test(orderId)) {
+    console.error("[payments-webhook:bespoke-balance] session without order_id", session?.id);
+    return false;
+  }
+  const db = getSupabase();
+  const { data: order, error } = await db
+    .from("bespoke_orders")
+    .select("id, stripe_session_id, customer_email, customer_name, frame_name, case_no, total_cents, deposit_cents, balance_paid_at")
+    .eq("id", orderId)
+    .maybeSingle();
+  if (error || !order) {
+    console.error("[payments-webhook:bespoke-balance] order not found", orderId, error?.message);
+    return false;
+  }
+  const o = order as Record<string, any>;
+  if (o.balance_paid_at) return false; // replay
+
+  const paidCents = session.amount_total ?? 0;
+  const { error: upErr } = await db
+    .from("bespoke_orders")
+    .update({
+      balance_paid_at: new Date().toISOString(),
+      balance_paid_cents: paidCents,
+      balance_session_id: session.id,
+      balance_payment_intent_id: session.payment_intent ?? null,
+      balance_expired_at: null,
+    })
+    .eq("id", orderId)
+    .is("balance_paid_at", null);
+  if (upErr) {
+    console.error("[payments-webhook:bespoke-balance] update failed", upErr);
+    return false;
+  }
+
+  const ref = o.case_no || `WLT-${String(o.id).slice(0, 8).toUpperCase()}`;
+  const email: string = session?.customer_details?.email || session?.customer_email || o.customer_email;
+  const send = async (templateName: string, recipient: string | undefined, templateData: Record<string, unknown>) => {
+    try {
+      await sendTemplateEmailAndLog(templateName, recipient, {
+        idempotencyKey: `${templateName}-${session.id}`,
+        templateData,
+      });
+    } catch (e) {
+      console.error(`[payments-webhook:bespoke-balance] send ${templateName} failed`, e);
+    }
+  };
+  await Promise.all([
+    send("bespoke-balance-notice", email, {
+      subject: `Balance received - your Woolet Bespoke frame goes into production (${ref})`,
+      preview: "Your 3D model is approved. Your frame is hand made next.",
+      heading: `Thank you${o.customer_name ? `, ${String(o.customer_name).split(" ")[0]}` : ""}. Your model is approved.`,
+      paragraphs: [
+        "We received the balance for your Woolet Bespoke order. Your approved 3D model goes to the workshop now.",
+        "Your frame is hand made in the EU - a 2-week build, then free worldwide shipping. We email you the tracking number the day it ships.",
+      ],
+      rows: [
+        { label: "Order", value: ref },
+        { label: "Frame", value: o.frame_name ?? "Woolet Bespoke" },
+        { label: "Deposit paid", value: formatUsdCents(o.deposit_cents) },
+        { label: "Balance paid", value: formatUsdCents(paidCents) },
+        { label: "Order total", value: formatUsdCents(o.total_cents ?? (o.deposit_cents ?? 0) + paidCents) },
+      ],
+    }),
+    send("bespoke-support-alert", undefined, {
+      heading: `Balance paid - ${ref} - ${formatUsdCents(paidCents)}`,
+      lines: [
+        `${o.customer_name ?? ""} <${email}>`,
+        `${o.frame_name ?? "Woolet Bespoke"} - model approved, ready for production.`,
+        session.payment_intent
+          ? `https://dashboard.stripe.com/${env === "sandbox" ? "test/" : ""}payments/${session.payment_intent}`
+          : "",
+        "https://woolet.co/en/admin/bespoke",
+      ].filter(Boolean),
+    }),
+  ]);
+  return true;
 }
 
 /**
@@ -1258,6 +1398,21 @@ async function handleCheckoutCompleted(session: any, env: StripeEnv) {
     await handleFounderEditionCompleted(session, env, paidSource);
     await fireMetaPurchase(session);
     await fireGa4Conversion(session, env, "founder", paidSource);
+    return;
+  }
+  if (flow === "bespoke_balance") {
+    // Ads optimise on the deposit (Meta Purchase above); the balance is tracked
+    // as its own event so the full order value is still visible.
+    const fresh = await handleBespokeBalanceCompleted(session, env);
+    if (!fresh) return;
+    await fireMetaPurchase(session, "BespokeBalancePaid");
+    if (env === "live") {
+      try {
+        await fireGa4Conversion(session, env, "bespoke_balance", session?.metadata?.paid_source || "bespoke_balance");
+      } catch (e) {
+        console.error("[ga4] bespoke balance failed", e);
+      }
+    }
     return;
   }
   if (flow === "bespoke") {

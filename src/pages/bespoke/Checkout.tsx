@@ -1,4 +1,5 @@
-import { refreshBespokePrices, usePriceTable } from "@/lib/bespoke-pricing";
+import { depositPrice, refreshBespokePrices, splitDeposit, usePriceTable } from "@/lib/bespoke-pricing";
+import { afterPaymentSteps } from "@/lib/bespoke-balance";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { getGaCheckoutMetadataAsync } from "@/lib/ga-ids";
 import { getOppref, oaiqBespokeCheckoutStarted, oaiqBespokeOrderCreated, oaiqIdentifyHash } from "@/lib/openai-pixel";
@@ -93,6 +94,10 @@ export default function BespokeCheckout() {
   const [appliedCoupon, setAppliedCoupon] = useState<string | null>(null);
   // Percent off as confirmed by the server (coupons live in table bespoke_coupons).
   const [couponPercent, setCouponPercent] = useState(0);
+  // Deposit plan: the deposit is charged today, the balance after the buyer
+  // approves the 3D model. The server prices the charge; this mirrors it.
+  const split = splitDeposit(Math.round(pricing.totalEur * (100 - couponPercent)), depositPrice(prices));
+  const dueTodayUsd = split.dueNowCents / 100;
   const [couponChecking, setCouponChecking] = useState(false);
   const [couponError, setCouponError] = useState<string | null>(null);
   const [source, setSource] = useState<BespokeDiscoverySource | "">(() => {
@@ -171,7 +176,11 @@ export default function BespokeCheckout() {
         lens_tint: lensTintCode(config),
         engraving_enabled: hasEngraving(config),
         ai_preview_present: Boolean(aiPreviewUrl),
-        value: pricing.totalEur,
+        // What is charged now. On the deposit plan that is the deposit, so the
+        // browser events carry the same value as the server-side Purchase.
+        value: dueTodayUsd,
+        order_total: pricing.totalEur,
+        payment_plan: split.plan,
         currency: "USD",
         environment: getStripeEnvironment(),
         consent_state: consent.consent_state,
@@ -182,7 +191,7 @@ export default function BespokeCheckout() {
         ...extra,
       };
     },
-    [frame, front, temple, finish, lens, config.engravingEnabled, aiPreviewUrl, pricing.totalEur],
+    [frame, front, temple, finish, lens, config.engravingEnabled, aiPreviewUrl, pricing.totalEur, dueTodayUsd, split.plan],
   );
 
   const handleGeneratePreview = useCallback(async () => {
@@ -227,7 +236,7 @@ export default function BespokeCheckout() {
     clarityEvent("bespoke_checkout_viewed");
     trackInitiateCheckoutOnce(`bespoke:${frame?.id ?? "unknown"}`, {
       custom: {
-        value: pricing.totalEur,
+        value: dueTodayUsd,
         currency: "USD",
         num_items: 1,
         content_ids: frame?.id ? [frame.id] : undefined,
@@ -235,7 +244,7 @@ export default function BespokeCheckout() {
         content_type: "product",
       },
     });
-  }, [ready, buildEventPayload, pricing.totalEur, frame?.id, productName]);
+  }, [ready, buildEventPayload, dueTodayUsd, frame?.id, productName]);
 
   // The case number panel shows only on the return from a completed payment.
   const paidSessionId = useMemo(() => {
@@ -411,7 +420,7 @@ export default function BespokeCheckout() {
                   <h1 className="font-display text-3xl sm:text-4xl leading-tight">
                     Complete your <em className="italic text-gold-light">bespoke order</em>
                   </h1>
-                  <div className="mt-3"><PayMeasureNotice /></div>
+                  <div className="mt-3"><PayMeasureNotice split={split} /></div>
 
                   {/* Trust row */}
                   <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-[11px] uppercase tracking-[0.16em] text-cream-dim">
@@ -457,7 +466,7 @@ export default function BespokeCheckout() {
                       <div className="h-11 w-2/3 bg-[#0B0A09]/[0.06] rounded animate-pulse" />
                     </div>
                     <div className="relative bg-white">
-                    <EmbeddedCheckoutProvider key={`${appliedCoupon ?? "no-coupon"}:${source}:${pricing.totalEur}`} stripe={getStripe()} options={{ fetchClientSecret }}>
+                    <EmbeddedCheckoutProvider key={`${appliedCoupon ?? "no-coupon"}:${source}:${pricing.totalEur}:${split.plan}:${split.dueNowCents}`} stripe={getStripe()} options={{ fetchClientSecret }}>
                       <EmbeddedCheckout />
                     </EmbeddedCheckoutProvider>
                     </div>
@@ -710,12 +719,29 @@ export default function BespokeCheckout() {
                       </div>
                     )}
 
+                    {split.plan === "deposit" ? (
+                      <div className="pt-4 mt-3 border-t border-cream/15 space-y-2">
+                        <div className="flex items-baseline justify-between gap-4">
+                          <div className="text-cream-dim text-[11px] uppercase tracking-[0.2em]">Order total</div>
+                          <div className="text-cream text-base">{formatEur(split.totalCents / 100)}</div>
+                        </div>
+                        <div className="flex items-baseline justify-between gap-4">
+                          <div className="text-cream text-[11px] uppercase tracking-[0.2em]">Due today · deposit</div>
+                          <div className="text-cream text-2xl font-display">{formatEur(dueTodayUsd)}</div>
+                        </div>
+                        <div className="flex items-baseline justify-between gap-4">
+                          <div className="text-cream-dim text-[11px] uppercase tracking-[0.16em]">After you approve your 3D model</div>
+                          <div className="text-cream-dim text-sm">{formatEur(split.balanceCents / 100)}</div>
+                        </div>
+                      </div>
+                    ) : (
                     <div className="flex items-baseline justify-between gap-4 pt-4 mt-3 border-t border-cream/15">
                       <div className="text-cream text-[11px] uppercase tracking-[0.2em]">Total due today</div>
                       <div className="text-cream text-2xl font-display">
                         {formatEur(Math.round(pricing.totalEur * (100 - couponPercent)) / 100)}
                       </div>
                     </div>
+                    )}
                     {couponPercent === 100 && (
                       <p className="mt-2 text-[11px] text-cream-dim/80">
                         Test order — a $1 minimum is charged because payments cannot be processed at zero.
@@ -735,10 +761,9 @@ export default function BespokeCheckout() {
                     After payment
                   </div>
                   <ol className="mt-2 space-y-1.5 text-cream-dim text-[12px] leading-relaxed">
-                    <li>01 · Your order is confirmed and paid.</li>
-                    <li>02 · We email you a private link to the AI fit scan, plus where to upload two photos with a card (front and profile). You also get direct access to our team at <a href="mailto:support@woolet.co" className="underline underline-offset-2 hover:text-cream" style={{ color: "#C2A05A" }}>support@woolet.co</a>.</li>
-                    <li>03 · Our optician verifies your measurements within 24&nbsp;h, then we send the 3D model for your approval.</li>
-                    <li>04 · Once you approve it: hand-made in the EU to your exact millimetres - a 2-week build, free worldwide shipping.</li>
+                    {afterPaymentSteps(split).map((line, i) => (
+                      <li key={i}>{String(i + 1).padStart(2, "0")} · {line}</li>
+                    ))}
                   </ol>
                 </div>
               </aside>

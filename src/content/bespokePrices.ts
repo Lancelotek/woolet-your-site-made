@@ -20,6 +20,11 @@ export const BESPOKE_PRICES = {
   blueLightUsd: 84,
   /** Temple engraving. */
   engravingUsd: 10,
+  /**
+   * Deposit paid at checkout (fit scan + 3D model). The balance is due after
+   * the buyer approves the model. Live value: row `deposit` in bespoke_pricing.
+   */
+  depositUsd: 49,
   /** Kickstarter backer price - campaign only, never sold on woolet.co. */
   kickstarterUsd: 299,
 } as const;
@@ -33,6 +38,9 @@ export const BESPOKE_COPY = {
   blueLight: `+${usd(BESPOKE_PRICES.blueLightUsd)}`,
   engraving: `+${usd(BESPOKE_PRICES.engravingUsd)}`,
   kickstarter: usd(BESPOKE_PRICES.kickstarterUsd),
+  deposit: usd(BESPOKE_PRICES.depositUsd),
+  /** Balance on a frame-only order, e.g. "$431". */
+  frameBalance: usd(BESPOKE_PRICES.frameUsd - BESPOKE_PRICES.depositUsd),
   /** Schema.org Offer price, e.g. "480.00". */
   frameSchema: BESPOKE_PRICES.frameUsd.toFixed(2),
 } as const;

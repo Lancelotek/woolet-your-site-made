@@ -7,6 +7,8 @@
 //   frame:<frameId>     optional per-model override
 //   lens:<lensTypeId>   lens option (none / plano / blue-light)
 //   engraving           temple engraving fee
+//   deposit             paid today; the balance is charged after the buyer
+//                       approves the 3D model. 0 switches back to full payment.
 // DEFAULT_PRICE_TABLE is used for any key the table does not return.
 // Keep the defaults equal to src/content/bespokePrices.ts (a test checks).
 
@@ -18,6 +20,10 @@ export const DEFAULT_PRICE_TABLE: PriceTable = {
   "lens:plano": 30,
   "lens:blue-light": 84,
   "engraving": 10,
+  // Off in code on purpose: the deposit plan starts only once the `deposit`
+  // row exists in table bespoke_pricing, i.e. after the migration that adds the
+  // payment columns to bespoke_orders has run.
+  "deposit": 0,
 };
 
 /** Models a buyer can order. Mirrors src/data/frames.ts. */
@@ -71,4 +77,40 @@ export function quoteBespoke(table: PriceTable, sel: BespokeSelection): BespokeQ
 /** Apply a percent-off coupon in cents. Stripe cannot charge $0, so the floor is $1. */
 export function applyPercentOff(grossCents: number, percentOff: number): number {
   return Math.max(100, Math.round((grossCents * (100 - percentOff)) / 100));
+}
+
+/* -------------------------------------------------------------------------- */
+/* Deposit plan (11.11.2026)                                                   */
+/* -------------------------------------------------------------------------- */
+
+/** Days the buyer has to approve the 3D model and pay the balance. */
+export const BALANCE_WINDOW_DAYS = 14;
+/** Day the one reminder email goes out, counted from the day the model was sent. */
+export const BALANCE_REMINDER_DAY = 10;
+
+export const depositPrice = (table: PriceTable) => {
+  const n = table["deposit"];
+  return typeof n === "number" && Number.isFinite(n) && n > 0 ? n : 0;
+};
+
+export interface DepositSplit {
+  plan: "deposit" | "full";
+  /** Charged today. Equals the total on the full plan. */
+  dueNowCents: number;
+  /** Charged after the buyer approves the 3D model. 0 on the full plan. */
+  balanceCents: number;
+  totalCents: number;
+}
+
+/**
+ * Split an order total (after any coupon) into deposit + balance. Falls back to
+ * full payment when the deposit is switched off or would leave less than the
+ * $1 Stripe minimum on either side.
+ */
+export function splitDeposit(totalCents: number, depositUsd: number): DepositSplit {
+  const depositCents = Math.round(depositUsd * 100);
+  if (depositCents < 100 || totalCents - depositCents < 100) {
+    return { plan: "full", dueNowCents: totalCents, balanceCents: 0, totalCents };
+  }
+  return { plan: "deposit", dueNowCents: depositCents, balanceCents: totalCents - depositCents, totalCents };
 }

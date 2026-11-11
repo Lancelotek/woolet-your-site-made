@@ -74,6 +74,7 @@ const BespokeScan = lazy(() => import("./pages/bespoke/Scan.tsx"));
 const BespokeCheckout = lazy(() => import("./pages/bespoke/Checkout.tsx"));
 const BespokeMeasurements = lazy(() => import("./pages/bespoke/Measurements.tsx"));
 const BespokeShipping = lazy(() => import("./pages/bespoke/Shipping.tsx"));
+const BespokeModel = lazy(() => import("./pages/bespoke/Model.tsx"));
 const BespokeMeasure = lazy(() => import("./pages/bespoke/Measure.tsx"));
 const BespokePhoto = lazy(() => import("./pages/bespoke/Photo.tsx"));
 const BespokeVideo = lazy(() => import("./pages/bespoke/Video.tsx"));
@@ -326,6 +327,7 @@ const App = () => (
           <Route path="/:lang/bespoke/checkout" element={<Navigate to="/en/bespoke/checkout" replace />} />
           <Route path="/en/bespoke/measurements" element={<BespokeMeasurements />} />
           <Route path="/:lang/bespoke/measurements" element={<BespokeMeasurements />} />
+          <Route path="/en/bespoke/model" element={<BespokeModel />} />
           <Route path="/en/bespoke/shipping" element={<BespokeShipping />} />
           <Route path="/:lang/bespoke/shipping" element={<BespokeShipping />} />
           <Route path="/en/measure" element={<BespokeMeasure />} />

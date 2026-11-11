@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { DEFAULT_TEMPLE_LENGTH_MM, findLensTint, findSunTint, isValidTempleLength, ACTIVE_LENS_TYPES, resolveActiveColorId, type LensTint, type MeasurementKey, type ReadingStrength } from "@/data/bespoke-options";
 import { findFrame } from "@/data/frames";
-import { getPriceTable, quoteBespoke, usePriceTable, type PriceTable } from "@/lib/bespoke-pricing";
+import { depositPrice, getPriceTable, quoteBespoke, splitDeposit, usePriceTable, type DepositSplit, type PriceTable } from "@/lib/bespoke-pricing";
 
 export type Measurements = Partial<Record<MeasurementKey, number>>;
 
@@ -159,6 +159,11 @@ export interface Pricing {
   engravingEur: number;
   lensEur: number;
   totalEur: number;
+  /**
+   * Deposit plan: what is charged today and what is due after the buyer
+   * approves the 3D model. `plan: "full"` while the deposit is switched off.
+   */
+  split: DepositSplit;
 }
 
 /**
@@ -180,6 +185,7 @@ export function computePricing(config: BespokeConfig, prices: PriceTable = getPr
     engravingEur: q.engravingUsd,
     lensEur: config.lensTypeId ? q.lensUsd : 0,
     totalEur: q.totalUsd,
+    split: splitDeposit(Math.round(q.totalUsd * 100), depositPrice(prices)),
   };
 }
 

@@ -13,8 +13,8 @@ import {
   type PriceTable,
 } from "../../supabase/functions/_shared/bespoke-pricing";
 
-export type { PriceTable } from "../../supabase/functions/_shared/bespoke-pricing";
-export { framePrice, lensPrice, engravingPrice, quoteBespoke, DEFAULT_PRICE_TABLE } from "../../supabase/functions/_shared/bespoke-pricing";
+export type { PriceTable, DepositSplit } from "../../supabase/functions/_shared/bespoke-pricing";
+export { framePrice, lensPrice, engravingPrice, quoteBespoke, depositPrice, splitDeposit, BALANCE_WINDOW_DAYS, BALANCE_REMINDER_DAY, DEFAULT_PRICE_TABLE } from "../../supabase/functions/_shared/bespoke-pricing";
 
 let table: PriceTable = { ...DEFAULT_PRICE_TABLE };
 let started = false;

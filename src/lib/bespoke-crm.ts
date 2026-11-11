@@ -43,6 +43,9 @@ export const crmStageReachedAt = (
  */
 const CRM_ERRORS: Record<string, string> = {
   tracking_required: "Add a tracking number before marking the order shipped.",
+  balance_unpaid: "The balance is not paid yet. Production starts after the customer approves the 3D model and pays the balance.",
+  not_deposit_order: "This order was paid in full at checkout - there is no balance to collect.",
+  balance_already_paid: "The balance for this order is already paid.",
   invalid_stage: "That stage does not exist.",
   invalid_id: "That order could not be found.",
   order_not_found: "That order could not be found.",
