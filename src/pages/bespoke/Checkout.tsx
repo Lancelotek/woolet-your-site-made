@@ -228,6 +228,8 @@ export default function BespokeCheckout() {
   const viewedTracked = useRef(false);
   useEffect(() => {
     if (!ready || viewedTracked.current) return;
+    // Back from Stripe with ?paid=1: this is the confirmation, not a new checkout view.
+    if (new URLSearchParams(window.location.search).get("paid") === "1") return;
     viewedTracked.current = true;
     const payload = buildEventPayload();
     pushGtmEvent("checkout_viewed", payload);
@@ -395,7 +397,30 @@ export default function BespokeCheckout() {
           {paidSessionId && <BespokeCaseHero sessionId={paidSessionId} />}
           {/* Asked after payment when the optional pre-payment question was skipped. */}
           {paidSessionId && !source && <div className="max-w-xl mx-auto mb-10"><HeardFromQuestion sessionId={paidSessionId} /></div>}
-          {!ready ? (
+          {paidSessionId ? (
+            // Paid: never show the payment form again (it would open a second
+            // Stripe session for an order that already exists).
+            <section className="max-w-xl mx-auto text-center py-6 sm:py-10">
+              <div className="text-[11px] uppercase tracking-[0.22em] text-gold-light mb-3">
+                {split.plan === "deposit" ? "Deposit received" : "Payment received"}
+              </div>
+              <h1 className="font-display text-3xl sm:text-4xl leading-tight">
+                {split.plan === "deposit" ? <>Your order is <em className="italic text-gold-light">open</em>.</> : <>Your order is <em className="italic text-gold-light">confirmed</em>.</>}
+              </h1>
+              <p className="mt-4 text-cream-dim text-sm leading-relaxed">
+                {split.plan === "deposit"
+                  ? <>We emailed you a confirmation. Next, send us your measurements so we can prepare your 3D model. You pay the remaining {formatEur(split.balanceCents / 100)} only after you approve the model.</>
+                  : <>We emailed you a confirmation. Next, send us your measurements so we can prepare your 3D model for approval.</>}
+              </p>
+              <Link
+                to={`/en/bespoke/measurements?sid=${encodeURIComponent(paidSessionId)}`}
+                className="mt-7 inline-flex items-center justify-center px-8 py-3.5 bg-gold text-background text-xs uppercase tracking-[0.22em] font-medium hover:bg-gold-light transition"
+                style={{ borderRadius: 2 }}
+              >
+                Submit my measurements
+              </Link>
+            </section>
+          ) : !ready ? (
             <div className="max-w-xl mx-auto text-center py-24">
               <h1 className="font-display text-3xl mb-4">
                 Your <em className="italic text-gold-light">build is incomplete</em>
