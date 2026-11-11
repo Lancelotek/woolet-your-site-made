@@ -62,7 +62,7 @@ describe("bespoke deposit split", () => {
   it("prints the terms a buyer must read before paying", () => {
     const split = splitDeposit(49000, 49);
     expect(depositTerms(split)).toBe(
-      "$49 today starts your fit scan and 3D model. You pay the remaining $441 only after you approve the model. The deposit is non-refundable, and you are free to stop there.",
+      "$49 today starts your fitting and 3D model. You pay the remaining $441 only after you approve the model. The deposit is non-refundable, and you are free to stop there.",
     );
     expect(afterPaymentSteps(split)).toHaveLength(5);
     expect(afterPaymentSteps(splitDeposit(49000, 0))).toHaveLength(4);
