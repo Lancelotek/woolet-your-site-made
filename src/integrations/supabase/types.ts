@@ -291,6 +291,8 @@ export type Database = {
           photo_path: string | null
           photo_temple_to_temple_mm: number | null
           photo_width_px: number | null
+          profile_path: string | null
+          profile_uploaded_at: string | null
           scan_temple_to_temple_mm: number | null
           session_ref: string | null
           shape_id: string | null
@@ -322,6 +324,8 @@ export type Database = {
           photo_path?: string | null
           photo_temple_to_temple_mm?: number | null
           photo_width_px?: number | null
+          profile_path?: string | null
+          profile_uploaded_at?: string | null
           scan_temple_to_temple_mm?: number | null
           session_ref?: string | null
           shape_id?: string | null
@@ -353,6 +357,8 @@ export type Database = {
           photo_path?: string | null
           photo_temple_to_temple_mm?: number | null
           photo_width_px?: number | null
+          profile_path?: string | null
+          profile_uploaded_at?: string | null
           scan_temple_to_temple_mm?: number | null
           session_ref?: string | null
           shape_id?: string | null
