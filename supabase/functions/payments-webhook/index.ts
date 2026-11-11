@@ -1227,6 +1227,12 @@ async function handleBespokeBalanceCompleted(session: any, env: StripeEnv): Prom
     console.error("[payments-webhook:bespoke-balance] update failed", upErr);
     return false;
   }
+  // Paying approves the model, so nothing stays open against it.
+  await db
+    .from("bespoke_model_revisions")
+    .update({ resolved_at: new Date().toISOString() })
+    .eq("order_id", orderId)
+    .is("resolved_at", null);
 
   const ref = o.case_no || `WLT-${String(o.id).slice(0, 8).toUpperCase()}`;
   const email: string = session?.customer_details?.email || session?.customer_email || o.customer_email;
