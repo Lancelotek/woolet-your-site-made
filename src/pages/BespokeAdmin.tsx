@@ -1,7 +1,7 @@
 import { BESPOKE_PRICES } from "@/content/bespokePrices";
 import { renderAltFromParts } from "@/lib/bespoke-render-alt";
 import { RenderCacheAdmin } from "@/components/admin/RenderCacheAdmin";
-import { Fragment, useCallback, useEffect, useRef, useState } from "react";
+import { Fragment, useCallback, useEffect, useRef, useState, isValidElement } from "react";
 import { Helmet } from "react-helmet-async";
 import { Check, Copy } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -917,7 +917,8 @@ function Field({ label, value }: { label: string; value: unknown }) {
     <div style={{ borderTop: `1px solid ${T.hair}`, padding: "8px 0" }}>
       <div style={{ fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: T.mute }}>{label}</div>
       <div style={{ fontSize: 14, color: T.ink, wordBreak: "break-word" }}>
-        {value == null || value === "" ? "—" : String(value)}
+        {/* Some callers pass a styled element (the case number), not text. */}
+        {value == null || value === "" ? "—" : isValidElement(value) ? value : String(value)}
       </div>
     </div>
   );
@@ -1206,7 +1207,7 @@ function DetailView({
 
       <Group title="Case">
         <Field
-          label="Case number / FitLens producer code"
+          label="Case number"
           value={
             o.case_no ? (
               <span style={{ fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace", color: T.gold, letterSpacing: "0.06em" }}>

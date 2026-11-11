@@ -324,6 +324,8 @@ export function PipelinePanel({
   const [shipOpen, setShipOpen] = useState(false);
   /** Untick for parcels that left before the tracking email existed. */
   const [notifyShip, setNotifyShip] = useState(true);
+  /** The step being saved right now; its box shows the new state and is locked. */
+  const [pendingKey, setPendingKey] = useState<string | null>(null);
   const [revisions, setRevisions] = useState<Array<{ note: string; created_at: string; resolved_at: string | null }>>([]);
   const [carrier, setCarrier] = useState<string>(order.courier ?? "");
   const [tracking, setTracking] = useState<string>(order.tracking_number ?? "");
@@ -436,11 +438,14 @@ export function PipelinePanel({
 
   const runStep = async (s: TimelineStep) => {
     const a = s.action;
-    if (!a) return;
+    if (!a || pendingKey) return;
     if (a.type === "ship") return setShipOpen(true);
     if (a.type === "stage") return moveTo(s.done ? a.back : a.to);
     if (a.type === "check") {
+      // Show the new state at once: a box that looks unchanged gets clicked again.
+      setPendingKey(s.key);
       const payload = await call({ action: "check", key: a.key, done: !s.done });
+      setPendingKey(null);
       if (!payload) return;
       setEvents((payload.events as CrmEvent[]) ?? []);
       onOrderChange((payload.patch as Record<string, unknown>) ?? {});
@@ -479,7 +484,7 @@ export function PipelinePanel({
               {s.action ? (
                 <input
                   type="checkbox"
-                  checked={s.done}
+                  checked={pendingKey === s.key ? !s.done : s.done}
                   disabled={!clickable}
                   onChange={() => void runStep(s)}
                   aria-label={s.label}
@@ -506,7 +511,7 @@ export function PipelinePanel({
                   {s.label}
                 </div>
                 <div style={{ fontSize: 11, color: T.mute, lineHeight: 1.5 }}>
-                  {s.at ? fmtDate(s.at) : s.done ? "Done" : "Open"} · {who}
+                  {pendingKey === s.key ? "Saving…" : s.at ? fmtDate(s.at) : s.done ? "Done" : "Open"} · {who}
                   {s.hint ? ` · ${s.hint}` : ""}
                 </div>
               </div>
