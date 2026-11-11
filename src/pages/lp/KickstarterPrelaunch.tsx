@@ -553,6 +553,17 @@ const VipForm = ({
           <button type="button" className="text-left cursor-pointer" onClick={() => document.getElementById(`vip-reserve${idSuffix}`)?.focus({ preventScroll: false })}>{live ? <>$1 unlocks the Founder Edition: <em className="text-primary">${FOUNDER_EDITION.price}</em> instead of ${FOUNDER_EDITION.srp}.</> : <>$1 today locks your <em className="text-primary">$114</em> founder price (then $190).</>}</button>
         </h2>
         {live ? (
+          <>
+          {/* The actual Founder Edition (no rivets, no gold temple detail) - same photo as /en/founders. */}
+          <img
+            src="/founders/woolet-founder-edition-009-black-box.jpg"
+            alt="Woolet 009 Black Founder Edition in the Founder Box with the felt case and Clip-On Cloth"
+            width={800}
+            height={800}
+            decoding="async"
+            className="w-full h-auto object-cover"
+            style={{ aspectRatio: "3 / 2", objectPosition: "center 55%" }}
+          />
           <ul className="m-0 p-0 list-none space-y-3" aria-label="What $1 unlocks">
             {[
               <><strong className="text-foreground font-medium">A private Kickstarter reward.</strong> It isn't on the campaign page - it opens only from your link, on the next screen and in your inbox.</>,
@@ -565,6 +576,7 @@ const VipForm = ({
               </li>
             ))}
           </ul>
+          </>
         ) : (
           <>
             <figure className="flex items-center gap-4 m-0 py-3 border-y border-border">
