@@ -15,7 +15,7 @@ const corsHeaders = {
 }
 
 // Configuration
-const SITE_NAME = "Woolet.co Design"
+const SITE_NAME = "Woolet"
 const SENDER_DOMAIN = "notify.woolet.co"
 const ROOT_DOMAIN = "woolet.co"
 const FROM_DOMAIN = "woolet.co"
