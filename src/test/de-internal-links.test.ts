@@ -49,8 +49,8 @@ function extractRoutes(): Route[] {
 }
 
 function classify(el: string): Pick<Route, "kind" | "target"> {
-  // Direct Navigate: <Navigate to="/foo" replace />
-  const nav = el.match(/<Navigate\s+to="([^"]+)"/);
+  // Direct Navigate or query-preserving redirect: <Navigate to="/foo" /> / <RedirectKeepQuery to="/foo" />
+  const nav = el.match(/<(?:Navigate|RedirectKeepQuery)\s+to="([^"]+)"/);
   if (nav) return { kind: "redirect", target: nav[1] };
 
   // Dynamic redirect components — target is a template using ${slug} / ${lang}.

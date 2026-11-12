@@ -1,5 +1,6 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.4";
 import { type StripeEnv, createStripeClient } from "../_shared/stripe.ts";
+import { stampCheckoutMetadata } from "../_shared/checkout-metadata.ts";
 import {
   BESPOKE_FRAME_IDS,
   BESPOKE_LENS_IDS,
@@ -176,6 +177,12 @@ Deno.serve(async (req) => {
       if (cleanMeta[k] !== undefined && !cleanMeta[k]) delete cleanMeta[k];
     }
 
+    const stamped = stampCheckoutMetadata(cleanMeta, {
+      line: "bespoke",
+      sku: cleanMeta.frame || "bespoke",
+      flow: "bespoke",
+    });
+
     const baseName = percentOff ? `${body.productName} (${percentOff}% off · ${couponKey})` : body.productName;
     const usd = (cents: number) => `$${(cents / 100).toFixed(2).replace(/\.00$/, "")}`;
     const depositNote = `Non-refundable deposit for your fitting and 3D model. Balance ${usd(split.balanceCents)} is due only after you approve the 3D model. Order total ${usd(split.totalCents)}.`;
@@ -198,6 +205,7 @@ Deno.serve(async (req) => {
       ],
       mode: "payment",
       ui_mode: "embedded_page",
+      customer_creation: "always",
       return_url: body.returnUrl,
       // 2 h instead of Stripe's 24 h default: payments-webhook follows up an
       // abandoned Bespoke checkout on checkout.session.expired, so the reminder
@@ -207,9 +215,9 @@ Deno.serve(async (req) => {
       ...(split.plan === "deposit" && { custom_text: { submit: { message: depositNote } } }),
       payment_intent_data: {
         description: split.plan === "deposit" ? `${body.productName} - deposit` : body.productName,
-        metadata: cleanMeta,
+        metadata: stamped,
       },
-      metadata: cleanMeta,
+      metadata: stamped,
     });
 
     return new Response(JSON.stringify({

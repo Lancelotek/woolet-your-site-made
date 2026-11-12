@@ -7,6 +7,7 @@ import { ensurePaidStage } from "../_shared/bespoke-stage.ts";
 import { BALANCE_WINDOW_DAYS, formatUsdCents } from "../_shared/bespoke-balance.ts";
 import { parseConsentFlag, sendOpenAiEvent } from "../_shared/openai-capi.ts";
 import { parseGaClientReference } from "../_shared/ga-client-reference.ts";
+import { RESERVATION_ITEM_ID, measuredPurchaseAmount } from "../_shared/checkout-metadata.ts";
 
 
 // `ReturnType<typeof createClient>` instantiates the generic factory's defaults
@@ -34,14 +35,40 @@ const sha256Hex = async (input: string): Promise<string> => {
     .join("");
 };
 
+/** True when this Stripe event id already produced a successful server conversion. */
+async function conversionAlreadySent(eventName: string, eventId: string | null | undefined): Promise<boolean> {
+  if (!eventId) return false;
+  try {
+    const { data, error } = await getSupabase()
+      .from("server_event_log")
+      .select("id")
+      .eq("event_name", eventName)
+      .eq("event_id", eventId)
+      .eq("status", "sent")
+      .limit(1);
+    if (error) {
+      console.error("[payments-webhook] conversion dedupe lookup failed", error);
+      return false;
+    }
+    return Array.isArray(data) && data.length > 0;
+  } catch (e) {
+    console.error("[payments-webhook] conversion dedupe lookup failed", e);
+    return false;
+  }
+}
+
 /**
  * Fire a server-side Purchase event to Meta Conversions API using attribution
  * baked into Stripe session metadata at checkout creation time
- * (fbp, fbc, IP, UA, event_id). Browser-side InitiateCheckout fired with the
- * same event_id so Meta deduplicates against this Purchase too if the buyer
- * lingered on the success page long enough for a browser Purchase to fire.
+ * (fbp, fbc, IP, UA, event_id). The event_id matches the one stored at
+ * checkout so Meta can dedupe if a browser event with the same id exists.
+ * Purchase is not accepted from the browser; this webhook is the only sender.
  */
-async function fireMetaPurchase(session: any, eventName: string = "Purchase") {
+async function fireMetaPurchase(
+  session: any,
+  eventName: string = "Purchase",
+  flow: "reservation" | "bespoke" | "bespoke_balance" | "founder" = "bespoke",
+) {
   const pixelId = Deno.env.get("META_PIXEL_ID");
   const accessToken = Deno.env.get("META_CAPI_ACCESS_TOKEN");
   if (!pixelId || !accessToken) {
@@ -90,14 +117,20 @@ async function fireMetaPurchase(session: any, eventName: string = "Purchase") {
   if (ip) userData.client_ip_address = ip;
   if (ua) userData.client_user_agent = ua;
 
-  const value = session?.amount_total ? session.amount_total / 100 : 0;
-  const currency = (session?.currency ?? "usd").toLowerCase();
+  const measured = measuredPurchaseAmount(flow, session?.amount_total, session?.currency);
+  const value = measured.value;
+  const currency = measured.currency.toLowerCase();
+  const eventId = eventName === "Purchase" ? meta.meta_event_id || session.id : session.id;
+  if (await conversionAlreadySent(eventName, eventId)) {
+    console.log("[meta-capi:purchase] already sent", eventName, eventId);
+    return;
+  }
 
   const event = {
     event_name: eventName,
-    // Purchase dedupes with the browser pixel; any other event (the Bespoke
-    // balance) is server-only and must not reuse the deposit's event id.
-    event_id: eventName === "Purchase" ? meta.meta_event_id || session.id : session.id,
+    // Purchase uses the checkout event id. The Bespoke balance is a second
+    // server event and must not reuse the deposit's event id.
+    event_id: eventId,
     event_time: Math.floor(Date.now() / 1000),
     action_source: "website",
     event_source_url: meta.meta_event_source_url || waitlist?.event_source_url || undefined,
@@ -106,7 +139,9 @@ async function fireMetaPurchase(session: any, eventName: string = "Purchase") {
       value,
       currency,
       order_id: session.id,
-      content_ids: meta.recommended_sku ? [meta.recommended_sku] : undefined,
+      content_ids: flow === "reservation"
+        ? [RESERVATION_ITEM_ID]
+        : meta.recommended_sku ? [meta.recommended_sku] : meta.sku ? [meta.sku] : undefined,
       content_type: "product",
       num_items: 1,
       ...(meta.paid_source ? { paid_source: meta.paid_source } : {}),
@@ -123,12 +158,11 @@ async function fireMetaPurchase(session: any, eventName: string = "Purchase") {
       body: JSON.stringify({ data: [event] }),
     });
     const text = await res.text();
-    metaDetail = { http: res.status, body: text.slice(0, 500) };
+    metaDetail = { http: res.status, body: text.slice(0, 2000) };
+    console.log("[meta-capi:purchase] graph response", res.status, text.slice(0, 2000));
     if (!res.ok) {
       metaStatus = "error";
-      console.error("[meta-capi:purchase] graph error", res.status, text);
-    } else {
-      console.log("[meta-capi:purchase] sent", session.id, text.slice(0, 200));
+      console.error("[meta-capi:purchase] graph error", res.status, text.slice(0, 2000));
     }
   } catch (err) {
     metaStatus = "error";
@@ -198,20 +232,26 @@ async function fireGa4Conversion(
       const fallback = !meta.ga_client_id;
       const clientId = meta.ga_client_id || meta.wlt_visitor_id ||
         `${(await sha256Hex((email ?? session.id).trim().toLowerCase())).slice(0, 10)}.${Math.floor(Date.now() / 1000)}`;
-      const value = (session?.amount_total ?? 0) / 100;
-      const currency = String(session?.currency ?? "usd").toUpperCase();
+      const measured = measuredPurchaseAmount(flow, session?.amount_total, session?.currency);
+      const value = measured.value;
+      const currency = measured.currency;
+      if (session?.id && await conversionAlreadySent(logName, session.id)) {
+        console.log("[ga4] already sent", logName, session.id);
+        return;
+      }
       const params: Record<string, unknown> = {
         transaction_id: session.id,
         value,
         currency,
         engagement_time_msec: 1,
         paid_source: paidSource,
+        line: flow === "reservation" ? RESERVATION_ITEM_ID : flow,
       };
       if (fallback) params.attr_fallback = true;
       const sid = Number(meta.ga_session_id);
       if (meta.ga_session_id && Number.isFinite(sid)) params.session_id = sid;
       if (flow === "reservation") {
-        params.items = [{ item_id: "reservation_1usd", item_name: "Founder reservation $1", item_category: "reservation", price: value, quantity: 1 }];
+        params.items = [{ item_id: RESERVATION_ITEM_ID, item_name: "Founder reservation $1", item_category: "reservation", price: value, quantity: 1 }];
       }
       if (flow === "founder") {
         params.items = [{ item_id: "founder_009_black_24", item_name: "Founder Edition 009 Black", item_category: "founder_edition", price: value, quantity: 1 }];
@@ -269,7 +309,10 @@ async function fireGa4Conversion(
       event_name: logName,
       event_id: session?.id ?? null,
       email_hash: email ? await sha256Hex(email.trim().toLowerCase()) : null,
-      custom_data: { paid_source: paidSource, value: (session?.amount_total ?? 0) / 100 },
+      custom_data: {
+        paid_source: paidSource,
+        ...measuredPurchaseAmount(flow, session?.amount_total, session?.currency),
+      },
       destinations: { ga4: { status, http } },
       request_summary: {
         stripe_session_id: session?.id ?? null,
@@ -1398,6 +1441,14 @@ async function sendOpenAiReservation(session: any) {
 }
 
 async function handleCheckoutCompleted(session: any, env: StripeEnv) {
+  // Delayed methods (bank debit) send checkout.session.completed while unpaid,
+  // then checkout.session.async_payment_succeeded once the payment clears.
+  // Fulfill and report the conversion only on the paid event. A replay is safe:
+  // order writes are upserts and the conversion log dedupes on event id.
+  if (session?.payment_status === "unpaid") {
+    console.log("[payments-webhook] session not paid yet", session?.id, session?.metadata?.flow ?? "");
+    return;
+  }
   const flow = session?.metadata?.flow;
   // Test-mode payments (preview site) must never reach the ad platforms: a test
   // Purchase would count as a real sale in Meta and OpenAI Ads.
@@ -1412,16 +1463,30 @@ async function handleCheckoutCompleted(session: any, env: StripeEnv) {
       console.error("[payments-webhook] founder attribution failed", e);
     }
     await handleFounderEditionCompleted(session, env, paidSource);
-    if (adsLive) await fireMetaPurchase(session);
-    await fireGa4Conversion(session, env, "founder", paidSource);
+    if (adsLive) {
+      try {
+        await fireMetaPurchase(session, "Purchase", "founder");
+      } catch (e) {
+        console.error("[payments-webhook] founder meta purchase failed", e);
+      }
+    }
+    try {
+      await fireGa4Conversion(session, env, "founder", paidSource);
+    } catch (e) {
+      console.error("[ga4] founder failed", e);
+    }
     return;
   }
   if (flow === "bespoke_balance") {
-    // Ads optimise on the deposit (Meta Purchase above); the balance is tracked
-    // as its own event so the full order value is still visible.
-    const fresh = await handleBespokeBalanceCompleted(session, env);
-    if (!fresh) return;
-    if (adsLive) await fireMetaPurchase(session, "BespokeBalancePaid");
+    // Ads optimise on the deposit. The balance is its own event so the full
+    // order value is still visible. Conversions run even if the order update throws.
+    if (adsLive) {
+      try {
+        await fireMetaPurchase(session, "BespokeBalancePaid", "bespoke_balance");
+      } catch (e) {
+        console.error("[payments-webhook] bespoke balance meta failed", e);
+      }
+    }
     if (env === "live") {
       try {
         await fireGa4Conversion(session, env, "bespoke_balance", session?.metadata?.paid_source || "bespoke_balance");
@@ -1429,12 +1494,24 @@ async function handleCheckoutCompleted(session: any, env: StripeEnv) {
         console.error("[ga4] bespoke balance failed", e);
       }
     }
+    await handleBespokeBalanceCompleted(session, env);
     return;
   }
   if (flow === "bespoke") {
-    await handleBespokeCheckoutCompleted(session, env);
-    if (adsLive) await fireMetaPurchase(session);
-    if (adsLive) await sendOpenAiOrderCreated(session);
+    // Meta CAPI and GA4 are independent of order handling: a throw while
+    // saving the order must not skip the conversion.
+    if (adsLive) {
+      try {
+        await fireMetaPurchase(session, "Purchase", "bespoke");
+      } catch (e) {
+        console.error("[payments-webhook] bespoke meta purchase failed", e);
+      }
+      try {
+        await sendOpenAiOrderCreated(session);
+      } catch (e) {
+        console.error("[payments-webhook] bespoke openai failed", e);
+      }
+    }
     if (env === "live") {
       try {
         const { paidSource, metadata } = await resolvePaidSource(session, createStripeClient(env));
@@ -1443,6 +1520,7 @@ async function handleCheckoutCompleted(session: any, env: StripeEnv) {
         console.error("[ga4] bespoke attribution failed", e);
       }
     }
+    await handleBespokeCheckoutCompleted(session, env);
     return;
   }
 
@@ -1470,6 +1548,25 @@ async function handleCheckoutCompleted(session: any, env: StripeEnv) {
   };
   // Keep the Purchase CAPI event on the restored attribution too.
   session.metadata = storedMetadata;
+
+  // Conversions first: a throw from the founding-member write must not skip them.
+  if (adsLive) {
+    try {
+      await fireMetaPurchase(session, "Purchase", "reservation");
+    } catch (e) {
+      console.error("[payments-webhook] reservation meta purchase failed", e);
+    }
+    try {
+      await sendOpenAiReservation(session);
+    } catch (e) {
+      console.error("[payments-webhook] reservation openai failed", e);
+    }
+  }
+  try {
+    await fireGa4Conversion(session, env, "reservation", paidSource);
+  } catch (e) {
+    console.error("[ga4] reservation failed", e);
+  }
 
   const { error } = await getSupabase()
     .from("founding_members")
@@ -1512,10 +1609,6 @@ async function handleCheckoutCompleted(session: any, env: StripeEnv) {
   } catch (e) {
     console.error("[payments-webhook] vip-reservation-paid send failed", e);
   }
-
-  if (adsLive) await fireMetaPurchase(session);
-  if (adsLive) await sendOpenAiReservation(session);
-  await fireGa4Conversion(session, env, "reservation", paidSource);
 }
 
 Deno.serve(async (req) => {
@@ -1566,6 +1659,7 @@ Deno.serve(async (req) => {
   try {
     switch (event.type) {
       case "checkout.session.completed":
+      case "checkout.session.async_payment_succeeded":
         await handleCheckoutCompleted(event.data.object, env);
         break;
       case "checkout.session.expired":

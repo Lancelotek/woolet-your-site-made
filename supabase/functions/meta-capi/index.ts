@@ -4,6 +4,7 @@
 // the Graph API. Browser pixel and server event share the same `event_id`
 // for Meta's native deduplication.
 import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
+import { isBrowserPurchaseEvent } from "../_shared/meta-browser-events.ts";
 
 const GRAPH_VERSION = "v21.0";
 
@@ -37,7 +38,6 @@ const ALLOWED_EVENTS = new Set([
   "InitiateCheckout",
   "Lead",
   "CompleteRegistration",
-  "Purchase",
 ]);
 
 const sha256Hex = async (input: string): Promise<string> => {
@@ -95,6 +95,14 @@ Deno.serve(async (req) => {
     });
   }
 
+  // Purchase is server-only (payments-webhook, real Stripe amount). A browser
+  // caller must not be able to report Purchase or any other purchase-like name.
+  if (isBrowserPurchaseEvent(body?.event_name)) {
+    return new Response(JSON.stringify({ error: "purchase_server_only" }), {
+      status: 400,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
   if (!body?.event_name || !ALLOWED_EVENTS.has(body.event_name)) {
     return new Response(JSON.stringify({ error: "invalid_event_name" }), {
       status: 400,

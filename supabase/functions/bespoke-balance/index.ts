@@ -9,6 +9,7 @@
 
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { type StripeEnv, createStripeClient } from "../_shared/stripe.ts";
+import { stampCheckoutMetadata } from "../_shared/checkout-metadata.ts";
 import { balanceState, daysLeft, formatDueDate, formatUsdCents } from "../_shared/bespoke-balance.ts";
 import { sendTemplateEmailAndLog } from "../_shared/transactional-email-templates/send-and-log.ts";
 
@@ -34,8 +35,9 @@ const MAX_REVISIONS = 5;
 const ATTRIBUTION_KEYS = [
   "ga_client_id", "ga_session_id", "ga_cid_src", "wlt_visitor_id",
   "meta_fbp", "meta_fbc", "meta_client_ip_address", "meta_client_user_agent", "meta_event_source_url",
-  "utm_source", "utm_medium", "utm_campaign", "lt_utm_source", "lt_utm_medium", "lt_utm_campaign",
-  "lt_gclid", "lt_gbraid", "lt_wbraid", "first_touch", "last_touch",
+  "utm_source", "utm_medium", "utm_campaign", "gclid", "fbclid", "fbc",
+  "lt_utm_source", "lt_utm_medium", "lt_utm_campaign", "lt_gclid", "lt_gbraid", "lt_wbraid", "lt_fbclid",
+  "first_touch", "last_touch",
 ];
 
 const ORDER_COLUMNS =
@@ -147,6 +149,11 @@ Deno.serve(async (req) => {
         const v = orderMeta[k];
         if (typeof v === "string" && v && v.length <= 500) meta[k] = v;
       }
+      const stamped = stampCheckoutMetadata(meta, {
+        line: "bespoke_balance",
+        sku: String(order.frame_id || "bespoke"),
+        flow: "bespoke_balance",
+      });
       const name = `${order.frame_name ?? "Woolet Bespoke"} - balance (${ref})`;
       const note = `You are approving your 3D model. Production starts after this payment. Deposit already paid: ${formatUsdCents(order.deposit_cents)}.`;
 
@@ -163,11 +170,12 @@ Deno.serve(async (req) => {
         ],
         mode: "payment",
         ui_mode: "embedded_page",
+        customer_creation: "always",
         return_url: returnUrl,
         customer_email: String(order.customer_email).slice(0, 200),
         custom_text: { submit: { message: note } },
-        payment_intent_data: { description: name, metadata: meta },
-        metadata: meta,
+        payment_intent_data: { description: name, metadata: stamped },
+        metadata: stamped,
       });
       return json({ clientSecret: session.client_secret, sessionId: session.id, amountCents: balanceCents });
     }

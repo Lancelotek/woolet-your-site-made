@@ -88,8 +88,8 @@ export function getLastTouchCheckoutMetadata(): Record<string, string> {
     if (!touch) return {};
     const metadata: Record<string, string> = { lt_touch_at: touch.touch_at as string };
     for (const key of LAST_TOUCH_KEYS) {
-      if (key === "fbclid") continue; // stored for attribution, not sent as checkout metadata
       const value = touch[key];
+      // Prefixed copy only. The original query string is never rewritten.
       if (typeof value === "string" && value) metadata[`lt_${key}`] = value.slice(0, 500);
     }
     return metadata;

@@ -40,6 +40,9 @@ export const trackReservationPurchase = (
   w.dataLayer.push({
     event: "purchase",
     purchase_source: source,
+    // Lets GTM keep Reserve $1 apart from a Bespoke purchase on the same event name.
+    flow: "reservation",
+    line: "reservation_1usd",
     ecommerce: {
       transaction_id: ref,
       value: 1,
@@ -51,6 +54,61 @@ export const trackReservationPurchase = (
           item_name: "Founder reservation $1",
           item_category: "reservation",
           price: 1,
+          quantity: 1,
+        },
+      ],
+    },
+  });
+  return true;
+};
+
+export type BespokePurchaseInput = {
+  sessionId: string;
+  /** Amount actually charged, in major units (deposit when the plan is a deposit). */
+  value: number;
+  currency?: string;
+  itemId: string;
+  itemName: string;
+};
+
+/**
+ * Standard GA4 ecommerce purchase for a confirmed Bespoke payment.
+ * `line` / `flow` are bespoke so a GTM Google Ads tag can ignore the $1 reservation.
+ * Deduped on the Stripe session id, the same transaction_id the webhook sends.
+ */
+export const trackBespokePurchase = (input: BespokePurchaseInput): boolean => {
+  if (typeof window === "undefined" || !input.sessionId) return false;
+  const ref = input.sessionId.trim();
+  if (!isStripeSessionId(ref)) return false;
+  if (!Number.isFinite(input.value) || input.value <= 0) return false;
+
+  const key = `${DEDUP_PREFIX}${ref}`;
+  try {
+    if (localStorage.getItem(key) === "1") return false;
+    localStorage.setItem(key, "1");
+  } catch {
+    // Storage blocked: GA4's own transaction_id dedup still applies.
+  }
+
+  const currency = (input.currency || "USD").toUpperCase();
+  const w = window as DataLayerWindow;
+  w.dataLayer = w.dataLayer || [];
+  w.dataLayer.push({ ecommerce: null });
+  w.dataLayer.push({
+    event: "purchase",
+    purchase_source: "bespoke_checkout",
+    flow: "bespoke",
+    line: "bespoke",
+    ecommerce: {
+      transaction_id: ref,
+      value: input.value,
+      currency,
+      items: [
+        {
+          item_id: input.itemId || "bespoke",
+          item_name: input.itemName || "Woolet Bespoke",
+          item_category: "bespoke",
+          price: input.value,
           quantity: 1,
         },
       ],

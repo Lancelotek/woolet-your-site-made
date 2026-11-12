@@ -20,8 +20,7 @@ export type MetaEventName =
   | "CustomizeProduct"
   | "InitiateCheckout"
   | "Lead"
-  | "CompleteRegistration"
-  | "Purchase";
+  | "CompleteRegistration";
 
 export interface MetaUserData {
   email?: string;
@@ -243,6 +242,23 @@ export const trackInitiateCheckoutOnce = (
   if (typeof window === "undefined") return;
   if (!claimOnce(`initiatecheckout:${key}`)) return;
   void trackMetaEvent("InitiateCheckout", opts);
+};
+
+/**
+ * Meta AddToCart for the $1 reservation CTA. Value is the amount charged (1 USD),
+ * not the $114 founder frame price. Once per session.
+ */
+export const trackReservationAddToCart = (): void => {
+  trackMetaEventOnce("AddToCart", "addtocart:reservation_1usd", {
+    custom: {
+      value: 1,
+      currency: "USD",
+      num_items: 1,
+      content_ids: ["reservation_1usd"],
+      content_name: "Founder reservation $1",
+      content_type: "product",
+    },
+  });
 };
 
 /**

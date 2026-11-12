@@ -53,7 +53,9 @@ describe("Kickstarter VIP form — email-only submission", () => {
     navigateMock.mockReset();
     (window as unknown as { dataLayer?: unknown[] }).dataLayer = [];
     const { supabase } = await import("@/integrations/supabase/client");
-    (supabase.functions.invoke as unknown as ReturnType<typeof vi.fn>).mockClear();
+    const invoke = supabase.functions.invoke as unknown as ReturnType<typeof vi.fn>;
+    invoke.mockReset();
+    invoke.mockResolvedValue({ data: { success: true }, error: null });
   });
 
   it("submits with only email + inline consent, advances to step 2, and pushes empty user_first_name", async () => {
@@ -199,5 +201,31 @@ describe("Kickstarter VIP form — email-only submission", () => {
     expect(screen.queryByRole("dialog", { name: /\$1 today locks your/ })).toBeNull();
     expect(screen.queryByRole("button", { name: /pay \$1/ })).toBeNull();
     expect(localStorage.getItem("wlt_ks_vip_resolved")).toBe("1");
+  });
+
+  it("does not push waitlist_signup when the subscriber already exists", async () => {
+    const { supabase } = await import("@/integrations/supabase/client");
+    const invoke = supabase.functions.invoke as unknown as ReturnType<typeof vi.fn>;
+    invoke.mockImplementation(async (name: string) => {
+      if (name === "mailerlite-subscribe") return { data: { success: true, is_new: false }, error: null };
+      if (name === "vip-reservation-status") return { data: { reserved: false }, error: null };
+      return { data: { success: true }, error: null };
+    });
+
+    renderPage();
+    const form = document.getElementById("vip-section-hero") as HTMLFormElement;
+    const emailInput = form.querySelector('input[type="email"]') as HTMLInputElement;
+    const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    fireEvent.change(emailInput, { target: { value: "existing@example.com" } });
+    await waitFor(() => expect(submitBtn.disabled).toBe(false));
+    fireEvent.click(submitBtn);
+
+    const { pushGtmEvent } = await import("@/lib/gtm");
+    await waitFor(() => {
+      expect((pushGtmEvent as ReturnType<typeof vi.fn>).mock.calls.some(([name]) => name === "kickstarter_form_submit_success")).toBe(true);
+    });
+    const dl = (window as unknown as { dataLayer: Array<Record<string, unknown>> }).dataLayer;
+    expect(dl.find((e) => e.event === "waitlist_signup")).toBeUndefined();
+    expect(dl.find((e) => e.event === "meta_lead")).toBeUndefined();
   });
 });
