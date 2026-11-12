@@ -192,7 +192,7 @@ function PaymentsOpen() {
                     />
                     <span>
                       Send me the reservation confirmation and shipping updates. See our{" "}
-                      <Link to="/en/privacy" style={{ color: "#0f0f0f" }}>privacy policy</Link>.
+                      <Link to="/en/privacy-policy" style={{ color: "#0f0f0f" }}>privacy policy</Link>.
                     </span>
                   </label>
 

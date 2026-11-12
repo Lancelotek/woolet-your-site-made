@@ -292,7 +292,7 @@ const BespokeWaitlistGate = () => {
                     />
                     <span className="text-[0.72rem] leading-relaxed text-cream-dim">
                       I agree to the{" "}
-                      <Link to="/en/privacy" target="_blank" className="text-cream underline underline-offset-2 hover:text-gold-light">
+                      <Link to="/en/privacy-policy" target="_blank" className="text-cream underline underline-offset-2 hover:text-gold-light">
                         Privacy Policy
                       </Link>{" "}
                       and to receiving updates about Woolet Bespoke.

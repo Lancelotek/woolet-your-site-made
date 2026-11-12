@@ -1392,6 +1392,9 @@ async function sendOpenAiReservation(session: any) {
 
 async function handleCheckoutCompleted(session: any, env: StripeEnv) {
   const flow = session?.metadata?.flow;
+  // Test-mode payments (preview site) must never reach the ad platforms: a test
+  // Purchase would count as a real sale in Meta and OpenAI Ads.
+  const adsLive = env === "live";
   if (flow === "founder_edition") {
     let paidSource = "direct";
     try {
@@ -1402,7 +1405,7 @@ async function handleCheckoutCompleted(session: any, env: StripeEnv) {
       console.error("[payments-webhook] founder attribution failed", e);
     }
     await handleFounderEditionCompleted(session, env, paidSource);
-    await fireMetaPurchase(session);
+    if (adsLive) await fireMetaPurchase(session);
     await fireGa4Conversion(session, env, "founder", paidSource);
     return;
   }
@@ -1411,7 +1414,7 @@ async function handleCheckoutCompleted(session: any, env: StripeEnv) {
     // as its own event so the full order value is still visible.
     const fresh = await handleBespokeBalanceCompleted(session, env);
     if (!fresh) return;
-    await fireMetaPurchase(session, "BespokeBalancePaid");
+    if (adsLive) await fireMetaPurchase(session, "BespokeBalancePaid");
     if (env === "live") {
       try {
         await fireGa4Conversion(session, env, "bespoke_balance", session?.metadata?.paid_source || "bespoke_balance");
@@ -1423,8 +1426,8 @@ async function handleCheckoutCompleted(session: any, env: StripeEnv) {
   }
   if (flow === "bespoke") {
     await handleBespokeCheckoutCompleted(session, env);
-    await fireMetaPurchase(session);
-    await sendOpenAiOrderCreated(session);
+    if (adsLive) await fireMetaPurchase(session);
+    if (adsLive) await sendOpenAiOrderCreated(session);
     if (env === "live") {
       try {
         const { paidSource, metadata } = await resolvePaidSource(session, createStripeClient(env));
@@ -1503,8 +1506,8 @@ async function handleCheckoutCompleted(session: any, env: StripeEnv) {
     console.error("[payments-webhook] vip-reservation-paid send failed", e);
   }
 
-  await fireMetaPurchase(session);
-  await sendOpenAiReservation(session);
+  if (adsLive) await fireMetaPurchase(session);
+  if (adsLive) await sendOpenAiReservation(session);
   await fireGa4Conversion(session, env, "reservation", paidSource);
 }
 

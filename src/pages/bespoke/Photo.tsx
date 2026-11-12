@@ -532,11 +532,11 @@ export default function BespokePhoto() {
                 }}
               />
               <p className="mt-4 text-xs text-cream-dim/70">
-                Both photos are required for every Bespoke order - we start cutting only after they
-                arrive. Nothing leaves your phone until you send it at the end. Questions?{" "}
+                The front photo is required for every Bespoke order - we start cutting only after it
+                arrives. The side photo is optional. Nothing leaves your phone until you send it at the end. Questions?{" "}
                 <a href="mailto:support@woolet.co" className="underline">support@woolet.co</a>
                 {" · "}
-                <Link to="/en/bespoke/measurements" className="underline">Back to my measurements</Link>
+                <Link to={sid ? `/en/bespoke/measurements?sid=${encodeURIComponent(sid)}` : "/en/bespoke/measurements"} className="underline">Back to my measurements</Link>
               </p>
             </section>
           )}

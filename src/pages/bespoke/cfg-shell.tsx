@@ -88,12 +88,13 @@ const SECTIONS: { id: CfgInfoSection; title: string; body: ReactNode }[] = [
     body: (
       <>
         <p>
-          You pay for the pattern, acetate and lens configuration you chose. The made-to-measure fit scan is
-          booked <em>after</em> your payment clears — no measurements are taken until the order is confirmed.
+          You pay for the pattern, acetate and lens configuration you chose. The made-to-measure fitting
+          starts <em>after</em> your payment clears - no measurements are taken until the order is confirmed.
         </p>
         <p>
-          You then get a private link and measure with your phone camera. Once your numbers are confirmed, the
-          frame is cut to them.
+          You then get a private link: one photo with a bank-size card held to your cheek for scale, plus the
+          three numbers printed inside your current glasses. Once your numbers are confirmed, the frame is cut
+          to them.
         </p>
         <p>
           If the finished frame does not sit right on your face, write to support@woolet.co. Your measurements
