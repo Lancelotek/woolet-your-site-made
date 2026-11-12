@@ -49,6 +49,13 @@ async function fireMetaPurchase(session: any, eventName: string = "Purchase") {
     return;
   }
 
+  // Never send Stripe test-mode (sandbox) sessions to Meta - test orders would
+  // be counted as real purchases and pollute ad optimisation.
+  if (session?.livemode === false || String(session?.id ?? "").startsWith("cs_test_")) {
+    console.log(`[payments-webhook] test-mode session, skipping Meta ${eventName}`);
+    return;
+  }
+
   const meta = (session?.metadata ?? {}) as Record<string, string>;
   const email: string | undefined =
     session?.customer_details?.email || session?.customer_email || meta.email;
