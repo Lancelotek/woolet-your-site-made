@@ -165,13 +165,17 @@ export function trackHeroCtaClick(variantId: string, cta: "join_list" | "view_co
   });
 }
 
-/** Fire on SUCCESSFUL waitlist submit only. */
+/**
+ * Fire on a successful NEW waitlist submit only.
+ * The event name is not `waitlist_signup`: that name is the VIP Signup
+ * conversion (GTM tag 22) and must fire once, from the form, for a new subscriber.
+ */
 export function trackWaitlistSignupExperiment() {
   const variantId = getTrackedVariantId();
   if (!variantId) return;
   const gtag = gtagSafe();
   if (!gtag) return;
-  gtag("event", "waitlist_signup", {
+  gtag("event", "hero_experiment_signup", {
     experiment_id: HERO_EXPERIMENT_ID,
     variant_id: variantId,
   });

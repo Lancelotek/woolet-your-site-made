@@ -78,12 +78,20 @@ function StripeCheckoutModalOpen({
   useEffect(() => {
     if (!addToCartFired.current) {
       addToCartFired.current = true;
-      rdtAddToCart({ value: 114, currency: "USD", itemCount: 1 });
-      // Meta InitiateCheckout — one browser pixel event + one server CAPI
-      // event sharing one event_id, guarded against re-mounts.
+      // This modal only opens the $1 reservation. Value is 1 USD, never the $114 frame price.
+      rdtAddToCart({ value: 1, currency: "USD", itemCount: 1 });
+      // Meta InitiateCheckout at checkout start: one browser pixel event + one
+      // server CAPI event sharing one event_id, guarded against re-mounts.
       trackInitiateCheckoutOnce(`stripe:${priceId}`, {
         user: customerEmail ? { email: customerEmail } : undefined,
-        custom: { value: 114, currency: "USD", num_items: 1 },
+        custom: {
+          value: 1,
+          currency: "USD",
+          num_items: 1,
+          content_ids: ["reservation_1usd"],
+          content_name: "Founder reservation $1",
+          content_type: "product",
+        },
       });
     }
 

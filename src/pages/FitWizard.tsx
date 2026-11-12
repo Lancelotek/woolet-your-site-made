@@ -8,6 +8,8 @@ import Footer from "@/components/Footer";
 import CardPositionIllustration from "@/components/CardPositionIllustration";
 import SocialProofToast from "@/components/SocialProofToast";
 import { StripeCheckoutModal } from "@/components/StripeCheckoutModal";
+import { trackReservationAddToCart } from "@/lib/meta-capi";
+import { trackReservationPurchase } from "@/lib/ga4-purchase";
 import { isValidLang, type Lang } from "@/lib/i18n";
 import { trackFitScanComplete } from "@/lib/ga4-funnel";
 import { FoundingBenefits, FoundingUrgency } from "@/components/FoundingBenefits";
@@ -1712,6 +1714,7 @@ function SavedUpsellStep({
       source_page: "fit_saved_upsell",
       fomo_variant: fomoVariant,
     });
+    trackReservationAddToCart();
     if (typeof window !== "undefined" && window.sessionStorage.getItem("social_proof_seen_in_session") === "true") {
       pushEvent("social_proof_clicked_cta", {
         recommended_sku: measurement.recommendedSku,
@@ -1995,46 +1998,17 @@ export default function FitWizard() {
       });
       const sku = restored.measurement.recommendedSku;
 
-      // GA4 conversion tracking — fire once per Stripe checkout session.
-      // Guard against double-firing on back-navigation or a restored URL.
-      let alreadyTracked = false;
-      try {
-        const key = `purchase_tracked_${sessionId}`;
-        alreadyTracked = !!sessionId && window.localStorage.getItem(key) === "1";
-        if (sessionId) window.localStorage.setItem(key, "1");
-      } catch {
-        /* noop */
-      }
-      if (!alreadyTracked) {
+      // One purchase per Stripe session, item_id reservation_1usd (same as the
+      // Kickstarter return page and the webhook Measurement Protocol hit).
+      if (trackReservationPurchase(sessionId, "fit_saved_upsell")) {
         try {
           window.dataLayer = window.dataLayer || [];
-          // Clear any previous ecommerce object first (GA4 best practice).
-          window.dataLayer.push({ ecommerce: null });
-          // Standard GA4 ecommerce purchase ($1 refundable founding deposit).
-          window.dataLayer.push({
-            event: "purchase",
-            ecommerce: {
-              transaction_id: sessionId,
-              value: 1,
-              currency: "USD",
-              items: [
-                {
-                  item_id: sku,
-                  item_name: `Woolet Founding Deposit - ${sku}`,
-                  item_category: "founding_deposit",
-                  price: 1,
-                  quantity: 1,
-                },
-              ],
-            },
-          });
-          // Separate custom conversion event so $1 deposits can be analysed
-          // apart from future real pre-orders.
           window.dataLayer.push({
             event: "deposit",
             transaction_id: sessionId,
             value: 1,
             currency: "USD",
+            line: "reservation_1usd",
             recommended_sku: sku,
             source: "fit_saved_upsell",
           });

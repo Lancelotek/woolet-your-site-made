@@ -29,6 +29,17 @@ describe("reservation last-touch attribution", () => {
     expect(getLastTouchCheckoutMetadata()).toEqual({});
   });
 
+  it("passes fbclid and gclid through and does not rewrite utm_source", () => {
+    window.history.replaceState({}, "", "/en?utm_source=facebook&utm_medium=paid&utm_campaign=spring&gclid=g1&fbclid=fb999");
+    captureLastTouch();
+    const meta = getLastTouchCheckoutMetadata();
+    expect(meta.lt_utm_source).toBe("facebook");
+    expect(meta.lt_utm_medium).toBe("paid");
+    expect(meta.lt_utm_campaign).toBe("spring");
+    expect(meta.lt_gclid).toBe("g1");
+    expect(meta.lt_fbclid).toBe("fb999");
+  });
+
   it("caps campaign metadata values at 500 characters", () => {
     window.history.replaceState({}, "", `/en?utm_campaign=${"x".repeat(530)}`);
     expect(getLastTouchCheckoutMetadata().lt_utm_campaign).toHaveLength(500);

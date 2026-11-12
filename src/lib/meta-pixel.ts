@@ -60,6 +60,8 @@ const fbqTrack = (
   eventId: string,
 ): void => {
   if (typeof window === "undefined" || typeof window.fbq !== "function") return;
+  // Purchase is server-only. Never let a dataLayer bridge emit it from the browser.
+  if (eventName === "Purchase") return;
   window.fbq("track", eventName, custom, { eventID: eventId });
 };
 
@@ -134,6 +136,10 @@ export const initMetaPixelDirect = (): void => {
   /* eslint-enable @typescript-eslint/no-explicit-any */
 
   const fbqFn = window.fbq as ((...args: unknown[]) => void) | undefined;
+  // Disable Meta automatic event detection before init. Without this, button
+  // text such as "$114" is classified as a Purchase. GTM tag 8 needs the same
+  // call; this only covers the direct (non-EU) pixel.
+  if (fbqFn) fbqFn("set", "autoConfig", false, PIXEL_ID);
   if (fbqFn) fbqFn("init", PIXEL_ID);
   window.__wooletMetaDirect = true;
 

@@ -1,4 +1,5 @@
-import { Link, Navigate, useParams } from "react-router-dom";
+import { Link, Navigate, useLocation, useParams } from "react-router-dom";
+import { preserveSearch } from "@/lib/preserve-search";
 import NotFound from "@/pages/NotFound";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
@@ -19,11 +20,12 @@ const body = "'Barlow', sans-serif";
 
 const ComparePage = () => {
   const { slug } = useParams<{ slug: string }>();
+  const { search, hash } = useLocation();
   const canonicalSlug = resolveCompetitorSlug(slug);
   // Alias URL (e.g. /en/compare/warby-parker): send it to the canonical page
-  // so there is exactly one indexable URL per competitor.
+  // so there is exactly one indexable URL per competitor. Query string stays intact.
   if (canonicalSlug && canonicalSlug !== slug) {
-    return <Navigate to={`/en/compare/${canonicalSlug}`} replace />;
+    return <Navigate to={preserveSearch(`/en/compare/${canonicalSlug}`, search, hash)} replace />;
   }
   const competitor = competitors.find((c) => c.slug === canonicalSlug);
   // Unknown competitor slug: render NotFound in-place. Do NOT redirect

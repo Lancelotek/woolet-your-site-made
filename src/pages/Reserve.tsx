@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { EmbeddedCheckout, EmbeddedCheckoutProvider } from "@stripe/react-stripe-js";
 import { getStripe, getStripeEnvironment } from "@/lib/stripe";
 import { supabase } from "@/integrations/supabase/client";
-import { buildPurchaseAttribution, trackInitiateCheckoutOnce } from "@/lib/meta-capi";
+import { buildPurchaseAttribution, trackInitiateCheckoutOnce, trackReservationAddToCart } from "@/lib/meta-capi";
 import { getAttribution, getLastTouchCheckoutMetadata } from "@/lib/attribution";
 import { getGaCheckoutMetadataAsync } from "@/lib/ga-ids";
 import { pushGtmEvent } from "@/lib/gtm";
@@ -214,6 +214,7 @@ function ReserveOpen() {
             id="reserve-pay"
             onClick={() => {
               pushGtmEvent("reserve_pay_click", { touch_source: touch.touch_source ?? "" });
+              trackReservationAddToCart();
               setStarted(true);
             }}
             style={{

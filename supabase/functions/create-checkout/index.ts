@@ -1,4 +1,5 @@
 import { type StripeEnv, createStripeClient } from "../_shared/stripe.ts";
+import { RESERVATION_ITEM_ID, stampCheckoutMetadata } from "../_shared/checkout-metadata.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -60,12 +61,16 @@ async function createFounderSession(stripe: any, body: Body, req: Request): Prom
   if (ip) meta.openai_client_ip = ip.slice(0, 64);
   const ua = req.headers.get("user-agent");
   if (ua) meta.openai_client_ua = ua.slice(0, 500);
-  meta.flow = "founder_edition";
-  meta.sku = "founder_009_black_24";
+  const stamped = stampCheckoutMetadata(meta, {
+    line: "founder_edition",
+    sku: "founder_009_black_24",
+    flow: "founder_edition",
+  });
 
   const session = await stripe.checkout.sessions.create({
     mode: "payment",
     ui_mode: "embedded_page",
+    customer_creation: "always",
     return_url: body.returnUrl,
     line_items: [{
       quantity: 1,
@@ -88,9 +93,9 @@ async function createFounderSession(stripe: any, body: Body, req: Request): Prom
     },
     expires_at: Math.floor(Date.now() / 1000) + 60 * 60,
     ...(body.customerEmail && { customer_email: body.customerEmail }),
-    metadata: meta,
+    metadata: stamped,
     payment_intent_data: {
-      metadata: meta,
+      metadata: stamped,
       description: "Woolet Founder Edition 009 Black, 24 mm bridge (woolet.co)",
     },
   });
@@ -164,10 +169,25 @@ Deno.serve(async (req) => {
       if (cleanMeta[k] !== undefined && !cleanMeta[k]) delete cleanMeta[k];
     }
 
+    const line = DEPOSIT_PRICE_IDS.has(body.priceId)
+      ? "reservation_1usd"
+      : body.priceId === "007" || body.priceId.endsWith("_007")
+        ? "007"
+        : body.priceId === "009" || body.priceId.endsWith("_009")
+          ? "009"
+          : "reservation_1usd";
+    const sku = line === "reservation_1usd" ? RESERVATION_ITEM_ID : line;
+    const stamped = stampCheckoutMetadata(cleanMeta, {
+      line,
+      sku,
+      flow: line === "reservation_1usd" ? "reservation" : line,
+    });
+
     const session = await stripe.checkout.sessions.create({
       line_items: [{ price: stripePrice.id, quantity: body.quantity || 1 }],
       mode: "payment",
       ui_mode: "embedded_page",
+      customer_creation: "always",
       return_url: body.returnUrl,
       // 1 hour, not the 24h default: the recovery URL only exists once the
       // session has expired, and the recovery email sequence starts at T+1h.
@@ -179,10 +199,8 @@ Deno.serve(async (req) => {
         },
       },
       ...(body.customerEmail && { customer_email: body.customerEmail }),
-      ...(Object.keys(cleanMeta).length && {
-        metadata: cleanMeta,
-        payment_intent_data: { metadata: cleanMeta },
-      }),
+      metadata: stamped,
+      payment_intent_data: { metadata: stamped },
     });
 
     return new Response(JSON.stringify({ clientSecret: session.client_secret }), {

@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import { useNavigate, useParams, useSearchParams, Link } from "react-router-dom";
+import { useParams, useSearchParams, Link } from "react-router-dom";
 import wooletLogoAsset from "@/assets/woolet-logo.png.asset.json";
 const wooletLogo = wooletLogoAsset.url;
-import { rdtPurchase } from "@/lib/reddit-pixel";
 
 const T = {
   ink: "#141210",
@@ -27,7 +26,6 @@ const gridOverlayStyle: React.CSSProperties = {
 };
 
 export default function ThankYou() {
-  const navigate = useNavigate();
   const { lang = "en" } = useParams();
   const [searchParams] = useSearchParams();
   const spot = searchParams.get("spot") || "219";
@@ -39,14 +37,8 @@ export default function ThankYou() {
   const [copied, setCopied] = useState(false);
   const [barWidth, setBarWidth] = useState(0);
 
-  const conversionFired = useRef(false);
   useEffect(() => {
     const t = setTimeout(() => setBarWidth(pct), 100);
-    if (!conversionFired.current) {
-      conversionFired.current = true;
-      // Google Ads conversion is handled exclusively via GTM (dataLayer events).
-      rdtPurchase({ value: 114, currency: "USD" });
-    }
     return () => clearTimeout(t);
   }, [pct]);
 

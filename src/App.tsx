@@ -16,6 +16,7 @@ import TawkChat from "@/components/TawkChat";
 import { clarityStop } from "@/lib/clarity";
 
 import { resolveCompetitorSlug } from "@/data/competitors";
+import { preserveSearch } from "@/lib/preserve-search";
 
 import Index from "./pages/Index.tsx";
 const Collection = lazy(() => import("./pages/Collection.tsx"));
@@ -131,7 +132,8 @@ const queryClient = new QueryClient();
 
 const FitScanRedirect = () => {
   const { lang } = useParams();
-  return <Navigate to={`/${lang}/fit`} replace />;
+  const { search, hash } = useLocation();
+  return <Navigate to={preserveSearch(`/${lang}/fit`, search, hash)} replace />;
 };
 
 /**
@@ -141,64 +143,74 @@ const FitScanRedirect = () => {
  * A companion prerendered dist/index.html emits canonical=/en, noindex,follow
  * and a <noscript> meta refresh so crawlers without JS also land on /en.
  */
-const RootRedirect = () => <Navigate to="/en" replace />;
+const RootRedirect = () => {
+  const { search, hash } = useLocation();
+  return <Navigate to={preserveSearch("/en", search, hash)} replace />;
+};
 
 /** Redirect non-EN locales of EN-only pages to their /en/... equivalent. */
 const RedirectToEn = ({ to }: { to: string }) => {
-  const { lang } = useParams();
-  if (lang === "en") return <Navigate to={`/en${to}`} replace />;
-  return <Navigate to={`/en${to}`} replace />;
+  const { search, hash } = useLocation();
+  return <Navigate to={preserveSearch(`/en${to}`, search, hash)} replace />;
 };
 
-/** Replace-redirect that keeps the query string (utm_source etc.) and hash. */
+/** Replace-redirect that keeps the query string (utm_source, gclid, fbclid) and hash. */
 const RedirectKeepQuery = ({ to }: { to: string }) => {
   const { search, hash } = useLocation();
-  return <Navigate to={`${to}${search}${hash}`} replace />;
+  return <Navigate to={preserveSearch(to, search, hash)} replace />;
 };
 
 const RedirectCollectionToEn = () => {
   const { lang, slug } = useParams();
+  const { search, hash } = useLocation();
   if (lang === "en") return <NotFound />;
-  return <Navigate to={`/en/collections/${slug}`} replace />;
+  return <Navigate to={preserveSearch(`/en/collections/${slug}`, search, hash)} replace />;
 };
 const RedirectProductToEn = () => {
   const { lang, slug } = useParams();
+  const { search, hash } = useLocation();
   if (lang === "en") return <NotFound />;
-  return <Navigate to={`/en/products/${slug}`} replace />;
+  return <Navigate to={preserveSearch(`/en/products/${slug}`, search, hash)} replace />;
 };
 const RedirectLpToEn = () => {
   const { lang, slug } = useParams();
+  const { search, hash } = useLocation();
   if (lang === "en") return <NotFound />;
-  return <Navigate to={`/en/lp/${slug}`} replace />;
+  return <Navigate to={preserveSearch(`/en/lp/${slug}`, search, hash)} replace />;
 };
 const RedirectSizeToEn = () => {
   const { slug } = useParams();
-  return <Navigate to={`/en/size/${slug}`} replace />;
+  const { search, hash } = useLocation();
+  return <Navigate to={preserveSearch(`/en/size/${slug}`, search, hash)} replace />;
 };
 
 /** /:lang/ref/:slug — reference pages exist in English only. */
 const RedirectRefToEn = () => {
   const { slug } = useParams();
-  return <Navigate to={`/en/ref/${slug}`} replace />;
+  const { search, hash } = useLocation();
+  return <Navigate to={preserveSearch(`/en/ref/${slug}`, search, hash)} replace />;
 };
 
 /** /:lang/compare/:slug — send real competitor slugs to the English page. */
 const LocalizedCompareRedirect = () => {
   const { slug } = useParams();
+  const { search, hash } = useLocation();
   const canonical = resolveCompetitorSlug(slug);
   if (!canonical) return <NotFound />;
-  return <Navigate to={`/en/compare/${canonical}`} replace />;
+  return <Navigate to={preserveSearch(`/en/compare/${canonical}`, search, hash)} replace />;
 };
 
 
 const RedirectBridgeToEn = () => {
   const { slug } = useParams();
-  return <Navigate to={`/en/bridge/${slug}`} replace />;
+  const { search, hash } = useLocation();
+  return <Navigate to={preserveSearch(`/en/bridge/${slug}`, search, hash)} replace />;
 };
 
 const RedirectTempleToEn = () => {
   const { slug } = useParams();
-  return <Navigate to={`/en/temple/${slug}`} replace />;
+  const { search, hash } = useLocation();
+  return <Navigate to={preserveSearch(`/en/temple/${slug}`, search, hash)} replace />;
 };
 
 const TawkChatWrapper = () => {
@@ -242,20 +254,20 @@ const App = () => (
 
           {/* === Legacy Shopify smart-wallet 301-equivalent redirects === */}
           {/* Old product URLs that map cleanly to new eyewear models */}
-          <Route path="/products/smart-and-slim-leather-wallet" element={<Navigate to="/en/products/009" replace />} />
-          <Route path="/products/smart-and-slim-travel-wallet-hand-crafted-leather" element={<Navigate to="/en/products/007" replace />} />
+          <Route path="/products/smart-and-slim-leather-wallet" element={<RedirectKeepQuery to="/en/products/009" />} />
+          <Route path="/products/smart-and-slim-travel-wallet-hand-crafted-leather" element={<RedirectKeepQuery to="/en/products/007" />} />
           {/* Old product URLs with no eyewear counterpart → home */}
-          <Route path="/products/smart-wallet-howl" element={<Navigate to="/en" replace />} />
-          <Route path="/products/woolet-classic-charging-pad-special-offer" element={<Navigate to="/en" replace />} />
-          <Route path="/products/woolet-tracker" element={<Navigate to="/en" replace />} />
-          <Route path="/products/black-leather-cable-microusb-to-usb" element={<Navigate to="/en" replace />} />
-          <Route path="/products/flash-sale-woolet-travel-xl-2-0-black" element={<Navigate to="/en" replace />} />
-          <Route path="/products/smart-anti-theft-black-italian-leather-wallet" element={<Navigate to="/en" replace />} />
+          <Route path="/products/smart-wallet-howl" element={<RedirectKeepQuery to="/en" />} />
+          <Route path="/products/woolet-classic-charging-pad-special-offer" element={<RedirectKeepQuery to="/en" />} />
+          <Route path="/products/woolet-tracker" element={<RedirectKeepQuery to="/en" />} />
+          <Route path="/products/black-leather-cable-microusb-to-usb" element={<RedirectKeepQuery to="/en" />} />
+          <Route path="/products/flash-sale-woolet-travel-xl-2-0-black" element={<RedirectKeepQuery to="/en" />} />
+          <Route path="/products/smart-anti-theft-black-italian-leather-wallet" element={<RedirectKeepQuery to="/en" />} />
           {/* Old blog/collection URLs */}
-          <Route path="/blogs/news" element={<Navigate to="/en/blog" replace />} />
-          <Route path="/blogs/news/*" element={<Navigate to="/en/blog" replace />} />
-          <Route path="/blog/woolet-howl-3-0-gps-manual-how-setup-gps-wallet" element={<Navigate to="/en" replace />} />
-          <Route path="/collections/*" element={<Navigate to="/en" replace />} />
+          <Route path="/blogs/news" element={<RedirectKeepQuery to="/en/blog" />} />
+          <Route path="/blogs/news/*" element={<RedirectKeepQuery to="/en/blog" />} />
+          <Route path="/blog/woolet-howl-3-0-gps-manual-how-setup-gps-wallet" element={<RedirectKeepQuery to="/en" />} />
+          <Route path="/collections/*" element={<RedirectKeepQuery to="/en" />} />
 
           {/* === 410-equivalent: any other legacy Shopify path returns noindex Gone page === */}
           <Route path="/products/*" element={<Gone />} />
@@ -279,7 +291,7 @@ const App = () => (
           <Route path="/de/produkte/007" element={<DeProduct modelId="007" />} />
           <Route path="/de/produkte/009" element={<DeProduct modelId="009" />} />
           <Route path="/de/danke" element={<DeDanke />} />
-          <Route path="/de/collection" element={<Navigate to="/de/kollektion" replace />} />
+          <Route path="/de/collection" element={<RedirectKeepQuery to="/de/kollektion" />} />
           {/* Cited by AI assistants but never existed as DE pages. */}
           <Route path="/de/xxl" element={<RedirectKeepQuery to="/de/brillen-fuer-grosse-koepfe" />} />
           <Route path="/de/xxl/extra-wide-frames" element={<RedirectKeepQuery to="/de/brillen-fuer-grosse-koepfe" />} />
@@ -290,7 +302,7 @@ const App = () => (
           {/* Reference product pages for partners/creators — English only */}
           <Route path="/en/ref" element={<RefIndex />} />
           <Route path="/en/ref/:slug" element={<RefProductPage />} />
-          <Route path="/:lang/ref" element={<Navigate to="/en/ref" replace />} />
+          <Route path="/:lang/ref" element={<RedirectKeepQuery to="/en/ref" />} />
           <Route path="/:lang/ref/:slug" element={<RedirectRefToEn />} />
 
           {/* Unlinked, noindex creative sheet for the Aviator 161 mm stretch goals. */}
@@ -315,16 +327,16 @@ const App = () => (
           <Route path="/en/our-story" element={<OurStory />} />
           <Route path="/en/process" element={<Process />} />
           <Route path="/en/the-box" element={<TheBox />} />
-          <Route path="/:lang/the-box" element={<Navigate to="/en/the-box" replace />} />
+          <Route path="/:lang/the-box" element={<RedirectKeepQuery to="/en/the-box" />} />
           <Route path="/:lang/process" element={<RedirectToEn to="/process" />} />
           <Route path="/en/bespoke" element={<Bespoke />} />
           <Route path="/en/bespoke/video" element={<BespokeVideo />} />
           <Route path="/en/bespoke/configurator" element={<BespokeConfigurator />} />
-          <Route path="/:lang/bespoke/configurator" element={<Navigate to="/en/bespoke/configurator" replace />} />
+          <Route path="/:lang/bespoke/configurator" element={<RedirectKeepQuery to="/en/bespoke/configurator" />} />
           <Route path="/en/bespoke/scan" element={<BespokeScan />} />
           <Route path="/:lang/bespoke/scan" element={<BespokeScan />} />
           <Route path="/en/bespoke/checkout" element={<BespokeCheckout />} />
-          <Route path="/:lang/bespoke/checkout" element={<Navigate to="/en/bespoke/checkout" replace />} />
+          <Route path="/:lang/bespoke/checkout" element={<RedirectKeepQuery to="/en/bespoke/checkout" />} />
           <Route path="/en/bespoke/measurements" element={<BespokeMeasurements />} />
           <Route path="/:lang/bespoke/measurements" element={<BespokeMeasurements />} />
           <Route path="/en/bespoke/model" element={<BespokeModel />} />
@@ -336,8 +348,8 @@ const App = () => (
           <Route path="/:lang/bespoke/photo" element={<BespokePhoto />} />
           <Route path="/:lang/bespoke" element={<Bespoke />} />
           {/* Legacy /:lang/pages/bespoke -> /:lang/bespoke */}
-          <Route path="/en/pages/bespoke" element={<Navigate to="/en/bespoke" replace />} />
-          <Route path="/:lang/pages/bespoke" element={<Navigate to="/en/bespoke" replace />} />
+          <Route path="/en/pages/bespoke" element={<RedirectKeepQuery to="/en/bespoke" />} />
+          <Route path="/:lang/pages/bespoke" element={<RedirectKeepQuery to="/en/bespoke" />} />
           <Route path="/:lang/vip-join" element={<VipJoin />} />
 
           {/* SEO collection pages */}
@@ -352,8 +364,8 @@ const App = () => (
           <Route path="/en/collections/keyhole-bridge-glasses" element={<KeyholeBridgeGlasses />} />
           <Route path="/en/collections/blue-light-glasses-for-wide-faces" element={<BlueLightGlassesForWideFaces />} />
           {/* One page per intent: the standalone blue-light URL folds into the collection route. */}
-          <Route path="/en/blue-light-glasses-wide-faces" element={<Navigate to="/en/collections/blue-light-glasses-for-wide-faces" replace />} />
-          <Route path="/blue-light-glasses-wide-faces" element={<Navigate to="/en/collections/blue-light-glasses-for-wide-faces" replace />} />
+          <Route path="/en/blue-light-glasses-wide-faces" element={<RedirectKeepQuery to="/en/collections/blue-light-glasses-for-wide-faces" />} />
+          <Route path="/blue-light-glasses-wide-faces" element={<RedirectKeepQuery to="/en/collections/blue-light-glasses-for-wide-faces" />} />
           <Route path="/en/collections/extra-large-oversized-eyeglasses" element={<ExtraLargeOversizedEyeglasses />} />
           <Route path="/en/collections/big-glasses-frames" element={<BigGlassesFrames />} />
           <Route path="/en/collections/wide-frame-reading-glasses" element={<WideFrameReadingGlasses />} />
@@ -377,7 +389,7 @@ const App = () => (
           {/* XXL / Wide-Face hub cluster (Part 4) */}
           <Route path="/en/xxl" element={<XxlHubPage />} />
           <Route path="/en/xxl/:slug" element={<XxlPage />} />
-          <Route path="/:lang/xxl" element={<Navigate to="/en/collection" replace />} />
+          <Route path="/:lang/xxl" element={<RedirectKeepQuery to="/en/collection" />} />
           {/* Unknown /:lang/xxl/:slug: render NotFound rather than
               bouncing to the /en/xxl hub. Redirect-to-parent was a
               soft-404 for any invalid or non-EN slug. */}
@@ -389,7 +401,7 @@ const App = () => (
           {/* Competitor comparison pages */}
           <Route path="/en/compare" element={<CompareIndex />} />
           <Route path="/en/compare/:slug" element={<ComparePage />} />
-          <Route path="/:lang/compare" element={<Navigate to="/en/compare" replace />} />
+          <Route path="/:lang/compare" element={<RedirectKeepQuery to="/en/compare" />} />
           {/* A localized comparison URL that maps to a real competitor
               redirects to the English page (the cluster is English-only);
               anything else is a genuine 404. */}
@@ -401,19 +413,19 @@ const App = () => (
           <Route path="/:lang/collection" element={<Collection />} />
           <Route path="/:lang/blog" element={<BlogIndex />} />
           <Route path="/en/blog/category/nose-bridge-fit" element={<NoseBridgeFitHub />} />
-          <Route path="/:lang/blog/category/nose-bridge-fit" element={<Navigate to="/en/blog/category/nose-bridge-fit" replace />} />
+          <Route path="/:lang/blog/category/nose-bridge-fit" element={<RedirectKeepQuery to="/en/blog/category/nose-bridge-fit" />} />
           {/* Non-EN blog posts: redirect legacy EN slugs to their translated slug */}
-          <Route path="/de/blog/best-glasses-for-big-heads-2026" element={<Navigate to="/de/blog/beste-brillen-fuer-grosse-koepfe-2026" replace />} />
-          <Route path="/de/blog/what-size-sunglasses-for-wide-faces" element={<Navigate to="/de/blog/welche-groesse-sonnenbrille-breites-gesicht" replace />} />
+          <Route path="/de/blog/best-glasses-for-big-heads-2026" element={<RedirectKeepQuery to="/de/blog/beste-brillen-fuer-grosse-koepfe-2026" />} />
+          <Route path="/de/blog/what-size-sunglasses-for-wide-faces" element={<RedirectKeepQuery to="/de/blog/welche-groesse-sonnenbrille-breites-gesicht" />} />
           <Route path="/de/blog/glasses-for-wide-faces-guide" element={<RedirectKeepQuery to="/en/blog/glasses-for-wide-faces-guide" />} />
-          <Route path="/nl/blog/best-glasses-for-big-heads-2026" element={<Navigate to="/nl/blog/beste-brillen-voor-brede-hoofden-2026" replace />} />
-          <Route path="/nl/blog/what-size-sunglasses-for-wide-faces" element={<Navigate to="/nl/blog/welke-maat-zonnebril-voor-breed-gezicht" replace />} />
-          <Route path="/fr/blog/best-glasses-for-big-heads-2026" element={<Navigate to="/fr/blog/meilleures-lunettes-pour-grosses-tetes-2026" replace />} />
-          <Route path="/fr/blog/what-size-sunglasses-for-wide-faces" element={<Navigate to="/fr/blog/quelle-taille-de-lunettes-de-soleil-visage-large" replace />} />
-          <Route path="/fr/blog/beste-brillen-fuer-grosse-koepfe-2026" element={<Navigate to="/fr/blog/meilleures-lunettes-pour-grosses-tetes-2026" replace />} />
-          <Route path="/fr/blog/welche-groesse-sonnenbrille-breites-gesicht" element={<Navigate to="/fr/blog/quelle-taille-de-lunettes-de-soleil-visage-large" replace />} />
-          <Route path="/fr/blog/beste-brillen-voor-brede-hoofden-2026" element={<Navigate to="/fr/blog/meilleures-lunettes-pour-grosses-tetes-2026" replace />} />
-          <Route path="/fr/blog/welke-maat-zonnebril-voor-breed-gezicht" element={<Navigate to="/fr/blog/quelle-taille-de-lunettes-de-soleil-visage-large" replace />} />
+          <Route path="/nl/blog/best-glasses-for-big-heads-2026" element={<RedirectKeepQuery to="/nl/blog/beste-brillen-voor-brede-hoofden-2026" />} />
+          <Route path="/nl/blog/what-size-sunglasses-for-wide-faces" element={<RedirectKeepQuery to="/nl/blog/welke-maat-zonnebril-voor-breed-gezicht" />} />
+          <Route path="/fr/blog/best-glasses-for-big-heads-2026" element={<RedirectKeepQuery to="/fr/blog/meilleures-lunettes-pour-grosses-tetes-2026" />} />
+          <Route path="/fr/blog/what-size-sunglasses-for-wide-faces" element={<RedirectKeepQuery to="/fr/blog/quelle-taille-de-lunettes-de-soleil-visage-large" />} />
+          <Route path="/fr/blog/beste-brillen-fuer-grosse-koepfe-2026" element={<RedirectKeepQuery to="/fr/blog/meilleures-lunettes-pour-grosses-tetes-2026" />} />
+          <Route path="/fr/blog/welche-groesse-sonnenbrille-breites-gesicht" element={<RedirectKeepQuery to="/fr/blog/quelle-taille-de-lunettes-de-soleil-visage-large" />} />
+          <Route path="/fr/blog/beste-brillen-voor-brede-hoofden-2026" element={<RedirectKeepQuery to="/fr/blog/meilleures-lunettes-pour-grosses-tetes-2026" />} />
+          <Route path="/fr/blog/welke-maat-zonnebril-voor-breed-gezicht" element={<RedirectKeepQuery to="/fr/blog/quelle-taille-de-lunettes-de-soleil-visage-large" />} />
           <Route path="/:lang/blog/:slug" element={<BlogPost />} />
           <Route path="/en/hat-size-calculator" element={<HatSizeCalculator />} />
           <Route path="/:lang/hat-size-calculator" element={<HatSizeCalculator />} />
@@ -451,13 +463,13 @@ const App = () => (
 
           {/* Legacy routes redirect */}
           <Route path="/charging-mousepad" element={<RedirectKeepQuery to="/en" />} />
-          <Route path="/privacy-policy" element={<Navigate to="/en/privacy-policy" replace />} />
-          <Route path="/return-policy" element={<Navigate to="/en/return-policy" replace />} />
-          <Route path="/privacy" element={<Navigate to="/en/privacy-policy" replace />} />
+          <Route path="/privacy-policy" element={<RedirectKeepQuery to="/en/privacy-policy" />} />
+          <Route path="/return-policy" element={<RedirectKeepQuery to="/en/return-policy" />} />
+          <Route path="/privacy" element={<RedirectKeepQuery to="/en/privacy-policy" />} />
 
           {/* Legacy broken internal URLs */}
-          <Route path="/en/how-to-measure-face-width" element={<Navigate to="/en/blog/how-to-measure-face-width-for-glasses" replace />} />
-          <Route path="/en/blog/glasses-for-wide-faces" element={<Navigate to="/en/blog/glasses-for-wide-faces-guide" replace />} />
+          <Route path="/en/how-to-measure-face-width" element={<RedirectKeepQuery to="/en/blog/how-to-measure-face-width-for-glasses" />} />
+          <Route path="/en/blog/glasses-for-wide-faces" element={<RedirectKeepQuery to="/en/blog/glasses-for-wide-faces-guide" />} />
 
           {/* Policy pages with lang */}
           <Route path="/:lang/privacy-policy" element={<PrivacyPolicy />} />

@@ -11,6 +11,7 @@
 // destinations so browser pixels can dedupe natively.
 import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
 import { createClient } from "npm:@supabase/supabase-js@2";
+import { isBrowserPurchaseEvent } from "../_shared/meta-browser-events.ts";
 
 // `ReturnType<typeof createClient>` collapses table payloads to `never`; take
 // the type from a real (non-generic) call site instead.
@@ -91,7 +92,6 @@ const ALLOWED_EVENTS = new Set([
   "InitiateCheckout",
   "Lead",
   "CompleteRegistration",
-  "Purchase",
 ]);
 
 // Default name mapping. Callers can override via `platform_events`.
@@ -395,6 +395,17 @@ Deno.serve(async (req) => {
     });
   }
 
+  // Purchase stays server-only (payments-webhook). Reject the event name and a
+  // platform override that would still forward Purchase to Meta.
+  if (
+    isBrowserPurchaseEvent(body?.event_name) ||
+    isBrowserPurchaseEvent(body?.platform_events?.meta)
+  ) {
+    return new Response(JSON.stringify({ error: "purchase_server_only" }), {
+      status: 400,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
   if (!body?.event_name || !ALLOWED_EVENTS.has(body.event_name)) {
     return new Response(JSON.stringify({ error: "invalid_event_name" }), {
       status: 400,

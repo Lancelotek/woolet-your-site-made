@@ -107,12 +107,14 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
       if (fnError) throw fnError;
       if (data && !data.success) throw new Error(data.error || "Subscription failed");
 
-      // GTM Enhanced Conversions — exact key names required by GTM container
-      if (typeof window !== "undefined") {
+      // VIP Signup (GTM tag 22) counts a real new subscriber once.
+      // Existing subscribers re-submitting are not a conversion.
+      const isNewLead = data?.is_new !== false;
+      if (typeof window !== "undefined" && isNewLead) {
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
           event: "waitlist_signup",
-          is_new_lead: data?.is_new !== false,
+          is_new_lead: true,
           user_email: formData.email,
           user_first_name: formData.name,
           frame_width_preference: formData.faceWidth || null,
@@ -126,22 +128,21 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
         source: utmSource,
       });
 
-      // Hero headline A/B test conversion (GA4) — success only.
-      trackWaitlistSignupExperiment();
+      // Hero headline A/B test conversion (GA4). Separate event name so it
+      // does not fire the VIP Signup conversion a second time.
+      if (isNewLead) trackWaitlistSignupExperiment();
 
       rdtLead({ value: 114, currency: "USD" });
 
       // Browser-only Meta Lead (GTM pixel bridge). The server Lead is sent by
       // mailerlite-subscribe with the same meta_event_id, so Meta dedupes them.
-      // Existing subscribers re-submitting are not a new Lead.
-      if (typeof window !== "undefined" && data?.is_new !== false) {
+      // No value: a signup is not a $114 payment.
+      if (typeof window !== "undefined" && isNewLead) {
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
           event: "meta_lead",
           meta_event_name: "Lead",
           event_id: meta_event_id,
-          value: 114,
-          currency: "USD",
           content_name: "Waitlist signup",
         });
       }

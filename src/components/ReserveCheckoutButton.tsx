@@ -1,7 +1,7 @@
 import { CSSProperties, lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { getStripe, getStripeEnvironment } from "@/lib/stripe";
 import { supabase } from "@/integrations/supabase/client";
-import { buildPurchaseAttribution } from "@/lib/meta-capi";
+import { buildPurchaseAttribution, trackReservationAddToCart } from "@/lib/meta-capi";
 import { pushGtmEvent } from "@/lib/gtm";
 import { getLastTouchCheckoutMetadata } from "@/lib/attribution";
 import { getGaCheckoutMetadataAsync } from "@/lib/ga-ids";
@@ -123,6 +123,7 @@ export function ReserveCheckoutButton({
     setError(null);
     setLoading(true);
     pushGtmEvent(clickEvent, { ...(eventParams ?? {}) });
+    trackReservationAddToCart();
 
     let timedOut = false;
     const timeout = new Promise<never>((_, reject) =>

@@ -440,11 +440,12 @@ const VipForm = ({
 
 
 
-      if (typeof window !== "undefined") {
+      const isNewLead = data?.is_new !== false;
+      if (typeof window !== "undefined" && isNewLead) {
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
           event: "waitlist_signup",
-          is_new_lead: data?.is_new !== false,
+          is_new_lead: true,
           user_email: normalizedEmail,
           user_first_name: "",
           waitlist_models: models,
@@ -452,6 +453,8 @@ const VipForm = ({
           event_id: metaEventId,
           hero_variant: heroVariant,
         });
+      }
+      if (typeof window !== "undefined") {
         try {
           sessionStorage.setItem(
             "woolet_vip_confirm",
@@ -469,7 +472,7 @@ const VipForm = ({
       // Browser-only Meta Lead (GTM pixel bridge). The server Lead is sent by
       // mailerlite-subscribe with the same event_id, so Meta dedupes them.
       // Existing subscribers re-submitting are not a new Lead.
-      if (typeof window !== "undefined" && data?.is_new !== false) {
+      if (typeof window !== "undefined" && isNewLead) {
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
           event: "meta_lead",

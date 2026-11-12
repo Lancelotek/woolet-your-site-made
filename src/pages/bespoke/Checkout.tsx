@@ -2,6 +2,9 @@ import { depositPrice, refreshBespokePrices, splitDeposit, usePriceTable } from 
 import { afterPaymentSteps } from "@/lib/bespoke-balance";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { getGaCheckoutMetadataAsync } from "@/lib/ga-ids";
+import { trackBespokePurchase } from "@/lib/ga4-purchase";
+import { buildPurchaseAttribution } from "@/lib/meta-capi";
+import { getLastTouchCheckoutMetadata } from "@/lib/attribution";
 import { getOppref, oaiqBespokeCheckoutStarted, oaiqBespokeOrderCreated, oaiqIdentifyHash } from "@/lib/openai-pixel";
 import { Link, useNavigate } from "react-router-dom";
 import { ChevronLeft, Sparkles, ShieldCheck, Lock, Scissors, Truck } from "lucide-react";
@@ -43,6 +46,12 @@ import { BESPOKE_DISCOVERY_SOURCES, isBespokeDiscoverySource, type BespokeDiscov
 import { buildDesignUrl, designSummary, readSavedEmail } from "@/lib/bespoke-saved-design";
 
 const PURCHASE_TRACKED_KEY = "woolet_bespoke_purchase_tracked_v1";
+
+/** Keep only a hosted preview. data:image renders never go into Stripe metadata. */
+function httpsPreview(url: string | null | undefined): string {
+  const value = (url ?? "").trim();
+  return value.startsWith("https://") ? value.slice(0, 500) : "";
+}
 
 
 const SummaryRow = ({ label, value }: { label: string; value: React.ReactNode }) => (
@@ -153,8 +162,9 @@ export default function BespokeCheckout() {
     reading_strength_mode: config.lensTypeId === "reading" ? config.readingStrengthMode ?? "" : "",
     reading_strength_left: config.readingStrengthLeft ?? "",
     reading_strength_right: config.readingStrengthRight ?? "",
-    ai_preview_url: (aiPreviewUrl ?? fallbackPreviewUrl ?? "").slice(0, 500),
-    ai_front_preview_url: (getLatestPreviewUrl(`${lensKey}|front`) ?? "").slice(0, 500),
+    // Stripe metadata rejects huge values and a data:image is not a stable URL.
+    ai_preview_url: httpsPreview(aiPreviewUrl ?? fallbackPreviewUrl),
+    ai_front_preview_url: httpsPreview(getLatestPreviewUrl(`${lensKey}|front`)),
     // Pseudonymous link back to the fit scan. Carries no personal detail.
     scan_session_ref: readSessionRef() ?? "",
     source,
@@ -275,6 +285,16 @@ export default function BespokeCheckout() {
           if (order?.stripe_session_id && Number.isFinite(cents) && cents > 0) {
             if (typeof order?.customer_email_sha256 === "string") oaiqIdentifyHash(order.customer_email_sha256);
             oaiqBespokeOrderCreated(cents, paidSessionId);
+            // Confirmed paid order (webhook wrote the row). Standard ecommerce
+            // purchase so GA4 and a GTM Google Ads tag can fire. `line` separates
+            // this from the $1 reservation purchase.
+            trackBespokePurchase({
+              sessionId: paidSessionId,
+              value: cents / 100,
+              currency: typeof order.currency === "string" ? order.currency : "USD",
+              itemId: frame?.id || "bespoke",
+              itemName: typeof order.frame_name === "string" && order.frame_name ? order.frame_name : productName,
+            });
             return;
           }
         }
@@ -285,7 +305,7 @@ export default function BespokeCheckout() {
     };
     void poll();
     return () => { cancelled = true; };
-  }, [paidSessionId]);
+  }, [paidSessionId, frame?.id, productName]);
 
   // --- Analytics: Purchase completed (once, on ?paid=1) ----------------------
   useEffect(() => {
@@ -313,8 +333,9 @@ export default function BespokeCheckout() {
     const payload = buildEventPayload({ stripe_session_id: sessionId });
     pushGtmEvent("purchase_completed", payload);
     clarityEvent("bespoke_purchase_completed");
-    // Purchase to Meta is fired server-side from payments-webhook (dedup by event_id).
-    // We still push GTM so downstream tags (GA4 purchase) fire client-side too.
+    // The standard `purchase` ecommerce event is pushed only after
+    // bespoke-order-get confirms the paid order (see the poll above).
+    // Meta Purchase is server-only from payments-webhook.
   }, [buildEventPayload]);
 
   const fetchClientSecret = useCallback(async (): Promise<string> => {
@@ -342,9 +363,15 @@ export default function BespokeCheckout() {
         // Known email (saved design / scan) prefills Stripe: one field less for the buyer,
         // and an abandoned session can be followed up by payments-webhook.
         customerEmail: readSavedEmail() ?? config.scanContactEmail ?? undefined,
-        metadata: { ...metadata, ...(await getGaCheckoutMetadataAsync()),
+        metadata: {
+          ...metadata,
+          ...buildPurchaseAttribution(),
+          ...getLastTouchCheckoutMetadata(),
+          ...(await getGaCheckoutMetadataAsync()),
           bespoke_design_url: buildDesignUrl(config, "bespoke_abandoned_checkout"),
-          bespoke_design_summary: designSummary(config), ...(getOppref() ? { openai_oppref: getOppref() } : {}) },
+          bespoke_design_summary: designSummary(config),
+          ...(getOppref() ? { openai_oppref: getOppref() } : {}),
+        },
         environment: getStripeEnvironment(),
       },
     });

@@ -140,7 +140,9 @@ const ListiclePage = () => {
       });
       if (error) throw error;
       if (data && !data.success) throw new Error(data.error);
-      pushGtmEvent("waitlist_signup", { waitlist_email: email, waitlist_models: "Woolet 007, Woolet 009", event_id: metaEventId });
+      if (data?.is_new !== false) {
+        pushGtmEvent("waitlist_signup", { waitlist_email: email, waitlist_models: "Woolet 007, Woolet 009", event_id: metaEventId, is_new_lead: true });
+      }
       pushGtmEvent("generate_lead", { awareness_stage: "solution_aware", source: "listicle" });
       // Browser-only Meta Lead (GTM pixel bridge). The server Lead is sent by
       // mailerlite-subscribe with the same event_id, so Meta dedupes them.

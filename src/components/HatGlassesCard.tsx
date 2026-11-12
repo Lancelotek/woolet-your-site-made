@@ -61,7 +61,9 @@ export default function HatGlassesCard(props: Props) {
       });
       if (error) throw error;
       if (data && !data.success) throw new Error(data.error);
-      pushGtmEvent("waitlist_signup", { waitlist_email: email, waitlist_models: "Woolet 007, Woolet 009", event_id: metaEventId, is_new_lead: data?.is_new !== false });
+      if (data?.is_new !== false) {
+        pushGtmEvent("waitlist_signup", { waitlist_email: email, waitlist_models: "Woolet 007, Woolet 009", event_id: metaEventId, is_new_lead: true });
+      }
       pushGtmEvent("hat_size_card_submit", { page_path: path, head_cm: headRounded });
       const w = window as any;
       w.dataLayer = w.dataLayer || [];
