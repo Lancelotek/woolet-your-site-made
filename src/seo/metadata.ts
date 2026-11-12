@@ -2081,7 +2081,7 @@ ${c.slug === "persol-alternative" || c.slug === "zenni-alternative" ? `<p>From $
 <h2>Crafted and shipped worldwide</h2><p>Italian Mazzucchelli 1849 cellulose acetate is shaped and finished by hand in the EU. The material originates in Italy; the frames are not made there. The first Bespoke pairs have already shipped to customers abroad, including Vietnam. The fit is checked against the approved model before dispatch, and a 5-year warranty backs the frame.</p>
 ${BESPOKE_GUIDE.map(({heading,text})=>`<section><h2>${heading}</h2><p>${text}</p></section>`).join("")}
 <h2>Questions about Woolet Bespoke</h2>${BESPOKE_FAQS.map(({q,a})=>`<section><h3>${q}</h3><p>${a}</p></section>`).join("")}
-<p><a href="/en/fit/bespoke">Start the Bespoke fit scan</a></p></article>`,
+<p><a href="/en/bespoke/configurator">Design your Bespoke frame</a></p></article>`,
       },
       { image: DEFAULT_OG, type: "website" },
        [bespokeProductJsonLd("en"), bespokeFaqJsonLd(), breadcrumbJsonLd([{ name: "Woolet", url: `${SITE_URL}/en` }, { name: "Bespoke", url: `${SITE_URL}/en/bespoke` }])],
