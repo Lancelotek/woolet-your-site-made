@@ -5,6 +5,13 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import RelatedGuides from "@/components/RelatedGuides";
 import BridgeFitExplainer from "@/components/BridgeFitExplainer";
+import { BESPOKE_COPY } from "@/content/bespokePrices";
+import ovalBlack from "@/assets/frames-2026/oval-black.asset.json";
+import ovalHavana from "@/assets/frames-2026/oval-havana.asset.json";
+import ovalCrystal from "@/assets/frames-2026/oval-crystal.asset.json";
+import squareBlack from "@/assets/frames-2026/square-black.asset.json";
+import squareHavana from "@/assets/frames-2026/square-havana.asset.json";
+import squareCrystal from "@/assets/frames-2026/square-crystal.asset.json";
 
 export interface CollectionFAQ {
   question: string;
@@ -40,6 +47,10 @@ export interface CollectionPageProps {
   inlineImage?: CollectionImage;
   answerBlock?: { heading: string; text: string };
   canonicalUrl?: string;
+  /** Show the six colour tiles (007 + 009 in three colours) plus Bespoke instead of the two text cards. */
+  colourGrid?: boolean;
+  /** Limit the "related collections" pills to these slugs (default: every other collection). */
+  relatedSlugs?: string[];
 }
 
 const SITE = "https://woolet.co";
@@ -59,6 +70,19 @@ const productCards = [
   },
 ];
 
+/**
+ * Colour tiles for the hub grid. Same shots and the same `?colour=` ids the
+ * product pages use, so a tile opens the product on the colour it shows.
+ */
+const colourTiles = [
+  { model: "007", shape: "Round", bridge: "26 mm", colour: "Black", id: "black", img: ovalBlack.url },
+  { model: "007", shape: "Round", bridge: "26 mm", colour: "Havana", id: "havana", img: ovalHavana.url },
+  { model: "007", shape: "Round", bridge: "26 mm", colour: "Silver Clear", id: "crystal", img: ovalCrystal.url },
+  { model: "009", shape: "Soft Square", bridge: "25 mm", colour: "Black", id: "black", img: squareBlack.url },
+  { model: "009", shape: "Soft Square", bridge: "25 mm", colour: "Havana", id: "havana", img: squareHavana.url },
+  { model: "009", shape: "Soft Square", bridge: "25 mm", colour: "Silver Clear", id: "crystal", img: squareCrystal.url },
+];
+
 const CollectionPage = ({
   slug,
   h1,
@@ -73,6 +97,8 @@ const CollectionPage = ({
   inlineImage,
   answerBlock,
   canonicalUrl,
+  colourGrid,
+  relatedSlugs,
 }: CollectionPageProps) => {
   const path = `/collections/${slug}`;
   const canonical = canonicalUrl || `${SITE}/en${path}`;
@@ -173,30 +199,82 @@ const CollectionPage = ({
 
         {slug === "keyhole-bridge-glasses" && <div style={{ maxWidth: 860, margin: "0 auto" }}><BridgeFitExplainer variant="compact" /></div>}
 
-        {/* Product cards */}
-        <section aria-label="Featured frames" style={{ maxWidth: 760, margin: "0 auto", padding: "24px 20px" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
-            {productCards.map((p) => (
-              <Link
-                key={p.id}
-                to={p.href}
-                style={{
-                  display: "block", padding: "16px 14px", background: "#FFF",
-                  border: "1px solid #E0D5C5", borderRadius: 8, textDecoration: "none", color: "#111",
-                }}
-              >
-                <div style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontSize: 18, marginBottom: 6 }}>
-                  {p.name}
-                </div>
-                <div style={{ fontSize: 12, color: "#666", lineHeight: 1.5, marginBottom: 10 }}>{p.blurb}</div>
-                <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
-                  <span style={{ color: "#A07A2A", fontWeight: 600, fontSize: 16 }}>$190</span>
-                  <span style={{ marginLeft: "auto", fontSize: 12, color: "#A07A2A", letterSpacing: "1.5px", textTransform: "uppercase" }}>View →</span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </section>
+        {/* Product grid */}
+        {colourGrid ? (
+          <section aria-label="Frames in this collection" style={{ maxWidth: 760, margin: "0 auto", padding: "24px 20px" }}>
+            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))", gap: 12 }}>
+              {colourTiles.map((t, i) => (
+                <li key={`${t.model}-${t.id}`}>
+                  <Link
+                    to={`/en/products/${t.model}?colour=${t.id}`}
+                    style={{ display: "block", height: "100%", background: "#FFF", border: "1px solid #E0D5C5", borderRadius: 8, textDecoration: "none", color: "#111", overflow: "hidden" }}
+                  >
+                    <img
+                      src={t.img}
+                      alt={`Woolet ${t.model} ${t.shape} glasses in ${t.colour}, 158 mm front for wide faces and big heads`}
+                      width={1600}
+                      height={900}
+                      loading={i < 2 ? "eager" : "lazy"}
+                      decoding="async"
+                      style={{ width: "100%", height: "auto", aspectRatio: "16 / 9", objectFit: "cover", display: "block", background: "#1A1612" }}
+                    />
+                    <div style={{ padding: "12px 12px 14px" }}>
+                      <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontSize: 17, lineHeight: 1.25, margin: "0 0 4px" }}>
+                        Woolet {t.model} {t.shape} - {t.colour}
+                      </h3>
+                      <p style={{ fontSize: 12, color: "#666", lineHeight: 1.5, margin: "0 0 8px" }}>158 mm front, {t.bridge} bridge</p>
+                      <p style={{ margin: 0, display: "flex", alignItems: "baseline", gap: 8 }}>
+                        <span style={{ color: "#8A6A1F", fontWeight: 600, fontSize: 16 }}>$114</span>
+                        <s style={{ color: "#777", fontSize: 13 }}>$190</s>
+                      </p>
+                    </div>
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link
+                  to="/en/products/bespoke"
+                  style={{ display: "flex", flexDirection: "column", justifyContent: "center", height: "100%", minHeight: 180, padding: "16px 14px", background: "#1A1612", border: "1px solid #1A1612", borderRadius: 8, textDecoration: "none", color: "#F8F6F1" }}
+                >
+                  <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontSize: 19, lineHeight: 1.25, margin: "0 0 6px", color: "#F8F6F1" }}>
+                    Woolet Bespoke
+                  </h3>
+                  <p style={{ fontSize: 12, color: "#CCC", lineHeight: 1.5, margin: "0 0 10px" }}>
+                    Made to your measurement: 145 to 160 mm front, 20 to 26 mm bridge.
+                  </p>
+                  <p style={{ margin: 0, color: "#CAA449", fontWeight: 600, fontSize: 16 }}>{BESPOKE_COPY.frame}</p>
+                </Link>
+              </li>
+            </ul>
+            <p style={{ fontSize: 12, color: "#555", lineHeight: 1.6, margin: "12px 0 0" }}>
+              $114 is the founding price, $190 at launch. Free shipping, 30-day returns.
+            </p>
+          </section>
+        ) : (
+          <section aria-label="Featured frames" style={{ maxWidth: 760, margin: "0 auto", padding: "24px 20px" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+              {productCards.map((p) => (
+                <Link
+                  key={p.id}
+                  to={p.href}
+                  style={{
+                    display: "block", padding: "16px 14px", background: "#FFF",
+                    border: "1px solid #E0D5C5", borderRadius: 8, textDecoration: "none", color: "#111",
+                  }}
+                >
+                  <div style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontSize: 18, marginBottom: 6 }}>
+                    {p.name}
+                  </div>
+                  <div style={{ fontSize: 12, color: "#666", lineHeight: 1.5, marginBottom: 10 }}>{p.blurb}</div>
+                  <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
+                    <span style={{ color: "#A07A2A", fontWeight: 600, fontSize: 16 }}>$190</span>
+                    <span style={{ marginLeft: "auto", fontSize: 12, color: "#A07A2A", letterSpacing: "1.5px", textTransform: "uppercase" }}>View →</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Why this fits */}
         <section style={{ maxWidth: 760, margin: "0 auto", padding: "12px 20px 24px" }}>
@@ -291,10 +369,7 @@ const CollectionPage = ({
           </h2>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
             {[
-              { slug: "big-glasses-frames", label: "Oversized Glasses" },
-              { slug: "wide-face-glasses", label: "Wide-Face Glasses" },
-              { slug: "glasses-for-big-heads", label: "Glasses for Big Heads" },
-              { slug: "extra-wide-glasses", label: "Extra Wide Glasses" },
+              { slug: "glasses-for-big-heads", label: "Glasses for Wide Faces and Big Heads" },
               { slug: "wide-bridge-glasses", label: "Wide Bridge Glasses" },
               { slug: "keyhole-bridge-glasses", label: "Keyhole Bridge Glasses" },
               { slug: "italian-acetate-sunglasses", label: "Italian Acetate Sunglasses" },
@@ -302,12 +377,9 @@ const CollectionPage = ({
               { slug: "oversized-sunglasses-men", label: "Oversized Sunglasses for Men" },
               { slug: "sunglasses-for-big-heads", label: "Sunglasses for Big Heads" },
               { slug: "blue-light-glasses-for-wide-faces", label: "Blue Light Glasses for Wide Faces" },
-              { slug: "wide-frame-reading-glasses", label: "Wide Frame Reading Glasses" },
               { slug: "oversized-square-glasses", label: "Oversized Square Glasses" },
               { slug: "oversized-round-glasses", label: "Oversized Round Glasses" },
-              { slug: "oversized-black-glasses", label: "Oversized Black Glasses" },
-              { slug: "thick-frame-glasses", label: "Thick Frame Glasses" },
-            ].filter((c) => c.slug !== slug).map((c) => (
+            ].filter((c) => c.slug !== slug && (!relatedSlugs || relatedSlugs.includes(c.slug))).map((c) => (
               <Link
                 key={c.slug}
                 to={`/en/collections/${c.slug}`}

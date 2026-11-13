@@ -152,9 +152,7 @@ function XxlHubInner() {
           </h2>
           <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 8, fontSize: 13 }}>
             {[
-              { href: "/en/collections/wide-face-glasses", label: "Wide-face collection (155–161 mm)" },
-              { href: "/en/collections/extra-wide-glasses", label: "Extra-wide glasses (155–160 mm)" },
-              { href: "/en/collections/glasses-for-big-heads", label: "Glasses for big heads (58–62 cm)" },
+              { href: "/en/collections/glasses-for-big-heads", label: "Glasses for wide faces and big heads (155–161 mm)" },
               { href: "/en/size/158mm", label: "158 mm — signature front width" },
               { href: "/en/blog/glasses-for-wide-faces-guide", label: "Guide: glasses for wide faces" },
             ].map((l) => (

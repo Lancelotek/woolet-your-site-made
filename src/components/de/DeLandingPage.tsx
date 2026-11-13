@@ -22,12 +22,12 @@ const HERO_SRCSET = "/hero-greg-648.webp 648w, /hero-greg-1000.webp 1000w";
 const HERO_SIZES = "(min-width: 1024px) 48vw, 100vw";
 
 const ENGLISH_EQUIVALENT: Record<string, string> = {
-  "brille-fuer-breites-gesicht": "/en/collections/wide-face-glasses",
-  "breite-brille": "/en/collections/extra-wide-glasses",
+  "brille-fuer-breites-gesicht": "/en/collections/glasses-for-big-heads",
+  "breite-brille": "/en/collections/glasses-for-big-heads",
   "brille-grosse-koepfe": "/en/collections/glasses-for-big-heads",
   "brillen-fuer-grosse-koepfe": "/en/collections/glasses-for-big-heads",
-  "xxl-brille-herren": "/en/collections/extra-large-oversized-eyeglasses",
-  "brille-breite-160-mm": "/en/collections/extra-wide-glasses",
+  "xxl-brille-herren": "/en/collections/glasses-for-big-heads",
+  "brille-breite-160-mm": "/en/collections/glasses-for-big-heads",
   "brille-breite-150-mm": "/en/size/150mm",
   "brille-breite-155-mm": "/en/size/155mm",
   "brille-breite-158-mm": "/en/size/158mm",

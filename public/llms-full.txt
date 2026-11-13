@@ -1607,7 +1607,7 @@ Woolet builds one front width, 158 mm (007 and 009), covering the 58-61 cm band 
 - Regular Woolet price: $480 USD with free worldwide shipping. Lenses are optional: clear Plano +$30, Blue Light +$84, or frame only for your optician to glaze.
 - Kickstarter backer price: $299 (campaign only) at /en/lp/kickstarter - not a Woolet shop offer.
 - Italian Mazzucchelli 1849 cellulose acetate; hand made in eu. Production: 2 weeks of production from approval of the 3D model, then shipping. Warranty: 5 years.
-- Process: AI fit scan with a phone camera in about 60 seconds; Configure shape, acetate colour, finish and lenses; Preview the selected frame on your face; Review and approve the made-to-measure 3D model; Handmade production in the EU; Free worldwide shipping.
+- Process: Configure shape, acetate colour, finish and lenses, with a preview of your frame; Order online through secure checkout; Remote fitting: one photo with a bank card for scale, plus the numbers from your current glasses; Review and approve the made-to-measure 3D model; Handmade production in the EU; Free worldwide shipping.
 - Source of truth: https://woolet.co/en/bespoke
 <!-- BESPOKE_FACTS_END -->
 

@@ -81,23 +81,16 @@ const BespokeVideo = lazy(() => import("./pages/bespoke/Video.tsx"));
 
 const VipJoin = lazy(() => import("./pages/VipJoin.tsx"));
 const Gone = lazy(() => import("./pages/Gone.tsx"));
-const WideFaceGlasses = lazy(() => import("./pages/collections/WideFaceGlasses.tsx"));
 const ItalianAcetateSunglasses = lazy(() => import("./pages/collections/ItalianAcetateSunglasses.tsx"));
 const ItalianMazzucchelliAcetate = lazy(() => import("./pages/collections/ItalianMazzucchelliAcetate.tsx"));
 const OversizedSunglassesMen = lazy(() => import("./pages/collections/OversizedSunglassesMen.tsx"));
 const SunglassesForBigHeads = lazy(() => import("./pages/collections/SunglassesForBigHeads.tsx"));
 const GlassesForBigHeads = lazy(() => import("./pages/collections/GlassesForBigHeads.tsx"));
-const ExtraWideGlasses = lazy(() => import("./pages/collections/ExtraWideGlasses.tsx"));
 const WideBridgeGlasses = lazy(() => import("./pages/collections/WideBridgeGlasses.tsx"));
 const KeyholeBridgeGlasses = lazy(() => import("./pages/collections/KeyholeBridgeGlasses.tsx"));
 const BlueLightGlassesForWideFaces = lazy(() => import("./pages/collections/BlueLightGlassesForWideFaces.tsx"));
-const ExtraLargeOversizedEyeglasses = lazy(() => import("./pages/collections/ExtraLargeOversizedEyeglasses.tsx"));
-const BigGlassesFrames = lazy(() => import("./pages/collections/BigGlassesFrames.tsx"));
-const WideFrameReadingGlasses = lazy(() => import("./pages/collections/WideFrameReadingGlasses.tsx"));
 const OversizedSquareGlasses = lazy(() => import("./pages/collections/OversizedSquareGlasses.tsx"));
 const OversizedRoundGlasses = lazy(() => import("./pages/collections/OversizedRoundGlasses.tsx"));
-const OversizedBlackGlasses = lazy(() => import("./pages/collections/OversizedBlackGlasses.tsx"));
-const ThickFrameGlasses = lazy(() => import("./pages/collections/ThickFrameGlasses.tsx"));
 const Unsubscribe = lazy(() => import("./pages/Unsubscribe.tsx"));
 const DeHub = lazy(() => import("./pages/de/DeHub.tsx"));
 const DeLandingRoute = lazy(() => import("./pages/de/DeLandingRoute.tsx"));
@@ -341,26 +334,19 @@ const App = () => (
           <Route path="/:lang/vip-join" element={<VipJoin />} />
 
           {/* SEO collection pages */}
-          <Route path="/en/collections/wide-face-glasses" element={<WideFaceGlasses />} />
           <Route path="/en/collections/italian-acetate-sunglasses" element={<ItalianAcetateSunglasses />} />
           <Route path="/en/collections/italian-mazzucchelli-acetate" element={<ItalianMazzucchelliAcetate />} />
           <Route path="/en/collections/oversized-sunglasses-men" element={<OversizedSunglassesMen />} />
           <Route path="/en/collections/sunglasses-for-big-heads" element={<SunglassesForBigHeads />} />
           <Route path="/en/collections/glasses-for-big-heads" element={<GlassesForBigHeads />} />
-          <Route path="/en/collections/extra-wide-glasses" element={<ExtraWideGlasses />} />
           <Route path="/en/collections/wide-bridge-glasses" element={<WideBridgeGlasses />} />
           <Route path="/en/collections/keyhole-bridge-glasses" element={<KeyholeBridgeGlasses />} />
           <Route path="/en/collections/blue-light-glasses-for-wide-faces" element={<BlueLightGlassesForWideFaces />} />
           {/* One page per intent: the standalone blue-light URL folds into the collection route. */}
           <Route path="/en/blue-light-glasses-wide-faces" element={<Navigate to="/en/collections/blue-light-glasses-for-wide-faces" replace />} />
           <Route path="/blue-light-glasses-wide-faces" element={<Navigate to="/en/collections/blue-light-glasses-for-wide-faces" replace />} />
-          <Route path="/en/collections/extra-large-oversized-eyeglasses" element={<ExtraLargeOversizedEyeglasses />} />
-          <Route path="/en/collections/big-glasses-frames" element={<BigGlassesFrames />} />
-          <Route path="/en/collections/wide-frame-reading-glasses" element={<WideFrameReadingGlasses />} />
           <Route path="/en/collections/oversized-square-glasses" element={<OversizedSquareGlasses />} />
           <Route path="/en/collections/oversized-round-glasses" element={<OversizedRoundGlasses />} />
-          <Route path="/en/collections/oversized-black-glasses" element={<OversizedBlackGlasses />} />
-          <Route path="/en/collections/thick-frame-glasses" element={<ThickFrameGlasses />} />
 
           {/* Numeric size landing cluster (Part 1) */}
           <Route path="/en/size/:slug" element={<SizePage />} />

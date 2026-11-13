@@ -8,7 +8,7 @@ const collectionRoutes = getAllRoutes().filter((r) => /^\/en\/collections\/[a-z0
 
 describe("keyword collections carry Product/Offer in the prerendered JSON-LD", () => {
   it("covers every /en/collections/* route", () => {
-    expect(collectionRoutes.length).toBeGreaterThanOrEqual(17);
+    expect(collectionRoutes.length).toBeGreaterThanOrEqual(10);
   });
 
   it.each(collectionRoutes)("%s lists 007 and 009 with a pre-order offer", (route) => {

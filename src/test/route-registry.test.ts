@@ -57,14 +57,20 @@ describe("routeRegistry — DEFECT 1 (many-to-one anchors)", () => {
     expect(langs).toEqual(["de", "en", "fr", "ja", "x-default"].sort());
   });
 
-  it("hreflangAlternates('/de/breite-brille') → de + en + x-default (1:1 with /en/collections/extra-wide-glasses)", () => {
-    const alts = hreflangAlternates("/de/breite-brille", SITE);
+  it("hreflangAlternates('/de/brillen-fuer-grosse-koepfe') → de + en + x-default (1:1 with the EN hub)", () => {
+    const alts = hreflangAlternates("/de/brillen-fuer-grosse-koepfe", SITE);
     expect(alts).not.toBeNull();
     const map = Object.fromEntries(alts!.map((a) => [a.lang, a.href]));
-    expect(map.de).toBe(`${SITE}/de/breite-brille`);
-    expect(map.en).toBe(`${SITE}/en/collections/extra-wide-glasses`);
-    expect(map["x-default"]).toBe(`${SITE}/en/collections/extra-wide-glasses`);
+    expect(map.de).toBe(`${SITE}/de/brillen-fuer-grosse-koepfe`);
+    expect(map.en).toBe(`${SITE}/en/collections/glasses-for-big-heads`);
+    expect(map["x-default"]).toBe(`${SITE}/en/collections/glasses-for-big-heads`);
     expect(Object.keys(map).sort()).toEqual(["de", "en", "x-default"].sort());
+  });
+
+  it("DE landings whose EN collection was merged into the hub emit no hreflang", () => {
+    for (const path of ["/de/breite-brille", "/de/brille-fuer-breites-gesicht", "/de/xxl-brille-herren"]) {
+      expect(hreflangAlternates(path, SITE)).toBeNull();
+    }
   });
 
   it("many-to-one landings emit no hreflang (/nl/grote-brillen-heren, /ja/big-face-glasses)", () => {
