@@ -21,10 +21,10 @@ export const LEGACY_REDIRECTS: Record<string, string> = {
   "/Home": "/en",
   "/index.html": "/en",
   "/en/xxl": "/en/collection",
-  "/en/xxl/glasses": "/en/collections/extra-large-oversized-eyeglasses",
+  "/en/xxl/glasses": "/en/collections/glasses-for-big-heads",
   "/en/xxl/sunglasses": "/en/collections/sunglasses-for-big-heads",
   "/en/xxl/for-big-heads": "/en/collections/glasses-for-big-heads",
-  "/en/xxl/extra-wide-frames": "/en/collections/extra-wide-glasses",
+  "/en/xxl/extra-wide-frames": "/en/collections/glasses-for-big-heads",
   "/en/blog/best-glasses-for-wide-faces-for-women": "/en/blog/wide-face-glasses-for-women",
   "/brille-breite-160-mm": "/de/brille-breite-160-mm",
 

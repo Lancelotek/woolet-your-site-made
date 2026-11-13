@@ -95,7 +95,7 @@ const Footer = ({ lang: langProp }: { lang?: Lang } = {}) => {
         { label: "Wide-face fit guide", href: "/en/blog/glasses-for-wide-faces-guide" },
         { label: "Measure your face", href: "/en/blog/how-to-measure-face-width-for-glasses" },
         { label: "Best wide-fit sunglasses", href: "/en/blog/best-sunglasses-for-wide-faces" },
-        { label: "Wide-face collection", href: "/en/collections/wide-face-glasses" },
+        { label: "Wide-face collection", href: "/en/collections/glasses-for-big-heads" },
         { label: "Glasses for big heads", href: "/en/collections/glasses-for-big-heads" },
       ],
     },

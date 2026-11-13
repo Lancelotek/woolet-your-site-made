@@ -2,8 +2,7 @@
  * XXL / Wide-Face hub cluster (Phase 4).
  *
  * Positioning vs existing collections (anti-cannibalization):
- *  - /collections/wide-face-glasses    → general wide-face (155–161 mm).
- *  - /collections/extra-wide-glasses   → extra-wide category page.
+ *  - /collections/glasses-for-big-heads → wide faces and big heads hub (155–161 mm).
  *  - /collections/glasses-for-big-heads→ general big-head (58–62 cm).
  *  - /xxl (this cluster)               → XXL as a SIZE LABEL: the top
  *      within Woolet's bespoke range — 160 mm fronts, 62–64 cm heads,
@@ -183,7 +182,7 @@ export const XXL_PAGES: XxlEntry[] = [
     primaryCta: { label: "Start XXL bespoke", to: "/en/fit/bespoke" },
     secondaryCta: { label: "Measure with FitLens", to: "/en/fit" },
     related: [
-      { label: "Extra-wide glasses (155–160 mm)", to: "/en/collections/extra-wide-glasses", note: "One tier below XXL." },
+      { label: "Glasses for wide faces and big heads (158 mm)", to: "/en/collections/glasses-for-big-heads", note: "One tier below XXL." },
       { label: "160 mm bespoke", to: "/en/size/160mm", note: "XXL centre." },
       ],
   },

@@ -153,12 +153,15 @@ export const ROUTES = {
   // DE variant self-canonicalises; the EN side is a many-to-one anchor,
   // so we still expose the pair so the DE page carries a proper hreflang
   // cluster back to EN.
-  // 1:1 reciprocal pairs (decision 05.10.2026). /de/brille-breite-160-mm
+  // 1:1 reciprocal pairs (decision 05.10.2026). Since 13.11.2026 the EN
+  // keyword collections are merged into /en/collections/glasses-for-big-heads,
+  // so only /de/brillen-fuer-grosse-koepfe keeps an EN twin; the other three
+  // DE landings are DE-only and emit no hreflang block. /de/brille-breite-160-mm
   // pairs with /en/size/160mm inside the "size.160mm" entry below.
-  "landing.collection.de.breite-brille":            { en: "/en/collections/extra-wide-glasses", de: "/de/breite-brille" },
-  "landing.collection.de.brille-fuer-breites-gesicht": { en: "/en/collections/wide-face-glasses", de: "/de/brille-fuer-breites-gesicht" },
+  "landing.collection.de.breite-brille":            { de: "/de/breite-brille" },
+  "landing.collection.de.brille-fuer-breites-gesicht": { de: "/de/brille-fuer-breites-gesicht" },
   "landing.collection.de.brillen-fuer-grosse-koepfe": { en: "/en/collections/glasses-for-big-heads", de: "/de/brillen-fuer-grosse-koepfe" },
-  "landing.collection.de.xxl-brille-herren":        { en: "/en/collections/extra-large-oversized-eyeglasses", de: "/de/xxl-brille-herren" },
+  "landing.collection.de.xxl-brille-herren":        { de: "/de/xxl-brille-herren" },
   "landing.size.de.brille-breite-155-mm": { en: "/en/size/155mm", de: "/de/brille-breite-155-mm" },
   "landing.size.de.brille-breite-158-mm": { en: "/en/size/158mm", de: "/de/brille-breite-158-mm" },
 

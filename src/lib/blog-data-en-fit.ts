@@ -240,7 +240,7 @@ ${ANSWER(
       `<strong>Eyeglass frames are sized in millimetres across six bands, XS to XXL, running from about 122 mm to 150 mm of total front width.</strong> Use the chart below to match your face width to a band. The important caveat: the standard industry chart ends at roughly 150 mm — well short of where wide faces begin, at 155 mm.`,
     )}
 
-<p>Every retailer publishes a size chart and almost none of them publish the number you need. They give lens width, sometimes bridge, occasionally temple length — and then leave you to guess whether the frame will actually span your head. This chart gives front width as the primary column, because front width is the measurement that decides fit. If your numbers land above standard sizing, compare our <a href="/en/collections/extra-large-oversized-eyeglasses">extra large eyeglass frames</a>.</p>
+<p>Every retailer publishes a size chart and almost none of them publish the number you need. They give lens width, sometimes bridge, occasionally temple length — and then leave you to guess whether the frame will actually span your head. This chart gives front width as the primary column, because front width is the measurement that decides fit. If your numbers land above standard sizing, compare our <a href="/en/collections/glasses-for-big-heads">extra large eyeglass frames</a>.</p>
 
 <h2>The chart</h2>
 
@@ -420,7 +420,7 @@ ${FITLENS_CTA(
 
 <p>If your face measures more than about 154 mm, the six-band chart has run out. Three honest options remain.</p>
 
-<p><strong>Buy at 158 mm.</strong> If you measure 155–161 mm, that is a stock size at Woolet: the <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> at 53□26-150 and the <a href="/en/products/009" style="color:#A07A2A;">009 Soft Square</a> at 54□25-150, both cut at a 158 mm front from Mazzucchelli acetate and hand made in the EU. Every 158 mm option is gathered on the <a href="/en/collections/big-glasses-frames" style="color:#A07A2A;">oversized glasses</a> collection page, sized for faces of 155 mm and up.</p>
+<p><strong>Buy at 158 mm.</strong> If you measure 155–161 mm, that is a stock size at Woolet: the <a href="/en/products/007" style="color:#A07A2A;">007 Round</a> at 53□26-150 and the <a href="/en/products/009" style="color:#A07A2A;">009 Soft Square</a> at 54□25-150, both cut at a 158 mm front from Mazzucchelli acetate and hand made in the EU. Every 158 mm option is gathered on the <a href="/en/collections/glasses-for-big-heads" style="color:#A07A2A;">oversized glasses</a> collection page, sized for faces of 155 mm and up.</p>
 
 <p><strong>Go bespoke between 145 and 160 mm.</strong> The bands either side of 155–161 mm are the ones nobody serves: 145–154 mm is too wide for the mainstream chart and too narrow for a 158 mm signature frame, and 162 mm is past everything. Bespoke covers that full span in four shapes and sixty colour and size combinations. See <a href="/en/bespoke" style="color:#A07A2A;">bespoke</a>.</p>
 
@@ -630,7 +630,7 @@ ${ANSWER(
 
 <h2>The marking, decoded</h2>
 
-<p>Open your glasses and look at the inside of the left arm. You will find a sequence like <strong>54□21-145</strong>, sometimes written 54-21-145 or 54▫21▫145. If your numbers land above standard sizing, compare our <a href="/en/collections/extra-large-oversized-eyeglasses">extra large eyeglass frames</a>.</p>
+<p>Open your glasses and look at the inside of the left arm. You will find a sequence like <strong>54□21-145</strong>, sometimes written 54-21-145 or 54▫21▫145. If your numbers land above standard sizing, compare our <a href="/en/collections/glasses-for-big-heads">extra large eyeglass frames</a>.</p>
 
 <div style="background:#F8F6F1;color:#1F1B16;border:1px solid #E8E4DC;padding:22px 24px;margin:24px 0;border-radius:4px;font-family:'Barlow',sans-serif;">
   <div style="font-size:26px;letter-spacing:2px;color:#1a1a1a;margin-bottom:18px;"><strong>54</strong> <span style="color:#c9a84c;">□</span> <strong>21</strong> <span style="color:#999;">-</span> <strong>145</strong></div>
@@ -1245,7 +1245,7 @@ ${ANSWER("Glasses that turn into sunglasses use photochromic lenses, often calle
 </tbody>
 </table>
 </div>
-<p>Both Woolet stock frames ship with demo lenses, ready for your optician to glaze with prescription photochromic lenses. Bespoke works the same way: order the frame only, and your optician fits photochromic prescription lenses. Every oversized option is gathered on the <a href="/en/collections/big-glasses-frames" style="color:#A07A2A;">oversized glasses</a> page.</p>
+<p>Both Woolet stock frames ship with demo lenses, ready for your optician to glaze with prescription photochromic lenses. Bespoke works the same way: order the frame only, and your optician fits photochromic prescription lenses. Every oversized option is gathered on the <a href="/en/collections/glasses-for-big-heads" style="color:#A07A2A;">oversized glasses</a> page.</p>
 
 <h2>How long does Bespoke take?</h2>
 <p>Production takes two weeks after you approve the 3D model of your frame. Each Bespoke frame is hand made in the EU from Italian Mazzucchelli acetate, cut to the measurements of one face - yours.</p>
@@ -1275,7 +1275,7 @@ ${FITLENS_CTA("Your face width decides which of the two paths above is yours. Be
 <ul>
 <li><a href="/en/blog/what-size-sunglasses-for-wide-faces">What size sunglasses for a wide face</a> - the three numbers that decide sunglass fit.</li>
 <li><a href="/en/blog/how-to-measure-face-width-for-glasses">How to measure your face width for glasses</a> - the measurement behind every row of the table above.</li>
-<li><a href="/en/collections/big-glasses-frames">Oversized glasses for wide faces</a> - every 158 mm option in one place.</li>
+<li><a href="/en/collections/glasses-for-big-heads">Oversized glasses for wide faces</a> - every 158 mm option in one place.</li>
 </ul>
 `,
   },

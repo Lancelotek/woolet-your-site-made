@@ -17,12 +17,19 @@
 const NON_EN = ["pl", "de", "fr", "nl", "ja", "es", "ar", "ko"] as const;
 
 const COLLECTION_SLUGS = [
-  "wide-face-glasses", "italian-acetate-sunglasses", "italian-mazzucchelli-acetate",
-  "oversized-sunglasses-men", "sunglasses-for-big-heads", "glasses-for-big-heads",
-  "extra-wide-glasses", "wide-bridge-glasses", "keyhole-bridge-glasses",
-  "blue-light-glasses-for-wide-faces", "extra-large-oversized-eyeglasses",
-  "big-glasses-frames", "wide-frame-reading-glasses", "oversized-square-glasses",
-  "oversized-round-glasses", "oversized-black-glasses", "thick-frame-glasses",
+  "italian-acetate-sunglasses", "italian-mazzucchelli-acetate", "oversized-sunglasses-men", "sunglasses-for-big-heads", "glasses-for-big-heads", "wide-bridge-glasses", "keyhole-bridge-glasses", "blue-light-glasses-for-wide-faces", "oversized-square-glasses", "oversized-round-glasses",
+];
+
+/**
+ * Keyword collections merged into the wide-faces / big-heads hub (13.11.2026).
+ * Google treats "glasses for wide faces" and "glasses for big heads" as one
+ * topic, and these seven pages competed with the hub for it. Each old URL
+ * (and its locale-prefixed variant) redirects straight to the hub.
+ */
+export const COLLECTION_HUB = "/en/collections/glasses-for-big-heads";
+export const MERGED_COLLECTION_SLUGS = [
+  "extra-wide-glasses", "wide-face-glasses", "big-glasses-frames", "extra-large-oversized-eyeglasses",
+  "oversized-black-glasses", "thick-frame-glasses", "wide-frame-reading-glasses",
 ];
 const COMPARE_SLUGS = [
   "fatheadz-alternative", "eyeshells-alternative", "zenni-alternative",
@@ -69,7 +76,7 @@ const EXPLICIT: Record<string, string> = {
   "/en/blog/xxl-aviator-sunglasses-for-big-heads": "/en/blog/best-oversized-sunglasses-big-heads-2026",
   "/en/blog/glasses-bigger-than-150mm-where-to-find-them": "/en/blog/best-glasses-for-big-heads-2026",
   "/en/compare/warby-parker": "/en/compare/warby-parker-alternative",
-  "/en/collections/oversized-prescription-glasses": "/en/collections/extra-large-oversized-eyeglasses",
+  "/en/collections/oversized-prescription-glasses": "/en/collections/glasses-for-big-heads",
   "/en/collections/oversized-blue-light-glasses": "/en/collections/blue-light-glasses-for-wide-faces",
 
   // PL blog slug renames
@@ -109,7 +116,7 @@ const EXPLICIT: Record<string, string> = {
   "/fr/blog/best-glasses-for-wide-faces-for-women": "/en/blog/wide-face-glasses-for-women",
   "/es/blog/glasses-bigger-than-150mm-where-to-find-them": "/en/blog/best-glasses-for-big-heads-2026",
   "/fr/blog/handcrafted-vs-machine-made-glasses": "/en/blog/handcrafted-vs-machine-made-glasses",
-  "/ja/xxl-brille-herren": "/en/collections/extra-large-oversized-eyeglasses",
+  "/ja/xxl-brille-herren": "/en/collections/glasses-for-big-heads",
   "/fr/brille-grosse-koepfe": "/en/collections/glasses-for-big-heads",
 
   // Typo / AI-hallucinated slugs Google shows at position 1 (GSC 20.10.2026)
@@ -148,6 +155,8 @@ function build(): Record<string, string> {
     if (from !== to && !(from in out)) out[from] = to;
   };
 
+  for (const s of MERGED_COLLECTION_SLUGS) add(`/en/collections/${s}`, COLLECTION_HUB);
+
   for (const l of NON_EN) {
     add(`/${l}/about`, "/en/about");
     add(`/${l}/process`, "/en/process");
@@ -168,6 +177,7 @@ function build(): Record<string, string> {
     for (const s of LP_SLUGS) if (!(l === "de" && s === "kickstarter")) add(`/${l}/lp/${s}`, `/en/lp/${s}`);
     if (l !== "fr" && l !== "nl") for (const s of ["007", "009", "bespoke"]) add(`/${l}/products/${s}`, `/en/products/${s}`);
     for (const s of COLLECTION_SLUGS) add(`/${l}/collections/${s}`, `/en/collections/${s}`);
+    for (const s of MERGED_COLLECTION_SLUGS) add(`/${l}/collections/${s}`, COLLECTION_HUB);
     for (const s of COMPARE_SLUGS) add(`/${l}/compare/${s}`, `/en/compare/${s}`);
     for (const s of REF_SLUGS) add(`/${l}/ref/${s}`, `/en/ref/${s}`);
     if (l !== "ko") for (const s of SIZE_SLUGS) add(`/${l}/size/${s}`, `/en/size/${s}`);
