@@ -27,6 +27,7 @@ describe("keyword collections carry Product/Offer in the prerendered JSON-LD", (
     ]);
     for (const { item } of items) {
       expect(item["@type"]).toBe("Product");
+      expect(item.description.length).toBeGreaterThan(50);
       expect(item.offers.price).toBe("114.00");
       expect(item.offers.priceCurrency).toBe("USD");
       expect(item.offers.availability).toBe("https://schema.org/PreOrder");

@@ -178,8 +178,20 @@ export function langFromPath(pathname: string, fallback: Lang = "en"): Lang {
  * ItemList - the prerendered HTML used to carry only a BreadcrumbList.
  */
 export const COLLECTION_PRODUCTS = [
-  { id: "007", name: "Woolet 007 - Round / Panto, 158 mm", shape: "Round" },
-  { id: "009", name: "Woolet 009 - Soft Square, 158 mm", shape: "Soft Square" },
+  {
+    id: "007",
+    name: "Woolet 007 - Round / Panto, 158 mm",
+    shape: "Round",
+    description:
+      "Round panto eyeglass frame for wide faces (155-161 mm): 158 mm front, 26 mm keyhole bridge, 150 mm temples. Italian Mazzucchelli acetate, hand made in EU.",
+  },
+  {
+    id: "009",
+    name: "Woolet 009 - Soft Square, 158 mm",
+    shape: "Soft Square",
+    description:
+      "Soft-square eyeglass frame for wide faces (155-161 mm): 158 mm front, 25 mm keyhole bridge, 150 mm temples. Italian Mazzucchelli acetate, hand made in EU.",
+  },
 ] as const;
 
 /**
@@ -211,6 +223,7 @@ export function keywordCollectionJsonLd(opts: { url: string; name: string; descr
             "@id": productUrl,
             url: productUrl,
             name: p.name,
+            description: p.description,
             image: `${SITE_URL}/og-${p.id}.png`,
             brand: { "@type": "Brand", name: "Woolet" },
             sku: `WOOLET-${p.id}`,
