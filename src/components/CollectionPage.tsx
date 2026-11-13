@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { keywordCollectionJsonLd } from "@/seo/product-collection-jsonld";
 import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -87,26 +88,7 @@ const CollectionPage = ({
     ],
   };
 
-  const collectionLd = {
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    name: h1,
-    description: metaDescription,
-    url: canonical,
-    inLanguage: "en",
-    isPartOf: { "@type": "WebSite", name: "Woolet", url: SITE },
-    mainEntity: {
-      "@type": "ItemList",
-      itemListOrder: "https://schema.org/ItemListOrderAscending",
-      numberOfItems: productCards.length,
-      itemListElement: productCards.map((p, i) => ({
-        "@type": "ListItem",
-        position: i + 1,
-        url: `${SITE}${p.href}`,
-        name: p.name,
-      })),
-    },
-  };
+  const collectionLd = keywordCollectionJsonLd({ url: canonical, name: h1, description: metaDescription });
 
   const faqLd = {
     "@context": "https://schema.org",

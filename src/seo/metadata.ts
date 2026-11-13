@@ -44,7 +44,7 @@ import { nlPages } from "@/content/nl/landingPages";
 import { plPages } from "@/content/pl/landingPages";
 import { koPages, KO_ROUTES } from "@/content/ko/landingPages";
 import { collectionSeo, COLLECTION_ITEMS } from "./collection-copy";
-import { collectionJsonLd } from "./product-collection-jsonld";
+import { collectionJsonLd, keywordCollectionJsonLd } from "./product-collection-jsonld";
 import { HAT_SIZE_FAQ } from "./hat-size-faq";
 import ksHeroAsset from "@/assets/kickstarter-hero.png.asset.json";
 import { DE_PRICING } from "@/content/de/pricing";
@@ -505,7 +505,27 @@ ${faqBlock}
   return meta;
 }
 
+/**
+ * Public entry. Wraps the route switch so every English keyword collection
+ * (/en/collections/<slug>) carries the same CollectionPage + ItemList of
+ * Product/Offer in the prerendered HTML that the client template emits.
+ */
 export function getMetadata(route: string): RouteMeta {
+  const meta = resolveMetadata(route);
+  if (/^\/en\/collections\/[a-z0-9-]+$/.test(route) && !meta.robots?.includes("noindex")) {
+    const h1 = meta.noscriptHtml?.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1]
+      ?.replace(/<[^>]+>/g, "")
+      .replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#0?39;/g, "'")
+      .trim();
+    meta.jsonLd = [
+      ...meta.jsonLd,
+      keywordCollectionJsonLd({ url: meta.canonical, name: h1 || meta.title, description: meta.description }),
+    ];
+  }
+  return meta;
+}
+
+function resolveMetadata(route: string): RouteMeta {
   const lang = langFromRoute(route);
   const path = route.replace(/^\/[a-z]{2}/, "") || "/";
 

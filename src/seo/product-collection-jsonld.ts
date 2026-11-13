@@ -13,6 +13,7 @@ import {
   LIST_PRICE_SPEC,
   PRICE_VALID_UNTIL,
   PRICE_CURRENCY,
+  SALE_PRICE,
 } from "./commerce-schema";
 
 export const SITE_URL = "https://woolet.co";
@@ -169,4 +170,67 @@ export function langFromPath(pathname: string, fallback: Lang = "en"): Lang {
   const seg = pathname.split("/").filter(Boolean)[0];
   const known: Lang[] = ["en", "pl", "fr", "es", "de", "ar", "ja", "nl"];
   return (known as string[]).includes(seg) ? (seg as Lang) : fallback;
+}
+
+/**
+ * The two stock frames every /en/collections/* page lists. Kept here (pure
+ * data, no React) so the client template and the prerender emit the SAME
+ * ItemList - the prerendered HTML used to carry only a BreadcrumbList.
+ */
+export const COLLECTION_PRODUCTS = [
+  { id: "007", name: "Woolet 007 - Round / Panto, 158 mm", shape: "Round" },
+  { id: "009", name: "Woolet 009 - Soft Square, 158 mm", shape: "Soft Square" },
+] as const;
+
+/**
+ * CollectionPage + ItemList of Product/Offer for an English keyword
+ * collection (/en/collections/<slug>). Each Product points at the canonical
+ * product page (@id = product URL) and carries the same Offer as that page:
+ * pre-order price, list price, return policy and shipping.
+ */
+export function keywordCollectionJsonLd(opts: { url: string; name: string; description: string }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": opts.url,
+    url: opts.url,
+    name: opts.name,
+    description: opts.description,
+    inLanguage: "en",
+    isPartOf: { "@type": "WebSite", name: "Woolet", url: SITE_URL },
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: COLLECTION_PRODUCTS.length,
+      itemListElement: COLLECTION_PRODUCTS.map((p, i) => {
+        const productUrl = `${SITE_URL}/en/products/${p.id}`;
+        return {
+          "@type": "ListItem",
+          position: i + 1,
+          item: {
+            "@type": "Product",
+            "@id": productUrl,
+            url: productUrl,
+            name: p.name,
+            image: `${SITE_URL}/og-${p.id}.png`,
+            brand: { "@type": "Brand", name: "Woolet" },
+            sku: `WOOLET-${p.id}`,
+            material: "Italian Mazzucchelli Acetate",
+            offers: {
+              "@type": "Offer",
+              url: productUrl,
+              availability: "https://schema.org/PreOrder",
+              priceCurrency: PRICE_CURRENCY,
+              price: SALE_PRICE,
+              priceValidUntil: PRICE_VALID_UNTIL,
+              priceSpecification: LIST_PRICE_SPEC,
+              itemCondition: "https://schema.org/NewCondition",
+              seller: { "@type": "Organization", name: "Woolet", url: SITE_URL },
+              hasMerchantReturnPolicy: RETURN_POLICY,
+              shippingDetails: shippingDetails(false),
+            },
+          },
+        };
+      }),
+    },
+  };
 }
