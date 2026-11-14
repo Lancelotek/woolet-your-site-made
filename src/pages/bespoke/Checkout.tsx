@@ -31,6 +31,7 @@ import {
   renderRequestBody,
 } from "@/pages/bespoke/steps";
 import { renderAltForConfig } from "@/lib/bespoke-render-alt";
+import { loadFrontRenders } from "@/lib/bespoke-front-renders";
 import { pushGtmEvent } from "@/lib/gtm";
 import { readConsentSnapshot } from "@/lib/consent";
 import { trackInitiateCheckoutOnce } from "@/lib/meta-capi";
@@ -74,19 +75,24 @@ export default function BespokeCheckout() {
   const previewKey = `${lensKey}::${baseKey}`;
   const resolvePreview = () => getLatestPreviewUrl(lensKey) ?? getLatestPreviewUrl(baseKey);
 
-  const findLatestPreview = (history: ReturnType<typeof loadPreviewHistory>): string | null => {
-    let latest: { url: string; ts: number } | null = null;
-    // Front-view renders ("|front" keys) never stand in for the order's 3/4 preview.
-    Object.entries(history).filter(([k]) => !k.endsWith("|front")).forEach(([, list]) => {
-      list.forEach((entry) => {
-        if (!latest || entry.ts > latest.ts) latest = entry;
-      });
-    });
-    return latest?.url ?? null;
-  };
-
   const [aiPreviewUrl, setAiPreviewUrl] = useState<string | null>(resolvePreview);
-  const [fallbackPreviewUrl, setFallbackPreviewUrl] = useState<string | null>(() => lensTintCode(config) ? getLatestPreviewUrl(baseKey) : findLatestPreview(loadPreviewHistory()));
+  // Stand-in when this exact build has no render: the same build without the
+  // lens tint. Never a render of another shape or acetate - the checkout once
+  // showed a round frame on a Rectangle order (the newest render in history).
+  const [fallbackPreviewUrl, setFallbackPreviewUrl] = useState<string | null>(() => lensTintCode(config) ? getLatestPreviewUrl(baseKey) : null);
+  // Second stand-in: the pre-generated render of this shape in this front
+  // acetate (black temples), so the picture always matches the pattern ordered.
+  const [frontPreviewUrl, setFrontPreviewUrl] = useState<string | null>(null);
+  useEffect(() => {
+    let cancelled = false;
+    setFrontPreviewUrl(null);
+    if (!config.frameId || !config.frontColorId) return;
+    const { frameId, frontColorId } = config;
+    void loadFrontRenders().then((map) => {
+      if (!cancelled) setFrontPreviewUrl(map[frameId]?.[frontColorId]?.public_url ?? null);
+    });
+    return () => { cancelled = true; };
+  }, [config.frameId, config.frontColorId]);
   const [isGenerating, setIsGenerating] = useState(false);
 
   // --- Coupon -----------------------------------------------------------
@@ -107,7 +113,7 @@ export default function BespokeCheckout() {
   useEffect(() => {
     const refresh = () => {
       setAiPreviewUrl(resolvePreview());
-      setFallbackPreviewUrl(lensTintCode(config) ? getLatestPreviewUrl(baseKey) : findLatestPreview(loadPreviewHistory()));
+      setFallbackPreviewUrl(lensTintCode(config) ? getLatestPreviewUrl(baseKey) : null);
     };
     refresh();
     window.addEventListener(PREVIEW_UPDATED_EVENT, refresh);
@@ -551,14 +557,28 @@ export default function BespokeCheckout() {
                         <>
                           <img
                             src={fallbackPreviewUrl}
-                            alt="Last AI generated preview from a previous configuration"
+                            alt={renderAltForConfig(config, false)}
                             className="w-full h-full object-cover"
                           />
                           <div
                             className="absolute top-2 left-2 inline-flex items-center gap-1.5 px-2 py-1 text-[9px] uppercase tracking-[0.18em]"
                             style={{ background: "rgba(11,10,9,0.72)", color: "#D8B86A", borderRadius: 2 }}
                           >
-                            <Sparkles size={10} /> Last AI preview
+                            <Sparkles size={10} /> Preview without lens tint
+                          </div>
+                        </>
+                      ) : frontPreviewUrl && front ? (
+                        <>
+                          <img
+                            src={frontPreviewUrl}
+                            alt={`Woolet Bespoke ${frame.name} eyeglasses, front in ${front.name} acetate, shown with black temples`}
+                            className="w-full h-full object-cover"
+                          />
+                          <div
+                            className="absolute top-2 left-2 inline-flex items-center gap-1.5 px-2 py-1 text-[9px] uppercase tracking-[0.18em]"
+                            style={{ background: "rgba(11,10,9,0.72)", color: "#D8B86A", borderRadius: 2 }}
+                          >
+                            {frame.name} · {front.name} front
                           </div>
                         </>
                       ) : (
@@ -575,10 +595,10 @@ export default function BespokeCheckout() {
                         <Sparkles size={18} className="text-gold-light shrink-0 mt-0.5" />
                         <div className="flex-1">
                           <div className="text-cream text-xs font-medium">
-                            {fallbackPreviewUrl ? "Preview shown is from a different configuration" : "No AI preview for this build yet"}
+                            {fallbackPreviewUrl ? "Preview shown without your lens tint" : frontPreviewUrl ? "Preview shows your front acetate with black temples" : "No AI preview for this build yet"}
                           </div>
                           <p className="text-cream-dim text-[11px] leading-relaxed mt-1">
-                            {fallbackPreviewUrl
+                            {fallbackPreviewUrl || frontPreviewUrl
                               ? "Generate a fresh AI visualisation of your current pattern and acetate choices to see exactly what you’re buying."
                               : "Generate an AI visualisation of your current pattern and colours before you pay."}
                           </p>

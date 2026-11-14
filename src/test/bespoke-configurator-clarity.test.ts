@@ -1,8 +1,28 @@
 import { describe, expect, it, vi } from "vitest";
-import { computePricing, INITIAL_CONFIG } from "@/lib/bespoke-state";
+import { computePricing, INITIAL_CONFIG, isStepComplete, resolveEngravingFontId } from "@/lib/bespoke-state";
 import { ACTIVE_LENS_TYPES } from "@/data/bespoke-options";
 import { selectPatternRenders } from "@/lib/bespoke-pattern-renders";
 import { trackBespokeFunnel } from "@/pages/bespoke/cfg-shell";
+
+describe("Bespoke engraving font", () => {
+  // Clarity + live repro: buyers typed a name and got "Pick an option to continue"
+  // because the only font card sat unselected below the fold.
+  it("counts the single engraving font as picked", () => {
+    const typed = { ...INITIAL_CONFIG, engravingEnabled: true, engravingText: "Tom", engravingPositionId: "inner-left", engravingFontId: null };
+    expect(resolveEngravingFontId(typed)).toBe("malgun");
+    expect(isStepComplete(4, typed)).toBe(true);
+  });
+
+  it("still needs text and a position", () => {
+    const base = { ...INITIAL_CONFIG, engravingEnabled: true, engravingPositionId: "inner-left" };
+    expect(isStepComplete(4, { ...base, engravingText: " " })).toBe(false);
+    expect(isStepComplete(4, { ...base, engravingText: "Tom", engravingPositionId: null })).toBe(false);
+  });
+
+  it("replaces a retired font id with the current one", () => {
+    expect(resolveEngravingFontId({ engravingFontId: "serif" })).toBe("malgun");
+  });
+});
 
 describe("Bespoke configurator clarity", () => {
   it("shows the $480 base even before choosing a pattern", () => {
