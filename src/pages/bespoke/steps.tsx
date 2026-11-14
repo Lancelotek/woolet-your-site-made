@@ -48,6 +48,7 @@ import {
   isReadingStrengthComplete,
   computePricing,
   hasEngraving,
+  resolveEngravingFontId,
 } from "@/lib/bespoke-state";
 import { claritySet } from "@/lib/clarity";
 import { renderAltForConfig } from "@/lib/bespoke-render-alt";
@@ -1856,6 +1857,8 @@ export function StepEngraving({ config, update }: StepProps) {
   const enable = () => {
     update("engravingEnabled", true);
     if (!config.engravingPositionId) update("engravingPositionId", "inner-left");
+    const fontId = resolveEngravingFontId(config);
+    if (fontId && fontId !== config.engravingFontId) update("engravingFontId", fontId);
   };
 
   const onTextChange = (value: string) => {
@@ -1931,7 +1934,7 @@ export function StepEngraving({ config, update }: StepProps) {
           {/* 3 · Live SVG preview on temple */}
           <EngravingPreview
             text={config.engravingText}
-            fontId={config.engravingFontId}
+            fontId={resolveEngravingFontId(config)}
             position={ENGRAVING_POSITIONS.find((p) => p.id === config.engravingPositionId)?.name}
             offset={config.engravingOffset}
             onOffsetChange={(next) => update("engravingOffset", next)}
@@ -1942,7 +1945,7 @@ export function StepEngraving({ config, update }: StepProps) {
             <div className={labelClass}>Font</div>
             <div className="mt-2 grid grid-cols-2 gap-2">
               {ENGRAVING_FONTS.map((f) => {
-                const active = config.engravingFontId === f.id;
+                const active = resolveEngravingFontId(config) === f.id;
                 return (
                   <button
                     key={f.id}

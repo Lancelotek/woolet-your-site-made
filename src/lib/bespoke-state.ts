@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { DEFAULT_TEMPLE_LENGTH_MM, findLensTint, findSunTint, isValidTempleLength, ACTIVE_LENS_TYPES, resolveActiveColorId, type LensTint, type MeasurementKey, type ReadingStrength } from "@/data/bespoke-options";
+import { DEFAULT_TEMPLE_LENGTH_MM, ENGRAVING_FONTS, findLensTint, findSunTint, isValidTempleLength, ACTIVE_LENS_TYPES, resolveActiveColorId, type LensTint, type MeasurementKey, type ReadingStrength } from "@/data/bespoke-options";
 import { findFrame } from "@/data/frames";
 import { isTestMode } from "@/lib/stripe";
 import { depositPrice, getPriceTable, quoteBespoke, splitDeposit, usePriceTable, type DepositSplit, type PriceTable } from "@/lib/bespoke-pricing";
@@ -97,6 +97,16 @@ export function clearLegacyEngraving(c: BespokeConfig): BespokeConfig {
 
 /** Engraving is charged only when the customer actually typed text. */
 export const hasEngraving = (c: BespokeConfig) => c.engravingEnabled && Boolean((c.engravingText ?? "").trim());
+
+/**
+ * The engraving font the build will use. While there is a single font the
+ * buyer has nothing to choose, so it counts as picked - Clarity showed buyers
+ * stuck on step 4 because the lone font card sat below the fold, unselected.
+ */
+export const resolveEngravingFontId = (c: Pick<BespokeConfig, "engravingFontId">): string | null => {
+  if (ENGRAVING_FONTS.some((f) => f.id === c.engravingFontId)) return c.engravingFontId;
+  return ENGRAVING_FONTS.length === 1 ? ENGRAVING_FONTS[0].id : null;
+};
 
 export const STORAGE_KEY = "woolet:bespoke:v1";
 
@@ -223,7 +233,7 @@ export function isStepComplete(step: StepId, config: BespokeConfig): boolean {
     case 1: return Boolean(config.frameId);
     case 2: return Boolean(config.frontColorId && config.templeColorId && config.finishId);
     case 3: return isValidTempleLength(config.templeLengthMm);
-    case 4: return !config.engravingEnabled || Boolean(config.engravingText.trim() && config.engravingPositionId && config.engravingFontId);
+    case 4: return !config.engravingEnabled || Boolean(config.engravingText.trim() && config.engravingPositionId && resolveEngravingFontId(config));
     case 5: {
       if (!config.lensTypeId) return false;
       if (config.lensTypeId === "photochromic") return Boolean(findLensTint(config.lensTintId));
