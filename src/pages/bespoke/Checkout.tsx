@@ -444,8 +444,34 @@ export default function BespokeCheckout() {
             </div>
           ) : (
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-10 lg:gap-14 items-start">
-              {/* Payment column */}
-              <section className="order-2 lg:order-1">
+              {/* Payment column. On mobile it comes first: the card form used to sit
+                  about 1,900 px down, under the whole summary (Clarity: buyers
+                  reached checkout and left without ever seeing it). */}
+              <section className="order-1 min-w-0">
+                {frame && (
+                  <a
+                    href="#order-summary"
+                    className="lg:hidden mb-6 flex items-center gap-3 border border-cream/15 p-3 text-left"
+                    style={{ borderRadius: 4 }}
+                  >
+                    <span className="h-14 w-20 shrink-0 overflow-hidden flex items-center justify-center" style={{ background: "#EFE9DF", borderRadius: 2 }}>
+                      <img
+                        src={aiPreviewUrl ?? fallbackPreviewUrl ?? frontPreviewUrl ?? frame.url}
+                        alt=""
+                        className={aiPreviewUrl || fallbackPreviewUrl || frontPreviewUrl ? "h-full w-full object-cover" : "max-h-full max-w-[80%] object-contain"}
+                      />
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block font-display text-cream text-base leading-tight truncate">{frame.name}</span>
+                      <span className="block text-cream-dim text-[11px] truncate">{[front?.name, temple?.name].filter(Boolean).join(" · ")}</span>
+                      <span className="block mt-1 text-gold-light text-[10px] uppercase tracking-[0.16em] underline underline-offset-4">Order details and discount code</span>
+                    </span>
+                    <span className="shrink-0 text-right">
+                      <span className="block text-cream-dim text-[10px] uppercase tracking-[0.16em]">Due today</span>
+                      <span className="block font-display text-cream text-xl">{formatEur(dueTodayUsd)}</span>
+                    </span>
+                  </a>
+                )}
                 <div className="mb-6">
                   <div className="text-[11px] uppercase tracking-[0.22em] text-gold-light mb-3">Payment</div>
                   <h1 className="font-display text-3xl sm:text-4xl leading-tight">
@@ -453,8 +479,8 @@ export default function BespokeCheckout() {
                   </h1>
                   <div className="mt-3"><PayMeasureNotice split={split} /></div>
 
-                  {/* Trust row */}
-                  <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-[11px] uppercase tracking-[0.16em] text-cream-dim">
+                  {/* Trust row - desktop only here; on mobile it sits under the form. */}
+                  <ul className="mt-5 hidden lg:flex flex-wrap gap-x-5 gap-y-2 text-[11px] uppercase tracking-[0.16em] text-cream-dim">
                     <li className="inline-flex items-center gap-1.5"><Lock size={12} className="text-gold-light" /> 256-bit secure</li>
                     <li className="inline-flex items-center gap-1.5"><ShieldCheck size={12} className="text-gold-light" /> Wrong fit? 50% off a new frame</li>
                     
@@ -463,7 +489,9 @@ export default function BespokeCheckout() {
                   </ul>
                 </div>
 
-                <div className="mb-6 border border-cream/15 p-5" style={{ borderRadius: 4 }}>
+                {/* Desktop only: on mobile the same question is asked after payment
+                    (HeardFromQuestion), so nothing stands between the buyer and the form. */}
+                <div className="hidden lg:block mb-6 border border-cream/15 p-5" style={{ borderRadius: 4 }}>
                   <label htmlFor="bespoke-source" className="block text-[11px] uppercase tracking-[0.2em] text-cream mb-2">
                     How did you find Woolet? <span className="text-cream-dim normal-case tracking-normal">(optional)</span>
                   </label>
@@ -504,6 +532,13 @@ export default function BespokeCheckout() {
                   </div>
                 )}
 
+                <ul className="lg:hidden mt-5 flex flex-wrap gap-x-5 gap-y-2 text-[11px] uppercase tracking-[0.16em] text-cream-dim">
+                  <li className="inline-flex items-center gap-1.5"><Lock size={12} className="text-gold-light" /> 256-bit secure</li>
+                  <li className="inline-flex items-center gap-1.5"><ShieldCheck size={12} className="text-gold-light" /> Wrong fit? 50% off a new frame</li>
+                  <li className="inline-flex items-center gap-1.5"><Scissors size={12} className="text-gold-light" /> Cut in the EU</li>
+                  <li className="inline-flex items-center gap-1.5"><Truck size={12} className="text-gold-light" /> Free shipping</li>
+                </ul>
+
                 {/* Guarantee block */}
                 <div
                   className="mt-6 border border-cream/10 p-5"
@@ -532,7 +567,7 @@ export default function BespokeCheckout() {
               </section>
 
               {/* Summary column */}
-              <aside className="order-1 lg:order-2 lg:sticky lg:top-8">
+              <aside id="order-summary" className="order-2 min-w-0 scroll-mt-6 lg:sticky lg:top-8">
                 <div className="border border-cream/10 bg-background/40" style={{ borderRadius: 4 }}>
                   {frame && (
                     <div
