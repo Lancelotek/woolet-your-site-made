@@ -41,7 +41,7 @@ import { BESPOKE_PURCHASED_KEY } from "@/components/bespoke/ResumeBuildBar";
 import { readSessionRef } from "@/lib/scan-session-ref";
 import BespokeCaseHero from "@/components/BespokeCaseHero";
 import { BESPOKE_DISCOVERY_SOURCES, isBespokeDiscoverySource, type BespokeDiscoverySource } from "@/content/bespokeFacts";
-import { buildDesignUrl, designSummary, readSavedEmail } from "@/lib/bespoke-saved-design";
+import { buildDesignUrl, designSummary, readSavedEmail, writeSavedEmail } from "@/lib/bespoke-saved-design";
 
 const PURCHASE_TRACKED_KEY = "woolet_bespoke_purchase_tracked_v1";
 
@@ -106,6 +106,12 @@ export default function BespokeCheckout() {
   const dueTodayUsd = split.dueNowCents / 100;
   const [couponChecking, setCouponChecking] = useState(false);
   const [couponError, setCouponError] = useState<string | null>(null);
+  // Email is asked here, before Stripe, instead of inside the Stripe form: the
+  // buyer types the same single field, and an unpaid session carries the address
+  // payments-webhook needs to send the "your design is saved" follow-up (16.11.2026).
+  const [checkoutEmail, setCheckoutEmail] = useState<string>(() => readSavedEmail() ?? config.scanContactEmail ?? "");
+  const [emailInput, setEmailInput] = useState("");
+  const [emailError, setEmailError] = useState<string | null>(null);
   const [source, setSource] = useState<BespokeDiscoverySource | "">(() => {
     try { const saved = localStorage.getItem("wlt_bespoke_source"); return isBespokeDiscoverySource(saved) ? saved : ""; }
     catch { return ""; }
@@ -347,7 +353,7 @@ export default function BespokeCheckout() {
         returnUrl,
         // Known email (saved design / scan) prefills Stripe: one field less for the buyer,
         // and an abandoned session can be followed up by payments-webhook.
-        customerEmail: readSavedEmail() ?? config.scanContactEmail ?? undefined,
+        customerEmail: checkoutEmail || undefined,
         metadata: { ...metadata, ...(await getGaCheckoutMetadataAsync()),
           bespoke_design_url: buildDesignUrl(config, "bespoke_abandoned_checkout"),
           bespoke_design_summary: designSummary(config), ...(getOppref() ? { openai_oppref: getOppref() } : {}) },
@@ -374,7 +380,7 @@ export default function BespokeCheckout() {
     }
     return data.clientSecret as string;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pricing.totalEur, config.lensTypeId, config.frameId, productName, description, returnUrl, buildEventPayload, appliedCoupon, source]);
+  }, [pricing.totalEur, config.lensTypeId, config.frameId, productName, description, returnUrl, buildEventPayload, appliedCoupon, source, checkoutEmail]);
 
   return (
     <>
@@ -511,7 +517,56 @@ export default function BespokeCheckout() {
                   </select>
                 </div>
 
-                {(
+                {!checkoutEmail ? (
+                  <form
+                    className="border border-cream/15 p-5 sm:p-6"
+                    style={{ borderRadius: 4 }}
+                    noValidate
+                    onSubmit={(event) => {
+                      event.preventDefault();
+                      const clean = emailInput.trim().toLowerCase();
+                      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(clean)) {
+                        setEmailError("Enter a valid email address, for example name@example.com.");
+                        return;
+                      }
+                      setEmailError(null);
+                      writeSavedEmail(clean);
+                      setCheckoutEmail(clean);
+                      pushGtmEvent("checkout_email_submitted", buildEventPayload());
+                      clarityEvent("bespoke_checkout_email_submitted");
+                    }}
+                  >
+                    <label htmlFor="bespoke-checkout-email" className="block text-[11px] uppercase tracking-[0.2em] text-cream mb-2">
+                      Your email
+                    </label>
+                    <input
+                      id="bespoke-checkout-email"
+                      type="email"
+                      inputMode="email"
+                      autoComplete="email"
+                      autoCapitalize="none"
+                      spellCheck={false}
+                      required
+                      value={emailInput}
+                      onChange={(event) => { setEmailInput(event.target.value); setEmailError(null); }}
+                      aria-invalid={Boolean(emailError)}
+                      aria-describedby="bespoke-checkout-email-help"
+                      placeholder="name@example.com"
+                      className="min-h-[48px] w-full border border-cream/20 bg-background px-3 text-base text-cream placeholder:text-cream-dim/50 outline-none focus:border-gold"
+                      style={{ borderRadius: 2 }}
+                    />
+                    <p id="bespoke-checkout-email-help" className={`mt-2 text-[12px] leading-relaxed ${emailError ? "text-red-400/90" : "text-cream-dim"}`} role={emailError ? "alert" : undefined}>
+                      {emailError ?? "For your order confirmation and a link back to this design."}
+                    </p>
+                    <button
+                      type="submit"
+                      className="mt-4 inline-flex min-h-[48px] w-full items-center justify-center px-8 py-3.5 bg-gold text-background text-xs uppercase tracking-[0.22em] font-medium hover:bg-gold-light transition"
+                      style={{ borderRadius: 2 }}
+                    >
+                      Continue to payment
+                    </button>
+                  </form>
+                ) : (
                   <div
                     className="relative bg-white text-[#0B0A09] overflow-hidden min-h-[640px] sm:min-h-[560px]"
                     style={{ borderRadius: 4 }}
@@ -525,7 +580,7 @@ export default function BespokeCheckout() {
                       <div className="h-11 w-2/3 bg-[#0B0A09]/[0.06] rounded animate-pulse" />
                     </div>
                     <div className="relative bg-white">
-                    <EmbeddedCheckoutProvider key={`${appliedCoupon ?? "no-coupon"}:${source}:${pricing.totalEur}:${split.plan}:${split.dueNowCents}`} stripe={getStripe()} options={{ fetchClientSecret }}>
+                    <EmbeddedCheckoutProvider key={`${appliedCoupon ?? "no-coupon"}:${source}:${pricing.totalEur}:${split.plan}:${split.dueNowCents}:${checkoutEmail}`} stripe={getStripe()} options={{ fetchClientSecret }}>
                       <EmbeddedCheckout />
                     </EmbeddedCheckoutProvider>
                     </div>
