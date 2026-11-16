@@ -70,7 +70,7 @@ export function buildTimeline(input: {
     { key: "paid", label: deposit ? "Deposit paid" : "Paid in full", at: str(o.created_at), done: true, by: "system" },
     { key: "address", label: "Shipping address", at: addressAt, done: Boolean(addressAt), by: "customer", hint: addressAt ? undefined : "Comes with the fitting form." },
     { key: "photo", label: "Photo with a card and consent", at: photoAt, done: Boolean(photoAt), by: "customer", hint: photoAt ? undefined : "Comes with the fitting form." },
-    { key: "numbers", label: "Glasses numbers and measurements", at: formAt, done: Boolean(formAt), by: "customer", hint: formAt ? undefined : "Reminders go out on day 2 and day 5. After that, send the fitting form invitation below." },
+    { key: "numbers", label: "Glasses numbers and measurements", at: formAt, done: Boolean(formAt), by: "customer", hint: formAt ? undefined : "One reminder goes out on day 3. On day 6 you get an alert - then send the fitting form invitation below." },
     {
       key: "brief", label: "Brief sent to the workshop", at: stageAt(3), done: briefDone, by: "you",
       action: stage <= 3 ? { type: "stage", to: 3, back: formAt ? 2 : 1 } : undefined,

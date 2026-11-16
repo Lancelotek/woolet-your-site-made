@@ -1,5 +1,5 @@
-// Daily job for the Bespoke deposit plan (pg_cron, see migration
-// 20261111120000_bespoke_deposit.sql). Safe to call any number of times: each
+// Hourly job for Bespoke orders (pg_cron, see migrations
+// 20261111120000_bespoke_deposit.sql and 20261116120000_bespoke_fitting_followup.sql). Safe to call any number of times: each
 // order gets the reminder once and is closed once.
 //
 // For every deposit order whose 3D model was sent and whose balance is unpaid:
@@ -17,15 +17,24 @@ import {
   reminderDueAt,
 } from "../_shared/bespoke-balance.ts";
 import { sendTemplateEmailAndLog } from "../_shared/transactional-email-templates/send-and-log.ts";
+import { MAREK_SENDER } from "../_shared/transactional-email-templates/send-email.ts";
+import {
+  FITTING_MAX_AGE_DAYS,
+  FITTING_NOTES,
+  FITTING_STEP_DAYS,
+  fittingAsks,
+  fittingLinks,
+  fittingMissing,
+  nextFittingAction,
+  nextFormAction,
+} from "../_shared/bespoke-fitting.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 const SITE_ORIGIN = "https://woolet.co";
-/** Days after payment on which the fitting reminders go out. */
-const FIT_REMINDER_DAYS = [2, 5] as const;
-/** After this many days the order is too old for an automatic reminder. */
+/** A form that never arrived: after this many days the order is left to a personal note. */
 const FIT_REMINDER_LAST_DAY = 9;
 
 Deno.serve(async (req) => {
@@ -35,7 +44,7 @@ Deno.serve(async (req) => {
     auth: { persistSession: false },
   });
   const now = new Date();
-  const result = { checked: 0, reminded: 0, expired: 0, paused: 0, errors: 0, fitReminded: 0 };
+  const result = { checked: 0, reminded: 0, expired: 0, paused: 0, errors: 0, fitRequested: 0, fitReminded: 0, fitAlerted: 0 };
 
   try {
     const { data: orders, error } = await supabase
@@ -138,8 +147,60 @@ Deno.serve(async (req) => {
     });
   }
 
-  // Fitting reminders: a paid order whose fitting form has not arrived gets one
-  // email on day 2 and one on day 5. Older orders are left to a personal note.
+  // Fitting follow-up (see _shared/bespoke-fitting.ts). Two cases, one rhythm:
+  //   A. the form never arrived      -> reminder on day 3, support alert on day 6
+  //   B. the form arrived with holes -> ask, reminder 3 days later, support alert 3 days after that
+  // Every step is written to bespoke_crm_events first, so it happens once.
+  const stepsFor = async (orderId: string): Promise<Record<string, string>> => {
+    const { data } = await supabase
+      .from("bespoke_crm_events")
+      .select("note, created_at")
+      .eq("order_id", orderId)
+      .in("note", Object.values(FITTING_NOTES))
+      .order("created_at", { ascending: true });
+    const seen: Record<string, string> = {};
+    for (const e of (data ?? []) as Array<{ note: string; created_at: string }>) seen[e.note] ??= e.created_at;
+    return seen;
+  };
+  const logStep = (o: Record<string, any>, note: string) =>
+    supabase.from("bespoke_crm_events").insert({
+      order_id: o.id, from_stage: Number(o.crm_stage ?? 1), to_stage: Number(o.crm_stage ?? 1), note, created_by: "system",
+    });
+  const refOf = (o: Record<string, any>) => o.case_no || `WLT-${String(o.id).slice(0, 8).toUpperCase()}`;
+  const firstNameOf = (o: Record<string, any>) => (o.customer_name ? String(o.customer_name).split(" ")[0] : "");
+  const alertSupport = (key: string, heading: string, lines: string[]) =>
+    sendTemplateEmailAndLog("bespoke-support-alert", undefined, { idempotencyKey: key, templateData: { heading, lines } })
+      .catch((e) => console.error("[bespoke-balance-cron] support alert failed", e));
+  // From marek@woolet.co. If the mail provider refuses that sender, the note
+  // still goes out from noreply@ with replies to Marek; if that fails too,
+  // support hears about it - the step is logged, so nothing retries by itself.
+  const sendFromMarek = async (o: Record<string, any>, key: string, templateData: Record<string, unknown>) => {
+    try {
+      return await sendTemplateEmailAndLog("bespoke-fitting-request", o.customer_email, {
+        idempotencyKey: key, templateData, ...MAREK_SENDER,
+      });
+    } catch (first) {
+      console.error("[bespoke-balance-cron] send as marek@ failed, retrying from noreply@", o.id, first);
+      try {
+        return await sendTemplateEmailAndLog("bespoke-fitting-request", o.customer_email, {
+          idempotencyKey: `${key}-noreply`, templateData, fromName: MAREK_SENDER.fromName, replyTo: MAREK_SENDER.replyTo,
+        });
+      } catch (second) {
+        await alertSupport(`${key}-failed`, `Fitting email failed to send - ${refOf(o)}`, [
+          `${o.customer_name ?? ""} <${o.customer_email}>`,
+          `Error: ${second instanceof Error ? second.message : String(second)}`,
+          "The step is logged, so it will not retry. Write to the customer by hand.",
+          "https://woolet.co/en/admin/bespoke",
+        ]);
+        throw second;
+      }
+    }
+  };
+  const open = (o: Record<string, any>) =>
+    Boolean(o.customer_email && o.stripe_session_id) && o.stage !== "cancelled" && Number(o.crm_stage ?? 1) <= 2;
+  const COUNT = ["", "one more thing", "two more things", "three more things"];
+
+  // A. The fitting form never arrived.
   try {
     const since = new Date(now.getTime() - FIT_REMINDER_LAST_DAY * 86400000).toISOString();
     const { data: waiting, error: waitErr } = await supabase
@@ -151,53 +212,136 @@ Deno.serve(async (req) => {
     if (waitErr) throw waitErr;
     for (const o of (waiting ?? []) as Array<Record<string, any>>) {
       try {
-        if (!o.customer_email || !o.stripe_session_id || o.stage === "cancelled" || Number(o.crm_stage ?? 1) > 2) continue;
-        const ageDays = (now.getTime() - new Date(o.created_at).getTime()) / 86400000;
-        const which = ageDays >= FIT_REMINDER_DAYS[1] ? 2 : ageDays >= FIT_REMINDER_DAYS[0] ? 1 : 0;
-        if (!which) continue;
-        const note = `Fitting reminder ${which} emailed to the customer`;
-        const { count } = await supabase
-          .from("bespoke_crm_events")
-          .select("id", { count: "exact", head: true })
-          .eq("order_id", o.id)
-          .eq("note", note);
-        if ((count ?? 0) > 0) continue;
-        // Log first: a failed send is looked at by a person, never repeated daily.
-        await supabase.from("bespoke_crm_events").insert({
-          order_id: o.id, from_stage: Number(o.crm_stage ?? 1), to_stage: Number(o.crm_stage ?? 1), note, created_by: "system",
+        if (!open(o)) continue;
+        const seen = await stepsFor(o.id);
+        const action = nextFormAction({
+          now, paidAt: o.created_at,
+          reminderAt: seen[FITTING_NOTES.formReminder] ?? null,
+          alertAt: seen[FITTING_NOTES.formAlert] ?? null,
         });
-        const ref = o.case_no || `WLT-${String(o.id).slice(0, 8).toUpperCase()}`;
-        const firstName = o.customer_name ? String(o.customer_name).split(" ")[0] : "";
-        await sendTemplateEmailAndLog("bespoke-balance-notice", o.customer_email, {
-          idempotencyKey: `bespoke-fit-reminder-${which}-${o.id}`,
-          templateData: {
-            subject: which === 1
-              ? `Two minutes so we can start your Woolet Bespoke frame (${ref})`
-              : `Your Woolet Bespoke frame is waiting on one photo (${ref})`,
+        if (!action) continue;
+        const ref = refOf(o);
+        const links = fittingLinks(SITE_ORIGIN, o as any);
+        if (action === "reminder") {
+          await logStep(o, FITTING_NOTES.formReminder);
+          await sendFromMarek(o, `bespoke-fit-reminder-1-${o.id}`, {
+            subject: `Two minutes so the workshop can start your frame (${ref})`,
             preview: "One photo with a bank card and the numbers from your current glasses.",
-            heading: `${firstName ? `${firstName}, your` : "Your"} frame starts with one photo.`,
-            paragraphs: which === 1
-              ? [
-                  `Your ${o.frame_name ?? "Woolet Bespoke"} order is open, and the workshop is waiting for your fitting.`,
-                  "It takes about two minutes: your shipping address, one photo with a bank-size card held against your cheek, and the three numbers printed inside your current glasses.",
-                ]
-              : [
-                  "Your order is still open, and nothing has been cut. The 3D model of your frame starts the day your fitting arrives.",
-                  "One photo with a bank-size card held against your cheek, the numbers printed inside your current glasses, and your shipping address. No glasses at hand? Send the photo alone.",
-                ],
-            rows: [{ label: "Order", value: ref }],
-            ctaLabel: "Open my fitting form",
-            ctaUrl: `${SITE_ORIGIN}/en/bespoke/measurements?sid=${encodeURIComponent(o.stripe_session_id)}`,
-          },
-        });
-        result.fitReminded += 1;
+            firstName: firstNameOf(o),
+            intro: ["Your order is open and nothing has been cut. The workshop starts your 3D model the day your fitting arrives."],
+            asks: [{
+              title: "Your fitting",
+              body: "About two minutes: your shipping address, one photo with a bank card on your cheek, and the three numbers printed inside your current glasses.",
+              linkLabel: "Open my fitting form",
+              linkUrl: links.form,
+            }],
+            outro: "Stuck on any of it? Reply and I'll help.",
+            orderRef: ref,
+          });
+          result.fitReminded += 1;
+        } else {
+          await logStep(o, FITTING_NOTES.formAlert);
+          await alertSupport(`bespoke-fit-form-alert-${o.id}`, `No fitting form after ${2 * FITTING_STEP_DAYS} days - ${ref}`, [
+            `${o.customer_name ?? ""} <${o.customer_email}>`,
+            "One reminder went out and the form is still missing. No more automatic emails - write or call.",
+            links.form,
+            "https://woolet.co/en/admin/bespoke",
+          ]);
+          result.fitAlerted += 1;
+        }
       } catch (e) {
         result.errors += 1;
-        console.error("[bespoke-balance-cron] fitting reminder failed", o.id, e);
+        console.error("[bespoke-balance-cron] fitting form follow-up failed", o.id, e);
       }
     }
   } catch (err) {
-    console.error("[bespoke-balance-cron] fitting reminders", err);
+    console.error("[bespoke-balance-cron] fitting form follow-up", err);
+  }
+
+  // B. The form arrived, but the scan, the side photo or the glasses numbers did not.
+  try {
+    const since = new Date(now.getTime() - FITTING_MAX_AGE_DAYS * 86400000).toISOString();
+    const { data: partial, error: partErr } = await supabase
+      .from("bespoke_orders")
+      .select("id, case_no, stripe_session_id, session_ref, scan_token, customer_email, customer_name, frame_name, created_at, crm_stage, stage, measurements_submitted_at, scan_source, scan_received_at, ai_face_width_mm, reference_glasses_raw, manual_notes, manual_bridge_width_mm, manual_temple_length_mm")
+      .not("measurements_submitted_at", "is", null)
+      .gte("created_at", since)
+      .limit(500);
+    if (partErr) throw partErr;
+    for (const o of (partial ?? []) as Array<Record<string, any>>) {
+      try {
+        if (!open(o)) continue;
+        const seen = await stepsFor(o.id);
+        const action = nextFittingAction({
+          now, submittedAt: o.measurements_submitted_at,
+          requestAt: seen[FITTING_NOTES.request] ?? null,
+          reminderAt: seen[FITTING_NOTES.reminder] ?? null,
+          alertAt: seen[FITTING_NOTES.alert] ?? null,
+        });
+        if (!action) continue;
+
+        const { data: photos } = await supabase
+          .from("bespoke_order_photos")
+          .select("profile_path, consent_withdrawn_at")
+          .eq("order_id", o.id)
+          .order("created_at", { ascending: false })
+          .limit(1);
+        const scanFilter = [`order_id.eq.${o.id}`, o.session_ref ? `session_ref.eq.${o.session_ref}` : null].filter(Boolean).join(",");
+        const { count: scanCount } = await supabase
+          .from("bespoke_scan_profiles")
+          .select("scan_id", { count: "exact", head: true })
+          .or(scanFilter);
+        const missing = fittingMissing({ order: o, photo: photos?.[0] ?? null, scanCount: scanCount ?? 0 });
+        if (missing.length === 0) continue;
+
+        const ref = refOf(o);
+        const links = fittingLinks(SITE_ORIGIN, o as any);
+        const asks = fittingAsks(missing, links);
+        const things = COUNT[missing.length];
+        if (action === "request") {
+          await logStep(o, FITTING_NOTES.request);
+          await sendFromMarek(o, `bespoke-fit-items-request-${o.id}`, {
+            subject: `${things[0].toUpperCase()}${things.slice(1)} before your 3D model (${ref})`,
+            preview: asks.map((a) => a.title).join(" · "),
+            firstName: firstNameOf(o),
+            intro: [
+              "Your fitting form came through. Thanks.",
+              `The workshop in Greece builds your 3D model next. I need ${things} from you first:`,
+            ],
+            asks,
+            outro: "Nothing is cut before you approve the 3D model.",
+            orderRef: ref,
+          });
+          result.fitRequested += 1;
+        } else if (action === "reminder") {
+          await logStep(o, FITTING_NOTES.reminder);
+          await sendFromMarek(o, `bespoke-fit-items-reminder-${o.id}`, {
+            subject: `Your 3D model is waiting on you (${ref})`,
+            preview: asks.map((a) => a.title).join(" · "),
+            firstName: firstNameOf(o),
+            intro: ["Your order is open and nothing has been cut. The workshop starts your 3D model the day I get this:"],
+            asks,
+            outro: "Stuck on any of it? Reply and I'll help.",
+            orderRef: ref,
+          });
+          result.fitReminded += 1;
+        } else {
+          await logStep(o, FITTING_NOTES.alert);
+          await alertSupport(`bespoke-fit-items-alert-${o.id}`, `Fitting still incomplete - ${ref}`, [
+            `${o.customer_name ?? ""} <${o.customer_email}>`,
+            `Missing: ${asks.map((a) => a.title).join(", ")}.`,
+            "The request and one reminder went out. No more automatic emails - write or call.",
+            "https://woolet.co/en/admin/bespoke",
+          ]);
+          result.fitAlerted += 1;
+        }
+      } catch (e) {
+        result.errors += 1;
+        console.error("[bespoke-balance-cron] fitting items follow-up failed", o.id, e);
+      }
+    }
+  } catch (err) {
+    console.error("[bespoke-balance-cron] fitting items follow-up", err);
   }
 
   console.log("[bespoke-balance-cron]", JSON.stringify(result));
