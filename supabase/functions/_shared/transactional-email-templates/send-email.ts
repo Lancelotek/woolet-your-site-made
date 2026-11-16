@@ -28,7 +28,18 @@ export interface SendTemplateEmailOptions {
   /** Dedupes retries of the same logical send; defaults to a random UUID (no dedupe). */
   idempotencyKey?: string
   replyTo?: string
+  /** Sender name shown in the inbox. Defaults to the site name. */
+  fromName?: string
+  /** Local part of the From address on FROM_DOMAIN. Defaults to "noreply". */
+  fromLocal?: string
 }
+
+/** Personal notes about a Bespoke order go out under Marek's name and come back to him. */
+export const MAREK_SENDER = {
+  fromName: 'Marek from Woolet',
+  fromLocal: 'marek',
+  replyTo: 'marek@woolet.co',
+} as const
 
 /**
  * Renders a registered template and sends it through Lovable's managed email
@@ -76,7 +87,7 @@ export async function sendTemplateEmail(
     await sendLovableEmail(
       {
         to: recipient,
-        from: `${SITE_NAME} <noreply@${FROM_DOMAIN}>`,
+        from: `${options.fromName ?? SITE_NAME} <${/^[a-z0-9._-]+$/.test(options.fromLocal ?? '') ? options.fromLocal : 'noreply'}@${FROM_DOMAIN}>`,
         sender_domain: SENDER_DOMAIN,
         subject,
         html,
