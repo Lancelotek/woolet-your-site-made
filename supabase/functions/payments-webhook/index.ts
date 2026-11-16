@@ -631,18 +631,12 @@ async function handleCheckoutExpired(session: any) {
     await handleBespokeCheckoutExpired(session);
     return;
   }
-  // Only count a $1 checkout as abandoned when the visitor clicked pay AND
-  // engaged with the Stripe form. Pre-created sessions are ignored.
-  const cd = session?.customer_details ?? {};
-  const addr = cd?.address ?? {};
-  const cdEmail = String(cd?.email ?? "").trim().toLowerCase();
-  const prefilled = String(session?.customer_email ?? "").trim().toLowerCase();
-  const engaged = Boolean(
-    (cdEmail && cdEmail !== prefilled) || cd?.name || cd?.phone ||
-    (addr && Object.values(addr).some((v) => typeof v === "string" && v.trim())),
-  );
+  // Count a $1 checkout as abandoned when the visitor clicked pay. Sessions are
+  // created only on that tap (user_initiated), so typing in the Stripe form is no
+  // longer required: 23 of 24 expired sessions 09-16.11.2026 were pay clicks that
+  // got no follow-up. Pre-created sessions (no user_initiated) are still ignored.
   const userInitiated = session?.metadata?.user_initiated === "1";
-  if (!userInitiated || !engaged) {
+  if (!userInitiated) {
     try {
       await getSupabase().from("server_event_log").insert({
         source: "payments-webhook",
@@ -650,7 +644,7 @@ async function handleCheckoutExpired(session: any) {
         status: "skipped",
         request_summary: {
           stripe_session_id: session?.id,
-          reason: !userInitiated ? "not_user_initiated" : "no_engagement",
+          reason: "not_user_initiated",
         },
       });
     } catch (e) {
