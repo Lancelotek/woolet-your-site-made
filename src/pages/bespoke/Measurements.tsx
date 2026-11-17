@@ -513,6 +513,15 @@ export default function BespokeMeasurements() {
       clarityEvent("bespoke_form_incomplete");
       return;
     }
+    // We reach the customer on WhatsApp about the order, and a number without a
+    // country code is useless for that (and for the courier abroad).
+    const phoneValue = shipping.phone.trim();
+    if (!/^\+[\d\s().-]{6,30}$/.test(phoneValue) || phoneValue.replace(/\D/g, "").length < 7) {
+      setShippingError("Add your phone number with the country code, starting with + (for example +1 555 123 4567).");
+      document.getElementById("shipping-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      clarityEvent("bespoke_form_incomplete");
+      return;
+    }
     if (!hasFitPhoto && !photoFile) {
       setPhotoError("Add your photo with a card - the workshop measures your face from it.");
       scanSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -928,14 +937,14 @@ export default function BespokeMeasurements() {
                         required
                       />
                       <TextField
-                        label="Phone"
+                        label="Phone (WhatsApp)"
                         value={shipping.phone}
                         onChange={(e) => setShipping((s) => ({ ...s, phone: e.target.value }))}
                         autoComplete="tel"
                         inputMode="tel"
                         type="tel"
-                        placeholder="+48 600 000 000"
-                        note="With country code — for the courier."
+                        placeholder="+1 555 123 4567"
+                        note="With country code. For the courier, and so Marek can message you on WhatsApp about your order."
                         required
                       />
                       <TextField

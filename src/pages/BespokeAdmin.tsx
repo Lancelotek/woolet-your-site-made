@@ -911,6 +911,20 @@ function IntegrationSecretBlock({ password }: { password: string }) {
   );
 }
 
+// wa.me needs the full international number. A number saved without a country
+// code cannot be opened in WhatsApp, so say that instead of linking a wrong chat.
+function whatsAppLink(phone: string | null | undefined) {
+  const raw = (phone ?? "").trim();
+  if (!raw) return null;
+  const digits = raw.replace(/\D/g, "");
+  if (!raw.startsWith("+") || digits.length < 7) return "No country code - add it to open WhatsApp";
+  return (
+    <a href={`https://wa.me/${digits}`} target="_blank" rel="noopener noreferrer" style={{ color: T.ink, textDecoration: "underline" }}>
+      Open chat
+    </a>
+  );
+}
+
 function Field({ label, value }: { label: string; value: unknown }) {
 
   return (
@@ -1312,6 +1326,7 @@ function DetailView({
         {editing === "shipping" ? <EditForm section="shipping" order={o} password={password} onCancel={() => setEditing(null)} onSaved={(patch) => { onOrderChange(patch); setEditing(null); }} /> : <>
         <Field label="Recipient" value={o.shipping_name} />
         <Field label="Phone" value={o.shipping_phone} />
+        <Field label="WhatsApp" value={whatsAppLink(o.shipping_phone)} />
         <Field label="Street" value={o.shipping_line1} />
         <Field label="Apartment / floor" value={o.shipping_line2} />
         <Field label="City" value={o.shipping_city} />

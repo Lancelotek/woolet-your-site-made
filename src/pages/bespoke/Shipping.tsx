@@ -189,13 +189,13 @@ export default function BespokeShipping() {
               <form onSubmit={submit} className="grid grid-cols-1 sm:grid-cols-2 gap-4" noValidate>
                 <Text label="Full name" value={fields.name} onChange={set("name")} autoComplete="name" required full />
                 <Text
-                  label="Phone with country code"
+                  label="Phone with country code (WhatsApp)"
                   value={fields.phone}
                   onChange={set("phone")}
                   autoComplete="tel"
                   type="tel"
                   placeholder="+1 555 123 4567"
-                  note="The courier needs it."
+                  note="The courier needs it, and Marek can message you on WhatsApp about your order."
                   required
                   full
                 />
