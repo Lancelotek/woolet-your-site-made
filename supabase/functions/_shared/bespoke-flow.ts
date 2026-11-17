@@ -20,9 +20,9 @@ export const FLOW_MODEL_FIRST = 1;
 export const FLOW_PREVIEW_FIRST = 2;
 
 /** Days the buyer has to accept the visualization by paying the balance. */
-export const PREVIEW_WINDOW_DAYS = 3;
-/** One reminder, on this day after the visualization went out. */
-export const PREVIEW_REMINDER_DAY = 2;
+export const PREVIEW_WINDOW_DAYS = 6;
+/** One reminder, on this day after the visualization went out - two days before the order closes. */
+export const PREVIEW_REMINDER_DAY = 4;
 /** Corrections to the 3D model included in the price. */
 export const MAX_MODEL_CORRECTIONS = 3;
 

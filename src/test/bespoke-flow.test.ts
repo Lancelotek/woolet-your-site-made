@@ -31,10 +31,10 @@ describe("which flow an order is on", () => {
 
 describe("accepting the visualization", () => {
   const sent = "2026-11-18T10:00:00Z";
-  it("gives 3 days and reminds on day 2", () => {
-    expect(PREVIEW_WINDOW_DAYS).toBe(3);
-    expect(previewDueAt(at(sent)).toISOString()).toBe("2026-11-21T10:00:00.000Z");
-    expect(previewReminderDueAt(at(sent)).toISOString()).toBe("2026-11-20T10:00:00.000Z");
+  it("gives 6 days and reminds on day 4", () => {
+    expect(PREVIEW_WINDOW_DAYS).toBe(6);
+    expect(previewDueAt(at(sent)).toISOString()).toBe("2026-11-24T10:00:00.000Z");
+    expect(previewReminderDueAt(at(sent)).toISOString()).toBe("2026-11-22T10:00:00.000Z");
   });
   it("walks awaiting_preview -> awaiting_payment -> paid", () => {
     expect(previewState({}, at(sent))).toBe("awaiting_preview");
@@ -42,8 +42,9 @@ describe("accepting the visualization", () => {
     expect(previewState({ preview_sent_at: sent, balance_paid_at: "2026-11-19T08:00:00Z" }, at("2026-11-30T00:00:00Z"))).toBe("paid");
   });
   it("expires after the window, and stays expired once stamped", () => {
-    expect(previewState({ preview_sent_at: sent }, at("2026-11-21T10:00:01Z"))).toBe("expired");
-    expect(previewState({ preview_sent_at: sent, balance_expired_at: "2026-11-21T10:05:00Z" }, at("2026-11-21T09:00:00Z"))).toBe("expired");
+    expect(previewState({ preview_sent_at: sent }, at("2026-11-24T09:59:59Z"))).toBe("awaiting_payment");
+    expect(previewState({ preview_sent_at: sent }, at("2026-11-24T10:00:01Z"))).toBe("expired");
+    expect(previewState({ preview_sent_at: sent, balance_expired_at: "2026-11-24T10:05:00Z" }, at("2026-11-24T09:00:00Z"))).toBe("expired");
   });
 });
 
@@ -113,7 +114,7 @@ describe("what the buyer is told", () => {
   it("lists the steps in the new order", () => {
     const steps = previewFlowSteps(split);
     expect(steps).toHaveLength(6);
-    expect(steps[3]).toContain("you have 3 days");
+    expect(steps[3]).toContain("you have 6 days");
     expect(steps[4]).toContain("up to 3 times");
     expect(steps.findIndex((s) => s.includes("balance"))).toBeLessThan(steps.findIndex((s) => s.includes("3D model")));
   });

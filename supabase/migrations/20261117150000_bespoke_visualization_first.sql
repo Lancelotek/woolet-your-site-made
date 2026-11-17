@@ -13,6 +13,6 @@ alter table public.bespoke_orders
 comment on column public.bespoke_orders.flow_version is
   '1 = balance after the 3D model. 2 = balance after the visualization, then the 3D model with up to 3 corrections.';
 comment on column public.bespoke_orders.preview_sent_at is
-  'Flow 2: when the visualization with dimensions went to the customer. Starts the 3-day window for the balance.';
+  'Flow 2: when the visualization with dimensions went to the customer. Starts the 6-day window for the balance.';
 comment on column public.bespoke_orders.model_approved_at is
   'Flow 2: when the customer approved the 3D model (the balance is already paid by then).';
