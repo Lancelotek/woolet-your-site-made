@@ -1,17 +1,20 @@
-// What a paid Bespoke order still owes us before the workshop can start the
-// 3D model, and when the customer hears about it (decision 16.11.2026).
+// What a paid Bespoke order is still asked for before the workshop starts the
+// 3D model, and when the customer hears about it.
 //
-// Required on top of the front photo with a card:
-//   scan     - a FitLens scan (face width, PD)
-//   profile  - the side photo with a card (nose bridge height)
-//   glasses  - the three numbers inside the temple of the current glasses
+// Decision 17.11.2026 (replaces the three-item rule of 16.11.2026): the front
+// photo with a card is the only condition. A scan, the side photo and the
+// numbers from the current glasses raise the confidence of the recommendation
+// (see bespoke-recommendation.ts) and the customer is asked for ONE of them at
+// a time - the one that helps most. Nobody sent all three.
 //
 // Rhythm, the same for a form that never arrived and for a form with holes:
 //   ask -> 3 days -> one reminder -> 3 days -> support is alerted. No third email.
 //
 // Pure functions only: the cron job and the tests both import this file.
 
-export type FittingItem = "scan" | "profile" | "glasses";
+import { recommendFit } from "./bespoke-recommendation.ts";
+
+export type FittingItem = "photo" | "scan" | "profile" | "glasses";
 
 export const FITTING_STEP_DAYS = 3;
 /** A form just sent is left alone this long: the photo page comes right after it. */
@@ -30,32 +33,18 @@ export const FITTING_NOTES = {
 const DAY_MS = 86400000;
 const HOUR_MS = 3600000;
 
-const has = (v: unknown): boolean => v !== null && v !== undefined && String(v).trim() !== "";
-
-/** "Current glasses: lens 60 · bridge 18 · temple 145 mm" is the form's own first note line. */
-const lensInNotes = (notes: unknown): boolean =>
-  typeof notes === "string" && /^Current glasses: lens \d/m.test(notes);
-
+/**
+ * The one thing to ask the customer for next - an empty list when the
+ * recommendation already stands on two agreeing widths and a bridge.
+ * A list, because the email and the alert are written for lists.
+ */
 export function fittingMissing(input: {
   order: Record<string, unknown>;
   photo?: Record<string, unknown> | null;
-  scanCount?: number;
+  scans?: Array<Record<string, unknown>>;
 }): FittingItem[] {
-  const { order: o, photo, scanCount = 0 } = input;
-  const missing: FittingItem[] = [];
-
-  const scanned = scanCount > 0 || o.scan_source === "fitlens" || has(o.scan_received_at) || has(o.ai_face_width_mm);
-  if (!scanned) missing.push("scan");
-
-  const profile = Boolean(photo) && has(photo!.profile_path) && !has(photo!.consent_withdrawn_at);
-  if (!profile) missing.push("profile");
-
-  const glasses =
-    has(o.reference_glasses_raw) ||
-    (lensInNotes(o.manual_notes) && has(o.manual_bridge_width_mm) && has(o.manual_temple_length_mm));
-  if (!glasses) missing.push("glasses");
-
-  return missing;
+  const { nextAsk } = recommendFit(input);
+  return nextAsk ? [nextAsk] : [];
 }
 
 export type FittingAction = "request" | "reminder" | "alert" | null;
@@ -112,6 +101,12 @@ export interface FittingAsk {
 /** The asks, in the order the customer should do them. Only what is missing. */
 export function fittingAsks(missing: FittingItem[], links: ReturnType<typeof fittingLinks>): FittingAsk[] {
   const asks: Record<FittingItem, FittingAsk> = {
+    photo: {
+      title: "Front photo with the card",
+      body: "Look straight at the camera and hold a bank card flat on your cheek, long edge level. Someone else takes it from about 5 feet, with 2x zoom. The card gives me a true scale.",
+      linkLabel: "Upload the photo",
+      linkUrl: links.photo,
+    },
     scan: {
       title: "Face scan",
       body: "60 seconds with your phone camera. Glasses off, a bank card flat on your forehead. The result lands on your order by itself.",

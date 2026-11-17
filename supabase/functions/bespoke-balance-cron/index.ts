@@ -258,12 +258,12 @@ Deno.serve(async (req) => {
     console.error("[bespoke-balance-cron] fitting form follow-up", err);
   }
 
-  // B. The form arrived, but the scan, the side photo or the glasses numbers did not.
+  // B. The form arrived. Ask for the one thing that would firm up the recommendation most.
   try {
     const since = new Date(now.getTime() - FITTING_MAX_AGE_DAYS * 86400000).toISOString();
     const { data: partial, error: partErr } = await supabase
       .from("bespoke_orders")
-      .select("id, case_no, stripe_session_id, session_ref, scan_token, customer_email, customer_name, frame_name, created_at, crm_stage, stage, measurements_submitted_at, scan_source, scan_received_at, ai_face_width_mm, reference_glasses_raw, manual_notes, manual_bridge_width_mm, manual_temple_length_mm")
+      .select("id, case_no, stripe_session_id, session_ref, scan_token, customer_email, customer_name, frame_name, created_at, crm_stage, stage, measurements_submitted_at, scan_source, scan_received_at, ai_face_width_mm, ai_temple_to_temple_mm, ai_inner_canthal_mm, reference_glasses_raw, manual_notes, manual_bridge_width_mm, manual_temple_length_mm, manual_temple_to_temple_mm, metadata")
       .not("measurements_submitted_at", "is", null)
       .gte("created_at", since)
       .limit(500);
@@ -282,16 +282,18 @@ Deno.serve(async (req) => {
 
         const { data: photos } = await supabase
           .from("bespoke_order_photos")
-          .select("profile_path, consent_withdrawn_at")
+          .select("photo_path, photo_temple_to_temple_mm, profile_path, consent_withdrawn_at")
           .eq("order_id", o.id)
           .order("created_at", { ascending: false })
           .limit(1);
         const scanFilter = [`order_id.eq.${o.id}`, o.session_ref ? `session_ref.eq.${o.session_ref}` : null].filter(Boolean).join(",");
-        const { count: scanCount } = await supabase
+        const { data: scans } = await supabase
           .from("bespoke_scan_profiles")
-          .select("scan_id", { count: "exact", head: true })
-          .or(scanFilter);
-        const missing = fittingMissing({ order: o, photo: photos?.[0] ?? null, scanCount: scanCount ?? 0 });
+          .select("created_at, temple_to_temple_mm")
+          .or(scanFilter)
+          .order("created_at", { ascending: false })
+          .limit(10);
+        const missing = fittingMissing({ order: o, photo: photos?.[0] ?? null, scans: scans ?? [] });
         if (missing.length === 0) continue;
 
         const ref = refOf(o);
@@ -306,7 +308,7 @@ Deno.serve(async (req) => {
             firstName: firstNameOf(o),
             intro: [
               "Your fitting form came through. Thanks.",
-              `The workshop in Greece builds your 3D model next. I need ${things} from you first:`,
+              `The workshop in Greece builds your 3D model next. ${things[0].toUpperCase()}${things.slice(1)} from you makes it more precise:`,
             ],
             asks,
             outro: "Nothing is cut before you approve the 3D model.",
@@ -316,10 +318,10 @@ Deno.serve(async (req) => {
         } else if (action === "reminder") {
           await logStep(o, FITTING_NOTES.reminder);
           await sendFromMarek(o, `bespoke-fit-items-reminder-${o.id}`, {
-            subject: `Your 3D model is waiting on you (${ref})`,
+            subject: `One thing for a more precise 3D model (${ref})`,
             preview: asks.map((a) => a.title).join(" · "),
             firstName: firstNameOf(o),
-            intro: ["Your order is open and nothing has been cut. The workshop starts your 3D model the day I get this:"],
+            intro: ["Your order is open and nothing has been cut. Your 3D model gets more precise with this:"],
             asks,
             outro: "Stuck on any of it? Reply and I'll help.",
             orderRef: ref,

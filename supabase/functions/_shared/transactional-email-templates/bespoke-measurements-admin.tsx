@@ -38,6 +38,16 @@ interface Props {
   repeatabilityLine?: string
   /** agree | review | disagree — empty when only one scan exists. */
   repeatabilityVerdict?: string
+  /** False hides the inner-canthal explainer: nothing to explain without the value. */
+  hasInnerCanthal?: boolean
+  /** What we would cut today and how far to trust it (bespoke-recommendation.ts). */
+  recommendation?: {
+    tier: string
+    tierLine: string
+    rows: Row[]
+    warnings: string[]
+    nextAskLine: string
+  } | null
   shippingStatus?: string
   shippingAddress?: string
   adminUrl?: string
@@ -61,6 +71,8 @@ const Email = ({
   gaps = [],
   repeatabilityLine = '',
   repeatabilityVerdict = '',
+  hasInnerCanthal = true,
+  recommendation = null,
   shippingStatus = '',
   shippingAddress = '',
   adminUrl = '',
@@ -120,11 +132,29 @@ const Email = ({
           )}
         </Section>
 
-        <Text style={gapLine}>
-          Inner-canthal distance is eye corner to eye corner — not nose width at the
-          pads, not the frame bridge (DBL), and not an approved production dimension.
-          The new nose-bridge landmarks have not shipped at FitLens yet.
-        </Text>
+        {hasInnerCanthal ? (
+          <Text style={gapLine}>
+            Inner-canthal distance is eye corner to eye corner — not nose width at the
+            pads, not the frame bridge (DBL), and not an approved production dimension.
+            The new nose-bridge landmarks have not shipped at FitLens yet.
+          </Text>
+        ) : null}
+
+        {recommendation ? (
+          <Section style={card}>
+            <Text style={cardTitle}>Recommendation from what is on file</Text>
+            <Text style={{ ...specValue, fontWeight: 600, margin: '0 0 8px' }}>{recommendation.tierLine}</Text>
+            {recommendation.rows.map((row) => (
+              <SpecRow key={row.label} label={row.label} value={row.value} />
+            ))}
+            {recommendation.warnings.map((w) => (
+              <Text key={w} style={gapLine}>· {w}</Text>
+            ))}
+            {recommendation.nextAskLine ? (
+              <SpecRow label="Ask the customer for one thing" value={recommendation.nextAskLine} />
+            ) : null}
+          </Section>
+        ) : null}
 
         <Heading as="h3" style={h3}>Shipping</Heading>
         <Text style={body}>
@@ -195,6 +225,17 @@ export const template = {
     bridgeMax: 26,
     disagreements: [{ label: 'Face width', scan: 158, manual: 154, delta: 4 }],
     gaps: ['No city in the delivery address'],
+    recommendation: {
+      tier: 'B',
+      tierLine: 'Confidence B - one solid width source plus a second anchor. Good to model.',
+      rows: [
+        { label: 'Front width', value: '160 mm - scan temple-to-temple 160 mm + 2 mm' },
+        { label: 'Bridge', value: '21 mm - bridge of the current glasses (21 mm)' },
+        { label: 'Temple length', value: '145 mm - temple of the current glasses (145 mm)' },
+      ],
+      warnings: ['Front width 162 mm is outside the 145-160 mm range - held at 160 mm.'],
+      nextAskLine: 'Side photo with a card - it shows how high the nose bridge sits, which sets the pad depth.',
+    },
     shippingStatus: 'Address confirmed by the customer',
     shippingAddress: 'Jane Doe, Truong Dinh 89, 330000, VN',
     adminUrl: 'https://woolet.co/en/admin/bespoke',
