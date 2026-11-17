@@ -110,8 +110,10 @@ export default function BespokePhoto() {
   const { config } = useBespokeConfig();
   const frame = findFrame(config.frameId) ?? findFrame("round")!;
   const scanTempleToTempleMm = config.measurements?.templeToTemple ?? null;
-  const locale = (lang === "pl" ? "pl" : "en") as keyof typeof CONSENT_TEXT;
+  // Both consents follow the browser, not the route: Polish only for a browser
+  // set to Polish, English for everyone else (decision 17.11.2026).
   const previewLocale = useMemo(() => previewConsentLocale(), []);
+  const locale: keyof typeof CONSENT_TEXT = previewLocale;
   const consentText = CONSENT_TEXT[locale];
 
   const front = useMemo(
@@ -420,7 +422,7 @@ export default function BespokePhoto() {
 
   return (
     <>
-      <SEO title="Fit photo — Woolet Bespoke" description="Confirm the fit of your made-to-measure frames." lang={locale as Lang} noindex />
+      <SEO title="Fit photo — Woolet Bespoke" description="Confirm the fit of your made-to-measure frames." lang={(lang === "pl" ? "pl" : "en") as Lang} noindex />
       <main className="min-h-screen bg-[#080807] px-5 py-12 text-cream sm:px-8">
         <div className="mx-auto max-w-3xl">
           <p className={eyebrow}>Photo for the workshop · required</p>
