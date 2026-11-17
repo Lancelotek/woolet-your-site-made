@@ -2,7 +2,8 @@
 // supabase/functions/_shared/bespoke-balance.ts and bespoke-pricing.ts so the
 // page, the emails and the Stripe charge always agree.
 
-import { BALANCE_WINDOW_DAYS, type DepositSplit } from "../../supabase/functions/_shared/bespoke-pricing";
+import { type DepositSplit } from "../../supabase/functions/_shared/bespoke-pricing";
+import { previewFlowSteps, previewTerms } from "../../supabase/functions/_shared/bespoke-flow";
 
 export {
   balanceState,
@@ -13,14 +14,10 @@ export {
 } from "../../supabase/functions/_shared/bespoke-balance";
 export { BALANCE_WINDOW_DAYS, BALANCE_REMINDER_DAY, type DepositSplit } from "../../supabase/functions/_shared/bespoke-pricing";
 
-const usd = (cents: number) => {
-  const n = cents / 100;
-  return `$${Number.isInteger(n) ? n : n.toFixed(2)}`;
-};
 
 /** The sentence a buyer must read before paying a deposit. Printed at every pay button. */
 export function depositTerms(split: DepositSplit): string {
-  return `${usd(split.dueNowCents)} today starts your fitting and 3D model. You pay the remaining ${usd(split.balanceCents)} only after you approve the model. The deposit is non-refundable, and you are free to stop there.`;
+  return previewTerms(split);
 }
 
 /** "What happens after payment" - one wording for Review, Checkout and the emails. */
@@ -33,11 +30,6 @@ export function afterPaymentSteps(split: DepositSplit): string[] {
       "Once you approve it: hand-made in the EU to your exact millimetres - a 2-week build, free worldwide shipping.",
     ];
   }
-  return [
-    `You pay the ${usd(split.dueNowCents)} deposit. Your order is open.`,
-    "We email you a private link to your fitting: one photo with a bank-size card for scale, plus the numbers printed on your current glasses. You also get direct access to our team at support@woolet.co.",
-    "Our optician verifies your measurements within 24 h, then we send the 3D model of your frame.",
-    `You approve the model by paying the balance of ${usd(split.balanceCents)}, or ask us to correct it - you have ${BALANCE_WINDOW_DAYS} days.`,
-    "Once approved: hand-made in the EU to your exact millimetres - a 2-week build, free worldwide shipping.",
-  ];
+  // New deposit orders run visualization first (bespoke-flow.ts).
+  return previewFlowSteps(split);
 }

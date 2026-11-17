@@ -4,12 +4,14 @@
 // POST { action: "status",   sid }
 // POST { action: "checkout", sid, returnUrl }   -> Stripe session for the balance
 // POST { action: "revision", sid, note }        -> ask for a correction of the 3D model
+// POST { action: "approve_model", sid }         -> flow 2 only: approve the 3D model (already paid)
 //
 // The amount is always read from the order - never from the browser.
 
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { type StripeEnv, createStripeClient } from "../_shared/stripe.ts";
 import { balanceState, daysLeft, formatDueDate, formatUsdCents } from "../_shared/bespoke-balance.ts";
+import { MAX_MODEL_CORRECTIONS, PREVIEW_WINDOW_DAYS, correctionLabel, isPreviewFirst, modelStatus } from "../_shared/bespoke-flow.ts";
 import { sendTemplateEmailAndLog } from "../_shared/transactional-email-templates/send-and-log.ts";
 
 const corsHeaders = {
@@ -39,7 +41,7 @@ const ATTRIBUTION_KEYS = [
 ];
 
 const ORDER_COLUMNS =
-  "id, case_no, stripe_session_id, customer_email, customer_name, environment, frame_id, frame_name, front_code, temple_code, finish_id, lens_type, engraving_text, ai_preview_url, metadata, payment_plan, total_cents, deposit_cents, balance_cents, model_sent_at, balance_due_at, balance_paid_at, balance_expired_at";
+  "id, case_no, stripe_session_id, customer_email, customer_name, environment, frame_id, frame_name, front_code, temple_code, finish_id, lens_type, engraving_text, ai_preview_url, metadata, payment_plan, total_cents, deposit_cents, balance_cents, model_sent_at, balance_due_at, balance_paid_at, balance_expired_at, flow_version, preview_sent_at, model_approved_at";
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
@@ -66,6 +68,10 @@ Deno.serve(async (req) => {
     const state = balanceState(order, openRevisions);
     const ref = order.case_no || `WLT-${String(order.id).slice(0, 8).toUpperCase()}`;
     const action = String(body.action ?? "status");
+    // Flow 2 (visualization first): the balance is paid on the visualization,
+    // the 3D model comes after it and is approved without a payment.
+    const v2 = isPreviewFirst(order);
+    const model = modelStatus(order, revisions);
 
     if (action === "status") {
       return json({
@@ -93,7 +99,92 @@ Deno.serve(async (req) => {
         // No approval while a correction is open: the buyer would be approving
         // a model they asked us to change.
         canPay: state === "awaiting_payment",
+        flow: v2 ? 2 : 1,
+        ...(v2
+          ? {
+              previewSentAt: order.preview_sent_at ?? null,
+              windowDays: PREVIEW_WINDOW_DAYS,
+              canRequestRevision: model.canRequestCorrection,
+              model: {
+                state: model.state,
+                correctionsUsed: model.correctionsUsed,
+                correctionsLeft: model.correctionsLeft,
+                maxCorrections: MAX_MODEL_CORRECTIONS,
+                canApprove: model.state === "awaiting_approval",
+                canRequestCorrection: model.canRequestCorrection,
+                approvedAt: order.model_approved_at ?? null,
+              },
+            }
+          : {}),
       });
+    }
+
+    if (action === "approve_model") {
+      if (!v2) return json({ error: "not_available" }, 400);
+      if (model.state === "approved") return json({ ok: true, state: "approved" });
+      if (model.state !== "awaiting_approval") return json({ error: "not_open", state: model.state }, 409);
+      const approvedAt = new Date().toISOString();
+      const { data: done, error: apErr } = await supabase
+        .from("bespoke_orders")
+        .update({ model_approved_at: approvedAt })
+        .eq("id", order.id)
+        .is("model_approved_at", null)
+        .select("id, crm_stage");
+      if (apErr) throw apErr;
+      if (done && done.length > 0) {
+        const stageNow = Number((done[0] as { crm_stage?: number }).crm_stage ?? 4);
+        await supabase.from("bespoke_crm_events").insert({
+          order_id: order.id, from_stage: stageNow, to_stage: stageNow,
+          note: "3D model approved by the customer", created_by: "system",
+        });
+        try {
+          await sendTemplateEmailAndLog("bespoke-support-alert", undefined, {
+            idempotencyKey: `bespoke-model-approved-${order.id}`,
+            templateData: {
+              heading: `3D model approved - ${ref}`,
+              lines: [
+                `${order.customer_name ?? ""} <${order.customer_email}>`,
+                "The balance is already paid. The frame can go into production - the 2-week build starts now.",
+                "https://woolet.co/en/admin/bespoke",
+              ],
+            },
+          });
+        } catch (e) {
+          console.error("[bespoke-balance] approval alert failed", e);
+        }
+      }
+      return json({ ok: true, state: "approved" });
+    }
+
+    if (action === "revision" && v2) {
+      if (!model.canRequestCorrection) {
+        return json({ error: model.correctionsLeft === 0 ? "too_many_revisions" : "not_open", state: model.state }, 409);
+      }
+      const note = String(body.note ?? "").replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f<>]/g, "").trim().slice(0, 2000);
+      if (note.length < 3) return json({ error: "note_required" }, 400);
+      const { error: insErr } = await supabase.from("bespoke_model_revisions").insert({ order_id: order.id, note });
+      if (insErr) throw insErr;
+      const n = model.correctionsUsed + 1;
+      try {
+        await sendTemplateEmailAndLog("bespoke-support-alert", undefined, {
+          idempotencyKey: `bespoke-revision-${order.id}-${n}`,
+          templateData: {
+            heading: `${correctionLabel(n)} requested - ${ref}`,
+            lines: [
+              `${order.customer_name ?? ""} <${order.customer_email}>`,
+              `Request: ${note}`,
+              n >= MAX_MODEL_CORRECTIONS
+                ? "This is the last included correction. The frame is built to the model you send next."
+                : `${MAX_MODEL_CORRECTIONS - n} correction${MAX_MODEL_CORRECTIONS - n === 1 ? "" : "s"} left after this one.`,
+              "Press \"Model sent\" on the order when the corrected model goes out.",
+              "https://woolet.co/en/admin/bespoke",
+            ],
+          },
+        });
+      } catch (e) {
+        console.error("[bespoke-balance] revision alert failed", e);
+      }
+      return json({ ok: true, state: "correction_requested", correctionsUsed: n, correctionsLeft: Math.max(0, MAX_MODEL_CORRECTIONS - n) });
     }
 
     if (action === "revision") {
@@ -148,7 +239,9 @@ Deno.serve(async (req) => {
         if (typeof v === "string" && v && v.length <= 500) meta[k] = v;
       }
       const name = `${order.frame_name ?? "Woolet Bespoke"} - balance (${ref})`;
-      const note = `You are approving your 3D model. Production starts after this payment. Deposit already paid: ${formatUsdCents(order.deposit_cents)}.`;
+      const note = v2
+        ? `You are accepting your visualization. The workshop draws your 3D model after this payment. Not refundable. Deposit already paid: ${formatUsdCents(order.deposit_cents)}.`
+        : `You are approving your 3D model. Production starts after this payment. Deposit already paid: ${formatUsdCents(order.deposit_cents)}.`;
 
       const session = await stripe.checkout.sessions.create({
         line_items: [

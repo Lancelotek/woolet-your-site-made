@@ -1,5 +1,6 @@
 import { depositPrice, refreshBespokePrices, splitDeposit, usePriceTable } from "@/lib/bespoke-pricing";
 import { afterPaymentSteps } from "@/lib/bespoke-balance";
+import { PREVIEW_CONSENT_TEXT, previewConsentPayload } from "@/lib/bespoke-preview-consent";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { getGaCheckoutMetadataAsync } from "@/lib/ga-ids";
 import { getOppref, oaiqBespokeCheckoutStarted, oaiqBespokeOrderCreated, oaiqIdentifyHash } from "@/lib/openai-pixel";
@@ -110,7 +111,12 @@ export default function BespokeCheckout() {
   // buyer types the same single field, and an unpaid session carries the address
   // payments-webhook needs to send the "your design is saved" follow-up (16.11.2026).
   const [checkoutEmail, setCheckoutEmail] = useState<string>(() => readSavedEmail() ?? config.scanContactEmail ?? "");
-  const [emailInput, setEmailInput] = useState("");
+  const [emailInput, setEmailInput] = useState<string>(() => readSavedEmail() ?? config.scanContactEmail ?? "");
+  // Deposit plan: the visualization is made from the buyer's photo by an AI
+  // image service, so the consent is a condition of the order. Never pre-ticked.
+  const [previewConsent, setPreviewConsent] = useState(false);
+  const [consentConfirmed, setConsentConfirmed] = useState(false);
+  const [consentError, setConsentError] = useState<string | null>(null);
   const [emailError, setEmailError] = useState<string | null>(null);
   const [source, setSource] = useState<BespokeDiscoverySource | "">(() => {
     try { const saved = localStorage.getItem("wlt_bespoke_source"); return isBespokeDiscoverySource(saved) ? saved : ""; }
@@ -354,6 +360,7 @@ export default function BespokeCheckout() {
         // Known email (saved design / scan) prefills Stripe: one field less for the buyer,
         // and an abandoned session can be followed up by payments-webhook.
         customerEmail: checkoutEmail || undefined,
+        ...previewConsentPayload(consentConfirmed),
         metadata: { ...metadata, ...(await getGaCheckoutMetadataAsync()),
           bespoke_design_url: buildDesignUrl(config, "bespoke_abandoned_checkout"),
           bespoke_design_summary: designSummary(config), ...(getOppref() ? { openai_oppref: getOppref() } : {}) },
@@ -380,7 +387,7 @@ export default function BespokeCheckout() {
     }
     return data.clientSecret as string;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pricing.totalEur, config.lensTypeId, config.frameId, productName, description, returnUrl, buildEventPayload, appliedCoupon, source, checkoutEmail]);
+  }, [pricing.totalEur, config.lensTypeId, config.frameId, productName, description, returnUrl, buildEventPayload, appliedCoupon, source, checkoutEmail, consentConfirmed]);
 
   return (
     <>
@@ -421,7 +428,7 @@ export default function BespokeCheckout() {
               </h1>
               <p className="mt-4 text-cream-dim text-sm leading-relaxed">
                 {split.plan === "deposit"
-                  ? <>We emailed you a confirmation. Next, send us your measurements so we can prepare your 3D model. You pay the remaining {formatEur(split.balanceCents / 100)} only after you approve the model.</>
+                  ? <>We emailed you a confirmation. Next, send us your photo with a card so we can prepare your visualization. You pay the remaining {formatEur(split.balanceCents / 100)} when you accept it.</>
                   : <>We emailed you a confirmation. Next, send us your measurements so we can prepare your 3D model for approval.</>}
               </p>
               <Link
@@ -517,7 +524,7 @@ export default function BespokeCheckout() {
                   </select>
                 </div>
 
-                {!checkoutEmail ? (
+                {!checkoutEmail || (split.plan === "deposit" && !consentConfirmed) ? (
                   <form
                     className="border border-cream/15 p-5 sm:p-6"
                     style={{ borderRadius: 4 }}
@@ -529,7 +536,13 @@ export default function BespokeCheckout() {
                         setEmailError("Enter a valid email address, for example name@example.com.");
                         return;
                       }
+                      if (split.plan === "deposit" && !previewConsent) {
+                        setConsentError("Tick the box to continue - we cannot make your visualization without it.");
+                        return;
+                      }
                       setEmailError(null);
+                      setConsentError(null);
+                      setConsentConfirmed(split.plan === "deposit");
                       writeSavedEmail(clean);
                       setCheckoutEmail(clean);
                       pushGtmEvent("checkout_email_submitted", buildEventPayload());
@@ -558,6 +571,27 @@ export default function BespokeCheckout() {
                     <p id="bespoke-checkout-email-help" className={`mt-2 text-[12px] leading-relaxed ${emailError ? "text-red-400/90" : "text-cream-dim"}`} role={emailError ? "alert" : undefined}>
                       {emailError ?? "For your order confirmation and a link back to this design."}
                     </p>
+                    {split.plan === "deposit" && (
+                      <div className="mt-5 border-t border-cream/10 pt-5">
+                        <label htmlFor="bespoke-preview-consent" className="flex cursor-pointer items-start gap-3">
+                          <input
+                            id="bespoke-preview-consent"
+                            type="checkbox"
+                            checked={previewConsent}
+                            onChange={(event) => { setPreviewConsent(event.target.checked); setConsentError(null); }}
+                            aria-invalid={Boolean(consentError)}
+                            aria-describedby={consentError ? "bespoke-preview-consent-error" : undefined}
+                            className="mt-0.5 h-5 w-5 shrink-0 accent-[#CAA449]"
+                          />
+                          <span className="text-[13px] leading-relaxed text-cream-dim">{PREVIEW_CONSENT_TEXT}</span>
+                        </label>
+                        {consentError && (
+                          <p id="bespoke-preview-consent-error" className="mt-2 text-[12px] leading-relaxed text-red-400/90" role="alert">
+                            {consentError}
+                          </p>
+                        )}
+                      </div>
+                    )}
                     <button
                       type="submit"
                       className="mt-4 inline-flex min-h-[48px] w-full items-center justify-center px-8 py-3.5 bg-gold text-background text-xs uppercase tracking-[0.22em] font-medium hover:bg-gold-light transition"
@@ -580,7 +614,7 @@ export default function BespokeCheckout() {
                       <div className="h-11 w-2/3 bg-[#0B0A09]/[0.06] rounded animate-pulse" />
                     </div>
                     <div className="relative bg-white">
-                    <EmbeddedCheckoutProvider key={`${appliedCoupon ?? "no-coupon"}:${source}:${pricing.totalEur}:${split.plan}:${split.dueNowCents}:${checkoutEmail}`} stripe={getStripe()} options={{ fetchClientSecret }}>
+                    <EmbeddedCheckoutProvider key={`${appliedCoupon ?? "no-coupon"}:${source}:${pricing.totalEur}:${split.plan}:${split.dueNowCents}:${checkoutEmail}:${consentConfirmed}`} stripe={getStripe()} options={{ fetchClientSecret }}>
                       <EmbeddedCheckout />
                     </EmbeddedCheckoutProvider>
                     </div>
@@ -865,7 +899,7 @@ export default function BespokeCheckout() {
                           <div className="text-cream text-2xl font-display">{formatEur(dueTodayUsd)}</div>
                         </div>
                         <div className="flex items-baseline justify-between gap-4">
-                          <div className="text-cream-dim text-[11px] uppercase tracking-[0.16em]">After you approve your 3D model</div>
+                          <div className="text-cream-dim text-[11px] uppercase tracking-[0.16em]">When you accept your visualization</div>
                           <div className="text-cream-dim text-sm">{formatEur(split.balanceCents / 100)}</div>
                         </div>
                       </div>

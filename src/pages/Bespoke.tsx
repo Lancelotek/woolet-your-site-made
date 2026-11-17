@@ -18,6 +18,7 @@ import craft7 from "@/assets/bespoke-craft/woolet-bespoke-jigsaw-cutting-acetate
 import craft8 from "@/assets/bespoke-craft/woolet-bespoke-diamond-file-keyhole-bridge.jpg.asset.json";
 import craft9 from "@/assets/bespoke-craft/woolet-bespoke-shaping-brow-line-precision-file.jpg.asset.json";
 import { BESPOKE_FACTS, BESPOKE_FAQS, BESPOKE_GUIDE, BESPOKE_META_DESCRIPTION, bespokeFaqJsonLd, bespokeProductJsonLd } from "@/content/bespokeFacts";
+import { MAX_MODEL_CORRECTIONS, PREVIEW_WINDOW_DAYS } from "@/lib/bespoke-flow";
 import { trackMetaEventOnce } from "@/lib/meta-capi";
 import { depositPrice, usePriceTable } from "@/lib/bespoke-pricing";
 import { isTestMode } from "@/lib/stripe";
@@ -350,7 +351,7 @@ const BespokePage = () => {
                 </Link>
                 {depositUsd > 0 && (
                   <p className="basis-full text-cream-dim text-sm leading-relaxed m-0">
-                    Start with a <strong className="text-cream font-medium">${depositUsd} deposit</strong>. You pay the rest only after you approve your 3D model.
+                    Start with a <strong className="text-cream font-medium">${depositUsd} deposit</strong>. You pay the rest when you accept your visualization: your photo wearing the frame, with the proposed dimensions.
                   </p>
                 )}
               </div>
@@ -737,8 +738,8 @@ const BespokePage = () => {
                 <li key={step} className="grid grid-cols-[auto_1fr] gap-6 sm:gap-10">
                   <span className="font-display text-gold-light" style={{ fontSize: "1.6rem", fontWeight: 300, lineHeight: 1 }}>{String(i + 1).padStart(2, "0")}</span>
                   <div><h3 className="font-display text-woolet-white mb-2" style={{ fontSize: "1.15rem", fontWeight: 400 }}>{step}</h3>
-                  {i === 1 && depositUsd > 0 && <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.9rem" }}>You pay a ${depositUsd} deposit. It covers your fitting and 3D model and is non-refundable.</p>}
-                  {i === 3 && depositUsd > 0 && <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.9rem" }}>Approve the model by paying the balance, or ask us to correct it. You have 14 days, and you are free to stop here.</p>}
+                  {i === 1 && depositUsd > 0 && <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.9rem" }}>You pay a ${depositUsd} deposit. It buys your visualization and is non-refundable.</p>}
+                  {i === 3 && depositUsd > 0 && <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.9rem" }}>Accept the visualization by paying the balance - you have {PREVIEW_WINDOW_DAYS} days. The workshop then draws your 3D model, and you can ask for up to {MAX_MODEL_CORRECTIONS} corrections. Bespoke is custom work, so no payment is refundable.</p>}
                   {i === 4 && <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.9rem" }}>Production takes 2 weeks after 3D model approval, then shipping begins.</p>}</div>
                 </li>
               ))}

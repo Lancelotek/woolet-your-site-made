@@ -2448,7 +2448,7 @@ export function StepReview({
               <span className="text-gold-light text-lg font-display">{formatEur(pricing.split.dueNowCents / 100)}</span>
             </div>
             <div className="flex items-baseline justify-between gap-4">
-              <span className="text-cream-dim text-xs uppercase tracking-[0.16em]">After you approve your 3D model</span>
+              <span className="text-cream-dim text-xs uppercase tracking-[0.16em]">When you accept your visualization</span>
               <span className="text-cream-dim text-sm">{formatEur(pricing.split.balanceCents / 100)}</span>
             </div>
           </div>

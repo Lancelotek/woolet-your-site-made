@@ -31,6 +31,8 @@ interface Body {
   environment: StripeEnv;
   metadata?: Record<string, string>;
   couponCode?: string;
+  /** Deposit plan: the buyer agreed that their photo goes to an AI image service for the visualization. */
+  aiPreviewConsent?: { given?: boolean; text?: string; version?: string };
 }
 
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL") ?? "";
@@ -123,10 +125,21 @@ Deno.serve(async (req) => {
     const amountInCents = percentOff ? applyPercentOff(grossCents, percentOff) : grossCents;
     if (amountInCents < 100) throw new Error("Invalid amount");
 
-    // Deposit plan: charge the deposit now, the balance after the buyer approves
-    // the 3D model (bespoke-balance). `full` when the deposit row is 0 or absent.
+    // Deposit plan: charge the deposit now, the balance when the buyer accepts
+    // the visualization (bespoke-balance, flow 2 - see _shared/bespoke-flow.ts). `full` when the deposit row is 0 or absent.
     const split = splitDeposit(amountInCents, depositPrice(table, body.environment === "sandbox"));
     const chargeCents = split.dueNowCents;
+
+    // Flow 2: the deposit buys a visualization made from the buyer's photo by an
+    // AI image service. Without that consent there is nothing to sell.
+    const consent = body.aiPreviewConsent;
+    const consentText = typeof consent?.text === "string" ? consent.text.trim().slice(0, 480) : "";
+    if (split.plan === "deposit" && (consent?.given !== true || consentText.length < 20)) {
+      return new Response(JSON.stringify({ error: "preview_consent_required" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
 
     if (typeof body.amountUsd === "number" && Math.round(body.amountUsd * 100) !== grossCents) {
       console.warn(`[create-bespoke-checkout] browser showed $${body.amountUsd}, charging list $${quote.totalUsd}`);
@@ -145,6 +158,10 @@ Deno.serve(async (req) => {
     cleanMeta.payment_plan = split.plan;
     cleanMeta.order_total_usd = (split.totalCents / 100).toFixed(2);
     if (split.plan === "deposit") {
+      cleanMeta.flow_version = "2";
+      cleanMeta.preview_consent_at = new Date().toISOString();
+      cleanMeta.preview_consent_version = String(consent?.version ?? "bespoke-preview-v2").slice(0, 40);
+      cleanMeta.preview_consent_text = consentText;
       cleanMeta.deposit_usd = (split.dueNowCents / 100).toFixed(2);
       cleanMeta.balance_usd = (split.balanceCents / 100).toFixed(2);
     }
@@ -178,7 +195,7 @@ Deno.serve(async (req) => {
 
     const baseName = percentOff ? `${body.productName} (${percentOff}% off · ${couponKey})` : body.productName;
     const usd = (cents: number) => `$${(cents / 100).toFixed(2).replace(/\.00$/, "")}`;
-    const depositNote = `Non-refundable deposit for your fitting and 3D model. Balance ${usd(split.balanceCents)} is due only after you approve the 3D model. Order total ${usd(split.totalCents)}.`;
+    const depositNote = `Non-refundable deposit for your visualization: your photo wearing the frame, with the proposed dimensions. Balance ${usd(split.balanceCents)} is due when you accept it. Order total ${usd(split.totalCents)}.`;
 
     const session = await stripe.checkout.sessions.create({
       line_items: [

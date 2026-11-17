@@ -62,9 +62,9 @@ describe("bespoke deposit split", () => {
   it("prints the terms a buyer must read before paying", () => {
     const split = splitDeposit(49000, 49);
     expect(depositTerms(split)).toBe(
-      "$49 today starts your fitting and 3D model. You pay the remaining $441 only after you approve the model. The deposit is non-refundable, and you are free to stop there.",
+      "$49 today buys your visualization: your own photo wearing the frame you chose, with the proposed dimensions. You pay the remaining $441 when you accept it. Bespoke is custom work, so no payment is refundable.",
     );
-    expect(afterPaymentSteps(split)).toHaveLength(5);
+    expect(afterPaymentSteps(split)).toHaveLength(6);
     expect(afterPaymentSteps(splitDeposit(49000, 0))).toHaveLength(4);
   });
 });

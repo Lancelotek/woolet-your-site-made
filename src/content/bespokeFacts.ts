@@ -28,13 +28,13 @@ export const BESPOKE_FACTS = {
   offer: `${BESPOKE_COPY.frame} USD with free worldwide shipping. Lenses are optional: clear Plano ${BESPOKE_COPY.plano}, Blue Light ${BESPOKE_COPY.blueLight}, or frame only for your optician to glaze.`,
   prescription: "Bespoke does not include prescription lenses. Order the frame only and your optician fits your prescription lenses.",
   shapes: ["Aviator", "Rectangle", "Crown Panto", "Round"],
-  // The real order of events (11.11.2026): design and order first, then the
-  // fit scan. Index 4 is production - Bespoke.tsx prints the lead time under it.
+  // The real order of events (17.11.2026): design and order first, then the
+  // fitting photo, the visualization (balance paid on acceptance) and the 3D model. Index 4 is production - Bespoke.tsx prints the lead time under it.
   process: [
     "Configure shape, acetate colour, finish and lenses, with a preview of your frame",
     "Order online through secure checkout",
-    "Remote fitting: one photo with a bank card for scale, plus the numbers from your current glasses",
-    "Review and approve the made-to-measure 3D model",
+    "Remote fitting: one photo with a bank card for scale, plus the numbers from your current glasses - it comes back as a visualization of you wearing the frame, with the proposed dimensions",
+    "Accept the visualization, then review and approve the made-to-measure 3D model",
     "Handmade production in the EU",
     "Free worldwide shipping",
   ],
@@ -74,7 +74,7 @@ export const BESPOKE_GUIDE = [
   },
   {
     heading: "Approval, production and delivery",
-    text: `The six steps are configuration with a preview, the order, a fitting photo with a bank card for scale, approval of the made-to-measure 3D model, handmade production and worldwide shipping. Production takes 2 weeks from model approval, then shipping begins. Two weeks is not a promise that an order placed today will arrive in two weeks: measurement review and delivery transit are separate stages. Free worldwide shipping is part of the regular ${BESPOKE_COPY.frame} USD offer. First Bespoke pairs have already shipped internationally, including to Vietnam. The delivery destination affects transit time, while the approved model establishes when the production period starts.`,
+    text: `The six steps are configuration with a preview, the order, a fitting photo with a bank card for scale that comes back as a visualization of you wearing the frame, acceptance of that visualization followed by approval of the made-to-measure 3D model, handmade production and worldwide shipping. Production takes 2 weeks from model approval, then shipping begins. Two weeks is not a promise that an order placed today will arrive in two weeks: measurement review and delivery transit are separate stages. Free worldwide shipping is part of the regular ${BESPOKE_COPY.frame} USD offer. First Bespoke pairs have already shipped internationally, including to Vietnam. The delivery destination affects transit time, while the approved model establishes when the production period starts.`,
   },
 ] as const;
 

@@ -21,7 +21,8 @@ export const BESPOKE_PRICES = {
   /** Temple engraving. */
   engravingUsd: 10,
   /**
-   * Deposit paid at checkout (fit scan + 3D model). The balance is due after
+   * Deposit paid at checkout (buys the visualization). The balance is due when the
+   * buyer accepts it - see bespoke-flow.ts. Earlier wording: the balance is due after
    * the buyer approves the model. Live value: row `deposit` in bespoke_pricing.
    */
   depositUsd: 49,

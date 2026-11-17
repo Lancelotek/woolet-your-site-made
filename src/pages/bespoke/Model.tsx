@@ -34,6 +34,17 @@ interface Status {
   revisions: Array<{ note: string; createdAt: string; answered: boolean }>;
   canRequestRevision: boolean;
   canPay?: boolean;
+  /** 2 = visualization first: pay on the visualization, approve the 3D model afterwards. */
+  flow?: number;
+  windowDays?: number;
+  model?: {
+    state: "locked" | "awaiting_model" | "awaiting_approval" | "correction_requested" | "approved" | "final_by_limit";
+    correctionsUsed: number;
+    correctionsLeft: number;
+    maxCorrections: number;
+    canApprove: boolean;
+    canRequestCorrection: boolean;
+  };
 }
 
 const SID_RE = /^[A-Za-z0-9_-]{20,200}$/;
@@ -162,22 +173,40 @@ export default function BespokeModel() {
     void load();
   };
 
+  const [approving, setApproving] = useState(false);
+  const [approveError, setApproveError] = useState<string | null>(null);
+  const approveModel = async () => {
+    setApproving(true);
+    setApproveError(null);
+    const { data, error } = await supabase.functions.invoke("bespoke-balance", { body: { action: "approve_model", sid } });
+    setApproving(false);
+    if (error || !data?.ok) {
+      setApproveError("We could not save your approval. Try again, or reply to your Woolet email.");
+      return;
+    }
+    pushGtmEvent("bespoke_model_approved", {});
+    void load();
+  };
+
   const s = status;
   const paid = s?.state === "paid" || (justPaid && s?.state !== "expired");
+  const v2 = s?.flow === 2;
+  const windowDays = s?.windowDays ?? 6;
+  const m = s?.model;
   // Approval is closed while a correction is open (older function builds send no canPay).
   const canPay = s?.state === "awaiting_payment" && s?.canPay !== false;
   const openRequest = s?.revisions.find((r) => !r.answered);
 
   return (
     <>
-      <SEO title="Your 3D model · Woolet Bespoke" description="Approve the 3D model of your Woolet Bespoke frame or ask for a correction." noindex />
+      <SEO title="Your order · Woolet Bespoke" description="Accept your Woolet Bespoke visualization, then approve the 3D model of your frame." noindex />
       <div className="min-h-screen bg-background text-cream">
         <header className="border-b border-cream/10">
           <div className="max-w-4xl mx-auto px-5 sm:px-8 py-5 flex items-center justify-between">
             <Link to="/en" className="text-cream text-[13px] tracking-[0.32em] uppercase font-medium">
               Woolet
             </Link>
-            <span className="text-cream-dim text-[11px] uppercase tracking-[0.2em]">Bespoke · 3D model</span>
+            <span className="text-cream-dim text-[11px] uppercase tracking-[0.2em]">{v2 && !paid ? "Bespoke · Visualization" : "Bespoke · 3D model"}</span>
           </div>
         </header>
 
@@ -190,6 +219,174 @@ export default function BespokeModel() {
             <div className="rounded-sm border border-cream/15 bg-cream/[0.03] p-6 text-cream-dim">
               This link is not valid - reply to your Woolet email and we will send you a new one.
             </div>
+          ) : v2 ? (
+            <section>
+              {paid ? (
+                <>
+                  {(m?.state === "approved" || m?.state === "final_by_limit") && <CheckCircle2 className="text-gold mb-4" size={28} />}
+                  <h1 className="font-display text-3xl sm:text-4xl leading-tight text-cream">
+                    {m?.state === "approved" ? (
+                      <>Model approved. Order <span className="text-gold">{s.orderRef}</span> goes into production.</>
+                    ) : m?.state === "final_by_limit" ? (
+                      <>Your final 3D model is in. Order <span className="text-gold">{s.orderRef}</span> goes into production.</>
+                    ) : m?.state === "awaiting_approval" ? (
+                      <>{s.firstName ? `${s.firstName}, your` : "Your"} 3D model is <em className="italic text-gold-light">ready</em>.</>
+                    ) : m?.state === "correction_requested" ? (
+                      <>We're correcting your 3D model.</>
+                    ) : (
+                      <>Balance received. The workshop is drawing your 3D model.</>
+                    )}
+                  </h1>
+                  <p className="mt-4 text-cream-dim leading-relaxed">
+                    {m?.state === "approved"
+                      ? "Your frame is hand made in the EU - a 2-week build, then free worldwide shipping. We email you the tracking number the day it ships."
+                      : m?.state === "final_by_limit"
+                        ? `It includes your third correction, the last one in your order, so your frame is built to this version - a 2-week build, then free worldwide shipping.`
+                        : m?.state === "awaiting_approval"
+                          ? "The video and the drawing with your measurements are in the email from support@woolet.co. Approve the model, or tell us what to correct. There is nothing more to pay."
+                          : m?.state === "correction_requested"
+                            ? "We email you the corrected model as soon as the workshop has it."
+                            : "We email it to you for approval. You can ask for up to 3 corrections."}
+                  </p>
+
+                  {m?.state === "correction_requested" && openRequest && (
+                    <div className="mt-6 border border-gold/40 bg-gold/[0.06] p-5 text-sm text-cream leading-relaxed" style={{ borderRadius: 4 }}>
+                      Correction {m.correctionsUsed} of {m.maxCorrections}: “{openRequest.note}”.
+                    </div>
+                  )}
+
+                  <Summary s={s} />
+
+                  {m?.canApprove && (
+                    <div className="mt-8 flex flex-col gap-3">
+                      <button
+                        type="button"
+                        disabled={approving}
+                        onClick={() => void approveModel()}
+                        className={`${btn} w-full bg-gold text-background hover:bg-gold-light`}
+                        style={{ borderRadius: 2 }}
+                      >
+                        {approving ? "Saving…" : "Approve my 3D model"}
+                      </button>
+                      <p className="text-xs text-cream-dim">Your 2-week build starts the day you approve it.</p>
+                      {approveError && <p className="text-sm text-red-300">{approveError}</p>}
+                    </div>
+                  )}
+
+                  {m?.canRequestCorrection && (
+                    <form onSubmit={sendRevision} className="mt-10 pt-8 border-t border-cream/10">
+                      <h2 className="font-display text-2xl text-cream">Something to correct?</h2>
+                      <p className="mt-2 text-sm text-cream-dim leading-relaxed">
+                        Tell us what to change - the bridge, the width, the temples. You have {m.correctionsLeft} of{" "}
+                        {m.maxCorrections} corrections left. After the last one your frame is built to that version.
+                      </p>
+                      <label htmlFor="model-revision" className="block mt-5 text-[11px] uppercase tracking-[0.16em] text-cream-dim mb-1.5">
+                        What should we change?
+                      </label>
+                      <textarea
+                        id="model-revision"
+                        value={note}
+                        onChange={(e) => { setNote(e.target.value); setRevisionError(null); }}
+                        rows={4}
+                        maxLength={2000}
+                        aria-invalid={Boolean(revisionError)}
+                        aria-describedby={revisionError ? "model-revision-error" : undefined}
+                        className="w-full border border-cream/20 bg-background px-3 py-2.5 text-base text-cream placeholder:text-cream-dim/50 outline-none focus:border-gold"
+                        style={{ borderRadius: 2 }}
+                        placeholder="For example: make the bridge 1 mm wider."
+                      />
+                      {revisionError && (
+                        <p id="model-revision-error" className="mt-2 text-sm text-red-300">
+                          {revisionError}
+                        </p>
+                      )}
+                      <button
+                        type="submit"
+                        disabled={sending}
+                        className={`${btn} mt-4 border border-gold/50 text-gold-light hover:bg-gold hover:text-background`}
+                        style={{ borderRadius: 2 }}
+                      >
+                        {sending ? "Sending…" : "Send correction request"}
+                      </button>
+                    </form>
+                  )}
+                </>
+              ) : s.state === "expired" ? (
+                <>
+                  <h1 className="font-display text-3xl sm:text-4xl leading-tight text-cream">
+                    Order <span className="text-gold">{s.orderRef}</span> is closed.
+                  </h1>
+                  <p className="mt-4 text-cream-dim leading-relaxed">
+                    The {windowDays} days to accept your visualization have passed. Nothing more is charged. The{" "}
+                    {formatUsdCents(s.depositCents)} deposit covered your visualization and is not refunded. Want to
+                    pick it up again? Reply to your Woolet email.
+                  </p>
+                </>
+              ) : s.state === "awaiting_model" ? (
+                <>
+                  <h1 className="font-display text-3xl sm:text-4xl leading-tight text-cream">
+                    Your visualization is being prepared.
+                  </h1>
+                  <p className="mt-4 text-cream-dim leading-relaxed">
+                    We make it from your photo with a card: you, wearing the frame you chose, with the proposed
+                    dimensions. We email you the day it is ready. From that day you have {windowDays} days to accept it.
+                  </p>
+                  <Summary s={s} />
+                </>
+              ) : (
+                <>
+                  <h1 className="font-display text-3xl sm:text-4xl leading-tight text-cream">
+                    {s.firstName ? `${s.firstName}, your` : "Your"} visualization is <em className="italic text-gold-light">ready</em>.
+                  </h1>
+                  <p className="mt-4 text-cream-dim leading-relaxed">
+                    Your photo wearing the frame you chose, with the proposed dimensions, is in the email from
+                    support@woolet.co. Accept it by paying the balance - the workshop then draws your 3D model, and
+                    you can ask for up to 3 corrections to it. Want something changed first? Reply to that email.
+                  </p>
+
+                  <Summary s={s} />
+
+                  {s.dueDateLabel && (
+                    <p className="mt-4 text-sm text-cream-dim">
+                      Open until <strong className="text-cream font-medium">{s.dueDateLabel}</strong>
+                      {s.daysLeft > 0 ? ` - ${s.daysLeft} day${s.daysLeft === 1 ? "" : "s"} left` : ""}. After that the
+                      order closes and the deposit is not refunded.
+                    </p>
+                  )}
+
+                  {canPay && !paying && (
+                    <div className="mt-8 flex flex-col gap-3">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setPayError(null);
+                          setPaying(true);
+                          pushGtmEvent("bespoke_model_approve_click", { value: (s.balanceCents ?? 0) / 100 });
+                        }}
+                        className={`${btn} w-full bg-gold text-background hover:bg-gold-light`}
+                        style={{ borderRadius: 2 }}
+                      >
+                        Accept visualization & pay {formatUsdCents(s.balanceCents)}
+                      </button>
+                      <p className="text-xs text-cream-dim">
+                        Bespoke is custom work, so no payment is refundable. The final dimensions are confirmed in
+                        your 3D model.
+                      </p>
+                    </div>
+                  )}
+
+                  {payError && <p className="mt-4 text-sm text-red-300">{payError}</p>}
+
+                  {paying && (
+                    <div className="mt-8 relative bg-white text-[#0B0A09] overflow-hidden min-h-[560px]" style={{ borderRadius: 4 }}>
+                      <EmbeddedCheckoutProvider stripe={getStripe()} options={{ fetchClientSecret }}>
+                        <EmbeddedCheckout />
+                      </EmbeddedCheckoutProvider>
+                    </div>
+                  )}
+                </>
+              )}
+            </section>
           ) : paid ? (
             <section>
               <CheckCircle2 className="text-gold mb-4" size={28} />
@@ -383,8 +580,9 @@ function Summary({ s }: { s: Status }) {
             style={{ borderRadius: 2 }}
           />
           <figcaption className="mt-2 text-xs text-cream-dim leading-relaxed">
-            Preview of the design you configured. Your 3D model - the video and the drawing with your measurements - is
-            in the email from support@woolet.co.
+            {s.flow === 2 && s.state !== "paid"
+              ? "Preview of the design you configured. Your visualization is in the email from support@woolet.co."
+              : "Preview of the design you configured. Your 3D model - the video and the drawing with your measurements - is in the email from support@woolet.co."}
           </figcaption>
         </figure>
       )}
@@ -409,7 +607,7 @@ function Summary({ s }: { s: Status }) {
         </div>
         <div className="flex items-baseline justify-between gap-4">
           <dt className="text-cream text-[11px] uppercase tracking-[0.2em]">
-            {s.state === "paid" ? "Balance paid" : "Balance on approval"}
+            {s.state === "paid" ? "Balance paid" : s.flow === 2 ? "Balance to accept" : "Balance on approval"}
           </dt>
           <dd className="text-cream text-xl font-display">{formatUsdCents(s.balanceCents)}</dd>
         </div>

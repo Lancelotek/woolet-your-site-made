@@ -12,6 +12,13 @@ import {
   formatUsdCents,
   modelPageUrl,
 } from "../_shared/bespoke-balance.ts";
+import {
+  MAX_MODEL_CORRECTIONS,
+  PREVIEW_WINDOW_DAYS,
+  isPreviewFirst,
+  modelStatus,
+  previewDueAt,
+} from "../_shared/bespoke-flow.ts";
 import { sendTemplateEmailAndLog } from "../_shared/transactional-email-templates/send-and-log.ts";
 
 const corsHeaders = {
@@ -32,7 +39,7 @@ const MODEL_WITH_CUSTOMER = 4;
 const SITE_ORIGIN = "https://woolet.co";
 
 const PAYMENT_COLUMNS =
-  "payment_plan, amount_cents, total_cents, deposit_cents, balance_cents, model_sent_at, balance_due_at, balance_reminder_sent_at, balance_expired_at, balance_paid_at, balance_paid_cents, balance_paid_manually, balance_session_id, balance_payment_intent_id";
+  "payment_plan, amount_cents, total_cents, deposit_cents, balance_cents, model_sent_at, balance_due_at, balance_reminder_sent_at, balance_expired_at, balance_paid_at, balance_paid_cents, balance_paid_manually, balance_session_id, balance_payment_intent_id, flow_version, preview_sent_at, model_approved_at";
 
 // deno-lint-ignore no-explicit-any
 async function paymentSnapshot(admin: any, id: string) {
@@ -52,6 +59,8 @@ async function paymentSnapshot(admin: any, id: string) {
     payment: order ?? null,
     revisions: revisions ?? [],
     state: order ? balanceState(order, open) : "not_applicable",
+    flow: isPreviewFirst(order) ? 2 : 1,
+    model: order && isPreviewFirst(order) ? modelStatus(order, (revisions ?? []) as Array<{ created_at: string; resolved_at: string | null }>) : null,
     modelUrl: order?.stripe_session_id ? modelPageUrl(SITE_ORIGIN, order.stripe_session_id) : null,
   };
 }
@@ -94,7 +103,7 @@ Deno.serve(async (req) => {
 
     const { data: order, error: readErr } = await admin
       .from("bespoke_orders")
-      .select("id, crm_stage, crm_notes, courier, tracking_number")
+      .select("id, crm_stage, crm_notes, courier, tracking_number, flow_version")
       .eq("id", id)
       .maybeSingle();
     if (readErr) throw readErr;
@@ -115,6 +124,174 @@ Deno.serve(async (req) => {
     // --- Deposit plan -------------------------------------------------------
     if (action === "payment") {
       return json(await paymentSnapshot(admin, id));
+    }
+
+    // Flow 2 - "Visualization sent": the buyer's photo wearing the chosen frame
+    // plus the proposed dimensions went out. Starts (or restarts) the window
+    // for the balance and emails the buyer their link.
+    if (action === "preview_sent") {
+      const { data: full, error: fullErr } = await admin
+        .from("bespoke_orders")
+        .select(`id, case_no, stripe_session_id, customer_email, customer_name, frame_name, crm_stage, ${PAYMENT_COLUMNS}`)
+        .eq("id", id)
+        .maybeSingle();
+      if (fullErr) throw fullErr;
+      const o = full as Record<string, any> | null;
+      if (!o) return json({ error: "not_found" }, 404);
+      if (o.payment_plan !== "deposit") return json({ error: "not_deposit_order" }, 400);
+      if (!isPreviewFirst(o)) return json({ error: "not_preview_first_order" }, 400);
+      if (o.balance_paid_at) return json({ error: "balance_already_paid" }, 409);
+
+      const now = new Date();
+      const due = previewDueAt(now);
+      const resend = Boolean(o.preview_sent_at);
+      const { error: upErr } = await admin
+        .from("bespoke_orders")
+        .update({
+          preview_sent_at: now.toISOString(),
+          balance_due_at: due.toISOString(),
+          balance_reminder_sent_at: null,
+          balance_expired_at: null,
+        })
+        .eq("id", id);
+      if (upErr) throw upErr;
+      const stageNow = Number(o.crm_stage ?? 1);
+      await admin.from("bespoke_crm_events").insert({
+        order_id: id, from_stage: stageNow, to_stage: stageNow,
+        note: `${resend ? "Visualization sent again" : "Visualization with dimensions sent"} - balance ${formatUsdCents(o.balance_cents)} due by ${formatDueDate(due)}`,
+        created_by: "admin",
+      });
+
+      const ref = o.case_no || `WLT-${String(o.id).slice(0, 8).toUpperCase()}`;
+      const firstName = o.customer_name ? String(o.customer_name).split(" ")[0] : "";
+      let emailed = false;
+      if (body.send_email !== false) {
+        try {
+          await sendTemplateEmailAndLog("bespoke-balance-notice", o.customer_email, {
+            idempotencyKey: `bespoke-preview-sent-${id}-${now.toISOString()}`,
+            templateData: {
+              subject: `Your Woolet Bespoke visualization is ready (${ref})`,
+              preview: "Your photo in the frame you chose, with the proposed dimensions.",
+              heading: `${firstName ? `${firstName}, your` : "Your"} visualization is ready.`,
+              paragraphs: [
+                "We sent it in a separate email from support@woolet.co: your photo wearing the frame you chose, with the proposed dimensions.",
+                `Accept it by paying the balance. The workshop then draws your 3D model, and you can ask for up to ${MAX_MODEL_CORRECTIONS} corrections to it. You have ${PREVIEW_WINDOW_DAYS} days, until ${formatDueDate(due)}.`,
+                "Want something changed in the visualization first? Reply to this email.",
+              ],
+              rows: [
+                { label: "Order", value: ref },
+                { label: "Frame", value: o.frame_name ?? "Woolet Bespoke" },
+                { label: "Deposit paid", value: formatUsdCents(o.deposit_cents) },
+                { label: "Balance to accept", value: formatUsdCents(o.balance_cents) },
+              ],
+              ctaLabel: "Accept my visualization",
+              ctaUrl: modelPageUrl(SITE_ORIGIN, o.stripe_session_id),
+              footnote: `Bespoke is custom work, so no payment is refundable. After ${formatDueDate(due)} the order closes and nothing more is charged.`,
+            },
+          });
+          emailed = true;
+        } catch (e) {
+          console.error("[bespoke-crm-update] visualization email failed", e);
+        }
+      }
+      return json({ ok: true, emailed, ...(await paymentSnapshot(admin, id)) });
+    }
+
+    // Flow 2 - "Model sent": the balance is already paid, so this only answers
+    // open corrections and tells the buyer the model is waiting for approval.
+    if (action === "model_sent" && isPreviewFirst(order as Record<string, unknown>)) {
+      const { data: full, error: fullErr } = await admin
+        .from("bespoke_orders")
+        .select(`id, case_no, stripe_session_id, customer_email, customer_name, frame_name, crm_stage, ${PAYMENT_COLUMNS}`)
+        .eq("id", id)
+        .maybeSingle();
+      if (fullErr) throw fullErr;
+      const o = full as Record<string, any> | null;
+      if (!o) return json({ error: "not_found" }, 404);
+      if (!o.balance_paid_at) return json({ error: "balance_unpaid" }, 409);
+      if (o.model_approved_at) return json({ error: "model_already_approved" }, 409);
+
+      const now = new Date();
+      const resend = Boolean(o.model_sent_at);
+      const stageBefore = Number(o.crm_stage ?? 1);
+      const stagePatch = stageBefore < MODEL_WITH_CUSTOMER
+        ? { crm_stage: MODEL_WITH_CUSTOMER, crm_stage_4_at: now.toISOString() }
+        : {};
+      const { error: upErr } = await admin
+        .from("bespoke_orders")
+        .update({ model_sent_at: now.toISOString(), ...stagePatch })
+        .eq("id", id);
+      if (upErr) throw upErr;
+      await admin
+        .from("bespoke_model_revisions")
+        .update({ resolved_at: now.toISOString() })
+        .eq("order_id", id)
+        .is("resolved_at", null);
+      const { data: revs } = await admin
+        .from("bespoke_model_revisions")
+        .select("created_at, resolved_at")
+        .eq("order_id", id);
+      const st = modelStatus({ ...o, model_sent_at: now.toISOString() }, (revs ?? []) as Array<{ created_at: string; resolved_at: string | null }>);
+      const final = st.state === "final_by_limit";
+      await admin.from("bespoke_crm_events").insert({
+        order_id: id,
+        from_stage: stageBefore,
+        to_stage: Math.max(stageBefore, MODEL_WITH_CUSTOMER),
+        note: final
+          ? `Final 3D model sent after ${MAX_MODEL_CORRECTIONS} corrections - built to this version`
+          : `${resend ? "Corrected 3D model sent" : "3D model sent"} - ${st.correctionsLeft} of ${MAX_MODEL_CORRECTIONS} corrections left`,
+        created_by: "admin",
+      });
+
+      const ref = o.case_no || `WLT-${String(o.id).slice(0, 8).toUpperCase()}`;
+      const firstName = o.customer_name ? String(o.customer_name).split(" ")[0] : "";
+      let emailed = false;
+      if (body.send_email !== false) {
+        try {
+          await sendTemplateEmailAndLog("bespoke-balance-notice", o.customer_email, {
+            idempotencyKey: `bespoke-model-sent-${id}-${now.toISOString()}`,
+            templateData: final
+              ? {
+                  subject: `Your final Woolet Bespoke 3D model (${ref})`,
+                  preview: "Your third correction is in. This is the version we build.",
+                  heading: `${firstName ? `${firstName}, this` : "This"} is your final 3D model.`,
+                  paragraphs: [
+                    "We sent the video and the drawing in a separate email from support@woolet.co.",
+                    `It includes your third correction, the last one in your order. Your frame is built to this version - a 2-week build, then free worldwide shipping.`,
+                  ],
+                  rows: [
+                    { label: "Order", value: ref },
+                    { label: "Frame", value: o.frame_name ?? "Woolet Bespoke" },
+                  ],
+                  ctaLabel: "See my order",
+                  ctaUrl: modelPageUrl(SITE_ORIGIN, o.stripe_session_id),
+                }
+              : {
+                  subject: resend
+                    ? `Your corrected Woolet Bespoke 3D model is ready (${ref})`
+                    : `Your Woolet Bespoke 3D model is ready (${ref})`,
+                  preview: "Approve your 3D model or ask for a correction.",
+                  heading: `${firstName ? `${firstName}, your` : "Your"} ${resend ? "corrected " : ""}3D model is ready.`,
+                  paragraphs: [
+                    "We sent the video and the drawing of your frame in a separate email from support@woolet.co.",
+                    `Approve it, or tell us what to correct - the bridge, the width, the temples. You have ${st.correctionsLeft} of ${MAX_MODEL_CORRECTIONS} corrections left. There is nothing more to pay.`,
+                  ],
+                  rows: [
+                    { label: "Order", value: ref },
+                    { label: "Frame", value: o.frame_name ?? "Woolet Bespoke" },
+                    { label: "Corrections left", value: `${st.correctionsLeft} of ${MAX_MODEL_CORRECTIONS}` },
+                  ],
+                  ctaLabel: "Review my 3D model",
+                  ctaUrl: modelPageUrl(SITE_ORIGIN, o.stripe_session_id),
+                  footnote: "Your 2-week build starts the day you approve the model.",
+                },
+          });
+          emailed = true;
+        } catch (e) {
+          console.error("[bespoke-crm-update] model email failed", e);
+        }
+      }
+      return json({ ok: true, emailed, ...(await paymentSnapshot(admin, id)) });
     }
 
     // "Model sent": starts (or, after a correction, restarts) the 14-day window,
@@ -286,6 +463,27 @@ Deno.serve(async (req) => {
           .maybeSingle();
         const p = pay as { payment_plan?: string; balance_paid_at?: string | null } | null;
         if (p?.payment_plan === "deposit" && !p.balance_paid_at) return json({ error: "balance_unpaid" }, 409);
+      }
+      // Flow 2: the workshop does not draw before the balance is paid, and
+      // nothing is cut before the model is approved or the last correction is in.
+      if (to >= 3) {
+        const { data: flowRow } = await admin
+          .from("bespoke_orders")
+          .select("flow_version, payment_plan, balance_paid_at, model_sent_at, model_approved_at")
+          .eq("id", id)
+          .maybeSingle();
+        const f = flowRow as Record<string, any> | null;
+        if (f && isPreviewFirst(f)) {
+          if (!f.balance_paid_at) return json({ error: "balance_unpaid" }, 409);
+          if (to >= IN_PRODUCTION) {
+            const { data: revs } = await admin
+              .from("bespoke_model_revisions")
+              .select("created_at, resolved_at")
+              .eq("order_id", id);
+            const st = modelStatus(f, (revs ?? []) as Array<{ created_at: string; resolved_at: string | null }>);
+            if (!st.productionUnlocked) return json({ error: "model_not_approved" }, 409);
+          }
+        }
       }
 
       const patch: Record<string, unknown> = { crm_stage: to };
