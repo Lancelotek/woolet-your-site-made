@@ -439,6 +439,7 @@ export type Database = {
           engraving_text: string | null
           environment: string
           finish_id: string | null
+          flow_version: number
           frame_id: string | null
           frame_name: string | null
           front_code: string | null
@@ -462,8 +463,10 @@ export type Database = {
           metadata: Json | null
           model_sent_at: string | null
           mr_no: string | null
+          model_approved_at: string | null
           parcel_weight_kg: number | null
           payment_plan: string
+          preview_sent_at: string | null
           production_blocked: boolean
           purge_after: string | null
           purged_at: string | null
@@ -557,6 +560,7 @@ export type Database = {
           engraving_text?: string | null
           environment?: string
           finish_id?: string | null
+          flow_version?: number
           frame_id?: string | null
           frame_name?: string | null
           front_code?: string | null
@@ -580,8 +584,10 @@ export type Database = {
           metadata?: Json | null
           model_sent_at?: string | null
           mr_no?: string | null
+          model_approved_at?: string | null
           parcel_weight_kg?: number | null
           payment_plan?: string
+          preview_sent_at?: string | null
           production_blocked?: boolean
           purge_after?: string | null
           purged_at?: string | null
@@ -675,6 +681,7 @@ export type Database = {
           engraving_text?: string | null
           environment?: string
           finish_id?: string | null
+          flow_version?: number
           frame_id?: string | null
           frame_name?: string | null
           front_code?: string | null
@@ -698,8 +705,10 @@ export type Database = {
           metadata?: Json | null
           model_sent_at?: string | null
           mr_no?: string | null
+          model_approved_at?: string | null
           parcel_weight_kg?: number | null
           payment_plan?: string
+          preview_sent_at?: string | null
           production_blocked?: boolean
           purge_after?: string | null
           purged_at?: string | null
