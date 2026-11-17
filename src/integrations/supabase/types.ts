@@ -461,11 +461,14 @@ export type Database = {
           manual_temple_to_temple_mm: number | null
           measurements_submitted_at: string | null
           metadata: Json | null
+          model_approved_at: string | null
           model_sent_at: string | null
           mr_no: string | null
-          model_approved_at: string | null
           parcel_weight_kg: number | null
           payment_plan: string
+          preview_consent_at: string | null
+          preview_consent_text: string | null
+          preview_consent_version: string | null
           preview_sent_at: string | null
           production_blocked: boolean
           purge_after: string | null
@@ -582,11 +585,14 @@ export type Database = {
           manual_temple_to_temple_mm?: number | null
           measurements_submitted_at?: string | null
           metadata?: Json | null
+          model_approved_at?: string | null
           model_sent_at?: string | null
           mr_no?: string | null
-          model_approved_at?: string | null
           parcel_weight_kg?: number | null
           payment_plan?: string
+          preview_consent_at?: string | null
+          preview_consent_text?: string | null
+          preview_consent_version?: string | null
           preview_sent_at?: string | null
           production_blocked?: boolean
           purge_after?: string | null
@@ -703,11 +709,14 @@ export type Database = {
           manual_temple_to_temple_mm?: number | null
           measurements_submitted_at?: string | null
           metadata?: Json | null
+          model_approved_at?: string | null
           model_sent_at?: string | null
           mr_no?: string | null
-          model_approved_at?: string | null
           parcel_weight_kg?: number | null
           payment_plan?: string
+          preview_consent_at?: string | null
+          preview_consent_text?: string | null
+          preview_consent_version?: string | null
           preview_sent_at?: string | null
           production_blocked?: boolean
           purge_after?: string | null
