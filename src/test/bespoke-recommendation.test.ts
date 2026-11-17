@@ -27,6 +27,7 @@ describe("recommendFit", () => {
     });
     expect(rec.tier).toBe("C");
     expect(rec.frontWidth).toBeNull();
+    expect(rec.tierLine).toContain("Measure it before the model");
     expect(rec.bridge).toBeNull();
     expect(rec.templeLength).toEqual({ mm: 155, basis: "chosen in the configurator" });
     expect(rec.nextAsk).toBe("glasses");

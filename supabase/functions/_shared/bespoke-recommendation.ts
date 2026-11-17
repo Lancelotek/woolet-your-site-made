@@ -235,7 +235,9 @@ export function recommendFit(input: {
   const tierLine = {
     A: "Confidence A - two measured widths agree and the bridge comes from glasses that fit.",
     B: "Confidence B - one solid width source plus a second anchor. Good to model.",
-    C: "Confidence C - provisional. Model it, mark it provisional for the workshop, expect a correction round.",
+    C: frontWidth
+      ? "Confidence C - provisional. Model it, mark it provisional for the workshop, expect a correction round."
+      : "Confidence C - the photo is on file but nothing has been measured from it yet. Measure it before the model.",
     none: "No recommendation yet - nothing on file to measure from.",
   }[tier];
 
