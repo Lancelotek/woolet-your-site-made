@@ -1369,6 +1369,14 @@ function DetailView({
         <Field label="Consent given" value={p?.consent_at ? fmtDate(p.consent_at) : "—"} />
         <Field label="Consent withdrawn" value={p?.consent_withdrawn_at ? fmtDate(p.consent_withdrawn_at) : "—"} />
         <Field label="Consent version" value={p?.consent_version} />
+        <Field
+          label="Face preview (AI) consent"
+          value={
+            p?.preview_consent_at && !p?.consent_withdrawn_at
+              ? `${fmtDate(p.preview_consent_at)} · ${p.preview_consent_version ?? ""}`
+              : "Not given - do not send this photo to an image service"
+          }
+        />
         <Field label="Language shown" value={p?.consent_locale} />
         <Field label="Photo vs scan difference" value={p?.delta_mm != null ? `${p.delta_mm} mm` : "—"} />
         <Field label="Production" value={o.production_blocked ? "Paused — fit needs review" : "Clear"} />
