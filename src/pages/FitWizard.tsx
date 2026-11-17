@@ -959,7 +959,7 @@ function CaptureStep({
                   borderColor: "rgba(31,27,22,0.3)",
                 }}
               >
-                Book a 5-minute call with the founder
+                Write to the founder
               </button>
             </div>
           </div>
@@ -2091,7 +2091,8 @@ export default function FitWizard() {
   }, []);
 
   const onFounderCall = useCallback(() => {
-    window.open("https://calendly.com/woolet-founder/5min", "_blank", "noopener,noreferrer");
+    // The old Calendly event (woolet-founder/5min) returned 404 - write to the founder instead.
+    window.location.href = "mailto:support@woolet.co?subject=" + encodeURIComponent("Help with my fit scan");
   }, []);
 
   return (
