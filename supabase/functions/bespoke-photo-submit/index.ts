@@ -95,6 +95,17 @@ Deno.serve(async (req) => {
 
     const profilePath = str(body?.profilePath, 400);
 
+    // Optional and separate: an AI on-face preview. Recorded only when the
+    // customer ticked the box - never implied by the photo consent.
+    const previewText = body?.previewConsentGiven === true ? str(body?.previewConsentText, 2000) : null;
+    const previewConsent = previewText
+      ? {
+          preview_consent_at: new Date().toISOString(),
+          preview_consent_text: previewText,
+          preview_consent_version: str(body?.previewConsentVersion, 40) ?? "bespoke-preview-v1",
+        }
+      : null;
+
     // Side photo added to an order whose front photo is already on file
     // (e.g. taken in the configurator before paying). Touches only the
     // profile and the consent that now covers it.
@@ -126,6 +137,8 @@ Deno.serve(async (req) => {
           consent_ip_hash: await hashIp(ip),
           consent_locale: str(body?.locale, 10) ?? "en",
           consent_withdrawn_at: null,
+          // A side photo sent without the box leaves an earlier preview consent as it was.
+          ...(previewConsent ?? {}),
         })
         .eq("id", existing.id);
       if (updErr) throw updErr;
@@ -177,6 +190,10 @@ Deno.serve(async (req) => {
       consent_ip_hash: await hashIp(ip),
       consent_locale: str(body?.locale, 10) ?? "en",
       consent_withdrawn_at: null,
+      // A new front photo carries its own answer: no tick, no preview consent.
+      preview_consent_at: previewConsent?.preview_consent_at ?? null,
+      preview_consent_text: previewConsent?.preview_consent_text ?? null,
+      preview_consent_version: previewConsent?.preview_consent_version ?? null,
     };
 
     if (order) {

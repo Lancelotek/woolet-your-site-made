@@ -4,6 +4,7 @@ import { Camera, CheckCircle2, CreditCard, Glasses, Loader2, Ruler, Sparkles, Tr
 import SEO from "@/components/SEO";
 import CardPhotoCapture from "@/components/bespoke/CardPhotoCapture";
 import type { CardCheck } from "@/lib/card-photo-check";
+import { PREVIEW_CONSENT_TEXT, previewConsentPayload } from "@/lib/bespoke-preview-consent";
 import { COUNTRY_CODES, countryLabel } from "@/data/shipping-countries";
 import { supabase } from "@/integrations/supabase/client";
 import { STORAGE_KEY } from "@/lib/bespoke-state";
@@ -280,6 +281,8 @@ export default function BespokeMeasurements() {
 
   // Fit photo, held in the browser until the buyer sends the form.
   const [photoFile, setPhotoFile] = useState<File | null>(null);
+  // Optional AI on-face preview. Off until the customer ticks it themselves.
+  const [previewConsent, setPreviewConsent] = useState(false);
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const [photoError, setPhotoError] = useState<string | null>(null);
   /** Open camera / photo check: the live camera, or a chosen file under review. */
@@ -555,6 +558,7 @@ export default function BespokeMeasurements() {
             photoPath: target.path,
             photoWidthPx: jpeg.width,
             photoHeightPx: jpeg.height,
+            ...previewConsentPayload(previewConsent),
           },
         });
         if (subErr) throw subErr;
@@ -1275,6 +1279,15 @@ export default function BespokeMeasurements() {
                       <div className="mb-4 max-w-xl border border-cream/12 bg-cream/[0.03] p-4">
                         <p className="text-[11px] uppercase tracking-[0.18em] text-gold">Your consent</p>
                         <p className="mt-2 text-xs leading-relaxed text-cream-dim">{PHOTO_CONSENT_TEXT}</p>
+                        <label className="mt-4 flex cursor-pointer items-start gap-3 border-t border-cream/10 pt-4">
+                          <input
+                            type="checkbox"
+                            checked={previewConsent}
+                            onChange={(e) => setPreviewConsent(e.target.checked)}
+                            className="mt-0.5 h-5 w-5 shrink-0 accent-[#CAA449]"
+                          />
+                          <span className="text-xs leading-relaxed text-cream-dim">{PREVIEW_CONSENT_TEXT}</span>
+                        </label>
                       </div>
                     )}
                     <button
