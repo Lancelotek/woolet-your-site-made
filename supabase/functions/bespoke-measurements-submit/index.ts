@@ -9,6 +9,7 @@ import {
   measurementDisagreements,
 } from "../_shared/bespoke-gaps.ts";
 import { compareRepeatability, sortScans } from "../_shared/scan-repeatability.ts";
+import { recommendFit, recommendationRows } from "../_shared/bespoke-recommendation.ts";
 
 const supabase = createClient(
   Deno.env.get("SUPABASE_URL")!,
@@ -293,6 +294,15 @@ Deno.serve(async (req) => {
       const scans = sortScans(scanRows ?? []);
       const repeatability = compareRepeatability(scans);
       const measurementRef = scans[0]?.measurement_ref ?? "";
+
+      // What we would cut from what is on file today, and the one thing to ask for.
+      const { data: photoRows } = await supabase
+        .from("bespoke_order_photos")
+        .select("photo_path, photo_temple_to_temple_mm, profile_path, consent_withdrawn_at")
+        .eq("order_id", order.id)
+        .order("created_at", { ascending: false })
+        .limit(1);
+      const recommendation = recommendFit({ order, photo: photoRows?.[0] ?? null, scans: scanRows ?? [] });
       const measurements = [
         { label: "Scan · Face width", value: mm(order.ai_face_width_mm) },
         { label: "Scan · Temple-to-temple", value: mm(order.ai_temple_to_temple_mm) },
@@ -343,7 +353,16 @@ Deno.serve(async (req) => {
           bridgeMax: BRIDGE_MAX_MM,
           disagreements: measurementDisagreements(order),
           gaps: bespokeOrderGaps(order),
-          repeatabilityLine: repeatability.line,
+          // "One scan only" is only true when there is a scan.
+          repeatabilityLine: scans.length > 0 ? repeatability.line : "",
+          hasInnerCanthal: order.ai_inner_canthal_mm !== null && order.ai_inner_canthal_mm !== undefined,
+          recommendation: {
+            tier: recommendation.tier,
+            tierLine: recommendation.tierLine,
+            rows: recommendationRows(recommendation),
+            warnings: recommendation.warnings,
+            nextAskLine: recommendation.nextAskLine,
+          },
           repeatabilityVerdict: repeatability.kind === "compared" ? repeatability.verdict : "",
           shippingStatus: order.shipping_submitted_at
             ? "Address confirmed by the customer"

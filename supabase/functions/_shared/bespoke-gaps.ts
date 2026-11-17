@@ -61,7 +61,17 @@ export function bespokeOrderGaps(order: BespokeGapSource): string[] {
 
   const hasManual = MANUAL_MEASUREMENT_FIELDS.some((f) => num(order[f]) != null);
   if (!hasManual) {
-    gaps.push("No manual measurements to check the scan against");
+    // Same gap, said truthfully: with no scan there is nothing to check against.
+    const hasScan =
+      order.scan_source === "fitlens" ||
+      Boolean(order.scan_received_at) ||
+      num(order.ai_temple_to_temple_mm) != null ||
+      num(order.ai_face_width_mm) != null;
+    gaps.push(
+      hasScan
+        ? "No manual measurements to check the scan against"
+        : "No measurements on file - no scan and no manual numbers",
+    );
   }
 
   // One problem, one sentence — the badge counts gaps, not sources.
