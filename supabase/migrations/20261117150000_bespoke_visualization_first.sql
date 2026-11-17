@@ -1,0 +1,23 @@
+-- Bespoke "visualization first" plan (decision 17.11.2026).
+--
+-- flow_version 1: deposit -> 3D model -> balance (every order so far).
+-- flow_version 2: deposit -> visualization with dimensions -> balance ->
+--                 3D model with up to 3 corrections -> build.
+-- Existing orders stay on 1. The checkout puts every new deposit order on 2.
+
+alter table public.bespoke_orders
+  add column if not exists flow_version smallint not null default 1,
+  add column if not exists preview_sent_at timestamptz,
+  add column if not exists model_approved_at timestamptz,
+  add column if not exists preview_consent_at timestamptz,
+  add column if not exists preview_consent_version text,
+  add column if not exists preview_consent_text text;
+
+comment on column public.bespoke_orders.flow_version is
+  '1 = balance after the 3D model. 2 = balance after the visualization, then the 3D model with up to 3 corrections.';
+comment on column public.bespoke_orders.preview_sent_at is
+  'Flow 2: when the visualization with dimensions went to the customer. Starts the 6-day window for the balance.';
+comment on column public.bespoke_orders.model_approved_at is
+  'Flow 2: when the customer approved the 3D model (the balance is already paid by then).';
+comment on column public.bespoke_orders.preview_consent_at is
+  'Flow 2: when the customer agreed at checkout that their photo goes to an AI image service for the visualization. A condition of the order.';

@@ -1372,9 +1372,11 @@ function DetailView({
         <Field
           label="Face preview (AI) consent"
           value={
-            p?.preview_consent_at && !p?.consent_withdrawn_at
-              ? `${fmtDate(p.preview_consent_at)} · ${p.preview_consent_version ?? ""}`
-              : "Not given - do not send this photo to an image service"
+            o.preview_consent_at && !p?.consent_withdrawn_at
+              ? `${fmtDate(o.preview_consent_at as string)} · ${o.preview_consent_version ?? ""} · given at checkout`
+              : p?.preview_consent_at && !p?.consent_withdrawn_at
+                ? `${fmtDate(p.preview_consent_at)} · ${p.preview_consent_version ?? ""}`
+                : "Not given - do not send this photo to an image service"
           }
         />
         <Field label="Language shown" value={p?.consent_locale} />

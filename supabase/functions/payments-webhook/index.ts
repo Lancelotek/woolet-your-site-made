@@ -5,6 +5,7 @@ import { generateOrderPreview } from "../_shared/bespoke-preview.ts";
 import { buildInterviewBookingUrl } from "../_shared/bespoke-case.ts";
 import { ensurePaidStage } from "../_shared/bespoke-stage.ts";
 import { BALANCE_WINDOW_DAYS, formatUsdCents } from "../_shared/bespoke-balance.ts";
+import { MAX_MODEL_CORRECTIONS, PREVIEW_WINDOW_DAYS } from "../_shared/bespoke-flow.ts";
 import { parseConsentFlag, sendOpenAiEvent } from "../_shared/openai-capi.ts";
 import { parseGaClientReference } from "../_shared/ga-client-reference.ts";
 
@@ -1000,6 +1001,15 @@ async function handleBespokeCheckoutCompleted(session: any, env: StripeEnv) {
     deposit_cents: paymentPlan === "deposit" ? amountCents : null,
     balance_cents: balanceCents,
   };
+  // Flow 2 (visualization first) and the consent given at checkout. Kept in a
+  // patch of their own so an order is never lost to a missing column.
+  const flowTwo = paymentPlan === "deposit" && meta.flow_version === "2";
+  const flowPatch = {
+    flow_version: flowTwo ? 2 : 1,
+    preview_consent_at: flowTwo && meta.preview_consent_at ? meta.preview_consent_at : null,
+    preview_consent_version: flowTwo ? meta.preview_consent_version ?? null : null,
+    preview_consent_text: flowTwo ? meta.preview_consent_text ?? null : null,
+  };
 
   const orderRow = {
         stripe_session_id: session.id,
@@ -1029,7 +1039,13 @@ async function handleBespokeCheckoutCompleted(session: any, env: StripeEnv) {
   };
   let { error: upsertErr } = await getSupabase()
     .from("bespoke_orders")
-    .upsert({ ...orderRow, ...paymentPatch }, { onConflict: "stripe_session_id" });
+    .upsert({ ...orderRow, ...paymentPatch, ...flowPatch }, { onConflict: "stripe_session_id" });
+  if (upsertErr && /flow_version|preview_consent/.test(upsertErr.message ?? "")) {
+    console.error("[payments-webhook:bespoke] flow columns missing, saving order without them", upsertErr.message);
+    ({ error: upsertErr } = await getSupabase()
+      .from("bespoke_orders")
+      .upsert({ ...orderRow, ...paymentPatch }, { onConflict: "stripe_session_id" }));
+  }
   if (upsertErr && /payment_plan|total_cents|deposit_cents|balance_cents/.test(upsertErr.message ?? "")) {
     // Payment columns missing (migration not applied yet): never lose the order.
     console.error("[payments-webhook:bespoke] payment columns missing, saving order without them", upsertErr.message);
@@ -1160,13 +1176,15 @@ async function handleBespokeCheckoutCompleted(session: any, env: StripeEnv) {
     engravingText: meta.engraving || "",
     // Admin email prints this line as "Total paid".
     amountFormatted: paymentPlan === "deposit"
-      ? `${amountFormatted} deposit (order total ${formatUsdCents(totalCents)}, balance ${formatUsdCents(balanceCents)} after 3D model approval)`
+      ? `${amountFormatted} deposit (order total ${formatUsdCents(totalCents)}, balance ${formatUsdCents(balanceCents)} ${flowTwo ? "when the visualization is accepted" : "after 3D model approval"})`
       : amountFormatted,
     paymentPlan,
     depositFormatted: formatUsdCents(amountCents),
     balanceFormatted: formatUsdCents(balanceCents),
     totalFormatted: formatUsdCents(totalCents),
-    balanceWindowDays: BALANCE_WINDOW_DAYS,
+    balanceWindowDays: flowTwo ? PREVIEW_WINDOW_DAYS : BALANCE_WINDOW_DAYS,
+    flowVersion: flowTwo ? 2 : 1,
+    maxCorrections: MAX_MODEL_CORRECTIONS,
     orderRef: session.id,
     paymentIntentId: session.payment_intent ?? "",
     environment: env,
@@ -1208,7 +1226,7 @@ async function handleBespokeBalanceCompleted(session: any, env: StripeEnv): Prom
   const db = getSupabase();
   const { data: order, error } = await db
     .from("bespoke_orders")
-    .select("id, stripe_session_id, customer_email, customer_name, frame_name, case_no, total_cents, deposit_cents, balance_paid_at")
+    .select("id, stripe_session_id, customer_email, customer_name, frame_name, case_no, total_cents, deposit_cents, balance_paid_at, flow_version")
     .eq("id", orderId)
     .maybeSingle();
   if (error || !order) {
@@ -1234,6 +1252,7 @@ async function handleBespokeBalanceCompleted(session: any, env: StripeEnv): Prom
     console.error("[payments-webhook:bespoke-balance] update failed", upErr);
     return false;
   }
+  const flowTwo = Number(o.flow_version ?? 1) === 2;
   // Paying approves the model, so nothing stays open against it.
   await db
     .from("bespoke_model_revisions")
@@ -1254,7 +1273,24 @@ async function handleBespokeBalanceCompleted(session: any, env: StripeEnv): Prom
     }
   };
   await Promise.all([
-    send("bespoke-balance-notice", email, {
+    send("bespoke-balance-notice", email, flowTwo
+      ? {
+          subject: `Balance received - the workshop draws your 3D model next (${ref})`,
+          preview: "Your visualization is accepted. Your 3D model is next.",
+          heading: `Thank you${o.customer_name ? `, ${String(o.customer_name).split(" ")[0]}` : ""}. Your visualization is accepted.`,
+          paragraphs: [
+            "We received the balance for your Woolet Bespoke order. The workshop in Greece draws your 3D model now.",
+            `We email it to you for approval. You can ask for up to ${MAX_MODEL_CORRECTIONS} corrections. Once you approve it your frame is hand made in the EU - a 2-week build, then free worldwide shipping.`,
+          ],
+          rows: [
+            { label: "Order", value: ref },
+            { label: "Frame", value: o.frame_name ?? "Woolet Bespoke" },
+            { label: "Deposit paid", value: formatUsdCents(o.deposit_cents) },
+            { label: "Balance paid", value: formatUsdCents(paidCents) },
+            { label: "Order total", value: formatUsdCents(o.total_cents ?? (o.deposit_cents ?? 0) + paidCents) },
+          ],
+        }
+      : {
       subject: `Balance received - your Woolet Bespoke frame goes into production (${ref})`,
       preview: "Your 3D model is approved. Your frame is hand made next.",
       heading: `Thank you${o.customer_name ? `, ${String(o.customer_name).split(" ")[0]}` : ""}. Your model is approved.`,
@@ -1274,7 +1310,9 @@ async function handleBespokeBalanceCompleted(session: any, env: StripeEnv): Prom
       heading: `Balance paid - ${ref} - ${formatUsdCents(paidCents)}`,
       lines: [
         `${o.customer_name ?? ""} <${email}>`,
-        `${o.frame_name ?? "Woolet Bespoke"} - model approved, ready for production.`,
+        flowTwo
+          ? `${o.frame_name ?? "Woolet Bespoke"} - visualization accepted. Send the brief to the workshop: the 3D model is next.`
+          : `${o.frame_name ?? "Woolet Bespoke"} - model approved, ready for production.`,
         session.payment_intent
           ? `https://dashboard.stripe.com/${env === "sandbox" ? "test/" : ""}payments/${session.payment_intent}`
           : "",

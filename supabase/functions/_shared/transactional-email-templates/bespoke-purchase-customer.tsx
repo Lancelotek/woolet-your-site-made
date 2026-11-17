@@ -30,6 +30,9 @@ interface Props {
   balanceFormatted?: string
   totalFormatted?: string
   balanceWindowDays?: number
+  /** 2 = visualization first: the balance is paid on the visualization (bespoke-flow.ts). */
+  flowVersion?: number
+  maxCorrections?: number
 }
 
 const GOLD = '#C2A05A'
@@ -52,6 +55,8 @@ const Email = ({
   balanceFormatted = '',
   totalFormatted = '',
   balanceWindowDays = 14,
+  flowVersion = 1,
+  maxCorrections = 3,
 }: Props) => (
   <Html lang="en" dir="ltr">
     <Head />
@@ -94,7 +99,7 @@ const Email = ({
             <>
               <SpecRow label="Order total" value={totalFormatted} />
               <SpecRow label="Deposit paid today" value={depositFormatted || amountFormatted} />
-              <SpecRow label="Balance, due after you approve the 3D model" value={balanceFormatted} />
+              <SpecRow label={flowVersion === 2 ? "Balance, due when you accept your visualization" : "Balance, due after you approve the 3D model"} value={balanceFormatted} />
             </>
           ) : amountFormatted ? (
             <SpecRow label="Total paid" value={amountFormatted} />
@@ -123,7 +128,24 @@ const Email = ({
         <Hr style={hr} />
 
         <Heading as="h3" style={h3}>What happens next</Heading>
-        {paymentPlan === 'deposit' ? (
+        {paymentPlan === 'deposit' && flowVersion === 2 ? (
+          <Text style={body}>
+            <strong>1.</strong> You send your photo with a card and the numbers
+            from your current glasses.<br />
+            <strong>2.</strong> We email your visualization: your photo wearing the
+            frame you chose, with the proposed dimensions.<br />
+            <strong>3.</strong> You accept it by paying the balance
+            ({balanceFormatted}). You have {balanceWindowDays} days from the day we
+            send it.<br />
+            <strong>4.</strong> The workshop draws your 3D model. You approve it or
+            ask for a correction, up to {maxCorrections} times.<br />
+            <strong>5.</strong> Once approved, your frame is hand made in the EU - a
+            2-week build, then free worldwide shipping.<br />
+            <br />
+            Bespoke is custom work, so no payment is refundable. Nothing more is
+            charged unless you accept the visualization.
+          </Text>
+        ) : paymentPlan === 'deposit' ? (
           <Text style={body}>
             <strong>1.</strong> You submit measurements (AI + manual).<br />
             <strong>2.</strong> Our optician verifies them and we email you the

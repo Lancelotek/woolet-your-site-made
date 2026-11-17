@@ -6,9 +6,9 @@ export function PayMeasureNotice({ split }: { split?: DepositSplit }) {
   if (split?.plan === "deposit") {
     return (
       <div role="note" className="border border-gold/30 bg-gold/5 p-4 text-sm leading-relaxed text-cream-dim">
-        <span className="block text-xs uppercase text-gold-light mb-2">Deposit → 3D model → balance</span>
+        <span className="block text-xs uppercase text-gold-light mb-2">Deposit → visualization → balance → 3D model</span>
         <strong className="text-cream font-medium">{depositTerms(split)}</strong>{" "}
-        Once you approve, your frame is cut in the EU to the exact millimetres of your face. Free worldwide shipping included.
+        The workshop then draws your 3D model. Once you approve it, your frame is cut in the EU to the exact millimetres of your face. Free worldwide shipping included.
       </div>
     );
   }

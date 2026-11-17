@@ -7,6 +7,7 @@ import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { crmErrorMessage } from "@/lib/bespoke-crm";
 import { BALANCE_REMINDER_DAY, BALANCE_WINDOW_DAYS, daysLeft, formatUsdCents, type BalanceState } from "@/lib/bespoke-balance";
+import { MAX_MODEL_CORRECTIONS, PREVIEW_REMINDER_DAY, PREVIEW_WINDOW_DAYS, type ModelStatus } from "@/lib/bespoke-flow";
 
 const T = {
   panel: "#141210",
@@ -52,6 +53,8 @@ interface Payment {
   balance_paid_at: string | null;
   balance_paid_cents: number | null;
   balance_paid_manually: boolean | null;
+  preview_sent_at?: string | null;
+  model_approved_at?: string | null;
 }
 
 interface Snapshot {
@@ -59,7 +62,19 @@ interface Snapshot {
   revisions: Revision[];
   state: BalanceState;
   modelUrl: string | null;
+  /** 2 = visualization first (bespoke-flow.ts). */
+  flow?: number;
+  model?: ModelStatus | null;
 }
+
+const MODEL_LABEL: Record<ModelStatus["state"], string> = {
+  locked: "Balance not paid · workshop waits",
+  awaiting_model: "Balance paid · send the brief, model not sent yet",
+  awaiting_approval: "3D model with the customer",
+  correction_requested: "Correction requested · waiting for you",
+  approved: "3D model approved · ready for production",
+  final_by_limit: "Final after 3 corrections · ready for production",
+};
 
 const button = (primary: boolean, disabled: boolean): React.CSSProperties => ({
   fontFamily: SANS,
@@ -145,6 +160,143 @@ export function BalancePanel({
       <span style={{ fontSize: 13, color: T.ink, textAlign: "right" }}>{value}</span>
     </div>
   );
+
+  // Flow 2 - visualization first: the balance is paid on the visualization,
+  // then the workshop draws the model, which gets up to three corrections.
+  if (snap.flow === 2) {
+    const m = snap.model;
+    const previewSent = Boolean(p.preview_sent_at);
+    const paidNow = Boolean(p.balance_paid_at);
+    const modelDone = m?.state === "approved" || m?.state === "final_by_limit";
+    const headline = !paidNow
+      ? state === "expired"
+        ? "Closed · visualization not accepted in time"
+        : previewSent ? "Visualization sent · waiting for the balance" : "Deposit paid · visualization not sent yet"
+      : m ? MODEL_LABEL[m.state] : "Balance paid";
+    return (
+      <section id="bespoke-balance" style={{ marginTop: 22, fontFamily: SANS, scrollMarginTop: 16 }}>
+        <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 12 }}>
+          <h3 style={{ fontFamily: SERIF, fontSize: 20, margin: "0 0 6px" }}>Visualization, balance & 3D model</h3>
+          <span style={{ fontSize: 11, color: state === "expired" ? T.bad : T.gold }}>{headline}</span>
+        </div>
+        <div style={{ background: T.panel, border: `1px solid ${T.hair}`, borderRadius: 4, padding: "6px 14px 10px" }}>
+          {row("Order total", formatUsdCents(p.total_cents))}
+          {row("Deposit paid", formatUsdCents(p.deposit_cents ?? p.amount_cents))}
+          {row("Visualization sent", previewSent ? fmtDate(p.preview_sent_at) : "Not yet")}
+          {row(
+            "Balance",
+            paidNow
+              ? `${formatUsdCents(p.balance_paid_cents ?? p.balance_cents)} paid ${fmtDate(p.balance_paid_at)}${p.balance_paid_manually ? " (by hand)" : ""}`
+              : `${formatUsdCents(p.balance_cents)} due`,
+          )}
+          {previewSent && !paidNow &&
+            row(
+              `Open until (day ${PREVIEW_WINDOW_DAYS})`,
+              `${fmtDate(p.balance_due_at)}${state === "awaiting_payment" ? ` · ${left} day${left === 1 ? "" : "s"} left` : ""}`,
+            )}
+          {previewSent && !paidNow &&
+            row(`Reminder (day ${PREVIEW_REMINDER_DAY})`, p.balance_reminder_sent_at ? `Sent ${fmtDate(p.balance_reminder_sent_at)}` : "Not sent yet")}
+          {p.balance_expired_at && row("Closed", fmtDate(p.balance_expired_at))}
+          {paidNow && row("3D model sent", sent ? fmtDate(p.model_sent_at) : "Not yet")}
+          {paidNow && m && row("Corrections", `${m.correctionsUsed} of ${MAX_MODEL_CORRECTIONS} used`)}
+          {p.model_approved_at && row("3D model approved", fmtDate(p.model_approved_at))}
+        </div>
+
+        {openRevisions.length > 0 && (
+          <div role="status" style={{ marginTop: 10, border: "1px solid rgba(194,160,90,0.55)", borderRadius: 4, padding: "10px 14px" }}>
+            <div style={{ fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase", color: T.gold }}>
+              Correction {m?.correctionsUsed ?? ""} of {MAX_MODEL_CORRECTIONS} requested - send a corrected model, then press "Corrected model sent"
+            </div>
+            {openRevisions.map((r) => (
+              <p key={r.id} style={{ margin: "8px 0 0", fontSize: 13, color: T.ink, lineHeight: 1.5 }}>
+                <span style={{ color: T.mute }}>{fmtDate(r.created_at)} · </span>
+                {r.note}
+              </p>
+            ))}
+          </div>
+        )}
+
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 12 }}>
+          {!paidNow && (
+            <button
+              type="button"
+              disabled={busy}
+              style={button(true, busy)}
+              onClick={() => {
+                const label = previewSent
+                  ? `Email the visualization link again and restart the ${PREVIEW_WINDOW_DAYS} days?`
+                  : `Email the customer their visualization link and start the ${PREVIEW_WINDOW_DAYS} days?`;
+                if (!window.confirm(label)) return;
+                void run({ action: "preview_sent" }, (r) =>
+                  r.emailed
+                    ? `Customer emailed. The ${PREVIEW_WINDOW_DAYS}-day window started.`
+                    : `The ${PREVIEW_WINDOW_DAYS}-day window started, but the email did not go out - send the link below by hand.`,
+                );
+              }}
+            >
+              {previewSent ? "Visualization sent again" : `Visualization sent - start ${PREVIEW_WINDOW_DAYS} days`}
+            </button>
+          )}
+          {paidNow && !modelDone && (
+            <button
+              type="button"
+              disabled={busy}
+              style={button(true, busy)}
+              onClick={() => {
+                const label = sent ? "Email the customer that the corrected 3D model is ready?" : "Email the customer their 3D model approval link?";
+                if (!window.confirm(label)) return;
+                void run({ action: "model_sent" }, (r) =>
+                  r.emailed ? "Customer emailed." : "Saved, but the email did not go out - send the link below by hand.",
+                );
+              }}
+            >
+              {sent ? "Corrected model sent" : "3D model sent"}
+            </button>
+          )}
+          {snap.modelUrl && (
+            <button
+              type="button"
+              style={button(false, false)}
+              onClick={async () => {
+                try {
+                  await navigator.clipboard.writeText(snap.modelUrl ?? "");
+                  setCopied(true);
+                  window.setTimeout(() => setCopied(false), 2500);
+                } catch {
+                  window.prompt("Copy the customer's link", snap.modelUrl ?? "");
+                }
+              }}
+            >
+              {copied ? "Link copied" : "Copy customer link"}
+            </button>
+          )}
+          {!paidNow && (
+            <button
+              type="button"
+              disabled={busy}
+              style={button(false, busy)}
+              onClick={() => {
+                if (!window.confirm(`Mark the ${formatUsdCents(p.balance_cents)} balance as paid outside the site? This unlocks the brief for the workshop.`)) return;
+                void run({ action: "mark_balance_paid" }, () => "Balance marked as paid.");
+              }}
+            >
+              Balance paid by hand
+            </button>
+          )}
+        </div>
+        <p style={{ margin: "10px 0 0", fontSize: 11, color: T.mute, lineHeight: 1.5 }}>
+          {!paidNow
+            ? "Send the visualization (the customer's photo in the frame, with the proposed dimensions) from support@woolet.co first, then press the button. The brief for the workshop stays locked until the balance is paid."
+            : "Send the model video and drawing from support@woolet.co first, then press the button. \"In production\" unlocks when the customer approves the model or the third correction is answered."}
+        </p>
+        {msg && (
+          <p role="status" style={{ margin: "8px 0 0", fontSize: 12, color: msg.tone === "ok" ? T.gold : T.bad }}>
+            {msg.text}
+          </p>
+        )}
+      </section>
+    );
+  }
 
   return (
     <section id="bespoke-balance" style={{ marginTop: 22, fontFamily: SANS, scrollMarginTop: 16 }}>

@@ -31,7 +31,6 @@ import {
   outlineAnchor,
   type Point,
 } from "@/lib/bespoke-photo-geometry";
-import { PREVIEW_CONSENT_TEXT, previewConsentPayload } from "@/lib/bespoke-preview-consent";
 
 // v2 (30.10.2026): consent covers two photos - front and side profile.
 const CONSENT_VERSION = "bespoke-photo-v2";
@@ -123,8 +122,6 @@ export default function BespokePhoto() {
   const [stage, setStage] = useState<Stage>("capture");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
-  // Optional AI on-face preview. Off until the customer ticks it themselves.
-  const [previewConsent, setPreviewConsent] = useState(false);
   const [result, setResult] = useState<{ deltaMm: number | null; needsReview: boolean; profileOnly?: boolean } | null>(null);
   // Side photo. `profileOnly` = the front photo is already on file and the
   // buyer only adds the side photo.
@@ -335,7 +332,6 @@ export default function BespokePhoto() {
           frameBridgeMm: frame.bridgeMm,
           shapeId: frame.id,
           mappingVersion: front.mappingVersion,
-          ...previewConsentPayload(previewConsent),
         },
       });
       if (subErr) throw subErr;
@@ -377,7 +373,6 @@ export default function BespokePhoto() {
           consentText,
           consentVersion: CONSENT_VERSION,
           locale,
-          ...previewConsentPayload(previewConsent),
         },
       });
       if (subErr) throw subErr;
@@ -684,15 +679,6 @@ export default function BespokePhoto() {
                   <div>
                     <p className="text-[11px] uppercase tracking-[0.18em] text-gold">Your photos, your call</p>
                     <p className="mt-2 text-xs leading-relaxed text-cream-dim">{consentText}</p>
-                    <label className="mt-4 flex cursor-pointer items-start gap-3 border-t border-cream/10 pt-4">
-                      <input
-                        type="checkbox"
-                        checked={previewConsent}
-                        onChange={(e) => setPreviewConsent(e.target.checked)}
-                        className="mt-0.5 h-5 w-5 shrink-0 accent-[#CAA449]"
-                      />
-                      <span className="text-xs leading-relaxed text-cream-dim">{PREVIEW_CONSENT_TEXT}</span>
-                    </label>
                   </div>
                 </div>
               )}

@@ -10,12 +10,13 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
 import {
   BALANCE_WINDOW_DAYS,
+  balanceClock,
   daysLeft,
   formatDueDate,
   formatUsdCents,
   modelPageUrl,
-  reminderDueAt,
 } from "../_shared/bespoke-balance.ts";
+import { PREVIEW_WINDOW_DAYS, isPreviewFirst } from "../_shared/bespoke-flow.ts";
 import { sendTemplateEmailAndLog } from "../_shared/transactional-email-templates/send-and-log.ts";
 import { MAREK_SENDER } from "../_shared/transactional-email-templates/send-email.ts";
 import {
@@ -49,9 +50,9 @@ Deno.serve(async (req) => {
   try {
     const { data: orders, error } = await supabase
       .from("bespoke_orders")
-      .select("id, case_no, stripe_session_id, customer_email, customer_name, frame_name, deposit_cents, balance_cents, model_sent_at, balance_due_at, balance_reminder_sent_at")
+      .select("id, case_no, stripe_session_id, customer_email, customer_name, frame_name, deposit_cents, balance_cents, model_sent_at, balance_due_at, balance_reminder_sent_at, flow_version, preview_sent_at")
       .eq("payment_plan", "deposit")
-      .not("model_sent_at", "is", null)
+      .or("model_sent_at.not.is.null,preview_sent_at.not.is.null")
       .is("balance_paid_at", null)
       .is("balance_expired_at", null)
       .limit(500);
@@ -60,6 +61,12 @@ Deno.serve(async (req) => {
     for (const o of (orders ?? []) as Array<Record<string, any>>) {
       result.checked += 1;
       try {
+        // Flow 2: the clock runs from the visualization and nothing pauses it -
+        // corrections belong to the 3D model, which comes after the payment.
+        const v2 = isPreviewFirst(o);
+        if (v2 && !o.preview_sent_at) continue;
+        if (!v2 && !o.model_sent_at) continue;
+        if (!v2) {
         const { count } = await supabase
           .from("bespoke_model_revisions")
           .select("id", { count: "exact", head: true })
@@ -69,10 +76,15 @@ Deno.serve(async (req) => {
           result.paused += 1;
           continue;
         }
+        }
 
         const ref = o.case_no || `WLT-${String(o.id).slice(0, 8).toUpperCase()}`;
-        const sentAt = new Date(o.model_sent_at);
-        const dueAt = new Date(o.balance_due_at ?? sentAt.getTime() + BALANCE_WINDOW_DAYS * 86400000);
+        const clock = balanceClock(o);
+        const sentAt = clock.sentAt!;
+        const dueAt = clock.dueAt!;
+        const windowDays = v2 ? PREVIEW_WINDOW_DAYS : BALANCE_WINDOW_DAYS;
+        const sentKey = v2 ? o.preview_sent_at : o.model_sent_at;
+        const what = v2 ? "visualization" : "3D model";
         const firstName = o.customer_name ? String(o.customer_name).split(" ")[0] : "";
 
         if (now.getTime() > dueAt.getTime()) {
@@ -86,13 +98,15 @@ Deno.serve(async (req) => {
           if (closed && closed.length > 0) {
             result.expired += 1;
             await sendTemplateEmailAndLog("bespoke-support-alert", undefined, {
-              idempotencyKey: `bespoke-balance-expired-${o.id}-${o.model_sent_at}`,
+              idempotencyKey: `bespoke-balance-expired-${o.id}-${sentKey}`,
               templateData: {
                 heading: `Balance window closed - ${ref}`,
                 lines: [
                   `${o.customer_name ?? ""} <${o.customer_email}>`,
-                  `No approval within ${BALANCE_WINDOW_DAYS} days of the model sent on ${formatDueDate(sentAt)}. The order is closed and the ${formatUsdCents(o.deposit_cents)} deposit is kept.`,
-                  "To reopen it, press \"Model sent\" on the order again - that starts a new 14-day window.",
+                  `No approval within ${windowDays} days of the ${what} sent on ${formatDueDate(sentAt)}. The order is closed and the ${formatUsdCents(o.deposit_cents)} deposit is kept.`,
+                  v2
+                    ? `To reopen it, press "Visualization sent" on the order again - that starts a new ${windowDays}-day window.`
+                    : "To reopen it, press \"Model sent\" on the order again - that starts a new 14-day window.",
                   "https://woolet.co/en/admin/bespoke",
                 ],
               },
@@ -101,7 +115,7 @@ Deno.serve(async (req) => {
           continue;
         }
 
-        if (!o.balance_reminder_sent_at && now.getTime() >= reminderDueAt(sentAt).getTime()) {
+        if (!o.balance_reminder_sent_at && now.getTime() >= clock.reminderAt!.getTime()) {
           // Claim the reminder first, so two overlapping runs cannot both send it.
           const { data: claimed } = await supabase
             .from("bespoke_orders")
@@ -112,8 +126,27 @@ Deno.serve(async (req) => {
           if (!claimed || claimed.length === 0) continue;
           const left = daysLeft(dueAt, now);
           await sendTemplateEmailAndLog("bespoke-balance-notice", o.customer_email, {
-            idempotencyKey: `bespoke-balance-reminder-${o.id}-${o.model_sent_at}`,
-            templateData: {
+            idempotencyKey: `bespoke-balance-reminder-${o.id}-${sentKey}`,
+            templateData: v2
+              ? {
+                  subject: `${left} day${left === 1 ? "" : "s"} left to accept your Woolet Bespoke visualization (${ref})`,
+                  preview: `Your visualization is waiting. Accept it by ${formatDueDate(dueAt)}.`,
+                  heading: `${firstName ? `${firstName}, your` : "Your"} visualization is waiting for you.`,
+                  paragraphs: [
+                    `We sent the visualization of your ${o.frame_name ?? "Woolet Bespoke"} frame on ${formatDueDate(sentAt)} and have not heard back.`,
+                    `Accept it by paying the balance - the workshop then draws your 3D model. Want something changed first? Reply to this email. Your order stays open until ${formatDueDate(dueAt)}.`,
+                  ],
+                  rows: [
+                    { label: "Order", value: ref },
+                    { label: "Deposit paid", value: formatUsdCents(o.deposit_cents) },
+                    { label: "Balance to accept", value: formatUsdCents(o.balance_cents) },
+                    { label: "Open until", value: formatDueDate(dueAt) },
+                  ],
+                  ctaLabel: "Accept my visualization",
+                  ctaUrl: modelPageUrl(SITE_ORIGIN, o.stripe_session_id),
+                  footnote: "After that date the order closes and the deposit is not refunded. Nothing more is charged unless you accept the visualization.",
+                }
+              : {
               subject: `${left} day${left === 1 ? "" : "s"} left to approve your Woolet Bespoke 3D model (${ref})`,
               preview: `Your 3D model is waiting. Approve it or ask for a correction by ${formatDueDate(dueAt)}.`,
               heading: `${firstName ? `${firstName}, your` : "Your"} 3D model is waiting for you.`,

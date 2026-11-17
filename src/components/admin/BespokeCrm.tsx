@@ -515,6 +515,11 @@ export function PipelinePanel({
                   {s.hint ? ` · ${s.hint}` : ""}
                 </div>
               </div>
+              {s.key === "preview_sent" && !s.done && (
+                <a href="#bespoke-balance" style={{ ...chip(true), textDecoration: "none" }}>
+                  Visualization sent ↓
+                </a>
+              )}
               {s.key === "model_sent" && !s.done && order.payment_plan === "deposit" && (
                 <a href="#bespoke-balance" style={{ ...chip(true), textDecoration: "none" }}>
                   Model sent ↓
