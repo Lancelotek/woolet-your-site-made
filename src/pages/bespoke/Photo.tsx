@@ -31,7 +31,7 @@ import {
   outlineAnchor,
   type Point,
 } from "@/lib/bespoke-photo-geometry";
-import { PREVIEW_CONSENT_TEXT, previewConsentPayload } from "@/lib/bespoke-preview-consent";
+import { PREVIEW_CONSENT_TEXT, previewConsentLocale, previewConsentPayload } from "@/lib/bespoke-preview-consent";
 
 // v2 (30.10.2026): consent covers two photos - front and side profile.
 const CONSENT_VERSION = "bespoke-photo-v2";
@@ -111,7 +111,7 @@ export default function BespokePhoto() {
   const frame = findFrame(config.frameId) ?? findFrame("round")!;
   const scanTempleToTempleMm = config.measurements?.templeToTemple ?? null;
   const locale = (lang === "pl" ? "pl" : "en") as keyof typeof CONSENT_TEXT;
-  const previewLocale: "en" | "pl" = lang === "pl" ? "pl" : "en";
+  const previewLocale = useMemo(() => previewConsentLocale(), []);
   const consentText = CONSENT_TEXT[locale];
 
   const front = useMemo(

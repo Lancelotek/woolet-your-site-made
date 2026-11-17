@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import {
   PREVIEW_CONSENT_TEXT,
   PREVIEW_CONSENT_VERSION,
+  previewConsentLocale,
   previewConsentPayload,
 } from "@/lib/bespoke-preview-consent";
 
@@ -17,6 +18,13 @@ describe("on-face preview consent", () => {
       previewConsentText: PREVIEW_CONSENT_TEXT.pl,
       previewConsentVersion: PREVIEW_CONSENT_VERSION,
     });
+  });
+  it("shows Polish only to a browser set to Polish", () => {
+    expect(previewConsentLocale("pl-PL")).toBe("pl");
+    expect(previewConsentLocale("pl")).toBe("pl");
+    for (const other of ["en-US", "de-DE", "el-GR", "", null, undefined]) {
+      expect(previewConsentLocale(other as string | null)).toBe("en");
+    }
   });
   it("names the new recipient and says the order does not depend on it", () => {
     expect(PREVIEW_CONSENT_TEXT.en).toContain("AI image service");
