@@ -18,7 +18,7 @@ import { t, isValidLang, type Lang } from "@/lib/i18n";
 import { trackFitCtas } from "@/lib/blog-cta-tracking";
 import { isKickstarterLive, kickstarterLiveHref } from "@/config/kickstarter";
 import { pushGtmEvent } from "@/lib/gtm";
-import { BLOG_AIO_ENHANCEMENTS, blogModifiedDate, enrichBlogContent } from "@/content/blog-aio";
+import { BLOG_AIO_ENHANCEMENTS, blogModifiedDate, enrichBlogContent, withVisibleFaq } from "@/content/blog-aio";
 import BridgeFitExplainer from "@/components/BridgeFitExplainer";
 import { BRIDGE_BLOG_INTRO_START } from "@/content/bridgeFit";
 import HatGlassesCard from "@/components/HatGlassesCard";
@@ -183,8 +183,13 @@ const BlogPost = () => {
   const post = getBlogPost(currentLang, slug);
 
   const enhancedContent = useMemo(
-    () => post ? enrichBlogContent(post.slug, post.content) : "",
-    [post],
+    () => {
+      if (!post) return "";
+      const enriched = enrichBlogContent(post.slug, post.content);
+      // FAQ schema questions must be readable in the article (EN posts).
+      return currentLang === "en" ? withVisibleFaq(post.slug, enriched, post.faq) : enriched;
+    },
+    [post, currentLang],
   );
   const headings = useMemo(() => extractH2s(enhancedContent), [enhancedContent]);
   const processedContent = useMemo(() => processContent(enhancedContent, currentLang, post?.exactContent, post?.slug), [enhancedContent, currentLang, post?.exactContent, post?.slug]);

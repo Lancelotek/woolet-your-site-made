@@ -5,7 +5,16 @@ export const BLOG_MODIFIED_OVERRIDES: Record<string, string> = {
   "glasses-for-wide-faces-guide": "2026-10-09",
   // 06.11.2026 (PR #37): new size / marking tables added to the body.
   "eyeglass-frame-size-chart": "2026-11-06",
-  "numbers-on-glasses-frames-meaning": "2026-11-06",
+  "numbers-on-glasses-frames-meaning": "2026-11-17",
+  // 17.11.2026: GSC long-query pass (8+ word questions) - quick answers,
+  // visible FAQ, corrected facts.
+  "round-vs-square-glasses-wide-face": "2026-11-17",
+  "are-my-glasses-too-small-for-my-face": "2026-11-17",
+  "how-wide-should-glasses-be": "2026-11-17",
+  "how-to-measure-face-width-for-glasses": "2026-11-17",
+  "how-to-tell-if-your-face-is-wide-or-narrow": "2026-11-17",
+  "best-glasses-for-oval-face": "2026-11-17",
+  "how-to-measure-your-head-for-a-hat": "2026-11-17",
 };
 
 const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -17,10 +26,16 @@ export function blogModifiedMonthLabel(slug: string, publishedDate = ""): string
 
 type BlogAioEnhancement = {
   quickAnswer: string;
-  question: string;
-  directAnswer: string;
-  anchor: string;
-  linkSentence: string;
+  /**
+   * Optional lead section (H2 + direct answer + link sentence) prepended to the
+   * body. Leave it out for posts that already open with their own answer or
+   * that split the body on the first H2 (hat posts): they get the Quick answer
+   * box only.
+   */
+  question?: string;
+  directAnswer?: string;
+  anchor?: string;
+  linkSentence?: string;
   table?: string;
 };
 
@@ -59,7 +74,7 @@ export const BLOG_AIO_ENHANCEMENTS: Record<string, BlogAioEnhancement> = {
     linkSentence: "Use the measurements on our <a href=\"/en/collections/glasses-for-big-heads\">genuinely extra wide glasses</a> page as a practical reference when comparing brands.",
   },
   "numbers-on-glasses-frames-meaning": {
-    quickAnswer: "The three numbers on glasses mean lens width, bridge width and temple length, all in millimetres; 52□21-150 means a 52 mm lens, 21 mm bridge and 150 mm temple. They do not state total front width, so measure the frame outer edge to outer edge before judging fit.",
+    quickAnswer: "The three numbers on glasses mean lens width, bridge width and temple length, all in millimetres; 54□21-145 means a 54 mm lens, 21 mm bridge and 145 mm temple. They do not state total front width, so measure the frame outer edge to outer edge before judging fit.",
     question: "What do the three numbers on glasses mean?",
     directAnswer: "The three numbers show lens width, bridge width and temple length in millimetres, not the frame's total front width.",
     anchor: "158 mm extra wide frames",
@@ -103,11 +118,21 @@ export const BLOG_AIO_ENHANCEMENTS: Record<string, BlogAioEnhancement> = {
     anchor: "extra wide sunglasses-ready frames",
     linkSentence: "The same sizing logic applies to our <a href=\"/en/collections/glasses-for-big-heads\">extra wide sunglasses-ready frames</a> with UV400 lens options.",
   },
+  // 17.11.2026 - quick-answer-only entries (no prepended section).
+  "how-wide-should-glasses-be": {
+    quickAnswer: "Glasses should be as wide as your face. The front of the frame, measured from one outer edge to the other, should match your face width at the temples within about 3 mm, and the arms should run straight back without bowing out or pressing in. Most adult faces measure 135 to 145 mm. A face of 155 mm or more needs a front around 158 mm.",
+  },
+  "best-glasses-for-oval-face": {
+    quickAnswer: "Yes, most frame shapes suit an oval face, because its forehead, cheekbones and jaw are close in width. Width decides the rest: the front of the frame should match your face from temple to temple. On an oval face of 155 mm or more that means a front around 158 mm, in a round or a soft square shape.",
+  },
+  "how-to-measure-your-head-for-a-hat": {
+    quickAnswer: "To measure your head without a tape measure, wrap a piece of string, a shoelace or a phone cable once around your head, about 2.5 cm (1 inch) above your eyebrows and ears. Mark where it overlaps, lay it flat against a ruler and read the centimetres. That number is your hat size: 58 cm is US 7¼ and 60 cm is US 7½.",
+  },
 };
 
 export function enrichBlogContent(slug: string, content: string): string {
   const enhancement = BLOG_AIO_ENHANCEMENTS[slug];
-  if (!enhancement) return content;
+  if (!enhancement?.question) return content;
   const section = `<h2>${enhancement.question}</h2>\n<p>${enhancement.directAnswer}</p>\n${enhancement.table ?? ""}\n<p>${enhancement.linkSentence}</p>`;
   return `${section}\n${content}`;
 }
@@ -115,4 +140,42 @@ export function enrichBlogContent(slug: string, content: string): string {
 export function blogModifiedDate(slug: string, publishedDate: string): string {
   if (BLOG_MODIFIED_OVERRIDES[slug]) return BLOG_MODIFIED_OVERRIDES[slug];
   return BLOG_AIO_ENHANCEMENTS[slug] ? BLOG_AIO_UPDATED : publishedDate;
+}
+/** Posts that render their FAQ through a dedicated component / section. */
+const BLOG_FAQ_OWN_SECTION = new Set(["glasses-for-wide-nose-bridge-21-22mm-explained"]);
+
+const escapeFaqHtml = (text: string) =>
+  text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+/**
+ * FAQPage JSON-LD is built from post.faq, so every question in it has to be
+ * readable on the page as well - Google requires marked-up FAQ content to be
+ * visible, and AI crawlers read the body text, not the schema. Questions the
+ * article body already carries under the same wording are skipped. The rest
+ * join the post's own FAQ section when it has one; otherwise they form a new
+ * "FAQ" section, placed before "Related articles" when the post has that
+ * block. One source for the hydrated page and the prerendered HTML.
+ */
+export function withVisibleFaq(
+  slug: string,
+  content: string,
+  faq?: { q: string; a: string }[],
+): string {
+  if (!faq?.length || BLOG_FAQ_OWN_SECTION.has(slug)) return content;
+  const missing = faq.filter((item) => !content.includes(item.q) && !content.includes(escapeFaqHtml(item.q)));
+  if (!missing.length) return content;
+  const items = missing
+    .map((item) => `<h3>${escapeFaqHtml(item.q)}</h3>\n<p>${escapeFaqHtml(item.a)}</p>`)
+    .join("\n");
+  const insertAt = (index: number, html: string) => `${content.slice(0, index)}${html}\n\n${content.slice(index)}`;
+
+  const ownFaq = /<h2[^>]*>[^<]*(?:FAQ|Quick Answers|questions)[^<]*<\/h2>/i.exec(content);
+  if (ownFaq) {
+    const sectionStart = ownFaq.index + ownFaq[0].length;
+    const nextH2 = content.slice(sectionStart).search(/<h2[\s>]/i);
+    return nextH2 >= 0 ? insertAt(sectionStart + nextH2, items) : `${content}\n${items}\n`;
+  }
+  const section = `<h2>FAQ</h2>\n${items}`;
+  const related = content.search(/<h2[^>]*>\s*Related articles/i);
+  return related >= 0 ? insertAt(related, section) : `${content}\n${section}\n`;
 }

@@ -180,10 +180,12 @@ export const blogMetaBySlug: Record<string, PostMetaOverride> = {
 
   // ── EN: hats (face-measurement crossover) ────────────────────────────
   "how-to-measure-your-head-for-a-hat": {
-    metaTitle: "How to Measure Your Head for a Hat (60 Seconds, Tape or String)",
+    // 17.11.2026: "without a tape measure" is the page's biggest query cluster
+    // in GSC (~380 impressions / 3 months on 8+ word queries, position ~7.5).
+    metaTitle: "How to Measure Your Head for a Hat Without a Tape Measure",
     exactTitle: true,
     metaDescription:
-      "Wrap a tape 1 cm above your ears and eyebrows, read the cm, round up. Then convert to US, UK and EU sizes with the chart.",
+      "No tape measure? Wrap a string or phone cable around your head 2.5 cm above your eyebrows, read the cm on a ruler, then convert to US, UK and EU hat sizes.",
   },
   "hat-size-chart-guide-cm-inches-us-uk-eu": {
     metaTitle: "Hat Size Chart: cm, Inches, US, UK & EU (53–66 cm)",

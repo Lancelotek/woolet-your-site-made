@@ -49,7 +49,7 @@ import { HAT_SIZE_FAQ } from "./hat-size-faq";
 import ksHeroAsset from "@/assets/kickstarter-hero.png.asset.json";
 import { DE_PRICING } from "@/content/de/pricing";
 import { BLOG_FITLENS_HOOK_POSTS, insertBlogFitLensHook } from "@/content/blog-fitlens-hook";
-import { BLOG_AIO_ENHANCEMENTS, blogModifiedDate, enrichBlogContent } from "@/content/blog-aio";
+import { BLOG_AIO_ENHANCEMENTS, blogModifiedDate, enrichBlogContent, withVisibleFaq } from "@/content/blog-aio";
 export { blogModifiedMonthLabel } from "@/content/blog-aio";
 import { BESPOKE_FACTS, BESPOKE_FAQS, BESPOKE_GUIDE, BESPOKE_META_DESCRIPTION, bespokeProductJsonLd as canonicalBespokeProduct, bespokeFaqJsonLd } from "@/content/bespokeFacts";
 export { BESPOKE_FACTS, BESPOKE_FAQS } from "@/content/bespokeFacts";
@@ -1543,7 +1543,11 @@ ${links}
         : `${post.title} | Woolet`;
       const headDescription = override?.metaDescription ?? post.excerpt;
       const enhancement = BLOG_AIO_ENHANCEMENTS[post.slug];
-      const enrichedContent = enrichBlogContent(post.slug, post.content);
+      // FAQ schema questions must be readable in the crawler HTML too (EN posts) -
+      // same helper as BlogPost.tsx so both rendering paths agree.
+      const enrichedContent = lang === "en"
+        ? withVisibleFaq(post.slug, enrichBlogContent(post.slug, post.content), post.faq)
+        : enrichBlogContent(post.slug, post.content);
       const modifiedDate = blogModifiedDate(post.slug, post.date);
       return base(
         route,

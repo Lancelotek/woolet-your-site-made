@@ -622,6 +622,9 @@ ${FITLENS_CTA(
         q: "Why isn't the frame's total width printed on the frame?",
         a: "Convention. The three-number marking was standardised for lens ordering and glazing, where lens and bridge dimensions are what a lab needs. Total front width matters to the wearer rather than the lab, so most brands omit it — which is precisely why wide-face buyers keep ordering frames that are 20 mm too narrow.",
       },
+      { q: "What is the first number in glasses size?", a: "The lens width: how wide one lens is, in millimetres. In 54□21-145 it is 54. The second number is the bridge and the third is the temple length." },
+      { q: "Is a 53 mm lens the same size as a 56 mm?", a: "No. Each lens is 3 mm wider, so with the same bridge the whole front comes out about 6 mm wider. On a face that is already at the limit of the frame, 6 mm decides whether the temples press or not." },
+      { q: "Is temple length the same as frame width?", a: "No. Temple length is the arm, measured from the hinge to the tip, usually 135 to 150 mm. Frame width is the front, measured across from one outer edge to the other. Frame width is the number that has to match your face, and it is not printed on the frame." },
     ],
     content: `${BYLINE("29 July 2026", "29 July 2026")}
 ${ANSWER(
