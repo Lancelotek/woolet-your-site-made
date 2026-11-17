@@ -4,7 +4,7 @@ import { Camera, CheckCircle2, CreditCard, Glasses, Loader2, Ruler, Sparkles, Tr
 import SEO from "@/components/SEO";
 import CardPhotoCapture from "@/components/bespoke/CardPhotoCapture";
 import type { CardCheck } from "@/lib/card-photo-check";
-import { PREVIEW_CONSENT_TEXT, previewConsentLocale, previewConsentPayload } from "@/lib/bespoke-preview-consent";
+import { PREVIEW_CONSENT_TEXT, previewConsentPayload } from "@/lib/bespoke-preview-consent";
 import { COUNTRY_CODES, countryLabel } from "@/data/shipping-countries";
 import { supabase } from "@/integrations/supabase/client";
 import { STORAGE_KEY } from "@/lib/bespoke-state";
@@ -283,7 +283,6 @@ export default function BespokeMeasurements() {
   const [photoFile, setPhotoFile] = useState<File | null>(null);
   // Optional AI on-face preview. Off until the customer ticks it themselves.
   const [previewConsent, setPreviewConsent] = useState(false);
-  const previewLocale = useMemo(() => previewConsentLocale(), []);
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const [photoError, setPhotoError] = useState<string | null>(null);
   /** Open camera / photo check: the live camera, or a chosen file under review. */
@@ -559,7 +558,7 @@ export default function BespokeMeasurements() {
             photoPath: target.path,
             photoWidthPx: jpeg.width,
             photoHeightPx: jpeg.height,
-            ...previewConsentPayload(previewConsent, previewLocale),
+            ...previewConsentPayload(previewConsent),
           },
         });
         if (subErr) throw subErr;
@@ -1287,7 +1286,7 @@ export default function BespokeMeasurements() {
                             onChange={(e) => setPreviewConsent(e.target.checked)}
                             className="mt-0.5 h-5 w-5 shrink-0 accent-[#CAA449]"
                           />
-                          <span className="text-xs leading-relaxed text-cream-dim">{PREVIEW_CONSENT_TEXT[previewLocale]}</span>
+                          <span className="text-xs leading-relaxed text-cream-dim">{PREVIEW_CONSENT_TEXT}</span>
                         </label>
                       </div>
                     )}

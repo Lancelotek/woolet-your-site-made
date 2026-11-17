@@ -31,7 +31,7 @@ import {
   outlineAnchor,
   type Point,
 } from "@/lib/bespoke-photo-geometry";
-import { PREVIEW_CONSENT_TEXT, previewConsentLocale, previewConsentPayload } from "@/lib/bespoke-preview-consent";
+import { PREVIEW_CONSENT_TEXT, previewConsentPayload } from "@/lib/bespoke-preview-consent";
 
 // v2 (30.10.2026): consent covers two photos - front and side profile.
 const CONSENT_VERSION = "bespoke-photo-v2";
@@ -110,10 +110,9 @@ export default function BespokePhoto() {
   const { config } = useBespokeConfig();
   const frame = findFrame(config.frameId) ?? findFrame("round")!;
   const scanTempleToTempleMm = config.measurements?.templeToTemple ?? null;
-  // Both consents follow the browser, not the route: Polish only for a browser
-  // set to Polish, English for everyone else (decision 17.11.2026).
-  const previewLocale = useMemo(() => previewConsentLocale(), []);
-  const locale: keyof typeof CONSENT_TEXT = previewLocale;
+  // English only, whatever the route or the browser says: a customer in the
+  // US must never be shown Polish here (decision 17.11.2026).
+  const locale: keyof typeof CONSENT_TEXT = "en";
   const consentText = CONSENT_TEXT[locale];
 
   const front = useMemo(
@@ -336,7 +335,7 @@ export default function BespokePhoto() {
           frameBridgeMm: frame.bridgeMm,
           shapeId: frame.id,
           mappingVersion: front.mappingVersion,
-          ...previewConsentPayload(previewConsent, previewLocale),
+          ...previewConsentPayload(previewConsent),
         },
       });
       if (subErr) throw subErr;
@@ -378,7 +377,7 @@ export default function BespokePhoto() {
           consentText,
           consentVersion: CONSENT_VERSION,
           locale,
-          ...previewConsentPayload(previewConsent, previewLocale),
+          ...previewConsentPayload(previewConsent),
         },
       });
       if (subErr) throw subErr;
@@ -692,7 +691,7 @@ export default function BespokePhoto() {
                         onChange={(e) => setPreviewConsent(e.target.checked)}
                         className="mt-0.5 h-5 w-5 shrink-0 accent-[#CAA449]"
                       />
-                      <span className="text-xs leading-relaxed text-cream-dim">{PREVIEW_CONSENT_TEXT[previewLocale]}</span>
+                      <span className="text-xs leading-relaxed text-cream-dim">{PREVIEW_CONSENT_TEXT}</span>
                     </label>
                   </div>
                 </div>
