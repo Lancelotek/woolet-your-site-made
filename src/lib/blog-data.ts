@@ -733,6 +733,8 @@ ${blogFitLensHookHtml()}
         q: "What does 52□19 145 mean on glasses?",
         a: "Lens width — bridge — temple length, all in millimetres. It does not include the front width (hinge-to-hinge), which is the number that decides if a frame fits a wide face. Estimate front width as (lens width × 2) + bridge + ~6 mm for the hinge area.",
       },
+      { q: "How do I measure my face for sunglasses?", a: "The same way as for glasses: hold a ruler level across your face from temple to temple and read the millimetres. Then compare that number with the total front width of the sunglasses. Lens size alone does not tell you the fit." },
+      { q: "How do I measure face width when ordering glasses online?", a: "Measure temple to temple in millimetres with a ruler and a mirror, or with your phone camera and a bank card for scale. Then find the frame's total front width on the product page and pick one close to your number. When a shop lists only lens, bridge and temple, ask for the front width before you order." },
     ],
     howTo: {
       name: "How to Measure Face Width for Glasses",
@@ -1247,6 +1249,9 @@ ${blogFitLensHookHtml()}
       { q: "Do round glasses make a wide face look rounder?", a: "Not if they're properly sized. A small round frame on a wide face can emphasize the face's breadth. But a proportional round frame (52mm+ lens, 155mm+ total width) frames the eyes in a way that draws focus inward, creating balance rather than amplifying width." },
       { q: "What face shape should wear square glasses?", a: "Square frames are particularly effective on oval, round, and heart-shaped faces, where the angular structure adds definition. They work on square faces too, creating bold visual consonance. For wide faces specifically, square frames add vertical emphasis that counterbalances horizontal breadth." },
       { q: "Can you wear both styles depending on the occasion?", a: "Absolutely. Many wearers maintain two pairs for different contexts — a round pair for creative and intellectual environments, a square pair for formal professional settings. With both the 007 and 009 available in the same Italian acetate at 158mm, this is a natural pairing." },
+      { q: "How do you choose between round and rectangular frames?", a: "Pick the shape that contrasts with your face. Rectangular and square frames add straight lines to a round or soft face. Round frames soften a square jaw or a strong brow. Then check the width: the front of the frame has to match your face from temple to temple, whatever the shape." },
+      { q: "What is the difference between square and rectangular glasses?", a: "Proportion. A square lens is about as tall as it is wide. A rectangular lens is clearly wider than it is tall, so it sits lower on the face and looks quieter." },
+      { q: "Do square glasses look good on round faces?", a: "Yes. A round face has soft curves, and a square frame adds the straight lines and corners it lacks. The frame still has to be as wide as the face. A square frame that is too narrow pinches at the temples." },
     ],
     content: `
 <p>The debate between round and square eyewear is one of the oldest in optical fashion. Both shapes have ardent defenders. Both have looked extraordinary on the right person. For the full picture, read our guide to <a href="/en/blog/glasses-for-wide-faces-guide">glasses for wide faces</a>.</p>
@@ -1335,6 +1340,12 @@ ${blogFitLensHookHtml()}
   <figcaption>Square frames for a round face, round frames for a square jaw - the four face shapes and the Woolet pick for each, all at 155-161 mm.</figcaption>
 </figure>
 
+<h2>Square vs Rectangular Frames: What Is the Difference?</h2>
+
+<p>Proportion. A square lens is about as tall as it is wide. A rectangular lens is clearly wider than it is tall. Square frames cover more of the face and look bolder. Rectangular frames sit lower and look quieter, which is why they are the default office shape.</p>
+
+<p>On a wide face the difference matters more. A shallow rectangle stretches the front sideways and makes a wide face look wider. A square with some height balances it. That is why the Woolet 009 is a soft square with a 44 mm lens height instead of a narrow rectangle.</p>
+
 <h2>How to Choose: A Decision Framework</h2>
 
 <p>If you're deciding between round and square glasses for a wide face, work through these questions:</p>
@@ -1373,7 +1384,7 @@ ${blogFitLensHookHtml()}
 <li><strong>158mm total width</strong> — engineered for faces 155mm and above. Both frames sit on wider faces without lateral compression, without the headaches, without the marks behind the temples.</li>
 <li><strong>Italian Mazzucchelli acetate</strong> — the same material in both frames. Dense, dimensionally stable, plant-based, and produced by the manufacturer that has defined premium eyewear for over 175 years.</li>
 <li><strong>150mm temples</strong> — long enough to wrap properly around larger skulls, distributing any residual pressure across a wider arc.</li>
-<li><strong>Proportional lens sizing</strong> — 52mm (007) and 54mm (009), scaled to maintain visual balance on 155mm+ faces.</li>
+<li><strong>Proportional lens sizing</strong> — 53mm (007) and 54mm (009), scaled to maintain visual balance on 155mm+ faces.</li>
 </ul>
 
 <p>The choice between round and square is a genuine aesthetic decision. But it's a decision you can make on purely stylistic grounds, because both options have already solved the fit problem.</p>
@@ -1749,6 +1760,11 @@ ${blogFitLensHookHtml()}
     date: "2026-05-17",
     readTime: 10,
     tags: ["Guide", "Face shape", "Oval"],
+    faq: [
+      { q: "Do oval faces really suit almost any frame shape?", a: "Yes. An oval face has balanced proportions and no strong angles, so round, panto and square frames all sit well on it. The limit is size. A frame narrower than the face pinches at the temples and looks small, whatever its shape." },
+      { q: "What glasses look best on an oval face?", a: "Frames as wide as the face, with lenses in proportion to the front. A soft square adds definition and a round or panto shape keeps the face soft. On a wide oval face, skip very small frames and narrow rectangles: both make the front look wider." },
+      { q: "What size glasses does a wide oval face need?", a: "Measure from temple to temple. At 155 to 161 mm, a 158 mm front fits. Woolet makes the 007 round and the 009 soft square at 158 mm, and Bespoke covers fronts from 145 to 160 mm." },
+    ],
     content: `
 <p>The standard advice for an oval face is simple: almost any frame shape works. That advice is correct — for the standard 140 mm frame on a standard 140 mm face. It breaks down quickly once you add a second variable that mainstream eyewear advice rarely covers: face width.</p>
 
@@ -1786,7 +1802,7 @@ ${blogFitLensHookHtml()}
 
 <ul>
 <li><strong>Buying a small frame because oval faces "suit anything":</strong> the rule assumes standard width. Above 155 mm, a small frame creates the wrong proportion regardless of shape.</li>
-<li><strong>Buying a frame with bridge width that does not scale:</strong> a 19 mm bridge on a 161 mm frame leaves a wide gap above the nose. Bridges should scale with the frame — 19 / 21 / 23 mm in the Woolet line.</li>
+<li><strong>Buying a frame with a bridge that does not scale:</strong> a standard 17–19 mm bridge on a 158 mm front sits high and pinches a wider nose. The bridge should scale with the frame: Woolet uses a 25–26 mm keyhole bridge at 158 mm.</li>
 <li><strong>Choosing material on price alone:</strong> at 155 mm+ the front spans a wider arc, and budget plastic deforms over time. <a href="/en/blog/what-is-italian-acetate-premium-eyewear">Italian Mazzucchelli acetate</a> holds the shape it was cut at.</li>
 </ul>
 
@@ -1802,9 +1818,8 @@ ${blogFitLensHookHtml()}
 
 <ol>
 <li>Measure temple to temple. Under 155 mm, mainstream brands work and oval-face shape rules apply unchanged.</li>
-<li>At 155 mm+, use the AI Fit Wizard to pick a Woolet size (158 mm) or move to bespoke if you are outside 152–168 mm.</li>
+<li>At 155 mm+, use the AI Fit Wizard to confirm the 158 mm front, or move to Bespoke for a front cut to your own width, from 145 to 160 mm.</li>
 <li>Choose shape on preference: 007 round for softer features, 009 soft square for more structure.</li>
-<li>Confirm with the 30-day return window. If the size feels off in person, exchange for the next size up or down.</li>
 </ol>
 
 <p>The combination of an oval face and a wider front is one of the easiest to fit once you stop trying to make 140 mm frames work. Start with the size, finish with the shape.</p>
@@ -2722,10 +2737,11 @@ ${blogFitLensHookHtml()}
     readTime: 7,
     tags: ["Sizing", "Fit", "Diagnostic"],
     faq: [
-      { q: "How do I know if my glasses are too small for my face?", a: "Four signs: temples pinch within 1–2 hours of wear, the frame slides forward on your nose, your eyes are not centred in the lenses (you see your eye closer to the inner edge), or you have red indents on your temples or behind your ears at the end of the day. Any one of these means the frame is too narrow." },
+      { q: "How do I know if my glasses are too small for my face?", a: "Four signs: temples pinch within 1–2 hours of wear, the frame slides forward on your nose, your eyes are not centred in the lenses (they sit closer to the outer edge), or you have red indents on your temples or behind your ears at the end of the day. Any one of these means the frame is too narrow." },
       { q: "What happens if your glasses are too small?", a: "Three things: chronic temple and ear pressure causing tension headaches, hinge wear (the frame is constantly bent open beyond design), and optical mis-alignment because the lens optical centres no longer match your pupillary distance." },
       { q: "Can an optician fix glasses that are too small?", a: "No. Acetate is heat-malleable but a frame cannot be made wider — there is no extra material to work with. An optician can adjust temple bend and nose pads, but if the front width is too narrow, the only fix is a wider frame." },
       { q: "How wide should glasses be for my face?", a: "The front width of the frame (hinge to hinge) should match your face width across the temples, plus or minus 3 mm. For a 158 mm face, look for a 155–161 mm frame. For a 165 mm face, 162–168 mm." },
+      { q: "How do I know if my sunglasses are too small?", a: "Use the same four checks: pressure at the temples within an hour or two, the frame sliding forward, eyes sitting close to the outer edge of the lenses, red marks at the end of the day. Sunglasses add a fifth: light coming in at the sides, because the lenses stop short of the edge of your face." },
     ],
     howTo: {
       name: "How to tell if your glasses are too small for your face",
@@ -2735,7 +2751,7 @@ ${blogFitLensHookHtml()}
       step: [
         { name: "Check temple pressure", text: "Put your glasses on and wait 60 seconds. If you can feel pressure on your temples (the side of your head near your eyes), the front width is too narrow. There should be zero pressure at rest." },
         { name: "Check the slide", text: "Tilt your head down so you are looking at the floor. If the frame slides forward on your nose within 5 seconds, the temple grip is too weak — usually because the front is narrow and the temples are bent outward to compensate." },
-        { name: "Check lens centering", text: "Look straight ahead in a mirror. Your pupils should sit roughly in the centre of each lens, slightly above the midline. If your eyes appear closer to the inner (nose-side) edge of the lenses, the bridge is wrong — the lenses are sitting outside your pupillary distance." },
+        { name: "Check lens centering", text: "Look straight ahead in a mirror. Your pupils should sit roughly in the centre of each lens, slightly above the midline. If your eyes appear closer to the outer (temple-side) edge of the lenses, the frame is too narrow: the lens centres sit closer together than your pupils." },
         { name: "Check end-of-day marks", text: "Remove your glasses after a normal day's wear. If there are red indents on your temples or behind your ears, the frame has been mechanically forcing itself onto your head all day." },
       ],
     },
@@ -2755,7 +2771,7 @@ ${blogFitLensHookHtml()}
 <p>Quick clarification: if the frame slides only when you sweat or after several hours, that is normal and an optician can tighten the temple curl. If it slides cold, after one minute of wear, the geometry is wrong.</p>
 
 <h3>3. Your eyes are not centred in the lenses</h3>
-<p>Look straight ahead in a mirror. Your pupils should sit in the upper-centre of each lens. If your eyes appear close to the <em>inner</em> edge of the lenses (toward your nose), the bridge is too narrow — your pupillary distance is wider than the lens optical centres. This is uncomfortable optically (your eyes are looking off-axis through the lens) and is a clear sign the frame is undersized for your face.</p>
+<p>Look straight ahead in a mirror. Your pupils should sit in the upper-centre of each lens. If your eyes appear close to the <em>outer</em> edge of the lenses (toward your temples), the frame is too narrow: your pupillary distance is wider than the lens optical centres. This is uncomfortable optically (your eyes are looking off-axis through the lens) and is a clear sign the frame is undersized for your face.</p>
 
 <h3>4. Red indents at the end of the day</h3>
 <p>Take your glasses off after a normal day. Look in the mirror at your temples (just behind the corners of your eyes) and behind your ears. Red indents or visible pressure marks mean the frame has been mechanically forcing itself onto your head for 8+ hours. These marks fade in 10–30 minutes, but the chronic pressure does not — it is the source of most "I get headaches from my glasses" complaints.</p>
@@ -2918,6 +2934,8 @@ ${blogFitLensHookHtml()}
       { q: "How wide should glasses be on your face?", a: "As wide as your face. The frame front matches your temple-to-temple width and the arms run straight back without bowing or pressing." },
       { q: "How do I know when my glasses are too small?", a: "Red marks behind your ears, arms that flare outward, headaches from temple pressure, and lenses sitting too close together all point to a frame that's too narrow." },
       { q: "Can I measure my face width at home?", a: "Yes. Hold a ruler across the widest part of your face in a mirror and read the millimeters, or run the Woolet Fit Wizard, which uses a credit card and your camera to return an exact number in 30 seconds." },
+      { q: "How wide should sunglasses be on your face?", a: "As wide as your face, the same as prescription glasses. Sunglass lenses are often bigger for coverage, but a bigger lens does not make the frame wider. Check the front width, edge to edge, against your face width at the temples." },
+      { q: "Should glasses be as wide as your face?", a: "Yes. The front of the frame should match your face at the temples, give or take about 3 mm. Narrower than that and the arms bow out and press. Wider and the frame slides down your nose." },
     ],
     howTo: {
       name: "How to measure your face width for glasses",
@@ -2958,7 +2976,7 @@ ${blogFitLensHookHtml()}
 <li><strong>Bridge</strong> — the gap over your nose. A wider bridge keeps lenses centered on a broad face. Woolet runs a 25–26 mm keyhole bridge for exactly this.</li>
 <li><strong>Temple length</strong> — the arm, ear to tip. Longer arms wrap a wider head without squeezing.</li>
 </ul>
-<p>Add two lens widths plus the bridge and you get the frame front. When that total sits under your face width, the frame pinches — every time. Woolet builds one precise front: 158 mm.</p>
+<p>Two lens widths plus the bridge still come out short of the frame front, because the rims and hinges add the rest. So measure the front itself, from one outer edge to the other. When that number sits under your face width, the frame pinches. Woolet builds one precise front: 158 mm.</p>
 
 <h2>How to tell when glasses are too wide — or too narrow</h2>
 <p><strong>Too narrow</strong> (the usual story for a wide face):</p>
@@ -3012,6 +3030,12 @@ ${blogFitLensHookHtml()}
 
 <h3>Can I measure my face width at home?</h3>
 <p>Yes. Hold a ruler across the widest part of your face in a mirror and read the millimeters, or run the Woolet Fit Wizard, which uses a credit card and your camera to return an exact number in 30 seconds.</p>
+
+<h3>How wide should sunglasses be on your face?</h3>
+<p>As wide as your face, the same as prescription glasses. Sunglass lenses are often bigger for coverage, but a bigger lens does not make the frame wider. Check the front width, edge to edge, against your face width at the temples.</p>
+
+<h3>Should glasses be as wide as your face?</h3>
+<p>Yes. The front of the frame should match your face at the temples, give or take about 3 mm. Narrower than that and the arms bow out and press. Wider and the frame slides down your nose.</p>
 
 <div style="margin:48px -8px 8px;padding:40px 32px;background:linear-gradient(180deg,rgba(201,168,76,0.10),rgba(201,168,76,0.04));border:1px solid rgba(201,168,76,0.30);border-radius:8px;text-align:center;">
   <div style="font-family:'Cormorant Garamond',serif;font-size:1.9rem;line-height:1.15;margin-bottom:12px;">Get your exact width.</div>
@@ -3447,7 +3471,7 @@ ${blogFitLensHookHtml()}
   <div style="flex:1;min-width:0;">
     <div style="font-size:14px;font-weight:600;color:#1a1a1a;line-height:1.3;">Marek Cieśla</div>
     <div style="font-size:12px;color:#666;line-height:1.5;margin-top:2px;">Founder, Woolet Eyewear · Serial entrepreneur · <a href="https://www.linkedin.com/in/marekciesla/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;">LinkedIn</a></div>
-    <div style="font-size:11px;color:#999;letter-spacing:1.5px;text-transform:uppercase;margin-top:6px;">Last updated: March 2026</div>
+    <div style="font-size:11px;color:#999;letter-spacing:1.5px;text-transform:uppercase;margin-top:6px;">Last updated: ${blogModifiedMonthLabel("how-to-measure-your-head-for-a-hat")}</div>
   </div>
 </div>
 
@@ -3974,7 +3998,7 @@ Related guides:
   {
     slug: "how-to-tell-if-your-face-is-wide-or-narrow",
     title: "How to Tell if Your Face Is Wide or Narrow (30-Second Test)",
-    excerpt: "A precise, honest way to classify your face width in millimetres — and what to do next, whether you're narrow (<140 mm), average (140–154 mm), wide (155–161 mm), or extra-wide (162 mm+).",
+    excerpt: "A precise, honest way to classify your face width in millimetres — and what to do next, whether you're narrow (<138 mm), average (138–154 mm), wide (155–161 mm), or extra-wide (162 mm+).",
     date: "2026-07-14",
     readTime: 8,
     tags: ["Guide", "Fit", "Bespoke"],
@@ -3984,6 +4008,7 @@ Related guides:
       { q: "How do I measure my face width at home?", a: "Hold a credit card (85.6 mm wide) horizontally under your eyes, take a straight-on selfie, and use the card as a ruler. Full method in our measurement guide." },
       { q: "What if my face is 155–161 mm?", a: "You're in Woolet's stock range. The 007 (round) and 009 (soft square) are both built at 158 mm front / 25–26 mm keyhole bridge for this bracket." },
       { q: "What if my face is above 162 mm?", a: "Off-the-shelf 158 mm will still pinch. Woolet Bespoke is cut to your exact face width and bridge (145–160 mm, 20–26 mm bridge)." },
+      { q: "What is the average face width?", a: "141.9 mm for adult men, with a standard deviation of 5.1 mm, per anthropometric research published in the Cleft Palate and Craniofacial Journal (Perry et al., 2013). That is about 5.6 inches. Faces of 155 mm or more sit well above that average, which is why standard frames pinch them." },
     ],
     content: `
 <p style="font-size:18px;line-height:1.7;color:#1a1a1a;background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:20px 24px;margin:0 0 28px;border-radius:4px;"><strong>Your face is wide if it measures 155 mm or more temple to temple, across the widest point of the cheekbones.</strong> Narrow is under 138 mm, average 138-154 mm, wide 155-161 mm, and 162 mm and above is wide beyond the range we build — our widest bespoke front is 160 mm. The average adult male face is about 142 mm (plus or minus 5 mm), so most frames are built for 135-150 mm. For the full picture, read our guide to <a href="/en/blog/glasses-for-wide-faces-guide">glasses for wide faces</a>.</p>

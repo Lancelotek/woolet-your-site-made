@@ -89,9 +89,9 @@ describe("SEO — /en/blog/how-wide-should-glasses-be", () => {
     }
   });
 
-  it("declares a FAQ block with 4 entries", () => {
+  it("declares a FAQ block with 6 entries", () => {
     expect(post!.faq).toBeDefined();
-    expect(post!.faq).toHaveLength(4);
+    expect(post!.faq).toHaveLength(6);
   });
 
   it("declares a HowTo block whose steps are well-formed", () => {
