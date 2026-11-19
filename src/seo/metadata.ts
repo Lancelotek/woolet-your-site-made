@@ -333,7 +333,7 @@ const homeCopy: Record<Lang, Copy> = {
   pl: {
     title: "Woolet — Premium okulary na szeroką twarz (155 mm+)",
     description:
-      "Premium okulary z włoskiego octanu Mazzucchelli, zaprojektowane dla szerokich twarzy (155 mm+). Trzy mierzone rozmiary plus bespoke. Od $114 w przedsprzedaży.",
+      "Premium okulary z włoskiego octanu Mazzucchelli, zaprojektowane dla szerokich twarzy (155 mm+). Jeden rozmiar 158 mm plus bespoke. Od $114 w przedsprzedaży.",
     noscriptHtml: `<h1>Woolet - premium okulary na szeroką twarz i dużą głowę</h1>
 <p>Woolet robi premium okulary z włoskiego octanu dla szerokich twarzy, czyli od 155 mm między skroniami. Dwa kształty (007 okrągłe, 009 miękki kwadrat), oba w jednym precyzyjnym rozmiarze: 158 mm szerokości frontu i mostek keyhole 25-26 mm. Linia bespoke obejmuje 145-160 mm.</p>
 <p>Oprawki są wycinane z włoskiego octanu celulozy Mazzucchelli i ręcznie wykonywane w UE, z 5-tulejkowymi zawiasami PVD Gunmetal i mostkiem keyhole 25-26 mm pod szerszy nos.</p>
@@ -342,7 +342,7 @@ const homeCopy: Record<Lang, Copy> = {
   fr: {
     title: "Woolet — Lunettes premium pour visages larges (155 mm+)",
     description:
-      "Lunettes premium en acétate italien Mazzucchelli, conçues pour les visages larges (155 mm+). Trois tailles mesurées plus sur-mesure. Dès 114 $ en précommande.",
+      "Lunettes premium en acétate italien Mazzucchelli, conçues pour les visages larges (155 mm+). Une taille : 158 mm, plus sur-mesure. Dès 114 $ en précommande.",
     noscriptHtml: `<h1>Woolet - lunettes premium pour visages larges et grandes têtes</h1>
 <p>Woolet fabrique des lunettes premium en acétate italien pour les visages larges, soit 155 mm et plus de tempe à tempe. Deux formes (007 ronde, 009 carrée adoucie), toutes deux dans une seule taille précise : 158 mm de largeur de face et un pont keyhole de 25-26 mm. La gamme bespoke couvre 145-160 mm.</p>
 <p>Les montures sont taillées dans de l'acétate de cellulose italien Mazzucchelli et fabriquées à la main dans l'UE, avec des charnières 5 charnons PVD Gunmetal et un pont keyhole de 25-26 mm pensé pour les nez plus larges.</p>
@@ -351,7 +351,7 @@ const homeCopy: Record<Lang, Copy> = {
   es: {
     title: "Woolet — Gafas premium para caras anchas (155 mm+)",
     description:
-      "Gafas premium en acetato italiano Mazzucchelli, diseñadas para caras anchas (155 mm+). Tres tamaños medidos más a medida. Desde 114 $ en preventa.",
+      "Gafas premium en acetato italiano Mazzucchelli, diseñadas para caras anchas (155 mm+). Una talla precisa de 158 mm, más a medida. Desde 114 $ en preventa.",
     noscriptHtml: `<h1>Woolet - gafas premium para caras anchas y cabezas grandes</h1>
 <p>Woolet fabrica gafas premium de acetato italiano para caras anchas, es decir, 155 mm o más de sien a sien. Dos formas (007 redonda, 009 cuadrada suave), ambas en una única talla precisa: 158 mm de ancho frontal y puente keyhole de 25-26 mm. La línea bespoke cubre de 145 a 160 mm.</p>
 <p>Las monturas se cortan en acetato de celulosa italiano Mazzucchelli y se fabrican a mano en la UE, con bisagras de 5 cilindros PVD Gunmetal y un puente keyhole de 25-26 mm pensado para narices más anchas.</p>
@@ -360,7 +360,7 @@ const homeCopy: Record<Lang, Copy> = {
   de: {
     title: "Woolet — Premium-Brillen für breite Gesichter (ab 155 mm)",
     description:
-      "Premium-Brillen aus italienischem Mazzucchelli-Acetat, entwickelt für breite Gesichter (ab 155 mm). Drei gemessene Größen plus Maßanfertigung. Ab 114 $ im Pre-Order.",
+      "Premium-Brillen aus italienischem Mazzucchelli-Acetat, entwickelt für breite Gesichter (ab 155 mm). 158 mm Front plus Maßanfertigung. Ab 114 $ im Pre-Order.",
     // The /de hub is the only inbound link to the DE landing pages in the
     // JS-free HTML — all six must be listed here or they stay orphaned.
     noscriptHtml: `<h1>Woolet — Brillen für breite Gesichter</h1>
@@ -370,7 +370,7 @@ const homeCopy: Record<Lang, Copy> = {
   ar: {
     title: "Woolet — نظارات فاخرة للوجوه العريضة (155 ملم+)",
     description:
-      "نظارات فاخرة من أسيتات Mazzucchelli الإيطالي، مصممة للوجوه العريضة (155 ملم+). ثلاثة مقاسات مدروسة بالإضافة للصناعة الخاصة. ابتداءً من 114$ في الطلب المسبق.",
+      "نظارات فاخرة من أسيتات Mazzucchelli الإيطالي، مصممة للوجوه العريضة (155 ملم+). مقاس واحد دقيق 158 ملم بالإضافة للصناعة الخاصة. ابتداءً من 114$ في الطلب المسبق.",
     noscriptHtml: `<h1>Woolet - نظارات فاخرة للوجوه العريضة والرؤوس الكبيرة</h1>
 <p>تصنع Woolet نظارات فاخرة من الأسيتات الإيطالي للوجوه العريضة، أي 155 ملم فأكثر من الصدغ إلى الصدغ. شكلان (007 دائري، 009 مربع ناعم)، وكلاهما بمقاس واحد دقيق: عرض الواجهة 158 ملم وجسر keyhole بقياس 25-26 ملم. خط bespoke يغطي من 145 إلى 160 ملم.</p>
 <p>تُقطع الإطارات من أسيتات السليلوز الإيطالي Mazzucchelli وتُصنع يدوياً في الاتحاد الأوروبي، بمفصلات خماسية الحلقات PVD Gunmetal وجسر keyhole بقياس 25-26 ملم مصمم للأنوف الأعرض.</p>
@@ -379,7 +379,7 @@ const homeCopy: Record<Lang, Copy> = {
   ja: {
     title: "Woolet — 幅広い顔のためのプレミアムアイウェア (155mm以上)",
     description:
-      "イタリア製Mazzucchelliアセテートのプレミアムアイウェア、幅広い顔（155mm以上）のために設計。3つの計測サイズとビスポーク。プレオーダー$114から。",
+      "イタリア製Mazzucchelliアセテートのプレミアムアイウェア、幅広い顔（155mm以上）のために設計。158mmの1サイズとビスポーク。プレオーダー$114から。",
     noscriptHtml: `<h1>Woolet - 幅広い顔と大きな頭のためのプレミアムメガネ</h1>
 <p>Wooletは、こめかみ間の幅が155mm以上ある幅広い顔のために、イタリア製アセテートのプレミアムメガネを作っています。形は2種類（007 ラウンド、009 ソフトスクエア）。どちらもフロント幅158mm、キーホールブリッジ25-26mmの1サイズです。ビスポークは145-160mmに対応します。</p>
 <p>フレームはイタリアのMazzucchelli製セルロースアセテートから削り出し、EUで手作業で仕上げます。5枚丁番（PVDガンメタル）と、幅広の鼻に合わせた25-26mmのキーホールブリッジを採用しています。</p>
