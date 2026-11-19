@@ -98,7 +98,7 @@ export type RouteMeta = {
    * blog post's publication date). NEVER a build timestamp.
    */
   lastmod?: string;
-  /** Plain HTML injected into <noscript> for LLM bots and the no-JS path. */
+  /** Plain HTML injected into <div id="root"> for LLM bots and the no-JS path (the app replaces it on mount). */
   noscriptHtml?: string;
   /**
    * Per-language alternate URLs. When set, renderHeadHtml emits ONLY these
@@ -376,6 +376,20 @@ const homeCopy: Record<Lang, Copy> = {
 // ---------------------------------------------------------------------------
 // Route builder
 // ---------------------------------------------------------------------------
+
+/**
+ * Appends the product FAQ to a PDP's static body. Same items ProductFAQ.tsx
+ * renders and faqPageJsonLd() emits, so the JS-free HTML, the hydrated page
+ * and the FAQPage schema all carry identical questions and answers.
+ */
+function withProductFaq(copy: Copy, lang: Lang): Copy {
+  if (!copy.noscriptHtml) return copy;
+  const localized = lang === "fr" || lang === "nl";
+  const items = localized ? PRODUCT_FAQ_I18N[lang] : PRODUCT_FAQ;
+  const heading = lang === "fr" ? "Questions fréquentes" : lang === "nl" ? "Veelgestelde vragen" : "Frequently Asked Questions";
+  const faq = items.map((i) => `<h3>${escapeHtml(i.q)}</h3>\n<p>${escapeHtml(i.a)}</p>`).join("\n");
+  return { ...copy, noscriptHtml: `${copy.noscriptHtml}\n<h2>${heading}</h2>\n${faq}` };
+}
 
 function base(
   route: string,
@@ -936,7 +950,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
     return base(
       route,
       lang,
-      copy[lang] ?? copy.en!,
+      withProductFaq(copy[lang] ?? copy.en!, lang),
       { image: `${SITE_URL}/og-007.png`, type: "product" },
       [
         productJsonLd("007", "Round", "53 × 47.6 mm", lang),
@@ -978,7 +992,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
     return base(
       route,
       lang,
-      copy[lang] ?? copy.en!,
+      withProductFaq(copy[lang] ?? copy.en!, lang),
       { image: `${SITE_URL}/og-009.png`, type: "product" },
       [
         productJsonLd("009", "Soft Square", "54 × 44 mm", lang),
