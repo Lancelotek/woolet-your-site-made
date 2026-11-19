@@ -328,7 +328,22 @@ const homeCopy: Record<Lang, Copy> = {
     noscriptHtml: `<h1>Woolet — Premium Glasses for Wide Faces & Big Heads</h1>
 <p>Woolet makes premium Italian-acetate eyewear engineered for wide faces — temple-to-temple measurements of 155 mm and above. Two shapes (007 round, 009 soft square), both built in one precise size: 158 mm front width with a 25–26 mm keyhole bridge. A bespoke tier covers 145–160 mm.</p>
 <p>Frames are cut from Italian Mazzucchelli cellulose acetate, Hand made in EU, with 5-barrel PVD Gunmetal hinges and a 25–26 mm keyhole bridge engineered for wider noses.</p>
-<p>Pricing: $114 for founding members at pre-order, $190 at full launch. <a href="/en/fit">Find your size with FitLens</a> · <a href="/en/blog/glasses-for-wide-faces-guide">The complete wide-face guide</a> · <a href="/en/blog/best-sunglasses-for-wide-faces">Best sunglasses for wide faces</a> · <a href="/en/collections/glasses-for-big-heads">Glasses for wide faces and big heads</a>.</p>`,
+<p>Pricing: $114 for founding members at pre-order, $190 at full launch. <a href="/en/fit">Find your size with FitLens</a> · <a href="/en/blog/glasses-for-wide-faces-guide">The complete wide-face guide</a> · <a href="/en/blog/best-sunglasses-for-wide-faces">Best sunglasses for wide faces</a> · <a href="/en/collections/glasses-for-big-heads">Glasses for wide faces and big heads</a>.</p>
+<h2>Sound familiar?</h2>
+<ul>
+<li>Red marks on your temples. The frame is clamping, not resting.</li>
+<li>Temples splayed outward. Bent to fit - and getting looser every week.</li>
+<li>The frame ends before your face does. Lenses sit inside your eye line, not over it.</li>
+</ul>
+<p>All three mean one thing: your frame is 10–15 mm too narrow. Woolet starts where they stop.</p>
+<h2>Two frames. One precise size.</h2>
+<ul>
+<li><a href="/en/products/007">Woolet 007 Round</a> - Black, 158 mm front, $190</li>
+<li><a href="/en/products/009">Woolet 009 Square</a> - Black, 158 mm front, $190</li>
+</ul>
+<p><a href="/en/collection">View the collection</a></p>
+<h2>Outside the range? We'll build to yours.</h2>
+<p>Bespoke covers any width from 145 to 160 mm, 4 frame shapes and 60 colour and size combinations - built to measure. <a href="/en/bespoke">Start bespoke</a></p>`,
   },
   pl: {
     title: "Woolet — Premium okulary na szeroką twarz (155 mm+)",
