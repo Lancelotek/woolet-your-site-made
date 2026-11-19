@@ -580,7 +580,7 @@ const BespokePage = () => {
             >
               {[
                 { label: "Frame width", woolet: BESPOKE_FACTS.frontWidth, stock: "158 mm (007 and 009)" },
-                { label: "Bridge width", woolet: BESPOKE_FACTS.bridge, stock: "26 mm (007), 25 mm (009)" },
+                { label: "Bridge width", woolet: BESPOKE_FACTS.bridge, stock: "25 mm (007 and 009)" },
                 { label: "Temple length", woolet: BESPOKE_FACTS.temples, stock: "150 mm (007 and 009)" },
                 { label: "Measurement method", woolet: "Photo with a card for scale and model approval", stock: "Fixed dimensions" },
                 { label: "Regular price", woolet: `${BESPOKE_COPY.frame} USD with free worldwide shipping; lenses optional (Plano ${BESPOKE_COPY.plano}, Blue Light ${BESPOKE_COPY.blueLight}) or frame only`, stock: "See stock product pages" },

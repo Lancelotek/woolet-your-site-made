@@ -655,9 +655,9 @@ const Index = () => {
       onFace: homeOnFaceCard["007"],
       onFaceAlt: "Woolet 007 Round / Panto in Havana worn on a 158 mm wide face - real fit, front view",
       img: woolet007Asset.url,
-      alt: "Woolet 007 — round panto Italian Mazzucchelli acetate glasses, 158 mm front, 26 mm keyhole bridge, for wide faces 155 mm+",
+      alt: "Woolet 007 — round panto Italian Mazzucchelli acetate glasses, 158 mm front, 25 mm keyhole bridge, for wide faces 155 mm+",
       blackImg: woolet007BlackCard.url,
-      blackAlt: "Woolet 007 in black — round panto Italian Mazzucchelli acetate glasses, 158 mm front, 26 mm keyhole bridge, front view",
+      blackAlt: "Woolet 007 in black — round panto Italian Mazzucchelli acetate glasses, 158 mm front, 25 mm keyhole bridge, front view",
     },
     {
       id: "009",

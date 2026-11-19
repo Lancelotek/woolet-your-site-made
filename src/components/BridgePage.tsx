@@ -18,8 +18,7 @@ import { BRIDGE_FIT_FAQ } from "@/content/bridgeFit";
 const SITE = "https://woolet.co";
 
 const verdictBg: Record<BridgeVerdictKind, string> = {
-  "signature-007": "#F3EBD5",
-  "signature-009": "#F3EBD5",
+  "signature": "#F3EBD5",
   "signature-between": "#EFE9DF",
   "bespoke-narrower": "#EFE9DF",
   "below-signature": "#F5E6DF",
@@ -28,8 +27,7 @@ const verdictBg: Record<BridgeVerdictKind, string> = {
 };
 
 const verdictLabel: Record<BridgeVerdictKind, string> = {
-  "signature-007": "Signature — 007 Keyhole",
-  "signature-009": "Signature — 009",
+  "signature": "Signature — 007 and 009",
   "signature-between": "Bespoke floor",
   "bespoke-narrower": "Bespoke",
   "below-signature": "Below our range",
@@ -101,7 +99,7 @@ function BridgePageInner({ b }: { b: BridgeEntry }) {
 
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 12 }}>
             <span style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#666", border: "1px solid #D9C9A8", padding: "5px 10px", borderRadius: 2 }}>
-              007 Keyhole 26 mm
+              007 Keyhole 25 mm
             </span>
             <span style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#666", border: "1px solid #D9C9A8", padding: "5px 10px", borderRadius: 2 }}>
               009 Bridge 25 mm
@@ -129,7 +127,7 @@ function BridgePageInner({ b }: { b: BridgeEntry }) {
               Measure my face with FitLens
             </Link>
             <Link
-              to={b.verdictKind === "signature-007" ? "/en/products/007" : b.verdictKind === "signature-009" ? "/en/products/009" : "/en/fit/bespoke"}
+              to={b.verdictKind === "signature" ? "/en/collection" : "/en/fit/bespoke"}
               style={{
                 background: "transparent",
                 color: "#0B0A09",
@@ -142,7 +140,7 @@ function BridgePageInner({ b }: { b: BridgeEntry }) {
                 borderRadius: 2,
               }}
             >
-              {b.verdictKind === "signature-007" ? "See 007 Round" : b.verdictKind === "signature-009" ? "See 009 Soft Square" : "Explore bespoke"}
+              {b.verdictKind === "signature" ? "See the frames" : "Explore bespoke"}
             </Link>
           </div>
         </header>
@@ -257,7 +255,7 @@ function BridgePageInner({ b }: { b: BridgeEntry }) {
                 display: "block",
                 padding: "18px 16px",
                 background: "#FFF",
-                border: b.verdictKind === "signature-007" ? "2px solid #CAA449" : "1px solid #E0D5C5",
+                border: b.verdictKind === "signature" ? "2px solid #CAA449" : "1px solid #E0D5C5",
                 borderRadius: 4,
                 textDecoration: "none",
                 color: "#0B0A09",
@@ -267,7 +265,7 @@ function BridgePageInner({ b }: { b: BridgeEntry }) {
                 Woolet 007 — Round
               </div>
               <div style={{ fontSize: 12, color: "#666", lineHeight: 1.55, marginBottom: 12 }}>
-                26 mm keyhole bridge · 158 mm front · 53 × 47.6 mm lens · 150 mm temples.
+                25 mm keyhole bridge · 158 mm front · 53 × 47.6 mm lens · 150 mm temples.
               </div>
               <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
                 <span style={{ color: "#7A6420", fontWeight: 700, fontSize: 16 }}>$114</span>
@@ -283,7 +281,7 @@ function BridgePageInner({ b }: { b: BridgeEntry }) {
                 display: "block",
                 padding: "18px 16px",
                 background: "#FFF",
-                border: b.verdictKind === "signature-009" ? "2px solid #CAA449" : "1px solid #E0D5C5",
+                border: b.verdictKind === "signature" ? "2px solid #CAA449" : "1px solid #E0D5C5",
                 borderRadius: 4,
                 textDecoration: "none",
                 color: "#0B0A09",
@@ -293,7 +291,7 @@ function BridgePageInner({ b }: { b: BridgeEntry }) {
                 Woolet 009 — Soft Square
               </div>
               <div style={{ fontSize: 12, color: "#666", lineHeight: 1.55, marginBottom: 12 }}>
-                25 mm bridge · 158 mm front · 54 × 44 mm lens · 150 mm temples.
+                25 mm keyhole bridge · 158 mm front · 54 × 44 mm lens · 150 mm temples.
               </div>
               <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
                 <span style={{ color: "#7A6420", fontWeight: 700, fontSize: 16 }}>$114</span>

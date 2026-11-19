@@ -84,7 +84,7 @@ const RESULTS: Record<Band, {
     title: "Wide face — this is the Woolet range",
     range: "155–161 mm temple-to-temple",
     honest:
-      "This is exactly what Woolet 007 and 009 are engineered for: 158 mm front, 25–26 mm keyhole bridge, Italian Mazzucchelli acetate. Mainstream brands stop right before your face begins.",
+      "This is exactly what Woolet 007 and 009 are engineered for: 158 mm front, 25 mm keyhole bridge, Italian Mazzucchelli acetate. Mainstream brands stop right before your face begins.",
     cta: { label: "See Woolet 007 & 009", href: "/en/collection" },
     secondary: { label: "Confirm with AI Fit Wizard", href: "/en/fit" },
     tone: "match",

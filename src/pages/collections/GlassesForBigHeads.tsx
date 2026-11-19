@@ -34,17 +34,17 @@ const GlassesForBigHeads = () => (
     h1="Glasses for Wide Faces and Big Heads"
     breadcrumbName="Glasses for Wide Faces and Big Heads"
     metaTitle="Glasses for Wide Faces & Big Heads - 158 mm Frames | Woolet"
-    metaDescription="Glasses for wide faces and big heads: 158 mm front for 155-161 mm faces. Italian acetate, 25-26 mm bridge, two shapes. $114 pre-order, 30-day returns."
+    metaDescription="Glasses for wide faces and big heads: 158 mm front for 155-161 mm faces. Italian acetate, 25 mm bridge, two shapes. $114 pre-order, 30-day returns."
     colourGrid
     relatedSlugs={["sunglasses-for-big-heads", "wide-bridge-glasses", "blue-light-glasses-for-wide-faces"]}
     answerBlock={{
       heading: "What size glasses fit a wide face or a big head?",
       text: "A wide face measures 155 mm or more temple to temple; a big head is roughly 58 cm and up in circumference. Both need a frame front of about 158 mm. Woolet 007 and 009 are built at 158 mm for faces of 155–161 mm, and bespoke covers 145–160 mm.",
     }}
-    intro="Most frames sold as wide stop at 148–152 mm, so the temples splay outward and the bridge slides down the nose. Woolet builds two shapes, round 007 and soft-square 009, with a 158 mm front, a 25–26 mm keyhole bridge and 150 mm temples. Italian Mazzucchelli acetate, hand made in EU, ready for prescription lenses."
+    intro="Most frames sold as wide stop at 148–152 mm, so the temples splay outward and the bridge slides down the nose. Woolet builds two shapes, round 007 and soft-square 009, with a 158 mm front, a 25 mm keyhole bridge and 150 mm temples. Italian Mazzucchelli acetate, hand made in EU, ready for prescription lenses."
     whyThisFits={[
       "<strong>The front is wide, not only the lens.</strong> Standard frames sit at 138–148 mm, so on a wide face the temples splay outward, the hinges take all the load, and the bridge slides down the nose within an hour. A 158 mm front spans a 155–161 mm face, so the frame rests on the nose and ears instead of gripping the temples.",
-      "<strong>The bridge is wider too.</strong> A wider face usually has a wider nose. The 007 has a 26 mm keyhole bridge and the 009 a 25 mm keyhole bridge, against the 18–20 mm typical of mainstream wide frames, so the frame sits without riding up or leaving pressure marks.",
+      "<strong>The bridge is wider too.</strong> A wider face usually has a wider nose. The 007 and the 009 both have a 25 mm keyhole bridge, against the 18–20 mm typical of mainstream wide frames, so the frame sits without riding up or leaving pressure marks.",
       "<strong>Acetate matters more at this size.</strong> Cellulose acetate holds the shape an optician sets; injection-moulded plastic loosens under heat, and a wider frame amplifies that drift. Both shapes are cut from Italian Mazzucchelli acetate and hand-finished in the EU, with 5-barrel PVD Gunmetal hinges.",
       "<strong>Prescription-ready, both shapes.</strong> Take them to any optician for single-vision, progressive or blue-light lenses. Lens area is 53 × 47.6 mm on the round 007 and 54 × 44 mm on the soft-square 009, which leaves room for a progressive corridor. Temples are 150 mm.",
       "<strong>Price and how to find your size.</strong> The shop is sold out until the Kickstarter campaign ends. A $1 reservation now locks the $114 founding-member price against the $190 MSRP. Confirm 158 mm is right for you with <a href=\"/en/fit\" style=\"color:#A07A2A;\">FitLens</a>, or use the <a href=\"/en/fit/manual\" style=\"color:#A07A2A;\">credit-card manual method</a>. Outside 155–161 mm, <a href=\"/en/fit/bespoke\" style=\"color:#A07A2A;\">Bespoke</a> covers 145 to 160 mm.",
@@ -110,7 +110,7 @@ const GlassesForBigHeads = () => (
       { question: "How is this different from oversized glasses?", answer: "Oversized at most brands means a larger lens on the same 138–148 mm front. Woolet's front itself is 158 mm. Lens and front scale together, so the frame fits the head, not just the eyes." },
       { question: "Can I get prescription or progressive lenses fitted?", answer: "Yes. Both shapes ship with demo lenses, ready for any optician to fit single-vision, progressive or blue-light lenses. The 53 × 47.6 mm lens area on 007 and 54 × 44 mm on 009 leave room for a progressive corridor." },
       { question: "Do you make wide frame reading glasses?", answer: "Yes. Reading glasses use the same 158 mm fronts, fitted with single-vision reading lenses from +1.00 to +3.00." },
-      { question: "What about the bridge - will it fit a wider nose?", answer: "The 007 has a 26 mm keyhole bridge and the 009 has a 25 mm keyhole bridge. Both are designed to distribute weight on a wider nose without pinching." },
+      { question: "What about the bridge - will it fit a wider nose?", answer: "The 007 and the 009 both have a 25 mm keyhole bridge. Both are designed to distribute weight on a wider nose without pinching." },
       { question: "What if 158 mm is too wide or too narrow for me?", answer: "Bespoke covers 145 to 160 mm of front width in either shape, with a 20–26 mm bridge and temples up to 155 mm. Same Italian Mazzucchelli acetate, hand made in EU to your measurement." },
       { question: "How thick are Woolet frames?", answer: "Both shapes are cut from 7 mm Italian Mazzucchelli acetate. Most bold frames online sit at 3–5 mm of injected plastic." },
       { question: "What do they cost and can I return them?", answer: "$114 is the founding-member price, locked with a $1 reservation; $190 at full launch. Shipping is free and you have 30 days to return." },

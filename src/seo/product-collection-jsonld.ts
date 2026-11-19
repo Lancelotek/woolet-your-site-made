@@ -183,7 +183,7 @@ export const COLLECTION_PRODUCTS = [
     name: "Woolet 007 - Round / Panto, 158 mm",
     shape: "Round",
     description:
-      "Round panto eyeglass frame for wide faces (155-161 mm): 158 mm front, 26 mm keyhole bridge, 150 mm temples. Italian Mazzucchelli acetate, hand made in EU.",
+      "Round panto eyeglass frame for wide faces (155-161 mm): 158 mm front, 25 mm keyhole bridge, 150 mm temples. Italian Mazzucchelli acetate, hand made in EU.",
   },
   {
     id: "009",

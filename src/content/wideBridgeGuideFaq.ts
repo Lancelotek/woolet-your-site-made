@@ -8,7 +8,7 @@ export const WIDE_BRIDGE_GUIDE_FAQ = [
   },
   {
     q: "What's a wide bridge measurement in mm?",
-    a: "Mainstream eyewear sits at 17–20 mm. We call 21 mm and above a wide bridge. Woolet signature frames use 25 mm (009) and 26 mm (007 keyhole); bespoke builds any bridge from 20 to 26 mm.",
+    a: "Mainstream eyewear sits at 17–20 mm. We call 21 mm and above a wide bridge. Woolet signature frames use 25 mm on both the 007 and the 009; bespoke builds any bridge from 20 to 26 mm.",
   },
   {
     q: "Keyhole or saddle bridge for a wide nose?",

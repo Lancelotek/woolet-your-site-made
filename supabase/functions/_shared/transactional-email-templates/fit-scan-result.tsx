@@ -107,7 +107,7 @@ const Email = ({
         </Text>
         <Text style={body}>
           <strong>Bridge width</strong> should be close to your nose width
-          {noseWidthMm ? ` (${noseWidthMm} mm)` : ''}. A keyhole bridge (like Woolet's 21 mm) distributes
+          {noseWidthMm ? ` (${noseWidthMm} mm)` : ''}. A keyhole bridge (like Woolet's 25 mm) distributes
           weight without leaving pressure marks.
         </Text>
         <Text style={body}>

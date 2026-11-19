@@ -174,7 +174,7 @@ export const TEMPLE_SECTIONS: Record<string, ClusterSection[]> = {
 
 /**
  * Long-form, per-width unique copy for the /en/bridge/* landing cluster.
- * Signature bridges: 26 mm keyhole (007), 25 mm (009). Bespoke 20–26 mm,
+ * Signature bridge: 25 mm keyhole on the 007 and the 009. Bespoke 20–26 mm,
  * any front width 145–160 mm. Bridge numbers here are frame DBL, not a
  * measurement of the wearer's nose.
  */
@@ -183,8 +183,8 @@ const RANGE_TABLE: NonNullable<ClusterSection["table"]> = {
   rows: [
     ["18–19 mm", "Below our range — mainstream"],
     ["20–24 mm", "Bespoke"],
-    ["25 mm", "Woolet 009 Soft Square (signature)"],
-    ["26 mm", "Woolet 007 Round keyhole (signature)"],
+    ["25 mm", "Woolet 007 Round and 009 Soft Square (signature)"],
+    ["26 mm", "Bespoke — our widest bridge"],
   ],
 };
 
@@ -207,7 +207,7 @@ export const BRIDGE_SECTIONS: Record<string, ClusterSection[]> = {
     {
       h2: "Why we do not build 18 mm",
       body: [
-        "Putting an 18 mm saddle on a 158 mm front concentrates the weight of the frame on two small contact points at the top of the nose. That is what produces red marks and a frame that slides once your skin warms. Our signature bridges are 25 mm (009) and 26 mm (007 keyhole).",
+        "Putting an 18 mm saddle on a 158 mm front concentrates the weight of the frame on two small contact points at the top of the nose. That is what produces red marks and a frame that slides once your skin warms. Our signature bridges are 25 mm on both the 007 and the 009.",
       ],
       table: RANGE_TABLE,
     },
@@ -230,7 +230,7 @@ export const BRIDGE_SECTIONS: Record<string, ClusterSection[]> = {
     {
       h2: "19 mm against the Woolet range",
       body: [
-        "Woolet bespoke starts at 20 mm and the signature frames run 25–26 mm, so 19 mm sits below our range.",
+        "Woolet bespoke starts at 20 mm and the signature frames run 25 mm, so 19 mm sits below our range.",
       ],
       table: RANGE_TABLE,
     },
@@ -241,13 +241,13 @@ export const BRIDGE_SECTIONS: Record<string, ClusterSection[]> = {
     {
       h2: "Who a 20 mm bridge fits",
       body: [
-        "20 mm is wider than nearly everything in stock retail and it is the floor of Woolet bespoke. It suits a wide face that needs a frame bridge narrower than our 25–26 mm signature.",
+        "20 mm is wider than nearly everything in stock retail and it is the floor of Woolet bespoke. It suits a wide face that needs a frame bridge narrower than our 25 mm signature.",
       ],
     },
     {
       h2: "20 mm against the Woolet range",
       body: [
-        "Signature frames are 25 mm (009) and 26 mm (007 keyhole). A 20 mm bridge is a bespoke build on any front from 145 to 160 mm.",
+        "Signature frames are 25 mm on both the 007 and the 009. A 20 mm bridge is a bespoke build on any front from 145 to 160 mm.",
       ],
       table: RANGE_TABLE,
     },
@@ -258,7 +258,7 @@ export const BRIDGE_SECTIONS: Record<string, ClusterSection[]> = {
     {
       h2: "21 mm against the Woolet range",
       body: [
-        "21 mm is a wide bridge by mainstream standards and a bespoke build at Woolet. The signature frames go wider: 25 mm on the 009 Soft Square and 26 mm on the 007 keyhole.",
+        "21 mm is a wide bridge by mainstream standards and a bespoke build at Woolet. The signature frames go wider: 25 mm on both the 007 Round and the 009 Soft Square.",
       ],
       table: RANGE_TABLE,
     },
@@ -275,7 +275,7 @@ export const BRIDGE_SECTIONS: Record<string, ClusterSection[]> = {
     {
       h2: "22 mm against the Woolet range",
       body: [
-        "Almost nothing in mainstream retail is offered at 22 mm, and when a stock frame lists it the front is usually 145 mm or under. At Woolet 22 mm is a bespoke build; the signature 009 runs 25 mm and the 007 keyhole 26 mm.",
+        "Almost nothing in mainstream retail is offered at 22 mm, and when a stock frame lists it the front is usually 145 mm or under. At Woolet 22 mm is a bespoke build; the signature 007 and 009 both run 25 mm.",
       ],
       table: RANGE_TABLE,
     },
@@ -286,7 +286,7 @@ export const BRIDGE_SECTIONS: Record<string, ClusterSection[]> = {
     {
       h2: "24 mm against the Woolet range",
       body: [
-        "24 mm is specialist wide-bridge sizing and a bespoke build at Woolet. It sits just under the signature 009 (25 mm) and 007 keyhole (26 mm).",
+        "24 mm is specialist wide-bridge sizing and a bespoke build at Woolet. It sits 1 mm under the signature 25 mm keyhole on the 007 and the 009.",
         "When the bridge widens, the lens geometry has to follow: bespoke adjusts lens width so the optical centres stay aligned with your pupillary distance.",
       ],
       table: RANGE_TABLE,
@@ -296,24 +296,24 @@ export const BRIDGE_SECTIONS: Record<string, ClusterSection[]> = {
 
   "25mm": [
     {
-      h2: "Why 25 mm is the 009 bridge",
+      h2: "Why 25 mm is the signature bridge",
       body: [
-        "The 009 Soft Square is built 54□25-150 on a 158 mm front. A 25 mm bridge pushes the lenses apart for a wide nose, and the 54 × 44 mm lens keeps the optical centres inside the pupillary distance that comes with a wide face.",
+        "Both signature frames are built on a 25 mm keyhole bridge and a 158 mm front: the 007 Round / Panto at 53□25-150 and the 009 Soft Square at 54□25-150. A 25 mm bridge pushes the lenses apart for a wide nose, and the keyhole carries the load on the flanks of the nose, which is how a 158 mm acetate front sits without pads.",
       ],
       table: {
-        head: ["Spec", "009 Soft Square"],
+        head: ["Spec", "007 Round and 009 Soft Square"],
         rows: [
-          ["Bridge", "25 mm"],
+          ["Bridge", "25 mm keyhole"],
           ["Front width", "158 mm"],
-          ["Lens", "54 × 44 mm"],
+          ["Lens", "53 × 47.6 mm (007) · 54 × 44 mm (009)"],
           ["Temples", "150 mm"],
         ],
       },
     },
     {
-      h2: "25 mm versus the 26 mm keyhole on the 007",
+      h2: "007 or 009 at 25 mm",
       body: [
-        "The 007 Round carries a 26 mm keyhole that rests on the sides of the nose and a taller 53 × 47.6 mm round lens. The 009 pairs its 25 mm bridge with a flatter top line and a lower lens. Shape preference usually decides between them.",
+        "The bridge is the same on both. The 007 pairs it with a taller 53 × 47.6 mm round lens, the 009 with a flatter top line and a lower 54 × 44 mm lens. Shape preference usually decides between them.",
       ],
     },
     MEASURE_SECTION,
@@ -321,25 +321,12 @@ export const BRIDGE_SECTIONS: Record<string, ClusterSection[]> = {
 
   "26mm": [
     {
-      h2: "Why 26 mm is the 007 keyhole",
+      h2: "26 mm is our widest bridge, built in bespoke",
       body: [
-        "The 007 Round / Panto is built 53□26-150 on a 158 mm front. A keyhole clears the crest of the nose and carries the load on the flanks, which is how a 158 mm acetate front sits without pads.",
+        "26 mm is the top of the bespoke range (20–26 mm). The signature 007 and 009 both use a 25 mm keyhole, so a 26 mm bridge is a made-to-measure order. Bespoke can put it on any bespoke shape and any front from 145 to 160 mm.",
+        "When the bridge widens, the lens geometry has to follow: bespoke adjusts lens width so the optical centres stay aligned with your pupillary distance.",
       ],
-      table: {
-        head: ["Spec", "007 Round / Panto"],
-        rows: [
-          ["Bridge", "26 mm keyhole"],
-          ["Front width", "158 mm"],
-          ["Lens", "53 × 47.6 mm"],
-          ["Temples", "150 mm"],
-        ],
-      },
-    },
-    {
-      h2: "26 mm is our widest bridge",
-      body: [
-        "26 mm is the 007 signature and the top of the bespoke range (20–26 mm). Bespoke can put a 26 mm bridge on any bespoke shape and front from 145 to 160 mm.",
-      ],
+      table: RANGE_TABLE,
     },
     MEASURE_SECTION,
   ],
