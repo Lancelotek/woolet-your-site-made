@@ -11,7 +11,8 @@
  *      Radix, no DOM dependencies — guaranteed to load in Node).
  *   2. For each route, generates the per-route <title>, <meta>,
  *      <link rel="canonical">, hreflang, og:*, twitter:* and JSON-LD,
- *      and an optional <noscript> body block for LLM bots.
+ *      and an optional static body block for LLM bots, placed inside
+ *      <div id="root"> (replaced by the app on mount).
  *   3. Injects those into the dist/index.html template and writes
  *      dist/<route>/index.html. The SPA still hydrates on top —
  *      Helmet replaces tags client-side after JS runs.
@@ -196,10 +197,26 @@ function injectHead(template, headHtml, noscriptHtml, route) {
       "",
     );
 
-    // Inject the route-specific noscript immediately before </body> so it
-    // sits at the end of the document, after the SPA root.
-    const block = `<noscript data-route="${route}">${finalNoscript}</noscript>`;
-    html = html.replace("</body>", `    ${block}\n  </body>`);
+    // Put the route's crawler content INSIDE the SPA root (19.11.2026).
+    // It used to live in a trailing <noscript data-route>: fetchers that
+    // parse raw HTML read it, but reader-mode extractors (Readability and
+    // its ports) delete every <noscript> before extraction and got 0 words
+    // on all routes. Real elements in #root survive those extractors.
+    //   - createRoot().render() clears #root on mount, so the hydrated
+    //     page and Googlebot's rendered DOM never contain this block.
+    //   - With JS on it stays unpainted (no flash of fallback text before
+    //     the app mounts - visitors see exactly what they saw before) and
+    //     fades in only when the app has not mounted after 5 s.
+    //   - Without JS the <noscript> style shows it at once, like before.
+    // The style tag is NOT stamped data-seo="prerender": strip-prerender-seo
+    // only disconnects its observer once no such node is left in <head>.
+    const style = `<style data-prerender-body-style>[data-prerender-body]{max-width:44rem;margin:0 auto;padding:24px 20px;font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif;opacity:0;animation:wl-prerender-reveal 0s linear 5s forwards}[data-prerender-body] table{border-collapse:collapse}[data-prerender-body] td,[data-prerender-body] th{border:1px solid #ddd;padding:4px 8px;text-align:left}@keyframes wl-prerender-reveal{to{opacity:1}}</style><noscript><style>[data-prerender-body]{opacity:1;animation:none}</style></noscript>`;
+    const block = `<div data-prerender-body data-route="${route}">${finalNoscript}</div>`;
+    if (!/<div id="root"><\/div>/.test(html)) {
+      throw new Error(`[prerender] ${route}: empty <div id="root"></div> not found in template`);
+    }
+    html = html.replace("</head>", `    ${style}\n  </head>`);
+    html = html.replace(/<div id="root"><\/div>/, () => `<div id="root">${block}</div>`);
   }
 
   return html;

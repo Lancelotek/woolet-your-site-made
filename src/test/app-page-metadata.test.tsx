@@ -94,7 +94,8 @@ describe("registered app page metadata", () => {
     const html = injectHead(readFileSync("index.html", "utf8"), renderHeadHtml(meta), meta.noscriptHtml, route);
     expect(html.match(/<title\b[^>]*>(.*?)<\/title>/)?.[1]).toBe(title);
     expect(html).not.toContain("Page not found | Woolet");
-    expect(html).toContain(`<noscript data-route="${route}">`);
+    expect(html).toContain(`<div id="root"><div data-prerender-body data-route="${route}">`);
+    expect(html).not.toContain("<noscript data-route=");
   });
 
   it("updates title on client navigation even when a page omitted its path prop", async () => {
