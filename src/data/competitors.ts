@@ -287,7 +287,7 @@ export const competitors: Competitor[] = [
         },
         {
           label: "Bridge",
-          woolet: "25–26 mm keyhole (up to 24 mm bespoke)",
+          woolet: "25 mm keyhole (20–26 mm bespoke)",
           competitor: "≈ 18–20 mm, plus a Low Bridge Fit variant",
         },
         {

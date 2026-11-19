@@ -377,7 +377,7 @@ export function getRecommendation(
     badgeLabel: "WOOLET 007 — STANDARD KEYHOLE",
     badgeColor: "#CAA449",
     title: "Woolet 007 is your fit",
-    body: `At ${faceWidthMm}mm face width and ${noseWidthMm}mm nose width, 007's 158mm round-panto front with a 26mm keyhole bridge lines up with your geometry — no slipping, no lash contact.`,
+    body: `At ${faceWidthMm}mm face width and ${noseWidthMm}mm nose width, 007's 158mm round-panto front with a 25mm keyhole bridge lines up with your geometry — no slipping, no lash contact.`,
     primaryCta: "See Woolet 007",
     primaryHref: "/en/products/007",
   };

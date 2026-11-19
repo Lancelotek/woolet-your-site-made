@@ -1321,7 +1321,7 @@ const KickstarterPrelaunch = () => {
       },
       {
         q: "How is this different from a Ray-Ban or Persol XL?",
-        a: "XL models are scaled-up versions of frames designed for a ~137 mm face. Woolet is engineered wide from the first millimetre — 158 mm front, 25–26 mm keyhole bridge, proportions built for 155–161 mm faces.",
+        a: "XL models are scaled-up versions of frames designed for a ~137 mm face. Woolet is engineered wide from the first millimetre — 158 mm front, 25 mm keyhole bridge, proportions built for 155–161 mm faces.",
       },
       {
         q: "What exactly do VIPs get?",
@@ -1384,7 +1384,7 @@ const KickstarterPrelaunch = () => {
             {
               "@type": "Product",
               name: "Woolet 007 — Round",
-              description: "Round Milanese acetate frame, 158 mm wide with a 26 mm keyhole bridge. Engineered for wide faces 155–161 mm.",
+              description: "Round Milanese acetate frame, 158 mm wide with a 25 mm keyhole bridge. Engineered for wide faces 155–161 mm.",
               image: w007BlackFrontAsset.url,
               brand: { "@type": "Brand", name: "Woolet" },
               category: "Eyewear",
@@ -1842,7 +1842,7 @@ const KickstarterPrelaunch = () => {
                 priceNote: "Kickstarter price for the length of the campaign, then $190 in the shop.",
                 specs: [
                   ["Front width", "158 mm"],
-                  ["Bridge", "26 mm keyhole"],
+                  ["Bridge", "25 mm keyhole"],
                   ["Lens", "53 × 47.6 mm"],
                   ["Temple", "150 mm"],
                   ["Front height", "52 mm"],
@@ -2019,7 +2019,7 @@ const KickstarterPrelaunch = () => {
               },
               {
                 t: "Keyhole Bridge",
-                sub: "25-26 mm, rests on the sides of the nose",
+                sub: "25 mm, rests on the sides of the nose",
                 d: "The bridge sits on the sides of the nose rather than the top, so the frame sits level, doesn't slide, and leaves no red marks at the end of the day.",
               },
               {

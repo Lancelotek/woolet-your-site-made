@@ -45,7 +45,7 @@ export const jaPages: Record<string, JaPageConfig> = {
       "Wooletは3つの実寸フロント幅を提供します。「ラージ」「XL」といった曖昧な呼称ではなく、155mm・158mm・161mm。テンプル長、ブリッジ幅も大きめ顔向けに再設計。素材はマッツケリ1849のイタリア製アセテート、すべてEUで手作業仕上げ。",
     proofBullets: [
       { label: "フロント幅", value: "158 mm" },
-      { label: "ブリッジ幅", value: "25–26 mm キーホール" },
+      { label: "ブリッジ幅", value: "25 mm キーホール" },
       { label: "素材", value: "Mazzucchelli 1849 イタリア製アセテート" },
       { label: "製造", value: "EU 手作業" },
     ],
@@ -107,7 +107,7 @@ export const jaPages: Record<string, JaPageConfig> = {
     faqs: [
       {
         q: "どこまでサイズを調整できますか？",
-        a: "フロント幅は145〜160mm、ブリッジは18〜24mm、テンプルは135〜155mmまで指定可能です。レンズ高さも調整できます。",
+        a: "フロント幅は145〜160mm、ブリッジは20〜26mm、テンプルは135〜155mmまで指定可能です。レンズ高さも調整できます。",
       },
       {
         q: "どうやって採寸しますか？",

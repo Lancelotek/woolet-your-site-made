@@ -31,8 +31,8 @@ const MODELS: Record<string, DeModel> = {
   "007": {
     id: "007",
     shape: "Rund / Panto",
-    specs: "53□26-150",
-    bridge: "26 mm Keyhole-Steg",
+    specs: "53□25-150",
+    bridge: "25 mm Keyhole-Steg",
     intro: "Die runde Panto-Form mit 158 mm Frontbreite. Der Keyhole-Steg verteilt das Gewicht auf einer breiteren Nase, die 150 mm Bügel drücken nicht an den Schläfen.",
     frames: { havana: oval007Havana.url, black: oval007Black.url, crystal: oval007Crystal.url },
   },

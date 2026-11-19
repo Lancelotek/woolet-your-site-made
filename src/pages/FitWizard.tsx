@@ -49,7 +49,7 @@ const SKU_DETAIL: Record<Exclude<Sku, "bespoke">, { shape: string; widthMm: numb
   "009": { shape: "Soft Square",   widthMm: 158, bridgeMm: 25, range: "155–161 mm" },
 };
 
-// Single-size catalog: one 158 mm width with a 26 mm bridge.
+// Single-size catalog: one 158 mm width with a 25 mm bridge.
 // Routing: 155–161 mm → signature 007/009; under 155 mm → Bespoke (145–160 mm);
 // above 161 mm → no product yet, the result view asks them to contact support.
 const recommendSku = (faceWidthMm: number): Sku => {
@@ -1948,7 +1948,7 @@ export default function FitWizard() {
     const source = params.get("source") || "scan";
     const noseRaw = Number(params.get("nose_width"));
     const noseValid = noseRaw >= 28 && noseRaw <= 60 ? noseRaw : null;
-    // Single-size catalog: bridge is fixed at 26 mm (keyhole geometry doesn't scale with this run).
+    // Single-size catalog: bridge is fixed at 25 mm (keyhole geometry doesn't scale with this run).
     const bridgeMm = 21;
     const m: Measurement = {
       faceWidthMm: fw,

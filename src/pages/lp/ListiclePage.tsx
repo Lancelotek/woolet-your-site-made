@@ -86,9 +86,9 @@ const REASONS = [
   {
     n: "04",
     tag: "Bridge",
-    title: "A 26 mm keyhole bridge",
+    title: "A 25 mm keyhole bridge",
     em: "that stops the slip",
-    body: "A too-narrow bridge means adjusting your glasses every 20 minutes. The 26 mm keyhole bridge is matched to wider-set eyes — zero slip, all day.",
+    body: "A too-narrow bridge means adjusting your glasses every 20 minutes. The 25 mm keyhole bridge is matched to wider-set eyes — zero slip, all day.",
     stat: "21",
     statUnit: "mm",
     statLabel: "Keyhole bridge",

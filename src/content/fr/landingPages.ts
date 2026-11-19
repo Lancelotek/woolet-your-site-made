@@ -55,7 +55,7 @@ export const frPages: Record<string, FrPageConfig> = {
     faqs: [
       {
         q: "Jusqu'où peut-on ajuster les dimensions ?",
-        a: "Face : 145 à 160 mm. Pont : 16 à 26 mm. Branches : 135 à 155 mm. La hauteur de verre est également paramétrable.",
+        a: "Face : 145 à 160 mm. Pont : 20 à 26 mm. Branches : 135 à 155 mm. La hauteur de verre est également paramétrable.",
       },
       {
         q: "Comment se fait la prise de mesure ?",

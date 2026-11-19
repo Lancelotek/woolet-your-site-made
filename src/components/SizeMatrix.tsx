@@ -2,7 +2,7 @@ import { hrefFor, localePath } from "@/i18n/routeRegistry";
 import { Link } from "react-router-dom";
 import { t, type Lang } from "@/lib/i18n";
 
-/** Size matrix — three stock widths (158 mm) with a 25–26 mm keyhole bridge for both shapes + bespoke (145–160 mm). */
+/** Size matrix — three stock widths (158 mm) with a 25 mm keyhole bridge for both shapes + bespoke (145–160 mm). */
 type Row = {
   sku: string;
   shapeKey: string;
@@ -32,9 +32,9 @@ const SizeMatrix = ({
   const HeadingTag = semantic ? "h2" : "div";
 
   const rows: Row[] = [
-    { sku: "Woolet 007", shapeKey: "matrix.shape_round", width: "158 mm", bridge: "26 mm", lens: "53 x 47.6", face: "~155–161 mm", href: hrefFor("products.007", lang) },
+    { sku: "Woolet 007", shapeKey: "matrix.shape_round", width: "158 mm", bridge: "25 mm", lens: "53 x 47.6", face: "~155–161 mm", href: hrefFor("products.007", lang) },
     { sku: "Woolet 009", shapeKey: "matrix.shape_square", width: "158 mm", bridge: "25 mm", lens: "54 x 44", face: "~155–161 mm", href: hrefFor("products.009", lang) },
-    { sku: t(lang, "matrix.sku_bespoke"), shapeKey: "matrix.shape_either", width: "145–160 mm", bridge: "16–24 mm", lens: t(lang, "matrix.lens_custom"), face: "<155 mm", href: bespokeHref, bespoke: true },
+    { sku: t(lang, "matrix.sku_bespoke"), shapeKey: "matrix.shape_either", width: "145–160 mm", bridge: "20–26 mm", lens: t(lang, "matrix.lens_custom"), face: "<155 mm", href: bespokeHref, bespoke: true },
   ];
 
   return (

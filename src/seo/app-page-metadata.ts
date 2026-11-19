@@ -24,7 +24,7 @@ export const APP_PAGE_METADATA: Record<string, { title: string; description: str
   "/admin/founders": { title: "Founder orders - Woolet admin", description: "Private Woolet Founder Edition order administration.", robots: "noindex, nofollow" },
   "/admin/attribution": { title: "Attribution - Woolet admin", description: "Private Woolet attribution administration.", robots: "noindex, nofollow" },
   "/upvote": { title: "Woolet — Listed On", description: "Woolet directory listings.", robots: "noindex, nofollow" },
-  "/shop": { title: "Woolet Shop - Wide-Face Eyewear", description: "Italian Mazzucchelli acetate eyewear engineered for wide faces. 158 mm front, 26 mm keyhole bridge, Hand made in EU.", robots: "noindex, nofollow" },
+  "/shop": { title: "Woolet Shop - Wide-Face Eyewear", description: "Italian Mazzucchelli acetate eyewear engineered for wide faces. 158 mm front, 25 mm keyhole bridge, Hand made in EU.", robots: "noindex, nofollow" },
   "/unsubscribe": { title: "Unsubscribe - Woolet", description: "Manage your email preferences.", robots: "noindex, follow" },
   "/.lovable/oauth/consent": { title: "Authorize application - Woolet", description: "Grant access to Woolet on your behalf.", robots: "noindex, follow" },
   "/lp/kickstarter/vip-confirmed": { title: "You're on the VIP list — Woolet Kickstarter", description: "You're on the Woolet VIP list. Get early access, see how we build bespoke glasses for wide faces, and join the VIP group before the Kickstarter launch.", robots: "noindex, follow" },

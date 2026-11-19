@@ -41,7 +41,7 @@ const OversizedSquareGlasses = () => (
       {
         question: "How is the 009 different from the round 007?",
         answer:
-          "Same front width (158 mm), same Italian acetate, same 150 mm temples — different silhouette and bridge. The 009 (soft-square) has a 25 mm keyhole bridge and reads as structured; the 007 (round) has a 26 mm bridge and reads as softer and more classic. Pick by face shape and personal style.",
+          "Same front width (158 mm), same Italian acetate, same 150 mm temples — different silhouette. Both have a 25 mm keyhole bridge. The 009 (soft-square) reads as structured; the 007 (round) reads as softer and more classic. Pick by face shape and personal style.",
       },
       {
         question: "What do oversized square glasses cost?",

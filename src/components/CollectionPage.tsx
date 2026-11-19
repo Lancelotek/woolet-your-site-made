@@ -59,7 +59,7 @@ const productCards = [
   {
     id: "007",
     name: "Woolet 007 — Round / Panto",
-    blurb: "Round Italian acetate frame, 158 mm wide with a 26 mm bridge. Bespoke from 145 to 160 mm.",
+    blurb: "Round Italian acetate frame, 158 mm wide with a 25 mm bridge. Bespoke from 145 to 160 mm.",
     href: "/en/products/007",
   },
   {
@@ -75,9 +75,9 @@ const productCards = [
  * product pages use, so a tile opens the product on the colour it shows.
  */
 const colourTiles = [
-  { model: "007", shape: "Round", bridge: "26 mm", colour: "Black", id: "black", img: ovalBlack.url },
-  { model: "007", shape: "Round", bridge: "26 mm", colour: "Havana", id: "havana", img: ovalHavana.url },
-  { model: "007", shape: "Round", bridge: "26 mm", colour: "Silver Clear", id: "crystal", img: ovalCrystal.url },
+  { model: "007", shape: "Round", bridge: "25 mm", colour: "Black", id: "black", img: ovalBlack.url },
+  { model: "007", shape: "Round", bridge: "25 mm", colour: "Havana", id: "havana", img: ovalHavana.url },
+  { model: "007", shape: "Round", bridge: "25 mm", colour: "Silver Clear", id: "crystal", img: ovalCrystal.url },
   { model: "009", shape: "Soft Square", bridge: "25 mm", colour: "Black", id: "black", img: squareBlack.url },
   { model: "009", shape: "Soft Square", bridge: "25 mm", colour: "Havana", id: "havana", img: squareHavana.url },
   { model: "009", shape: "Soft Square", bridge: "25 mm", colour: "Silver Clear", id: "crystal", img: squareCrystal.url },
@@ -333,7 +333,7 @@ const CollectionPage = ({
               One precise size - or go bespoke
             </h2>
             <p style={{ fontSize: 13, lineHeight: 1.6, color: "#CCC", margin: "0 0 14px" }}>
-              Both shapes ship at 158 mm wide with a 25–26 mm bridge (009 25 mm, 007 26 mm), engineered for faces in the 155-161 mm range. Outside that, bespoke covers 145 to 160 mm with a 20–26 mm bridge.
+              Both shapes ship at 158 mm wide with a 25 mm bridge, engineered for faces in the 155-161 mm range. Outside that, bespoke covers 145 to 160 mm with a 20–26 mm bridge.
               Use our AI Fit Wizard to confirm the right fit for your face.
             </p>
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>

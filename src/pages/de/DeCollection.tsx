@@ -25,7 +25,7 @@ export default function DeCollection() {
     { id: "009", shape: "Eckig / Soft Square", bridge: 25, image: frame009.url },
   ];
   const title = "Brillen für breite Gesichter - 158 mm Frontbreite | Woolet";
-  const description = `Woolet 007 und 009 für breite Gesichter: 158 mm Frontbreite, 25-26 mm Steg, Mazzucchelli-Acetat. Founding-Preis ${formatDePrice(DE_PRICING.founderPriceEur)} inkl. MwSt.`;
+  const description = `Woolet 007 und 009 für breite Gesichter: 158 mm Frontbreite, 25 mm Steg, Mazzucchelli-Acetat. Founding-Preis ${formatDePrice(DE_PRICING.founderPriceEur)} inkl. MwSt.`;
 
   return (
     <main className="min-h-screen bg-background text-foreground">
