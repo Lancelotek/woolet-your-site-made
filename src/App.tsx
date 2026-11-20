@@ -93,7 +93,6 @@ const BlueLightGlassesForWideFaces = lazy(() => import("./pages/collections/Blue
 const OversizedSquareGlasses = lazy(() => import("./pages/collections/OversizedSquareGlasses.tsx"));
 const OversizedRoundGlasses = lazy(() => import("./pages/collections/OversizedRoundGlasses.tsx"));
 const Unsubscribe = lazy(() => import("./pages/Unsubscribe.tsx"));
-const DeHub = lazy(() => import("./pages/de/DeHub.tsx"));
 const DeLandingRoute = lazy(() => import("./pages/de/DeLandingRoute.tsx"));
 const BlaulichtfilterBrilleHerren = lazy(() => import("./pages/de/BlaulichtfilterBrilleHerren.tsx"));
 const DeKickstarter = lazy(() => import("./pages/de/DeKickstarter.tsx"));
@@ -463,7 +462,6 @@ const App = () => (
          <Route path="/unsubscribe" element={<Unsubscribe />} />
 
          {/* DE market SEO landing pages */}
-         <Route path="/de" element={<DeHub />} />
          <Route path="/de/impressum" element={<Impressum />} />
          <Route path="/de/widerruf" element={<Widerruf />} />
          <Route path="/de/blaulichtfilter-brille-herren" element={<BlaulichtfilterBrilleHerren />} />

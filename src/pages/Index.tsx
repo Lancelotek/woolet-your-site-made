@@ -15,7 +15,7 @@ import SEO from "@/components/SEO";
 import HeroSymptoms from "@/components/HeroSymptoms";
 import { prefersReducedMotion } from "@/hooks/use-motion-once";
 import { pushGtmEvent } from "@/lib/gtm";
-import { FOUNDER_SIGNUP_PATH, founderCtaActive, founderCtaLong, isKickstarterLive, kickstarterLiveHref } from "@/config/kickstarter";
+import { founderCtaActive, founderCtaLong, founderSignupPath, isKickstarterLive, kickstarterLiveHref } from "@/config/kickstarter";
 import { ksLiveCta } from "@/components/KickstarterLiveBar";
 import KickstarterFundedBadge from "@/components/KickstarterFundedBadge";
 import { isValidLang, dirForLang, type Lang } from "@/lib/i18n";
@@ -77,11 +77,11 @@ const seoData: Record<Lang, { title: string; description: string; ogDescription:
       "Woolet - monturas de acetato Mazzucchelli para caras anchas (155–161 mm). Hechas a mano en la UE. Reserva por $114 (40% de descuento).",
   },
   de: {
-    title: "Woolet - Brillen aus Mazzucchelli-Acetat für breite Gesichter (ab 155 mm)",
+    title: "Brillen für breite Gesichter und große Köpfe | Woolet",
     description:
-      "Zu breit für Ray-Ban oder Warby Parker? Woolet-Brillen passen endlich. Mazzucchelli-Acetat, handgefertigt in der EU. Vorbestellen für $114 (40% Rabatt).",
+      "Woolet Brillen mit 158 mm Frontbreite. Mazzucchelli-Acetat, handgefertigt in der EU. Founding-Preis 109 € inkl. MwSt.",
     ogDescription:
-      "Woolet - Brillen aus Mazzucchelli-Acetat für breite Gesichter (155–161 mm). Handgefertigt in der EU. Vorbestellen für $114 (40% Rabatt).",
+      "Woolet Brillen mit 158 mm Frontbreite. Mazzucchelli-Acetat, handgefertigt in der EU. Founding-Preis 109 € inkl. MwSt.",
   },
   ar: {
     title: "Woolet - نظارات أسيتات Mazzucchelli للوجوه العريضة (155 ملم+)",
@@ -241,8 +241,8 @@ const homeCopy: Record<Lang, HomeCopy> = {
     h1Pre: "Zu breit für ",
     h1Em: "Ray-Ban, Persol",
     h1Post: " oder Warby Parker?",
-    heroDesc: "Woolet entwirft Brillen, die endlich passen. Mazzucchelli-Acetat, handgefertigt in der EU — ein ehrlicher Breitenbereich (155–161 mm), gebaut für Gesichter, die große Marken ignorieren.",
-    ctaPrimary: "Auf die Liste — 40% Rabatt",
+    heroDesc: "Woolet entwirft Brillen, die endlich passen. Mazzucchelli-Acetat, handgefertigt in der EU - ein ehrlicher Breitenbereich (155-161 mm), gebaut für Gesichter, die große Marken ignorieren.",
+    ctaPrimary: "Founder Edition freischalten",
     ctaSecondary: "Kollektion ansehen",
     trustFit: "Passform-Garantie",
     trustAcetate: "Mazzucchelli-Acetat",
@@ -757,8 +757,8 @@ const Index = () => {
               </div>
 
               <div className="order-5 lg:order-none pt-1">
-                {lang === "en" ? (
-                  <HeroSymptoms meter={<FrameWidthMeter copy={copy} lang={lang} />} />
+                {lang === "en" || lang === "de" ? (
+                  <HeroSymptoms lang={lang} meter={<FrameWidthMeter copy={copy} lang={lang} />} />
                 ) : (
                   <FrameWidthMeter copy={copy} lang={lang} />
                 )}
@@ -774,7 +774,7 @@ const Index = () => {
 
                 {founderCtaActive() ? (
                 <Link
-                  to={FOUNDER_SIGNUP_PATH}
+                  to={founderSignupPath(lang)}
                   onClick={() => {
                     pushGtmEvent("hero_cta_primary_click", { location: "home_hero", dest: "founder_signup" });
                     if (heroTracked) trackHeroCtaClick(heroVariant.id, "join_list");
@@ -862,9 +862,9 @@ const Index = () => {
               </div>
 
               {/* Founding-member benefits — mirrors /en/lp/kickstarter */}
-              {lang === "en" && (
+              {(lang === "en" || lang === "de") && (
                 <div className="order-6 lg:order-none lg:pt-3 max-w-[520px]">
-                  <FoundingBenefits />
+                  <FoundingBenefits lang={lang} />
                 </div>
               )}
 
@@ -947,7 +947,7 @@ const Index = () => {
             >
               <Link
                 to={hrefFor("collection", lang)}
-                aria-label="View the Woolet collection"
+                aria-label={lang === "de" ? "Woolet Kollektion ansehen" : "View the Woolet collection"}
                 className="absolute inset-0 block"
                 onClick={() =>
                   pushGtmEvent("hero_image_click", { location: "home_hero", dest: "collection" })
@@ -999,7 +999,7 @@ const Index = () => {
                       fontWeight: 600,
                     }}
                   >
-                    user of <span className="font-wordmark">WOOLET</span> 009
+                    {lang === "de" ? "trägt" : "user of"} <span className="font-wordmark">WOOLET</span> 009
                   </span>
                 </div>
               </Link>
@@ -1144,7 +1144,11 @@ const Index = () => {
               className="font-display text-woolet-white leading-tight mb-8"
               style={{ fontSize: "clamp(1.5rem, 2.4vw, 2rem)", fontWeight: 300 }}
             >
-              Two frames. <em className="text-gold-light" style={{ fontStyle: "italic" }}>One</em> precise size.
+{lang === "de" ? (
+                <>Zwei Fassungen. <em className="text-gold-light" style={{ fontStyle: "italic" }}>Eine</em> präzise Größe.</>
+              ) : (
+                <>Two frames. <em className="text-gold-light" style={{ fontStyle: "italic" }}>One</em> precise size.</>
+              )}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
               {models.map((m) => (
@@ -1169,7 +1173,7 @@ const Index = () => {
                   <div className="flex items-end justify-between px-5 py-4 gap-4">
                     <div>
                       <div className="font-display text-woolet-white" style={{ fontSize: "1.25rem" }}>
-                        {m.id === "007" ? "007 Round" : "009 Square"}
+                        {lang === "de" ? (m.id === "007" ? "007 Rund" : "009 Weich-eckig") : m.id === "007" ? "007 Round" : "009 Square"}
                       </div>
                       <div
                         className="text-cream-dim uppercase tracking-[0.22em] mt-1"
@@ -1178,14 +1182,14 @@ const Index = () => {
                         {COLOUR_BLACK[lang]}
                       </div>
                       <div className="text-cream-dim mt-2" style={{ fontSize: "0.78rem", fontFamily: "Barlow, sans-serif" }}>
-                        158 mm front · <span style={{ color: "hsl(var(--gold))" }}>$190</span>
+                        {lang === "de" ? "158 mm Front" : "158 mm front"} · <span style={{ color: "hsl(var(--gold))" }}>{lang === "de" ? "179 €" : "$190"}</span>
                       </div>
                     </div>
                     <span
                       className="uppercase tracking-[0.22em] text-cream-dim group-hover:text-gold-light transition-colors"
                       style={{ fontSize: "0.75rem", fontFamily: "Barlow, sans-serif" }}
                     >
-                      See the frame →
+                      {lang === "de" ? "Fassung ansehen →" : "See the frame →"}
                     </span>
                   </div>
                 </Link>
@@ -1210,9 +1214,9 @@ const Index = () => {
               className="font-display text-woolet-white leading-[1.05] max-w-[820px]"
               style={{ fontSize: "clamp(1.9rem, 3.6vw, 3rem)", fontWeight: 300 }}
             >
-              Outside the range?{" "}
+              {lang === "de" ? "Außerhalb des Bereichs?" : "Outside the range?"}{" "}
               <em className="text-gold-light" style={{ fontStyle: "italic" }}>
-                We'll build to yours.
+                {lang === "de" ? "Wir bauen nach deinem Maß." : "We'll build to yours."}
               </em>
             </h2>
 
@@ -1220,6 +1224,15 @@ const Index = () => {
               className="text-cream-dim leading-relaxed max-w-[62ch]"
               style={{ fontSize: "1.02rem" }}
             >
+              {lang === "de" ? (
+                <>
+                  Unsere Signature-Fassungen passen für 155-161 mm. Für Maße außerhalb dieses Bereichs gibt es{" "}
+                  <Link to={hrefFor("bespoke", lang)} className="text-gold-light hover:text-gold no-underline border-b border-gold/40 hover:border-gold-light transition-colors">
+                    Bespoke-Brillen nach Maß
+                  </Link>. Bespoke deckt jede Breite von 145 bis 160 mm ab, in 4 Formen und 60 Farb- und Größenkombinationen.
+                </>
+              ) : (
+                <>
               Our signature frames fit 155–161 mm. For measurements outside that range, explore our{" "}
               <Link to={`${hrefFor("bespoke", lang)}#bespoke-eyewear`} className="text-gold-light hover:text-gold no-underline border-b border-gold/40 hover:border-gold-light transition-colors">
                 bespoke eyewear
@@ -1229,6 +1242,8 @@ const Index = () => {
                 bespoke glasses for wide faces
               </Link>. Bespoke covers any width from 145 to 160 mm, 4 frame shapes, 60 colour &amp; size
               combinations — built to measure, for everyone.
+                </>
+              )}
             </p>
 
             {/* Stat row */}
@@ -1237,9 +1252,9 @@ const Index = () => {
               style={{ background: "hsl(0 0% 100% / 0.08)", border: "1px solid hsl(0 0% 100% / 0.08)" }}
             >
               {[
-                { v: "145–160", unit: "mm", label: "Any width" },
-                { v: "4", unit: "", label: "Frame shapes" },
-                { v: "60", unit: "", label: "Colour & size combos" },
+                { v: "145–160", unit: "mm", label: lang === "de" ? "Jede Breite" : "Any width" },
+                { v: "4", unit: "", label: lang === "de" ? "Formen" : "Frame shapes" },
+                { v: "60", unit: "", label: lang === "de" ? "Farb- und Größenkombinationen" : "Colour & size combos" },
               ].map((s) => (
                 <div
                   key={s.label}
@@ -1288,7 +1303,7 @@ const Index = () => {
                 onMouseEnter={(e) => (e.currentTarget.style.background = "hsl(var(--gold-light))")}
                 onMouseLeave={(e) => (e.currentTarget.style.background = "hsl(var(--gold))")}
               >
-                Start bespoke →
+                {lang === "de" ? "Bespoke starten →" : "Start bespoke →"}
               </Link>
             </div>
           </div>

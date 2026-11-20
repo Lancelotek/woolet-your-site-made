@@ -56,12 +56,22 @@ const SYMPTOMS: Symptom[] = [
   { title: "The frame ends before your face does", note: "Lenses sit inside your eye line, not over it.", icon: IconNarrow },
 ];
 
+const SYMPTOMS_DE: Symptom[] = [
+  { title: "Rote Abdrücke an den Schläfen", note: "Die Fassung klemmt, statt aufzuliegen.", icon: IconTemples },
+  { title: "Bügel stehen nach außen", note: "Aufgebogen, damit es passt - und jede Woche lockerer.", icon: IconSplayed },
+  { title: "Die Fassung endet vor deinem Gesicht", note: "Die Gläser sitzen innerhalb deiner Augenlinie, nicht darüber.", icon: IconNarrow },
+];
+
 type Props = {
   /** The existing frame-width / nose-bridge meter, rendered behind "See the numbers". */
   meter: ReactNode;
+  /** "de" renders the German copy (home page /de). */
+  lang?: string;
 };
 
-export default function HeroSymptoms({ meter }: Props) {
+export default function HeroSymptoms({ meter, lang = "en" }: Props) {
+  const de = lang === "de";
+  const symptoms = de ? SYMPTOMS_DE : SYMPTOMS;
   const [open, setOpen] = useState(false);
   // Mount the meter on first open (it autoplays), then keep it for the close animation.
   const [meterMounted, setMeterMounted] = useState(false);
@@ -73,14 +83,14 @@ export default function HeroSymptoms({ meter }: Props) {
         className="font-display text-woolet-white m-0"
         style={{ fontSize: "1.35rem", fontStyle: "italic", fontWeight: 400 }}
       >
-        Sound familiar?
+        {de ? "Kommt dir das bekannt vor?" : "Sound familiar?"}
       </p>
 
       <ul
         className="grid grid-cols-1 sm:grid-cols-3 m-0 p-0 list-none text-woolet-white"
         style={{ borderTop: "1px solid hsl(0 0% 100% / 0.1)", borderBottom: "1px solid hsl(0 0% 100% / 0.1)" }}
       >
-        {SYMPTOMS.map((s, i) => (
+        {symptoms.map((s, i) => (
           <li
             key={s.title}
             className={[
@@ -110,11 +120,11 @@ export default function HeroSymptoms({ meter }: Props) {
       </ul>
 
       <p className="hs-verdict text-cream-dim m-0" style={{ fontFamily: BARLOW, fontSize: "0.9rem" }}>
-        All three mean one thing:{" "}
+        {de ? "Alle drei bedeuten dasselbe:" : "All three mean one thing:"}{" "}
         <strong className="text-gold" style={{ fontWeight: 600 }}>
-          your frame is 10–15 mm too narrow.
+          {de ? "Deine Fassung ist 10-15 mm zu schmal." : "your frame is 10–15 mm too narrow."}
         </strong>{" "}
-        Woolet starts where they stop.
+        {de ? "Woolet fängt dort an, wo andere aufhören." : "Woolet starts where they stop."}
       </p>
 
       <div style={{ border: "1px solid hsl(0 0% 100% / 0.1)" }}>
@@ -136,7 +146,7 @@ export default function HeroSymptoms({ meter }: Props) {
           className="w-full flex items-center justify-between uppercase tracking-[0.2em] text-cream-dim bg-transparent cursor-pointer"
           style={{ fontFamily: BARLOW, fontSize: "0.75rem", padding: "12px 16px", border: 0 }}
         >
-          <span>Know your measurement? See the numbers</span>
+          <span>{de ? "Du kennst dein Maß? Zahlen ansehen" : "Know your measurement? See the numbers"}</span>
           <span className="hs-toggle-icon text-gold" aria-hidden="true">+</span>
         </button>
         <div id="hero-numbers-panel" className="hs-panel" data-open={open} aria-hidden={!open} {...(!open ? ({ inert: "" } as Record<string, string>) : {})}>

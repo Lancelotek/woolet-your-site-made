@@ -12,7 +12,15 @@ const BENEFITS: { title: string; sub: string }[] = [
   { title: `Ships right after ${F.campaignEndLabel}`, sub: `Already made - ${F.left} of ${F.total} left` },
 ];
 
-export const FoundingBenefits = ({ compact = false }: { compact?: boolean }) => {
+// German offer: 1 € reservation, 109 € on woolet.co/de/founders, ships from Poland (EU).
+const BENEFITS_DE: { title: string; sub: string }[] = [
+  { title: "109 € statt 179 €", sub: `${F.model}, ${F.bridgeMm} mm Steg - mit 1 € reserviert, ohne Kickstarter-Konto` },
+  { title: "Founder Box inklusive", sub: "Magnetbox, Spezial-Etui und Clip-On-Tuch" },
+  { title: "Versand aus Polen (EU)", sub: "Fertig produziert, kostenlos nach Deutschland, kein Zoll" },
+];
+
+export const FoundingBenefits = ({ compact = false, lang = "en" }: { compact?: boolean; lang?: string }) => {
+  const benefits = lang === "de" ? BENEFITS_DE : BENEFITS;
   return (
     <div
       className="flex flex-col overflow-hidden"
@@ -36,13 +44,13 @@ export const FoundingBenefits = ({ compact = false }: { compact?: boolean }) => 
           Founder Edition
         </span>
       </div>
-      {BENEFITS.map((b, i) => (
+      {benefits.map((b, i) => (
         <div
           key={b.title}
           className="flex items-start gap-3 px-4 py-3"
           style={{
             borderBottom:
-              i < BENEFITS.length - 1 ? "1px solid hsl(0 0% 100% / 0.055)" : "none",
+              i < benefits.length - 1 ? "1px solid hsl(0 0% 100% / 0.055)" : "none",
           }}
         >
           <span
