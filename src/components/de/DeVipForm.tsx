@@ -4,6 +4,9 @@ import { supabase } from "@/integrations/supabase/client";
 import { getAttribution } from "@/lib/attribution";
 import { pushGtmEvent } from "@/lib/gtm";
 import { buildLeadAttribution } from "@/lib/meta-capi";
+import { ReserveCheckoutButton } from "@/components/ReserveCheckoutButton";
+import { DE_PRICING, formatDePrice, isDeReserved } from "@/content/de/pricing";
+import { isReservationOpen } from "@/config/kickstarter";
 
 type Props = {
   /** Placement id, stored as utm_content so the DE sequence can be split by page. */
@@ -58,9 +61,35 @@ export default function DeVipForm({ placement, variant = "section", className }:
   };
 
   if (done) {
+    const payStep = isReservationOpen() && !isDeReserved();
     return (
       <div className={`max-w-xl border border-primary/25 bg-primary/5 p-5 font-body text-[15px] leading-7 text-foreground ${className ?? ""}`}>
-        Du stehst auf der VIP-Liste. Schau in dein Postfach: Dort erfährst du, wie du dir den Founder-Preis von 109 € sicherst.
+        Du stehst auf der VIP-Liste. {payStep ? "Jetzt sicherst du dir mit 1 € den Founder-Preis von 109 € statt 179 €." : "Schau in dein Postfach: Dort erfährst du, wie du dir den Founder-Preis von 109 € sicherst."}
+        {/* Step 2, same embedded 1 € checkout as on /de/lp/kickstarter (DeFounderSteps). */}
+        {payStep && (
+          <ReserveCheckoutButton
+            id={`de-reserve-${placement}`}
+            lang="de"
+            label={`Für ${formatDePrice(DE_PRICING.reservationEur)} reservieren`}
+            priceId={DE_PRICING.reservationCheckoutPriceId}
+            customerEmail={email}
+            returnUrl={`${window.location.origin}/de/danke?paid=1&session_id={CHECKOUT_SESSION_ID}`}
+            metadata={{
+              campaign: "de_vip",
+              form_location: `de_${placement}`,
+              recommended_sku: "de_reservation_1eur",
+              market: "de",
+              utm_source: getAttribution().utm_source || "de-landing",
+              utm_medium: getAttribution().utm_medium || "",
+              utm_campaign: getAttribution().utm_campaign || "de-seo",
+            }}
+            clickEvent="kickstarter_reserve_click"
+            readyEvent="kickstarter_reserve_modal_ready"
+            errorEvent="kickstarter_reserve_error"
+            eventParams={{ form_location: `de_${placement}`, source: "de-landing", market: "de" }}
+            className="mt-4 h-auto w-full rounded-sm py-4 text-xs font-semibold uppercase tracking-[0.22em]"
+          />
+        )}
       </div>
     );
   }

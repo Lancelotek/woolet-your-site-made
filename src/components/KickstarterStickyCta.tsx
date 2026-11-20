@@ -18,7 +18,7 @@ const F = FOUNDER_EDITION;
 const COPY: Record<string, { note: string; cta: string }> = {
   en: { note: `$${F.price} instead of $${F.srp} · ${F.left} left`, cta: "Founder Edition →" },
   pl: { note: `$${F.price} zamiast $${F.srp} · zostało ${F.left}`, cta: "Founder Edition →" },
-  de: { note: `$${F.price} statt $${F.srp} · noch ${F.left}`, cta: "Founder Edition →" },
+  de: { note: "109 € statt 179 € · Versand aus Polen", cta: "Founder Edition →" },
 };
 const COPY_KS: Record<string, string> = {
   en: "Back us on Kickstarter →",
