@@ -11,6 +11,7 @@ import { clarityEvent, claritySet } from "@/lib/clarity";
 import { trackMetaEventOnce } from "@/lib/meta-capi";
 import { pushGtmEvent } from "@/lib/gtm";
 import { useBespokeCloudSync } from "@/lib/bespoke-cloud-sync";
+import { depositTerms } from "@/lib/bespoke-balance";
 import {
   StepColor,
   StepEngraving,
@@ -531,7 +532,7 @@ const ConfiguratorPage = () => {
                  <StepReview config={config} onSave={handleSave} saved={saved} onEdit={(n) => goTo(n as StepId)} />;
 
   return (
-    <CfgInfoProvider priceLines={priceLines} priceTotal={formatEur(stepTotal)}>
+    <CfgInfoProvider priceLines={priceLines} priceTotal={formatEur(stepTotal)} depositNote={pricing.split.plan === "deposit" ? depositTerms(pricing.split) : undefined}>
     <CfgNavProvider value={{ nextLabel: step === STEPS.length ? null : STEPS[step]?.shortLabel ?? null, onNext: goNext }}>
     {lightboxOpen && stageSrc && (
       <PreviewLightbox src={stageSrc} alt={stageAlt} caption={lightboxCaption} onClose={() => setLightboxOpen(false)} />

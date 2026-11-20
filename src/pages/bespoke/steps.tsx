@@ -279,6 +279,7 @@ function ColorSwatchGrid({
 }) {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [family, setFamily] = useState<ColorFamily | "all">("all");
+  const [oosTapped, setOosTapped] = useState<string | null>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const chooseFamily = (next: ColorFamily | "all") => {
     setFamily(next);
@@ -350,6 +351,8 @@ function ColorSwatchGrid({
         {list.map((c) => {
           const inStock = isColorInStock(c, part);
           if (!inStock) {
+            // Clarity 20.11.2026: a tap on a greyed-out acetate did nothing (dead click).
+            // The tap now answers with a short note in the tile.
             return (
               <div
                 key={c.id}
@@ -357,6 +360,7 @@ function ColorSwatchGrid({
                 aria-label={`${c.name} - out of stock`}
                 aria-disabled="true"
                 title={`${c.name} - out of stock`}
+                onClick={() => setOosTapped(c.id)}
                 className="relative overflow-hidden text-left border border-cream/10 cursor-not-allowed select-none"
                 style={{ borderRadius: 2 }}
               >
@@ -375,7 +379,9 @@ function ColorSwatchGrid({
                 </div>
                 <div className="px-3 py-2.5 bg-[#0c0c0c]/60">
                   <div className="text-cream-dim text-[12px] truncate line-through decoration-cream/30">{c.name}</div>
-                  <div className="text-cream-dim text-[10px] italic truncate">Out of stock</div>
+                  <div className={`text-[10px] italic truncate ${oosTapped === c.id ? "text-gold-light" : "text-cream-dim"}`} role={oosTapped === c.id ? "status" : undefined}>
+                    {oosTapped === c.id ? "Sold out - pick another colour" : "Out of stock"}
+                  </div>
                 </div>
               </div>
             );
@@ -1994,7 +2000,12 @@ export function StepEngraving({ config, update }: StepProps) {
                 return (
                   <button
                     key={f.id}
-                    onClick={() => update("engravingFontId", f.id)}
+                    onClick={() => {
+                      update("engravingFontId", f.id);
+                      // Clarity 18-20.11.2026: taps on the "Your name" sample were dead clicks -
+                      // buyers expected to type there. With no text yet, the tap opens the field.
+                      if (!config.engravingText.trim()) document.getElementById("cfg-engraving-text")?.focus();
+                    }}
                     className={`px-3 py-3 rounded-[10px] text-base border transition text-left ${
                       active
                         ? "border-gold text-gold-light bg-gold/10"
@@ -2489,8 +2500,8 @@ export function StepReview({
         {pricing.split.plan === "deposit" && (
           <div className="pb-4 space-y-2" aria-label="Payment schedule">
             <div className="flex items-baseline justify-between gap-4">
-              <span className="text-gold-light text-xs uppercase tracking-[0.2em]">Due today · deposit</span>
-              <span className="text-gold-light text-lg font-display">{formatEur(pricing.split.dueNowCents / 100)}</span>
+              <span className="text-gold-light text-xs uppercase tracking-[0.2em]"><CfgInfoTrigger section="deposit" className="cfg-info-trigger--block">Due today · deposit</CfgInfoTrigger></span>
+              <span className="text-gold-light text-lg font-display"><CfgInfoTrigger section="deposit" className="cfg-info-trigger--block">{formatEur(pricing.split.dueNowCents / 100)}</CfgInfoTrigger></span>
             </div>
             <div className="flex items-baseline justify-between gap-4">
               <span className="text-cream-dim text-xs uppercase tracking-[0.16em]">When you accept your visualization</span>
@@ -2514,7 +2525,12 @@ export function StepReview({
           borderRadius: 2,
         }}
       >
-        <div className="cfg-eyebrow" style={{ color: "#C2A05A" }}>What happens after payment</div>
+        <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+          <div className="cfg-eyebrow" style={{ color: "#C2A05A" }}>What happens after payment</div>
+          {pricing.split.plan === "deposit" && (
+            <CfgInfoTrigger section="deposit" className="text-gold-light text-[11px] uppercase tracking-[0.16em]">How the deposit works</CfgInfoTrigger>
+          )}
+        </div>
         <ol className="mt-4 space-y-3 text-cream text-sm">
           {afterPaymentSteps(pricing.split).map((line, i) => (
             <li key={i}><span className="font-mono text-gold-light text-[11px] mr-3">{String(i + 1).padStart(2, "0")}</span> {line}</li>

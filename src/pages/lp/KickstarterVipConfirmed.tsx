@@ -118,9 +118,21 @@ const KickstarterVipConfirmed = () => {
           <Link to="/en" className="flex items-center gap-2">
             <img src={logo} alt="Woolet" className="h-8 w-auto" />
           </Link>
-          <span className="text-[12px] sm:text-xs uppercase tracking-[0.22em] text-primary border border-primary/40 rounded-full px-3 py-1">
-            {live ? "Live on Kickstarter" : "VIP Confirmed"}
-          </span>
+          {/* Clarity 19.11.2026: the live badge was tapped like a link (dead click). */}
+          {live ? (
+            <a
+              href={LIVE_HREF}
+              onClick={trackLiveClick}
+              onAuxClick={trackLiveClick}
+              className="text-[12px] sm:text-xs uppercase tracking-[0.22em] text-primary border border-primary/40 rounded-full px-3 py-1 hover:bg-primary/10"
+            >
+              Live on Kickstarter
+            </a>
+          ) : (
+            <span className="text-[12px] sm:text-xs uppercase tracking-[0.22em] text-primary border border-primary/40 rounded-full px-3 py-1">
+              VIP Confirmed
+            </span>
+          )}
         </div>
       </header>
 
