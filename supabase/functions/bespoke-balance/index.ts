@@ -12,6 +12,7 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 import { type StripeEnv, createStripeClient } from "../_shared/stripe.ts";
 import { balanceState, daysLeft, formatDueDate, formatUsdCents } from "../_shared/bespoke-balance.ts";
 import { MAX_MODEL_CORRECTIONS, PREVIEW_WINDOW_DAYS, correctionLabel, isPreviewFirst, modelStatus } from "../_shared/bespoke-flow.ts";
+import { WORKSHOP_BUCKET, customerVisibleFiles } from "../_shared/bespoke-workshop.ts";
 import { sendTemplateEmailAndLog } from "../_shared/transactional-email-templates/send-and-log.ts";
 
 const corsHeaders = {
@@ -74,7 +75,26 @@ Deno.serve(async (req) => {
     const model = modelStatus(order, revisions);
 
     if (action === "status") {
+      // The 3D model video, drawing and photos from the workshop, once "Model
+      // sent" has published them (see _shared/bespoke-workshop.ts).
+      let files: Array<{ name: string; kind: string; contentType: string | null; url: string }> = [];
+      if (order.model_sent_at) {
+        const { data: fileRows } = await supabase
+          .from("bespoke_workshop_files")
+          .select("id, storage_path, file_name, kind, content_type, show_to_customer, created_at, removed_at")
+          .eq("order_id", order.id)
+          .eq("show_to_customer", true)
+          .is("removed_at", null)
+          .order("created_at", { ascending: true })
+          .limit(30);
+        const visible = customerVisibleFiles((fileRows ?? []) as Array<Record<string, any> & { id: string; kind: string; show_to_customer: boolean; created_at: string }>, order.model_sent_at);
+        for (const f of visible) {
+          const { data: signed } = await supabase.storage.from(WORKSHOP_BUCKET).createSignedUrl(f.storage_path, 6 * 60 * 60);
+          if (signed?.signedUrl) files.push({ name: f.file_name, kind: f.kind, contentType: f.content_type ?? null, url: signed.signedUrl });
+        }
+      }
       return json({
+        files,
         state,
         orderRef: ref,
         firstName: order.customer_name ? String(order.customer_name).split(" ")[0] : null,

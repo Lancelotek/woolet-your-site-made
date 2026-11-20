@@ -18,6 +18,7 @@ import {
   type CrmEvent,
 } from "@/components/admin/BespokeCrm";
 import { BalancePanel } from "@/components/admin/BespokeBalance";
+import { WorkshopFilesPanel } from "@/components/admin/BespokeWorkshopFiles";
 
 const T = {
   bg: "#0b0a09",
@@ -1218,6 +1219,8 @@ function DetailView({
       />
 
       <BalancePanel order={{ id: String(o.id) }} password={password} onOrderChange={onOrderChange} />
+
+      <WorkshopFilesPanel orderId={String(o.id)} password={password} modelSentAt={(o.model_sent_at as string | null) ?? null} />
 
       <Group title="Case">
         <Field

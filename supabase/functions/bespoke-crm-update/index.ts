@@ -19,6 +19,7 @@ import {
   modelStatus,
   previewDueAt,
 } from "../_shared/bespoke-flow.ts";
+import { customerVisibleFiles, describeFiles } from "../_shared/bespoke-workshop.ts";
 import { sendTemplateEmailAndLog } from "../_shared/transactional-email-templates/send-and-log.ts";
 
 const corsHeaders = {
@@ -63,6 +64,25 @@ async function paymentSnapshot(admin: any, id: string) {
     model: order && isPreviewFirst(order) ? modelStatus(order, (revisions ?? []) as Array<{ created_at: string; resolved_at: string | null }>) : null,
     modelUrl: order?.stripe_session_id ? modelPageUrl(SITE_ORIGIN, order.stripe_session_id) : null,
   };
+}
+
+// The first paragraph of the "model ready" email: the workshop files the
+// customer will see on their page, or (no files uploaded) the old wording that
+// points at the separate email from support.
+// deno-lint-ignore no-explicit-any
+async function modelFilesParagraph(admin: any, id: string, sentAtIso: string): Promise<{ text: string; summary: string | null }> {
+  const { data } = await admin
+    .from("bespoke_workshop_files")
+    .select("id, kind, show_to_customer, created_at, removed_at")
+    .eq("order_id", id)
+    .eq("show_to_customer", true)
+    .is("removed_at", null);
+  const visible = customerVisibleFiles((data ?? []) as Array<{ id: string; kind: string; show_to_customer: boolean; created_at: string; removed_at: string | null }>, sentAtIso);
+  if (visible.length === 0) {
+    return { text: "We sent the video and the drawing of your frame in a separate email from support@woolet.co.", summary: null };
+  }
+  const summary = describeFiles(visible);
+  return { text: `Your 3D model is on your order page: ${summary}. Watch it there - the button below opens it.`, summary };
 }
 
 // Manual ticks on the order timeline that have no stage of their own.
@@ -245,6 +265,8 @@ Deno.serve(async (req) => {
 
       const ref = o.case_no || `WLT-${String(o.id).slice(0, 8).toUpperCase()}`;
       const firstName = o.customer_name ? String(o.customer_name).split(" ")[0] : "";
+      const filesInfo = await modelFilesParagraph(admin, id, now.toISOString());
+      const filesRow = filesInfo.summary ? [{ label: "On your page", value: filesInfo.summary }] : [];
       let emailed = false;
       if (body.send_email !== false) {
         try {
@@ -256,12 +278,13 @@ Deno.serve(async (req) => {
                   preview: "Your third correction is in. This is the version we build.",
                   heading: `${firstName ? `${firstName}, this` : "This"} is your final 3D model.`,
                   paragraphs: [
-                    "We sent the video and the drawing in a separate email from support@woolet.co.",
+                    filesInfo.text,
                     `It includes your third correction, the last one in your order. Your frame is built to this version - a 2-week build, then free worldwide shipping.`,
                   ],
                   rows: [
                     { label: "Order", value: ref },
                     { label: "Frame", value: o.frame_name ?? "Woolet Bespoke" },
+                    ...filesRow,
                   ],
                   ctaLabel: "See my order",
                   ctaUrl: modelPageUrl(SITE_ORIGIN, o.stripe_session_id),
@@ -273,13 +296,14 @@ Deno.serve(async (req) => {
                   preview: "Approve your 3D model or ask for a correction.",
                   heading: `${firstName ? `${firstName}, your` : "Your"} ${resend ? "corrected " : ""}3D model is ready.`,
                   paragraphs: [
-                    "We sent the video and the drawing of your frame in a separate email from support@woolet.co.",
+                    filesInfo.text,
                     `Approve it, or tell us what to correct - the bridge, the width, the temples. You have ${st.correctionsLeft} of ${MAX_MODEL_CORRECTIONS} corrections left. There is nothing more to pay.`,
                   ],
                   rows: [
                     { label: "Order", value: ref },
                     { label: "Frame", value: o.frame_name ?? "Woolet Bespoke" },
                     { label: "Corrections left", value: `${st.correctionsLeft} of ${MAX_MODEL_CORRECTIONS}` },
+                    ...filesRow,
                   ],
                   ctaLabel: "Review my 3D model",
                   ctaUrl: modelPageUrl(SITE_ORIGIN, o.stripe_session_id),
@@ -342,6 +366,7 @@ Deno.serve(async (req) => {
 
       const ref = o.case_no || `WLT-${String(o.id).slice(0, 8).toUpperCase()}`;
       const firstName = o.customer_name ? String(o.customer_name).split(" ")[0] : "";
+      const filesInfo = await modelFilesParagraph(admin, id, now.toISOString());
       let emailed = false;
       if (body.send_email !== false) {
         try {
@@ -354,7 +379,7 @@ Deno.serve(async (req) => {
               preview: "Approve your 3D model or ask for a correction.",
               heading: `${firstName ? `${firstName}, your` : "Your"} ${resend ? "corrected " : ""}3D model is ready.`,
               paragraphs: [
-                "We sent the video and the drawing of your frame in a separate email from support@woolet.co.",
+                filesInfo.text,
                 `Approve the model by paying the balance, or tell us what to correct - the bridge, the width, the temples. You have ${BALANCE_WINDOW_DAYS} days, until ${formatDueDate(due)}.`,
               ],
               rows: [
@@ -362,6 +387,7 @@ Deno.serve(async (req) => {
                 { label: "Frame", value: o.frame_name ?? "Woolet Bespoke" },
                 { label: "Deposit paid", value: formatUsdCents(o.deposit_cents) },
                 { label: "Balance due on approval", value: formatUsdCents(o.balance_cents) },
+                ...(filesInfo.summary ? [{ label: "On your page", value: filesInfo.summary }] : []),
               ],
               ctaLabel: "Review my 3D model",
               ctaUrl: modelPageUrl(SITE_ORIGIN, o.stripe_session_id),

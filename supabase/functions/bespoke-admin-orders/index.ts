@@ -5,6 +5,12 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.4";
 import { PREVIEW_BUCKET, generateOrderPreview } from "../_shared/bespoke-preview.ts";
 import { identifyReferenceGlasses } from "../_shared/reference-glasses.ts";
+import {
+  WORKSHOP_BUCKET,
+  classifyWorkshopFile,
+  newWorkshopToken,
+  workshopUploadUrl,
+} from "../_shared/bespoke-workshop.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -18,6 +24,7 @@ const ADMIN_PASSWORD = Deno.env.get("ADMIN_CRM_PASSWORD") ?? "";
 const BESPOKE_PASSWORD = Deno.env.get("BESPOKE_ADMIN_PASSWORD") ?? "";
 
 const SIGNED_TTL = 60 * 15;
+const SITE_ORIGIN = "https://woolet.co";
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 // ---- Admin in-place edit: whitelist per modal section ----
@@ -110,7 +117,10 @@ Deno.serve(async (req) => {
         | "lookup_reference_glasses"
         | "brief_upload_url"
         | "brief_confirm"
-        | "brief_download";
+        | "brief_download"
+        | "workshop_link"
+        | "workshop_files"
+        | "workshop_file_update";
       id?: string;
     };
     const provided = body.password ?? req.headers.get("x-admin-password") ?? "";
@@ -350,6 +360,99 @@ Deno.serve(async (req) => {
       return json({ preview_url: signed?.signedUrl ?? null });
     }
 
+    // ---- Workshop upload link + files (bespoke-workshop/orders/{order_id}/...) ----
+    // The link lets Warren upload the 3D model video, CAD files and photos to
+    // this order without logging in. "rotate" replaces the token: the old link
+    // stops working at once.
+    if (act === "workshop_link" || act === "workshop_files" || act === "workshop_file_update") {
+      const id = body.id ?? "";
+      if (!UUID_RE.test(id)) return json({ error: "invalid_id" }, 400);
+      const { data: order, error } = await admin
+        .from("bespoke_orders")
+        .select("id, crm_stage, workshop_token, workshop_token_created_at")
+        .eq("id", id)
+        .maybeSingle();
+      if (error) throw error;
+      if (!order) return json({ error: "not_found" }, 404);
+      const o = order as Record<string, any>;
+
+      const filesSnapshot = async () => {
+        const { data: rows } = await admin
+          .from("bespoke_workshop_files")
+          .select("id, storage_path, file_name, content_type, size_bytes, kind, note, uploaded_by, show_to_customer, created_at")
+          .eq("order_id", id)
+          .is("removed_at", null)
+          .order("created_at", { ascending: false })
+          .limit(200);
+        const files = [];
+        for (const r of (rows ?? []) as Array<Record<string, any>>) {
+          const bucket = admin.storage.from(WORKSHOP_BUCKET);
+          const { data: view } = await bucket.createSignedUrl(r.storage_path, 60 * 60);
+          const { data: dl } = await bucket.createSignedUrl(r.storage_path, 60 * 60, { download: r.file_name });
+          const { storage_path: _p, ...rest } = r;
+          files.push({ ...rest, view_url: view?.signedUrl ?? null, download_url: dl?.signedUrl ?? null });
+        }
+        return {
+          link: o.workshop_token ? workshopUploadUrl(SITE_ORIGIN, o.workshop_token) : null,
+          link_created_at: o.workshop_token_created_at ?? null,
+          files,
+        };
+      };
+
+      if (act === "workshop_link") {
+        const rotate = (body as any).rotate === true;
+        if (!o.workshop_token || rotate) {
+          const now = new Date().toISOString();
+          const token = newWorkshopToken();
+          const { error: upErr } = await admin
+            .from("bespoke_orders")
+            .update({ workshop_token: token, workshop_token_created_at: now })
+            .eq("id", id);
+          if (upErr) throw upErr;
+          await admin.from("bespoke_crm_events").insert({
+            order_id: id,
+            from_stage: o.crm_stage ?? null,
+            to_stage: o.crm_stage ?? null,
+            note: o.workshop_token ? "Workshop upload link replaced - the old link no longer works" : "Workshop upload link created",
+            created_by: "admin",
+          });
+          o.workshop_token = token;
+          o.workshop_token_created_at = now;
+        }
+      }
+
+      if (act === "workshop_file_update") {
+        const fileId = String((body as any).file_id ?? "");
+        if (!UUID_RE.test(fileId)) return json({ error: "invalid_id" }, 400);
+        const { data: f } = await admin
+          .from("bespoke_workshop_files")
+          .select("id, storage_path, file_name, kind")
+          .eq("id", fileId)
+          .eq("order_id", id)
+          .is("removed_at", null)
+          .maybeSingle();
+        if (!f) return json({ error: "not_found" }, 404);
+        if ((body as any).remove === true) {
+          await admin.storage.from(WORKSHOP_BUCKET).remove([f.storage_path]);
+          await admin.from("bespoke_workshop_files").update({ removed_at: new Date().toISOString() }).eq("id", fileId);
+          await admin.from("bespoke_crm_events").insert({
+            order_id: id,
+            from_stage: o.crm_stage ?? null,
+            to_stage: o.crm_stage ?? null,
+            note: `Workshop file removed: ${f.file_name}`,
+            created_by: "admin",
+          });
+        } else if (typeof (body as any).show_to_customer === "boolean") {
+          // CAD and ZIP files are not viewable in a browser: never on the customer page.
+          const kind = classifyWorkshopFile(f.file_name) ?? f.kind;
+          const show = (body as any).show_to_customer && kind !== "cad" && kind !== "archive";
+          await admin.from("bespoke_workshop_files").update({ show_to_customer: show }).eq("id", fileId);
+        }
+      }
+
+      return json(await filesSnapshot());
+    }
+
     // ---- Delete an order (test rows, duplicates). Removes dependent rows
     // first, then the order itself; storage cleanup is best-effort.
     if (act === "delete") {
@@ -366,6 +469,10 @@ Deno.serve(async (req) => {
       const { data: photoRows } = await admin
         .from("bespoke_order_photos")
         .select("photo_path, geometry_path, vto_path, profile_path")
+        .eq("order_id", id);
+      const { data: workshopRows } = await admin
+        .from("bespoke_workshop_files")
+        .select("storage_path")
         .eq("order_id", id);
 
       for (const table of [
@@ -392,6 +499,8 @@ Deno.serve(async (req) => {
         if (order.brief_path) await admin.storage.from("bespoke-cad").remove([order.brief_path]);
         if (order.dossier_path) await admin.storage.from("bespoke-cad").remove([order.dossier_path]);
         if (order.ai_preview_path) await admin.storage.from(PREVIEW_BUCKET).remove([order.ai_preview_path]);
+        const workshopPaths = (workshopRows ?? []).map((r) => r.storage_path as string).filter(Boolean);
+        if (workshopPaths.length) await admin.storage.from(WORKSHOP_BUCKET).remove(workshopPaths);
       } catch (e) {
         console.warn("[bespoke-admin-orders] storage cleanup after delete", e);
       }
