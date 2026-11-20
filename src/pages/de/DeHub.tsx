@@ -61,7 +61,7 @@ export default function DeHub() {
               </div>
             </div>
             <div className="flex flex-wrap gap-x-5 gap-y-2 border-t border-border-sub pt-5 font-body text-xs text-cream-dim">
-              <span>109 € statt 179 € inkl. MwSt. - nur 30 Fassungen</span><span>Kostenloser Versand nach Deutschland</span><span>Kickstarter-Start 29. Oktober</span>
+              <span>109 € statt 179 € inkl. MwSt. - nur 30 Fassungen</span><span>Kostenloser Versand nach Deutschland</span><span>Versand aus Polen (EU) - kein Zoll</span>
             </div>
           </div>
           <Link to="/de/kollektion" aria-label="Deutsche Woolet Kollektion ansehen" className="relative block min-h-[390px] overflow-hidden border border-border-sub sm:aspect-[4/5] lg:min-h-[600px]">

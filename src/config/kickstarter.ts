@@ -96,6 +96,10 @@ export const kickstarterFounderHref = (placement: string) =>
  */
 export const FOUNDER_SIGNUP_PATH = "/en/lp/kickstarter";
 
+/** German visitors stay on the German signup LP (1 € -> /de/founders, 109 €). */
+export const founderSignupPath = (lang: string): string =>
+  lang === "de" ? "/de/lp/kickstarter" : FOUNDER_SIGNUP_PATH;
+
 export const founderCtaActive = (): boolean => isKickstarterLive() && isReservationOpen();
 
 /** Short button label (fits one line on a phone). */
@@ -109,6 +113,6 @@ export const founderCtaLong = (lang: string): string =>
 export const founderBarLabel = (lang: string): string => {
   const F = FOUNDER_EDITION;
   if (lang === "pl") return `Founder Edition $${F.price} zamiast $${F.srp} - zostało ${F.left} z ${F.total}`;
-  if (lang === "de") return `Founder Edition $${F.price} statt $${F.srp} - noch ${F.left} von ${F.total}`;
+  if (lang === "de") return "Founder Edition 109 € statt 179 € - Versand aus Polen (EU)";
   return `Founder Edition: $${F.price} instead of $${F.srp} - ${F.left} of ${F.total} left`;
 };

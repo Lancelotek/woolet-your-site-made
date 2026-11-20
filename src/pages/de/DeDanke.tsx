@@ -35,11 +35,12 @@ export default function DeDanke() {
             Du zahlst {formatDePrice(DE_PRICING.founderPriceEur)} statt {formatDePrice(DE_PRICING.regularPriceEur)}. Dein Euro wird voll angerechnet. Eine Bestätigung von Stripe ist unterwegs in dein Postfach.
           </p>
           <ol className="mt-8 grid list-none gap-4 p-0 font-body text-[15px] leading-7 text-foreground">
-            <li><strong className="text-primary">1.</strong> Am 29. Oktober startet Woolet auf Kickstarter. Du bekommst deinen Zugang per E-Mail, eine Stunde vor allen anderen.</li>
+            <li><strong className="text-primary">1.</strong> Deine Founder-Fassung ist fertig. Du kannst sie sofort für {formatDePrice(DE_PRICING.founderPriceEur)} bestellen - ohne Kickstarter-Konto, Versand aus Polen (EU).</li>
             <li><strong className="text-primary">2.</strong> Unsicher bei der Größe? Miss dein Gesicht in 60 Sekunden.</li>
             <li><strong className="text-primary">3.</strong> Fragen? Schreib an <a href="mailto:support@woolet.co" className="text-primary underline underline-offset-4">support@woolet.co</a>.</li>
           </ol>
-          <Link to="/de/fit" className="mt-10 inline-flex min-h-12 items-center bg-primary px-7 font-body text-xs font-semibold uppercase tracking-[0.2em] text-primary-foreground no-underline">Passform messen</Link>
+          <Link to="/de/founders?utm_source=de-danke&utm_medium=site&utm_campaign=paid1_founder_de" className="mt-10 inline-flex min-h-12 items-center bg-primary px-7 font-body text-xs font-semibold uppercase tracking-[0.2em] text-primary-foreground no-underline">Founder-Fassung bestellen</Link>
+          <p className="mt-4 font-body text-sm text-cream-dim"><Link to="/de/fit" className="text-primary underline underline-offset-4">Erst Passform messen</Link></p>
         </div>
       </section>
       <Footer lang="de" />

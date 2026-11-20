@@ -25,6 +25,9 @@ function getSupabase() {
 }
 
 const MAILERLITE_GROUP_FOUNDING_MEMBER = "192253863081805451";
+// 1 € reservations from the German Payment Link (EUR). Until 20.11.2026 they landed
+// in the English $1 group and would have received the English Founder sequence.
+const MAILERLITE_GROUP_RESERVED_DE = "199058376703869960"; // Woolet Reserved DE
 const META_GRAPH_VERSION = "v21.0";
 
 const sha256Hex = async (input: string): Promise<string> => {
@@ -511,6 +514,8 @@ async function handleBespokeCheckoutExpired(session: any) {
 }
 
 const MAILERLITE_GROUP_FOUNDER_SITE = "203832734069556872"; // Founder Edition Paid · woolet.co
+// German orders from /de/founders (metadata.market = "de") get the German confirmation.
+const MAILERLITE_GROUP_FOUNDER_SITE_DE = "204695386615449129"; // Founder Edition Paid DE · woolet.co
 
 /** Founder Edition pre-order paid on woolet.co: MailerLite group (confirmation automation) + order log. */
 async function handleFounderEditionCompleted(session: any, env: StripeEnv, paidSource: string) {
@@ -586,7 +591,7 @@ async function handleFounderEditionCompleted(session: any, env: StripeEnv, paidS
       body: JSON.stringify({
         email,
         status: "active",
-        groups: [MAILERLITE_GROUP_FOUNDER_SITE],
+        groups: [session?.metadata?.market === "de" ? MAILERLITE_GROUP_FOUNDER_SITE_DE : MAILERLITE_GROUP_FOUNDER_SITE],
         fields: {
           name: ship?.name || cd.name || "",
           country: addr.country ?? "",
@@ -819,6 +824,7 @@ async function tagMailerLiteFoundingMember(
   recommendedSku?: string,
   paidSource?: string,
   paidMeta: Record<string, string> = {},
+  market?: string,
 ) {
   const apiKey = Deno.env.get("MAILERLITE_API_KEY");
   if (!apiKey) return;
@@ -897,7 +903,7 @@ async function tagMailerLiteFoundingMember(
       },
       body: JSON.stringify({
         email,
-        groups: [MAILERLITE_GROUP_FOUNDING_MEMBER],
+        groups: [market === "de" ? MAILERLITE_GROUP_RESERVED_DE : MAILERLITE_GROUP_FOUNDING_MEMBER],
         fields: {
           ...utmFill,
           ...(recommendedSku ? { recommended_sku: recommendedSku } : {}),
@@ -1531,7 +1537,8 @@ async function handleCheckoutCompleted(session: any, env: StripeEnv) {
   }
 
   await saveReservationAttribution(session, email, resolvedMeta, env);
-  await tagMailerLiteFoundingMember(email, session.id, recommendedSku ?? undefined, paidSource, resolvedMeta);
+  const reservationMarket = String(session?.currency ?? "").toLowerCase() === "eur" ? "de" : undefined;
+  await tagMailerLiteFoundingMember(email, session.id, recommendedSku ?? undefined, paidSource, resolvedMeta, reservationMarket);
 
   try {
     const amountCents = session.amount_total ?? 100;

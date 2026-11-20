@@ -880,6 +880,16 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
     ], { de: canonical, en: `${SITE_URL}/en/products/${id}`, fr: `${SITE_URL}/fr/products/${id}`, nl: `${SITE_URL}/nl/products/${id}`, "x-default": `${SITE_URL}/en/products/${id}` });
   }
 
+  if (route === "/de/founders") {
+    const meta = base(route, "de", {
+      title: "Founder Edition - Woolet",
+      description: "Woolet 009 Black Founder Edition: 109 € statt 179 €, mit Founder Box. Direkt auf woolet.co bestellen - Versand aus Polen (EU), kein Zoll.",
+      noscriptHtml: `<h1>Deine Founder-Fassung. Ohne Kickstarter-Konto.</h1><p>Woolet 009 Black Founder Edition für 109 € statt 179 €, mit Founder Box. Versand aus Polen (EU).</p>`,
+    });
+    meta.robots = "noindex, nofollow";
+    return meta;
+  }
+
   if (route === "/de/danke") {
     const meta = base(route, "de", {
       title: "Danke - deine Reservierung steht | Woolet",
@@ -2538,7 +2548,7 @@ export function getAllRoutes(): string[] {
     return SUPPORTED_LANGS.map((locale) => `/${locale}${path}`);
   });
   return [...new Set([...STATIC_ROUTES, ...blogRoutes, ...appRoutes,
-    "/thank-you", "/thank-you-fb", "/upvote", "/en/fit/quick", "/de/fit/manual", "/de/fit/quick", "/de/danke",
+    "/thank-you", "/thank-you-fb", "/upvote", "/en/fit/quick", "/de/fit/manual", "/de/fit/quick", "/de/danke", "/de/founders",
     ...SUPPORTED_LANGS.flatMap((locale) => [`/${locale}/privacy-policy`, `/${locale}/return-policy`, `/${locale}/fit`]),
   ])].filter((route) => !REDIRECT_MAP[route]);
 }
