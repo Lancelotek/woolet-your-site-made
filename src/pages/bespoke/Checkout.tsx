@@ -351,6 +351,9 @@ export default function BespokeCheckout() {
           frameId: frame?.id ?? config.frameId,
           lensTypeId: config.lensTypeId ?? "none",
           engraving: hasEngraving(config),
+          // Checked against atelier stock by the server.
+          frontColorId: config.frontColorId ?? "",
+          templeColorId: config.templeColorId ?? "",
         },
         amountUsd: pricing.totalEur,
         couponCode: appliedCoupon ?? undefined,
