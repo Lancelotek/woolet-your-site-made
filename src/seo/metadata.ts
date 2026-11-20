@@ -732,7 +732,7 @@ ${shot("woolet-ks-countdown-06-founder-48h-4x5.jpg", "Man with a wide face weari
           description: p.metaDescription,
           noscriptHtml: `<h1>${escapeHtml(p.name)}</h1>
 <p>${escapeHtml(p.tagline)}</p>
-<p>${p.priceLabel ? escapeHtml(p.priceLabel) : `$${p.priceUsd} - ${p.model === "bespoke" ? "frame with free shipping, lenses optional" : "frame with demo lens"}`}</p>
+<p>${p.priceLabel ? escapeHtml(p.priceLabel) : `$${p.priceUsd} - ${p.model === "bespoke" ? "frame with free shipping, clear Plano lenses included" : "frame with demo lens"}`}</p>
 <p>${escapeHtml(p.intro)}</p>
 ${p.body.map((b) => `<p>${escapeHtml(b)}</p>`).join("")}
 <h2>Specifications</h2>
@@ -1011,7 +1011,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
       en: {
         title: "Woolet Bespoke — Custom Acetate Glasses Cut to Your Face",
          description:
-           `Explore Woolet Bespoke's four made-to-measure shapes and lens options. ${BESPOKE_FACTS.frontWidth} front width, ${BESPOKE_FACTS.regularPriceLabel} with free shipping, lenses optional.`,
+           `Explore Woolet Bespoke's four made-to-measure shapes and lens options. ${BESPOKE_FACTS.frontWidth} front width, ${BESPOKE_FACTS.regularPriceLabel} with free shipping, clear Plano lenses included.`,
         noscriptHtml: `<h1>Woolet Bespoke — Custom Acetate Glasses</h1>
  <p>${BESPOKE_FACTS.name}. ${BESPOKE_META_DESCRIPTION} ${BESPOKE_FACTS.lenses}. ${BESPOKE_FACTS.leadTime}.</p>`,
       },
@@ -1020,14 +1020,14 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
         description:
           `Bespoke Italiaanse Mazzucchelli-acetaatbril, gesneden op jouw gezicht. Vier silhouetten, maten 145-160 mm. ${BESPOKE_COPY.frame} met gratis wereldwijde verzending, glazen optioneel.`,
         noscriptHtml: `<h1>Woolet Bespoke — acetaatbril op maat</h1>
-<p>Bespoke Italiaanse Mazzucchelli-acetaatbril, gesneden op jouw gezicht, in vier silhouetten: Aviator, Rectangle, Crown Panto en Round. Maten 145-160 mm. Handgemaakt in de EU. ${BESPOKE_COPY.frame} met gratis wereldwijde verzending. Glazen optioneel: Plano ${BESPOKE_COPY.plano}, blauw licht ${BESPOKE_COPY.blueLight}, of alleen het montuur voor je opticien.</p>`,
+<p>Bespoke Italiaanse Mazzucchelli-acetaatbril, gesneden op jouw gezicht, in vier silhouetten: Aviator, Rectangle, Crown Panto en Round. Maten 145-160 mm. Handgemaakt in de EU. ${BESPOKE_COPY.frame} met gratis wereldwijde verzending. Heldere Plano-glazen inbegrepen, blauw licht ${BESPOKE_COPY.blueLight}.</p>`,
       },
       fr: {
         title: "Woolet Bespoke — lunettes en acétate sur mesure, taillées pour votre visage",
         description:
           "Lunettes sur mesure en acétate italien Mazzucchelli. Quatre formes, largeur 145-160 mm. 480 $ avec livraison mondiale gratuite, verres en option.",
         noscriptHtml: `<h1>Woolet Bespoke — lunettes en acétate sur mesure</h1>
-<p>Lunettes bespoke en acétate italien Mazzucchelli, taillées pour votre visage, en quatre formes : Aviator, Rectangle, Crown Panto et Round. Largeur 145-160 mm. Fabriquées à la main dans l'UE. 480 $ avec livraison mondiale gratuite. Verres en option : Plano +30 $, lumière bleue +84 $, ou monture seule pour votre opticien.</p>`,
+<p>Lunettes bespoke en acétate italien Mazzucchelli, taillées pour votre visage, en quatre formes : Aviator, Rectangle, Crown Panto et Round. Largeur 145-160 mm. Fabriquées à la main dans l'UE. 480 $ avec livraison mondiale gratuite. Verres Plano transparents inclus, lumière bleue +84 $.</p>`,
       },
     };
     const meta = base(

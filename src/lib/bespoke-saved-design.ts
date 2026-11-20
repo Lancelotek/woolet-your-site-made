@@ -39,7 +39,7 @@ export function buildDesignUrl(c: BespokeConfig, utmCampaign = "bespoke_saved_de
   if (c.templeColorId) p.set("temple", c.templeColorId);
   if (c.finishId) p.set("finish", c.finishId);
   if (c.templeLengthMm) p.set("tl", String(c.templeLengthMm));
-  if (c.lensTypeId && c.lensTypeId !== "none") p.set("lens", c.lensTypeId);
+  if (c.lensTypeId && c.lensTypeId !== "none" && c.lensTypeId !== "plano") p.set("lens", c.lensTypeId);
   p.set("step", "6");
   p.set("utm_source", "ml");
   p.set("utm_medium", "email");

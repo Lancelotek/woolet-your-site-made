@@ -1391,7 +1391,7 @@ ${blogFitLensHookHtml()}
 
 <h2>When none of the four shapes fits: Bespoke</h2>
 
-<p>The 007 and 009 are standard 158 mm designs. When you want a different geometry - an aviator top bar, a full circle, a straight rectangle - Bespoke cuts one of four distinct shapes to your own face width, anywhere from 145 to 160 mm, in the same Italian Mazzucchelli acetate. Hand made in the EU, with two weeks of production after 3D model approval followed by shipping. The regular ${BESPOKE_COPY.frame} price includes free worldwide shipping; lenses are optional: clear Plano ${BESPOKE_COPY.plano}, Blue Light ${BESPOKE_COPY.blueLight}, or frame only for your optician.</p>
+<p>The 007 and 009 are standard 158 mm designs. When you want a different geometry - an aviator top bar, a full circle, a straight rectangle - Bespoke cuts one of four distinct shapes to your own face width, anywhere from 145 to 160 mm, in the same Italian Mazzucchelli acetate. Hand made in the EU, with two weeks of production after 3D model approval followed by shipping. The regular ${BESPOKE_COPY.frame} price includes free worldwide shipping; clear Plano lenses included, Blue Light ${BESPOKE_COPY.blueLight}.</p>
 
 <p><a class="blog-gold-button" href="/en/bespoke">Start a Bespoke frame</a></p>
 
@@ -2120,7 +2120,7 @@ ${blogFitLensHookHtml()}
       },
       {
         q: "How much do bespoke glasses cost?",
-        a: `Atelier-made bespoke acetate frames typically retail at $900–$2,500. Woolet Bespoke costs ${BESPOKE_COPY.frame} USD with free worldwide shipping; lenses optional: clear Plano ${BESPOKE_COPY.plano}, Blue Light ${BESPOKE_COPY.blueLight}, or frame only. ${BESPOKE_COPY.kickstarter} is a Kickstarter backer price available only during the campaign.`,
+        a: `Atelier-made bespoke acetate frames typically retail at $900–$2,500. Woolet Bespoke costs ${BESPOKE_COPY.frame} USD with free worldwide shipping; clear Plano lenses included, Blue Light ${BESPOKE_COPY.blueLight}. ${BESPOKE_COPY.kickstarter} is a Kickstarter backer price available only during the campaign.`,
       },
       {
         q: "How long does bespoke production take?",
@@ -2222,7 +2222,7 @@ ${blogFitLensHookHtml()}
 
 <p>Comparable atelier-made bespoke acetate frames retail at $900–$2,500. Tom Davies bespoke starts around $1,800. Lindberg semi-custom titanium runs $1,200–$2,000. Cubitts bespoke is roughly $1,500.</p>
 
-<p>Woolet Bespoke is <strong>${BESPOKE_COPY.frame} USD with free worldwide shipping</strong>. Lenses are optional: clear Plano ${BESPOKE_COPY.plano}, Blue Light ${BESPOKE_COPY.blueLight}, or frame only for your optician. <a href="/en/lp/kickstarter">Kickstarter backer price: ${BESPOKE_COPY.kickstarter} (campaign only)</a> is not an offer on woolet.co.</p>
+<p>Woolet Bespoke is <strong>${BESPOKE_COPY.frame} USD with free worldwide shipping</strong>. Clear Plano lenses included, Blue Light ${BESPOKE_COPY.blueLight}. <a href="/en/lp/kickstarter">Kickstarter backer price: ${BESPOKE_COPY.kickstarter} (campaign only)</a> is not an offer on woolet.co.</p>
 
 <h2>FAQ</h2>
 
@@ -2230,7 +2230,7 @@ ${blogFitLensHookHtml()}
 <p>Custom usually means choosing options from a fixed menu — color, lens type, engraving — while the underlying frame dimensions stay the same. Bespoke means the dimensions themselves (frame width, bridge, temples) are made to one person's face. Most "custom" eyewear is not bespoke.</p>
 
 <h3>Can bespoke frames be remade if my prescription changes?</h3>
-<p>Yes. Bespoke does not include prescription lenses: order the frame only and your optician fits your prescription lenses. For a future prescription change, the optician replaces them. Acetate also reshapes with heat, so minor fit corrections happen at the optician too.</p>
+<p>Yes. Bespoke does not include prescription lenses: it ships with clear Plano lenses and your optician swaps them for your prescription lenses. For a future prescription change, the optician replaces them. Acetate also reshapes with heat, so minor fit corrections happen at the optician too.</p>
 
 <h3>Do I need to fly to Italy or visit a fitter?</h3>
 <p>No. The entire process runs from the AI scan on your phone. The atelier receives the digitized measurements and a CAD approval — no in-person fitting needed.</p>
@@ -2249,7 +2249,7 @@ ${blogFitLensHookHtml()}
 <li><a href="/en/blog/glasses-for-wide-faces-guide">Wide-face glasses: the complete guide</a> — stock options before you commit to bespoke.</li>
 <li><a href="/en/blog/what-is-italian-acetate-premium-eyewear">What is Italian acetate?</a> — the material every bespoke frame is cut from.</li>
 <li><a href="/en/fit">AI Fit Scan</a> — 90-second check whether you're in stock or bespoke territory.</li>
-<li><a href="/en/bespoke">Woolet Bespoke</a> - ${BESPOKE_COPY.frame} with free worldwide shipping; lenses optional.</li>
+<li><a href="/en/bespoke">Woolet Bespoke</a> - ${BESPOKE_COPY.frame} with free worldwide shipping; clear Plano lenses included.</li>
 </ul>
 `,
   },
@@ -2261,9 +2261,9 @@ ${blogFitLensHookHtml()}
     readTime: 9,
     tags: ["Bespoke", "Made to Measure", "Guide"],
     faq: [
-      { q: "What does made-to-measure glasses mean?", a: `Made-to-measure glasses are eyewear frames built to a single customer's face measurements — front width, bridge, temple length and tilt — rather than picked off a stock size run. Woolet Bespoke is frame only or with clear Plano (${BESPOKE_COPY.plano}) or Blue Light (${BESPOKE_COPY.blueLight}) lenses.` },
+      { q: "What does made-to-measure glasses mean?", a: `Made-to-measure glasses are eyewear frames built to a single customer's face measurements — front width, bridge, temple length and tilt — rather than picked off a stock size run. Woolet Bespoke ships with clear Plano lenses included, or Blue Light lenses (${BESPOKE_COPY.blueLight}).` },
       { q: "Are made-to-measure glasses the same as bespoke?", a: "Functionally yes. 'Bespoke' is the British term, 'made-to-measure' the international one. Both describe a frame cut to a single buyer rather than a standard size grid." },
-      { q: "How much do made-to-measure glasses cost?", a: `Mass-market brands don't sell them. Specialist ateliers in Italy, Japan and the UK charge $800–$3,000 per frame. Woolet Bespoke is ${BESPOKE_COPY.frame} with free worldwide shipping; lenses optional: clear Plano ${BESPOKE_COPY.plano}, Blue Light ${BESPOKE_COPY.blueLight}, or frame only.` },
+      { q: "How much do made-to-measure glasses cost?", a: `Mass-market brands don't sell them. Specialist ateliers in Italy, Japan and the UK charge $800–$3,000 per frame. Woolet Bespoke is ${BESPOKE_COPY.frame} with free worldwide shipping; clear Plano lenses included, Blue Light ${BESPOKE_COPY.blueLight}.` },
       { q: "Do I need to fly somewhere to get measured?", a: "No. Woolet bespoke runs from an AI face scan on your phone. The atelier receives the digitized measurements and a CAD approval — no fitter visit required." },
       { q: "Who actually needs made-to-measure?", a: "People whose face width falls outside Woolet's 155–161 mm stock fit band, within the 145–160 mm bespoke range, and people with an asymmetric bridge or strong temple curve that no stock size accommodates." },
     ],
@@ -2272,7 +2272,7 @@ ${blogFitLensHookHtml()}
 
 <h2>The plain-English definition</h2>
 
-<p>A made-to-measure frame is built to a single customer's measurements. The front width, bridge width, temple length, and pantoscopic tilt are all set to your face before the acetate is cut. Woolet Bespoke is ${BESPOKE_COPY.frame}; lenses optional: clear Plano ${BESPOKE_COPY.plano}, Blue Light ${BESPOKE_COPY.blueLight}, or frame only for your optician.</p>
+<p>A made-to-measure frame is built to a single customer's measurements. The front width, bridge width, temple length, and pantoscopic tilt are all set to your face before the acetate is cut. Woolet Bespoke is ${BESPOKE_COPY.frame}; clear Plano lenses included, Blue Light ${BESPOKE_COPY.blueLight}.</p>
 
 <p>This is distinct from <em>customised</em> glasses (where you pick a colour or engraving on a stock size) and from <em>"wide fit"</em> lines (where the brand has one larger stock size, not a frame cut to you).</p>
 
@@ -2289,7 +2289,7 @@ ${blogFitLensHookHtml()}
 <li><strong>CAD design.</strong> The atelier turns your measurements into a CAD file in the chosen shape (round, square, panto, aviator). You approve the renders before any material is cut.</li>
 <li><strong>Cutting.</strong> A block of Italian Mazzucchelli acetate is milled to your CAD on a 5-axis CNC. The cut takes 20–40 minutes per frame.</li>
 <li><strong>Hand finishing.</strong> The cut frame is tumbled in walnut chips for 5–7 days to polish the surface, then hand-finished — hinge fitting, temple bending, edge bevelling. This is what makes the difference between a CNC blank and a finished frame.</li>
-<li><strong>Delivery.</strong> The frame ships to your address free worldwide, frame only or with Plano (${BESPOKE_COPY.plano}) or Blue Light (${BESPOKE_COPY.blueLight}) lenses.</li>
+<li><strong>Delivery.</strong> The frame ships to your address free worldwide, with clear Plano lenses included or Blue Light lenses (${BESPOKE_COPY.blueLight}).</li>
 </ol>
 
 <h2>Made-to-measure vs stock — who should buy what</h2>
@@ -2305,7 +2305,7 @@ ${blogFitLensHookHtml()}
 
 <p>Traditional made-to-measure ateliers — Tom Davies in London, Nakanishi in Tokyo, several Italian houses in Cadore — charge $800–$3,000 per frame. The cost reflects two in-person fitter visits, hand drafting, and bench labour at a workshop rate that hasn't shifted in two decades.</p>
 
-<p>Woolet Bespoke is <strong>${BESPOKE_COPY.frame} with free worldwide shipping</strong>. Lenses are optional: Plano ${BESPOKE_COPY.plano}, Blue Light ${BESPOKE_COPY.blueLight}, or frame only. The price is lower for one reason: the measurement and approval happen digitally, so the atelier handles only the cutting and finishing. The frame is still milled from Mazzucchelli acetate and Hand made in EU — the labour is the same, the overhead is not. <a href="/en/blog/how-much-do-bespoke-glasses-cost">Full cost breakdown is here</a>.</p>
+<p>Woolet Bespoke is <strong>${BESPOKE_COPY.frame} with free worldwide shipping</strong>. Clear Plano lenses included, Blue Light ${BESPOKE_COPY.blueLight}. The price is lower for one reason: the measurement and approval happen digitally, so the atelier handles only the cutting and finishing. The frame is still milled from Mazzucchelli acetate and Hand made in EU — the labour is the same, the overhead is not. <a href="/en/blog/how-much-do-bespoke-glasses-cost">Full cost breakdown is here</a>.</p>
 
 <h2>The realistic timeline</h2>
 
@@ -2324,7 +2324,7 @@ ${blogFitLensHookHtml()}
 
 <h2>Next step</h2>
 
-<p>The fastest way to find out whether you need made-to-measure or whether stock will fit is the <a href="/en/fit">AI Fit Scan</a> — 90 seconds, no commitment. If you already know you're outside the 155–161 mm stock range, the <a href="/en/fit/bespoke">bespoke size reference</a> shows the full 145–160 mm grid, and <a href="/en/bespoke">Woolet Bespoke</a> is ${BESPOKE_COPY.frame} with free worldwide shipping; lenses optional.</p>
+<p>The fastest way to find out whether you need made-to-measure or whether stock will fit is the <a href="/en/fit">AI Fit Scan</a> — 90 seconds, no commitment. If you already know you're outside the 155–161 mm stock range, the <a href="/en/fit/bespoke">bespoke size reference</a> shows the full 145–160 mm grid, and <a href="/en/bespoke">Woolet Bespoke</a> is ${BESPOKE_COPY.frame} with free worldwide shipping; clear Plano lenses included.</p>
 
 <h2>Related articles</h2>
 <ul>
@@ -2436,7 +2436,7 @@ ${blogFitLensHookHtml()}
     readTime: 9,
     tags: ["Bespoke", "Pricing", "Buying Guide"],
     faq: [
-      { q: "How much do bespoke glasses cost in 2026?", a: `Traditional ateliers (Tom Davies, Nakanishi, Italian houses in Cadore) charge $800–$3,000 per frame. Luxury fashion houses (Cartier, Chrome Hearts) charge $2,000–$15,000. Woolet Bespoke costs ${BESPOKE_COPY.frame} with free worldwide shipping; lenses optional: Plano ${BESPOKE_COPY.plano}, Blue Light ${BESPOKE_COPY.blueLight}, or frame only. It is hand made in the EU.` },
+      { q: "How much do bespoke glasses cost in 2026?", a: `Traditional ateliers (Tom Davies, Nakanishi, Italian houses in Cadore) charge $800–$3,000 per frame. Luxury fashion houses (Cartier, Chrome Hearts) charge $2,000–$15,000. Woolet Bespoke costs ${BESPOKE_COPY.frame} with free worldwide shipping; clear Plano lenses included, Blue Light ${BESPOKE_COPY.blueLight}. It is hand made in the EU.` },
       { q: "How much do Tom Davies bespoke glasses cost?", a: "Tom Davies bespoke runs roughly £950–£2,500 (about $1,200–$3,200) depending on material and complexity. The price includes two in-person fitter consultations and the workshop labour, which is most of the cost." },
       { q: "Why are bespoke glasses so expensive?", a: "Most of the cost is human labour — fitter visits, CAD drafting, bench finishing — not material. The acetate block itself costs about $25–$60. Cutting it costs $40–$120 of CNC time. Everything else is people: typically 8–16 hours of skilled labour per frame at workshop rates." },
       { q: "Are bespoke glasses worth the money?", a: "If your face is outside the 155–161 mm stock fit range, yes — there is no equivalent stock option that fits. If you are inside the stock range, only if you specifically want a unique shape or material. For most 155–161 mm faces, a wide-fit stock frame at $190 is the better buy." },
@@ -2458,7 +2458,7 @@ ${blogFitLensHookHtml()}
     <tr style="border-bottom:1px solid #E8E4DC;">
       <td style="padding:10px 12px;">Digital bespoke</td>
       <td style="padding:10px 12px;">Woolet (145–160 mm)</td>
-      <td style="padding:10px 12px;">${BESPOKE_COPY.frame}, frame only (lenses optional)</td>
+      <td style="padding:10px 12px;">${BESPOKE_COPY.frame}, clear Plano lenses included</td>
     </tr>
     <tr style="border-bottom:1px solid #E8E4DC;">
       <td style="padding:10px 12px;">Independent atelier</td>
@@ -2478,7 +2478,7 @@ ${blogFitLensHookHtml()}
   </tbody>
 </table>
 
-<p>Traditional ateliers may quote lenses separately. Woolet Bespoke is ${BESPOKE_COPY.frame} with free worldwide shipping; lenses optional: Plano ${BESPOKE_COPY.plano}, Blue Light ${BESPOKE_COPY.blueLight}, or frame only.</p>
+<p>Traditional ateliers may quote lenses separately. Woolet Bespoke is ${BESPOKE_COPY.frame} with free worldwide shipping; clear Plano lenses included, Blue Light ${BESPOKE_COPY.blueLight}.</p>
 
 <h2>What you are actually paying for</h2>
 
@@ -2502,7 +2502,7 @@ ${blogFitLensHookHtml()}
 
 <p>The bench labour is the same. The fitter labour is not in the price because there is no fitter visit. That single change cuts the cost by roughly $500–$700 per frame.</p>
 
-<p>The regular Woolet Bespoke price is ${BESPOKE_COPY.frame} with free worldwide shipping; lenses optional: Plano ${BESPOKE_COPY.plano}, Blue Light ${BESPOKE_COPY.blueLight}, or frame only. <a href="/en/lp/kickstarter">Kickstarter backer price: ${BESPOKE_COPY.kickstarter} (campaign only)</a> is not an offer on woolet.co.</p>
+<p>The regular Woolet Bespoke price is ${BESPOKE_COPY.frame} with free worldwide shipping; clear Plano lenses included, Blue Light ${BESPOKE_COPY.blueLight}. <a href="/en/lp/kickstarter">Kickstarter backer price: ${BESPOKE_COPY.kickstarter} (campaign only)</a> is not an offer on woolet.co.</p>
 
 <h2>How to decide which tier you actually need</h2>
 
@@ -2790,7 +2790,7 @@ ${blogFitLensHookHtml()}
 <li><strong>Face width 130–145 mm:</strong> most mainstream frames fit. Front width 130–145 mm.</li>
 <li><strong>Face width 145–155 mm:</strong> look for "wide fit" lines. Front width 145–155 mm.</li>
 <li><strong>Face width 155–161 mm:</strong> specialist wide-face brands only. Front width 155–161 mm. Woolet 007 and 009 are designed exactly here at 158 mm.</li>
-<li><strong>Face width 161+ mm:</strong> bespoke. The widest Woolet front is 160 mm; above that, measure first — Woolet Bespoke covers up to 160 mm at ${BESPOKE_COPY.frame} with free worldwide shipping; lenses optional.</li>
+<li><strong>Face width 161+ mm:</strong> bespoke. The widest Woolet front is 160 mm; above that, measure first — Woolet Bespoke covers up to 160 mm at ${BESPOKE_COPY.frame} with free worldwide shipping; clear Plano lenses included.</li>
 </ul>
 
 <p>The most precise way to measure is the <a href="/en/fit">AI Fit Scan</a> — 90 seconds with your phone and a credit card, accurate to within 2 mm.</p>
@@ -2885,7 +2885,7 @@ ${blogFitLensHookHtml()}
 <li>Bridge: 20–26 mm</li>
 <li>Temples: 150–158 mm</li>
 </ul>
-<p>Available at: Woolet Bespoke (${BESPOKE_COPY.frame}, lenses optional, hand made in the EU), Tom Davies bespoke (~$1,200–$3,200, in-person), Maison Bonnet ($3,000+).</p>
+<p>Available at: Woolet Bespoke (${BESPOKE_COPY.frame}, clear Plano lenses included, hand made in the EU), Tom Davies bespoke (~$1,200–$3,200, in-person), Maison Bonnet ($3,000+).</p>
 
 <h2>Why "the number on the temple" is misleading</h2>
 
@@ -3126,7 +3126,7 @@ ${blogFitLensHookHtml()}
       { q: "What styles work best on a wider face?", a: "Soft-square and rounded panto shapes both work. The deciding number is width, not shape. Avoid very small cat-eyes — the lens area gets dwarfed by the face and the frame reads as an accessory rather than eyewear." },
       { q: "Do Woolet frames come in feminine colourways?", a: "Both 007 (round) and 009 (soft square) ship in Honey tortoise, Piano black and Crystal. Bespoke opens the full Mazzucchelli colour palette, including translucent and crystal acetates often chosen by women buyers." },
       { q: "Do wide-face glasses for women come with prescription lenses?", a: "Yes. Both Woolet 007 and 009 ship prescription-ready — single-vision, progressive, and blue-light coatings. The 25 mm keyhole bridge is deep enough for the progressive corridor that narrow bridges cannot carry." },
-      { q: "What do premium wide-face glasses for women cost?", a: `Woolet 007 and 009 are $114 during pre-order, against a $190 launch price. Bespoke is ${BESPOKE_COPY.frame} with free worldwide shipping; lenses optional: Plano ${BESPOKE_COPY.plano}, Blue Light ${BESPOKE_COPY.blueLight}, or frame only. ${BESPOKE_COPY.kickstarter} is a Kickstarter backer price only during the campaign.` },
+      { q: "What do premium wide-face glasses for women cost?", a: `Woolet 007 and 009 are $114 during pre-order, against a $190 launch price. Bespoke is ${BESPOKE_COPY.frame} with free worldwide shipping; clear Plano lenses included, Blue Light ${BESPOKE_COPY.blueLight}. ${BESPOKE_COPY.kickstarter} is a Kickstarter backer price only during the campaign.` },
     ],
     content: `
 <div style="display:flex;align-items:center;gap:14px;padding:16px 0;border-top:1px solid #E8E4DC;border-bottom:1px solid #E8E4DC;margin-bottom:28px;font-family:'Barlow',sans-serif;">

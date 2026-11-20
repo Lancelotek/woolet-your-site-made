@@ -2252,7 +2252,7 @@ export function StepLenses({ config, update }: StepProps) {
                     <span className="text-cream text-sm whitespace-normal">{l.name}</span>
                     {active && <Check size={15} className="text-gold-light shrink-0" aria-hidden />}
                     <span className="text-gold-light text-xs shrink-0">
-                      {lensPrice(prices, l.id) > 0 ? formatAddOn(lensPrice(prices, l.id)) : "Free"}
+                      {lensPrice(prices, l.id) > 0 ? formatAddOn(lensPrice(prices, l.id)) : "Included"}
                     </span>
                   </div>
                   <div className="text-cream-dim text-[0.72rem] mt-1">{l.description}</div>

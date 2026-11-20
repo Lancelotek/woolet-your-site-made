@@ -349,7 +349,7 @@ export default function BespokeCheckout() {
         // The server prices the selection itself; amountUsd is only a cross-check.
         selection: {
           frameId: frame?.id ?? config.frameId,
-          lensTypeId: config.lensTypeId ?? "none",
+          lensTypeId: config.lensTypeId ?? "plano",
           engraving: hasEngraving(config),
           // Checked against atelier stock by the server.
           frontColorId: config.frontColorId ?? "",

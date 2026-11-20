@@ -14,8 +14,11 @@
 export const BESPOKE_PRICES = {
   /** Made-to-measure frame, free worldwide shipping included. */
   frameUsd: 480,
-  /** Clear lenses, no correction. */
-  planoUsd: 30,
+  /**
+   * Clear demo lenses, no correction. Included (20.11.2026): every frame ships
+   * with them, the atelier needs lenses in to align and bend the front.
+   */
+  planoUsd: 0,
   /** Blue-light filter lenses. */
   blueLightUsd: 84,
   /** Temple engraving. */
@@ -35,12 +38,13 @@ const usd = (n: number) => `$${n}`;
 /** Ready-to-print labels for copy written in template strings. */
 export const BESPOKE_COPY = {
   frame: usd(BESPOKE_PRICES.frameUsd),
-  plano: `+${usd(BESPOKE_PRICES.planoUsd)}`,
+  /** "included" while Plano is free, otherwise "+$X". */
+  plano: BESPOKE_PRICES.planoUsd > 0 ? `+${usd(BESPOKE_PRICES.planoUsd)}` : "included",
   blueLight: `+${usd(BESPOKE_PRICES.blueLightUsd)}`,
   engraving: `+${usd(BESPOKE_PRICES.engravingUsd)}`,
   kickstarter: usd(BESPOKE_PRICES.kickstarterUsd),
   deposit: usd(BESPOKE_PRICES.depositUsd),
-  /** Balance on a frame-only order, e.g. "$431". */
+  /** Balance on an order with the included Plano lenses, e.g. "$431". */
   frameBalance: usd(BESPOKE_PRICES.frameUsd - BESPOKE_PRICES.depositUsd),
   /** Schema.org Offer price, e.g. "480.00". */
   frameSchema: BESPOKE_PRICES.frameUsd.toFixed(2),
