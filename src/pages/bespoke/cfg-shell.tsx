@@ -76,7 +76,7 @@ export function pulseMobilePreview() {
 
 /* ───── Info sheet ───── */
 
-export type CfgInfoSection = "measure" | "price" | "fit";
+export type CfgInfoSection = "measure" | "price" | "fit" | "deposit";
 
 const InfoCtx = createContext<(section: CfgInfoSection) => void>(() => {});
 export const useCfgInfo = () => useContext(InfoCtx);
@@ -136,12 +136,16 @@ export function CfgInfoProvider({
   children,
   priceLines,
   priceTotal,
+  depositNote,
 }: {
   children: ReactNode;
   /** Live itemized build (frame, lenses, engraving). Clarity 04-05.11.2026: buyers
    *  clicked the total expecting to see what it is made of. */
   priceLines?: CfgPriceLine[];
   priceTotal?: string;
+  /** Deposit terms for the "deposit" section (Clarity 18.11.2026: buyers tapped the
+   *  plain deposit text on Review looking for details). Section is hidden without it. */
+  depositNote?: string;
 }) {
   const [section, setSection] = useState<CfgInfoSection | null>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -179,6 +183,15 @@ export function CfgInfoProvider({
               </button>
             </div>
             <div className="cfg-sheet__body">
+              {depositNote && (
+                <section id="cfg-info-deposit" className={section === "deposit" ? "is-target" : undefined}>
+                  <h3>How the deposit works</h3>
+                  <p>{depositNote}</p>
+                  <p>
+                    <strong>Fit promise.</strong> Not the right fit? You get 50% off a new frame.
+                  </p>
+                </section>
+              )}
               {SECTIONS.map((s) => (
                 <section key={s.id} id={`cfg-info-${s.id}`} className={s.id === section ? "is-target" : undefined}>
                   <h3>{s.title}</h3>

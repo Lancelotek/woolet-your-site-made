@@ -853,9 +853,22 @@ const VipForm = ({
 };
 
 // ---------- Section helpers ----------
-const Eyebrow = ({ children }: { children: React.ReactNode }) => (
-  <p style={eyebrowStyle}>{children}</p>
-);
+const Eyebrow = ({ children, onClick }: { children: React.ReactNode; onClick?: () => void }) =>
+  onClick ? (
+    // Clarity 18-20.11.2026: "Live on Kickstarter" read as a link and logged dead
+    // clicks. A tap now takes the visitor to the email field right below it.
+    <p style={eyebrowStyle}>
+      <button
+        type="button"
+        onClick={onClick}
+        style={{ ...eyebrowStyle, background: "none", border: "none", padding: 0, cursor: "pointer" }}
+      >
+        {children}
+      </button>
+    </p>
+  ) : (
+    <p style={eyebrowStyle}>{children}</p>
+  );
 
 const Hairline = () => (
   <div style={{ height: 1, background: HAIRLINE, width: "100%" }} />
@@ -1624,7 +1637,7 @@ const KickstarterPrelaunch = () => {
 
           {/* Right on desktop, first on mobile — headline + email field above the fold */}
           <div className="order-1 md:order-2">
-            <Eyebrow>{heroEyebrow}</Eyebrow>
+            <Eyebrow onClick={live ? () => scrollToEmailInput("vip-form-hero") : undefined}>{heroEyebrow}</Eyebrow>
             <h1
               style={{
                 fontFamily: "'Cormorant Garamond', 'Newsreader', serif",
@@ -2051,7 +2064,7 @@ const KickstarterPrelaunch = () => {
       {/* MID CTA BAND */}
       <section style={{ background: "#0b0a09", borderTop: `1px solid ${HAIRLINE}`, borderBottom: `1px solid ${HAIRLINE}` }}>
         <div className="max-w-3xl mx-auto px-5 sm:px-8 py-16 text-center">
-          <Eyebrow>{live ? "Live on Kickstarter" : "Join the VIP list"}</Eyebrow>
+          <Eyebrow onClick={live ? () => scrollToEmailInput("vip-form-mid") : undefined}>{live ? "Live on Kickstarter" : "Join the VIP list"}</Eyebrow>
           <h2
             style={{
               fontFamily: "'Cormorant Garamond', serif",
