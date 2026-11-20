@@ -77,7 +77,7 @@ export default function AttributionAdmin() {
         <h1 className="font-display text-3xl mb-6">Reservation attribution</h1>
         {!rows ? (
           <form className="flex gap-2 max-w-sm" onSubmit={(e) => { e.preventDefault(); void load(); }}>
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Admin password"
+            <input type="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Admin password"
               className="flex-1 min-h-[44px] px-3 rounded-sm bg-transparent border border-border" />
             <button className="min-h-[44px] px-4 rounded-sm bg-primary text-primary-foreground text-sm">Open</button>
           </form>

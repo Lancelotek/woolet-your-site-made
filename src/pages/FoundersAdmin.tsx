@@ -234,7 +234,7 @@ export default function FoundersAdmin() {
             }}
             style={{ display: "flex", gap: 8, maxWidth: 420 }}
           >
-            <input style={input} type="password" placeholder="Admin password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <input style={input} type="password" autoComplete="current-password" placeholder="Admin password" value={password} onChange={(e) => setPassword(e.target.value)} />
             <button type="submit" style={btn} disabled={loading}>{loading ? "…" : "Open"}</button>
           </form>
         ) : (
