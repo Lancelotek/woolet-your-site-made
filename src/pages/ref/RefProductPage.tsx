@@ -236,7 +236,7 @@ const RefProductPage = () => {
                 ) : (
                   <>
                     <span style={{ fontFamily: SERIF, fontSize: 34, lineHeight: 1 }}>${product.priceUsd}</span>
-                    <span style={{ fontSize: 13, color: T.inkMute }}>{isBespoke ? "free worldwide shipping; lenses optional" : "frame with demo lens"}</span>
+                    <span style={{ fontSize: 13, color: T.inkMute }}>{isBespoke ? "free worldwide shipping; clear Plano lenses included" : "frame with demo lens"}</span>
                   </>
                 )}
               </div>

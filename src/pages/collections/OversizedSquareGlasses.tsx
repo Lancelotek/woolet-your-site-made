@@ -46,7 +46,7 @@ const OversizedSquareGlasses = () => (
       {
         question: "What do oversized square glasses cost?",
         answer:
-          `$190 for eyeglasses with demo lenses ready for your prescription, $210 with UV400 sun, blue light or reading lenses. Bespoke at any width from 145 to 160 mm is ${BESPOKE_COPY.frame}, lenses optional: Plano ${BESPOKE_COPY.plano}, Blue Light ${BESPOKE_COPY.blueLight}.`,
+          `$190 for eyeglasses with demo lenses ready for your prescription, $210 with UV400 sun, blue light or reading lenses. Bespoke at any width from 145 to 160 mm is ${BESPOKE_COPY.frame}, clear Plano lenses included, Blue Light ${BESPOKE_COPY.blueLight}.`,
       },
     ]}
   />

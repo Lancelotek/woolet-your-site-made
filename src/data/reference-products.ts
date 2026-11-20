@@ -330,7 +330,6 @@ export const REF_PRODUCTS: RefProduct[] = [
       ["Lead time", BESPOKE_FACTS.leadTime],
     ],
     lensOptions: [
-      { name: "No lenses - frame only", priceUsd: 0, note: "Your optician fits your own lenses, prescription included." },
       { name: "Plano - clear, no correction", priceUsd: BESPOKE_PRICES.planoUsd, note: "Clear lenses without optical correction, cut and fitted to your frame." },
       { name: "Blue Light Lenses", priceUsd: BESPOKE_PRICES.blueLightUsd, note: "Filter coating for screen use." },
     ],
@@ -347,7 +346,7 @@ export const REF_PRODUCTS: RefProduct[] = [
     siblings: [],
     shopUrl: "https://shop.woolet.co/products/woolet-bespoke-custom-fit-eyewear",
     metaTitle: `Woolet Bespoke - Made-to-measure acetate glasses, ${BESPOKE_FACTS.frontWidth}`,
-    metaDescription: `Four shapes, any width ${BESPOKE_FACTS.frontWidth}, ${BESPOKE_FACTS.material}, ${BESPOKE_FACTS.origin.toLowerCase()}, ${BESPOKE_FACTS.regularPriceLabel} with free shipping, lenses optional. Reference product page.`,
+    metaDescription: `Four shapes, any width ${BESPOKE_FACTS.frontWidth}, ${BESPOKE_FACTS.material}, ${BESPOKE_FACTS.origin.toLowerCase()}, ${BESPOKE_FACTS.regularPriceLabel} with free shipping, clear Plano lenses included. Reference product page.`,
   },
   // ---------- The Box ----------
   {

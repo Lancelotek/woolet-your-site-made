@@ -152,7 +152,7 @@ const ConfiguratorPage = () => {
   // Itemized lines for the price sheet - same numbers as every other surface.
   const priceLines = useMemo(() => {
     const lines = [{ label: frame ? `Bespoke frame · ${frame.name}` : "Bespoke frame", amount: formatEur(pricing.basePriceEur) }];
-    lines.push({ label: `Lenses · ${lens ? lens.name : "No lenses"}`, amount: formatAddOn(pricing.lensEur) });
+    lines.push({ label: `Lenses · ${lens ? lens.name : "Plano - clear, no correction"}`, amount: formatAddOn(pricing.lensEur) });
     if (config.engravingEnabled) lines.push({ label: "Engraving", amount: formatAddOn(pricing.engravingEur) });
     lines.push({ label: "Shipping", amount: "Free" });
     return lines;

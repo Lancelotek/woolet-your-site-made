@@ -109,7 +109,7 @@ const SECTIONS: { id: CfgInfoSection; title: string; body: ReactNode }[] = [
     body: (
       <ul>
         <li>Hand made in the EU from Italian Mazzucchelli acetate.</li>
-        <li>Lenses are optional: frame only (free), clear Plano {BESPOKE_COPY.plano} or Blue Light {BESPOKE_COPY.blueLight}, itemized in your build.</li>
+        <li>Clear Plano lenses included, Blue Light {BESPOKE_COPY.blueLight}, itemized in your build.</li>
         <li>Free worldwide shipping.</li>
         <li>2 weeks from order to dispatch.</li>
       </ul>

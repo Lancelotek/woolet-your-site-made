@@ -18,15 +18,14 @@ export const BESPOKE_FACTS = {
   origin: "Hand made in EU",
   warranty: "5 years",
   shipping: "Free worldwide shipping",
-  lenses: `Lenses optional: clear Plano (no correction) ${BESPOKE_COPY.plano}, Blue Light ${BESPOKE_COPY.blueLight}, or frame only for your own optician`,
+  lenses: `Clear Plano lenses included, Blue Light ${BESPOKE_COPY.blueLight}`,
   lensOptions: [
-    { name: "No lenses - frame only", priceUsd: 0 },
     { name: "Plano - clear, no correction", priceUsd: BESPOKE_PRICES.planoUsd },
     { name: "Blue Light Lenses", priceUsd: BESPOKE_PRICES.blueLightUsd },
   ],
   /** One-line offer used across pages, metadata and schema. */
-  offer: `${BESPOKE_COPY.frame} USD with free worldwide shipping. Lenses are optional: clear Plano ${BESPOKE_COPY.plano}, Blue Light ${BESPOKE_COPY.blueLight}, or frame only for your optician to glaze.`,
-  prescription: "Bespoke does not include prescription lenses. Order the frame only and your optician fits your prescription lenses.",
+  offer: `${BESPOKE_COPY.frame} USD with free worldwide shipping. Clear Plano lenses included, Blue Light ${BESPOKE_COPY.blueLight}.`,
+  prescription: "Bespoke does not include prescription lenses. Every frame ships with clear Plano lenses; your optician swaps them for your prescription lenses.",
   shapes: ["Aviator", "Rectangle", "Crown Panto", "Round"],
   // The real order of events (17.11.2026): design and order first, then the
   // fitting photo, the visualization (balance paid on acceptance) and the 3D model. Index 4 is production - Bespoke.tsx prints the lead time under it.
@@ -41,7 +40,7 @@ export const BESPOKE_FACTS = {
 } as const;
 
 export const BESPOKE_META_DESCRIPTION =
-  `Made-to-measure glasses in any width from 145-160 mm. ${BESPOKE_COPY.frame} with free worldwide shipping, lenses optional. Hand made in the EU from Italian acetate.`;
+  `Made-to-measure glasses in any width from 145-160 mm. ${BESPOKE_COPY.frame} with free worldwide shipping, clear Plano lenses included. Hand made in the EU from Italian acetate.`;
 
 export const BESPOKE_GUIDE = [
   {
@@ -66,7 +65,7 @@ export const BESPOKE_GUIDE = [
   },
   {
     heading: "What the regular price includes",
-    text: `The regular Woolet Bespoke price is ${BESPOKE_COPY.frame} USD for the made-to-measure frame with free worldwide shipping. Lenses are optional: clear Plano lenses without correction cost ${BESPOKE_COPY.plano.slice(1)}, Blue Light lenses ${BESPOKE_COPY.blueLight.slice(1)}, or you order the frame only and your optician fits your own lenses. Prescription lenses are not part of the configurator. The ${BESPOKE_COPY.kickstarter} amount is a Kickstarter backer price during the campaign only, not a regular offer on the Woolet site and not the price of the product in search results. The order summary shows the lens option and its price separately, so the quoted total reflects what you actually chose.`,
+    text: `The regular Woolet Bespoke price is ${BESPOKE_COPY.frame} USD for the made-to-measure frame with free worldwide shipping. Clear Plano lenses without correction are included, Blue Light lenses cost ${BESPOKE_COPY.blueLight.slice(1)}, and your optician can swap the Plano lenses for your own prescription lenses. Prescription lenses are not part of the configurator. The ${BESPOKE_COPY.kickstarter} amount is a Kickstarter backer price during the campaign only, not a regular offer on the Woolet site and not the price of the product in search results. The order summary shows the lens option and its price separately, so the quoted total reflects what you actually chose.`,
   },
   {
     heading: "Material and place of manufacture",
@@ -88,12 +87,12 @@ export const isBespokeDiscoverySource = (value: unknown): value is BespokeDiscov
 
 export const BESPOKE_FAQS = [
   { q: "Can I get custom-fit glasses online without visiting a store?", a: "Yes. After you order, you send one photo with a bank-size card held against your cheek and the numbers printed inside your current glasses. It takes about two minutes. We use the measurements to prepare a made-to-measure 3D model for your approval, so no store or atelier visit is required." },
-  { q: "How much do custom-made glasses cost?", a: `Woolet Bespoke costs ${BESPOKE_COPY.frame} USD for the made-to-measure frame with free worldwide shipping. Lenses are optional: clear Plano ${BESPOKE_COPY.plano}, Blue Light ${BESPOKE_COPY.blueLight}, or frame only for your optician. During the Kickstarter campaign, backers get Bespoke for ${BESPOKE_COPY.kickstarter}. The ${BESPOKE_COPY.kickstarter} Kickstarter backer price is available only through the campaign and is not sold as a ${BESPOKE_COPY.kickstarter} offer on woolet.co.` },
+  { q: "How much do custom-made glasses cost?", a: `Woolet Bespoke costs ${BESPOKE_COPY.frame} USD for the made-to-measure frame with free worldwide shipping. Clear Plano lenses included, Blue Light ${BESPOKE_COPY.blueLight}. During the Kickstarter campaign, backers get Bespoke for ${BESPOKE_COPY.kickstarter}. The ${BESPOKE_COPY.kickstarter} Kickstarter backer price is available only through the campaign and is not sold as a ${BESPOKE_COPY.kickstarter} offer on woolet.co.` },
   { q: "Are bespoke glasses worth it?", a: "Bespoke can be worth it when standard frames pinch, slide, sit crooked or never align correctly with your face. It also suits someone who wants a one-of-one frame. The value is the individually set width, bridge and temple length rather than a logo or a stock size." },
   { q: "Can you make glasses for an asymmetrical face?", a: "Yes. The fitting photo and the review process can account for differences between the two sides of a face, including ear height and how a frame sits. The final geometry is reviewed before the 3D model is approved and production begins." },
   { q: "Can I order custom glasses for a narrow face?", a: "Yes. Woolet Bespoke is not only for wide faces. It covers any front width from 145-160 mm, including narrower measurements below the stock Woolet fit range." },
   { q: "How do you measure my face remotely?", a: "You take one photo, straight on, with a bank-size card held flat against your cheek. The card is 85.6 mm wide, which gives the workshop a true scale to measure your face. You also enter the numbers printed inside your current glasses, and you approve a 3D model before the workshop cuts the frame." },
-  { q: "Can I use my prescription?", a: `Yes, through your own optician. Bespoke does not include prescription lenses: order the frame only and your optician fits your prescription lenses into it. In the configurator you can also choose clear Plano lenses (${BESPOKE_COPY.plano}) or Blue Light lenses (${BESPOKE_COPY.blueLight}).` },
+  { q: "Can I use my prescription?", a: `Yes, through your own optician. Bespoke does not include prescription lenses: every frame ships with clear Plano lenses, and your optician swaps them for your prescription lenses. In the configurator you can also choose clear Plano lenses (${BESPOKE_COPY.plano}) or Blue Light lenses (${BESPOKE_COPY.blueLight}).` },
   { q: "What if my bespoke glasses do not fit?", a: "Woolet checks your photo, your measurements and the approved 3D model before cutting. The frame is covered by the Woolet Fit Promise and a 5-year warranty. Contact support if the delivered fit does not match the approved specification." },
   { q: "Do you ship bespoke glasses to my country?", a: "Woolet Bespoke includes free worldwide shipping. First Bespoke pairs have already shipped to customers abroad, including Vietnam." },
   { q: "How long does Woolet Bespoke take?", a: "Production takes 2 weeks from your approval of the made-to-measure 3D model. Shipping starts after production, and transit time depends on the destination." },
@@ -103,7 +102,7 @@ export function bespokeProductJsonLd(url = "https://woolet.co/en/bespoke", image
   return {
     "@context": "https://schema.org", "@type": "Product", "@id": `${url}#product`,
     name: BESPOKE_FACTS.name, url,
-    description: `${BESPOKE_FACTS.frontWidth} made-to-measure eyeglasses in ${BESPOKE_FACTS.material}, hand made in the EU. Free worldwide shipping included; lenses optional (clear Plano ${BESPOKE_COPY.plano}, Blue Light ${BESPOKE_COPY.blueLight}).`,
+    description: `${BESPOKE_FACTS.frontWidth} made-to-measure eyeglasses in ${BESPOKE_FACTS.material}, hand made in the EU. Free worldwide shipping included; clear Plano lenses included (Blue Light ${BESPOKE_COPY.blueLight}).`,
     image: [image], brand: { "@type": "Brand", name: "Woolet" }, material: BESPOKE_FACTS.material, sku: "WOOLET-BESPOKE",
     warranty: { "@type": "WarrantyPromise", durationOfWarranty: { "@type": "QuantitativeValue", value: 5, unitCode: "ANN" } },
     additionalProperty: [

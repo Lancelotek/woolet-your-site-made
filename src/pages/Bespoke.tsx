@@ -322,10 +322,10 @@ const BespokePage = () => {
                  {BESPOKE_FACTS.h1}
               </h1>
               <p className="order-3 lg:order-none text-cream-dim leading-relaxed max-w-xl" style={{ fontSize: "1.05rem" }}>
-                 Woolet Bespoke is made-to-measure eyewear in any front width within {BESPOKE_FACTS.frontWidth}, with a {BESPOKE_FACTS.bridge} bridge and {BESPOKE_FACTS.temples} temples, made from {BESPOKE_FACTS.material} and hand made in the EU for {BESPOKE_COPY.frame} USD with free worldwide shipping. Lenses are optional: clear Plano {BESPOKE_COPY.plano}, Blue Light {BESPOKE_COPY.blueLight}, or frame only for your optician.
+                 Woolet Bespoke is made-to-measure eyewear in any front width within {BESPOKE_FACTS.frontWidth}, with a {BESPOKE_FACTS.bridge} bridge and {BESPOKE_FACTS.temples} temples, made from {BESPOKE_FACTS.material} and hand made in the EU for {BESPOKE_COPY.frame} USD with free worldwide shipping. Clear Plano lenses included, Blue Light {BESPOKE_COPY.blueLight}.
               </p>
               <p className="order-3 lg:order-none text-cream-dim leading-relaxed max-w-xl mb-10" style={{ fontSize: "0.85rem" }}>
-                Want photochromic (transition) lenses? Order the frame only and have your optician fit them - see{" "}
+                Want photochromic (transition) lenses? Your optician swaps the included clear Plano lenses for them - see{" "}
                 <Link to="/en/blog/glasses-that-turn-into-sunglasses-wide-face" className="text-gold-light underline underline-offset-4">
                   how photochromic glasses work on a wide face
                 </Link>.
@@ -550,7 +550,7 @@ const BespokePage = () => {
               Woolet Bespoke is a made-to-measure frame, not a stock size or colour swap. Front widths run from 145–160 mm, bridges from 20-26 mm and temples from 145-155 mm. The finished frame is made for one wearer.
             </p>
             <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.95rem" }}>
-              The regular price is {BESPOKE_COPY.frame} USD with free worldwide shipping. Lenses are optional: clear Plano {BESPOKE_COPY.plano}, Blue Light {BESPOKE_COPY.blueLight}, or frame only for your optician. The {BESPOKE_COPY.kickstarter} price was a <Link to={BESPOKE_FACTS.kickstarterPath} className="text-gold-light underline">Kickstarter-only backer price</Link>, not a shop offer. Your phone-camera scan starts the remote measurement process; you approve the 3D model before production.
+              The regular price is {BESPOKE_COPY.frame} USD with free worldwide shipping. Clear Plano lenses included, Blue Light {BESPOKE_COPY.blueLight}. The {BESPOKE_COPY.kickstarter} price was a <Link to={BESPOKE_FACTS.kickstarterPath} className="text-gold-light underline">Kickstarter-only backer price</Link>, not a shop offer. Your phone-camera scan starts the remote measurement process; you approve the 3D model before production.
             </p>
           </div>
         </section>
@@ -583,7 +583,7 @@ const BespokePage = () => {
                 { label: "Bridge width", woolet: BESPOKE_FACTS.bridge, stock: "25 mm (007 and 009)" },
                 { label: "Temple length", woolet: BESPOKE_FACTS.temples, stock: "150 mm (007 and 009)" },
                 { label: "Measurement method", woolet: "Photo with a card for scale and model approval", stock: "Fixed dimensions" },
-                { label: "Regular price", woolet: `${BESPOKE_COPY.frame} USD with free worldwide shipping; lenses optional (Plano ${BESPOKE_COPY.plano}, Blue Light ${BESPOKE_COPY.blueLight}) or frame only`, stock: "See stock product pages" },
+                { label: "Regular price", woolet: `${BESPOKE_COPY.frame} USD with free worldwide shipping; clear Plano lenses included (Blue Light ${BESPOKE_COPY.blueLight})`, stock: "See stock product pages" },
                 { label: "Made in", woolet: "EU, Italian acetate", stock: "EU" },
               ].map((row, i) => (
                 <div
@@ -759,7 +759,7 @@ const BespokePage = () => {
               <em className="italic text-gold-light">Mazzucchelli 1849</em> acetate. Hand made in the EU.
             </h2>
             <p className="text-cream-dim leading-relaxed max-w-2xl" style={{ fontSize: "0.95rem" }}>
-               The frame is hand made in the EU from Italian Mazzucchelli 1849 cellulose acetate. The regular {BESPOKE_COPY.frame} USD price includes free worldwide shipping; lenses are optional (clear Plano {BESPOKE_COPY.plano}, Blue Light {BESPOKE_COPY.blueLight}) and prescription lenses are fitted by your own optician. First Bespoke pairs have shipped to customers abroad, including Vietnam. Each frame carries a 5-year warranty.
+               The frame is hand made in the EU from Italian Mazzucchelli 1849 cellulose acetate. The regular {BESPOKE_COPY.frame} USD price includes free worldwide shipping; clear Plano lenses included (Blue Light {BESPOKE_COPY.blueLight}) and prescription lenses are fitted by your own optician. First Bespoke pairs have shipped to customers abroad, including Vietnam. Each frame carries a 5-year warranty.
             </p>
           </div>
         </section>

@@ -177,15 +177,16 @@ export interface LensType {
 // Prices are USD defaults. Each lens = supplier price (EUR) + $20 fitting, converted to USD.
 // Live prices come from table `bespoke_pricing` - read them with `lensPrice(usePriceTable(), id)`.
 export const LENS_TYPES: LensType[] = [
-  { id: "none",        name: "No lenses - frame only",             priceEur: 0,  description: "Frame only, no lenses fitted. Your optician fits your own lenses." },
-  { id: "plano",       name: "Plano - clear, no correction",      priceEur: BESPOKE_PRICES.planoUsd, description: "Clear lenses with no optical correction, cut and fitted to your frame. Ideal when your optician will fit prescription lenses later.", image: singleVisionImg },
+  { id: "plano",       name: "Plano - clear, no correction",      priceEur: BESPOKE_PRICES.planoUsd, description: "Included. Clear lenses with no optical correction, cut and fitted to your frame. Your optician can swap them for prescription lenses later.", image: singleVisionImg },
   { id: "blue-light",  name: "Blue Light Lenses",                 priceEur: BESPOKE_PRICES.blueLightUsd, description: "Optional filter coating for screen use.",        image: blueLightImg },
+  // Frame only retired 20.11.2026: the atelier aligns and bends the front with lenses in.
+  { id: "none",        name: "No lenses - frame only",             priceEur: 0,  description: "Frame only, no lenses fitted. Your optician fits your own lenses.", retired: true },
   { id: "reading",     name: "Reading Lenses",                    priceEur: 60, description: "Single-vision magnification for near work.",     image: singleVisionImg, retired: true },
   { id: "photochromic",name: "Photochromic",                      priceEur: 84, description: "Clear indoors, darkens in daylight.",            image: progressiveImg, retired: true },
   { id: "sun-uv400",   name: "Sun Lenses (UV400)",                priceEur: 48, description: "Full UV400 tinted sun lenses.",                  image: sunTintedImg, retired: true },
 ];
 
-/** Lens options offered in the configurator: no lenses, plano, blue light. */
+/** Lens options offered in the configurator: plano (included, default), blue light. */
 export const ACTIVE_LENS_TYPES = LENS_TYPES.filter((l) => !l.retired);
 
 
