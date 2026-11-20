@@ -15,6 +15,13 @@
       "when": 1794401319979,
       "tag": "0001_bespoke_order_photos_profile_path",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1795189982008,
+      "tag": "0002_drop_unbound_storage_policies",
+      "breakpoints": true
     }
   ]
 }
