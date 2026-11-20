@@ -49,7 +49,7 @@ const FACTS: Array<[string, string]> = [
   ["Bridge", `${F.bridgeMm} mm - Founder batch only (the main run has 25 mm)`],
   ["Made", "Mazzucchelli acetate from Milan, made in a small family workshop in Bielsko-Biała, Poland"],
   ["Founder Box", `Magnetic box, special case and the Clip-On Cloth ($${F.boxValue} value) - not in the shop`],
-  ["Lenses", "Frame only - your optician fits your prescription"],
+  ["Lenses", "Clear Plano lenses included - your optician swaps them for your prescription"],
   ["Shipping", "Free. Ships from the EU right after your order - no waiting for the campaign to end"],
   ["Customs", "Depending on your country, customs duties or import fees may apply on delivery. They are paid by the recipient"],
   ["Returns", "Send it back within 14 days of delivery to Marek Ciesla, Kanadyjska 64D, 32-087 Zielonki, Poland for a full refund - or get 50% off any Bespoke frame instead"],

@@ -71,8 +71,8 @@ export const INITIAL_CONFIG: BespokeConfig = {
   engravingPositionId: null,
   engravingFontId: null,
   engravingOffset: { x: 0, y: 0 },
-  // Default: frame only - the total starts at the bare frame price.
-  lensTypeId: "none",
+  // Default: clear Plano lenses, included - the total starts at the frame price.
+  lensTypeId: "plano",
   readingStrengthMode: null,
   readingStrength: null,
   readingStrengthLeft: null,
@@ -117,9 +117,9 @@ const loadInitial = (): BespokeConfig => {
     if (!raw) return INITIAL_CONFIG;
     const parsed = JSON.parse(raw) as BespokeConfig;
     const next = clearLegacyEngraving({ ...INITIAL_CONFIG, ...parsed });
-    // Unpicked or retired lens options fall back to the "No lenses" default.
+    // Unpicked or retired lens options (incl. the old "No lenses") fall back to the included Plano default.
     if (!ACTIVE_LENS_TYPES.some((l) => l.id === next.lensTypeId)) {
-      next.lensTypeId = "none";
+      next.lensTypeId = "plano";
       next.lensMaterialId = null;
       next.lensCoatingId = null;
     }
@@ -186,7 +186,7 @@ export interface Pricing {
 export function computePricing(config: BespokeConfig, prices: PriceTable = getPriceTable()): Pricing {
   const q = quoteBespoke(prices, {
     frameId: findFrame(config.frameId)?.id ?? config.frameId ?? "",
-    lensTypeId: config.lensTypeId ?? "none",
+    lensTypeId: config.lensTypeId ?? "plano",
     // Charge from the moment the buyer picks "Add engraving", not after the
     // first keystroke. Step 4 cannot be completed (so checkout cannot open)
     // while engraving is on and the text is empty.

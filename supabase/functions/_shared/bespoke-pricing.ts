@@ -5,7 +5,7 @@
 // Live prices sit in table `bespoke_pricing`, one row per key:
 //   frame:base          made-to-measure frame
 //   frame:<frameId>     optional per-model override
-//   lens:<lensTypeId>   lens option (none / plano / blue-light)
+//   lens:<lensTypeId>   lens option (plano / blue-light; plano is included, $0)
 //   engraving           temple engraving fee
 //   deposit             paid today; the balance is charged after the buyer
 //                       approves the 3D model. 0 switches back to full payment.
@@ -16,8 +16,9 @@ export type PriceTable = Record<string, number>;
 
 export const DEFAULT_PRICE_TABLE: PriceTable = {
   "frame:base": 480,
+  // Retired 20.11.2026 (every frame ships with lenses); kept so old orders price.
   "lens:none": 0,
-  "lens:plano": 30,
+  "lens:plano": 0,
   "lens:blue-light": 84,
   "engraving": 10,
   // Off in code on purpose: the deposit plan starts only once the `deposit`
@@ -29,7 +30,8 @@ export const DEFAULT_PRICE_TABLE: PriceTable = {
 /** Models a buyer can order. Mirrors src/data/frames.ts. */
 export const BESPOKE_FRAME_IDS = ["aviator", "rectangle", "crown-panto", "round"] as const;
 /** Lens options a buyer can order. Retired options are rejected at checkout. */
-export const BESPOKE_LENS_IDS = ["none", "plano", "blue-light"] as const;
+// "none" (frame only) retired 20.11.2026: the atelier needs lenses in the frame.
+export const BESPOKE_LENS_IDS = ["plano", "blue-light"] as const;
 
 export const MAX_PRICE_USD = 10000;
 

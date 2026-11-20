@@ -107,7 +107,7 @@ const BESPOKE_BULLETS = [
   "브릿지 폭과 다리 길이도 함께 조정",
   "이탈리아 마주켈리 아세테이트, 그리스에서 손으로 제작",
   "주문 후 2주 발송",
-  `${BESPOKE_COPY.frame}, 렌즈 선택 (프레임만 무료·플라노 ${BESPOKE_COPY.plano}·블루라이트 ${BESPOKE_COPY.blueLight})`,
+  `${BESPOKE_COPY.frame}, 투명 플라노 렌즈 포함 (블루라이트 ${BESPOKE_COPY.blueLight})`,
 ];
 
 const FIT_CTAS: KoCta[] = [
@@ -150,7 +150,7 @@ export const koPages: Record<string, KoPageConfig> = {
         list: [
           "4가지 모양, 60가지 색상과 사이즈 조합",
           "주문 후 2주면 발송",
-          `${BESPOKE_COPY.frame}, 렌즈 선택 (프레임만 무료·플라노 ${BESPOKE_COPY.plano}·블루라이트 ${BESPOKE_COPY.blueLight})`,
+          `${BESPOKE_COPY.frame}, 투명 플라노 렌즈 포함 (블루라이트 ${BESPOKE_COPY.blueLight})`,
           "그리스에서 손으로 제작",
         ],
       },
