@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { DEFAULT_TEMPLE_LENGTH_MM, ENGRAVING_FONTS, findLensTint, findSunTint, isValidTempleLength, ACTIVE_LENS_TYPES, resolveActiveColorId, type LensTint, type MeasurementKey, type ReadingStrength } from "@/data/bespoke-options";
+import { DEFAULT_TEMPLE_LENGTH_MM, ENGRAVING_FONTS, findLensTint, findSunTint, isValidTempleLength, ACTIVE_LENS_TYPES, resolveColorForPart, isColorSelectable, type LensTint, type MeasurementKey, type ReadingStrength } from "@/data/bespoke-options";
 import { findFrame } from "@/data/frames";
 import { isTestMode } from "@/lib/stripe";
 import { depositPrice, getPriceTable, quoteBespoke, splitDeposit, usePriceTable, type DepositSplit, type PriceTable } from "@/lib/bespoke-pricing";
@@ -126,9 +126,10 @@ const loadInitial = (): BespokeConfig => {
     if (next.lensTypeId === "sun-uv400" && !findSunTint(next.lensTintId)) next.lensTintId = "grey";
     if (next.lensTypeId === "photochromic" && !findLensTint(next.lensTintId)) next.lensTintId = null;
     if (next.lensTypeId !== "sun-uv400" && next.lensTypeId !== "photochromic") next.lensTintId = null;
-    // Retired acetates fall back to Deep matte black so restored sessions stay valid.
-    next.frontColorId = resolveActiveColorId(next.frontColorId);
-    next.templeColorId = resolveActiveColorId(next.templeColorId);
+    // Retired acetates fall back to Deep matte black; sheets the atelier has
+    // run out of are cleared so the buyer picks again from what is in stock.
+    next.frontColorId = resolveColorForPart(next.frontColorId, "front");
+    next.templeColorId = resolveColorForPart(next.templeColorId, "temple");
     return next;
   } catch {
     return INITIAL_CONFIG;
@@ -231,7 +232,8 @@ export const STEPS: StepMeta[] = [
 export function isStepComplete(step: StepId, config: BespokeConfig): boolean {
   switch (step) {
     case 1: return Boolean(config.frameId);
-    case 2: return Boolean(config.frontColorId && config.templeColorId && config.finishId);
+    // An out-of-stock sheet (e.g. restored from a cloud-saved design) never completes the step.
+    case 2: return Boolean(isColorSelectable(config.frontColorId, "front") && isColorSelectable(config.templeColorId, "temple") && config.finishId);
     case 3: return isValidTempleLength(config.templeLengthMm);
     case 4: return !config.engravingEnabled || Boolean(config.engravingText.trim() && config.engravingPositionId && resolveEngravingFontId(config));
     case 5: {

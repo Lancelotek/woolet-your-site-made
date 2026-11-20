@@ -34,7 +34,9 @@ import {
   TEMPLE_LENGTHS,
   TEMPLE_LENGTH_CUSTOM_RANGE,
   isValidTempleLength,
+  isColorInStock,
   type ColorFamily,
+  type ColorPart,
   type MeasurementKey,
 } from "@/data/bespoke-options";
 import { FRAMES, findFrame } from "@/data/frames";
@@ -110,8 +112,11 @@ export function StepFrame({
 }: StepProps & { patternRenders?: Record<string, PatternRender>; frontRenders?: FrontRenderMap }) {
   // Colour shown on each card. The chosen card follows the buyer's front acetate.
   const [cardColour, setCardColour] = useState<Record<string, string>>({});
-  const dotColours = CARD_DOT_COLOR_IDS.map((id) => COLORS.find((c) => c.id === id)).filter(Boolean) as typeof COLORS;
-  const moreCount = ACTIVE_COLORS.length - dotColours.length;
+  // Card dots only offer sheets the atelier holds at 6 mm (fronts).
+  const dotColours = (CARD_DOT_COLOR_IDS.map((id) => COLORS.find((c) => c.id === id)).filter(Boolean) as typeof COLORS)
+    .filter((c) => isColorInStock(c, "front"));
+  const frontInStockCount = ACTIVE_COLORS.filter((c) => isColorInStock(c, "front")).length;
+  const moreCount = frontInStockCount - dotColours.length;
   const patternNav = useCfgNav();
   return (
     <div className="space-y-10">
@@ -127,7 +132,7 @@ export function StepFrame({
 
       <div>
       <p className="cfg-body text-cream-dim mb-4">
-        Tap a colour to see the front in that acetate. All {ACTIVE_COLORS.length} acetates, temples and finish come in the next step.
+        Tap a colour to see the front in that acetate. All {frontInStockCount} acetates, temples and finish come in the next step.
       </p>
       <div className="cfg-choicegrid grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
         {FRAMES.map((f) => {
@@ -261,12 +266,16 @@ const FAMILY_ORDER: ColorFamily[] = ["tortoise", "black", "grey", "translucent",
 function ColorSwatchGrid({
   selected,
   onSelect,
-  thicknessMm,
+  part,
 }: {
   selected: string | null;
   onSelect: (id: string) => void;
-  /** When set, only swatches with matching `thicknessMm` are shown. Falls back to full list if none are marked. */
-  thicknessMm?: 4 | 6;
+  /**
+   * Front (6 mm plate) or temple (4 mm plate). Sheets the atelier does not hold
+   * for this part stay visible, greyed out with "Out of stock", and cannot be
+   * picked. Stock: supabase/functions/_shared/bespoke-acetate-stock.ts.
+   */
+  part: ColorPart;
 }) {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [family, setFamily] = useState<ColorFamily | "all">("all");
@@ -277,7 +286,11 @@ function ColorSwatchGrid({
     if (window.matchMedia("(max-width: 1023px)").matches) requestAnimationFrame(() => listRef.current?.scrollIntoView({ behavior: "smooth", block: "center" }));
   };
 
-  const filtered = thicknessMm ? ACTIVE_COLORS.filter((c) => c.thicknessMm === thicknessMm) : ACTIVE_COLORS;
+  // In-stock sheets first, out-of-stock ones after them (same order within each group).
+  const filtered = useMemo(
+    () => [...ACTIVE_COLORS.filter((c) => isColorInStock(c, part)), ...ACTIVE_COLORS.filter((c) => !isColorInStock(c, part))],
+    [part]
+  );
   const families = useMemo(
     () =>
       FAMILY_ORDER.filter((f) => filtered.some((c) => c.family === f)),
@@ -287,7 +300,7 @@ function ColorSwatchGrid({
 
   const preview =
     list.find((c) => c.id === hoveredId) ??
-    list.find((c) => c.id === selected) ??
+    list.find((c) => c.id === selected && isColorInStock(c, part)) ??
     null;
 
   return (
@@ -335,6 +348,38 @@ function ColorSwatchGrid({
 
       <div ref={listRef} className="cfg-swatchstrip grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
         {list.map((c) => {
+          const inStock = isColorInStock(c, part);
+          if (!inStock) {
+            return (
+              <div
+                key={c.id}
+                role="img"
+                aria-label={`${c.name} - out of stock`}
+                aria-disabled="true"
+                title={`${c.name} - out of stock`}
+                className="relative overflow-hidden text-left border border-cream/10 cursor-not-allowed select-none"
+                style={{ borderRadius: 2 }}
+              >
+                <div className="relative overflow-hidden" style={{ aspectRatio: "4 / 3" }}>
+                  <img
+                    src={c.image}
+                    alt=""
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover pointer-events-none grayscale opacity-35"
+                  />
+                  <span className="absolute inset-0 flex items-center justify-center">
+                    <span className="px-2 py-1 bg-[#0c0c0c]/80 text-cream text-[10px] uppercase tracking-[0.16em]" style={{ borderRadius: 2 }}>
+                      Out of stock
+                    </span>
+                  </span>
+                </div>
+                <div className="px-3 py-2.5 bg-[#0c0c0c]/60">
+                  <div className="text-cream-dim text-[12px] truncate line-through decoration-cream/30">{c.name}</div>
+                  <div className="text-cream-dim text-[10px] italic truncate">Out of stock</div>
+                </div>
+              </div>
+            );
+          }
           const active = selected === c.id;
           return (
             <button
@@ -1053,7 +1098,7 @@ export function StepColor({ config, update, defaults = {} }: StepProps & { defau
 
       <div id="cfg-group-front">
         <div className={`${labelClass} flex items-center gap-3`}><PartIcon part="front" />Front acetate</div>
-        <div className="mt-3"><ColorSwatchGrid selected={config.frontColorId} onSelect={(id) => update("frontColorId", id)} /></div>
+        <div className="mt-3"><ColorSwatchGrid selected={config.frontColorId} onSelect={(id) => update("frontColorId", id)} part="front" /></div>
         {front && (
           <div className="text-cream text-xs mt-2">{front.name}{defaults.front && DEFAULT_TAG}</div>
         )}
@@ -1061,7 +1106,7 @@ export function StepColor({ config, update, defaults = {} }: StepProps & { defau
 
       <div id="cfg-group-temple">
         <div className={`${labelClass} flex items-center gap-3`}><PartIcon part="temple" /><span>Temple acetate <span className="text-cream-dim/70 font-normal normal-case tracking-normal">- 4 mm sheets only</span></span></div>
-        <div className="mt-3"><ColorSwatchGrid selected={config.templeColorId} onSelect={(id) => update("templeColorId", id)} thicknessMm={4} /></div>
+        <div className="mt-3"><ColorSwatchGrid selected={config.templeColorId} onSelect={(id) => update("templeColorId", id)} part="temple" /></div>
         {temple && (
           <div className="text-cream text-xs mt-2">{temple.name}{defaults.temple && DEFAULT_TAG}</div>
         )}

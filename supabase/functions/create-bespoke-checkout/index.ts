@@ -11,6 +11,7 @@ import {
   type BespokeSelection,
   type PriceTable,
 } from "../_shared/bespoke-pricing.ts";
+import { acetateSelectionError } from "../_shared/bespoke-acetate-stock.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -21,7 +22,11 @@ const corsHeaders = {
 interface Body {
   action?: "checkout" | "validate_coupon";
   /** What the buyer configured. The server prices it from table bespoke_pricing. */
-  selection?: BespokeSelection;
+  selection?: BespokeSelection & {
+    /** Acetate colour ids / codes ("p632-0006" or "P632 0006"). Checked against atelier stock. */
+    frontColorId?: string;
+    templeColorId?: string;
+  };
   /** Total the browser displayed. Cross-check only - never charged. */
   amountUsd?: number;
   productName: string; // e.g. "Woolet Bespoke — Aviator"
@@ -103,6 +108,18 @@ Deno.serve(async (req) => {
     if (!sel || typeof sel !== "object") throw new Error("Missing selection");
     if (!(BESPOKE_FRAME_IDS as readonly string[]).includes(sel.frameId)) throw new Error("Invalid frame");
     if (!(BESPOKE_LENS_IDS as readonly string[]).includes(sel.lensTypeId)) throw new Error("Invalid lens option");
+    // Never sell a sheet the atelier does not hold: front = 6 mm plate, temple = 4 mm plate.
+    // Older browser bundles send the colours only in metadata ("Dark tortoise (P632 0006)").
+    const frontAcetate = typeof sel.frontColorId === "string" && sel.frontColorId ? sel.frontColorId : body?.metadata?.front;
+    const templeAcetate = typeof sel.templeColorId === "string" && sel.templeColorId ? sel.templeColorId : body?.metadata?.temple;
+    const acetateError = acetateSelectionError(frontAcetate, templeAcetate);
+    if (acetateError) {
+      console.warn(`[create-bespoke-checkout] rejected ${acetateError}: front=${frontAcetate ?? ""} temple=${templeAcetate ?? ""}`);
+      return new Response(JSON.stringify({ error: acetateError }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
     if (!body?.productName || body.productName.length > 200) {
       throw new Error("Invalid productName");
     }

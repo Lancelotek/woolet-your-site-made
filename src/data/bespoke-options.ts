@@ -1,6 +1,7 @@
 // All non-frame configuration options + pricing.
 
 import { BESPOKE_PRICES } from "@/content/bespokePrices";
+import { isAcetateInStock, type AcetatePart } from "../../supabase/functions/_shared/bespoke-acetate-stock";
 
 import p632 from "@/assets/configurator/acetate/p632-0006.jpg.asset.json";
 import a102 from "@/assets/configurator/acetate/a102-8421.jpg.asset.json";
@@ -69,7 +70,8 @@ export interface ColorSwatch {
 }
 
 export const COLORS: ColorSwatch[] = [
-  // Atelier confirmed: all sheets below are stocked in both 4 mm (temples) and 6 mm (front) plates.
+  // Which sheets are in stock (per plate: 6 mm front, 4 mm temple) lives in
+  // supabase/functions/_shared/bespoke-acetate-stock.ts - update stock there.
   { id: "p632-0006", code: "P632 0006", name: "Dark tortoise",          hex: "#3a1a05", image: p632.url,      family: "tortoise", thicknessMm: 4 },
   { id: "p601-0009", code: "P601 0009", name: "Amber tortoise",         hex: "#4a2306", image: p601.url,      family: "tortoise", thicknessMm: 4 },
   { id: "p554-1365", code: "P554 1365", name: "Bordeaux marble",        hex: "#4b1210", image: p554.url,      family: "tortoise", thicknessMm: 4, retired: true },
@@ -112,9 +114,31 @@ export const resolveActiveColorId = (id: string | null | undefined): string | nu
   return found.retired ? RETIRED_COLOR_FALLBACK_ID : found.id;
 };
 
+export type ColorPart = AcetatePart;
+
+/** In stock at the atelier for this part (front = 6 mm plate, temple = 4 mm plate). */
+export const isColorInStock = (c: Pick<ColorSwatch, "code"> | null | undefined, part: ColorPart): boolean =>
+  Boolean(c && isAcetateInStock(c.code, part));
+
+/** Can the buyer pick this id for this part? Active (not retired) and in stock. */
+export const isColorSelectable = (id: string | null | undefined, part: ColorPart): boolean => {
+  const c = id ? ACTIVE_COLORS.find((x) => x.id === id) : undefined;
+  return isColorInStock(c, part);
+};
+
+/**
+ * Like resolveActiveColorId, but also drops a sheet that is out of stock for
+ * that part (restored session, saved design link, QR hand-off): the buyer
+ * then picks again from what the atelier holds.
+ */
+export const resolveColorForPart = (id: string | null | undefined, part: ColorPart): string | null => {
+  const resolved = resolveActiveColorId(id);
+  return isColorSelectable(resolved, part) ? resolved : null;
+};
+
 /** Convenience helpers used by the configurator to filter the picker. */
-export const templeColors = () => ACTIVE_COLORS.filter((c) => c.thicknessMm === TEMPLE_THICKNESS_MM);
-export const frontColors = () => ACTIVE_COLORS;
+export const templeColors = () => ACTIVE_COLORS.filter((c) => isColorInStock(c, "temple"));
+export const frontColors = () => ACTIVE_COLORS.filter((c) => isColorInStock(c, "front"));
 
 export const FINISHES = [
   { id: "shiny",   name: "Shiny hand-polished", image: shinyImg },

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Check, ChevronLeft, ChevronRight, Cloud, Loader2, Maximize2, Ruler, Sparkles } from "lucide-react";
 import SEO from "@/components/SEO";
 import { oaiqBespokeViewed } from "@/lib/openai-pixel";
-import { ACTIVE_LENS_TYPES, COLORS, FINISHES, LENS_TYPES, RETIRED_COLOR_FALLBACK_ID as DEFAULT_ACETATE_ID, formatTempleLength, resolveActiveColorId } from "@/data/bespoke-options";
+import { ACTIVE_LENS_TYPES, COLORS, FINISHES, LENS_TYPES, RETIRED_COLOR_FALLBACK_ID as DEFAULT_ACETATE_ID, formatTempleLength, isColorSelectable, resolveColorForPart } from "@/data/bespoke-options";
 import { findFrame } from "@/data/frames";
 import { STEPS, hasEngraving, formatEur, formatAddOn, formatLensWithStrength, isStepComplete, lensTintCode, selectedLensTint, useBespokeConfig, type BespokeConfig, type StepId } from "@/lib/bespoke-state";
 import { clarityEvent, claritySet } from "@/lib/clarity";
@@ -95,9 +95,9 @@ const ConfiguratorPage = () => {
     const next: Partial<BespokeConfig> = {};
     const shape = params.get("shape");
     if (shape && findFrame(shape)) next.frameId = shape;
-    const frontId = resolveActiveColorId(params.get("front"));
+    const frontId = resolveColorForPart(params.get("front"), "front");
     if (frontId) next.frontColorId = frontId;
-    const templeId = resolveActiveColorId(params.get("temple"));
+    const templeId = resolveColorForPart(params.get("temple"), "temple");
     if (templeId) next.templeColorId = templeId;
     const finishParam = params.get("finish");
     if (finishParam && FINISHES.some((f) => f.id === finishParam)) next.finishId = finishParam;
@@ -127,9 +127,9 @@ const ConfiguratorPage = () => {
     const params = new URLSearchParams(window.location.search);
     const shape = params.get("shape");
     if (shape && findFrame(shape)) update("frameId", shape);
-    const front = resolveActiveColorId(params.get("front"));
+    const front = resolveColorForPart(params.get("front"), "front");
     if (front) update("frontColorId", front);
-    const temple = resolveActiveColorId(params.get("temple"));
+    const temple = resolveColorForPart(params.get("temple"), "temple");
     if (temple) update("templeColorId", temple);
     const finishId = params.get("finish");
     if (finishId && FINISHES.some((f) => f.id === finishId)) update("finishId", finishId);
@@ -324,6 +324,13 @@ const ConfiguratorPage = () => {
     pushCfg("cfg_next_click", { from_step: step });
     goTo(Math.min(STEPS.length, step + 1) as StepId);
   };
+
+  // A design restored from the cloud may name a sheet the atelier has since run
+  // out of: clear it so the picker asks again (the grid shows it as out of stock).
+  useEffect(() => {
+    if (config.frontColorId && !isColorSelectable(config.frontColorId, "front")) update("frontColorId", resolveColorForPart(config.frontColorId, "front"));
+    if (config.templeColorId && !isColorSelectable(config.templeColorId, "temple")) update("templeColorId", resolveColorForPart(config.templeColorId, "temple"));
+  }, [config.frontColorId, config.templeColorId, update]);
 
   // Step 2 never opens with a dead Next button: empty pickers get the house
   // black sheet and a matte finish (no finish carries a surcharge). Black temples
