@@ -36,11 +36,33 @@ interface FileRow {
   download_url: string | null;
 }
 
+interface Brief {
+  orderRef: string;
+  subject: string;
+  text: string;
+}
+
 interface Snapshot {
   link: string | null;
   link_created_at: string | null;
   files: FileRow[];
+  brief?: Brief;
+  sent_to?: string;
 }
+
+const EMAIL_KEY = "wlt_workshop_email";
+const readEmail = () => {
+  try {
+    return window.localStorage.getItem(EMAIL_KEY) ?? "";
+  } catch {
+    return "";
+  }
+};
+
+const BRIEF_ERRORS: Record<string, string> = {
+  invalid_email: "Type the workshop's email address first.",
+  recipient_suppressed: "This address is on the suppression list - nothing was sent. Use Copy text and send it from Gmail.",
+};
 
 const btn = (primary: boolean, disabled = false): React.CSSProperties => ({
   fontFamily: SANS,
@@ -63,6 +85,10 @@ export function WorkshopFilesPanel({ orderId, password, modelSentAt }: { orderId
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState<{ text: string; tone: "ok" | "bad" } | null>(null);
   const [copied, setCopied] = useState(false);
+  const [to, setTo] = useState(readEmail);
+  const [message, setMessage] = useState("");
+  const [brief, setBrief] = useState<Brief | null>(null);
+  const [textCopied, setTextCopied] = useState(false);
 
   const call = useCallback(
     async (body: Record<string, unknown>) => {
@@ -110,6 +136,43 @@ export function WorkshopFilesPanel({ orderId, password, modelSentAt }: { orderId
       window.setTimeout(() => setCopied(false), 2500);
     } catch {
       window.prompt("Copy the workshop upload link", url);
+    }
+  };
+
+  const previewBrief = async () => {
+    setBusy(true);
+    setMsg(null);
+    try {
+      const next = await call({ action: "workshop_brief", message });
+      setSnap(next);
+      setBrief(next.brief ?? null);
+    } catch (e) {
+      setMsg({ text: e instanceof Error ? e.message : "Could not build the email.", tone: "bad" });
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const sendBrief = async () => {
+    const addr = to.trim();
+    if (!window.confirm(`Send the specification and upload link for this order to ${addr}?`)) return;
+    setBusy(true);
+    setMsg(null);
+    try {
+      const next = await call({ action: "workshop_brief", message, to: addr, send: true });
+      setSnap(next);
+      setBrief(next.brief ?? null);
+      try {
+        window.localStorage.setItem(EMAIL_KEY, addr);
+      } catch {
+        /* remembered for convenience only */
+      }
+      setMsg({ text: `Sent to ${next.sent_to ?? addr}, from marek@woolet.co. Logged in Activity.`, tone: "ok" });
+    } catch (e) {
+      const code = e instanceof Error ? e.message : "";
+      setMsg({ text: BRIEF_ERRORS[code] ?? (code || "The email did not go out."), tone: "bad" });
+    } finally {
+      setBusy(false);
     }
   };
 
@@ -169,6 +232,76 @@ export function WorkshopFilesPanel({ orderId, password, modelSentAt }: { orderId
           </button>
         </div>
       </div>
+
+      <details style={{ marginTop: 10, background: T.panel, border: `1px solid ${T.hair}`, borderRadius: 4, padding: "10px 14px" }}>
+        <summary style={{ cursor: "pointer", fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: T.gold }}>
+          Email Warren: specification + upload link
+        </summary>
+        <p style={{ margin: "8px 0 0", fontSize: 12, color: T.dim, lineHeight: 1.5 }}>
+          Order number in the subject, the heading and every file name; the production brief PDF is linked if uploaded;
+          the file-format rule (MP4 / JPG / PDF, no iPhone HEIC or MOV) is in a box above the upload button. Creates the
+          upload link if there is none yet. Dimensions go in the message - check the frame math first.
+        </p>
+        <label style={{ display: "block", marginTop: 10, fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: T.mute }}>
+          To
+          <input
+            type="email"
+            value={to}
+            onChange={(e) => setTo(e.target.value)}
+            placeholder="workshop email"
+            style={{ display: "block", width: "100%", marginTop: 4, background: "rgba(239,233,223,0.04)", border: `1px solid ${T.hair}`, color: T.ink, padding: "8px 10px", fontSize: 13, borderRadius: 2, textTransform: "none", letterSpacing: 0 }}
+          />
+        </label>
+        <label style={{ display: "block", marginTop: 10, fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: T.mute }}>
+          Message (optional, goes above the specification)
+          <textarea
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            rows={4}
+            maxLength={3000}
+            style={{ display: "block", width: "100%", marginTop: 4, background: "rgba(239,233,223,0.04)", border: `1px solid ${T.hair}`, color: T.ink, padding: "8px 10px", fontSize: 13, borderRadius: 2, textTransform: "none", letterSpacing: 0, fontFamily: SANS }}
+          />
+        </label>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 10 }}>
+          <button type="button" disabled={busy} style={btn(false, busy)} onClick={() => void previewBrief()}>
+            Preview
+          </button>
+          <button type="button" disabled={busy || !brief || !to.trim()} style={btn(true, busy || !brief || !to.trim())} onClick={() => void sendBrief()}>
+            Send to workshop
+          </button>
+          {brief && (
+            <>
+              <button
+                type="button"
+                style={btn(false)}
+                onClick={async () => {
+                  try {
+                    await navigator.clipboard.writeText(`${brief.subject}\n\n${brief.text}`);
+                    setTextCopied(true);
+                    window.setTimeout(() => setTextCopied(false), 2500);
+                  } catch {
+                    window.prompt("Copy the email", brief.text);
+                  }
+                }}
+              >
+                {textCopied ? "Copied" : "Copy text"}
+              </button>
+              <a
+                href={`mailto:${encodeURIComponent(to.trim())}?subject=${encodeURIComponent(brief.subject)}&body=${encodeURIComponent(brief.text)}`}
+                style={btn(false)}
+              >
+                Open in mail app
+              </a>
+            </>
+          )}
+        </div>
+        {brief && (
+          <div style={{ marginTop: 10, borderTop: `1px solid ${T.hair}`, paddingTop: 10 }}>
+            <div style={{ fontSize: 13, color: T.ink }}>{brief.subject}</div>
+            <pre style={{ margin: "8px 0 0", whiteSpace: "pre-wrap", wordBreak: "break-word", fontFamily: SANS, fontSize: 12, color: T.dim, lineHeight: 1.5 }}>{brief.text}</pre>
+          </div>
+        )}
+      </details>
 
       {files.length > 0 && (
         <ul style={{ listStyle: "none", margin: "10px 0 0", padding: 0, display: "grid", gap: 8 }}>

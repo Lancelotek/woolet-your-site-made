@@ -9,8 +9,11 @@ import {
   WORKSHOP_BUCKET,
   classifyWorkshopFile,
   newWorkshopToken,
+  workshopBrief,
   workshopUploadUrl,
 } from "../_shared/bespoke-workshop.ts";
+import { sendTemplateEmailAndLog } from "../_shared/transactional-email-templates/send-and-log.ts";
+import { MAREK_SENDER } from "../_shared/transactional-email-templates/send-email.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -120,7 +123,8 @@ Deno.serve(async (req) => {
         | "brief_download"
         | "workshop_link"
         | "workshop_files"
-        | "workshop_file_update";
+        | "workshop_file_update"
+        | "workshop_brief";
       id?: string;
     };
     const provided = body.password ?? req.headers.get("x-admin-password") ?? "";
@@ -364,12 +368,12 @@ Deno.serve(async (req) => {
     // The link lets Warren upload the 3D model video, CAD files and photos to
     // this order without logging in. "rotate" replaces the token: the old link
     // stops working at once.
-    if (act === "workshop_link" || act === "workshop_files" || act === "workshop_file_update") {
+    if (act === "workshop_link" || act === "workshop_files" || act === "workshop_file_update" || act === "workshop_brief") {
       const id = body.id ?? "";
       if (!UUID_RE.test(id)) return json({ error: "invalid_id" }, 400);
       const { data: order, error } = await admin
         .from("bespoke_orders")
-        .select("id, crm_stage, workshop_token, workshop_token_created_at")
+        .select("id, case_no, crm_stage, workshop_token, workshop_token_created_at, frame_name, front_code, temple_code, finish_id, lens_type, lens_tint_code, engraving_text, reading_strength_mode, reading_strength, reading_strength_left, reading_strength_right, brief_path, brief_filename")
         .eq("id", id)
         .maybeSingle();
       if (error) throw error;
@@ -399,8 +403,8 @@ Deno.serve(async (req) => {
         };
       };
 
-      if (act === "workshop_link") {
-        const rotate = (body as any).rotate === true;
+      if (act === "workshop_link" || act === "workshop_brief") {
+        const rotate = act === "workshop_link" && (body as any).rotate === true;
         if (!o.workshop_token || rotate) {
           const now = new Date().toISOString();
           const token = newWorkshopToken();
@@ -419,6 +423,47 @@ Deno.serve(async (req) => {
           o.workshop_token = token;
           o.workshop_token_created_at = now;
         }
+      }
+
+      // The email to the workshop: specification + brief PDF + upload link.
+      // send=false returns the preview (and the plain text to copy into Gmail).
+      if (act === "workshop_brief") {
+        let briefUrl: string | null = null;
+        if (o.brief_path) {
+          const { data: signed } = await admin.storage
+            .from(PREVIEW_BUCKET)
+            .createSignedUrl(o.brief_path, 7 * 24 * 60 * 60, { download: o.brief_filename || "production-brief.pdf" });
+          briefUrl = signed?.signedUrl ?? null;
+        }
+        const message = String((body as any).message ?? "").replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f<>]/g, "").slice(0, 3000);
+        const brief = workshopBrief(o as any, workshopUploadUrl(SITE_ORIGIN, o.workshop_token), { briefUrl, message });
+        if ((body as any).send !== true) return json({ ...(await filesSnapshot()), brief });
+
+        const to = String((body as any).to ?? "").trim().toLowerCase();
+        if (to.length > 254 || !EMAIL_RE.test(to)) return json({ error: "invalid_email" }, 400);
+        const result = await sendTemplateEmailAndLog("bespoke-workshop-brief", to, {
+          ...MAREK_SENDER,
+          idempotencyKey: `bespoke-workshop-brief-${id}-${Date.now()}`,
+          templateData: {
+            subject: brief.subject,
+            preview: brief.preview,
+            heading: brief.heading,
+            paragraphs: brief.paragraphs,
+            rows: brief.rows,
+            formatRule: brief.formatRule,
+            ctaLabel: brief.ctaLabel,
+            ctaUrl: brief.ctaUrl,
+          },
+        });
+        if (!result.sent) return json({ error: "recipient_suppressed" }, 409);
+        await admin.from("bespoke_crm_events").insert({
+          order_id: id,
+          from_stage: o.crm_stage ?? null,
+          to_stage: o.crm_stage ?? null,
+          note: `Specification + upload link emailed to the workshop (${to})`,
+          created_by: "admin",
+        });
+        return json({ ...(await filesSnapshot()), brief, sent_to: to });
       }
 
       if (act === "workshop_file_update") {

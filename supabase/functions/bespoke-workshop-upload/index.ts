@@ -14,6 +14,7 @@ import {
   KIND_LABEL,
   WORKSHOP_ACCEPT,
   WORKSHOP_BUCKET,
+  WORKSHOP_FORMAT_RULE,
   WORKSHOP_MAX_BYTES,
   WORKSHOP_MAX_FILES,
   WORKSHOP_MAX_PER_HOUR,
@@ -22,7 +23,9 @@ import {
   defaultShowToCustomer,
   describeFiles,
   formatBytes,
+  isAppleNativeFormat,
   safeWorkshopFileName,
+  workshopStoredName,
 } from "../_shared/bespoke-workshop.ts";
 import { sendTemplateEmailAndLog } from "../_shared/transactional-email-templates/send-and-log.ts";
 
@@ -79,6 +82,7 @@ Deno.serve(async (req) => {
         engraving: o.engraving_text ?? null,
         maxBytes: WORKSHOP_MAX_BYTES,
         accept: WORKSHOP_ACCEPT,
+        formatRule: WORKSHOP_FORMAT_RULE,
         files: files.map((f) => ({
           id: f.id,
           name: f.file_name,
@@ -91,7 +95,10 @@ Deno.serve(async (req) => {
     }
 
     if (action === "sign") {
-      const fileName = safeWorkshopFileName(String(body.fileName ?? ""));
+      // Every stored name starts with the order number, so a downloaded file
+      // can always be matched to its order.
+      const fileName = workshopStoredName(ref, safeWorkshopFileName(String(body.fileName ?? "")));
+      if (isAppleNativeFormat(fileName)) return json({ error: "iphone_format" }, 400);
       const kind = classifyWorkshopFile(fileName);
       if (!kind) return json({ error: "file_type" }, 400);
       const size = Number(body.size ?? 0);
@@ -115,7 +122,7 @@ Deno.serve(async (req) => {
       const path = `orders/${o.id}/${Date.now()}-${rand}-${fileName}`;
       const { data, error: signErr } = await admin.storage.from(WORKSHOP_BUCKET).createSignedUploadUrl(path);
       if (signErr || !data) throw signErr ?? new Error("sign_failed");
-      return json({ path, token: data.token, signedUrl: data.signedUrl, kind });
+      return json({ path, token: data.token, kind, fileName });
     }
 
     if (action === "complete") {

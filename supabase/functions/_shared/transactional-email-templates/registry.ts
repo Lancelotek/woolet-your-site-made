@@ -9,6 +9,7 @@ import { template as bespokeMeasureInvite } from './bespoke-measure-invite.tsx'
 import { template as bespokeScanInvite } from './bespoke-scan-invite.tsx'
 import { template as bespokeSupportAlert } from './bespoke-support-alert.tsx'
 import { template as bespokeBalanceNotice } from './bespoke-balance-notice.tsx'
+import { template as bespokeWorkshopBrief } from './bespoke-workshop-brief.tsx'
 import { template as bespokeFittingRequest } from './bespoke-fitting-request.tsx'
 import { template as vipWaitlistConfirmation } from './vip-waitlist-confirmation.tsx'
 import { template as vipReservationPaid } from './vip-reservation-paid.tsx'
@@ -35,6 +36,7 @@ export const TEMPLATES: Record<string, TemplateEntry> = {
   'bespoke-scan-invite': bespokeScanInvite,
   'bespoke-support-alert': bespokeSupportAlert,
   'bespoke-balance-notice': bespokeBalanceNotice,
+  'bespoke-workshop-brief': bespokeWorkshopBrief,
   'bespoke-fitting-request': bespokeFittingRequest,
   'vip-waitlist-confirmation': vipWaitlistConfirmation,
   'vip-reservation-paid': vipReservationPaid,

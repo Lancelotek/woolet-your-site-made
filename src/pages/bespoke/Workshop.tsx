@@ -12,8 +12,11 @@ import {
   KIND_LABEL,
   WORKSHOP_BUCKET,
   WORKSHOP_TOKEN_RE,
+  WORKSHOP_FORMAT_RULE,
   classifyWorkshopFile,
+  containsHevcMarker,
   formatBytes,
+  isAppleNativeFormat,
   type WorkshopKind,
 } from "../../../supabase/functions/_shared/bespoke-workshop";
 
@@ -36,6 +39,7 @@ interface Status {
   engraving: string | null;
   maxBytes: number;
   accept: string;
+  formatRule?: string;
   files: WorkshopFile[];
 }
 
@@ -48,7 +52,9 @@ interface Queued {
 }
 
 const ERRORS: Record<string, string> = {
-  file_type: "This file type is not accepted. Use MP4/MOV, JPG/PNG, PDF, STEP/STL/DXF or ZIP.",
+  file_type: "This file type is not accepted. Use MP4, JPG/PNG, PDF, STEP/STL/DXF or ZIP.",
+  iphone_format: "Native iPhone format (HEIC / MOV) - please export it as MP4 (video) or JPG (photo) and upload again.",
+  hevc: "This MP4 is HEVC (iPhone High Efficiency) - most browsers cannot play it. Please export it as MP4 H.264 and upload again.",
   too_large: "The file is larger than the limit.",
   empty_file: "The file is empty.",
   too_many_files: "This order already has the maximum number of files. Write to support@woolet.co.",
@@ -70,6 +76,20 @@ async function call(body: Record<string, unknown>) {
     throw new Error((parsed as { error?: string } | null)?.error ?? "server_error");
   }
   return data as Record<string, unknown>;
+}
+
+/** Looks for the HEVC sample entry in the first and last 4 MB (the "moov" box sits at either end). */
+async function isHevc(file: File): Promise<boolean> {
+  const span = 4 * 1024 * 1024;
+  try {
+    const head = new Uint8Array(await file.slice(0, span).arrayBuffer());
+    if (containsHevcMarker(head)) return true;
+    if (file.size <= span) return false;
+    const tail = new Uint8Array(await file.slice(Math.max(span, file.size - span)).arrayBuffer());
+    return containsHevcMarker(tail);
+  } catch {
+    return false;
+  }
 }
 
 /** Same URL supabase-js uploadToSignedUrl() uses, built from the site's own Supabase URL. */
@@ -129,14 +149,23 @@ export default function BespokeWorkshop() {
     void load();
   }, [load]);
 
-  const addFiles = (list: FileList | null) => {
+  const addFiles = async (list: FileList | null) => {
     if (!list || !status) return;
     setFinished(null);
-    const next: Queued[] = Array.from(list).map((file, i) => {
-      const kind = classifyWorkshopFile(file.name);
-      const error = !kind ? ERRORS.file_type : file.size > status.maxBytes ? `${ERRORS.too_large} (${formatBytes(status.maxBytes)})` : undefined;
-      return { key: `${Date.now()}-${i}-${file.name}`, file, progress: 0, state: error ? "error" : "waiting", error };
-    });
+    const next: Queued[] = await Promise.all(
+      Array.from(list).map(async (file, i) => {
+        const kind = classifyWorkshopFile(file.name);
+        let error = isAppleNativeFormat(file.name)
+          ? ERRORS.iphone_format
+          : !kind
+            ? ERRORS.file_type
+            : file.size > status.maxBytes
+              ? `${ERRORS.too_large} (${formatBytes(status.maxBytes)})`
+              : undefined;
+        if (!error && kind === "video" && (await isHevc(file))) error = ERRORS.hevc;
+        return { key: `${Date.now()}-${i}-${file.name}`, file, progress: 0, state: error ? "error" : "waiting", error } as Queued;
+      }),
+    );
     setQueue((q) => [...q.filter((x) => x.state !== "done"), ...next]);
   };
 
@@ -200,6 +229,14 @@ export default function BespokeWorkshop() {
                 Up to {formatBytes(s.maxBytes)} per file. We are notified when the upload finishes.
               </p>
 
+              <div role="note" className="mt-6 border border-gold/40 bg-gold/[0.06] p-4 text-sm leading-relaxed text-cream" style={{ borderRadius: 4 }}>
+                <strong className="font-medium text-gold-light">File formats.</strong> {s.formatRule ?? WORKSHOP_FORMAT_RULE}
+              </div>
+
+              <p className="mt-4 text-sm text-cream-dim">
+                Every file is saved with the order number <span className="text-cream">{s.orderRef}</span> at the start of its name.
+              </p>
+
               <dl className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 text-sm border border-cream/10 bg-cream/[0.03] p-5" style={{ borderRadius: 4 }}>
                 {(
                   [
@@ -233,7 +270,7 @@ export default function BespokeWorkshop() {
                 onDrop={(e) => {
                   e.preventDefault();
                   setDragOver(false);
-                  addFiles(e.dataTransfer.files);
+                  void addFiles(e.dataTransfer.files);
                 }}
                 className={`mt-8 flex flex-col items-center justify-center gap-3 border border-dashed p-10 text-center cursor-pointer transition ${
                   dragOver ? "border-gold bg-gold/5" : "border-cream/25 hover:border-gold/60"
@@ -242,7 +279,7 @@ export default function BespokeWorkshop() {
               >
                 <UploadCloud className="text-gold" size={28} />
                 <span className="text-cream">Drop files here or click to choose</span>
-                <span className="text-cream-dim text-xs">MP4 / MOV · JPG / PNG · PDF · STEP / STL / DXF / DWG · ZIP</span>
+                <span className="text-cream-dim text-xs">MP4 (H.264) · JPG / PNG · PDF · STEP / STL / DXF / DWG · ZIP</span>
                 <input
                   ref={inputRef}
                   type="file"
@@ -250,8 +287,10 @@ export default function BespokeWorkshop() {
                   accept={s.accept}
                   className="hidden"
                   onChange={(e) => {
-                    addFiles(e.target.files);
-                    e.target.value = "";
+                    const files = e.target.files;
+                    void addFiles(files).then(() => {
+                      e.target.value = "";
+                    });
                   }}
                 />
               </div>

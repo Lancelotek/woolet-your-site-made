@@ -2,18 +2,22 @@ import { describe, expect, it } from "vitest";
 import {
   WORKSHOP_TOKEN_RE,
   classifyWorkshopFile,
+  containsHevcMarker,
   customerVisibleFiles,
   defaultShowToCustomer,
   describeFiles,
+  isAppleNativeFormat,
   newWorkshopToken,
   safeWorkshopFileName,
+  workshopBrief,
+  workshopStoredName,
   workshopUploadUrl,
 } from "../../supabase/functions/_shared/bespoke-workshop";
 
 describe("workshop upload files", () => {
   it("classifies the files Warren sends", () => {
     expect(classifyWorkshopFile("Brian West v2.MP4")).toBe("video");
-    expect(classifyWorkshopFile("render.mov")).toBe("video");
+    expect(classifyWorkshopFile("render.webm")).toBe("video");
     expect(classifyWorkshopFile("front.JPG")).toBe("image");
     expect(classifyWorkshopFile("drawing.pdf")).toBe("document");
     expect(classifyWorkshopFile("crown-panto.step")).toBe("cad");
@@ -22,6 +26,49 @@ describe("workshop upload files", () => {
     expect(classifyWorkshopFile("run.exe")).toBeNull();
     expect(classifyWorkshopFile("noextension")).toBeNull();
     expect(classifyWorkshopFile("page.html")).toBeNull();
+  });
+
+  it("refuses native iPhone formats", () => {
+    for (const n of ["IMG_0001.HEIC", "photo.heif", "IMG_0002.MOV", "clip.m4v"]) {
+      expect(isAppleNativeFormat(n)).toBe(true);
+      expect(classifyWorkshopFile(n)).toBeNull();
+    }
+    expect(isAppleNativeFormat("render.mp4")).toBe(false);
+    const enc = (t: string) => new TextEncoder().encode(t);
+    expect(containsHevcMarker(enc("....ftypisom....stsd....hvc1...."))).toBe(true);
+    expect(containsHevcMarker(enc("....stsd....hev1...."))).toBe(true);
+    expect(containsHevcMarker(enc("....ftypisom....stsd....avc1...."))).toBe(false);
+  });
+
+  it("puts the order number at the start of every stored name", () => {
+    expect(workshopStoredName("WLT-BSP-2026-0010", "render v2.mp4")).toBe("WLT-BSP-2026-0010_render v2.mp4");
+    expect(workshopStoredName("WLT-BSP-2026-0010", "wlt-bsp-2026-0010 front.jpg")).toBe("wlt-bsp-2026-0010 front.jpg");
+  });
+
+  it("builds the workshop email with the order number everywhere", () => {
+    const b = workshopBrief(
+      {
+        id: "11111111-2222-3333-4444-555555555555",
+        case_no: "WLT-BSP-2026-0010",
+        frame_name: "Crown Panto",
+        front_code: "Classic Honey & Dark Havana (P605 0527)",
+        temple_code: "Classic Honey & Dark Havana (P605 0527)",
+        reading_strength_mode: "confirm_later",
+      },
+      "https://woolet.co/en/bespoke/workshop?t=abc",
+      { briefUrl: "https://x/brief.pdf", message: "Lens 50.22 x 42.45, bridge 22 at the contact point." },
+    );
+    expect(b.subject).toContain("WLT-BSP-2026-0010");
+    expect(b.heading).toContain("WLT-BSP-2026-0010");
+    expect(b.rows[0]).toEqual({ label: "Order", value: "WLT-BSP-2026-0010" });
+    expect(b.ctaLabel).toContain("WLT-BSP-2026-0010");
+    expect(b.text).toContain("Upload link for WLT-BSP-2026-0010: https://woolet.co/en/bespoke/workshop?t=abc");
+    expect(b.text).toContain("Lens 50.22 x 42.45");
+    expect(b.text).toContain("No native iPhone formats");
+    expect(b.text).toContain("https://x/brief.pdf");
+    expect(b.rows.find((r) => r.label === "Reading strength")?.value).toMatch(/to be confirmed/);
+    // Without a case number the short id stands in.
+    expect(workshopBrief({ id: "abcdef12-0000-0000-0000-000000000000" }, "u").orderRef).toBe("WLT-ABCDEF12");
   });
 
   it("shows videos, images and drawings to the customer, keeps CAD internal", () => {
