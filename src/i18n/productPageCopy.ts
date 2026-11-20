@@ -337,7 +337,7 @@ type BespokeCopy = {
   heroAlt: string;
   viewShape: (shape: string) => string;
   thumbAlt: (shape: string) => string;
-  tags: [string, string, string];
+  tags: string[];
   cutToFace: string;
   eyebrow: string;
   subline: string;
