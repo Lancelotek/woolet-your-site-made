@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { FOUNDER_SIGNUP_PATH, founderBarLabel, founderCtaActive, isKickstarterLive, kickstarterLiveHref } from "@/config/kickstarter";
+import { founderSignupPath, founderBarLabel, founderCtaActive, isKickstarterLive, kickstarterLiveHref } from "@/config/kickstarter";
 import { pushGtmEvent } from "@/lib/gtm";
 import { KS_FUNDED, ksFundedLabel } from "@/components/KickstarterFundedBadge";
 
@@ -42,12 +42,12 @@ export default function KickstarterLiveBar() {
   if (founderCtaActive()) {
     return (
       <Link
-        to={FOUNDER_SIGNUP_PATH}
+        to={founderSignupPath(lang)}
         data-ks-live-bar=""
         onClick={(e) => {
           pushGtmEvent("founder_cta_click", { slot: "live_bar", path: pathname });
           // Already on the signup LP: go to the email field instead of a dead self-link.
-          if (pathname.replace(/\/$/, "") === FOUNDER_SIGNUP_PATH) {
+          if (pathname.replace(/\/$/, "") === founderSignupPath(lang)) {
             const input = document.getElementById("vip-email-hero");
             if (input) {
               e.preventDefault();

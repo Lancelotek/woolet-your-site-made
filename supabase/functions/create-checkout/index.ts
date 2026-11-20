@@ -22,6 +22,11 @@ const FOUNDER_COUNTRIES = [
   "SK", "HU", "DK", "SE", "NO", "FI", "IS", "EE", "LV", "LT", "SI", "HR", "GR", "RO", "BG", "CY",
   "MT", "AU", "NZ", "JP", "KR", "SG", "HK", "TW", "IL", "AE", "SA", "MX", "BR", "VN",
 ] as const;
+// German twin (20.11.2026): /de/founders charges 109 € incl. VAT and ships from
+// Poland (EU), so only EU destinations without customs. Shares FOUNDER_SITE_CAP.
+const FOUNDER_DE_PRICE_ID = "founder_edition_009_109eur";
+const FOUNDER_DE_AMOUNT_CENTS = 10900;
+const FOUNDER_DE_COUNTRIES = ["DE", "AT"] as const;
 const KICKSTARTER_URL =
   "https://www.kickstarter.com/projects/wooletco/woolet-finally-glasses-that-actually-fit-wider-faces?ref=site_lp";
 
@@ -40,7 +45,7 @@ const json = (status: number, payload: unknown) =>
     headers: { ...corsHeaders, "Content-Type": "application/json" },
   });
 
-async function createFounderSession(stripe: any, body: Body, req: Request): Promise<Response> {
+async function createFounderSession(stripe: any, body: Body, req: Request, de = false): Promise<Response> {
   if (Date.now() >= RESERVATION_CLOSE_AT_MS) return json(410, { error: "closed" });
 
   // Paid site orders so far (Stripe search index lags ~1 min; fine at this volume).
@@ -62,6 +67,7 @@ async function createFounderSession(stripe: any, body: Body, req: Request): Prom
   if (ua) meta.openai_client_ua = ua.slice(0, 500);
   meta.flow = "founder_edition";
   meta.sku = "founder_009_black_24";
+  if (de) meta.market = "de";
 
   const session = await stripe.checkout.sessions.create({
     mode: "payment",
@@ -70,20 +76,25 @@ async function createFounderSession(stripe: any, body: Body, req: Request): Prom
     line_items: [{
       quantity: 1,
       price_data: {
-        currency: "usd",
-        unit_amount: FOUNDER_AMOUNT_CENTS,
+        currency: de ? "eur" : "usd",
+        unit_amount: de ? FOUNDER_DE_AMOUNT_CENTS : FOUNDER_AMOUNT_CENTS,
         product_data: {
           name: "Woolet Founder Edition - 009 Black",
-          description: "Black only. 158 mm front, 24 mm bridge, Mazzucchelli acetate. Founder Box included (magnetic box, special case, Clip-On Cloth). Ships from the EU right after your order.",
+          description: de
+            ? "Nur in Schwarz. 158 mm Front, 24 mm Steg, Mazzucchelli-Acetat. Founder Box inklusive (Magnetbox, Spezial-Etui, Clip-On-Tuch). Versand aus Polen (EU) direkt nach deiner Bestellung."
+            : "Black only. 158 mm front, 24 mm bridge, Mazzucchelli acetate. Founder Box included (magnetic box, special case, Clip-On Cloth). Ships from the EU right after your order.",
           images: ["https://woolet.co/founders/woolet-founder-edition-009-black-box.jpg"],
         },
       },
     }],
-    shipping_address_collection: { allowed_countries: [...FOUNDER_COUNTRIES] },
+    shipping_address_collection: { allowed_countries: de ? [...FOUNDER_DE_COUNTRIES] : [...FOUNDER_COUNTRIES] },
     phone_number_collection: { enabled: true },
+    ...(de && { locale: "de" }),
     custom_text: {
       shipping_address: {
-        message: "Enter the full address with apartment number - the courier needs it. Shipping from the EU is free; customs duties or import fees may apply depending on your country.",
+        message: de
+          ? "Bitte die vollständige Adresse mit Hausnummer angeben - der Kurier braucht sie. Der Versand aus Polen (EU) ist kostenlos, Zoll fällt nicht an."
+          : "Enter the full address with apartment number - the courier needs it. Shipping from the EU is free; customs duties or import fees may apply depending on your country.",
       },
     },
     expires_at: Math.floor(Date.now() / 1000) + 60 * 60,
@@ -91,7 +102,9 @@ async function createFounderSession(stripe: any, body: Body, req: Request): Prom
     metadata: meta,
     payment_intent_data: {
       metadata: meta,
-      description: "Woolet Founder Edition 009 Black, 24 mm bridge (woolet.co)",
+      description: de
+        ? "Woolet Founder Edition 009 Black, 24 mm Steg (woolet.co/de)"
+        : "Woolet Founder Edition 009 Black, 24 mm bridge (woolet.co)",
     },
   });
   return json(200, { clientSecret: session.client_secret });
@@ -131,6 +144,9 @@ Deno.serve(async (req) => {
 
     if (body.priceId === FOUNDER_PRICE_ID) {
       return await createFounderSession(stripe, body, req);
+    }
+    if (body.priceId === FOUNDER_DE_PRICE_ID) {
+      return await createFounderSession(stripe, body, req, true);
     }
 
     const prices = await stripe.prices.list({ lookup_keys: [body.priceId] });

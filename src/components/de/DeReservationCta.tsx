@@ -5,7 +5,7 @@ import { DE_PRICING, deReservationUrl, formatDePrice, isDeReserved } from "@/con
 import { pushGtmEvent } from "@/lib/gtm";
 import { trackInitiateCheckoutOnce, uuid } from "@/lib/meta-capi";
 import { withGaPaymentLink } from "@/lib/ga-ids";
-import { isKickstarterLive, kickstarterLiveHref } from "@/config/kickstarter";
+import { isKickstarterLive, isReservationOpen, kickstarterLiveHref } from "@/config/kickstarter";
 
 type Props = {
   source: string;
@@ -39,8 +39,10 @@ export default function DeReservationCta({ source, className, variant = "button"
     pushGtmEvent("generate_lead", { ...custom, source, event_id: eventId });
   };
 
-  // Ab dem Kickstarter-Start (29.10.2026, 15:00 CET) keine 1-EUR-Reservierung mehr.
-  if (isKickstarterLive()) {
+  // 20.11.2026: the 1 € reservation is open again on German pages, like the $1 one
+  // on the English site (reopened 05.11). The Kickstarter link only replaces it
+  // once the reservation itself has closed.
+  if (isKickstarterLive() && !isReservationOpen()) {
     const ksHref = kickstarterLiveHref("site_de", source);
     const track = () => pushGtmEvent("kickstarter_live_click", { slot: source, market: "de" });
     if (variant === "link") {
@@ -94,7 +96,7 @@ export default function DeReservationCta({ source, className, variant = "button"
       </Button>
       <div className="mt-3 flex flex-col gap-1 font-body text-[13px] leading-5 text-cream-dim">
         <span>Karte, Apple Pay oder Google Pay - voll anrechenbar, jederzeit erstattbar</span>
-        <span>Kostenloser Versand nach Deutschland</span>
+        <span>Kostenloser Versand aus Polen (EU) nach Deutschland - kein Zoll</span>
       </div>
     </div>
   );

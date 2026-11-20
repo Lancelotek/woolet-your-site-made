@@ -6,6 +6,9 @@ export const DE_PRICING = {
   // (old plink_1UHLCg sold via "Link" as JAY23, card + Bancontact only).
   stripeReservationUrl: "https://book.stripe.com/6oUcN6eux51E3ER38xfbq0q",
   founderLimit: 30,
+  // Founder Edition bought on woolet.co/de/founders (EUR). Amount lives server-side
+  // in supabase/functions/create-checkout (FOUNDER_DE_PRICE_ID) - keep in sync.
+  founderCheckoutPriceId: "founder_edition_009_109eur",
   priceValidUntil: "2027-12-31",
 } as const;
 

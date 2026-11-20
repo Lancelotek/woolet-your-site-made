@@ -33,6 +33,7 @@ export const APP_PAGE_METADATA: Record<string, { title: string; description: str
 
 export function appPageMetadata(route: string) {
   const path = route.replace(/^\/[a-z]{2}(?=\/|$)/, "");
+  if (route === "/de/founders") return { title: "Founder Edition - Woolet", description: "Woolet 009 Black Founder Edition: 109 € statt 179 €, mit Founder Box. Direkt auf woolet.co bestellen - Versand aus Polen (EU), kein Zoll.", robots: "noindex, nofollow" };
   if (route === "/de/fit/manual") return { title: "Gesichtsbreite manuell messen | Woolet", description: "Gesichtsbreite ohne Kamera messen und die passende Woolet Brille finden.", robots: "noindex, follow" };
   if (route === "/de/fit/quick") return { title: "Schneller Brillen-Passform-Quiz | Woolet", description: "Erhalte in wenigen Schritten eine erste Einschätzung für deine Woolet Passform.", robots: "noindex, follow" };
   return APP_PAGE_METADATA[path];

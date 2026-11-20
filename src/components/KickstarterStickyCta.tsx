@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { FOUNDER_EDITION, FOUNDER_SIGNUP_PATH, founderCtaActive, isKickstarterLive, kickstarterLiveHref } from "@/config/kickstarter";
+import { FOUNDER_EDITION, founderSignupPath, founderCtaActive, isKickstarterLive, kickstarterLiveHref } from "@/config/kickstarter";
 import { pushGtmEvent } from "@/lib/gtm";
 
 /**
@@ -54,7 +54,7 @@ export default function KickstarterStickyCta() {
   const founder = founderCtaActive();
   const Tag = (founder ? Link : "a") as React.ElementType;
   const target = founder
-    ? { to: FOUNDER_SIGNUP_PATH }
+    ? { to: founderSignupPath(lang) }
     : { href: kickstarterLiveHref("sticky_mobile", slot) };
 
   return (
