@@ -26,6 +26,8 @@ interface Status {
   lens: string | null;
   engraving: string | null;
   previewUrl: string | null;
+  /** 3D model video, drawing and photos from the workshop (signed links, a few hours). Older function builds send none. */
+  files?: ModelFile[];
   totalCents: number | null;
   depositCents: number | null;
   balanceCents: number | null;
@@ -45,6 +47,13 @@ interface Status {
     canApprove: boolean;
     canRequestCorrection: boolean;
   };
+}
+
+interface ModelFile {
+  name: string;
+  kind: string;
+  contentType: string | null;
+  url: string;
 }
 
 const SID_RE = /^[A-Za-z0-9_-]{20,200}$/;
@@ -243,11 +252,15 @@ export default function BespokeModel() {
                       : m?.state === "final_by_limit"
                         ? `It includes your third correction, the last one in your order, so your frame is built to this version - a 2-week build, then free worldwide shipping.`
                         : m?.state === "awaiting_approval"
-                          ? "The video and the drawing with your measurements are in the email from support@woolet.co. Approve the model, or tell us what to correct. There is nothing more to pay."
+                          ? s.files?.length
+                            ? "Watch the video and check the drawing with your measurements below. Approve the model, or tell us what to correct. There is nothing more to pay."
+                            : "The video and the drawing with your measurements are in the email from support@woolet.co. Approve the model, or tell us what to correct. There is nothing more to pay."
                           : m?.state === "correction_requested"
                             ? "We email you the corrected model as soon as the workshop has it."
                             : "We email it to you for approval. You can ask for up to 3 corrections."}
                   </p>
+
+                  <ModelFiles files={s.files} />
 
                   {m?.state === "correction_requested" && openRequest && (
                     <div className="mt-6 border border-gold/40 bg-gold/[0.06] p-5 text-sm text-cream leading-relaxed" style={{ borderRadius: 4 }}>
@@ -445,10 +458,12 @@ export default function BespokeModel() {
                 {s.firstName ? `${s.firstName}, your` : "Your"} 3D model is <em className="italic text-gold-light">ready</em>.
               </h1>
               <p className="mt-4 text-cream-dim leading-relaxed">
-                Your 3D model - a video and a drawing with your measurements - is in the email we sent from
-                support@woolet.co. Watch it first, then approve the model by paying the balance, or tell us what to
-                correct.
+                {s.files?.length
+                  ? "Your 3D model - a video and a drawing with your measurements - is below. Watch it first, then approve the model by paying the balance, or tell us what to correct."
+                  : "Your 3D model - a video and a drawing with your measurements - is in the email we sent from support@woolet.co. Watch it first, then approve the model by paying the balance, or tell us what to correct."}
               </p>
+
+              <ModelFiles files={s.files} />
 
               {s.state === "revision_requested" && openRequest && (
                 <div role="status" className="mt-6 border border-gold/30 bg-gold/5 p-4 text-sm leading-relaxed text-cream-dim">
@@ -556,6 +571,55 @@ export default function BespokeModel() {
   );
 }
 
+// The workshop's files: videos play inline, images open full size, drawings
+// (PDF) open in a new tab.
+function ModelFiles({ files }: { files?: ModelFile[] }) {
+  if (!files?.length) return null;
+  const videos = files.filter((f) => f.kind === "video");
+  const images = files.filter((f) => f.kind === "image");
+  const docs = files.filter((f) => f.kind === "document");
+  return (
+    <div className="mt-8 space-y-4">
+      {videos.map((f) => (
+        <figure key={f.url} className="m-0">
+          <video
+            src={f.url}
+            controls
+            playsInline
+            preload="metadata"
+            className="w-full h-auto bg-black"
+            style={{ borderRadius: 4 }}
+            onPlay={() => pushGtmEvent("bespoke_model_video_played", {})}
+          />
+          <figcaption className="mt-2 text-xs text-cream-dim">{f.name}</figcaption>
+        </figure>
+      ))}
+      {images.length > 0 && (
+        <div className="grid grid-cols-2 gap-3">
+          {images.map((f) => (
+            <a key={f.url} href={f.url} target="_blank" rel="noreferrer" className="block">
+              <img src={f.url} alt={f.name} loading="lazy" decoding="async" className="w-full h-auto" style={{ borderRadius: 4 }} />
+            </a>
+          ))}
+        </div>
+      )}
+      {docs.map((f) => (
+        <a
+          key={f.url}
+          href={f.url}
+          target="_blank"
+          rel="noreferrer"
+          className="flex items-center justify-between gap-4 border border-cream/15 bg-cream/[0.03] p-4 text-sm text-cream hover:border-gold/50 transition"
+          style={{ borderRadius: 4 }}
+        >
+          <span className="break-all">{f.name}</span>
+          <span className="text-gold-light text-[11px] uppercase tracking-[0.16em] shrink-0">Open drawing</span>
+        </a>
+      ))}
+    </div>
+  );
+}
+
 function Summary({ s }: { s: Status }) {
   const rows: Array<[string, string | null]> = [
     ["Frame", s.frameName],
@@ -582,7 +646,9 @@ function Summary({ s }: { s: Status }) {
           <figcaption className="mt-2 text-xs text-cream-dim leading-relaxed">
             {s.flow === 2 && s.state !== "paid"
               ? "Preview of the design you configured. Your visualization is in the email from support@woolet.co."
-              : "Preview of the design you configured. Your 3D model - the video and the drawing with your measurements - is in the email from support@woolet.co."}
+              : s.files?.length
+                ? "Preview of the design you configured. Your 3D model - the video and the drawing with your measurements - is above."
+                : "Preview of the design you configured. Your 3D model - the video and the drawing with your measurements - is in the email from support@woolet.co."}
           </figcaption>
         </figure>
       )}

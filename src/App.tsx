@@ -75,6 +75,7 @@ const BespokeCheckout = lazy(() => import("./pages/bespoke/Checkout.tsx"));
 const BespokeMeasurements = lazy(() => import("./pages/bespoke/Measurements.tsx"));
 const BespokeShipping = lazy(() => import("./pages/bespoke/Shipping.tsx"));
 const BespokeModel = lazy(() => import("./pages/bespoke/Model.tsx"));
+const BespokeWorkshop = lazy(() => import("./pages/bespoke/Workshop.tsx"));
 const BespokeMeasure = lazy(() => import("./pages/bespoke/Measure.tsx"));
 const BespokePhoto = lazy(() => import("./pages/bespoke/Photo.tsx"));
 const BespokeVideo = lazy(() => import("./pages/bespoke/Video.tsx"));
@@ -199,13 +200,14 @@ const TawkChatWrapper = () => {
   const hideOnPaths = ["/en/lp/kickstarter"];
   if (hideOnPaths.some((path) => location.pathname.startsWith(path))) return null;
   // Shipping form shows the customer's address and phone - no third-party chat.
-  if (/^\/[a-z]{2}\/bespoke\/shipping(\/|$)/.test(location.pathname)) return null;
+  // The workshop upload page is for the workshop, not for customers.
+  if (/^\/[a-z]{2}\/bespoke\/(shipping|workshop)(\/|$)/.test(location.pathname)) return null;
   return <TawkChat />;
 };
 
 // Admin screens render customer names, full addresses and phone numbers.
 // Stop Clarity recording there — that data must not leave for a third party.
-const ADMIN_PATH_RE = /^\/[a-z]{2}\/(admin|crm|payments|bespoke\/shipping)(\/|$)/;
+const ADMIN_PATH_RE = /^\/[a-z]{2}\/(admin|crm|payments|bespoke\/shipping|bespoke\/workshop)(\/|$)/;
 const ClarityRouteGuard = () => {
   const location = useLocation();
   useEffect(() => {
@@ -321,6 +323,7 @@ const App = () => (
           <Route path="/en/bespoke/measurements" element={<BespokeMeasurements />} />
           <Route path="/:lang/bespoke/measurements" element={<BespokeMeasurements />} />
           <Route path="/en/bespoke/model" element={<BespokeModel />} />
+          <Route path="/en/bespoke/workshop" element={<BespokeWorkshop />} />
           <Route path="/en/bespoke/shipping" element={<BespokeShipping />} />
           <Route path="/:lang/bespoke/shipping" element={<BespokeShipping />} />
           <Route path="/en/measure" element={<BespokeMeasure />} />

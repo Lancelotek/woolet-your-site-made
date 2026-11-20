@@ -68,5 +68,8 @@ verify_jwt = false
 [functions.bespoke-balance]
 verify_jwt = false
 
+[functions.bespoke-workshop-upload]
+verify_jwt = false
+
 [functions.bespoke-balance-cron]
 verify_jwt = false

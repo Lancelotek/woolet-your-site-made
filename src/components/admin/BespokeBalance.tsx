@@ -287,7 +287,7 @@ export function BalancePanel({
         <p style={{ margin: "10px 0 0", fontSize: 11, color: T.mute, lineHeight: 1.5 }}>
           {!paidNow
             ? "Send the visualization (the customer's photo in the frame, with the proposed dimensions) from support@woolet.co first, then press the button. The brief for the workshop stays locked until the balance is paid."
-            : "Send the model video and drawing from support@woolet.co first, then press the button. \"In production\" unlocks when the customer approves the model or the third correction is answered."}
+            : "Check the workshop files below (ticked = on the customer's page), then press the button. No files uploaded? Send the video and drawing from support@woolet.co first. \"In production\" unlocks when the customer approves the model or the third correction is answered."}
         </p>
         {msg && (
           <p role="status" style={{ margin: "8px 0 0", fontSize: 12, color: msg.tone === "ok" ? T.gold : T.bad }}>
@@ -406,8 +406,9 @@ export function BalancePanel({
       </div>
 
       <p style={{ margin: "10px 0 0", fontSize: 11, color: T.mute, lineHeight: 1.5 }}>
-        Send the model video and drawing from support@woolet.co first, then press the button: the customer gets an email
-        with their approval link. "In production" stays locked until the balance is paid.
+        Check the workshop files below (ticked = on the customer's page), then press the button: the customer gets an
+        email with their approval link. No files uploaded? Send the video and drawing from support@woolet.co first.
+        "In production" stays locked until the balance is paid.
       </p>
 
       {msg && (
