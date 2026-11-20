@@ -23,6 +23,8 @@ interface Props {
   prefetchedClientSecret?: () => Promise<string>;
   /** Fired once the Stripe iframe is actually mounted, with load time in ms. */
   onReady?: (loadMs: number) => void;
+  /** "de" switches the modal copy to German (1 € reservation on /de pages). */
+  lang?: "en" | "de";
 }
 
 export function StripeCheckoutModal(props: Props) {
@@ -37,6 +39,7 @@ function StripeCheckoutModalOpen({
   returnUrl,
   metadata,
   onClose,
+  lang = "en",
   prefetchedClientSecret,
   onReady,
 }: Props) {
@@ -78,12 +81,13 @@ function StripeCheckoutModalOpen({
   useEffect(() => {
     if (!addToCartFired.current) {
       addToCartFired.current = true;
-      rdtAddToCart({ value: 114, currency: "USD", itemCount: 1 });
+      const cartValue = lang === "de" ? { value: 109, currency: "EUR" } : { value: 114, currency: "USD" };
+      rdtAddToCart({ ...cartValue, itemCount: 1 });
       // Meta InitiateCheckout — one browser pixel event + one server CAPI
       // event sharing one event_id, guarded against re-mounts.
       trackInitiateCheckoutOnce(`stripe:${priceId}`, {
         user: customerEmail ? { email: customerEmail } : undefined,
-        custom: { value: 114, currency: "USD", num_items: 1 },
+        custom: { ...cartValue, num_items: 1 },
       });
     }
 
@@ -124,7 +128,7 @@ function StripeCheckoutModalOpen({
     <div
       role="dialog"
       aria-modal="true"
-      aria-label="Reserve your founding spot"
+      aria-label={lang === "de" ? "Founder-Preis reservieren" : "Reserve your founding spot"}
       onClick={onClose}
       style={{
         position: "fixed",
@@ -183,7 +187,11 @@ function StripeCheckoutModalOpen({
             borderRadius: 2,
           }}
         >
-          <span style={{ color: "#CAA449" }}>$1 today</span> = founder price locked
+          {lang === "de" ? (
+            <><span style={{ color: "#CAA449" }}>1 € heute</span> = Founder-Preis gesichert</>
+          ) : (
+            <><span style={{ color: "#CAA449" }}>$1 today</span> = founder price locked</>
+          )}
         </p>
         {failed ? (
           <div
@@ -197,10 +205,12 @@ function StripeCheckoutModalOpen({
             }}
           >
             <h3 style={{ fontSize: 20, fontWeight: 600, margin: "0 0 10px", color: "#EDE7D9" }}>
-              We couldn't open the payment window.
+              {lang === "de" ? "Das Zahlungsfenster ließ sich nicht öffnen." : "We couldn't open the payment window."}
             </h3>
             <p style={{ fontSize: 15, lineHeight: 1.5, margin: "0 0 20px", color: "#EDE7D9", opacity: 0.85 }}>
-              Your spot on the VIP list is already saved - this only affects the $1 reservation.
+              {lang === "de"
+                ? "Dein Platz auf der VIP-Liste ist gespeichert - das betrifft nur die Reservierung für 1 €."
+                : "Your spot on the VIP list is already saved - this only affects the $1 reservation."}
             </p>
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
               <button
@@ -220,7 +230,7 @@ function StripeCheckoutModalOpen({
                   cursor: "pointer",
                 }}
               >
-                Try again
+                {lang === "de" ? "Noch einmal versuchen" : "Try again"}
               </button>
               <button
                 type="button"
@@ -235,7 +245,7 @@ function StripeCheckoutModalOpen({
                   cursor: "pointer",
                 }}
               >
-                Skip for now
+                {lang === "de" ? "Später" : "Skip for now"}
               </button>
             </div>
           </div>
@@ -267,7 +277,7 @@ function StripeCheckoutModalOpen({
                   }}
                 />
                 <span style={{ fontFamily: "Barlow, sans-serif", fontSize: 14, color: "#6B6357" }}>
-                  Loading secure checkout…
+                  {lang === "de" ? "Sicherer Checkout wird geladen…" : "Loading secure checkout…"}
                 </span>
                 <style>{`@keyframes wlSpin { to { transform: rotate(360deg) } }`}</style>
               </div>

@@ -637,6 +637,8 @@ async function handleCheckoutExpired(session: any) {
     await handleBespokeCheckoutExpired(session);
     return;
   }
+  // German 1 € sessions have no recovery sequence (the $1 recovery emails are English).
+  if (session?.metadata?.market === "de") return;
   // Only count a $1 checkout as abandoned when the visitor clicked pay AND
   // engaged with the Stripe form. Pre-created sessions are ignored.
   const cd = session?.customer_details ?? {};
@@ -683,6 +685,8 @@ async function handleCheckoutExpired(session: any) {
  */
 async function handlePaymentFailed(paymentIntent: any) {
   if (["bespoke", "bespoke_balance", "founder_edition"].includes(paymentIntent?.metadata?.flow)) return;
+  // Declined German 1 € payments must not enter the English $1 recovery fields.
+  if (paymentIntent?.metadata?.market === "de") return;
 
   const charge = paymentIntent?.charges?.data?.[0] ?? paymentIntent?.latest_charge ?? null;
   const email: string | undefined =
@@ -1546,7 +1550,8 @@ async function handleCheckoutCompleted(session: any, env: StripeEnv) {
     const amountFormatted = `${currency === "USD" ? "$" : ""}${(amountCents / 100).toFixed(2)}${
       currency === "USD" ? "" : ` ${currency}`
     }`;
-    await sendTemplateEmailAndLog("vip-reservation-paid", email, {
+    // German payers get the German MailerLite email instead of this English one.
+    if (reservationMarket !== "de") await sendTemplateEmailAndLog("vip-reservation-paid", email, {
       idempotencyKey: `vip-reservation-paid-${session.id}`,
       templateData: {
         vipUrl: "https://woolet.co/en/lp/kickstarter/vip-confirmed?paid=1",

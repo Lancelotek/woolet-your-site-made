@@ -32,6 +32,8 @@ type Props = {
   id?: string;
   onOpen?: () => void;
   onClosed?: () => void;
+  /** "de" switches button and modal copy to German. */
+  lang?: "en" | "de";
 };
 
 /**
@@ -57,6 +59,7 @@ export function ReserveCheckoutButton({
   id,
   onOpen,
   onClosed,
+  lang = "en",
 }: Props) {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
@@ -139,7 +142,7 @@ export function ReserveCheckoutButton({
     } catch (e) {
       sessionRef.current = null;
       const message = timedOut ? "timeout" : e instanceof Error ? e.message : "unknown";
-      setError("Checkout didn't load - tap to try again");
+      setError(lang === "de" ? "Der Checkout hat nicht geladen - tippe noch einmal" : "Checkout didn't load - tap to try again");
       pushGtmEvent(errorEvent, { ...(eventParams ?? {}), error_message: message });
     } finally {
       setLoading(false);
@@ -154,7 +157,7 @@ export function ReserveCheckoutButton({
           href={liveHref}
           onClick={() => pushGtmEvent("kickstarter_live_click", { ...(eventParams ?? {}), slot: "reserve_button" })}
         >
-          Back Woolet on Kickstarter
+          {lang === "de" ? "Jetzt auf Kickstarter unterstützen" : "Back Woolet on Kickstarter"}
         </a>
       </Button>
     );
@@ -185,7 +188,7 @@ export function ReserveCheckoutButton({
                 animation: "wlBtnSpin 0.8s linear infinite",
               }}
             />
-            Opening secure checkout…
+            {lang === "de" ? "Sicherer Checkout öffnet sich…" : "Opening secure checkout…"}
             <style>{`@keyframes wlBtnSpin { to { transform: rotate(360deg) } }`}</style>
           </span>
         ) : (
@@ -216,6 +219,7 @@ export function ReserveCheckoutButton({
             returnUrl={returnUrl}
             metadata={{ ...(metadata ?? {}), ...getLastTouchCheckoutMetadata() }}
             prefetchedClientSecret={prefetchedClientSecret}
+            lang={lang}
             onReady={(ms) => pushGtmEvent(readyEvent, { ...(eventParams ?? {}), load_ms: ms })}
             onClose={() => {
               setOpen(false);

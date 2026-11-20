@@ -1,19 +1,19 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import DeReservationCta from "@/components/de/DeReservationCta";
-import { DE_PRICING, deReservationUrl, formatDePrice, isDeReserved } from "@/content/de/pricing";
+import { ReserveCheckoutButton } from "@/components/ReserveCheckoutButton";
+import { DE_PRICING, formatDePrice, isDeReserved } from "@/content/de/pricing";
 import { isKickstarterLive, isReservationOpen } from "@/config/kickstarter";
 import { supabase } from "@/integrations/supabase/client";
 import { getAttribution } from "@/lib/attribution";
-import { withGaPaymentLink } from "@/lib/ga-ids";
 import { pushGtmEvent } from "@/lib/gtm";
-import { buildLeadAttribution, trackInitiateCheckoutOnce, uuid } from "@/lib/meta-capi";
+import { buildLeadAttribution } from "@/lib/meta-capi";
 
 /**
  * German twin of the English signup LP form (20.11.2026): step 1 collects the
- * email (MailerLite group "Woolet VIP DE"), step 2 sends the visitor to the 1 €
- * Stripe Payment Link with the email prefilled. Same order as /en/lp/kickstarter:
- * email first, payment second, so every payer is on the list.
+ * email (MailerLite group "Woolet VIP DE"), step 2 opens the embedded 1 € Stripe
+ * checkout on the page (create-checkout, founding_member_deposit_1eur). Same
+ * order as /en/lp/kickstarter: email first, payment second.
  */
 const STEPS = ["Deine E-Mail", `${formatDePrice(DE_PRICING.founderPriceEur)} sichern`];
 
@@ -51,7 +51,6 @@ export default function DeFounderSteps({ placement, className }: { placement: st
   const [step, setStep] = useState<1 | 2>(1);
   const [error, setError] = useState<string | null>(null);
   const [reserved, setReserved] = useState(false);
-  const payClicked = useRef(false);
   useEffect(() => setReserved(isDeReserved()), []);
 
   // Reservation closed: the shared CTA shows the live campaign link instead.
@@ -99,22 +98,10 @@ export default function DeFounderSteps({ placement, className }: { placement: st
     }
   };
 
-  const payHref = (() => {
-    const url = new URL(deReservationUrl(`${placement}_step2`));
-    if (email) url.searchParams.set("prefilled_email", email);
-    return url.toString();
-  })();
-
-  const onPay = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    // GA ids go into client_reference_id at tap time (see DeReservationCta).
-    e.currentTarget.href = withGaPaymentLink(payHref);
-    if (payClicked.current) return;
-    payClicked.current = true;
-    const custom = { content_name: "reservation_de", currency: "EUR", value: DE_PRICING.reservationEur };
-    const eventId = uuid();
-    trackInitiateCheckoutOnce(`de-reservation:${placement}_step2`, { custom, eventId });
-    pushGtmEvent("generate_lead", { ...custom, source: `${placement}_step2`, event_id: eventId });
-  };
+  const returnUrl =
+    typeof window !== "undefined"
+      ? `${window.location.origin}/de/danke?paid=1&session_id={CHECKOUT_SESSION_ID}`
+      : "https://woolet.co/de/danke?paid=1&session_id={CHECKOUT_SESSION_ID}";
 
   if (step === 2) {
     return (
@@ -123,9 +110,30 @@ export default function DeFounderSteps({ placement, className }: { placement: st
         <p className="font-body text-[15px] leading-7 text-foreground">
           Du stehst auf der Liste. Jetzt sicherst du dir mit 1 € den Founder-Preis: {formatDePrice(DE_PRICING.founderPriceEur)} statt {formatDePrice(DE_PRICING.regularPriceEur)}.
         </p>
-        <Button asChild className="mt-4 h-auto w-full rounded-sm py-4 text-xs font-semibold uppercase tracking-[0.22em]">
-          <a href={payHref} onClick={onPay}>Für {formatDePrice(DE_PRICING.reservationEur)} reservieren</a>
-        </Button>
+        {/* Same embedded Stripe checkout and event names as the English LP, so the
+            existing GTM tags (Meta, GA4, Google Ads) cover the German reservation too. */}
+        <ReserveCheckoutButton
+          id={`de-reserve-${placement}`}
+          lang="de"
+          label={`Für ${formatDePrice(DE_PRICING.reservationEur)} reservieren`}
+          priceId={DE_PRICING.reservationCheckoutPriceId}
+          customerEmail={email}
+          returnUrl={returnUrl}
+          metadata={{
+            campaign: "de_vip",
+            form_location: `de_${placement}`,
+            recommended_sku: "de_reservation_1eur",
+            market: "de",
+            utm_source: getAttribution().utm_source || "de-landing",
+            utm_medium: getAttribution().utm_medium || "",
+            utm_campaign: getAttribution().utm_campaign || "de-seo",
+          }}
+          clickEvent="kickstarter_reserve_click"
+          readyEvent="kickstarter_reserve_modal_ready"
+          errorEvent="kickstarter_reserve_error"
+          eventParams={{ form_location: `de_${placement}`, source: "de-landing", market: "de" }}
+          className="mt-4 h-auto w-full rounded-sm py-4 text-xs font-semibold uppercase tracking-[0.22em]"
+        />
         <div className="mt-3 flex flex-col gap-1 font-body text-[13px] leading-5 text-cream-dim">
           <span>Karte, Apple Pay oder Google Pay - voll anrechenbar, jederzeit erstattbar</span>
           <span>Kostenloser Versand aus Polen (EU) nach Deutschland - kein Zoll</span>

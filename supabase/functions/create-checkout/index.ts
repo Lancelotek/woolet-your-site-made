@@ -8,7 +8,11 @@ const corsHeaders = {
 
 // $1 reservation reopened 05.11.2026, open until the campaign deadline (Fri 04.12.2026).
 const RESERVATION_CLOSE_AT_MS = Date.UTC(2026, 11, 4, 14, 0, 0);
-const DEPOSIT_PRICE_IDS = new Set(["founding_member_deposit_1usd"]);
+const DEPOSIT_PRICE_IDS = new Set(["founding_member_deposit_1usd", "founding_member_deposit_1eur"]);
+// German 1 € reservation, embedded on /de pages (21.11.2026). Inline price, so no
+// Stripe Price object is needed in either environment. metadata.market = "de"
+// routes the payer to the German MailerLite group in payments-webhook.
+const DEPOSIT_DE_PRICE_ID = "founding_member_deposit_1eur";
 
 // Founder Edition pre-order on woolet.co (11.11.2026): same offer as the secret
 // Kickstarter reward, for people who won't log in to Kickstarter. Price is fixed
@@ -149,9 +153,13 @@ Deno.serve(async (req) => {
       return await createFounderSession(stripe, body, req, true);
     }
 
-    const prices = await stripe.prices.list({ lookup_keys: [body.priceId] });
-    if (!prices.data.length) throw new Error("Price not found");
-    const stripePrice = prices.data[0];
+    const isDeDeposit = body.priceId === DEPOSIT_DE_PRICE_ID;
+    let stripePrice: { id: string } | null = null;
+    if (!isDeDeposit) {
+      const prices = await stripe.prices.list({ lookup_keys: [body.priceId] });
+      if (!prices.data.length) throw new Error("Price not found");
+      stripePrice = prices.data[0];
+    }
 
     const cleanMeta: Record<string, string> = {};
     if (body.metadata) {
@@ -179,21 +187,38 @@ Deno.serve(async (req) => {
     for (const k of ["openai_oppref", "openai_obref", "openai_consent", "openai_source_url", "wlt_visitor_id"]) {
       if (cleanMeta[k] !== undefined && !cleanMeta[k]) delete cleanMeta[k];
     }
+    if (isDeDeposit) cleanMeta.market = "de";
 
     const session = await stripe.checkout.sessions.create({
-      line_items: [{ price: stripePrice.id, quantity: body.quantity || 1 }],
+      line_items: isDeDeposit
+        ? [{
+          quantity: 1,
+          price_data: {
+            currency: "eur",
+            unit_amount: 100,
+            product_data: {
+              name: "Woolet Founder-Reservierung",
+              description: "Sichert dir den Founder-Preis von 109 € statt 179 €. Voll anrechenbar, jederzeit erstattbar.",
+            },
+          },
+        }]
+        : [{ price: stripePrice!.id, quantity: body.quantity || 1 }],
+      ...(isDeDeposit && { locale: "de" as const }),
       mode: "payment",
       ui_mode: "embedded_page",
       return_url: body.returnUrl,
       // 1 hour, not the 24h default: the recovery URL only exists once the
       // session has expired, and the recovery email sequence starts at T+1h.
       expires_at: Math.floor(Date.now() / 1000) + 60 * 60,
-      after_expiration: {
-        recovery: {
-          enabled: true,
-          allow_promotion_codes: false,
+      // No recovery URL for the German reservation: the recovery emails are English.
+      ...(!isDeDeposit && {
+        after_expiration: {
+          recovery: {
+            enabled: true,
+            allow_promotion_codes: false,
+          },
         },
-      },
+      }),
       ...(body.customerEmail && { customer_email: body.customerEmail }),
       ...(Object.keys(cleanMeta).length && {
         metadata: cleanMeta,

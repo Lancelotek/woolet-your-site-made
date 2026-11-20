@@ -20,6 +20,8 @@ const isStripeSessionId = (ref: string) => /^cs_(live|test)_[A-Za-z0-9]{10,200}$
 export const trackReservationPurchase = (
   paymentRef: string | undefined,
   source: string,
+  /** "EUR" for the German 1 € reservation; must match the currency the webhook sends. */
+  currency: "USD" | "EUR" = "USD",
 ): boolean => {
   if (typeof window === "undefined" || !paymentRef) return false;
   const ref = paymentRef.trim();
@@ -43,7 +45,7 @@ export const trackReservationPurchase = (
     ecommerce: {
       transaction_id: ref,
       value: 1,
-      currency: "USD",
+      currency,
       // Mirrors the item sent by payments-webhook so both hits describe the same order.
       items: [
         {

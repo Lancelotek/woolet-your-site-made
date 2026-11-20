@@ -1,4 +1,7 @@
 import { useEffect } from "react";
+import { trackGoogleAdsConversion } from "@/lib/google-ads";
+import { trackReservationPurchase } from "@/lib/ga4-purchase";
+import { oaiqReservation } from "@/lib/openai-pixel";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
@@ -17,6 +20,19 @@ export default function DeDanke() {
   useEffect(() => {
     document.documentElement.lang = "de";
     return () => { document.documentElement.lang = "en"; };
+  }, []);
+  // Browser-side conversions, same as /en/thank-you/reserved. The session id from
+  // Stripe is the transaction id the webhook also sends, so GA4 dedupes the pair;
+  // each helper keeps its own guard against a refresh firing twice.
+  useEffect(() => {
+    const ref = new URLSearchParams(window.location.search).get("session_id") || undefined;
+    const w = window as unknown as { dataLayer?: unknown[] };
+    w.dataLayer = w.dataLayer || [];
+    w.dataLayer.push({ event: "usd1_reservation_thankyou", source: "de_danke", market: "de", value: 1, currency: "EUR" });
+    if (!ref) return;
+    trackGoogleAdsConversion(ref);
+    trackReservationPurchase(ref, "de_danke", "EUR");
+    oaiqReservation(ref);
   }, []);
 
   return (
