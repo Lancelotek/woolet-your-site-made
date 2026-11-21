@@ -85,6 +85,50 @@ function WidthMeter() {
 }
 
 const FOUNDER_PHOTO = "/founders/woolet-founder-edition-009-black-box.jpg";
+const FOUNDER_ANCHOR = "founder-edition";
+
+/**
+ * Proof next to the form (21.11.2026). Only facts stated elsewhere on the site or by
+ * the founder: Kickstarter goal reached within 24 hours, 5-year warranty and 14-day
+ * returns as on /de/founders. Replaces the undefined "Passform-Garantie" line.
+ */
+const PROOF = [
+  "Auf Kickstarter in 24 Stunden finanziert",
+  "14 Tage Rückgabe, volle Erstattung",
+  "5 Jahre Garantie",
+  "Mazzucchelli-Acetat, handgefertigt in der EU",
+];
+
+function ProofDe() {
+  return (
+    <ul className="m-0 grid w-full max-w-xl list-none grid-cols-1 gap-x-6 gap-y-2 p-0 font-body text-[13px] leading-5 text-cream-dim sm:grid-cols-2" aria-label="Darauf kannst du dich verlassen">
+      {PROOF.map((item) => (
+        <li key={item} className="flex items-start gap-2"><span className="text-primary" aria-hidden="true">✓</span><span>{item}</span></li>
+      ))}
+    </ul>
+  );
+}
+
+/**
+ * Width table, third column. Clarity (22.10-21.11.2026) showed dead clicks on the pages
+ * with this table and none on the page without it: readers tap the row with their size.
+ * The 158 mm row jumps to the Founder Edition, Bespoke rows open the Bespoke page.
+ */
+function widthRowTarget(recommendation: string): { href: string; internal: boolean } | null {
+  if (recommendation.includes("support@woolet.co")) return { href: "mailto:support@woolet.co", internal: false };
+  if (recommendation.includes("158 mm")) return { href: `#${FOUNDER_ANCHOR}`, internal: false };
+  if (recommendation.includes("Bespoke")) return { href: "/de/bespoke", internal: true };
+  return null;
+}
+
+function WidthRecommendation({ text }: { text: string }) {
+  const target = widthRowTarget(text);
+  if (!target) return <>{text}</>;
+  const className = "text-primary underline underline-offset-4 hover:text-foreground";
+  return target.internal
+    ? <Link to={target.href} className={className}>{text} -&gt;</Link>
+    : <a href={target.href} className={className}>{text} -&gt;</a>;
+}
 
 /**
  * What the 109 € buys (21.11.2026): the real Founder batch, same photo and facts
@@ -98,7 +142,7 @@ function FounderEditionDe() {
     ["Versand aus Polen (EU)", "Kostenlos und ohne Zoll, direkt nach deiner Bestellung"],
   ];
   return (
-    <div className="overflow-hidden border border-primary/25 bg-primary/5" aria-label="Die Founder Edition">
+    <div id={FOUNDER_ANCHOR} className="scroll-mt-28 overflow-hidden border border-primary/25 bg-primary/5" aria-label="Die Founder Edition">
       <div className="border-b border-primary/20 bg-primary/5 px-4 py-2 font-body text-[10px] font-semibold uppercase tracking-[0.28em] text-primary">Founder Edition · {formatDePrice(DE_PRICING.founderPriceEur)} statt {formatDePrice(DE_PRICING.regularPriceEur)}</div>
       <img src={FOUNDER_PHOTO} alt="Woolet 009 Black Founder Edition in der Founder Box mit Filz-Etui und Clip-On-Tuch" width={800} height={800} loading="lazy" decoding="async" className="aspect-[4/3] w-full object-cover" />
       {facts.map(([title, text], index) => (
@@ -163,19 +207,19 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
               <div data-de-hero-reservation className="order-2 flex flex-col items-start gap-3 lg:order-none">
                 <DeVipForm placement={config.slug} variant="hero" />
                 <p className="max-w-xl font-body text-[13px] leading-5 text-cream-dim">Erst E-Mail, dann 1 €: Damit sicherst du dir den Founder-Preis von 109 € statt 179 €. Voll anrechenbar und jederzeit erstattbar.</p>
+                <ProofDe />
               </div>
 
               <div className="order-4 max-w-[520px] lg:order-none"><FounderEditionDe /></div>
-              <div className="order-5 flex flex-wrap items-center gap-x-3 gap-y-1 font-body text-[0.78rem] text-cream-dim lg:order-none sm:gap-x-6"><span>Passform-Garantie</span><span aria-hidden="true">·</span><span>Mazzucchelli-Acetat</span><span aria-hidden="true">·</span><span>Handgefertigt in der EU</span></div>
 
               {config.kurzeAntwort && (
-                <aside className="order-6 max-w-[560px] border-l-2 border-primary bg-primary/5 px-5 py-4 lg:order-none">
+                <aside className="order-5 max-w-[560px] border-l-2 border-primary bg-primary/5 px-5 py-4 lg:order-none">
                   <p className="m-0 font-body text-[10px] font-semibold uppercase tracking-[0.24em] text-primary">Kurze Antwort</p>
                   <p className="m-0 mt-2 font-body text-[15px] leading-7 text-foreground">{config.kurzeAntwort}</p>
                 </aside>
               )}
 
-              <div className="order-7 lg:order-none"><FitSymptoms /></div>
+              <div className="order-6 lg:order-none"><FitSymptoms /></div>
             </div>
 
             <div className="order-3 relative max-h-[58vh] min-h-[360px] w-full overflow-hidden rounded-sm border border-border-sub sm:aspect-[4/5] sm:max-h-[680px] lg:sticky lg:top-28 lg:order-none lg:max-h-[min(720px,calc(100vh-9rem))] lg:self-start">
@@ -205,7 +249,7 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
         <section id="vip" className="border-b border-border-sub bg-secondary px-5 py-16 text-center sm:px-8 lg:py-24"><div className="mx-auto max-w-3xl"><div className="woolet-eyebrow mb-4 justify-center"><div className="woolet-eyebrow-line" /><span className="woolet-eyebrow-text">Founder Edition</span></div><h2 className="font-display text-4xl text-foreground">Noch nicht bereit? Founder-Preis per E-Mail sichern.</h2><p className="mx-auto mb-8 mt-4 max-w-xl font-body text-[15px] leading-7 text-cream-dim">Wir schicken dir das Angebot: Woolet {F.model} mit Founder Box für {formatDePrice(DE_PRICING.founderPriceEur)} statt {formatDePrice(DE_PRICING.regularPriceEur)}.</p><DeReservationCta source={`${config.slug}_vip`} variant="link" className="mb-7 inline-block font-body text-sm text-primary underline underline-offset-4" /><DeVipForm placement={`${config.slug}_vip`} className="mx-auto" /></div></section>
 
         {config.widthTable && (
-          <Section bordered><h2 className="mb-6 font-display text-3xl text-foreground">{config.widthTable.title}</h2><div className="overflow-x-auto"><table className="w-full border-collapse font-body text-[15px]"><thead><tr className="border-b border-border-sub text-left text-[10px] uppercase tracking-[0.22em] text-cream-dim"><th className="py-3 pr-4 font-medium">Gesichtsbreite (mm)</th><th className="py-3 pr-4 font-medium">Kategorie</th><th className="py-3 font-medium">Empfohlene Frontbreite</th></tr></thead><tbody>{config.widthTable.rows.map((row) => <tr key={row[0]} className="border-b border-border-sub text-foreground"><td className="py-3 pr-4">{row[0]}</td><td className="py-3 pr-4 text-cream-dim">{row[1]}</td><td className="py-3">{row[2]}</td></tr>)}</tbody></table></div></Section>
+          <Section bordered><h2 className="mb-6 font-display text-3xl text-foreground">{config.widthTable.title}</h2><div className="overflow-x-auto"><table className="w-full border-collapse font-body text-[15px]"><thead><tr className="border-b border-border-sub text-left text-[10px] uppercase tracking-[0.22em] text-cream-dim"><th className="py-3 pr-4 font-medium">Gesichtsbreite (mm)</th><th className="py-3 pr-4 font-medium">Kategorie</th><th className="py-3 font-medium">Empfohlene Frontbreite</th></tr></thead><tbody>{config.widthTable.rows.map((row) => <tr key={row[0]} className="border-b border-border-sub text-foreground"><td className="py-3 pr-4">{row[0]}</td><td className="py-3 pr-4 text-cream-dim">{row[1]}</td><td className="py-3"><WidthRecommendation text={row[2]} /></td></tr>)}</tbody></table></div></Section>
         )}
 
         {isWidthPage && (

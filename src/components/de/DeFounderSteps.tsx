@@ -50,6 +50,7 @@ export default function DeFounderSteps({ placement, className }: { placement: st
   const [loading, setLoading] = useState(false);
   const [step, setStep] = useState<1 | 2>(1);
   const [error, setError] = useState<string | null>(null);
+  const [consentMissing, setConsentMissing] = useState(false);
   const [reserved, setReserved] = useState(false);
   useEffect(() => setReserved(isDeReserved()), []);
 
@@ -68,7 +69,11 @@ export default function DeFounderSteps({ placement, className }: { placement: st
 
   const onSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (!consent || loading) return;
+    if (loading) return;
+    if (!consent) {
+      setConsentMissing(true);
+      return;
+    }
     setLoading(true);
     setError(null);
     try {
@@ -163,13 +168,25 @@ export default function DeFounderSteps({ placement, className }: { placement: st
           className="h-12 w-full rounded-sm border border-border-sub bg-transparent px-4 font-body text-[15px] text-foreground outline-none focus:border-primary"
         />
       </label>
-      <Button type="submit" disabled={loading || !consent} className="h-auto w-full rounded-sm py-4 text-xs font-semibold uppercase tracking-[0.22em]">
+      <Button type="submit" disabled={loading} className="h-auto w-full rounded-sm py-4 text-xs font-semibold uppercase tracking-[0.22em]">
         {loading ? "Wird gesendet..." : "Founder Edition freischalten"}
       </Button>
       <label className="flex cursor-pointer items-start gap-3 font-body text-xs leading-5 text-cream-dim">
-        <input type="checkbox" checked={consent} onChange={() => setConsent((value) => !value)} className="mt-0.5 h-4 w-4 shrink-0 accent-primary" />
-        <span>Ja, schickt mir das Founding-Angebot ({formatDePrice(DE_PRICING.founderPriceEur)} statt {formatDePrice(DE_PRICING.regularPriceEur)}) und Updates per E-Mail. Abmeldung jederzeit möglich.</span>
+        <input
+          type="checkbox"
+          checked={consent}
+          onChange={() => { setConsent((value) => !value); setConsentMissing(false); }}
+          aria-invalid={consentMissing}
+          aria-describedby={consentMissing ? `de-founder-consent-hint-${placement}` : undefined}
+          className="mt-0.5 h-4 w-4 shrink-0 accent-primary"
+        />
+        <span>Ja, schickt mir das Founder-Angebot ({formatDePrice(DE_PRICING.founderPriceEur)} statt {formatDePrice(DE_PRICING.regularPriceEur)}) und Neuigkeiten von Woolet per E-Mail. Abmeldung jederzeit möglich.</span>
       </label>
+      {consentMissing && (
+        <p id={`de-founder-consent-hint-${placement}`} role="alert" className="font-body text-xs leading-5 text-primary">
+          Bitte setze oben das Häkchen - ohne deine Zustimmung dürfen wir dir das Angebot nicht schicken.
+        </p>
+      )}
       {error && <p className="font-body text-xs text-destructive">{error}</p>}
     </form>
   );
