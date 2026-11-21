@@ -1,6 +1,7 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { type StripeEnv, createStripeClient, verifyWebhook } from "../_shared/stripe.ts";
 import { sendTemplateEmailAndLog } from "../_shared/transactional-email-templates/send-and-log.ts";
+import { formatShipLine, importDutyNote } from "../_shared/import-duties.ts";
 import { generateOrderPreview } from "../_shared/bespoke-preview.ts";
 import { buildInterviewBookingUrl } from "../_shared/bespoke-case.ts";
 import { ensurePaidStage } from "../_shared/bespoke-stage.ts";
@@ -571,6 +572,27 @@ async function handleFounderEditionCompleted(session: any, env: StripeEnv, paidS
     });
   } catch (e) {
     console.error("[payments-webhook:founder] admin alert failed", e);
+  }
+
+  // Order confirmation to the buyer (transactional, every paid order): order
+  // number, model, address and the import duty note for their country.
+  // German orders keep their German MailerLite confirmation instead.
+  if (email && session?.metadata?.market !== "de") {
+    try {
+      await sendTemplateEmailAndLog("founder-order-customer", email, {
+        idempotencyKey: `founder-order-customer-${session.id}`,
+        templateData: {
+          customerName: ship?.name || cd.name || "",
+          orderRef,
+          amountFormatted: formatAmount(session.amount_total, session.currency),
+          address: shipLine,
+          phone: String(ship?.phone || cd.phone || ""),
+          dutyNote: importDutyNote(addr.country),
+        },
+      });
+    } catch (e) {
+      console.error("[payments-webhook:founder] customer confirmation failed", e);
+    }
   }
 
   if (!email || env === "sandbox") return;
@@ -1199,6 +1221,16 @@ async function handleBespokeCheckoutCompleted(session: any, env: StripeEnv) {
     paymentIntentId: session.payment_intent ?? "",
     environment: env,
     measurementsUrl,
+    // Prefilled from Stripe; the buyer confirms it on the measurements page.
+    shippingAddress: formatShipLine([
+      shippingPatch.shipping_name,
+      shippingPatch.shipping_line1,
+      shippingPatch.shipping_line2,
+      [shippingPatch.shipping_postal_code, shippingPatch.shipping_city].filter(Boolean).join(" "),
+      shippingPatch.shipping_state,
+      shippingPatch.shipping_country,
+    ]),
+    dutyNote: importDutyNote(shippingPatch.shipping_country),
     adminOrderUrl: session.payment_intent
       ? `https://dashboard.stripe.com/${env === "sandbox" ? "test/" : ""}payments/${session.payment_intent}`
       : "",

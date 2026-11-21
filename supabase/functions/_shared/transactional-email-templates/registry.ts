@@ -15,6 +15,7 @@ import { template as vipWaitlistConfirmation } from './vip-waitlist-confirmation
 import { template as vipReservationPaid } from './vip-reservation-paid.tsx'
 import { template as hatSizeCard } from './hat-size-card.tsx'
 import { template as founderOrderAdmin } from './founder-order-admin.tsx'
+import { template as founderOrderCustomer } from './founder-order-customer.tsx'
 
 
 export interface TemplateEntry {
@@ -42,5 +43,6 @@ export const TEMPLATES: Record<string, TemplateEntry> = {
   'vip-reservation-paid': vipReservationPaid,
   'hat-size-card': hatSizeCard,
   'founder-order-admin': founderOrderAdmin,
+  'founder-order-customer': founderOrderCustomer,
 }
 
