@@ -452,6 +452,69 @@ async function markMailerLiteAbandonedCheckout(
   }
 }
 
+/**
+ * German 1 € reservation opened but not paid (21.11.2026). Field-only update:
+ * `eur1_recovery_open` puts the subscriber into the German recovery segment,
+ * `started_1eur_checkout` keeps the first abandon date. Separate fields so the
+ * English $1 recovery sequence never fires for a German lead.
+ * Skipped when the subscriber has already paid (a second session can be paid
+ * before the first one expires). Fire-and-forget: never rethrows.
+ */
+async function markMailerLiteAbandonedCheckoutDe(email: string, sessionId: string, expiredAt: Date) {
+  const apiKey = Deno.env.get("MAILERLITE_API_KEY");
+  if (!apiKey) return;
+  try {
+    let existingStart = false;
+    try {
+      const lookup = await fetch(
+        `https://connect.mailerlite.com/api/subscribers/${encodeURIComponent(email)}`,
+        { headers: { Authorization: `Bearer ${apiKey}` } },
+      );
+      if (lookup.ok) {
+        const fields = (await lookup.json())?.data?.fields ?? {};
+        const isSet = (v: unknown) => typeof v === "string" && v.trim() !== "";
+        if (isSet(fields.paid_1usd) || isSet(fields.founder_paid_at)) return;
+        existingStart = isSet(fields.started_1eur_checkout);
+      } else {
+        await lookup.text();
+      }
+    } catch (e) {
+      console.error("[mailerlite] de abandon lookup failed", e);
+    }
+
+    const res = await fetch("https://connect.mailerlite.com/api/subscribers", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
+      body: JSON.stringify({
+        email,
+        fields: {
+          eur1_recovery_open: "1",
+          ...(existingStart ? {} : { started_1eur_checkout: mlDate(expiredAt) }),
+        },
+      }),
+    });
+    if (!res.ok) {
+      const bodyText = await res.text();
+      console.error("[mailerlite] de abandon non-ok", res.status, bodyText);
+      try {
+        await getSupabase().from("server_event_log").insert({
+          source: "payments-webhook",
+          event_name: "MailerLiteAbandonUpdateFailed",
+          status: "error",
+          request_summary: { stripe_session_id: sessionId, market: "de" },
+          error: bodyText,
+        });
+      } catch (logErr) {
+        console.error("[server_event_log] insert failed", logErr);
+      }
+    } else {
+      await res.text();
+    }
+  } catch (e) {
+    console.error("[mailerlite] de abandon error", e);
+  }
+}
+
 const MAILERLITE_GROUP_BESPOKE_SAVED = "203419177747220382"; // Bespoke Saved Design
 const BESPOKE_DESIGN_URL_RE = /^https:\/\/woolet\.co\/en\/bespoke\/configurator\?[\w=&%.\-]{1,400}$/;
 
@@ -630,6 +693,7 @@ async function handleFounderEditionCompleted(session: any, env: StripeEnv, paidS
           ].filter((v) => typeof v === "string" && v.trim()).join(", ").slice(0, 500),
           founder_ship_phone: String(ship?.phone || cd.phone || "").slice(0, 40),
           paid_source: paidSource,
+          ...(session?.metadata?.market === "de" ? { eur1_recovery_open: "" } : {}),
         },
       }),
     });
@@ -659,8 +723,17 @@ async function handleCheckoutExpired(session: any) {
     await handleBespokeCheckoutExpired(session);
     return;
   }
-  // German 1 € sessions have no recovery sequence (the $1 recovery emails are English).
-  if (session?.metadata?.market === "de") return;
+  // German 1 € reservation: own fields and a German recovery email. The session is
+  // only created when the visitor taps "Für 1 € reservieren" (user_initiated), and
+  // the email is always prefilled from step 1, so the engagement test below (typed
+  // email, name, address) cannot apply here.
+  if (session?.metadata?.market === "de") {
+    const deEmail = String(session?.customer_details?.email || session?.customer_email || "").trim().toLowerCase();
+    if (session?.metadata?.user_initiated !== "1" || !deEmail) return;
+    const deExpiredAt = session?.expires_at ? new Date(session.expires_at * 1000) : new Date();
+    await markMailerLiteAbandonedCheckoutDe(deEmail, session.id, deExpiredAt);
+    return;
+  }
   // Only count a $1 checkout as abandoned when the visitor clicked pay AND
   // engaged with the Stripe form. Pre-created sessions are ignored.
   const cd = session?.customer_details ?? {};
@@ -941,6 +1014,7 @@ async function tagMailerLiteFoundingMember(
           // Exit condition for the abandoned-checkout recovery sequence.
           paid_1usd: mlDate(),
           usd1_recovery_url: "",
+          ...(market === "de" ? { eur1_recovery_open: "" } : {}),
         },
         status: "active",
       }),

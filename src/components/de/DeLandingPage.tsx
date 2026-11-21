@@ -10,7 +10,8 @@ import DeVipForm from "@/components/de/DeVipForm";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { DE_PRICING, formatDePrice } from "@/content/de/pricing";
-import { FOUNDER_EDITION as F } from "@/config/kickstarter";
+import { FOUNDER_EDITION as F, isReservationOpen } from "@/config/kickstarter";
+import { pushGtmEvent } from "@/lib/gtm";
 import frame007 from "@/assets/frames-2026/oval-crystal.asset.json";
 import frame009 from "@/assets/frames-2026/square-crystal.asset.json";
 import { homeOnFaceCard } from "@/data/on-face-photos";
@@ -135,6 +136,32 @@ function WidthRecommendation({ text }: { text: string }) {
  * as /de/founders. Replaces the pre-launch "Founding Member" benefits (48 h early
  * access, choose colours) that no longer match the offer.
  */
+/**
+ * Pricing section CTA (21.11.2026): the direct order comes first, the 1 €
+ * reservation stays as the second option. The link carries no UTM so the
+ * visitor's original attribution (e.g. Google Ads) is not overwritten.
+ */
+function DeOrderCta({ slug }: { slug: string }) {
+  // Evaluated after mount: isReservationOpen() reads the clock and sessionStorage.
+  const [open, setOpen] = useState(true);
+  useEffect(() => setOpen(isReservationOpen()), []);
+  if (!open) return <DeReservationCta source={`${slug}_pricing`} className="mt-8" />;
+  return (
+    <div className="mt-8">
+      <Button asChild className="h-auto rounded-sm px-7 py-4 text-xs font-semibold uppercase tracking-[0.22em]">
+        <Link to="/de/founders" onClick={() => pushGtmEvent("founder_order_click", { slot: `${slug}_pricing`, market: "de" })}>
+          Founder Edition bestellen - {formatDePrice(DE_PRICING.founderPriceEur)}
+        </Link>
+      </Button>
+      <p className="mt-3 font-body text-[13px] leading-5 text-cream-dim">Kein Konto nötig · Versand aus Polen (EU), kein Zoll · 14 Tage Rückgabe</p>
+      <div className="mt-6 font-body text-sm text-cream-dim">
+        <span>Lieber erst unverbindlich? </span>
+        <DeReservationCta source={`${slug}_pricing_reserve`} variant="link" />
+      </div>
+    </div>
+  );
+}
+
 function FounderEditionDe() {
   const facts = [
     [`Woolet ${F.model}`, `158 mm Front, ${F.bridgeMm} mm Steg - für Gesichter von 155 bis 161 mm`],
@@ -244,7 +271,7 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
           </div>
         </Section>
 
-        <section className="border-y border-border-sub bg-secondary px-5 py-16 text-center sm:px-8 lg:py-24"><div className="mx-auto max-w-3xl"><p className="font-body text-xs uppercase tracking-[0.24em] text-primary">Founding-Preis</p><h2 className="mt-4 font-display text-4xl text-foreground md:text-5xl">Breite Passform. Klarer Preis.</h2><div className="mt-6 flex items-baseline justify-center gap-4"><span className="font-display text-3xl text-cream-dim line-through">{formatDePrice(DE_PRICING.regularPriceEur)}</span><strong className="font-display text-6xl font-normal text-foreground">{formatDePrice(DE_PRICING.founderPriceEur)}</strong></div><p className="mt-3 font-body text-sm text-cream-dim">inkl. MwSt. · Kostenloser Versand nach Deutschland</p><DeReservationCta source={`${config.slug}_pricing`} className="mt-8" /></div></section>
+        <section className="border-y border-border-sub bg-secondary px-5 py-16 text-center sm:px-8 lg:py-24"><div className="mx-auto max-w-3xl"><p className="font-body text-xs uppercase tracking-[0.24em] text-primary">Founding-Preis</p><h2 className="mt-4 font-display text-4xl text-foreground md:text-5xl">Breite Passform. Klarer Preis.</h2><div className="mt-6 flex items-baseline justify-center gap-4"><span className="font-display text-3xl text-cream-dim line-through">{formatDePrice(DE_PRICING.regularPriceEur)}</span><strong className="font-display text-6xl font-normal text-foreground">{formatDePrice(DE_PRICING.founderPriceEur)}</strong></div><p className="mt-3 font-body text-sm text-cream-dim">inkl. MwSt. · Kostenloser Versand nach Deutschland</p><DeOrderCta slug={config.slug} /></div></section>
 
         <section id="vip" className="border-b border-border-sub bg-secondary px-5 py-16 text-center sm:px-8 lg:py-24"><div className="mx-auto max-w-3xl"><div className="woolet-eyebrow mb-4 justify-center"><div className="woolet-eyebrow-line" /><span className="woolet-eyebrow-text">Founder Edition</span></div><h2 className="font-display text-4xl text-foreground">Noch nicht bereit? Founder-Preis per E-Mail sichern.</h2><p className="mx-auto mb-8 mt-4 max-w-xl font-body text-[15px] leading-7 text-cream-dim">Wir schicken dir das Angebot: Woolet {F.model} mit Founder Box für {formatDePrice(DE_PRICING.founderPriceEur)} statt {formatDePrice(DE_PRICING.regularPriceEur)}.</p><DeReservationCta source={`${config.slug}_vip`} variant="link" className="mb-7 inline-block font-body text-sm text-primary underline underline-offset-4" /><DeVipForm placement={`${config.slug}_vip`} className="mx-auto" /></div></section>
 

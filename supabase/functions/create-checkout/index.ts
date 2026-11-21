@@ -213,7 +213,8 @@ Deno.serve(async (req) => {
       // 1 hour, not the 24h default: the recovery URL only exists once the
       // session has expired, and the recovery email sequence starts at T+1h.
       expires_at: Math.floor(Date.now() / 1000) + 60 * 60,
-      // No recovery URL for the German reservation: the recovery emails are English.
+      // No Stripe recovery URL for the German reservation: its recovery email links to
+      // /de/lp/kickstarter, and payments-webhook flags the lead via eur1_recovery_open.
       ...(!isDeDeposit && {
         after_expiration: {
           recovery: {
