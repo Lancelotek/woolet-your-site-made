@@ -60,7 +60,7 @@ const renderSubTokens = (text: string) =>
   }, []);
 
 const LIVE_META_DESCRIPTION =
-  "Premium Milanese acetate eyewear, hand made in the EU, engineered for wide faces 155 mm+. Live on Kickstarter now, at Kickstarter-only prices.";
+  "Premium Milanese acetate eyewear, hand made in the EU, engineered for wide faces 155 mm+. Founder Edition: $114 instead of $190, with the Founder Box.";
 
 // ---------- Tester testimonial ----------
 // DRAFT — quote and attribution pending written approval from the tester.
@@ -70,8 +70,11 @@ const GREG_QUOTE =
 const GREG_ATTRIBUTION = "— Greg · Woolet tester";
 
 // ---------- Hero gallery ----------
+const FOUNDER_BOX_PHOTO = "/founders/woolet-founder-edition-009-black-box.jpg";
 const heroGallery: { src: string; alt: string }[] = [
   { src: ksFit158.url, alt: "158 mm — The Signature: Woolet frames on a medium-to-large head" },
+  // The offer itself: the actual Founder Edition (no rivets, no gold temple detail), same photo as /en/founders.
+  { src: FOUNDER_BOX_PHOTO, alt: "Woolet 009 Black Founder Edition in the Founder Box with the felt case and Clip-On Cloth" },
   { src: gregSquare, alt: "Greg, a Woolet tester, wearing a wide-fit Woolet frame in tortoise acetate" },
   { src: w009BlackAsset.url, alt: "Woolet 009 Soft-Square — black" },
   { src: w009GreyAsset.url, alt: "Woolet 009 Soft-Square — grey" },
@@ -172,7 +175,7 @@ export const VIP_RESOLVED_KEY = "wlt_ks_vip_resolved";
 
 
 const StepBar = ({ step, emailInputId }: { step: 1 | 2; emailInputId?: string }) => {
-  const steps = ["Your email", "Lock $114"];
+  const steps = ["Your email", "Lock $114 for $1"];
   return (
     <div className="flex items-center gap-3" style={{ marginBottom: 4 }}>
       {steps.map((label, i) => {
@@ -556,7 +559,7 @@ const VipForm = ({
           <>
           {/* The actual Founder Edition (no rivets, no gold temple detail) - same photo as /en/founders. */}
           <img
-            src="/founders/woolet-founder-edition-009-black-box.jpg"
+            src={FOUNDER_BOX_PHOTO}
             alt="Woolet 009 Black Founder Edition in the Founder Box with the felt case and Clip-On Cloth"
             width={800}
             height={800}
@@ -1336,12 +1339,15 @@ const KickstarterPrelaunch = () => {
         q: "How is this different from a Ray-Ban or Persol XL?",
         a: "XL models are scaled-up versions of frames designed for a ~137 mm face. Woolet is engineered wide from the first millimetre — 158 mm front, 25 mm keyhole bridge, proportions built for 155–161 mm faces.",
       },
-      {
-        q: "What exactly do VIPs get?",
-        a: live
-          ? "Four things: FitLens, the Bespoke configurator, Kickstarter-only prices below retail, and the private VIP Facebook group with direct access to the founder."
-          : "Four things: early access to FitLens, the Bespoke configurator, up to 40% off retail, and the private VIP Facebook group with direct access to the founder.",
-      },
+      live
+        ? {
+            q: "What exactly is in the Founder Edition?",
+            a: `The ${FOUNDER_EDITION.model} frame with a ${FOUNDER_EDITION.bridgeMm} mm bridge, in the Founder Box: magnetic box, special case and the Clip-On Cloth, worth $${FOUNDER_EDITION.boxValue} and not sold separately. $${FOUNDER_EDITION.price} instead of $${FOUNDER_EDITION.srp}. Joining the list also gets you FitLens, the Bespoke configurator and the private Facebook group with direct access to the founder.`,
+          }
+        : {
+            q: "What exactly do VIPs get?",
+            a: "Four things: early access to FitLens, the Bespoke configurator, up to 40% off retail, and the private VIP Facebook group with direct access to the founder.",
+          },
     ],
     [live, reserveOpen]
   );
@@ -1690,10 +1696,10 @@ const KickstarterPrelaunch = () => {
         <Hairline />
       </section>
 
-      {/* WHAT VIPs GET */}
+      {/* WHAT'S IN THE OFFER - live: the Founder Edition (one offer per page); prelaunch: the VIP list */}
       <section>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-16 md:py-24">
-          <Eyebrow>The VIP list</Eyebrow>
+          <Eyebrow>{live ? "The Founder Edition" : "The VIP list"}</Eyebrow>
           <h2
             style={{
               fontFamily: "'Cormorant Garamond', serif",
@@ -1705,33 +1711,48 @@ const KickstarterPrelaunch = () => {
               maxWidth: 640,
             }}
           >
-            Four things only VIPs get.
+            {live ? "What's in the Founder Edition." : "Four things only VIPs get."}
           </h2>
 
           <div className="grid sm:grid-cols-2 gap-px mt-10" style={{ background: HAIRLINE }}>
-            {[
-              {
-                t: "Access to FitLens",
-                d: "First access to our AI fit app — measure your face with your phone camera and get your exact Woolet size before you pledge.",
-              },
-              {
-                t: "Bespoke configurator",
-                d: "Design your own frame: 4 shapes, 60 colour and size combinations, any width from 145 to 160 mm, built to measure.",
-              },
-              live
-                ? {
-                    t: "Kickstarter-only prices",
-                    d: `Campaign rewards sit below our shop prices until the campaign ends on ${FOUNDER_EDITION.campaignEndLabel}.`,
-                  }
-                : {
+            {(live
+              ? [
+                  {
+                    t: `${FOUNDER_EDITION.model}, limited run`,
+                    d: `The 009 soft-square in black Italian acetate: 158 mm front, ${FOUNDER_EDITION.bridgeMm} mm bridge. A limited first run.`,
+                  },
+                  {
+                    t: `The Founder Box ($${FOUNDER_EDITION.boxValue} value)`,
+                    d: "Magnetic box, special case and the Clip-On Cloth. It comes only with the Founder Edition - not sold in the shop.",
+                  },
+                  {
+                    t: `$${FOUNDER_EDITION.price} instead of $${FOUNDER_EDITION.srp}`,
+                    d: `$1 locks the Founder price. The same frame is $${FOUNDER_EDITION.srp} when the shop opens.`,
+                  },
+                  {
+                    t: "Free shipping, 5-year warranty",
+                    d: "Free shipping and a 5-year warranty on every Founder frame. Your private order link arrives right after the $1 step, and by email.",
+                  },
+                ]
+              : [
+                  {
+                    t: "Access to FitLens",
+                    d: "First access to our AI fit app — measure your face with your phone camera and get your exact Woolet size before you pledge.",
+                  },
+                  {
+                    t: "Bespoke configurator",
+                    d: "Design your own frame: 4 shapes, 60 colour and size combinations, any width from 145 to 160 mm, built to measure.",
+                  },
+                  {
                     t: "Up to 40% off",
                     d: "Lock the lowest price we'll ever offer — up to 40% off the $190 retail, reserved for VIPs at launch.",
                   },
-              {
-                t: "Facebook VIP group",
-                d: "Join the private VIP group: behind-the-scenes updates, early votes on colours, and a direct line to the founder.",
-              },
-            ].map((p, i) => (
+                  {
+                    t: "Facebook VIP group",
+                    d: "Join the private VIP group: behind-the-scenes updates, early votes on colours, and a direct line to the founder.",
+                  },
+                ]
+            ).map((p, i) => (
               <div key={p.t} style={{ background: INK, padding: "36px 28px" }}>
                 <div style={{ ...eyebrowStyle, marginBottom: 12 }}>0{i + 1}</div>
                 <h3
@@ -2077,7 +2098,7 @@ const KickstarterPrelaunch = () => {
             }}
           >
             {live ? (
-              <>Kickstarter-only prices, <em style={{ color: GOLD, fontStyle: "italic" }}>for a limited time.</em></>
+              <>The Founder Edition: ${FOUNDER_EDITION.price} instead of ${FOUNDER_EDITION.srp}, <em style={{ color: GOLD, fontStyle: "italic" }}>with the Founder Box.</em></>
             ) : (
               <>Early access, up to <em style={{ color: GOLD, fontStyle: "italic" }}>40% off</em>, and FitLens before launch.</>
             )}
@@ -2368,14 +2389,18 @@ const KickstarterPrelaunch = () => {
               marginBottom: 20,
             }}
           >
-            {live ? (
+            {live && reserveOpen ? (
+              <>The Founder Edition, <em style={{ color: GOLD, fontStyle: "italic" }}>with the Founder Box.</em></>
+            ) : live ? (
               <>Woolet is <em style={{ color: GOLD, fontStyle: "italic" }}>live on Kickstarter.</em></>
             ) : (
               <>Be first when the campaign <em style={{ color: GOLD, fontStyle: "italic" }}>goes live.</em></>
             )}
           </h2>
           <p style={{ color: TAUPE, fontSize: 15, lineHeight: 1.6, marginBottom: 28, maxWidth: 520, marginInline: "auto" }}>
-            {live
+            {live && reserveOpen
+              ? `Leave your email and lock $${FOUNDER_EDITION.price} for $1. The same frame is $${FOUNDER_EDITION.srp} when the shop opens.`
+              : live
               ? "Leave your email and we'll send you the campaign link, or go straight to Kickstarter."
               : "One email. Early access to FitLens, the Bespoke configurator, and Kickstarter pricing from $114 against the $190 retail price."}
           </p>
