@@ -74,10 +74,14 @@ export default function DeFounderSteps({ placement, className }: { placement: st
     try {
       const leadAttribution = buildLeadAttribution();
       const metaEventId = leadAttribution.meta_event_id;
+      // Paid and email traffic keeps its own UTMs (21.11.2026: the hardcoded de-landing / de-seo
+      // values overwrote them, so a Google Ads signup looked like SEO). Defaults only fill gaps.
+      const attribution = getAttribution();
       const { data, error: functionError } = await supabase.functions.invoke("mailerlite-subscribe", {
         body: {
-          ...getAttribution(), ...leadAttribution, email, source: "DE", country: "Germany", country_code: "DE",
-          utm_source: "de-landing", utm_campaign: "de-seo", utm_content: placement,
+          ...attribution, ...leadAttribution, email, source: "DE", country: "Germany", country_code: "DE",
+          utm_source: attribution.utm_source || "de-landing", utm_campaign: attribution.utm_campaign || "de-seo",
+          utm_content: attribution.utm_content || placement,
           meta_event_id: metaEventId, form_location: `de_${placement}`,
         },
       });

@@ -42,7 +42,7 @@ export const DEFAULT_FAQS: DeFaq[] = [
   },
   {
     q: "Wann ist Woolet erhältlich?",
-    a: "Wir starten auf Kickstarter. Trag dich auf die VIP-Liste ein und sichere dir den Founding-Preis vor allen anderen.",
+    a: "Die Founder Edition (Woolet 009 Black mit Founder Box) ist fertig und geht direkt nach deiner Bestellung aus Polen (EU) raus - kostenloser Versand, kein Zoll.",
   },
 ];
 

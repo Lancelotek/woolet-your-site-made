@@ -10,6 +10,7 @@ import DeVipForm from "@/components/de/DeVipForm";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { DE_PRICING, formatDePrice } from "@/content/de/pricing";
+import { FOUNDER_EDITION as F } from "@/config/kickstarter";
 import frame007 from "@/assets/frames-2026/oval-crystal.asset.json";
 import frame009 from "@/assets/frames-2026/square-crystal.asset.json";
 import { homeOnFaceCard } from "@/data/on-face-photos";
@@ -64,6 +65,7 @@ function FitSymptoms() {
         </Button>
         {open && <div className="px-4 pb-5"><WidthMeter /></div>}
       </div>
+      <Link to="/de/fit" className="font-body text-sm text-primary underline underline-offset-4 hover:text-foreground">Gesicht in 60 Sekunden messen</Link>
     </div>
   );
 }
@@ -82,17 +84,25 @@ function WidthMeter() {
   );
 }
 
-function FoundingBenefitsDe() {
-  const benefits = [
-    ["Founding-Preis 109 €", "statt 179 € - bei der Bestellung gesichert"],
-    ["Kostenloser Versand nach Deutschland", "Kein Mindestbestellwert"],
-    ["48 Stunden früher Zugang", "Farben und Modelle vor dem öffentlichen Start wählen"],
+const FOUNDER_PHOTO = "/founders/woolet-founder-edition-009-black-box.jpg";
+
+/**
+ * What the 109 € buys (21.11.2026): the real Founder batch, same photo and facts
+ * as /de/founders. Replaces the pre-launch "Founding Member" benefits (48 h early
+ * access, choose colours) that no longer match the offer.
+ */
+function FounderEditionDe() {
+  const facts = [
+    [`Woolet ${F.model}`, `158 mm Front, ${F.bridgeMm} mm Steg - für Gesichter von 155 bis 161 mm`],
+    ["Mit Founder Box", "Magnetbox, Spezial-Etui und Clip-On-Tuch - im Shop nicht erhältlich"],
+    ["Versand aus Polen (EU)", "Kostenlos und ohne Zoll, direkt nach deiner Bestellung"],
   ];
   return (
-    <div className="overflow-hidden border border-primary/25 bg-primary/5" aria-label="Vorteile für Founding Member">
-      <div className="border-b border-primary/20 bg-primary/5 px-4 py-2 font-body text-[10px] font-semibold uppercase tracking-[0.28em] text-primary">Founding Member</div>
-      {benefits.map(([title, text], index) => (
-        <div key={title} className={`flex items-start gap-3 px-4 py-3 ${index < benefits.length - 1 ? "border-b border-border-sub" : ""}`}>
+    <div className="overflow-hidden border border-primary/25 bg-primary/5" aria-label="Die Founder Edition">
+      <div className="border-b border-primary/20 bg-primary/5 px-4 py-2 font-body text-[10px] font-semibold uppercase tracking-[0.28em] text-primary">Founder Edition · {formatDePrice(DE_PRICING.founderPriceEur)} statt {formatDePrice(DE_PRICING.regularPriceEur)}</div>
+      <img src={FOUNDER_PHOTO} alt="Woolet 009 Black Founder Edition in der Founder Box mit Filz-Etui und Clip-On-Tuch" width={800} height={800} loading="lazy" decoding="async" className="aspect-[4/3] w-full object-cover" />
+      {facts.map(([title, text], index) => (
+        <div key={title} className={`flex items-start gap-3 px-4 py-3 ${index < facts.length - 1 ? "border-b border-border-sub" : ""}`}>
           <span className="flex h-[18px] w-[18px] shrink-0 items-center justify-center border border-primary/45 text-[10px] text-primary">✓</span>
           <div><div className="font-body text-[13px] font-medium text-woolet-white">{title}</div><div className="mt-0.5 font-body text-xs leading-relaxed text-cream-dim">{text}</div></div>
         </div>
@@ -147,28 +157,28 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
                   {config.h1Pre}<em className="text-gold-light">{config.h1Em}</em>{config.h1Post}
                 </h1>
                 <p className="max-w-[560px] font-body text-[1.02rem] leading-relaxed text-cream-dim">{config.sub}</p>
-                {config.kurzeAntwort && (
-                  <aside className="max-w-[560px] border-l-2 border-primary bg-primary/5 px-5 py-4">
-                    <p className="m-0 font-body text-[10px] font-semibold uppercase tracking-[0.24em] text-primary">Kurze Antwort</p>
-                    <p className="m-0 mt-2 font-body text-[15px] leading-7 text-foreground">{config.kurzeAntwort}</p>
-                  </aside>
-                )}
               </div>
 
-              <div className="order-5 lg:order-none"><FitSymptoms /></div>
-
-              <div data-de-hero-reservation className="order-2 flex flex-col items-start gap-4 lg:order-none">
+              {/* One action in the hero: the email form. Phone order: headline, form, photo, offer. */}
+              <div data-de-hero-reservation className="order-2 flex flex-col items-start gap-3 lg:order-none">
                 <DeVipForm placement={config.slug} variant="hero" />
-                <DeReservationCta source={config.slug} variant="link" />
-                <Button asChild variant="outline" className="h-auto rounded-sm border-border-sub bg-transparent px-7 py-4 font-body text-xs font-semibold uppercase tracking-[0.22em] text-cream-dim hover:border-primary/40 hover:bg-transparent hover:text-foreground"><Link to="/de/fit">Erst Gesicht messen</Link></Button>
-                <p className="max-w-xl font-body text-[13px] leading-5 text-cream-dim">1 € sichert dir den Founder-Preis von 109 € statt 179 € (nur 30 Fassungen). Voll anrechenbar und jederzeit erstattbar.</p>
+                <p className="max-w-xl font-body text-[13px] leading-5 text-cream-dim">Erst E-Mail, dann 1 €: Damit sicherst du dir den Founder-Preis von 109 € statt 179 €. Voll anrechenbar und jederzeit erstattbar.</p>
               </div>
 
-              <div className="order-6 max-w-[520px] lg:order-none"><FoundingBenefitsDe /></div>
-              <div className="order-4 flex flex-wrap items-center gap-x-3 gap-y-1 font-body text-[0.78rem] text-cream-dim lg:order-none sm:gap-x-6"><span>Passform-Garantie</span><span aria-hidden="true">·</span><span>Mazzucchelli-Acetat</span><span aria-hidden="true">·</span><span>Handgefertigt in der EU</span></div>
+              <div className="order-4 max-w-[520px] lg:order-none"><FounderEditionDe /></div>
+              <div className="order-5 flex flex-wrap items-center gap-x-3 gap-y-1 font-body text-[0.78rem] text-cream-dim lg:order-none sm:gap-x-6"><span>Passform-Garantie</span><span aria-hidden="true">·</span><span>Mazzucchelli-Acetat</span><span aria-hidden="true">·</span><span>Handgefertigt in der EU</span></div>
+
+              {config.kurzeAntwort && (
+                <aside className="order-6 max-w-[560px] border-l-2 border-primary bg-primary/5 px-5 py-4 lg:order-none">
+                  <p className="m-0 font-body text-[10px] font-semibold uppercase tracking-[0.24em] text-primary">Kurze Antwort</p>
+                  <p className="m-0 mt-2 font-body text-[15px] leading-7 text-foreground">{config.kurzeAntwort}</p>
+                </aside>
+              )}
+
+              <div className="order-7 lg:order-none"><FitSymptoms /></div>
             </div>
 
-            <div className="order-3 relative max-h-[58vh] min-h-[360px] w-full overflow-hidden rounded-sm border border-border-sub sm:aspect-[4/5] sm:max-h-[680px] lg:order-none lg:aspect-auto lg:max-h-none lg:min-h-[600px]">
+            <div className="order-3 relative max-h-[58vh] min-h-[360px] w-full overflow-hidden rounded-sm border border-border-sub sm:aspect-[4/5] sm:max-h-[680px] lg:sticky lg:top-28 lg:order-none lg:max-h-[min(720px,calc(100vh-9rem))] lg:self-start">
               <img src={HERO_SRC} srcSet={HERO_SRCSET} sizes={HERO_SIZES} alt={config.heroAlt} className="absolute inset-0 h-full w-full object-cover object-[center_25%]" loading="eager" fetchPriority="high" width={1000} height={1250} />
               <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/55" />
               <div className="absolute bottom-4 left-4 flex max-w-[calc(100%-2rem)] items-center gap-3 rounded-sm border border-border-sub bg-background/80 px-3 py-2 font-body text-xs backdrop-blur-md sm:bottom-5 sm:left-5"><span>Greg</span><span className="text-primary">Nutzer von WOOLET 009</span></div>
@@ -192,7 +202,7 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
 
         <section className="border-y border-border-sub bg-secondary px-5 py-16 text-center sm:px-8 lg:py-24"><div className="mx-auto max-w-3xl"><p className="font-body text-xs uppercase tracking-[0.24em] text-primary">Founding-Preis</p><h2 className="mt-4 font-display text-4xl text-foreground md:text-5xl">Breite Passform. Klarer Preis.</h2><div className="mt-6 flex items-baseline justify-center gap-4"><span className="font-display text-3xl text-cream-dim line-through">{formatDePrice(DE_PRICING.regularPriceEur)}</span><strong className="font-display text-6xl font-normal text-foreground">{formatDePrice(DE_PRICING.founderPriceEur)}</strong></div><p className="mt-3 font-body text-sm text-cream-dim">inkl. MwSt. · Kostenloser Versand nach Deutschland</p><DeReservationCta source={`${config.slug}_pricing`} className="mt-8" /></div></section>
 
-        <section id="vip" className="border-b border-border-sub bg-secondary px-5 py-16 text-center sm:px-8 lg:py-24"><div className="mx-auto max-w-3xl"><div className="woolet-eyebrow mb-4 justify-center"><div className="woolet-eyebrow-line" /><span className="woolet-eyebrow-text">Kickstarter · Founding Member</span></div><h2 className="font-display text-4xl text-foreground">Noch nicht bereit? Founding-Preis per E-Mail sichern.</h2><p className="mx-auto mb-8 mt-4 max-w-xl font-body text-[15px] leading-7 text-cream-dim">VIP-Mitglieder erhalten 48 Stunden vor dem öffentlichen Launch Zugang.</p><DeReservationCta source={`${config.slug}_vip`} variant="link" className="mb-7 inline-block font-body text-sm text-primary underline underline-offset-4" /><DeVipForm placement={`${config.slug}_vip`} className="mx-auto" /></div></section>
+        <section id="vip" className="border-b border-border-sub bg-secondary px-5 py-16 text-center sm:px-8 lg:py-24"><div className="mx-auto max-w-3xl"><div className="woolet-eyebrow mb-4 justify-center"><div className="woolet-eyebrow-line" /><span className="woolet-eyebrow-text">Founder Edition</span></div><h2 className="font-display text-4xl text-foreground">Noch nicht bereit? Founder-Preis per E-Mail sichern.</h2><p className="mx-auto mb-8 mt-4 max-w-xl font-body text-[15px] leading-7 text-cream-dim">Wir schicken dir das Angebot: Woolet {F.model} mit Founder Box für {formatDePrice(DE_PRICING.founderPriceEur)} statt {formatDePrice(DE_PRICING.regularPriceEur)}.</p><DeReservationCta source={`${config.slug}_vip`} variant="link" className="mb-7 inline-block font-body text-sm text-primary underline underline-offset-4" /><DeVipForm placement={`${config.slug}_vip`} className="mx-auto" /></div></section>
 
         {config.widthTable && (
           <Section bordered><h2 className="mb-6 font-display text-3xl text-foreground">{config.widthTable.title}</h2><div className="overflow-x-auto"><table className="w-full border-collapse font-body text-[15px]"><thead><tr className="border-b border-border-sub text-left text-[10px] uppercase tracking-[0.22em] text-cream-dim"><th className="py-3 pr-4 font-medium">Gesichtsbreite (mm)</th><th className="py-3 pr-4 font-medium">Kategorie</th><th className="py-3 font-medium">Empfohlene Frontbreite</th></tr></thead><tbody>{config.widthTable.rows.map((row) => <tr key={row[0]} className="border-b border-border-sub text-foreground"><td className="py-3 pr-4">{row[0]}</td><td className="py-3 pr-4 text-cream-dim">{row[1]}</td><td className="py-3">{row[2]}</td></tr>)}</tbody></table></div></Section>
