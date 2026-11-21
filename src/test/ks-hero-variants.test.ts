@@ -48,7 +48,7 @@ describe("liveHeroSub", () => {
     for (const v of [DEFAULT_HERO_VARIANT, ...Object.values(VARIANTS)]) {
       const out = liveHeroSub(v.sub);
       expect(out).not.toMatch(/40off|Join the VIP list|Launching soon/);
-      expect(out).toMatch(/Live on Kickstarter now/);
+      expect(out).toMatch(/Founder Edition: \$114 instead of \$190/);
     }
   });
 });

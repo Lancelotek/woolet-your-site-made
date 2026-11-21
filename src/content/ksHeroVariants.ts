@@ -4,6 +4,8 @@
  * DEFAULT, which is byte-for-byte the original page copy.
  */
 
+import { FOUNDER_EDITION } from "@/config/kickstarter";
+
 export type HeroVariant = {
   eyebrow: string;
   h1: string;
@@ -133,11 +135,11 @@ export const LIVE_EYEBROW = "Live on Kickstarter";
 /**
  * Live-campaign version of a hero sub line: drops the prelaunch tail
  * ("Launching soon on Kickstarter. Join the VIP list ... {{40off}} ...") and
- * points to the open campaign instead. The $114 / 40% founder price is not
- * public on Kickstarter, so it is not promised here.
+ * ends on the one offer of the page, the Founder Edition (decision 21.11.2026:
+ * one offer per page; "VIP" is the name of the list, not the promise).
  */
 export function liveHeroSub(sub: string): string {
   const cut = sub.search(/\s*(Launching soon on Kickstarter\.|Join the VIP list)/);
   const head = (cut >= 0 ? sub.slice(0, cut) : sub).trim();
-  return `${head} Live on Kickstarter now, at prices you won't see in our shop.`;
+  return `${head} Founder Edition: $${FOUNDER_EDITION.price} instead of $${FOUNDER_EDITION.srp}, with the Founder Box. Limited run.`;
 }

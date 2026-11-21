@@ -24,6 +24,8 @@ const SITE = "https://woolet.co";
 // Same hero gallery as /en/lp/kickstarter.
 const GALLERY: { src: string; alt: string }[] = [
   { src: ksFit158.url, alt: "158 mm - The Signature: Woolet auf einem mittelgroßen bis großen Kopf" },
+  // Das Angebot selbst: die echte Founder Edition, dasselbe Foto wie auf /de/founders.
+  { src: "/founders/woolet-founder-edition-009-black-box.jpg", alt: "Woolet 009 Black Founder Edition in der Founder Box mit Filz-Etui und Clip-On-Tuch" },
   { src: gregSquare, alt: "Greg, Woolet-Tester, trägt eine breite Woolet Fassung in Havana-Acetat" },
   { src: w009BlackAsset.url, alt: "Woolet 009 Soft Square - Black" },
   { src: w009GreyAsset.url, alt: "Woolet 009 Soft Square - Grau" },
@@ -86,7 +88,7 @@ export default function DeKickstarter() {
                 alt={GALLERY[activeImg].alt}
                 width={1000}
                 height={1250}
-                className={`absolute inset-0 h-full w-full ${activeImg < 2 ? "object-cover" : "object-contain p-6"}`}
+                className={`absolute inset-0 h-full w-full ${activeImg < 3 ? "object-cover" : "object-contain p-6"}`}
                 fetchPriority="high"
               />
               <button type="button" aria-label="Vorheriges Bild" onClick={() => move(-1)} className="absolute left-2 top-1/2 h-11 w-11 -translate-y-1/2 border border-border bg-background/90 text-2xl text-foreground">‹</button>
@@ -103,7 +105,7 @@ export default function DeKickstarter() {
                   aria-pressed={i === activeImg}
                   className={`h-[72px] w-[72px] shrink-0 overflow-hidden bg-secondary p-0 ${i === activeImg ? "border-2 border-primary" : "border border-border-sub"}`}
                 >
-                  <img src={imageVariant(img.src, 160)} alt="" width={72} height={72} loading="lazy" className={`h-full w-full ${i < 2 ? "object-cover" : "object-contain"}`} />
+                  <img src={imageVariant(img.src, 160)} alt="" width={72} height={72} loading="lazy" className={`h-full w-full ${i < 3 ? "object-cover" : "object-contain"}`} />
                 </button>
               ))}
             </div>
@@ -117,6 +119,27 @@ export default function DeKickstarter() {
             <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 font-body text-[13px] text-cream-dim">
               <span>Acetat aus Mailand</span><span>In der EU handgefertigt</span><span>Ab 155 mm Breite</span><span>Von unseren Testern getragen</span>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-border-sub px-6 py-20 md:px-10 md:py-24">
+        <div className="mx-auto max-w-6xl">
+          <p className="mb-4 font-body text-xs uppercase tracking-[0.24em] text-primary">Die Founder Edition</p>
+          <h2 className="max-w-2xl text-4xl font-normal text-foreground md:text-5xl">Was in der Founder Edition steckt.</h2>
+          <div className="mt-10 grid gap-px bg-border-sub sm:grid-cols-2">
+            {[
+              { t: "009 Black, limitierte Auflage", d: "Die 009 Soft Square in schwarzem Acetat aus Italien: 158 mm Front, 24 mm Steg. Eine limitierte erste Auflage." },
+              { t: "Die Founder Box", d: "Magnetbox, Spezial-Etui und Clip-On-Tuch. Es gibt sie nur mit der Founder Edition - im Shop nicht erhältlich." },
+              { t: `${formatDePrice(DE_PRICING.founderPriceEur)} statt ${formatDePrice(DE_PRICING.regularPriceEur)}`, d: `${formatDePrice(DE_PRICING.reservationEur)} sichert dir den Founder-Preis. Voll anrechenbar, jederzeit erstattbar.` },
+              { t: "Versand aus Polen (EU), kein Zoll", d: "Kostenloser Versand nach Deutschland, direkt nach deiner Bestellung. Bestellung auf woolet.co, ohne Kickstarter-Konto." },
+            ].map((item, i) => (
+              <div key={item.t} className="bg-background p-7 md:p-9">
+                <p className="mb-3 font-body text-xs uppercase tracking-[0.18em] text-primary">0{i + 1}</p>
+                <h3 className="text-2xl font-normal text-foreground">{item.t}</h3>
+                <p className="mt-3 font-body text-sm leading-6 text-cream-dim">{item.d}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

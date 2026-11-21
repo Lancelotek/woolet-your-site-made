@@ -2192,9 +2192,9 @@ ${COLLECTION_ITEMS.map((it) => `<li><a href="/${lang}/products/${it.id}">${escap
       {
         title: "Woolet Kickstarter VIP — Eyewear for Wide Faces (155 mm+)",
         description:
-          "Premium Milanese acetate eyewear, hand made in the EU, engineered for wide faces 155 mm+. Join the VIP list for early access and up to 40% off the $190 retail price.",
+          "Premium Milanese acetate eyewear, hand made in the EU, engineered for wide faces 155 mm+. Founder Edition: $114 instead of $190, with the Founder Box.",
         noscriptHtml: `<h1>Woolet Kickstarter VIP — Eyewear for Wide Faces (155 mm+)</h1>
-<p>Premium Milanese acetate eyewear, hand made in the EU, engineered for wide faces 155 mm+. Join the VIP list for early access and up to 40% off the $190 retail price.</p>
+<p>Premium Milanese acetate eyewear, hand made in the EU, engineered for wide faces 155 mm+. Founder Edition: $114 instead of $190, with the Founder Box.</p>
 <p><a href="/en/products/007">Woolet 007 — Round</a> · <a href="/en/products/009">Woolet 009 — Soft-Square</a> · <a href="/en/fit">Find your fit</a></p>`,
       },
       { image: ksImage, type: "website" },
