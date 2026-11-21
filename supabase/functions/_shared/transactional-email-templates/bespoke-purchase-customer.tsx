@@ -33,6 +33,10 @@ interface Props {
   /** 2 = visualization first: the balance is paid on the visualization (bespoke-flow.ts). */
   flowVersion?: number
   maxCorrections?: number
+  /** Address prefilled from Stripe; confirmed on the measurements page. */
+  shippingAddress?: string
+  /** Import duty / tax note for the ship-to country (_shared/import-duties.ts). */
+  dutyNote?: string
 }
 
 const GOLD = '#C2A05A'
@@ -57,6 +61,8 @@ const Email = ({
   balanceWindowDays = 14,
   flowVersion = 1,
   maxCorrections = 3,
+  shippingAddress = '',
+  dutyNote = '',
 }: Props) => (
   <Html lang="en" dir="ltr">
     <Head />
@@ -82,7 +88,7 @@ const Email = ({
         ) : (
         <Text style={body}>
           Your Bespoke order is confirmed. Below is the build we'll be cutting
-          by hand in Italy — and one short step we need from you before the
+          by hand in the EU — and one short step we need from you before the
           workshop begins.
         </Text>
         )}
@@ -105,6 +111,7 @@ const Email = ({
             <SpecRow label="Total paid" value={amountFormatted} />
           ) : null}
           {orderRef ? <SpecRow label="Order ref" value={orderRef} /> : null}
+          <SpecRow label="Ship to (you can correct it on the measurements form)" value={shippingAddress} />
         </Section>
 
         <Heading as="h2" style={h2}>Next step — send us your measurements</Heading>
@@ -164,10 +171,17 @@ const Email = ({
           <strong>1.</strong> You submit measurements (AI + manual).<br />
           <strong>2.</strong> Our optician reviews your build and confirms the
           spec by email within 1 business day.<br />
-          <strong>3.</strong> Cutting starts in Italy. Production takes ~3
+          <strong>3.</strong> Cutting starts in the workshop. Production takes ~3
           weeks; we ship worldwide, tracked and insured.
         </Text>
         )}
+
+        {dutyNote ? (
+          <>
+            <Heading as="h3" style={h3}>Shipping, duty and taxes</Heading>
+            <Text style={body}>{dutyNote}</Text>
+          </>
+        ) : null}
 
         <Hr style={hr} />
 
@@ -211,6 +225,9 @@ export const template = {
     amountFormatted: '$780.00 USD',
     orderRef: 'cs_live_a1B2c3',
     measurementsUrl: 'https://woolet.co/en/bespoke/measurements?sid=cs_live_a1B2c3',
+    shippingAddress: 'Marek, 1 Main St, 10001 New York, NY, US',
+    dutyNote:
+      'Your frame ships from the European Union. US import duty applies to eyewear from the EU (about 15% of the order value), and the carrier usually adds a customs clearance fee. Both are charged to you by the carrier on delivery, not included in your payment to us.',
   },
 } satisfies TemplateEntry
 
