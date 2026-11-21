@@ -27,19 +27,28 @@ export default function DeVipForm({ placement, variant = "section", className }:
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [consentMissing, setConsentMissing] = useState(false);
 
   const onSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (!consent || loading) return;
+    if (loading) return;
+    if (!consent) {
+      setConsentMissing(true);
+      return;
+    }
     setLoading(true);
     setError(null);
     try {
       const leadAttribution = buildLeadAttribution();
       const metaEventId = leadAttribution.meta_event_id;
+      // Paid and email traffic keeps its own UTMs (21.11.2026: the hardcoded de-landing / de-seo
+      // values overwrote them, so a Google Ads signup looked like SEO). Defaults only fill gaps.
+      const attribution = getAttribution();
       const { data, error: functionError } = await supabase.functions.invoke("mailerlite-subscribe", {
         body: {
-          ...getAttribution(), ...leadAttribution, email, source: "DE", country: "Germany", country_code: "DE",
-          utm_source: "de-landing", utm_campaign: "de-seo", utm_content: placement,
+          ...attribution, ...leadAttribution, email, source: "DE", country: "Germany", country_code: "DE",
+          utm_source: attribution.utm_source || "de-landing", utm_campaign: attribution.utm_campaign || "de-seo",
+          utm_content: attribution.utm_content || placement,
           meta_event_id: metaEventId, form_location: `de_${placement}`,
         },
       });
@@ -64,7 +73,7 @@ export default function DeVipForm({ placement, variant = "section", className }:
     const payStep = isReservationOpen() && !isDeReserved();
     return (
       <div className={`max-w-xl border border-primary/25 bg-primary/5 p-5 font-body text-[15px] leading-7 text-foreground ${className ?? ""}`}>
-        Du stehst auf der VIP-Liste. {payStep ? "Jetzt sicherst du dir mit 1 € den Founder-Preis von 109 € statt 179 €." : "Schau in dein Postfach: Dort erfährst du, wie du dir den Founder-Preis von 109 € sicherst."}
+        Danke, du bist eingetragen. {payStep ? "Jetzt sicherst du dir mit 1 € den Founder-Preis von 109 € statt 179 €." : "Schau in dein Postfach: Dort erfährst du, wie du dir den Founder-Preis von 109 € sicherst."}
         {/* Step 2, same embedded 1 € checkout as on /de/lp/kickstarter (DeFounderSteps). */}
         {payStep && (
           <ReserveCheckoutButton
@@ -115,7 +124,7 @@ export default function DeVipForm({ placement, variant = "section", className }:
         </label>
         <Button
           type="submit"
-          disabled={loading || !consent}
+          disabled={loading}
           className={isHero
             ? "h-12 shrink-0 rounded-sm px-6 text-xs font-semibold uppercase tracking-[0.2em]"
             : "h-auto rounded-sm py-4 text-xs font-semibold uppercase tracking-[0.22em]"}
@@ -124,9 +133,21 @@ export default function DeVipForm({ placement, variant = "section", className }:
         </Button>
       </div>
       <label className="flex cursor-pointer items-start gap-3 font-body text-xs leading-5 text-cream-dim">
-        <input type="checkbox" checked={consent} onChange={() => setConsent((value) => !value)} className="mt-0.5 h-4 w-4 shrink-0 accent-primary" />
-        <span>Ja, schickt mir das Founding-Angebot (109 € statt 179 €) und Launch-Updates per E-Mail. Abmeldung jederzeit möglich.</span>
+        <input
+          type="checkbox"
+          checked={consent}
+          onChange={() => { setConsent((value) => !value); setConsentMissing(false); }}
+          aria-invalid={consentMissing}
+          aria-describedby={consentMissing ? `de-consent-hint-${placement}` : undefined}
+          className="mt-0.5 h-4 w-4 shrink-0 accent-primary"
+        />
+        <span>Ja, schickt mir das Founder-Angebot (109 € statt 179 €) und Neuigkeiten von Woolet per E-Mail. Abmeldung jederzeit möglich.</span>
       </label>
+      {consentMissing && (
+        <p id={`de-consent-hint-${placement}`} role="alert" className="font-body text-xs leading-5 text-primary">
+          Bitte setze oben das Häkchen - ohne deine Zustimmung dürfen wir dir das Angebot nicht schicken.
+        </p>
+      )}
       {error && <p className="font-body text-xs text-destructive">{error}</p>}
     </form>
   );
