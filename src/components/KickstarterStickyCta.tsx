@@ -12,6 +12,14 @@ import { pushGtmEvent } from "@/lib/gtm";
 const EXCLUDED =
   /\/(admin|crm|account|payments|creatives|thank-you|danke|reserve|oauth)(\/|$)|\/lp\/|\/bespoke(\/|$)|\/products\/bespoke(\/|$)|\/lunettes-sur-mesure(\/|$)|\/fit\/(scan|wizard|quick|manual|bespoke)/;
 
+/**
+ * German pages with their own bottom bar (DeMobileReservationBar on the keyword
+ * landing pages, /de/kollektion and /de/produkte/*). This bar sat on top of it
+ * (z-index 100 over 90) and sent the visitor off to the signup LP instead of the
+ * form on the page they are reading.
+ */
+const DE_OWN_BAR = /^\/de\/(kollektion|produkte\/|brille-|brillen-|breite-brille|xxl-brille-|blaulichtfilter-)/;
+
 const SHOW_AFTER_PX = 420;
 
 const F = FOUNDER_EDITION;
@@ -29,7 +37,7 @@ const COPY_KS: Record<string, string> = {
 export default function KickstarterStickyCta() {
   const { pathname } = useLocation();
   const [visible, setVisible] = useState(false);
-  const active = isKickstarterLive() && !EXCLUDED.test(pathname);
+  const active = isKickstarterLive() && !EXCLUDED.test(pathname) && !DE_OWN_BAR.test(pathname);
 
   useEffect(() => {
     if (!active) return;
