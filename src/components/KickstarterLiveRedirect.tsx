@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { kickstarterLiveHref } from "@/config/kickstarter";
+import { isKickstarterEnded, kickstarterLiveHref } from "@/config/kickstarter";
 import { pushGtmEvent } from "@/lib/gtm";
 
 /**
@@ -7,7 +7,9 @@ import { pushGtmEvent } from "@/lib/gtm";
  * straight to the live campaign, with a visible link if the redirect is blocked.
  */
 export default function KickstarterLiveRedirect({ refTag, slot }: { refTag: string; slot: string }) {
-  const href = kickstarterLiveHref(refTag, slot);
+  // After the campaign there is no Kickstarter to send people to: closed surfaces go to the home page.
+  const ended = isKickstarterEnded();
+  const href = ended ? "/en" : kickstarterLiveHref(refTag, slot);
   useEffect(() => {
     pushGtmEvent("kickstarter_live_redirect", { slot });
     window.location.replace(href);
@@ -29,9 +31,9 @@ export default function KickstarterLiveRedirect({ refTag, slot }: { refTag: stri
         fontFamily: "Barlow, sans-serif",
       }}
     >
-      <p style={{ margin: 0, fontSize: 18 }}>Woolet is live on Kickstarter.</p>
+      <p style={{ margin: 0, fontSize: 18 }}>{ended ? "The Founder Edition is sold out." : "Woolet is live on Kickstarter."}</p>
       <a href={href} style={{ color: "#CAA449", textDecoration: "underline", textUnderlineOffset: 4 }}>
-        Go to the campaign
+        {ended ? "Go to woolet.co" : "Go to the campaign"}
       </a>
     </main>
   );

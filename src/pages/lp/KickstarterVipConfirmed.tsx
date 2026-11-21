@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate, useSearchParams } from "react-router-do
 import { Helmet } from "react-helmet-async";
 import { pushGtmEvent } from "@/lib/gtm";
 import { KickstarterFollowCta } from "@/components/KickstarterFollowCta";
-import { FOUNDER_EDITION as F, isKickstarterLive, isReservationOpen, kickstarterLiveHref } from "@/config/kickstarter";
+import { FOUNDER_EDITION as F, isKickstarterEnded, isKickstarterLive, isReservationOpen, kickstarterLiveHref } from "@/config/kickstarter";
 import FounderEditionClaim from "@/components/FounderEditionClaim";
 import { trackGoogleAdsConversion } from "@/lib/google-ads";
 import { trackReservationPurchase } from "@/lib/ga4-purchase";
@@ -27,6 +27,7 @@ const KickstarterVipConfirmed = () => {
   const state = (location.state as LocationState) || null;
   // After the public launch this is the thank-you page: one CTA to the live campaign.
   const live = useMemo(() => isKickstarterLive(), []);
+  const ended = useMemo(() => isKickstarterEnded(), []);
 
 
   // Fall back to localStorage in case the user refreshes
@@ -107,7 +108,7 @@ const KickstarterVipConfirmed = () => {
   return (
     <div className="lp-scope min-h-screen bg-[#0f0f0f] text-woolet-white font-body">
       <Helmet>
-        <title>{live ? "Thank you - Woolet is live on Kickstarter" : "You're on the VIP list — Woolet Kickstarter"}</title>
+        <title>{ended ? "Thank you - Woolet Founder Edition" : live ? "Thank you - Woolet is live on Kickstarter" : "You're on the VIP list — Woolet Kickstarter"}</title>
         <meta name="description" content="You're on the Woolet VIP list. Get early access, see how we build bespoke glasses for wide faces, and join the VIP group before the Kickstarter launch." />
         <meta property="og:description" content="You're on the Woolet VIP list. Get early access, see how we build bespoke glasses for wide faces, and join the VIP group before the Kickstarter launch." />
         <meta name="robots" content="noindex" />
@@ -119,7 +120,11 @@ const KickstarterVipConfirmed = () => {
             <img src={logo} alt="Woolet" className="h-8 w-auto" />
           </Link>
           {/* Clarity 19.11.2026: the live badge was tapped like a link (dead click). */}
-          {live ? (
+          {ended ? (
+            <span className="text-[12px] sm:text-xs uppercase tracking-[0.22em] text-primary border border-primary/40 rounded-full px-3 py-1">
+              Founder Edition
+            </span>
+          ) : live ? (
             <a
               href={LIVE_HREF}
               onClick={trackLiveClick}
@@ -148,14 +153,14 @@ const KickstarterVipConfirmed = () => {
             </p>
           )}
           <h1 className="font-display text-woolet-white leading-[1.1] text-[2rem] sm:text-[2.75rem] mb-4">
-            {paid ? "$1 received. Your Founder link is ready." : state?.reserved ? "Your Founder link is ready." : live ? "You're on the list." : "You're on the VIP list."}
+            {paid ? (ended ? "$1 received. Your Founder price is locked." : "$1 received. Your Founder link is ready.") : state?.reserved ? (ended ? "Your Founder price is locked." : "Your Founder link is ready.") : live ? "You're on the list." : "You're on the VIP list."}
           </h1>
           {paid || state?.reserved ? (
             <FounderEditionClaim placement={paid ? "vip_confirmed_paid" : "vip_confirmed_reserved"} />
           ) : live && isReservationOpen() ? (
             <>
               <p className="text-[#D8D4CC] text-base sm:text-lg leading-relaxed max-w-lg">
-                Woolet is live on Kickstarter. $1 unlocks the hidden Founder Edition: 009 Black, ${F.price} instead of ${F.srp},
+                {ended ? "$1 locks the Founder Edition" : "Woolet is live on Kickstarter. $1 unlocks the hidden Founder Edition"}: 009 Black, ${F.price} instead of ${F.srp},
                 with a ${F.boxValue} box. {F.left} of {F.total} left.
               </p>
               <Link
@@ -166,14 +171,16 @@ const KickstarterVipConfirmed = () => {
               >
                 Unlock the Founder Edition - $1
               </Link>
-              <a
-                href={LIVE_HREF}
-                onClick={trackLiveClick}
-                onAuxClick={trackLiveClick}
-                className="mt-5 text-sm text-[#B8B3A8] underline underline-offset-4"
-              >
-                Or see the campaign on Kickstarter
-              </a>
+              {!ended && (
+                <a
+                  href={LIVE_HREF}
+                  onClick={trackLiveClick}
+                  onAuxClick={trackLiveClick}
+                  className="mt-5 text-sm text-[#B8B3A8] underline underline-offset-4"
+                >
+                  Or see the campaign on Kickstarter
+                </a>
+              )}
             </>
           ) : live ? (
             <>

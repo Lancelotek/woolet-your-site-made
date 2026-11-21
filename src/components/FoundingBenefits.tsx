@@ -1,15 +1,16 @@
 import { useEffect, useRef, useState } from "react";
-import { FOUNDER_EDITION as F } from "@/config/kickstarter";
+import { FOUNDER_EDITION as F, isKickstarterEnded } from "@/config/kickstarter";
 
 /**
  * Founding-member value props — mirrors the Kickstarter LP.
  * Pure presentational; no browser APIs at module scope (SSR/prerender-safe).
  */
 
-const BENEFITS: { title: string; sub: string }[] = [
-  { title: `$${F.price} instead of $${F.srp}`, sub: `${F.model}, ${F.bridgeMm} mm bridge - a hidden reward on Kickstarter, unlocked with $1` },
+// After the Kickstarter deadline the Founder frame is ordered on woolet.co (decision 21.11.2026).
+const benefitsEn = (KS_ENDED: boolean): { title: string; sub: string }[] => [
+  { title: `$${F.price} instead of $${F.srp}`, sub: KS_ENDED ? `${F.model}, ${F.bridgeMm} mm bridge - the Founder price, locked with $1` : `${F.model}, ${F.bridgeMm} mm bridge - a hidden reward on Kickstarter, unlocked with $1` },
   { title: `$${F.boxValue} box included`, sub: "Magnetic box, special case and the Clip-On Cloth" },
-  { title: `Ships right after ${F.campaignEndLabel}`, sub: `Already made - ${F.left} of ${F.total} left` },
+  { title: KS_ENDED ? "Ships right after your order" : `Ships right after ${F.campaignEndLabel}`, sub: `Already made - ${F.left} of ${F.total} left` },
 ];
 
 // German offer: 1 € reservation, 109 € on woolet.co/de/founders, ships from Poland (EU).
@@ -20,7 +21,7 @@ const BENEFITS_DE: { title: string; sub: string }[] = [
 ];
 
 export const FoundingBenefits = ({ compact = false, lang = "en" }: { compact?: boolean; lang?: string }) => {
-  const benefits = lang === "de" ? BENEFITS_DE : BENEFITS;
+  const benefits = lang === "de" ? BENEFITS_DE : benefitsEn(isKickstarterEnded());
   return (
     <div
       className="flex flex-col overflow-hidden"

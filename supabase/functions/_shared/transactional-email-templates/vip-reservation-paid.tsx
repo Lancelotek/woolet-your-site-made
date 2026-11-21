@@ -28,13 +28,22 @@ const PAPER = '#f0ece4'
 const FOUNDER_URL =
   'https://www.kickstarter.com/projects/wooletco/woolet-finally-glasses-that-actually-fit-wider-faces?secret_reward_token=6d3cff02&ref=5fn1u9'
 
-const Email = ({
-  founderUrl = FOUNDER_URL,
-  orderRef = '',
-}: Props) => (
+// Kickstarter deadline (keep in sync with KICKSTARTER_END_AT_MS in src/config/kickstarter.ts).
+// Decision 21.11.2026: from this moment the Founder frame is ordered on woolet.co
+// (Stripe, no account, ships right after the order) and nothing points to Kickstarter.
+const KICKSTARTER_END_AT_MS = Date.UTC(2026, 11, 4, 14, 0, 0)
+const SITE_FOUNDER_URL =
+  'https://woolet.co/en/founders?utm_source=woolet_site&utm_medium=email&utm_campaign=vip_reservation_paid'
+
+const Email = ({ founderUrl, orderRef = '' }: Props) => {
+  const ended = Date.now() >= KICKSTARTER_END_AT_MS
+  const url = founderUrl || (ended ? SITE_FOUNDER_URL : FOUNDER_URL)
+  return (
   <Html lang="en" dir="ltr">
     <Head />
-    <Preview>Not on the Kickstarter page. Already made, ships right after the campaign ends on December 4.</Preview>
+    <Preview>{ended
+      ? 'Order on woolet.co, no account needed. Already made, ships right after your order.'
+      : 'Not on the Kickstarter page. Already made, ships right after the campaign ends on December 4.'}</Preview>
     <Body style={main}>
       <Container style={container}>
         <Section style={brandRow}>
@@ -45,12 +54,13 @@ const Email = ({
         <Heading style={h1}>Your Founder Edition link</Heading>
 
         <Text style={body}>
-          Your $1 unlocked a reward you won't find on the Kickstarter page. It opens only from the
-          link below.
+          {ended
+            ? 'Your $1 locked the Founder price. Order from the link below - on woolet.co, no account needed.'
+            : "Your $1 unlocked a reward you won't find on the Kickstarter page. It opens only from the link below."}
         </Text>
 
         <Section style={card}>
-          <Text style={badge}>FOUNDER EDITION · HIDDEN REWARD</Text>
+          <Text style={badge}>{ended ? 'FOUNDER EDITION · YOUR PRICE' : 'FOUNDER EDITION · HIDDEN REWARD'}</Text>
           <Text style={item}>
             <span style={tick}>✓</span> <strong>009 Black</strong>, 24 mm bridge: <strong>$114</strong> instead of $190 in the shop
           </Text>
@@ -59,14 +69,17 @@ const Email = ({
             reward
           </Text>
           <Text style={item}>
-            <span style={tick}>✓</span> Already made - ships right after the campaign ends on December 4
+            <span style={tick}>✓</span>{' '}
+            {ended
+              ? 'Already made - ships from the EU right after your order'
+              : 'Already made - ships right after the campaign ends on December 4'}
           </Text>
           <Section style={ctaWrap}>
-            <Link href={founderUrl} style={cta}>
+            <Link href={url} style={cta}>
               Claim my Founder frame - $114
             </Link>
           </Section>
-          <Text style={smallCard}>19 of 30 left. Free shipping, 5-year warranty.</Text>
+          <Text style={smallCard}>8 of 30 left. Free shipping, 5-year warranty.</Text>
         </Section>
 
         <Text style={body}>
@@ -88,11 +101,15 @@ const Email = ({
       </Container>
     </Body>
   </Html>
-)
+  )
+}
 
 export const template = {
   component: Email,
-  subject: 'Your hidden Founder Edition link - 009 Black, $114',
+  subject: () =>
+    Date.now() >= KICKSTARTER_END_AT_MS
+      ? 'Your Founder Edition link - 009 Black, $114'
+      : 'Your hidden Founder Edition link - 009 Black, $114',
   displayName: 'VIP — Reservation paid (Founder Edition link)',
   previewData: {
     founderUrl: FOUNDER_URL,

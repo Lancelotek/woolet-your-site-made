@@ -8,7 +8,7 @@ import { trackReservationPurchase } from "@/lib/ga4-purchase";
 import { oaiqReservation } from "@/lib/openai-pixel";
 import wooletLogoAsset from "@/assets/woolet-logo.png.asset.json";
 import FounderEditionClaim from "@/components/FounderEditionClaim";
-import { FOUNDER_EDITION as F } from "@/config/kickstarter";
+import { FOUNDER_EDITION as F, isKickstarterEnded } from "@/config/kickstarter";
 
 const wooletLogo = wooletLogoAsset.url;
 
@@ -118,14 +118,20 @@ export default function ThankYouReserved() {
         y += 10;
       };
 
+      // After the Kickstarter deadline the Founder frame is ordered on woolet.co (decision 21.11.2026).
+      const ksEnded = isKickstarterEnded();
       section("WHAT YOU JUST DID", [
-        "$1 unlocked the hidden Founder Edition reward on Kickstarter.",
+        ksEnded ? "$1 locked your Founder Edition price." : "$1 unlocked the hidden Founder Edition reward on Kickstarter.",
         "Woolet 009 Black, 24 mm bridge: $114 instead of $190, with a $45 box.",
       ]);
 
       section("WHAT HAPPENS NEXT", [
-        "1. Open your Founder link (also in your email) and pledge $114.",
-        `2. Founder frames are already made and ship right after the campaign ends on ${F.campaignEndLabel}.`,
+        ksEnded
+          ? "1. Open your Founder link (also in your email) and order for $114 on woolet.co. No account needed."
+          : "1. Open your Founder link (also in your email) and pledge $114.",
+        ksEnded
+          ? "2. Founder frames are already made and ship from the EU right after your order."
+          : `2. Founder frames are already made and ship right after the campaign ends on ${F.campaignEndLabel}.`,
       ]);
 
       section(

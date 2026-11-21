@@ -22,6 +22,7 @@ interface Props {
   founderOpen?: boolean
   founderReserveUrl?: string
   founderLeft?: number
+  ksEnded?: boolean
 }
 
 const GOLD = '#CAA449'
@@ -73,7 +74,7 @@ const LiveEmail = ({ campaignUrl }: { campaignUrl: string }) => (
 )
 
 // E1 of the "Never Too Small Again" sequence (approved by Marek 05.11.2026).
-const FounderEmail = ({ reserveUrl, left }: { reserveUrl: string; left: number }) => (
+const FounderEmail = ({ reserveUrl, left, ksEnded = false }: { reserveUrl: string; left: number; ksEnded?: boolean }) => (
   <Html lang="en" dir="ltr">
     <Head />
     <Preview>158 mm, built for your face.</Preview>
@@ -99,8 +100,9 @@ const FounderEmail = ({ reserveUrl, left }: { reserveUrl: string; left: number }
         </Section>
         <Text style={body}>Marek</Text>
         <Text style={body}>
-          P.S. The $1 opens a hidden reward on Kickstarter. That's the only place the Founder
-          price exists.
+          {ksEnded
+            ? "P.S. The $1 locks the Founder price. You order on woolet.co, no account needed."
+            : "P.S. The $1 opens a hidden reward on Kickstarter. That's the only place the Founder price exists."}
         </Text>
         <Hr style={hr} />
         <Text style={footer}>
@@ -118,9 +120,10 @@ const Email = ({
   campaignUrl = '',
   founderOpen = false,
   founderReserveUrl = '',
-  founderLeft = 19,
+  founderLeft = 8,
+  ksEnded = false,
 }: Props) => live && founderOpen && founderReserveUrl ? (
-  <FounderEmail reserveUrl={founderReserveUrl} left={founderLeft} />
+  <FounderEmail reserveUrl={founderReserveUrl} left={founderLeft} ksEnded={ksEnded} />
 ) : live && campaignUrl ? <LiveEmail campaignUrl={campaignUrl} /> : (
   <Html lang="en" dir="ltr">
     <Head />
