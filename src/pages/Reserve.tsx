@@ -1,5 +1,5 @@
 import KickstarterLiveRedirect from "@/components/KickstarterLiveRedirect";
-import { FOUNDER_EDITION as F, isReservationOpen } from "@/config/kickstarter";
+import { FOUNDER_EDITION as F, isKickstarterEnded, isReservationOpen } from "@/config/kickstarter";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import SEO from "@/components/SEO";
 import { Link } from "react-router-dom";
@@ -28,9 +28,15 @@ const C = {
   ink: "#1F1B16",
 };
 
+// After the Kickstarter deadline the Founder frame is ordered on woolet.co (decision 21.11.2026).
+const KS_ENDED = isKickstarterEnded();
 const BULLETS = [
-  `A private Kickstarter reward - not on the campaign page; your link arrives right after you pay`,
-  `${F.model}, ${F.bridgeMm} mm bridge - already made, ships right after the campaign ends on ${F.campaignEndLabel}`,
+  KS_ENDED
+    ? "Your private order link arrives right after you pay - order on woolet.co, no account needed"
+    : `A private Kickstarter reward - not on the campaign page; your link arrives right after you pay`,
+  KS_ENDED
+    ? `${F.model}, ${F.bridgeMm} mm bridge - already made, ships from the EU right after your order`
+    : `${F.model}, ${F.bridgeMm} mm bridge - already made, ships right after the campaign ends on ${F.campaignEndLabel}`,
   `The Founder Box: magnetic box, special case and the Clip-On Cloth ($${F.boxValue} value) - in no other reward`,
   "158 mm front, fits 155-161 mm faces · 5-year warranty",
 ];

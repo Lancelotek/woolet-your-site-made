@@ -1,4 +1,4 @@
-import { KICKSTARTER_URL, isKickstarterLive, kickstarterLiveHref } from "@/config/kickstarter";
+import { KICKSTARTER_URL, isKickstarterEnded, isKickstarterLive, kickstarterLiveHref } from "@/config/kickstarter";
 import { pushGtmEvent } from "@/lib/gtm";
 import kickstarterWordmark from "@/assets/kickstarter-wordmark-white.png";
 
@@ -25,6 +25,8 @@ export const KickstarterFollowCta = ({
   label?: string;
 }) => {
   const quiet = variant === "quiet";
+  // Campaign over: no Kickstarter button anywhere (decision 21.11.2026).
+  if (isKickstarterEnded()) return null;
   return (
     <a
       href={kickstarterFollowHref(slot)}

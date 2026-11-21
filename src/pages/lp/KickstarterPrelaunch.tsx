@@ -11,7 +11,7 @@ import { pushGtmEvent } from "@/lib/gtm";
 import { resolveHeroVariant, LIVE_EYEBROW, liveHeroSub, DEFAULT_HERO_VARIANT } from "@/content/ksHeroVariants";
 import { Button } from "@/components/ui/button";
 import { ReserveCheckoutButton } from "@/components/ReserveCheckoutButton";
-import { FOUNDER_EDITION, isKickstarterLive, isReservationOpen, kickstarterLiveHref } from "@/config/kickstarter";
+import { FOUNDER_EDITION, isKickstarterEnded, isKickstarterLive, isReservationOpen, kickstarterLiveHref } from "@/config/kickstarter";
 import KickstarterCountdown from "@/components/KickstarterCountdown";
 const ImageLightbox = lazy(() => import("@/components/ImageLightbox"));
 import { persistRef, resolveReferredBy } from "@/lib/referral";
@@ -263,6 +263,8 @@ const VipForm = ({
   // email -> thank-you page with the campaign link.
   const live = useMemo(() => isKickstarterLive(), []);
   const reserveOpen = useMemo(() => isReservationOpen(), []);
+  // Kickstarter deadline passed: the Founder frame is ordered on woolet.co, nothing points to Kickstarter.
+  const ended = useMemo(() => isKickstarterEnded(), []);
   useEffect(() => {
     if (step !== 2) { setSkipVisible(false); return; }
     const t = window.setTimeout(() => setSkipVisible(true), 8000);
@@ -569,8 +571,12 @@ const VipForm = ({
           />
           <ul className="m-0 p-0 list-none space-y-3" aria-label="What $1 unlocks">
             {[
-              <><strong className="text-foreground font-medium">A private Kickstarter reward.</strong> It isn't on the campaign page - it opens only from your link, on the next screen and in your inbox.</>,
-              <><strong className="text-foreground font-medium">Already made.</strong> {FOUNDER_EDITION.model}, {FOUNDER_EDITION.bridgeMm} mm bridge - ships right after the campaign ends on {FOUNDER_EDITION.campaignEndLabel}.</>,
+              ended
+                ? <><strong className="text-foreground font-medium">A private order link.</strong> It opens on the next screen and in your inbox. Order on woolet.co - no account needed.</>
+                : <><strong className="text-foreground font-medium">A private Kickstarter reward.</strong> It isn't on the campaign page - it opens only from your link, on the next screen and in your inbox.</>,
+              ended
+                ? <><strong className="text-foreground font-medium">Already made.</strong> {FOUNDER_EDITION.model}, {FOUNDER_EDITION.bridgeMm} mm bridge - ships from the EU right after your order.</>
+                : <><strong className="text-foreground font-medium">Already made.</strong> {FOUNDER_EDITION.model}, {FOUNDER_EDITION.bridgeMm} mm bridge - ships right after the campaign ends on {FOUNDER_EDITION.campaignEndLabel}.</>,
               <><strong className="text-foreground font-medium">The Founder Box (${FOUNDER_EDITION.boxValue} value).</strong> Magnetic box, special case and the Clip-On Cloth - in no other reward, not in the shop.</>,
             ].map((item, i) => (
               <li key={i} className="flex gap-3 text-[15px] leading-relaxed text-muted-foreground">
@@ -617,13 +623,13 @@ const VipForm = ({
           {live ? (
             <>
               <p className="text-center text-foreground">{FOUNDER_EDITION.left} of {FOUNDER_EDITION.total} left · ${FOUNDER_EDITION.srp} in the shop from mid-December</p>
-              <p className="text-center">Pay $1 → get your private link → pledge ${FOUNDER_EDITION.price} on Kickstarter.</p>
+              <p className="text-center">{ended ? `Pay $1 → get your private link → order for $${FOUNDER_EDITION.price} on woolet.co.` : `Pay $1 → get your private link → pledge $${FOUNDER_EDITION.price} on Kickstarter.`}</p>
               <figure className="flex items-center gap-4 m-0 !mt-5 py-3 border-y border-border">
                 <img src={gregSquare} alt="Greg wearing a Woolet frame" width={64} height={64} className="w-16 h-16 object-cover shrink-0" />
                 <figcaption className="text-sm leading-relaxed text-muted-foreground italic">“{GREG_QUOTE}” <span className="block not-italic text-xs mt-1">{GREG_ATTRIBUTION}</span></figcaption>
               </figure>
               <p>Free shipping · 5-year warranty · Italian Mazzucchelli acetate, 158 mm front for 155-161 mm faces.</p>
-              <p>Not sure 158 mm fits? Check your size with FitLens before you pledge.</p>
+              <p>Not sure 158 mm fits? Check your size with FitLens before you {ended ? "order" : "pledge"}.</p>
             </>
           ) : (
             <>
@@ -633,7 +639,7 @@ const VipForm = ({
             </>
           )}
         </div>
-        <p className="text-xs text-muted-foreground">This is a one-time Woolet reservation, not a Kickstarter pledge or subscription.</p>
+        <p className="text-xs text-muted-foreground">{ended ? "This is a one-time Woolet reservation, not a subscription." : "This is a one-time Woolet reservation, not a Kickstarter pledge or subscription."}</p>
         <Link
           to="/en/lp/kickstarter/vip-confirmed"
           state={{ email, name: "" }}
@@ -821,7 +827,7 @@ const VipForm = ({
       {consent}
 
 
-      {live && reserveOpen && formLocation !== "final" ? null : live ? (
+      {ended || (live && reserveOpen && formLocation !== "final") ? null : live ? (
         <a
           href={kickstarterLiveHref("site_lp", `skip_${formLocation}`)}
           onClick={() => pushGtmEvent("kickstarter_live_click", { slot: `skip_${formLocation}`, source: "kickstarter_lp" })}
@@ -1159,7 +1165,9 @@ const KickstarterPrelaunch = () => {
   // Public campaign is live: page copy points to Kickstarter, no $1 step.
   const live = useMemo(() => isKickstarterLive(), []);
   const reserveOpen = useMemo(() => isReservationOpen(), []);
-  const heroEyebrow = live && heroVariant === DEFAULT_HERO_VARIANT ? LIVE_EYEBROW : heroVariant.eyebrow;
+  // Kickstarter deadline passed: same page, same $1 step, but the order happens on woolet.co.
+  const ended = useMemo(() => isKickstarterEnded(), []);
+  const heroEyebrow = live && heroVariant === DEFAULT_HERO_VARIANT ? (ended ? "Founder Edition" : LIVE_EYEBROW) : heroVariant.eyebrow;
   const heroSub = live ? liveHeroSub(heroVariant.sub) : heroVariant.sub;
 
   const [activeImg, setActiveImg] = useState(0);
@@ -1318,7 +1326,7 @@ const KickstarterPrelaunch = () => {
       {
         q: "Do I pay anything now?",
         a: live && reserveOpen
-          ? `Leaving your email is free. $1 is optional - it unlocks the private Founder Edition reward: $${FOUNDER_EDITION.price} instead of $${FOUNDER_EDITION.srp}.`
+          ? `Leaving your email is free. $1 is optional - it ${ended ? "locks the Founder Edition price" : "unlocks the private Founder Edition reward"}: $${FOUNDER_EDITION.price} instead of $${FOUNDER_EDITION.srp}.`
           : live
           ? "No. The form only sends you the campaign link. You pay when you pledge on Kickstarter."
           : "No. This page only joins you to the VIP list. You'll pledge on Kickstarter at launch if you want a pair.",
@@ -1349,7 +1357,7 @@ const KickstarterPrelaunch = () => {
             a: "Four things: early access to FitLens, the Bespoke configurator, up to 40% off retail, and the private VIP Facebook group with direct access to the founder.",
           },
     ],
-    [live, reserveOpen]
+    [live, reserveOpen, ended]
   );
 
   return (
@@ -1871,9 +1879,10 @@ const KickstarterPrelaunch = () => {
                 photo: w007CardAsset.url,
                 photoAlt: "Woolet 007 round frame in black acetate, front view",
                 srp: 190,
-                kickstarter: 129,
-                priceLabel: "Kickstarter price",
-                priceNote: "Kickstarter price for the length of the campaign, then $190 in the shop.",
+                // After the campaign the 007 has no campaign price: shop price only.
+                kickstarter: ended ? 190 : 129,
+                priceLabel: ended ? "Shop price" : "Kickstarter price",
+                priceNote: ended ? "In the shop from mid-December." : "Kickstarter price for the length of the campaign, then $190 in the shop.",
                 specs: [
                   ["Front width", "158 mm"],
                   ["Bridge", "25 mm keyhole"],
@@ -1961,8 +1970,9 @@ const KickstarterPrelaunch = () => {
                             color: GOLD,
                           }}
                         >
-                          {m.priceLabel === "Founder Edition" ? "" : "from "}${m.kickstarter}
+                          {m.priceLabel === "Kickstarter price" ? "from " : ""}${m.kickstarter}
                         </span>
+                        {m.kickstarter < m.srp && (
                         <span
                           style={{
                             fontFamily: "Barlow, sans-serif",
@@ -1973,6 +1983,7 @@ const KickstarterPrelaunch = () => {
                         >
                           ${m.srp}
                         </span>
+                        )}
                       </div>
                       <span
                         style={{
@@ -2085,7 +2096,7 @@ const KickstarterPrelaunch = () => {
       {/* MID CTA BAND */}
       <section style={{ background: "#0b0a09", borderTop: `1px solid ${HAIRLINE}`, borderBottom: `1px solid ${HAIRLINE}` }}>
         <div className="max-w-3xl mx-auto px-5 sm:px-8 py-16 text-center">
-          <Eyebrow onClick={live ? () => scrollToEmailInput("vip-form-mid") : undefined}>{live ? "Live on Kickstarter" : "Join the VIP list"}</Eyebrow>
+          <Eyebrow onClick={live ? () => scrollToEmailInput("vip-form-mid") : undefined}>{live ? (ended ? "Founder Edition" : "Live on Kickstarter") : "Join the VIP list"}</Eyebrow>
           <h2
             style={{
               fontFamily: "'Cormorant Garamond', serif",
@@ -2224,7 +2235,15 @@ const KickstarterPrelaunch = () => {
             Three steps.
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-px mt-12" style={{ background: HAIRLINE }}>
-            {(live
+            {(live && reserveOpen
+              ? [
+                  { n: "01", t: "Leave your email", d: "Free. We send you the Founder offer and the updates that matter." },
+                  { n: "02", t: "Lock the price for $1", d: `$1 holds the Founder Edition at $${FOUNDER_EDITION.price} instead of $${FOUNDER_EDITION.srp}. Your private link opens right away.` },
+                  ended
+                    ? { n: "03", t: "Order on woolet.co", d: "No account needed. Your frame ships from the EU right after your order." }
+                    : { n: "03", t: "Claim your Founder frame", d: `Your link opens a private Kickstarter reward. Founder frames ship right after the campaign ends on ${FOUNDER_EDITION.campaignEndLabel}.` },
+                ]
+              : live
               ? [
                   { n: "01", t: "Leave your email", d: "We send you the campaign link and the updates that matter." },
                   { n: "02", t: "Pick your reward", d: `Choose your frame on Kickstarter. Campaign prices end on ${FOUNDER_EDITION.campaignEndLabel}.` },
@@ -2407,7 +2426,7 @@ const KickstarterPrelaunch = () => {
           <div id="vip-section-final">
 <VipForm utmSource={utmSource} idSuffix="-final" referredBy={referredBy} heroVariant={heroVariantKey} compact onJoined={() => { setHasJoined(true); setActiveFormSuffix("-final"); }} onResolved={markResolved} />
           </div>
-          {live || (hasJoined && hasResolved) ? (
+          {ended ? null : live || (hasJoined && hasResolved) ? (
             <div className="mt-8 flex flex-col items-center gap-3">
               <span style={{ ...eyebrowStyle, color: TAUPE, fontSize: 11 }}>{live ? "Or skip the email" : "Or follow the campaign"}</span>
               <KickstarterFollowCta slot="final_cta" label={live ? "Back us on" : "Follow us on"} />
@@ -2560,7 +2579,7 @@ const KickstarterPrelaunch = () => {
             cta={{
               label: live && reserveOpen ? "Unlock the Founder Edition" : live ? "Get the Kickstarter link" : "Reserve founder price — $1",
               caption: live
-                ? "158 mm · Italian Mazzucchelli acetate · Live on Kickstarter"
+                ? (ended ? "158 mm · Italian Mazzucchelli acetate · Founder Edition" : "158 mm · Italian Mazzucchelli acetate · Live on Kickstarter")
                 : "158 mm · Italian Mazzucchelli acetate · 30 frames at $114, then $190",
               onClick: handleLightboxCta,
             }}

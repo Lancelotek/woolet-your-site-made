@@ -7,7 +7,10 @@ const corsHeaders = {
 };
 
 // $1 reservation reopened 05.11.2026, open until the campaign deadline (Fri 04.12.2026).
-const RESERVATION_CLOSE_AT_MS = Date.UTC(2026, 11, 4, 14, 0, 0);
+// Decision 16.11.2026 + 21.11.2026: the $1 reservation and the Founder order on woolet.co stay
+// open after the Kickstarter deadline, until the Founder frames are sold out.
+// Keep in sync with RESERVATION_SOLD_OUT in src/config/kickstarter.ts.
+const RESERVATION_SOLD_OUT = false;
 const DEPOSIT_PRICE_IDS = new Set(["founding_member_deposit_1usd", "founding_member_deposit_1eur"]);
 // German 1 € reservation, embedded on /de pages (21.11.2026). Inline price, so no
 // Stripe Price object is needed in either environment. metadata.market = "de"
@@ -50,7 +53,7 @@ const json = (status: number, payload: unknown) =>
   });
 
 async function createFounderSession(stripe: any, body: Body, req: Request, de = false): Promise<Response> {
-  if (Date.now() >= RESERVATION_CLOSE_AT_MS) return json(410, { error: "closed" });
+  if (RESERVATION_SOLD_OUT) return json(410, { error: "closed" });
 
   // Paid site orders so far (Stripe search index lags ~1 min; fine at this volume).
   const sold = await stripe.paymentIntents.search({
@@ -135,9 +138,9 @@ Deno.serve(async (req) => {
       throw new Error("Invalid environment");
     }
 
-    // $1 founder reservation closes at the Kickstarter deadline
-    // (keep in sync with RESERVATION_CLOSE_AT_MS in src/config/kickstarter.ts).
-    if (DEPOSIT_PRICE_IDS.has(body.priceId) && Date.now() >= RESERVATION_CLOSE_AT_MS) {
+    // $1 founder reservation closes only when the Founder frames are sold out
+    // (keep in sync with RESERVATION_SOLD_OUT in src/config/kickstarter.ts).
+    if (DEPOSIT_PRICE_IDS.has(body.priceId) && RESERVATION_SOLD_OUT) {
       return new Response(JSON.stringify({ error: "reservation_closed", kickstarter_url: KICKSTARTER_URL }), {
         status: 410,
         headers: { ...corsHeaders, "Content-Type": "application/json" },

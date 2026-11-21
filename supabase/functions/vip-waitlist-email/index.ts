@@ -14,10 +14,11 @@ const RESERVE_URL = "https://woolet.co/en/lp/kickstarter#vip-form";
 
 // Keep in sync with src/config/kickstarter.ts (KICKSTARTER_LIVE_AT_MS / KICKSTARTER_SITE_REF).
 const KICKSTARTER_LIVE_AT_MS = Date.UTC(2026, 9, 29, 14, 0, 0);
-// $1 reservation (Founder Edition) open until the KS deadline - keep in sync with
-// RESERVATION_CLOSE_AT_MS / FOUNDER_EDITION.left in src/config/kickstarter.ts.
-const RESERVATION_CLOSE_AT_MS = Date.UTC(2026, 11, 4, 14, 0, 0);
-const FOUNDER_LEFT = 19;
+// $1 reservation (Founder Edition) stays open until the frames are sold out - keep in sync with
+// RESERVATION_SOLD_OUT / FOUNDER_EDITION.left / KICKSTARTER_END_AT_MS in src/config/kickstarter.ts.
+const RESERVATION_SOLD_OUT = false;
+const KICKSTARTER_END_AT_MS = Date.UTC(2026, 11, 4, 14, 0, 0);
+const FOUNDER_LEFT = 8;
 const FOUNDER_RESERVE_URL =
   "https://woolet.co/en/reserve?utm_source=ml-nt-e1&utm_medium=email&utm_campaign=never_too_small";
 const CAMPAIGN_URL =
@@ -60,7 +61,8 @@ Deno.serve(async (req) => {
         reserveUrl: RESERVE_URL,
         live: Date.now() >= KICKSTARTER_LIVE_AT_MS,
         campaignUrl: CAMPAIGN_URL,
-        founderOpen: Date.now() < RESERVATION_CLOSE_AT_MS,
+        founderOpen: !RESERVATION_SOLD_OUT,
+        ksEnded: Date.now() >= KICKSTARTER_END_AT_MS,
         founderReserveUrl: FOUNDER_RESERVE_URL,
         founderLeft: FOUNDER_LEFT,
       },
