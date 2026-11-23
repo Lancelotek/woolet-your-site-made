@@ -5,8 +5,22 @@ import Navbar from "@/components/Navbar";
 
 type Section = { title: string; content: React.ReactNode };
 
-export default function DeLegalLayout({ title, description, sections }: { title: string; description: string; sections: Section[] }) {
-  const slug = title === "Impressum" ? "impressum" : "widerruf";
+export default function DeLegalLayout({
+  title,
+  description,
+  sections,
+  slug: slugProp,
+  noindex = false,
+  intro,
+}: {
+  title: string;
+  description: string;
+  sections: Section[];
+  slug?: string;
+  noindex?: boolean;
+  intro?: React.ReactNode;
+}) {
+  const slug = slugProp ?? (title === "Impressum" ? "impressum" : "widerruf");
   useEffect(() => {
     document.documentElement.lang = "de";
     return () => { document.documentElement.lang = "en"; };
@@ -18,6 +32,7 @@ export default function DeLegalLayout({ title, description, sections }: { title:
         <html lang="de" />
         <title>{title} | Woolet</title>
         <meta name="description" content={description} />
+        {noindex && <meta name="robots" content="noindex, follow" />}
         <link rel="canonical" href={`https://woolet.co/de/${slug}`} />
         <meta property="og:title" content={`${title} | Woolet`} />
         <meta property="og:description" content={description} />
@@ -28,7 +43,8 @@ export default function DeLegalLayout({ title, description, sections }: { title:
       <Navbar />
       <article className="mx-auto w-full max-w-3xl px-6 py-16 md:py-24">
         <p className="mb-4 font-body text-xs uppercase tracking-[0.24em] text-primary">Rechtliches</p>
-        <h1 className="mb-12 text-5xl font-normal text-foreground md:text-6xl">{title}</h1>
+        <h1 className="mb-12 break-words text-4xl font-normal text-foreground [hyphens:auto] md:text-6xl" lang="de">{title}</h1>
+        {intro && <div className="-mt-6 mb-12 font-body text-[15px] leading-7 text-cream-dim">{intro}</div>}
         <div className="space-y-10">
           {sections.map((section, index) => (
             <section key={section.title} className="border-t border-border-sub pt-8">

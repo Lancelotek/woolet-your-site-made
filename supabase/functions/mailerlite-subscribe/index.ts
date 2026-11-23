@@ -1,5 +1,6 @@
 import { sendTemplateEmailAndLog } from "../_shared/transactional-email-templates/send-and-log.ts";
 import { templeWidthMm } from "../_shared/hat-to-glasses.ts";
+import { routesToDeGroup } from "../_shared/de-lead-routing.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { clientIp, parseConsentFlag, sendOpenAiEvent } from "../_shared/openai-capi.ts";
@@ -344,7 +345,11 @@ export const handler = async (req: Request): Promise<Response> => {
 
     // Route by source
     const groups: string[] = [];
-    if (source === "scan") {
+    if (routesToDeGroup(source, event_source_url)) {
+      // DE pages get their own group + German sequence. Since 23.11.2026 this
+      // also covers shared forms (fit scan, bespoke waitlist) used on /de pages.
+      groups.push(VIP_DE_GROUP_ID);
+    } else if (source === "scan") {
       groups.push(AI_SCAN_GROUP_ID);
     } else if (source === "bespoke") {
       groups.push(BESPOKE_GROUP_ID);
@@ -353,10 +358,6 @@ export const handler = async (req: Request): Promise<Response> => {
     } else if (source === "kickstarter") {
       // Dedicated Kickstarter VIP group for campaign reporting
       groups.push(VIP_GROUP_ID);
-    } else if (source === "DE" || source === "de") {
-      // DE pages get their own group + German sequence (until 22.10.2026 they
-      // landed in Waitlist ENG and received the English warm-up).
-      groups.push(VIP_DE_GROUP_ID);
     } else {
       // Default/missing — general waitlist
       groups.push(WAITLIST_ENG_GROUP_ID);

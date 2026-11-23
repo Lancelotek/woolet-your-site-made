@@ -232,7 +232,10 @@ export function captureAttribution(): void {
 export function getAttribution(): Attribution {
   if (typeof window === "undefined") return {};
   try {
-    const merged: Attribution = {};
+    // event_source_url is the page the form is on right now. The stored value
+    // is only refreshed on full page loads, so after SPA navigation it would
+    // still name the entry page (and mailerlite-subscribe routes /de pages by it).
+    const merged: Attribution = { event_source_url: window.location.href };
 
     const fill = (source: Attribution) => {
       for (const [k, v] of Object.entries(source)) {

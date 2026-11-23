@@ -2,6 +2,7 @@ import { type CSSProperties, useCallback, useEffect, useMemo, useRef, useState }
 import { Link, useSearchParams } from "react-router-dom";
 import { EmbeddedCheckout, EmbeddedCheckoutProvider } from "@stripe/react-stripe-js";
 import SEO from "@/components/SEO";
+import Footer from "@/components/Footer";
 import KickstarterLiveRedirect from "@/components/KickstarterLiveRedirect";
 import { PaymentTestModeBanner } from "@/components/PaymentTestModeBanner";
 import { FOUNDER_EDITION as F, isReservationOpen } from "@/config/kickstarter";
@@ -348,6 +349,7 @@ export default function DeFounders() {
         title="Founder Edition - Woolet"
         description="Woolet 009 Black Founder Edition: 109 € statt 179 €, mit Founder Box. Direkt auf woolet.co bestellen - Versand aus Polen (EU), kein Zoll."
         path="/founders"
+        lang="de"
         noindex
         robots="noindex, nofollow"
       />
@@ -373,6 +375,8 @@ export default function DeFounders() {
         }
       `}</style>
       {paid ? <Paid /> : <Checkout />}
+      {/* Impressum, Widerruf and Datenschutz links are required on a German checkout page. */}
+      <Footer lang="de" />
     </div>
   );
 }

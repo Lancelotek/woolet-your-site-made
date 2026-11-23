@@ -29,7 +29,26 @@ import { hrefFor } from "@/i18n/routeRegistry";
  * to a hub.
  */
 
-const PAGE_TITLE = "Page not found | Woolet";
+const COPY = {
+  en: {
+    title: "Page not found | Woolet",
+    h1: "Page not found",
+    body: "The page you were looking for doesn\u2019t exist or has moved.",
+    home: "Return to home",
+    collection: "Browse the collection",
+    blog: "Read the blog",
+    fit: "Find your fit",
+  },
+  de: {
+    title: "Seite nicht gefunden | Woolet",
+    h1: "Seite nicht gefunden",
+    body: "Die gesuchte Seite gibt es nicht oder sie ist umgezogen.",
+    home: "Zur Startseite",
+    collection: "Kollektion ansehen",
+    blog: "Zum Blog",
+    fit: "Passform prüfen",
+  },
+} as const;
 
 function stripSeoRelatedTags() {
   if (typeof document === "undefined") return;
@@ -50,17 +69,22 @@ const NotFound = () => {
   // Preserve the current locale when possible so the recovery links
   // send the user back into their own language instead of dumping
   // them on /en. Falls back to /en for unrecognised locales.
-  const lang: Lang = useMemo(
-    () => (rawLang && isValidLang(rawLang) ? (rawLang as Lang) : "en"),
-    [rawLang],
-  );
+  // Routes like /de/:slug and the catch-all have no :lang param, so the
+  // first path segment is the fallback.
+  const lang: Lang = useMemo(() => {
+    if (rawLang && isValidLang(rawLang)) return rawLang as Lang;
+    const first = location.pathname.split("/")[1];
+    return first && isValidLang(first) ? (first as Lang) : "en";
+  }, [rawLang, location.pathname]);
+  const copy = lang === "de" ? COPY.de : COPY.en;
+  const PAGE_TITLE = copy.title;
 
   useEffect(() => {
     // eslint-disable-next-line no-console
     console.error("404: unresolved route", location.pathname);
     document.title = PAGE_TITLE;
     stripSeoRelatedTags();
-  }, [location.pathname]);
+  }, [location.pathname, PAGE_TITLE]);
 
   const homeHref = hrefFor("home", lang) ?? "/en";
   const collectionHref = hrefFor("collection", lang) ?? "/en/collection";
@@ -81,36 +105,34 @@ const NotFound = () => {
           <p className="mb-3 text-sm uppercase tracking-widest text-muted-foreground">
             404
           </p>
-          <h1 className="mb-3 text-4xl font-bold">Page not found</h1>
-          <p className="mb-6 text-lg text-muted-foreground">
-            The page you were looking for doesn&rsquo;t exist or has moved.
-          </p>
+          <h1 className="mb-3 text-4xl font-bold">{copy.h1}</h1>
+          <p className="mb-6 text-lg text-muted-foreground">{copy.body}</p>
           <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:flex-wrap">
             <a
               href={homeHref}
               className="rounded border border-primary bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90"
             >
-              Return to home
+              {copy.home}
             </a>
             <a
               href={collectionHref}
               className="rounded border border-primary/40 px-4 py-2 text-sm font-medium text-primary hover:border-primary"
             >
-              Browse the collection
+              {copy.collection}
             </a>
             {blogHref ? (
               <a
                 href={blogHref}
                 className="rounded border border-primary/40 px-4 py-2 text-sm font-medium text-primary hover:border-primary"
               >
-                Read the blog
+                {copy.blog}
               </a>
             ) : null}
             <a
               href={fitHref}
               className="rounded border border-primary/40 px-4 py-2 text-sm font-medium text-primary hover:border-primary"
             >
-              Find your fit
+              {copy.fit}
             </a>
           </div>
         </div>

@@ -543,7 +543,7 @@ const CookieBanner = () => {
               Accept and Reject stay equal in size and weight (legal parity). */}
           <p style={{ margin: 0, marginBottom: 10, color: MUTED, fontSize: 12, lineHeight: 1.45 }}>
             {t.body}{" "}
-            <a href={`/${locale === "pl" ? "pl" : "en"}/privacy-policy`} style={linkStyle}>
+            <a href={locale === "de" ? "/de/datenschutz" : `/${locale === "pl" ? "pl" : "en"}/privacy-policy`} style={linkStyle}>
               {t.policy}
             </a>
             {" · "}
@@ -579,7 +579,7 @@ const CookieBanner = () => {
           </p>
           <p style={{ margin: 0, marginBottom: isDesktop ? 22 : 14, color: MUTED, fontSize: isDesktop ? 14.5 : 13, lineHeight: isDesktop ? 1.55 : 1.45 }}>
             {t.body}{" "}
-            <a href={`/${locale === "pl" ? "pl" : "en"}/privacy-policy`} style={linkStyle}>
+            <a href={locale === "de" ? "/de/datenschutz" : `/${locale === "pl" ? "pl" : "en"}/privacy-policy`} style={linkStyle}>
               {t.policy}
             </a>
             .

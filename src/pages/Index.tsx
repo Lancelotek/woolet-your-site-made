@@ -20,6 +20,7 @@ import { ksLiveCta } from "@/components/KickstarterLiveBar";
 import KickstarterFundedBadge from "@/components/KickstarterFundedBadge";
 import { isValidLang, dirForLang, type Lang } from "@/lib/i18n";
 import { hrefFor } from "@/i18n/routeRegistry";
+import DeVipForm from "@/components/de/DeVipForm";
 import {
   assignHeroVariant,
   setHeroVariantUserProperty,
@@ -865,6 +866,14 @@ const Index = () => {
               {(lang === "en" || lang === "de") && (
                 <div className="order-6 lg:order-none lg:pt-3 max-w-[520px]">
                   <FoundingBenefits lang={lang} />
+                </div>
+              )}
+
+              {/* DE email capture (23.11.2026): /de had no form, so German home
+                  traffic could only buy or leave. Feeds the "Woolet VIP DE" sequence. */}
+              {lang === "de" && (
+                <div className="order-6 lg:order-none max-w-[520px]">
+                  <DeVipForm placement="home_hero" variant="hero" />
                 </div>
               )}
 

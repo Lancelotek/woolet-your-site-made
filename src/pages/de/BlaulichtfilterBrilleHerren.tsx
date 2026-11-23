@@ -42,6 +42,8 @@ const wrap: React.CSSProperties = { maxWidth: 760, margin: "0 auto", padding: "0
 
 const S007 = FRAME_SPECS["007"];
 const S009 = FRAME_SPECS["009"];
+// FRAME_SPECS hrefs point to the English shop; the German product pages live here.
+const deHref = (s: { href: string }) => s.href.replace(/^\/en\/products\//, "/de/produkte/");
 
 const badges = ["Signature 158 mm", "Maßanfertigung 145–160 mm", "Handgefertigt in der EU", "UV400"];
 
@@ -183,7 +185,7 @@ const BlaulichtfilterBrilleHerren = () => {
         "@type": "ListItem",
         position: i + 1,
         name: s.name,
-        url: `${SITE}${s.href}`,
+        url: `${SITE}${deHref(s)}`,
       })),
     },
   };
@@ -388,7 +390,7 @@ const BlaulichtfilterBrilleHerren = () => {
             {[S007, S009].map((s) => (
               <Link
                 key={s.href}
-                to={s.href}
+                to={deHref(s)}
                 style={{ display: "block", background: T.panel, border: `1px solid ${T.hair}`, borderRadius: 4, padding: "18px 20px", textDecoration: "none", color: T.ink }}
               >
                 <div style={{ fontFamily: SERIF, fontSize: 20, marginBottom: 6 }}>{s.name}</div>
@@ -458,7 +460,7 @@ const BlaulichtfilterBrilleHerren = () => {
           </ul>
         </section>
       </main>
-      <Footer />
+      <Footer lang="de" />
     </>
   );
 };

@@ -926,6 +926,21 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
     );
   }
 
+  if (route === "/de/datenschutz") {
+    const m = base(
+      route,
+      "de",
+      {
+        title: "Datenschutzerklärung | Woolet",
+        description: "Datenschutzerklärung von Woolet (JAY23 LLC): welche Daten wir erheben, wofür wir sie nutzen und welche Rechte du hast.",
+        noscriptHtml: "<h1>Datenschutzerklärung</h1><p>JAY23 LLC, 412 N. Main Street, STE 100, Buffalo, Wyoming 82834, USA. Fragen zum Datenschutz: support@woolet.co.</p>",
+      },
+      { image: DEFAULT_OG, type: "website" },
+    );
+    m.robots = "noindex, follow"; // like /en/privacy-policy
+    return m;
+  }
+
   // Homepage
   if (path === "/" || path === "") {
     return base(route, lang, homeCopy[lang], { image: DEFAULT_OG }, lang === "en" ? [websiteJsonLd] : []);
@@ -2456,6 +2471,7 @@ const STATIC_ROUTES = [
   "/de/brille-breite-158-mm",
   "/de/impressum",
   "/de/widerruf",
+  "/de/datenschutz",
   "/de/lp/kickstarter",
   "/en/lp/why-glasses-fail",
   "/en/lp/5-reasons",

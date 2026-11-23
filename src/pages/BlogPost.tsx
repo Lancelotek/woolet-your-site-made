@@ -17,6 +17,7 @@ import { alternateLangsFor, alternatesFor } from "@/lib/blog-slug-map";
 import { t, isValidLang, type Lang } from "@/lib/i18n";
 import { trackFitCtas } from "@/lib/blog-cta-tracking";
 import { isKickstarterLive, kickstarterLiveHref } from "@/config/kickstarter";
+import { DE_PRICING, formatDePrice } from "@/content/de/pricing";
 import { pushGtmEvent } from "@/lib/gtm";
 import { BLOG_AIO_ENHANCEMENTS, blogModifiedDate, enrichBlogContent, withVisibleFaq } from "@/content/blog-aio";
 import BridgeFitExplainer from "@/components/BridgeFitExplainer";
@@ -46,6 +47,12 @@ function extractH2s(html: string): { id: string; text: string }[] {
 
 /** Live-campaign inline box (raw HTML: the article body is injected as HTML). */
 function ksInlineCta(lang: Lang, href: string): string {
+  if (lang === "de") {
+    // German readers get the German Founder offer in euros, not the USD
+    // Kickstarter pledge (23.11.2026).
+    const founder = `${formatDePrice(DE_PRICING.founderPriceEur)} statt ${formatDePrice(DE_PRICING.regularPriceEur)}`;
+    return `<div class="woolet-inline-cta woolet-ks-cta"><p><strong>Fassungen für Gesichter von 155-161 mm</strong><br/>158 mm Front, italienisches Mazzucchelli-Acetat, handgefertigt in der EU. Founder Edition: ${founder}.</p><a href="/de/lp/kickstarter" data-ks-cta="1">Founder-Angebot ansehen →</a></div>`;
+  }
   const copy = lang === "pl"
     ? { h: "Oprawki dla twarzy 155-161 mm", p: "158 mm frontu, włoski acetat Mazzucchelli, ręcznie robione w UE. Na Kickstarterze od $114 (potem $190).", b: "Zobacz na Kickstarterze" }
     : { h: "Frames built for 155-161 mm faces", p: "158 mm front, Italian Mazzucchelli acetate, hand made in the EU. On Kickstarter from $114 (then $190).", b: "See it on Kickstarter" };
@@ -64,8 +71,10 @@ function processContent(html: string, lang: Lang, exactContent = false, slug = "
 
     const ctaText = lang === "pl"
       ? "Woolet jest projektowany dla twarzy 155mm+. Dołącz do listy oczekujących."
-      : "Woolet is engineered for faces 155mm+. Join the waitlist.";
-    const ctaBtn = lang === "pl" ? "Dołącz" : "Join Waitlist";
+      : lang === "de"
+        ? "Woolet ist für Gesichter ab 155 mm gebaut. Trag dich in die Liste ein."
+        : "Woolet is engineered for faces 155mm+. Join the waitlist.";
+    const ctaBtn = lang === "pl" ? "Dołącz" : lang === "de" ? "Eintragen" : "Join Waitlist";
 
     let cta = "";
     if (ksLive) {
@@ -152,7 +161,7 @@ const TableOfContents = ({ headings, lang }: { headings: { id: string; text: str
 
   if (headings.length < 4) return null;
 
-  const title = lang === "pl" ? "W tym artykule" : lang === "fr" ? "Dans ce guide" : lang === "es" ? "En esta guía" : "In this guide";
+  const title = lang === "pl" ? "W tym artykule" : lang === "fr" ? "Dans ce guide" : lang === "es" ? "En esta guía" : lang === "de" ? "In diesem Ratgeber" : "In this guide";
 
   return (
     <div className="woolet-toc">
@@ -420,8 +429,8 @@ const BlogPost = () => {
         </h1>
 
         {BLOG_AIO_ENHANCEMENTS[post.slug] && (
-          <aside aria-label="Quick answer" className="mb-6 border-l-2 border-primary pl-4 py-1">
-            <strong className="block text-primary uppercase tracking-[0.16em] mb-2" style={{ fontSize: "0.72rem" }}>Quick answer</strong>
+          <aside aria-label={currentLang === "de" ? "Kurze Antwort" : "Quick answer"} className="mb-6 border-l-2 border-primary pl-4 py-1">
+            <strong className="block text-primary uppercase tracking-[0.16em] mb-2" style={{ fontSize: "0.72rem" }}>{currentLang === "de" ? "Kurze Antwort" : "Quick answer"}</strong>
             <p className="m-0 text-woolet-white" style={{ lineHeight: 1.65 }}>{BLOG_AIO_ENHANCEMENTS[post.slug].quickAnswer}</p>
           </aside>
         )}
@@ -430,7 +439,7 @@ const BlogPost = () => {
         <div className="flex items-center gap-2 mb-8" style={{ color: "hsl(var(--cream-dim))", fontSize: "0.8125rem", textTransform: "uppercase", letterSpacing: "0.15em" }}>
           <span>{formattedDate}</span>
           <span style={{ opacity: 0.4 }}>·</span>
-          <span>{post.readTime} min read</span>
+          <span>{post.readTime} {currentLang === "de" ? "Min. Lesezeit" : "min read"}</span>
         </div>
 
         <div className="woolet-divider mb-8" />
@@ -473,7 +482,7 @@ const BlogPost = () => {
 
         <RelatedPosts currentSlug={post.slug} lang={currentLang} />
 
-        <RelatedGuides variant="dark" className="my-12" />
+        <RelatedGuides variant="dark" className="my-12" lang={currentLang === "de" ? "de" : "en"} />
 
         <div className="woolet-divider my-12" />
 
@@ -482,7 +491,7 @@ const BlogPost = () => {
         </Link>
       </article>
 
-      <Footer />
+      <Footer lang={currentLang} />
     </div>
   );
 };

@@ -98,6 +98,7 @@ const BlaulichtfilterBrilleHerren = lazy(() => import("./pages/de/Blaulichtfilte
 const DeKickstarter = lazy(() => import("./pages/de/DeKickstarter.tsx"));
 const DeFounders = lazy(() => import("./pages/de/DeFounders.tsx"));
 const Impressum = lazy(() => import("./pages/de/Impressum.tsx"));
+const Datenschutz = lazy(() => import("./pages/de/Datenschutz.tsx"));
 const Widerruf = lazy(() => import("./pages/de/Widerruf.tsx"));
 const DeCollection = lazy(() => import("./pages/de/DeCollection.tsx"));
 const DeFitManual = lazy(() => import("./pages/de/DeFitManual.tsx"));
@@ -158,6 +159,7 @@ const RedirectCollectionToEn = () => {
 const RedirectProductToEn = () => {
   const { lang, slug } = useParams();
   if (lang === "en") return <NotFound />;
+  if (lang === "de" && (slug === "007" || slug === "009")) return <Navigate to={`/de/produkte/${slug}`} replace />;
   return <Navigate to={`/en/products/${slug}`} replace />;
 };
 const RedirectLpToEn = () => {
@@ -463,6 +465,7 @@ const App = () => (
 
          {/* DE market SEO landing pages */}
          <Route path="/de/impressum" element={<Impressum />} />
+         <Route path="/de/datenschutz" element={<Datenschutz />} />
          <Route path="/de/widerruf" element={<Widerruf />} />
          <Route path="/de/blaulichtfilter-brille-herren" element={<BlaulichtfilterBrilleHerren />} />
          <Route path="/de/:slug" element={<DeLandingRoute />} />
