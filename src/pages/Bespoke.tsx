@@ -17,6 +17,7 @@ import craft6 from "@/assets/bespoke-craft/woolet-bespoke-mirror-polish-finish.j
 import craft7 from "@/assets/bespoke-craft/woolet-bespoke-jigsaw-cutting-acetate-front.jpg.asset.json";
 import craft8 from "@/assets/bespoke-craft/woolet-bespoke-diamond-file-keyhole-bridge.jpg.asset.json";
 import craft9 from "@/assets/bespoke-craft/woolet-bespoke-shaping-brow-line-precision-file.jpg.asset.json";
+import { DE_BESPOKE } from "@/content/de/bespoke";
 import { BESPOKE_FACTS, BESPOKE_FAQS, BESPOKE_GUIDE, BESPOKE_META_DESCRIPTION, bespokeFaqJsonLd, bespokeProductJsonLd } from "@/content/bespokeFacts";
 import { MAX_MODEL_CORRECTIONS, PREVIEW_WINDOW_DAYS } from "@/lib/bespoke-flow";
 import { trackMetaEventOnce } from "@/lib/meta-capi";
@@ -195,6 +196,11 @@ const BespokePage = () => {
   const selectedShape = shapeParam && findFrame(shapeParam) ? shapeParam : null;
   const cfgHref = selectedShape ? `/en/bespoke/configurator?shape=${selectedShape}` : "/en/bespoke/configurator";
   const atelier = ATELIER_I18N[(lang ?? "en") as keyof typeof ATELIER_I18N] ?? ATELIER_I18N.en;
+  // /de/bespoke is German since 23.11.2026 (copy: src/content/de/bespoke.ts).
+  // Other locales still render the English page.
+  const de = lang === "de";
+  const D = DE_BESPOKE;
+  const faqs = de ? D.faqs : FAQS;
 
   const heroCtaRef = useRef<HTMLDivElement>(null);
   useEffect(() => { oaiqBespokeViewed(); }, []);
@@ -250,14 +256,16 @@ const BespokePage = () => {
   }, [lightbox, closeLightbox, showPrev, showNext]);
 
   const jsonLd = [
-    bespokeProductJsonLd(),
-    bespokeFaqJsonLd(),
+    bespokeProductJsonLd(`https://woolet.co/${de ? "de" : "en"}/bespoke`),
+    de
+      ? { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: D.faqs.map(({ q, a }) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })) }
+      : bespokeFaqJsonLd(),
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: "https://woolet.co/en" },
-        { "@type": "ListItem", position: 2, name: "Bespoke", item: "https://woolet.co/en/bespoke" },
+        { "@type": "ListItem", position: 1, name: de ? "Startseite" : "Home", item: `https://woolet.co/${de ? "de" : "en"}` },
+        { "@type": "ListItem", position: 2, name: "Bespoke", item: `https://woolet.co/${de ? "de" : "en"}/bespoke` },
       ],
     },
     {
@@ -319,15 +327,15 @@ const BespokePage = () => {
                 className="font-display text-woolet-white leading-[0.95] mb-6"
                 style={{ fontSize: "clamp(2.4rem, 5vw, 4rem)", fontWeight: 300 }}
               >
-                 {BESPOKE_FACTS.h1}
+                 {de ? D.h1 : BESPOKE_FACTS.h1}
               </h1>
               <p className="order-3 lg:order-none text-cream-dim leading-relaxed max-w-xl" style={{ fontSize: "1.05rem" }}>
-                 Woolet Bespoke is made-to-measure eyewear in any front width within {BESPOKE_FACTS.frontWidth}, with a {BESPOKE_FACTS.bridge} bridge and {BESPOKE_FACTS.temples} temples, made from {BESPOKE_FACTS.material} and hand made in the EU for {BESPOKE_COPY.frame} USD with free worldwide shipping. Clear Plano lenses included, Blue Light {BESPOKE_COPY.blueLight}.
+                 {de ? <>{D.heroLead} {D.priceNote}</> : <>Woolet Bespoke is made-to-measure eyewear in any front width within {BESPOKE_FACTS.frontWidth}, with a {BESPOKE_FACTS.bridge} bridge and {BESPOKE_FACTS.temples} temples, made from {BESPOKE_FACTS.material} and hand made in the EU for {BESPOKE_COPY.frame} USD with free worldwide shipping. Clear Plano lenses included, Blue Light {BESPOKE_COPY.blueLight}.</>}
               </p>
               <p className="order-3 lg:order-none text-cream-dim leading-relaxed max-w-xl mb-10" style={{ fontSize: "0.85rem" }}>
-                Want photochromic (transition) lenses? Your optician swaps the included clear Plano lenses for them - see{" "}
+                {de ? D.photochromicLead : "Want photochromic (transition) lenses? Your optician swaps the included clear Plano lenses for them - see"}{" "}
                 <Link to="/en/blog/glasses-that-turn-into-sunglasses-wide-face" className="text-gold-light underline underline-offset-4">
-                  how photochromic glasses work on a wide face
+                  {de ? `${D.photochromicLink} (Englisch)` : "how photochromic glasses work on a wide face"}
                 </Link>.
               </p>
 
@@ -344,14 +352,14 @@ const BespokePage = () => {
                     padding: "18px 32px",
                   }}
                 >
-                   Build your frame →
+                   {de ? D.ctaBuild : "Build your frame →"}
                 </Link>
-                <Link to="/en/fit" className="text-gold-light underline underline-offset-4 text-sm">
-                  Not sure of your width? Take the fit scan
+                <Link to={de ? D.ctaFitHref : "/en/fit"} className="text-gold-light underline underline-offset-4 text-sm">
+                  {de ? D.ctaFit : "Not sure of your width? Take the fit scan"}
                 </Link>
                 {depositUsd > 0 && (
                   <p className="basis-full text-cream-dim text-sm leading-relaxed m-0">
-                    Start with a <strong className="text-cream font-medium">${depositUsd} deposit</strong>. You pay the rest when you accept your visualization: your photo wearing the frame, with the proposed dimensions.
+                    {de ? D.deposit(depositUsd) : <>Start with a <strong className="text-cream font-medium">${depositUsd} deposit</strong>. You pay the rest when you accept your visualization: your photo wearing the frame, with the proposed dimensions.</>}
                   </p>
                 )}
               </div>
@@ -376,7 +384,7 @@ const BespokePage = () => {
                 />
               </div>
               <Link to="/en/bespoke/video" className="mt-4 inline-block text-gold-light underline underline-offset-4 text-sm">
-                Watch how Bespoke is built (28 s) →
+                {de ? D.videoLink : "Watch how Bespoke is built (28 s) →"}
               </Link>
             </div>
           </div>
@@ -501,18 +509,18 @@ const BespokePage = () => {
 
         <section className="w-full px-5 sm:px-8 lg:px-16 py-16 sm:py-20" aria-labelledby="bespoke-specifications">
           <div className="max-w-4xl mx-auto">
-            <h2 id="bespoke-specifications" className="font-display text-woolet-white mb-5 text-3xl">Specifications at a glance</h2>
-            <p className="text-cream-dim leading-relaxed mb-6">Woolet Bespoke is measured for each wearer, not selected from a fixed-width inventory. The four configurator shapes are Aviator, Rectangle, Crown Panto and Round. The standard Woolet 007 and 009 signature frames are different designs with a fixed 158 mm front.</p>
+            <h2 id="bespoke-specifications" className="font-display text-woolet-white mb-5 text-3xl">{de ? D.specsHeading : "Specifications at a glance"}</h2>
+            <p className="text-cream-dim leading-relaxed mb-6">{de ? D.specsIntro : "Woolet Bespoke is measured for each wearer, not selected from a fixed-width inventory. The four configurator shapes are Aviator, Rectangle, Crown Panto and Round. The standard Woolet 007 and 009 signature frames are different designs with a fixed 158 mm front."}</p>
             <div className="overflow-x-auto border" style={{ borderColor: "hsl(var(--gold) / 0.25)" }}>
               <table className="w-full text-left text-sm text-cream-dim" style={{ minWidth: 420 }}>
-                <thead><tr className="text-gold-light"><th className="p-4">Specification</th><th className="p-4">Woolet Bespoke</th></tr></thead>
-                <tbody>{[
+                <thead><tr className="text-gold-light"><th className="p-4">{de ? D.specsHead[0] : "Specification"}</th><th className="p-4">{de ? D.specsHead[1] : "Woolet Bespoke"}</th></tr></thead>
+                <tbody>{(de ? D.specs : [
                   ["Front width", BESPOKE_FACTS.frontWidth], ["Bridge", BESPOKE_FACTS.bridge], ["Temples", BESPOKE_FACTS.temples],
                   ["Shapes", BESPOKE_FACTS.shapes.join(", ")], ["Regular price", BESPOKE_FACTS.regularPriceLabel],
                   ["Lenses", BESPOKE_FACTS.lenses], ["Shipping", BESPOKE_FACTS.shipping],
                   ["Material", BESPOKE_FACTS.material], ["Origin", BESPOKE_FACTS.origin],
                   ["Production", BESPOKE_FACTS.leadTime], ["Warranty", BESPOKE_FACTS.warranty],
-                ].map(([label, value]) => <tr key={label} className="border-t" style={{ borderColor: "hsl(var(--gold) / 0.2)" }}><th scope="row" className="p-4 font-medium text-woolet-white">{label}</th><td className="p-4">{value}</td></tr>)}</tbody>
+                ]).map(([label, value]) => <tr key={label} className="border-t" style={{ borderColor: "hsl(var(--gold) / 0.2)" }}><th scope="row" className="p-4 font-medium text-woolet-white">{label}</th><td className="p-4">{value}</td></tr>)}</tbody>
               </table>
             </div>
           </div>
@@ -520,9 +528,9 @@ const BespokePage = () => {
 
         <div className="woolet-divider max-w-5xl mx-auto" />
 
-        <section className="w-full px-5 sm:px-8 lg:px-16 py-16 sm:py-20" aria-label="Woolet Bespoke guide">
+        <section className="w-full px-5 sm:px-8 lg:px-16 py-16 sm:py-20" aria-label={de ? "Woolet Bespoke Ratgeber" : "Woolet Bespoke guide"}>
           <div className="max-w-4xl mx-auto space-y-9">
-            {BESPOKE_GUIDE.map(({ heading, text }) => (
+            {(de ? D.guide : BESPOKE_GUIDE).map(({ heading, text }) => (
               <div key={heading}>
                 <h2 className="font-display text-woolet-white text-3xl mb-4">{heading}</h2>
                 <p className="text-cream-dim leading-relaxed">{text}</p>
@@ -538,19 +546,23 @@ const BespokePage = () => {
           <div className="max-w-4xl mx-auto">
             <div className="woolet-eyebrow mb-5">
               <div className="woolet-eyebrow-line" />
-              <span className="woolet-eyebrow-text">WHAT IS BESPOKE EYEWEAR</span>
+              <span className="woolet-eyebrow-text">{de ? D.whatIs.eyebrow : "WHAT IS BESPOKE EYEWEAR"}</span>
             </div>
             <h2
               className="font-display text-woolet-white mb-6"
               style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 300 }}
             >
-              Bespoke eyewear, <em className="italic text-gold-light">defined properly.</em>
+              {de ? D.whatIs.lead : "Bespoke eyewear,"} <em className="italic text-gold-light">{de ? D.whatIs.italic : "defined properly."}</em>
             </h2>
             <p className="text-cream-dim leading-relaxed mb-5" style={{ fontSize: "0.98rem" }}>
-              Woolet Bespoke is a made-to-measure frame, not a stock size or colour swap. Front widths run from 145–160 mm, bridges from 20-26 mm and temples from 145-155 mm. The finished frame is made for one wearer.
+              {de ? D.whatIs.p1 : "Woolet Bespoke is a made-to-measure frame, not a stock size or colour swap. Front widths run from 145–160 mm, bridges from 20-26 mm and temples from 145-155 mm. The finished frame is made for one wearer."}
             </p>
             <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.95rem" }}>
-              The regular price is {BESPOKE_COPY.frame} USD with free worldwide shipping. Clear Plano lenses included, Blue Light {BESPOKE_COPY.blueLight}. The {BESPOKE_COPY.kickstarter} price was a <Link to={BESPOKE_FACTS.kickstarterPath} className="text-gold-light underline">Kickstarter-only backer price</Link>, not a shop offer. Your phone-camera scan starts the remote measurement process; you approve the 3D model before production.
+              {de ? (
+                <>{D.whatIs.p2a} <Link to={D.whatIs.kickstarterPath} className="text-gold-light underline">{D.whatIs.p2link}</Link>{D.whatIs.p2b}</>
+              ) : (
+                <>The regular price is {BESPOKE_COPY.frame} USD with free worldwide shipping. Clear Plano lenses included, Blue Light {BESPOKE_COPY.blueLight}. The {BESPOKE_COPY.kickstarter} price was a <Link to={BESPOKE_FACTS.kickstarterPath} className="text-gold-light underline">Kickstarter-only backer price</Link>, not a shop offer. Your phone-camera scan starts the remote measurement process; you approve the 3D model before production.</>
+              )}
             </p>
           </div>
         </section>
@@ -562,30 +574,30 @@ const BespokePage = () => {
           <div className="max-w-4xl mx-auto">
             <div className="woolet-eyebrow mb-5">
               <div className="woolet-eyebrow-line" />
-              <span className="woolet-eyebrow-text">BESPOKE GLASSES FOR WIDE FACES</span>
+              <span className="woolet-eyebrow-text">{de ? D.wide.eyebrow : "BESPOKE GLASSES FOR WIDE FACES"}</span>
             </div>
             <h2
               className="font-display text-woolet-white mb-6"
               style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 300 }}
             >
-              The only bespoke glasses <em className="italic text-gold-light">built around wide faces.</em>
+              {de ? D.wide.lead : "The only bespoke glasses"} <em className="italic text-gold-light">{de ? D.wide.italic : "built around wide faces."}</em>
             </h2>
             <p className="text-cream-dim leading-relaxed mb-8" style={{ fontSize: "0.98rem" }}>
-              Stock 007 and 009 both use a 158 mm front for faces around 155-161 mm. Bespoke instead covers any front width from 145–160 mm, whether narrower, wider or inside the stock band.
+              {de ? D.wide.p : "Stock 007 and 009 both use a 158 mm front for faces around 155-161 mm. Bespoke instead covers any front width from 145–160 mm, whether narrower, wider or inside the stock band."}
             </p>
 
             <div
               className="grid grid-cols-1 sm:grid-cols-3 gap-0 border"
               style={{ borderColor: "hsl(var(--gold) / 0.25)" }}
             >
-              {[
+              {(de ? D.wide.rows : [
                 { label: "Frame width", woolet: BESPOKE_FACTS.frontWidth, stock: "158 mm (007 and 009)" },
                 { label: "Bridge width", woolet: BESPOKE_FACTS.bridge, stock: "25 mm (007 and 009)" },
                 { label: "Temple length", woolet: BESPOKE_FACTS.temples, stock: "150 mm (007 and 009)" },
                 { label: "Measurement method", woolet: "Photo with a card for scale and model approval", stock: "Fixed dimensions" },
                 { label: "Regular price", woolet: `${BESPOKE_COPY.frame} USD with free worldwide shipping; clear Plano lenses included (Blue Light ${BESPOKE_COPY.blueLight})`, stock: "See stock product pages" },
                 { label: "Made in", woolet: "EU, Italian acetate", stock: "EU" },
-              ].map((row, i) => (
+              ]).map((row, i) => (
                 <div
                   key={row.label}
                   className="contents"
@@ -609,7 +621,7 @@ const BespokePage = () => {
                     style={{ borderTopColor: "hsl(var(--gold) / 0.15)" }}
                   >
                     <div className="text-cream-dim uppercase tracking-[0.16em] mb-1" style={{ fontFamily: "Barlow, sans-serif", fontSize: "0.55rem" }}>
-                      Woolet bespoke
+                      {de ? D.wide.colWoolet : "Woolet bespoke"}
                     </div>
                     <div className="text-gold-light" style={{ fontSize: "0.92rem" }}>{row.woolet}</div>
                   </div>
@@ -618,7 +630,7 @@ const BespokePage = () => {
                     style={{ borderTopColor: "hsl(var(--gold) / 0.15)" }}
                   >
                     <div className="text-cream-dim uppercase tracking-[0.16em] mb-1" style={{ fontFamily: "Barlow, sans-serif", fontSize: "0.55rem" }}>
-                      Standard Woolet 007 and 009
+                      {de ? D.wide.colStock : "Standard Woolet 007 and 009"}
                     </div>
                     <div className="text-cream-dim" style={{ fontSize: "0.92rem" }}>{row.stock}</div>
                   </div>
@@ -639,10 +651,10 @@ const BespokePage = () => {
                   padding: "16px 28px",
                 }}
               >
-                Build yours · {BESPOKE_FACTS.frontWidth} →
+                {de ? D.wide.ctaBuild : <>Build yours · {BESPOKE_FACTS.frontWidth} →</>}
               </Link>
-              <Link to="/en/fit" className="text-gold-light underline underline-offset-4 text-sm">
-                Not sure of your width? Take the fit scan
+              <Link to={de ? D.ctaFitHref : "/en/fit"} className="text-gold-light underline underline-offset-4 text-sm">
+                {de ? D.ctaFit : "Not sure of your width? Take the fit scan"}
               </Link>
             </div>
           </div>
@@ -655,23 +667,23 @@ const BespokePage = () => {
           <div className="max-w-4xl mx-auto">
             <div className="woolet-eyebrow mb-5">
               <div className="woolet-eyebrow-line" />
-              <span className="woolet-eyebrow-text">THE AI FIT ADVANTAGE</span>
+              <span className="woolet-eyebrow-text">{de ? D.ai.eyebrow : "THE AI FIT ADVANTAGE"}</span>
             </div>
             <h2
               className="font-display text-woolet-white mb-6"
               style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 300 }}
             >
-              Bespoke without the <em className="italic text-gold-light">atelier visit.</em>
+              {de ? D.ai.lead : "Bespoke without the"} <em className="italic text-gold-light">{de ? D.ai.italic : "atelier visit."}</em>
             </h2>
             <p className="text-cream-dim leading-relaxed mb-8" style={{ fontSize: "0.98rem" }}>
-              One photo with a bank-size card held against your cheek starts the remote measurement process. We review the dimensions with you before cutting the frame, and you approve the made-to-measure 3D model before production.
+              {de ? D.ai.p : "One photo with a bank-size card held against your cheek starts the remote measurement process. We review the dimensions with you before cutting the frame, and you approve the made-to-measure 3D model before production."}
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-              {[
+              {(de ? D.ai.stats : [
                 { n: "145–160 mm", t: "Front width", d: "A continuous made-to-measure range." },
                 { n: "4", t: "Shapes", d: "Aviator, Rectangle, Crown Panto and Round." },
                 { n: "$0", t: "Consultation cost", d: "No studio visit, no travel, no measurement fee." },
-              ].map((s) => (
+              ]).map((s) => (
                 <div key={s.t} className="border-t pt-5" style={{ borderTopColor: "hsl(var(--gold) / 0.3)" }}>
                   <div className="font-display text-gold-light mb-2" style={{ fontSize: "1.6rem", fontWeight: 300, lineHeight: 1 }}>
                     {s.n}
@@ -693,18 +705,18 @@ const BespokePage = () => {
               className="font-display text-woolet-white mb-6"
               style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 300 }}
             >
-              Who bespoke is <em className="italic text-gold-light">actually for</em>
+              {de ? D.who.lead : "Who bespoke is"} <em className="italic text-gold-light">{de ? D.who.italic : "actually for"}</em>
             </h2>
             <p className="text-cream-dim leading-relaxed mb-6" style={{ fontSize: "0.95rem" }}>
-              Woolet 007 and 009 have one stock front width: 158 mm, fitting faces around 155-161 mm. Bespoke covers 145–160 mm, including narrower faces and customers seeking a one-of-one frame.
+              {de ? D.who.p : "Woolet 007 and 009 have one stock front width: 158 mm, fitting faces around 155-161 mm. Bespoke covers 145–160 mm, including narrower faces and customers seeking a one-of-one frame."}
             </p>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
-              {[
+              {(de ? D.who.items : [
                 "Frame width 145–160 mm (outside the stock 158 mm front)",
                 "Asymmetric ears or significant pantoscopic-tilt needs",
                 "Bridge width 20-26 mm, measured for the wearer's nose",
                 "Wearers who simply want a one-of-one frame, cut to their face",
-              ].map((item) => (
+              ]).map((item) => (
                 <li
                   key={item}
                   className="flex gap-3 text-cream-dim leading-relaxed"
@@ -725,22 +737,22 @@ const BespokePage = () => {
           <div className="max-w-4xl mx-auto">
             <div className="woolet-eyebrow mb-5">
               <div className="woolet-eyebrow-line" />
-              <span className="woolet-eyebrow-text">THE SIX-STEP PROCESS</span>
+              <span className="woolet-eyebrow-text">{de ? D.process.eyebrow : "THE SIX-STEP PROCESS"}</span>
             </div>
             <h2
               className="font-display text-woolet-white mb-10"
               style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 300 }}
             >
-              Six steps from your design to a finished frame.
+              {de ? D.process.heading : "Six steps from your design to a finished frame."}
             </h2>
             <ol className="space-y-8">
-              {BESPOKE_FACTS.process.map((step, i) => (
+              {(de ? D.process.steps : BESPOKE_FACTS.process).map((step, i) => (
                 <li key={step} className="grid grid-cols-[auto_1fr] gap-6 sm:gap-10">
                   <span className="font-display text-gold-light" style={{ fontSize: "1.6rem", fontWeight: 300, lineHeight: 1 }}>{String(i + 1).padStart(2, "0")}</span>
                   <div><h3 className="font-display text-woolet-white mb-2" style={{ fontSize: "1.15rem", fontWeight: 400 }}>{step}</h3>
-                  {i === 1 && depositUsd > 0 && <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.9rem" }}>You pay a ${depositUsd} deposit. It buys your visualization and is non-refundable.</p>}
-                  {i === 3 && depositUsd > 0 && <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.9rem" }}>Accept the visualization by paying the balance - you have {PREVIEW_WINDOW_DAYS} days. The workshop then draws your 3D model, and you can ask for up to {MAX_MODEL_CORRECTIONS} corrections. Bespoke is custom work, so no payment is refundable.</p>}
-                  {i === 4 && <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.9rem" }}>Production takes 2 weeks after 3D model approval, then shipping begins.</p>}</div>
+                  {i === 1 && depositUsd > 0 && <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.9rem" }}>{de ? D.process.deposit(depositUsd) : `You pay a $${depositUsd} deposit. It buys your visualization and is non-refundable.`}</p>}
+                  {i === 3 && depositUsd > 0 && <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.9rem" }}>{de ? D.process.accept(PREVIEW_WINDOW_DAYS, MAX_MODEL_CORRECTIONS) : <>Accept the visualization by paying the balance - you have {PREVIEW_WINDOW_DAYS} days. The workshop then draws your 3D model, and you can ask for up to {MAX_MODEL_CORRECTIONS} corrections. Bespoke is custom work, so no payment is refundable.</>}</p>}
+                  {i === 4 && <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.9rem" }}>{de ? D.process.production : "Production takes 2 weeks after 3D model approval, then shipping begins."}</p>}</div>
                 </li>
               ))}
             </ol>
@@ -756,10 +768,10 @@ const BespokePage = () => {
               className="font-display text-woolet-white mb-6"
               style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 300 }}
             >
-              <em className="italic text-gold-light">Mazzucchelli 1849</em> acetate. Hand made in the EU.
+              <em className="italic text-gold-light">Mazzucchelli 1849</em> {de ? D.materials.rest : "acetate. Hand made in the EU."}
             </h2>
             <p className="text-cream-dim leading-relaxed max-w-2xl" style={{ fontSize: "0.95rem" }}>
-               The frame is hand made in the EU from Italian Mazzucchelli 1849 cellulose acetate. The regular {BESPOKE_COPY.frame} USD price includes free worldwide shipping; clear Plano lenses included (Blue Light {BESPOKE_COPY.blueLight}) and prescription lenses are fitted by your own optician. First Bespoke pairs have shipped to customers abroad, including Vietnam. Each frame carries a 5-year warranty.
+               {de ? D.materials.p : <>The frame is hand made in the EU from Italian Mazzucchelli 1849 cellulose acetate. The regular {BESPOKE_COPY.frame} USD price includes free worldwide shipping; clear Plano lenses included (Blue Light {BESPOKE_COPY.blueLight}) and prescription lenses are fitted by your own optician. First Bespoke pairs have shipped to customers abroad, including Vietnam. Each frame carries a 5-year warranty.</>}
             </p>
           </div>
         </section>
@@ -773,10 +785,10 @@ const BespokePage = () => {
               className="font-display text-woolet-white mb-10"
               style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 300 }}
             >
-              Bespoke eyewear — common questions
+              {de ? D.faqHeading : "Bespoke eyewear — common questions"}
             </h2>
             <div className="space-y-8">
-              {FAQS.map((f) => (
+              {faqs.map((f) => (
                 <div key={f.q}>
                   <h3 className="font-display text-woolet-white mb-3" style={{ fontSize: "1.1rem", fontWeight: 400 }}>
                     {f.q}
@@ -805,7 +817,7 @@ const BespokePage = () => {
               padding: "16px 24px",
             }}
           >
-            Build your frame →
+            {de ? D.sticky : "Build your frame →"}
           </Link>
         </div>
       )}

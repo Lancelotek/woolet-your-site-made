@@ -63,7 +63,7 @@ const Footer = ({ lang: langProp }: { lang?: Lang } = {}) => {
       links: [
         { label: "Blog", href: "/de/blog" },
         { label: "Impressum", href: "/de/impressum" },
-        { label: "Datenschutz", href: "/en/privacy-policy" },
+        { label: "Datenschutz", href: "/de/datenschutz" },
         { label: "Widerruf", href: "/de/widerruf" },
         { label: "support@woolet.co", href: "mailto:support@woolet.co" },
       ],

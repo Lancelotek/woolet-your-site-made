@@ -175,7 +175,8 @@ function build(): Record<string, string> {
       add(`/${l}/fit/quick`, "/en/fit/quick");
     }
     for (const s of LP_SLUGS) if (!(l === "de" && s === "kickstarter")) add(`/${l}/lp/${s}`, `/en/lp/${s}`);
-    if (l !== "fr" && l !== "nl") for (const s of ["007", "009", "bespoke"]) add(`/${l}/products/${s}`, `/en/products/${s}`);
+    // DE has native product pages under /de/produkte (23.11.2026).
+    if (l !== "fr" && l !== "nl") for (const s of ["007", "009", "bespoke"]) add(`/${l}/products/${s}`, l === "de" && s !== "bespoke" ? `/de/produkte/${s}` : `/en/products/${s}`);
     for (const s of COLLECTION_SLUGS) add(`/${l}/collections/${s}`, `/en/collections/${s}`);
     for (const s of MERGED_COLLECTION_SLUGS) add(`/${l}/collections/${s}`, COLLECTION_HUB);
     for (const s of COMPARE_SLUGS) add(`/${l}/compare/${s}`, `/en/compare/${s}`);
@@ -190,7 +191,7 @@ function build(): Record<string, string> {
   for (const l of ["pl", "es", "ar", "ja", "ko"]) add(`/${l}/collection`, "/en/collection");
   for (const l of ["es", "ar", "ja", "ko"]) add(`/${l}/blog`, "/en/blog");
   for (const l of ["de", "fr", "nl", "ja", "es", "ar", "ko"]) {
-    add(`/${l}/privacy-policy`, "/en/privacy-policy");
+    add(`/${l}/privacy-policy`, l === "de" ? "/de/datenschutz" : "/en/privacy-policy");
     add(`/${l}/return-policy`, "/en/return-policy");
   }
   // /:lang/fit/scan -> /:lang/fit

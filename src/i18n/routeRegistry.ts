@@ -81,6 +81,7 @@ export const ROUTES = {
   privacyPolicy: {
     en: "/en/privacy-policy",
     pl: "/pl/privacy-policy",
+    de: "/de/datenschutz",
   },
   returnPolicy: {
     en: "/en/return-policy",
