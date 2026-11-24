@@ -62,7 +62,7 @@ export default function DeProduct({ modelId }: { modelId: "007" | "009" }) {
   }, []);
 
   const path = `/de/produkte/${model.id}`;
-  const title = `Woolet ${model.id} ${model.shape} - Brille für breite Gesichter (158 mm) | Woolet`;
+  const title = `Woolet ${model.id} ${model.id === "007" ? "Rund" : "Quadrat"}: Brille für breite Gesichter, 158 mm`;
   const description = `Woolet ${model.id} ${model.shape}: 158 mm Frontbreite, ${model.bridge}, Mazzucchelli-Acetat, handgefertigt in der EU. Founder-Preis ${formatDePrice(DE_PRICING.founderPriceEur)} statt ${formatDePrice(DE_PRICING.regularPriceEur)} inkl. MwSt.`;
   const onFace = galleryOnFace[model.id][colour];
   const productJsonLd = {

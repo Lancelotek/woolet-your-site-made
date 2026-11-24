@@ -226,7 +226,7 @@ const de: Dict = {
   "qr.desktop_copy": 'Am genauesten auf dem Smartphone - Code scannen',
   "qr.alt": 'QR-Code, um diese Seite auf dem Smartphone zu öffnen',
   ...en,
-  "seo.title": "Brillenfinder für breite Gesichter - Gesicht in 60 Sekunden messen",
+  "seo.title": "Brillenfinder für breite Gesichter in 60 Sekunden",
   "seo.desc": "Miss deine Gesichtsbreite mit der Smartphone-Kamera und finde in etwa 60 Sekunden die passende Woolet Fassung.",
   "welcome.eyebrow": "FITLENS · MESSUNG IN ETWA 60 SEKUNDEN",
   "welcome.h1_pre": "Brillenfinder für breite Gesichter - Gesicht in",

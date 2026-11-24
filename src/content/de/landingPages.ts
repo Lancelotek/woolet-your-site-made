@@ -61,9 +61,9 @@ export const dePages: Record<string, DePageConfig> = {
     detailBody: "Woolet fertigt 158 mm Frontbreite als Standard für 155-161 mm Gesichtsbreite. Der 25 mm Keyhole-Steg und 150 mm lange Bügel sind auf dieselbe breite Passform abgestimmt. Außerhalb dieses Bereichs deckt Woolet Bespoke 145-160 mm ab.",
     contextualLink: { before: "Wenn nicht nur das Gesicht breit ist, hilft unser Ratgeber zu ", label: "Fassungen für breite Köpfe", after: " bei der Wahl der richtigen Frontbreite." },
     related: ["breite-brille", "brillen-fuer-grosse-koepfe"],
-    metaTitle: "Brille für breites Gesicht | Woolet - 158 mm aus italienischem Acetat",
+    metaTitle: "Brille für breites Gesicht: 158 mm Acetat | Woolet",
     metaDescription:
-      "Drückt jede Brille an den Schläfen? Woolet fertigt Brillen für breite Gesichter und große Köpfe - 158 mm Front für 155-161 mm, in der EU handgefertigt aus italienischem Mazzucchelli-Acetat. Miss dein Gesicht in 60 Sekunden.",
+      "Drückt jede Brille an den Schläfen? Woolet: 158 mm Front für 155-161 mm Gesichtsbreite, handgefertigt aus Mazzucchelli-Acetat. Gesicht in 60 Sekunden messen.",
     primaryKeyword: "brille für breites gesicht",
     faqs: [
       { q: "Welche Brille passt zu einem breiten Gesicht?", a: "Entscheidend ist die gesamte Frontbreite. Woolet hat 158 mm Front als Standard, Bespoke 145-160 mm, dazu 25 mm Keyhole-Steg und 150 mm lange Bügel." },
@@ -85,9 +85,9 @@ export const dePages: Record<string, DePageConfig> = {
     detailBody: "Eine breite Front allein reicht nicht. Modell 007 misst 53□25-150, Modell 009 misst 54□25-150. So bleiben Proportionen, Auflage und Bügelverlauf auf eine breite Passform abgestimmt.",
     contextualLink: { before: "Worauf es bei einer ", label: "Brille für einen großen Kopf", after: " außerdem ankommt, zeigt unser Größenratgeber." },
     related: ["brille-breite-160-mm", "brille-fuer-breites-gesicht"],
-    metaTitle: "Breite Brille (155-161 mm) | Woolet - Fassungen für breite Gesichter",
+    metaTitle: "Breite Brille (155-161 mm) für breite Gesichter | Woolet",
     metaDescription:
-      "Breite Brillen mit 158 mm Front für 155-161 mm Gesichtsbreite, in der EU handgefertigt aus italienischem Acetat. Für breite Gesichter und große Köpfe. Finde deine Größe mit FitLens in 60 Sekunden.",
+      "Breite Brillen mit 158 mm Front für 155-161 mm Gesichtsbreite, in der EU handgefertigt aus italienischem Acetat. Größe mit FitLens in 60 Sekunden finden.",
     primaryKeyword: "breite brille",
     faqs: [
       { q: "Was bedeutet breite Brille in Millimetern?", a: "Gemeint ist die gesamte Breite der Fassungsfront. Woolet hat eine Standardgröße: 158 mm Front, passend für 155-161 mm Gesichtsbreite. Darüber hinaus gibt es Bespoke von 145-160 mm." },

@@ -1207,7 +1207,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
     }
     if (lang === "de") {
       return base(route, lang, {
-        title: "Brillenfinder für breite Gesichter - Gesicht in 60 Sekunden messen",
+        title: "Brillenfinder für breite Gesichter in 60 Sekunden",
         description: "Miss deine Gesichtsbreite mit der Smartphone-Kamera und finde die passende Woolet Fassung in etwa 60 Sekunden.",
         noscriptHtml: `<h1>Brillenfinder für breite Gesichter - Gesicht in 60 Sekunden messen</h1><p>FitLens misst Gesichtsbreite, Steg und PD und empfiehlt 007, 009 oder eine Maßanfertigung.</p>`,
       });

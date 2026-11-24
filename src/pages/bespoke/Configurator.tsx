@@ -544,6 +544,7 @@ const ConfiguratorPage = () => {
         path="/bespoke/configurator"
       />
       <ConfiguratorStyles />
+      <h1 className="sr-only">Bespoke glasses configurator for wide faces</h1>
 
       <div>
 
