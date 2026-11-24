@@ -554,7 +554,7 @@ const BoxStage = () => {
             border: `1px solid ${DIM_GOLD}55`,
             padding: "8px 14px",
             fontFamily: "'Archivo', system-ui, sans-serif",
-            fontSize: 10,
+            fontSize: 12,
             letterSpacing: "0.18em",
             textTransform: "uppercase",
             cursor: "pointer",

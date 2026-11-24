@@ -276,7 +276,7 @@ const ImageLightbox = ({
                 border: `1px solid ${HAIRLINE}`,
                 color: TAUPE,
                 fontFamily: "Barlow, sans-serif",
-                fontSize: 11,
+                fontSize: 12,
                 letterSpacing: "0.16em",
                 textTransform: "uppercase",
                 padding: "12px 20px",
@@ -413,7 +413,7 @@ const ImageLightbox = ({
                   textAlign: "center",
                   color: TAUPE,
                   fontFamily: "Barlow, sans-serif",
-                  fontSize: 11,
+                  fontSize: 12,
                   letterSpacing: "0.08em",
                 }}
               >

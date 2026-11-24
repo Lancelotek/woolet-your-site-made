@@ -209,7 +209,7 @@ export default function BespokeWorkshop() {
         <header className="border-b border-cream/10">
           <div className="max-w-3xl mx-auto px-5 sm:px-8 py-5 flex items-center justify-between">
             <span className="text-cream text-[13px] tracking-[0.32em] uppercase font-medium">Woolet</span>
-            <span className="text-cream-dim text-[11px] uppercase tracking-[0.2em]">Bespoke · Workshop upload</span>
+            <span className="text-cream-dim text-[12px] uppercase tracking-[0.2em]">Bespoke · Workshop upload</span>
           </div>
         </header>
 
@@ -222,7 +222,7 @@ export default function BespokeWorkshop() {
             <div className="rounded-sm border border-cream/15 bg-cream/[0.03] p-6 text-cream-dim">{ERRORS.invalid_link}</div>
           ) : (
             <>
-              <div className="text-[11px] uppercase tracking-[0.22em] text-gold-light mb-3">Order {s.orderRef}</div>
+              <div className="text-[12px] uppercase tracking-[0.22em] text-gold-light mb-3">Order {s.orderRef}</div>
               <h1 className="font-display text-3xl sm:text-4xl leading-tight text-cream">Upload the 3D model and files</h1>
               <p className="mt-4 text-cream-dim leading-relaxed">
                 Videos of the 3D model, the drawing (PDF), CAD files and photos go straight onto this order at Woolet.
@@ -251,7 +251,7 @@ export default function BespokeWorkshop() {
                   .filter(([, v]) => v)
                   .map(([k, v]) => (
                     <div key={k} className="flex items-baseline justify-between gap-4">
-                      <dt className="text-cream-dim text-[11px] uppercase tracking-[0.16em]">{k}</dt>
+                      <dt className="text-cream-dim text-[12px] uppercase tracking-[0.16em]">{k}</dt>
                       <dd className="text-cream text-right">{v}</dd>
                     </div>
                   ))}
@@ -319,7 +319,7 @@ export default function BespokeWorkshop() {
               )}
 
               <label className="block mt-6">
-                <span className="text-cream-dim text-[11px] uppercase tracking-[0.16em]">Note for Woolet (optional)</span>
+                <span className="text-cream-dim text-[12px] uppercase tracking-[0.16em]">Note for Woolet (optional)</span>
                 <textarea
                   value={note}
                   onChange={(e) => setNote(e.target.value)}

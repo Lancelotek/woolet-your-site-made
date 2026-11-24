@@ -61,7 +61,7 @@ function FitSymptoms() {
       </ul>
       <p className="m-0 font-body text-sm leading-relaxed text-cream-dim">Alle drei Zeichen bedeuten dasselbe: <strong className="font-semibold text-primary">Deine Fassung ist etwa 10-15 mm zu schmal.</strong> Woolet beginnt dort, wo andere aufhören.</p>
       <div className="border border-border-sub">
-        <Button type="button" variant="ghost" aria-expanded={open} onClick={() => setOpen((value) => !value)} className="h-auto w-full justify-between rounded-none px-4 py-3 font-body text-[10px] uppercase tracking-[0.2em] text-cream-dim hover:bg-secondary hover:text-foreground">
+        <Button type="button" variant="ghost" aria-expanded={open} onClick={() => setOpen((value) => !value)} className="h-auto w-full justify-between rounded-none px-4 py-3 font-body text-[12px] uppercase tracking-[0.2em] text-cream-dim hover:bg-secondary hover:text-foreground">
           Kennst du dein Maß? Zahlen ansehen <span className="text-primary">{open ? "-" : "+"}</span>
         </Button>
         {open && <div className="px-4 pb-5"><WidthMeter /></div>}
@@ -74,12 +74,12 @@ function FitSymptoms() {
 function WidthMeter() {
   return (
     <div className="space-y-5 pt-3 font-body">
-      <div className="flex justify-between text-[10px] uppercase tracking-[0.22em] text-cream-dim"><span>Frontbreite</span><span>mm</span></div>
+      <div className="flex justify-between text-[12px] uppercase tracking-[0.22em] text-cream-dim"><span>Frontbreite</span><span>mm</span></div>
       <div className="relative h-6 border-y border-border-sub">
         <div className="absolute left-[8%] top-1/2 h-3 w-[28%] -translate-y-1/2 border border-border-sub bg-secondary" />
         <div className="absolute left-1/2 top-0 h-full w-[30%] bg-primary" />
       </div>
-      <div className="flex justify-between text-[11px] text-cream-dim"><span>135</span><span>155</span><span>161</span><span>175</span></div>
+      <div className="flex justify-between text-[12px] text-cream-dim"><span>135</span><span>155</span><span>161</span><span>175</span></div>
       <div className="flex justify-between text-xs"><span className="text-cream-dim">Standard 138-148</span><span className="font-semibold text-primary">Woolet 155-161</span></div>
     </div>
   );
@@ -170,11 +170,11 @@ function FounderEditionDe() {
   ];
   return (
     <div id={FOUNDER_ANCHOR} className="scroll-mt-28 overflow-hidden border border-primary/25 bg-primary/5" aria-label="Die Founder Edition">
-      <div className="border-b border-primary/20 bg-primary/5 px-4 py-2 font-body text-[10px] font-semibold uppercase tracking-[0.28em] text-primary">Founder Edition · {formatDePrice(DE_PRICING.founderPriceEur)} statt {formatDePrice(DE_PRICING.regularPriceEur)}</div>
+      <div className="border-b border-primary/20 bg-primary/5 px-4 py-2 font-body text-[12px] font-semibold uppercase tracking-[0.28em] text-primary">Founder Edition · {formatDePrice(DE_PRICING.founderPriceEur)} statt {formatDePrice(DE_PRICING.regularPriceEur)}</div>
       <img src={FOUNDER_PHOTO} alt="Woolet 009 Black Founder Edition in der Founder Box mit Filz-Etui und Clip-On-Tuch" width={800} height={800} loading="lazy" decoding="async" className="aspect-[4/3] w-full object-cover" />
       {facts.map(([title, text], index) => (
         <div key={title} className={`flex items-start gap-3 px-4 py-3 ${index < facts.length - 1 ? "border-b border-border-sub" : ""}`}>
-          <span className="flex h-[18px] w-[18px] shrink-0 items-center justify-center border border-primary/45 text-[10px] text-primary">✓</span>
+          <span className="flex h-[18px] w-[18px] shrink-0 items-center justify-center border border-primary/45 text-[12px] text-primary">✓</span>
           <div><div className="font-body text-[13px] font-medium text-woolet-white">{title}</div><div className="mt-0.5 font-body text-xs leading-relaxed text-cream-dim">{text}</div></div>
         </div>
       ))}
@@ -241,7 +241,7 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
 
               {config.kurzeAntwort && (
                 <aside className="order-5 max-w-[560px] border-l-2 border-primary bg-primary/5 px-5 py-4 lg:order-none">
-                  <p className="m-0 font-body text-[10px] font-semibold uppercase tracking-[0.24em] text-primary">Kurze Antwort</p>
+                  <p className="m-0 font-body text-[12px] font-semibold uppercase tracking-[0.24em] text-primary">Kurze Antwort</p>
                   <p className="m-0 mt-2 font-body text-[15px] leading-7 text-foreground">{config.kurzeAntwort}</p>
                 </aside>
               )}
@@ -267,7 +267,7 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
         <Section bordered>
           <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end"><div><div className="woolet-eyebrow mb-4"><div className="woolet-eyebrow-line" /><span className="woolet-eyebrow-text">Die Kollektion</span></div><h2 className="font-display text-3xl text-woolet-white lg:text-4xl">Zwei Formen. <em className="text-gold-light">Eine ehrliche Breite.</em></h2></div><Link to="/de/kollektion" className="font-body text-xs uppercase tracking-[0.22em] text-cream-dim no-underline hover:text-foreground">Kollektion ansehen -&gt;</Link></div>
           <div className="grid gap-4 sm:grid-cols-2 lg:gap-6">
-            {models.map((model) => <Link key={model.id} to={`/de/produkte/${model.id}`} className="group block border border-border-sub bg-secondary no-underline transition-all hover:-translate-y-1 hover:border-primary/50"><div className="relative aspect-[4/3] overflow-hidden bg-background"><img src={model.image} alt={`Woolet ${model.id} ${model.shape} breite Brille`} className="h-full w-full object-contain transition-opacity duration-500 group-hover:opacity-0" loading="lazy" /><img src={model.onFace} alt={`Woolet ${model.id} ${model.shape} auf einem breiten Gesicht`} className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100" loading="lazy" /></div><div className="flex items-end justify-between gap-4 px-5 py-4"><div><div className="font-body text-[11px] uppercase tracking-[0.28em] text-primary">{model.id}</div><div className="mt-1 font-display text-xl text-woolet-white">Woolet {model.id}</div><div className="mt-1 font-body text-[10px] uppercase tracking-[0.2em] text-cream-dim">{model.shape} · {model.specs}</div></div><span className="font-body text-[10px] uppercase tracking-[0.2em] text-cream-dim">Ansehen -&gt;</span></div></Link>)}
+            {models.map((model) => <Link key={model.id} to={`/de/produkte/${model.id}`} className="group block border border-border-sub bg-secondary no-underline transition-all hover:-translate-y-1 hover:border-primary/50"><div className="relative aspect-[4/3] overflow-hidden bg-background"><img src={model.image} alt={`Woolet ${model.id} ${model.shape} breite Brille`} className="h-full w-full object-contain transition-opacity duration-500 group-hover:opacity-0" loading="lazy" /><img src={model.onFace} alt={`Woolet ${model.id} ${model.shape} auf einem breiten Gesicht`} className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100" loading="lazy" /></div><div className="flex items-end justify-between gap-4 px-5 py-4"><div><div className="font-body text-[12px] uppercase tracking-[0.28em] text-primary">{model.id}</div><div className="mt-1 font-display text-xl text-woolet-white">Woolet {model.id}</div><div className="mt-1 font-body text-[12px] uppercase tracking-[0.2em] text-cream-dim">{model.shape} · {model.specs}</div></div><span className="font-body text-[12px] uppercase tracking-[0.2em] text-cream-dim">Ansehen -&gt;</span></div></Link>)}
           </div>
         </Section>
 
@@ -276,7 +276,7 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
         <section id="vip" className="border-b border-border-sub bg-secondary px-5 py-16 text-center sm:px-8 lg:py-24"><div className="mx-auto max-w-3xl"><div className="woolet-eyebrow mb-4 justify-center"><div className="woolet-eyebrow-line" /><span className="woolet-eyebrow-text">Founder Edition</span></div><h2 className="font-display text-4xl text-foreground">Noch nicht bereit? Founder-Preis per E-Mail sichern.</h2><p className="mx-auto mb-8 mt-4 max-w-xl font-body text-[15px] leading-7 text-cream-dim">Wir schicken dir das Angebot: Woolet {F.model} mit Founder Box für {formatDePrice(DE_PRICING.founderPriceEur)} statt {formatDePrice(DE_PRICING.regularPriceEur)}.</p><DeReservationCta source={`${config.slug}_vip`} variant="link" className="mb-7 inline-block font-body text-sm text-primary underline underline-offset-4" /><DeVipForm placement={`${config.slug}_vip`} className="mx-auto" /></div></section>
 
         {config.widthTable && (
-          <Section bordered><h2 className="mb-6 font-display text-3xl text-foreground">{config.widthTable.title}</h2><div className="overflow-x-auto"><table className="w-full border-collapse font-body text-[15px]"><thead><tr className="border-b border-border-sub text-left text-[10px] uppercase tracking-[0.22em] text-cream-dim"><th className="py-3 pr-4 font-medium">Gesichtsbreite (mm)</th><th className="py-3 pr-4 font-medium">Kategorie</th><th className="py-3 font-medium">Empfohlene Frontbreite</th></tr></thead><tbody>{config.widthTable.rows.map((row) => <tr key={row[0]} className="border-b border-border-sub text-foreground"><td className="py-3 pr-4">{row[0]}</td><td className="py-3 pr-4 text-cream-dim">{row[1]}</td><td className="py-3"><WidthRecommendation text={row[2]} /></td></tr>)}</tbody></table></div></Section>
+          <Section bordered><h2 className="mb-6 font-display text-3xl text-foreground">{config.widthTable.title}</h2><div className="overflow-x-auto"><table className="w-full border-collapse font-body text-[15px]"><thead><tr className="border-b border-border-sub text-left text-[12px] uppercase tracking-[0.22em] text-cream-dim"><th className="py-3 pr-4 font-medium">Gesichtsbreite (mm)</th><th className="py-3 pr-4 font-medium">Kategorie</th><th className="py-3 font-medium">Empfohlene Frontbreite</th></tr></thead><tbody>{config.widthTable.rows.map((row) => <tr key={row[0]} className="border-b border-border-sub text-foreground"><td className="py-3 pr-4">{row[0]}</td><td className="py-3 pr-4 text-cream-dim">{row[1]}</td><td className="py-3"><WidthRecommendation text={row[2]} /></td></tr>)}</tbody></table></div></Section>
         )}
 
         {isWidthPage && (
@@ -285,7 +285,7 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
 
         <Section bordered><h2 className="mb-6 font-display text-4xl text-foreground">Häufige Fragen</h2><Accordion type="single" collapsible>{faqs.map((faq, index) => <AccordionItem key={faq.q} value={`item-${index}`} className="border-border-sub"><AccordionTrigger className="text-left font-body text-base font-medium text-foreground">{faq.q}</AccordionTrigger><AccordionContent className="font-body text-[15px] leading-7 text-cream-dim">{faq.a}</AccordionContent></AccordionItem>)}</Accordion></Section>
 
-        <Section bordered><div className="woolet-eyebrow mb-5"><div className="woolet-eyebrow-line" /><span className="woolet-eyebrow-text">Weiterlesen</span></div><h2 className="mb-7 font-display text-3xl text-foreground">Passende Ratgeber</h2><div className="grid gap-4 sm:grid-cols-2">{config.related.map((slug) => <Link key={slug} to={`/de/${slug}`} className="border border-border-sub bg-secondary p-6 no-underline transition-colors hover:border-primary/50"><div className="font-body text-[10px] uppercase tracking-[0.22em] text-primary">Woolet · DE</div><div className="mt-3 font-display text-2xl text-foreground">{dePages[slug].h1}</div><div className="mt-4 font-body text-[10px] uppercase tracking-[0.2em] text-cream-dim">{dePageTitles[slug]} -&gt;</div></Link>)}</div></Section>
+        <Section bordered><div className="woolet-eyebrow mb-5"><div className="woolet-eyebrow-line" /><span className="woolet-eyebrow-text">Weiterlesen</span></div><h2 className="mb-7 font-display text-3xl text-foreground">Passende Ratgeber</h2><div className="grid gap-4 sm:grid-cols-2">{config.related.map((slug) => <Link key={slug} to={`/de/${slug}`} className="border border-border-sub bg-secondary p-6 no-underline transition-colors hover:border-primary/50"><div className="font-body text-[12px] uppercase tracking-[0.22em] text-primary">Woolet · DE</div><div className="mt-3 font-display text-2xl text-foreground">{dePages[slug].h1}</div><div className="mt-4 font-body text-[12px] uppercase tracking-[0.2em] text-cream-dim">{dePageTitles[slug]} -&gt;</div></Link>)}</div></Section>
         <Footer lang="de" />
         <DeMobileReservationBar />
       </main>

@@ -195,7 +195,7 @@ const Footer = ({ lang: langProp }: { lang?: Lang } = {}) => {
               <h3
                 className="uppercase tracking-[0.22em] m-0"
                 style={{
-                  fontSize: "0.66rem",
+                  fontSize: "0.75rem",
                   color: "hsl(var(--gold-dim))",
                   fontFamily: "Barlow, sans-serif",
                   fontWeight: 500,
@@ -228,7 +228,7 @@ const Footer = ({ lang: langProp }: { lang?: Lang } = {}) => {
             </span>
             <span
               className="text-cream-dim/85 tracking-normal"
-              style={{ fontSize: "0.68rem", lineHeight: 1.5 }}
+              style={{ fontSize: "0.75rem", lineHeight: 1.5 }}
             >
               Woolet by JAY23 LLC · 412 N. Main Street, STE 100 · Buffalo, Wyoming 82834
             </span>

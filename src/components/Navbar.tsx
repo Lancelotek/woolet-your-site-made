@@ -346,7 +346,7 @@ const Navbar = () => {
 
             {lang === "de" ? (
               <div className="px-6 py-1">
-                <DeReservationCta source="header" variant="compact" className="h-12 w-full rounded-sm font-body text-[11px] font-semibold uppercase tracking-[0.18em]" />
+                <DeReservationCta source="header" variant="compact" className="h-12 w-full rounded-sm font-body text-[12px] font-semibold uppercase tracking-[0.18em]" />
               </div>
             ) : founderCta ? (
               <Link

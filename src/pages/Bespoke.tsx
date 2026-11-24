@@ -406,7 +406,7 @@ const BespokePage = () => {
                 {atelier.headingLead}{" "}
                 <em className="italic text-gold-light">{atelier.headingItalic}</em>
               </h2>
-              <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.95rem" }}>
+              <p className="text-cream-dim leading-relaxed max-w-[65ch]" style={{ fontSize: "0.95rem" }}>
                 {atelier.intro}
               </p>
             </div>
@@ -443,7 +443,7 @@ const BespokePage = () => {
               ))}
             </div>
 
-            <p className="text-cream-dim/70 text-center mt-8 uppercase tracking-[0.22em]" style={{ fontFamily: "Barlow, sans-serif", fontSize: "0.62rem" }}>
+            <p className="text-cream-dim/70 text-center mt-8 uppercase tracking-[0.22em]" style={{ fontFamily: "Barlow, sans-serif", fontSize: "0.75rem" }}>
               {atelier.footer}
             </p>
           </div>
@@ -510,7 +510,7 @@ const BespokePage = () => {
         <section className="w-full px-5 sm:px-8 lg:px-16 py-16 sm:py-20" aria-labelledby="bespoke-specifications">
           <div className="max-w-4xl mx-auto">
             <h2 id="bespoke-specifications" className="font-display text-woolet-white mb-5 text-3xl">{de ? D.specsHeading : "Specifications at a glance"}</h2>
-            <p className="text-cream-dim leading-relaxed mb-6">{de ? D.specsIntro : "Woolet Bespoke is measured for each wearer, not selected from a fixed-width inventory. The four configurator shapes are Aviator, Rectangle, Crown Panto and Round. The standard Woolet 007 and 009 signature frames are different designs with a fixed 158 mm front."}</p>
+            <p className="text-cream-dim leading-relaxed max-w-[65ch] mb-6">{de ? D.specsIntro : "Woolet Bespoke is measured for each wearer, not selected from a fixed-width inventory. The four configurator shapes are Aviator, Rectangle, Crown Panto and Round. The standard Woolet 007 and 009 signature frames are different designs with a fixed 158 mm front."}</p>
             <div className="overflow-x-auto border" style={{ borderColor: "hsl(var(--gold) / 0.25)" }}>
               <table className="w-full text-left text-sm text-cream-dim" style={{ minWidth: 420 }}>
                 <thead><tr className="text-gold-light"><th className="p-4">{de ? D.specsHead[0] : "Specification"}</th><th className="p-4">{de ? D.specsHead[1] : "Woolet Bespoke"}</th></tr></thead>
@@ -533,7 +533,7 @@ const BespokePage = () => {
             {(de ? D.guide : BESPOKE_GUIDE).map(({ heading, text }) => (
               <div key={heading}>
                 <h2 className="font-display text-woolet-white text-3xl mb-4">{heading}</h2>
-                <p className="text-cream-dim leading-relaxed">{text}</p>
+                <p className="text-cream-dim leading-relaxed max-w-[65ch]">{text}</p>
               </div>
             ))}
           </div>
@@ -554,10 +554,10 @@ const BespokePage = () => {
             >
               {de ? D.whatIs.lead : "Bespoke eyewear,"} <em className="italic text-gold-light">{de ? D.whatIs.italic : "defined properly."}</em>
             </h2>
-            <p className="text-cream-dim leading-relaxed mb-5" style={{ fontSize: "0.98rem" }}>
+            <p className="text-cream-dim leading-relaxed max-w-[65ch] mb-5" style={{ fontSize: "0.98rem" }}>
               {de ? D.whatIs.p1 : "Woolet Bespoke is a made-to-measure frame, not a stock size or colour swap. Front widths run from 145–160 mm, bridges from 20-26 mm and temples from 145-155 mm. The finished frame is made for one wearer."}
             </p>
-            <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.95rem" }}>
+            <p className="text-cream-dim leading-relaxed max-w-[65ch]" style={{ fontSize: "0.95rem" }}>
               {de ? (
                 <>{D.whatIs.p2a} <Link to={D.whatIs.kickstarterPath} className="text-gold-light underline">{D.whatIs.p2link}</Link>{D.whatIs.p2b}</>
               ) : (
@@ -582,7 +582,7 @@ const BespokePage = () => {
             >
               {de ? D.wide.lead : "The only bespoke glasses"} <em className="italic text-gold-light">{de ? D.wide.italic : "built around wide faces."}</em>
             </h2>
-            <p className="text-cream-dim leading-relaxed mb-8" style={{ fontSize: "0.98rem" }}>
+            <p className="text-cream-dim leading-relaxed max-w-[65ch] mb-8" style={{ fontSize: "0.98rem" }}>
               {de ? D.wide.p : "Stock 007 and 009 both use a 158 mm front for faces around 155-161 mm. Bespoke instead covers any front width from 145–160 mm, whether narrower, wider or inside the stock band."}
             </p>
 
@@ -611,7 +611,7 @@ const BespokePage = () => {
                   >
                     <div
                       className="uppercase tracking-[0.18em] text-cream-dim"
-                      style={{ fontFamily: "Barlow, sans-serif", fontSize: "0.6rem" }}
+                      style={{ fontFamily: "Barlow, sans-serif", fontSize: "0.75rem" }}
                     >
                       {row.label}
                     </div>
@@ -620,7 +620,7 @@ const BespokePage = () => {
                     className="px-5 py-4 border-t"
                     style={{ borderTopColor: "hsl(var(--gold) / 0.15)" }}
                   >
-                    <div className="text-cream-dim uppercase tracking-[0.16em] mb-1" style={{ fontFamily: "Barlow, sans-serif", fontSize: "0.55rem" }}>
+                    <div className="text-cream-dim uppercase tracking-[0.16em] mb-1" style={{ fontFamily: "Barlow, sans-serif", fontSize: "0.75rem" }}>
                       {de ? D.wide.colWoolet : "Woolet bespoke"}
                     </div>
                     <div className="text-gold-light" style={{ fontSize: "0.92rem" }}>{row.woolet}</div>
@@ -629,7 +629,7 @@ const BespokePage = () => {
                     className="px-5 py-4 border-t"
                     style={{ borderTopColor: "hsl(var(--gold) / 0.15)" }}
                   >
-                    <div className="text-cream-dim uppercase tracking-[0.16em] mb-1" style={{ fontFamily: "Barlow, sans-serif", fontSize: "0.55rem" }}>
+                    <div className="text-cream-dim uppercase tracking-[0.16em] mb-1" style={{ fontFamily: "Barlow, sans-serif", fontSize: "0.75rem" }}>
                       {de ? D.wide.colStock : "Standard Woolet 007 and 009"}
                     </div>
                     <div className="text-cream-dim" style={{ fontSize: "0.92rem" }}>{row.stock}</div>
@@ -675,7 +675,7 @@ const BespokePage = () => {
             >
               {de ? D.ai.lead : "Bespoke without the"} <em className="italic text-gold-light">{de ? D.ai.italic : "atelier visit."}</em>
             </h2>
-            <p className="text-cream-dim leading-relaxed mb-8" style={{ fontSize: "0.98rem" }}>
+            <p className="text-cream-dim leading-relaxed max-w-[65ch] mb-8" style={{ fontSize: "0.98rem" }}>
               {de ? D.ai.p : "One photo with a bank-size card held against your cheek starts the remote measurement process. We review the dimensions with you before cutting the frame, and you approve the made-to-measure 3D model before production."}
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -689,7 +689,7 @@ const BespokePage = () => {
                     {s.n}
                   </div>
                   <div className="text-woolet-white mb-2" style={{ fontSize: "0.92rem", fontWeight: 500 }}>{s.t}</div>
-                  <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.85rem" }}>{s.d}</p>
+                  <p className="text-cream-dim leading-relaxed max-w-[65ch]" style={{ fontSize: "0.85rem" }}>{s.d}</p>
                 </div>
               ))}
             </div>
@@ -707,7 +707,7 @@ const BespokePage = () => {
             >
               {de ? D.who.lead : "Who bespoke is"} <em className="italic text-gold-light">{de ? D.who.italic : "actually for"}</em>
             </h2>
-            <p className="text-cream-dim leading-relaxed mb-6" style={{ fontSize: "0.95rem" }}>
+            <p className="text-cream-dim leading-relaxed max-w-[65ch] mb-6" style={{ fontSize: "0.95rem" }}>
               {de ? D.who.p : "Woolet 007 and 009 have one stock front width: 158 mm, fitting faces around 155-161 mm. Bespoke covers 145–160 mm, including narrower faces and customers seeking a one-of-one frame."}
             </p>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
@@ -750,9 +750,9 @@ const BespokePage = () => {
                 <li key={step} className="grid grid-cols-[auto_1fr] gap-6 sm:gap-10">
                   <span className="font-display text-gold-light" style={{ fontSize: "1.6rem", fontWeight: 300, lineHeight: 1 }}>{String(i + 1).padStart(2, "0")}</span>
                   <div><h3 className="font-display text-woolet-white mb-2" style={{ fontSize: "1.15rem", fontWeight: 400 }}>{step}</h3>
-                  {i === 1 && depositUsd > 0 && <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.9rem" }}>{de ? D.process.deposit(depositUsd) : `You pay a $${depositUsd} deposit. It buys your visualization and is non-refundable.`}</p>}
-                  {i === 3 && depositUsd > 0 && <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.9rem" }}>{de ? D.process.accept(PREVIEW_WINDOW_DAYS, MAX_MODEL_CORRECTIONS) : <>Accept the visualization by paying the balance - you have {PREVIEW_WINDOW_DAYS} days. The workshop then draws your 3D model, and you can ask for up to {MAX_MODEL_CORRECTIONS} corrections. Bespoke is custom work, so no payment is refundable.</>}</p>}
-                  {i === 4 && <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.9rem" }}>{de ? D.process.production : "Production takes 2 weeks after 3D model approval, then shipping begins."}</p>}</div>
+                  {i === 1 && depositUsd > 0 && <p className="text-cream-dim leading-relaxed max-w-[65ch]" style={{ fontSize: "0.9rem" }}>{de ? D.process.deposit(depositUsd) : `You pay a $${depositUsd} deposit. It buys your visualization and is non-refundable.`}</p>}
+                  {i === 3 && depositUsd > 0 && <p className="text-cream-dim leading-relaxed max-w-[65ch]" style={{ fontSize: "0.9rem" }}>{de ? D.process.accept(PREVIEW_WINDOW_DAYS, MAX_MODEL_CORRECTIONS) : <>Accept the visualization by paying the balance - you have {PREVIEW_WINDOW_DAYS} days. The workshop then draws your 3D model, and you can ask for up to {MAX_MODEL_CORRECTIONS} corrections. Bespoke is custom work, so no payment is refundable.</>}</p>}
+                  {i === 4 && <p className="text-cream-dim leading-relaxed max-w-[65ch]" style={{ fontSize: "0.9rem" }}>{de ? D.process.production : "Production takes 2 weeks after 3D model approval, then shipping begins."}</p>}</div>
                 </li>
               ))}
             </ol>
@@ -793,7 +793,7 @@ const BespokePage = () => {
                   <h3 className="font-display text-woolet-white mb-3" style={{ fontSize: "1.1rem", fontWeight: 400 }}>
                     {f.q}
                   </h3>
-                  <p className="text-cream-dim leading-relaxed" style={{ fontSize: "0.92rem" }}>{f.a}</p>
+                  <p className="text-cream-dim leading-relaxed max-w-[65ch]" style={{ fontSize: "0.92rem" }}>{f.a}</p>
                 </div>
               ))}
             </div>

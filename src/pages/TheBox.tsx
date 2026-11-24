@@ -18,7 +18,7 @@ const eyebrow: React.CSSProperties = {
   fontFamily: "'Archivo', system-ui, sans-serif",
   textTransform: "uppercase",
   letterSpacing: "0.18em",
-  fontSize: 11,
+  fontSize: 12,
   fontWeight: 600,
 };
 
@@ -95,7 +95,7 @@ const TheBox = () => {
             transform: "translateX(-50%)",
             ...eyebrow,
             color: DIM_GOLD,
-            fontSize: 10,
+            fontSize: 12,
           }}
         >
           SCROLL

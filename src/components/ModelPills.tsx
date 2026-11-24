@@ -94,7 +94,7 @@ const ModelPills = (_props: ModelPillsProps = {}) => {
 
         <div className="flex items-baseline gap-2" style={{ fontFamily: "Barlow, sans-serif" }}>
           <span className="text-primary" style={{ fontSize: "1rem", fontWeight: 500 }}>$114</span>
-          <span className="text-cream-dim uppercase tracking-[0.16em]" style={{ fontSize: "0.66rem" }}>founding</span>
+          <span className="text-cream-dim uppercase tracking-[0.16em]" style={{ fontSize: "0.75rem" }}>founding</span>
           <span className="text-cream-dim/70" style={{ fontSize: "0.78rem", textDecoration: "line-through" }}>$190</span>
           <span className="text-cream-dim/70" style={{ fontSize: "0.72rem" }}>after launch</span>
         </div>

@@ -372,7 +372,7 @@ export default function BespokeScan() {
           >
             ← Back
           </button>
-          <span style={{ color: GOLD, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase" }}>
+          <span style={{ color: GOLD, fontSize: 12, letterSpacing: "0.18em", textTransform: "uppercase" }}>
             Bespoke fit scan
           </span>
           <span style={{ width: 60 }} />
@@ -724,7 +724,7 @@ function CaptureStep({ pose, stepIndex, total, isRetake, scanId, busy, setBusy, 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <span style={{ fontSize: 11, color: MUTED, letterSpacing: "0.16em", textTransform: "uppercase" }}>
+        <span style={{ fontSize: 12, color: MUTED, letterSpacing: "0.16em", textTransform: "uppercase" }}>
           Step {stepIndex + 1} of {total}
         </span>
         <span style={{ display: "inline-flex", gap: 4 }}>
@@ -784,7 +784,7 @@ function CaptureStep({ pose, stepIndex, total, isRetake, scanId, busy, setBusy, 
           background: "rgba(0,0,0,0.65)",
           border: `1px solid ${yawColor}`,
           color: PAPER,
-          fontSize: 11,
+          fontSize: 12,
           letterSpacing: "0.12em",
           textTransform: "uppercase",
           display: "inline-flex",
@@ -840,7 +840,7 @@ function CaptureStep({ pose, stepIndex, total, isRetake, scanId, busy, setBusy, 
         {busy ? "Analyzing…" : countdown !== null ? `Hold still… ${countdown}` : yawOk ? "Press & hold to capture (3s)" : "Hold the right pose"}
       </Button>
       {countdown !== null && (
-        <p style={{ fontSize: 11, color: MUTED, textAlign: "center", margin: 0, letterSpacing: "0.1em", textTransform: "uppercase" }}>
+        <p style={{ fontSize: 12, color: MUTED, textAlign: "center", margin: 0, letterSpacing: "0.1em", textTransform: "uppercase" }}>
           Keep holding — release cancels
         </p>
       )}
@@ -923,7 +923,7 @@ function ResultStep({
                 disabled={uploadStatus[p] === "uploading"}
                 variant="outline"
                 style={{
-                  height: 34, fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase",
+                  height: 34, fontSize: 12, letterSpacing: "0.1em", textTransform: "uppercase",
                   borderColor: "rgba(239,68,68,0.6)", background: "transparent", color: "#fca5a5",
                 }}
               >
@@ -932,7 +932,7 @@ function ResultStep({
             ))}
           </div>
           {failedPoses.map((p) => uploadErrors[p] && (
-            <span key={`${p}-err`} style={{ fontSize: 11, color: "rgba(252,165,165,0.6)", fontFamily: "monospace" }}>
+            <span key={`${p}-err`} style={{ fontSize: 12, color: "rgba(252,165,165,0.6)", fontFamily: "monospace" }}>
               {POSE_LABEL[p]}: {uploadErrors[p]}
             </span>
           ))}
@@ -971,7 +971,7 @@ function ResultStep({
               <span style={{ fontSize: 13, color: MUTED, display: "flex", flexDirection: "column", gap: 2 }}>
                 {r.label}
                 {pct !== null && (
-                  <span style={{ fontSize: 10.5, color: low ? "#ef4444" : "rgba(240,236,228,0.4)", letterSpacing: "0.08em", textTransform: "uppercase" }}>
+                  <span style={{ fontSize: 12, color: low ? "#ef4444" : "rgba(240,236,228,0.4)", letterSpacing: "0.08em", textTransform: "uppercase" }}>
                     {pct}% confidence
                   </span>
                 )}
@@ -1005,7 +1005,7 @@ function ResultStep({
 
       {/* Per-pose retake — cheaper than re-scanning all 3 frames */}
       <div style={{ display: "flex", flexDirection: "column", gap: 8, padding: "12px 14px", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 6 }}>
-        <span style={{ fontSize: 11, color: GOLD, letterSpacing: "0.14em", textTransform: "uppercase" }}>
+        <span style={{ fontSize: 12, color: GOLD, letterSpacing: "0.14em", textTransform: "uppercase" }}>
           Retake a single photo
         </span>
         <div style={{ display: "flex", gap: 8 }}>
@@ -1014,7 +1014,7 @@ function ResultStep({
               key={p}
               onClick={() => onRetake(p)}
               variant="outline"
-              style={{ flex: 1, height: 38, fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase", borderColor: "rgba(202,164,73,0.35)", background: "transparent", color: PAPER }}
+              style={{ flex: 1, height: 38, fontSize: 12, letterSpacing: "0.1em", textTransform: "uppercase", borderColor: "rgba(202,164,73,0.35)", background: "transparent", color: PAPER }}
             >
               {POSE_LABEL[p]}
             </Button>

@@ -173,7 +173,7 @@ function SectionBlock({ s, sizePage = false }: { s: KoSection; sizePage?: boolea
           <dl className="grid sm:grid-cols-2 gap-px mt-2" style={{ background: c.line }}>
             {s.bullets.map((b) => (
               <div key={b.label} style={{ background: c.panel, padding: "16px 18px" }}>
-                <dt style={{ fontSize: 11, letterSpacing: "0.2em", color: c.creamDim }}>{b.label}</dt>
+                <dt style={{ fontSize: 12, letterSpacing: "0.2em", color: c.creamDim }}>{b.label}</dt>
                 <dd style={{ margin: "6px 0 0", fontSize: "1.05rem", color: c.cream }}>{b.value}</dd>
               </div>
             ))}
@@ -270,7 +270,7 @@ export default function KoLandingPage({ config }: { config: KoPageConfig }) {
         <main>
           <section className="px-6 md:px-10" style={{ borderBottom: `1px solid ${c.line}` }}>
             <div className="max-w-3xl mx-auto pt-16 pb-20 flex flex-col gap-6">
-              <span style={{ fontSize: 11, letterSpacing: "0.28em", color: c.gold }}>{config.eyebrow}</span>
+              <span style={{ fontSize: 12, letterSpacing: "0.28em", color: c.gold }}>{config.eyebrow}</span>
               <h1
                 style={{
                   fontFamily: KO_SERIF,
@@ -317,7 +317,7 @@ export default function KoLandingPage({ config }: { config: KoPageConfig }) {
 
           <nav aria-label="한국어 페이지" className="px-6 md:px-10">
             <div className="max-w-3xl mx-auto py-14 flex flex-col gap-4">
-              <h2 style={{ fontSize: 11, letterSpacing: "0.24em", color: c.gold, margin: 0 }}>한국어 페이지</h2>
+              <h2 style={{ fontSize: 12, letterSpacing: "0.24em", color: c.gold, margin: 0 }}>한국어 페이지</h2>
               <ul className="flex flex-col gap-2" style={{ listStyle: "none", padding: 0, margin: 0 }}>
                 {related.map((p) => (
                   <li key={p}>

@@ -207,7 +207,7 @@ const ListiclePage = () => {
             style={{
               display: "flex",
               gap: 42,
-              fontSize: 11,
+              fontSize: 12,
               letterSpacing: "0.22em",
               textTransform: "uppercase",
               color: C.inkDim,
@@ -220,10 +220,10 @@ const ListiclePage = () => {
             <Link to="/en/blog" style={{ ...navLink, color: C.ink }}>Blog</Link>
           </nav>
           <div style={{ display: "flex", alignItems: "center", gap: 22 }}>
-            <span style={{ fontSize: 11, letterSpacing: "0.22em", color: C.inkDim }}>EN</span>
+            <span style={{ fontSize: 12, letterSpacing: "0.22em", color: C.inkDim }}>EN</span>
             <span
               style={{
-                fontSize: 11,
+                fontSize: 12,
                 letterSpacing: "0.22em",
                 color: C.ink,
                 border: `1px solid ${C.gold}`,
@@ -242,10 +242,10 @@ const ListiclePage = () => {
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 28 }}>
                 <span style={{ width: 28, height: 1, background: C.gold }} />
-                <span style={{ fontSize: 11, letterSpacing: "0.28em", textTransform: "uppercase", color: C.gold }}>
+                <span style={{ fontSize: 12, letterSpacing: "0.28em", textTransform: "uppercase", color: C.gold }}>
                   The Fit Guide
                 </span>
-                <span style={{ fontSize: 11, letterSpacing: "0.18em", color: C.inkMute }}>
+                <span style={{ fontSize: 12, letterSpacing: "0.18em", color: C.inkMute }}>
                   · 4,900+ on the waitlist
                 </span>
               </div>
@@ -333,7 +333,7 @@ const ListiclePage = () => {
               <div>
                 <div
                   style={{
-                    fontSize: 11,
+                    fontSize: 12,
                     letterSpacing: "0.28em",
                     textTransform: "uppercase",
                     color: C.inkMute,
@@ -386,7 +386,7 @@ const ListiclePage = () => {
                       style={{
                         display: "flex",
                         justifyContent: "space-between",
-                        fontSize: 11,
+                        fontSize: 12,
                         letterSpacing: "0.12em",
                         color: C.inkMute,
                         marginBottom: 8,
@@ -429,7 +429,7 @@ const ListiclePage = () => {
                 <div
                   style={{
                     marginTop: 10,
-                    fontSize: 10.5,
+                    fontSize: 12,
                     letterSpacing: "0.28em",
                     textTransform: "uppercase",
                     color: C.inkMute,
@@ -466,7 +466,7 @@ const ListiclePage = () => {
               <div>
                 <div
                   style={{
-                    fontSize: 11,
+                    fontSize: 12,
                     letterSpacing: "0.28em",
                     textTransform: "uppercase",
                     color: C.inkMute,
@@ -540,7 +540,7 @@ const ListiclePage = () => {
                                 left: `${pct + 1}%`,
                                 top: "50%",
                                 transform: "translateY(-50%)",
-                                fontSize: 11,
+                                fontSize: 12,
                                 color: C.inkMute,
                                 fontStyle: "italic",
                                 whiteSpace: "nowrap",
@@ -580,7 +580,7 @@ const ListiclePage = () => {
                   <div style={{ display: "flex", alignItems: "baseline", gap: 18 }}>
                     <span
                       style={{
-                        fontSize: 10.5,
+                        fontSize: 12,
                         letterSpacing: "0.28em",
                         textTransform: "uppercase",
                         color: C.inkMute,
@@ -594,7 +594,7 @@ const ListiclePage = () => {
                     </span>
                     <span
                       style={{
-                        fontSize: 11,
+                        fontSize: 12,
                         letterSpacing: "0.18em",
                         color: C.gold,
                         border: `1px solid ${C.gold}`,
@@ -610,7 +610,7 @@ const ListiclePage = () => {
                       pushGtmEvent("listicle_cta_click", { location: "market_card", dest: "waitlist" })
                     }
                     style={{
-                      fontSize: 11,
+                      fontSize: 12,
                       letterSpacing: "0.28em",
                       textTransform: "uppercase",
                       color: C.bg,
@@ -646,7 +646,7 @@ const ListiclePage = () => {
                 <footer
                   style={{
                     marginTop: 14,
-                    fontSize: 11,
+                    fontSize: 12,
                     letterSpacing: "0.22em",
                     textTransform: "uppercase",
                     color: C.inkMute,
@@ -674,7 +674,7 @@ const ListiclePage = () => {
           >
             <div
               style={{
-                fontSize: 11,
+                fontSize: 12,
                 letterSpacing: "0.28em",
                 textTransform: "uppercase",
                 color: C.gold,
@@ -734,7 +734,7 @@ const ListiclePage = () => {
                     border: "none",
                     padding: "0 28px",
                     fontFamily: SANS,
-                    fontSize: 11,
+                    fontSize: 12,
                     letterSpacing: "0.28em",
                     textTransform: "uppercase",
                     cursor: loading ? "wait" : "pointer",
@@ -777,7 +777,7 @@ const ListiclePage = () => {
               <p style={{ fontSize: 13, color: C.inkDim, lineHeight: 1.6, margin: 0, maxWidth: 280 }}>
                 Eyewear engineered for wide faces. Italian acetate, handmade in the EU.
               </p>
-              <div style={{ display: "flex", gap: 18, marginTop: 22, fontSize: 11, letterSpacing: "0.22em", color: C.inkMute, textTransform: "uppercase" }}>
+              <div style={{ display: "flex", gap: 18, marginTop: 22, fontSize: 12, letterSpacing: "0.22em", color: C.inkMute, textTransform: "uppercase" }}>
                 <a href="https://www.instagram.com/frames_for_wide_faces" target="_blank" rel="noopener" style={footLink}>Instagram</a>
                 <a href="https://www.facebook.com/WooletWideFit/" target="_blank" rel="noopener" style={footLink}>Facebook</a>
               </div>
@@ -809,7 +809,7 @@ const ListiclePage = () => {
               margin: "40px auto 0",
               paddingTop: 24,
               borderTop: `1px solid ${C.divider}`,
-              fontSize: 11,
+              fontSize: 12,
               color: C.inkMute,
               letterSpacing: "0.04em",
             }}
@@ -837,7 +837,7 @@ const FooterCol = ({ title, links }: { title: string; links: [string, string][] 
   <div>
     <div
       style={{
-        fontSize: 11,
+        fontSize: 12,
         letterSpacing: "0.28em",
         textTransform: "uppercase",
         color: C.gold,

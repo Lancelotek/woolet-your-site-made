@@ -116,7 +116,7 @@ export default function SignIn() {
       <main className="flex-1 px-5 py-16 flex justify-center">
         <div className="w-full max-w-[480px] flex flex-col gap-8">
           <div>
-            <p className="uppercase tracking-[0.22em] text-cream-dim" style={{ fontSize: "0.65rem" }}>
+            <p className="uppercase tracking-[0.22em] text-cream-dim" style={{ fontSize: "0.75rem" }}>
               Account
             </p>
             <h1 className="font-display text-foreground mt-3" style={{ fontSize: "2.25rem", fontWeight: 300, lineHeight: 1.1 }}>

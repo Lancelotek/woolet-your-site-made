@@ -106,7 +106,7 @@ export default function OAuthConsent() {
       <main className="flex-1 px-5 py-16 flex justify-center">
         <div className="w-full max-w-[520px] flex flex-col gap-8">
           <div>
-            <p className="uppercase tracking-[0.22em] text-cream-dim" style={{ fontSize: "0.65rem" }}>
+            <p className="uppercase tracking-[0.22em] text-cream-dim" style={{ fontSize: "0.75rem" }}>
               Authorize
             </p>
             <h1 className="font-display text-foreground mt-3" style={{ fontSize: "2rem", fontWeight: 300, lineHeight: 1.15 }}>
@@ -131,7 +131,7 @@ export default function OAuthConsent() {
           {details && (
             <div className="flex flex-col gap-4">
               <div style={{ background: "rgba(201,168,76,0.06)", border: "1px solid rgba(201,168,76,0.25)", padding: 16 }}>
-                <p className="text-cream-dim uppercase tracking-[0.18em]" style={{ fontSize: "0.65rem" }}>
+                <p className="text-cream-dim uppercase tracking-[0.18em]" style={{ fontSize: "0.75rem" }}>
                   Requested access
                 </p>
                 <p className="text-foreground mt-2" style={{ fontSize: "0.9rem", lineHeight: 1.55 }}>

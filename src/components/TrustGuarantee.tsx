@@ -119,7 +119,7 @@ const TrustGuarantee = ({ productId }: TrustGuaranteeProps) => {
           style={{
             fontFamily: "'Barlow', sans-serif",
             fontWeight: 500,
-            fontSize: 11,
+            fontSize: 12,
             letterSpacing: "3px",
             color: "#CAA449",
             textTransform: "uppercase",
@@ -164,7 +164,7 @@ const TrustGuarantee = ({ productId }: TrustGuaranteeProps) => {
                 style={{
                   fontFamily: "'Barlow', sans-serif",
                   fontWeight: 300,
-                  fontSize: 11,
+                  fontSize: 12,
                   color: "#9A8E7E",
                   lineHeight: 1.5,
                 }}

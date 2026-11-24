@@ -91,7 +91,7 @@ export default function HatGlassesCard(props: Props) {
       aria-label="Hat size to glasses width"
       style={{ background: PANEL, border: `1px solid ${LINE}`, borderRadius: 2, padding: compact ? "22px 20px" : "26px 24px", margin: compact ? "24px 0 32px" : "18px 0 0", color: CREAM, fontFamily: "Archivo, sans-serif" }}
     >
-      <div style={{ fontSize: 10, letterSpacing: "0.28em", textTransform: "uppercase", color: GOLD, marginBottom: 12 }}>
+      <div style={{ fontSize: 12, letterSpacing: "0.28em", textTransform: "uppercase", color: GOLD, marginBottom: 12 }}>
         Your hat size → your glasses width
       </div>
 

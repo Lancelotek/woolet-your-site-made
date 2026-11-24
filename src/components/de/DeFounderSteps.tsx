@@ -27,13 +27,13 @@ function StepBar({ step }: { step: 1 | 2 }) {
         return (
           <div key={label} className="flex flex-1 items-center gap-2">
             <span
-              className={`inline-flex h-5 w-5 shrink-0 items-center justify-center font-body text-[11px] font-semibold ${
+              className={`inline-flex h-5 w-5 shrink-0 items-center justify-center font-body text-[12px] font-semibold ${
                 active || done ? "border border-primary bg-primary text-primary-foreground" : "border border-border-sub text-cream-dim"
               }`}
             >
               {done ? "✓" : index}
             </span>
-            <span className={`whitespace-nowrap font-body text-[11px] uppercase tracking-[0.14em] ${active ? "text-foreground" : "text-cream-dim opacity-70"}`}>
+            <span className={`whitespace-nowrap font-body text-[12px] uppercase tracking-[0.14em] ${active ? "text-foreground" : "text-cream-dim opacity-70"}`}>
               {label}
             </span>
             <span className={`h-px flex-1 ${done ? "bg-primary" : "bg-border-sub"}`} />

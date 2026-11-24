@@ -61,7 +61,7 @@ const LensUpgradeSelector = ({ productId, basePrice, onChange }: Props) => {
 
   return (
     <div style={{ marginBottom: 14 }}>
-      <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 11, letterSpacing: "2px", color: "#888", marginBottom: 8, textTransform: "uppercase" }}>
+      <div style={{ fontFamily: "'Barlow', sans-serif", fontWeight: 500, fontSize: 12, letterSpacing: "2px", color: "#888", marginBottom: 8, textTransform: "uppercase" }}>
         LENS OPTION
       </div>
       <div style={{ display: "grid", gap: 6 }}>

@@ -92,7 +92,7 @@ const CompareIndex = () => {
             maxWidth: 960,
             margin: "0 auto",
             padding: "16px 20px 0",
-            fontSize: 11,
+            fontSize: 12,
             color: "#888",
             letterSpacing: 1,
             textTransform: "uppercase",
@@ -106,7 +106,7 @@ const CompareIndex = () => {
         <header style={{ maxWidth: 760, margin: "0 auto", padding: "32px 20px 20px", textAlign: "center" }}>
           <div
             style={{
-              fontSize: 11,
+              fontSize: 12,
               letterSpacing: "2.4px",
               textTransform: "uppercase",
               color: "#A07A2A",
@@ -242,7 +242,7 @@ const CompareIndex = () => {
               >
                 <div
                   style={{
-                    fontSize: 11,
+                    fontSize: 12,
                     letterSpacing: "2px",
                     textTransform: "uppercase",
                     color: "#A07A2A",
@@ -268,7 +268,7 @@ const CompareIndex = () => {
                 </div>
                 <div
                   style={{
-                    fontSize: 11,
+                    fontSize: 12,
                     color: "#A07A2A",
                     letterSpacing: "1.5px",
                     textTransform: "uppercase",

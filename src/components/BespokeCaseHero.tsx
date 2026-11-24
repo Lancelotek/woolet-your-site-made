@@ -45,7 +45,7 @@ export default function BespokeCaseHero({ sessionId }: { sessionId: string }) {
       className="mb-10 px-6 py-8 sm:px-10 sm:py-10"
       style={{ background: "#080807", border: "1px solid rgba(239,233,223,0.10)", borderRadius: 3 }}
     >
-      <div className="text-[10px] uppercase tracking-[0.24em]" style={{ color: "#C2A05A" }}>
+      <div className="text-[12px] uppercase tracking-[0.24em]" style={{ color: "#C2A05A" }}>
         Your case number
       </div>
       <div
@@ -66,7 +66,7 @@ export default function BespokeCaseHero({ sessionId }: { sessionId: string }) {
             () => setCopied(false),
           );
         }}
-        className="mt-3 px-3 py-2 text-[11px] uppercase tracking-[0.18em]"
+        className="mt-3 px-3 py-2 text-[12px] uppercase tracking-[0.18em]"
         style={{ border: "1px solid rgba(194,160,90,0.45)", color: "#C2A05A", borderRadius: 2 }}
       >
         {copied ? "Copied" : "Copy number"}

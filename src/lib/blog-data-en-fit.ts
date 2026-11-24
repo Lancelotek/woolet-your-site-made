@@ -22,7 +22,7 @@ const BYLINE = (published: string, updated: string) => `
 </div>`;
 
 const ANSWER = (html: string) => `
-<p style="font-size:18px;line-height:1.7;color:#1a1a1a;background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:20px 24px;margin:0 0 28px;border-radius:4px;">${html}</p>`;
+<p style="font-size:18px;line-height:1.7;color:#1a1a1a;background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:20px 24px;margin:0 0 28px;">${html}</p>`;
 
 const FITLENS_CTA = (intro: string, anchor: string, href = "/en/fit", eyebrow = "FitLens · 60 seconds, phone camera") => `
 <div style="background:#0f0f0f;color:#f0ece4;padding:26px 28px;margin:32px 0;border-radius:6px;font-family:'Barlow',sans-serif;">
@@ -131,7 +131,7 @@ ${ANSWER(
 
 <p><strong>Ear cushions.</strong> Silicone sleeves spread the load behind the ear over a larger area, which is exactly the right treatment for a pressure sore behind the ear. They do nothing for temple pressure — in fact they slightly increase it, because they add material to an arm that is already being pushed outward.</p>
 
-<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">Being honest about opticians</div>
   <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">A skilled optician can change temple angle, temple bend, pantoscopic tilt, nose pads, and the splay of the arms. They can add 3–6 mm of practical comfort on a frame that is marginal. They cannot change lens width, bridge width, or the hinge-to-hinge front width. If they tell you the frame is too small, they are not brushing you off — they are telling you the truth that a shop with a sales target usually skips.</p>
 </div>
@@ -290,7 +290,7 @@ ${ANSWER(
 </div>
 
 
-<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">The hook nobody prints on the chart</div>
   <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">The standard chart stops at about 150 mm of front width, fitting a face of roughly 154 mm. Faces do not stop there. A meaningful share of adult men measure 155–165 mm temple to temple, and for them every row above is a compromise. That gap — not style, not budget — is why this article exists and why Woolet builds at 158 mm.</p>
 </div>

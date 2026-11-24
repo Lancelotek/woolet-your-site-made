@@ -119,7 +119,7 @@ function SizePageInner({ size }: { size: SizeEntry }) {
         {/* Breadcrumb */}
         <nav
           aria-label="Breadcrumb"
-          style={{ ...wrap, paddingTop: 16, fontSize: 11, color: "#888", letterSpacing: "1px", textTransform: "uppercase" }}
+          style={{ ...wrap, paddingTop: 16, fontSize: 12, color: "#888", letterSpacing: "1px", textTransform: "uppercase" }}
         >
           <Link to="/en" style={{ color: "#888", textDecoration: "none" }}>Home</Link>
           <span style={{ margin: "0 8px" }}>/</span>
@@ -131,11 +131,11 @@ function SizePageInner({ size }: { size: SizeEntry }) {
         {/* Hero */}
         <header style={{ ...wrap, padding: "28px 20px 8px" }}>
           {size.verdictKind === "out-of-range" ? (
-            <span style={{ display: "inline-block", padding: "5px 12px", fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#3A2E12", marginBottom: 18, cursor: "text" }}>
+            <span style={{ display: "inline-block", padding: "5px 12px", fontSize: 12, letterSpacing: "1.5px", textTransform: "uppercase", color: "#3A2E12", marginBottom: 18, cursor: "text" }}>
               {verdictLabel[size.verdictKind]}
             </span>
           ) : (
-            <Link to={size.verdictKind === "signature-range" ? "/en/collection" : "/en/bespoke"} style={{ display: "inline-block", background: verdictBg[size.verdictKind], padding: "5px 12px", borderRadius: 2, fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#3A2E12", marginBottom: 18, textDecoration: "none" }}>
+            <Link to={size.verdictKind === "signature-range" ? "/en/collection" : "/en/bespoke"} style={{ display: "inline-block", background: verdictBg[size.verdictKind], padding: "5px 12px", borderRadius: 2, fontSize: 12, letterSpacing: "1.5px", textTransform: "uppercase", color: "#3A2E12", marginBottom: 18, textDecoration: "none" }}>
               {verdictLabel[size.verdictKind]}
             </Link>
           )}
@@ -156,13 +156,13 @@ function SizePageInner({ size }: { size: SizeEntry }) {
           </p>
 
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 12 }}>
-            <Link to="/en/collection" style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#666", border: "1px solid #D9C9A8", padding: "5px 10px", borderRadius: 2, textDecoration: "none" }}>
+            <Link to="/en/collection" style={{ fontSize: 12, letterSpacing: "1.5px", textTransform: "uppercase", color: "#666", border: "1px solid #D9C9A8", padding: "5px 10px", borderRadius: 2, textDecoration: "none" }}>
               Signature 158 mm
             </Link>
-            <Link to="/en/bespoke" style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#666", border: "1px solid #D9C9A8", padding: "5px 10px", borderRadius: 2, textDecoration: "none" }}>
+            <Link to="/en/bespoke" style={{ fontSize: 12, letterSpacing: "1.5px", textTransform: "uppercase", color: "#666", border: "1px solid #D9C9A8", padding: "5px 10px", borderRadius: 2, textDecoration: "none" }}>
               Bespoke 145–160 mm
             </Link>
-            <span style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#666", padding: "5px 10px", cursor: "text" }}>
+            <span style={{ fontSize: 12, letterSpacing: "1.5px", textTransform: "uppercase", color: "#666", padding: "5px 10px", cursor: "text" }}>
               Hand made in EU
             </span>
           </div>
@@ -174,7 +174,7 @@ function SizePageInner({ size }: { size: SizeEntry }) {
                 background: "#CAA449",
                 color: "#1F1B16",
                 padding: "12px 22px",
-                fontSize: 11,
+                fontSize: 12,
                 letterSpacing: "2px",
                 textTransform: "uppercase",
                 textDecoration: "none",
@@ -190,7 +190,7 @@ function SizePageInner({ size }: { size: SizeEntry }) {
                 background: "transparent",
                 color: "#0B0A09",
                 padding: "12px 22px",
-                fontSize: 11,
+                fontSize: 12,
                 letterSpacing: "2px",
                 textTransform: "uppercase",
                 textDecoration: "none",
@@ -253,7 +253,7 @@ function SizePageInner({ size }: { size: SizeEntry }) {
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13, minWidth: 380 }}>
               <thead>
                 <tr style={{ borderBottom: "1px solid #E0D5C5", background: "#FBF7EE" }}>
-                  <th scope="col" style={{ textAlign: "left", padding: "12px 14px", fontWeight: 600, color: "#666", letterSpacing: "1px", textTransform: "uppercase", fontSize: 11 }}>
+                  <th scope="col" style={{ textAlign: "left", padding: "12px 14px", fontWeight: 600, color: "#666", letterSpacing: "1px", textTransform: "uppercase", fontSize: 12 }}>
                     Dimension (mm)
                   </th>
                   <th scope="col" style={{ textAlign: "left", padding: "12px 14px", fontWeight: 600, color: "#0B0A09", letterSpacing: "0.2px", fontSize: 12 }}>
@@ -336,7 +336,7 @@ function SizePageInner({ size }: { size: SizeEntry }) {
                 background: "#CAA449",
                 color: "#1F1B16",
                 padding: "10px 18px",
-                fontSize: 11,
+                fontSize: 12,
                 letterSpacing: "2px",
                 textTransform: "uppercase",
                 textDecoration: "none",
@@ -387,7 +387,7 @@ function SizePageInner({ size }: { size: SizeEntry }) {
                 <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
                   <span style={{ color: "#7A6420", fontWeight: 700, fontSize: 16 }}>$114</span>
                   <span style={{ color: "#BBB", fontSize: 12, textDecoration: "line-through" }}>$190</span>
-                  <span style={{ marginLeft: "auto", fontSize: 11, color: "#7A6420", letterSpacing: "1.5px", textTransform: "uppercase" }}>
+                  <span style={{ marginLeft: "auto", fontSize: 12, color: "#7A6420", letterSpacing: "1.5px", textTransform: "uppercase" }}>
                     View →
                   </span>
                 </div>
@@ -405,7 +405,7 @@ function SizePageInner({ size }: { size: SizeEntry }) {
                 color: "#EFE9DF",
               }}
             >
-              <div style={{ fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", color: "#CAA449", marginBottom: 8 }}>
+              <div style={{ fontSize: 12, letterSpacing: "2px", textTransform: "uppercase", color: "#CAA449", marginBottom: 8 }}>
                 Bespoke
               </div>
               <div style={{ fontFamily: "'Newsreader', 'Cormorant Garamond', serif", fontWeight: 400, fontSize: 19, marginBottom: 6, color: "#EFE9DF" }}>
@@ -414,7 +414,7 @@ function SizePageInner({ size }: { size: SizeEntry }) {
               <div style={{ fontSize: 12, color: "#B9B0A0", lineHeight: 1.55, marginBottom: 12 }}>
                 {size.bespokeNote}
               </div>
-              <span style={{ fontSize: 11, color: "#CAA449", letterSpacing: "1.5px", textTransform: "uppercase" }}>
+              <span style={{ fontSize: 12, color: "#CAA449", letterSpacing: "1.5px", textTransform: "uppercase" }}>
                 Start bespoke →
               </span>
             </Link>
@@ -461,7 +461,7 @@ function SizePageInner({ size }: { size: SizeEntry }) {
                   }}
                 >
                   {r.width} mm
-                  <span style={{ color: "#7A6420", marginLeft: 6, fontSize: 11 }}>
+                  <span style={{ color: "#7A6420", marginLeft: 6, fontSize: 12 }}>
                     {band === "signature" ? "signature" : band === "signature-range" ? "signature fit" : "bespoke"}
                   </span>
                 </Link>

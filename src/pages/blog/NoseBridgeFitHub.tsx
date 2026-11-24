@@ -87,7 +87,7 @@ const NoseBridgeFitHub = () => {
 
       <main className="relative z-[1] max-w-[860px] mx-auto px-4 sm:px-8 py-12 sm:py-20 w-full">
         {/* Breadcrumb */}
-        <nav aria-label="Breadcrumb" className="mb-6 text-cream-dim" style={{ fontSize: "0.6rem", letterSpacing: "0.2em", textTransform: "uppercase" }}>
+        <nav aria-label="Breadcrumb" className="mb-6 text-cream-dim" style={{ fontSize: "0.75rem", letterSpacing: "0.2em", textTransform: "uppercase" }}>
           <Link to="/en" className="text-cream-dim hover:text-gold-light no-underline">Home</Link>
           <span className="opacity-30 mx-2">/</span>
           <Link to="/en/blog" className="text-cream-dim hover:text-gold-light no-underline">Blog</Link>
@@ -118,7 +118,7 @@ const NoseBridgeFitHub = () => {
         {/* Pillar */}
         {pillar && (
           <section className="mb-14">
-            <div className="text-primary uppercase mb-3" style={{ fontSize: "0.55rem", letterSpacing: "0.28em" }}>
+            <div className="text-primary uppercase mb-3" style={{ fontSize: "0.75rem", letterSpacing: "0.28em" }}>
               Start here — Pillar guide
             </div>
             <Link
@@ -137,7 +137,7 @@ const NoseBridgeFitHub = () => {
               </p>
               <span
                 className="text-primary uppercase group-hover:tracking-[0.3em] transition-all"
-                style={{ fontSize: "0.6rem", letterSpacing: "0.24em" }}
+                style={{ fontSize: "0.75rem", letterSpacing: "0.24em" }}
               >
                 Read the pillar →
               </span>
@@ -147,7 +147,7 @@ const NoseBridgeFitHub = () => {
 
         {/* Shop the fit */}
         <section className="mb-14">
-          <div className="text-primary uppercase mb-3" style={{ fontSize: "0.55rem", letterSpacing: "0.28em" }}>
+          <div className="text-primary uppercase mb-3" style={{ fontSize: "0.75rem", letterSpacing: "0.28em" }}>
             Shop the fit
           </div>
           <h2 className="font-display text-woolet-white mb-5" style={{ fontSize: "1.4rem", fontWeight: 400 }}>
@@ -181,7 +181,7 @@ const NoseBridgeFitHub = () => {
                 <p className="text-cream-dim leading-relaxed tracking-wider mb-3" style={{ fontSize: "0.78rem" }}>
                   {c.blurb}
                 </p>
-                <span className="text-primary uppercase" style={{ fontSize: "0.55rem", letterSpacing: "0.24em" }}>
+                <span className="text-primary uppercase" style={{ fontSize: "0.75rem", letterSpacing: "0.24em" }}>
                   Browse →
                 </span>
               </Link>
@@ -223,7 +223,7 @@ const NoseBridgeFitHub = () => {
         {/* Related reading */}
         {related.length > 0 && (
           <section className="mb-14">
-            <div className="text-primary uppercase mb-3" style={{ fontSize: "0.55rem", letterSpacing: "0.28em" }}>
+            <div className="text-primary uppercase mb-3" style={{ fontSize: "0.75rem", letterSpacing: "0.28em" }}>
               Go deeper
             </div>
             <h2 className="font-display text-woolet-white mb-5" style={{ fontSize: "1.4rem", fontWeight: 400 }}>
@@ -238,7 +238,7 @@ const NoseBridgeFitHub = () => {
                   style={i < related.length - 1 ? { borderBottom: "1px solid hsl(0 0% 100% / 0.055)" } : undefined}
                 >
                   <div className="flex items-center gap-3 mb-2 flex-wrap">
-                    <span className="text-cream-dim tracking-wider" style={{ fontSize: "0.55rem" }}>
+                    <span className="text-cream-dim tracking-wider" style={{ fontSize: "0.75rem" }}>
                       {post.readTime} min read
                     </span>
                     {post.tags.slice(0, 2).map((tag) => (
@@ -268,7 +268,7 @@ const NoseBridgeFitHub = () => {
 
         {/* FAQ */}
         <section className="mb-10">
-          <div className="text-primary uppercase mb-3" style={{ fontSize: "0.55rem", letterSpacing: "0.28em" }}>
+          <div className="text-primary uppercase mb-3" style={{ fontSize: "0.75rem", letterSpacing: "0.28em" }}>
             Quick answers
           </div>
           <h2 className="font-display text-woolet-white mb-5" style={{ fontSize: "1.4rem", fontWeight: 400 }}>
@@ -302,7 +302,7 @@ const NoseBridgeFitHub = () => {
           <Link
             to="/en/blog"
             className="text-cream-dim hover:text-gold-light no-underline uppercase"
-            style={{ fontSize: "0.6rem", letterSpacing: "0.28em" }}
+            style={{ fontSize: "0.75rem", letterSpacing: "0.28em" }}
           >
             ← All articles
           </Link>

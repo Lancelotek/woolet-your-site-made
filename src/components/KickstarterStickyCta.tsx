@@ -87,7 +87,7 @@ export default function KickstarterStickyCta() {
           fontFamily: "'Barlow', sans-serif",
         }}
       >
-        {founder && <span style={{ fontWeight: 400, fontSize: 11, color: "rgba(0,0,0,0.72)" }}>{copy.note}</span>}
+        {founder && <span style={{ fontWeight: 400, fontSize: 12, color: "rgba(0,0,0,0.72)" }}>{copy.note}</span>}
         <span style={{ fontWeight: 600, fontSize: 13, letterSpacing: "0.5px", marginLeft: founder ? undefined : "auto", marginRight: founder ? undefined : "auto" }}>
           {founder ? copy.cta : COPY_KS[lang] ?? COPY_KS.en}
         </span>

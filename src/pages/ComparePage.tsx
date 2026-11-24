@@ -87,7 +87,7 @@ const ComparePageInner = ({ competitor: c }: { competitor: Competitor }) => {
             maxWidth: 960,
             margin: "0 auto",
             padding: "16px 20px 0",
-            fontSize: 11,
+            fontSize: 12,
             color: "#888",
             letterSpacing: 1,
             textTransform: "uppercase",
@@ -104,7 +104,7 @@ const ComparePageInner = ({ competitor: c }: { competitor: Competitor }) => {
         <header style={{ maxWidth: 760, margin: "0 auto", padding: "36px 20px 24px", textAlign: "center" }}>
           <div
             style={{
-              fontSize: 11,
+              fontSize: 12,
               letterSpacing: "2.4px",
               textTransform: "uppercase",
               color: "#A07A2A",
@@ -129,7 +129,7 @@ const ComparePageInner = ({ competitor: c }: { competitor: Competitor }) => {
               color: "#080807",
               padding: "13px 24px",
               borderRadius: 4,
-              fontSize: 11,
+              fontSize: 12,
               letterSpacing: "2px",
               textTransform: "uppercase",
               textDecoration: "none",
@@ -138,7 +138,7 @@ const ComparePageInner = ({ competitor: c }: { competitor: Competitor }) => {
           >
             Scan your fit in 60 seconds →
           </Link>
-          <div style={{ fontSize: 11, color: "#888", marginTop: 14, letterSpacing: 0.3 }}>
+          <div style={{ fontSize: 12, color: "#888", marginTop: 14, letterSpacing: 0.3 }}>
             From $190. The shop is sold out until the Kickstarter campaign ends; order now with a $1 reservation that locks the $114 founding-member price.
           </div>
         </header>
@@ -155,7 +155,7 @@ const ComparePageInner = ({ competitor: c }: { competitor: Competitor }) => {
           >
             <div
               style={{
-                fontSize: 10,
+                fontSize: 12,
                 letterSpacing: "2px",
                 textTransform: "uppercase",
                 color: "#A07A2A",
@@ -212,7 +212,7 @@ const ComparePageInner = ({ competitor: c }: { competitor: Competitor }) => {
                 </tbody>
               </table>
             </div>
-            <p style={{ fontSize: 11, color: "#888", marginTop: 10, lineHeight: 1.6 }}>
+            <p style={{ fontSize: 12, color: "#888", marginTop: 10, lineHeight: 1.6 }}>
               {c.name} figures are approximate and vary by model — check the current product listing. Woolet
               figures are the published specs for the 007 Round and 009 Soft-Square, with bespoke ranges noted.
             </p>
@@ -247,7 +247,7 @@ const ComparePageInner = ({ competitor: c }: { competitor: Competitor }) => {
               </tbody>
             </table>
           </div>
-          <p style={{ fontSize: 11, color: "#888", marginTop: 10, lineHeight: 1.6 }}>
+          <p style={{ fontSize: 12, color: "#888", marginTop: 10, lineHeight: 1.6 }}>
             Comparison based on publicly available information as of July 2026. {c.name} specifications vary by model — always check the current listing.
           </p>
         </section>
@@ -395,7 +395,7 @@ const ComparePageInner = ({ competitor: c }: { competitor: Competitor }) => {
                 color: "#080807",
                 padding: "13px 26px",
                 borderRadius: 4,
-                fontSize: 11,
+                fontSize: 12,
                 letterSpacing: "2px",
                 textTransform: "uppercase",
                 textDecoration: "none",
@@ -440,7 +440,7 @@ const ComparePageInner = ({ competitor: c }: { competitor: Competitor }) => {
             maxWidth: 760,
             margin: "0 auto",
             padding: "8px 20px 40px",
-            fontSize: 11,
+            fontSize: 12,
             color: "#999",
             lineHeight: 1.6,
           }}

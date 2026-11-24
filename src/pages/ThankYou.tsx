@@ -105,7 +105,7 @@ export default function ThankYou() {
         <span
           className="ty-right-label"
           style={{
-            fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: T.muted,
+            fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: T.muted,
             letterSpacing: "0.14em", textTransform: "uppercase",
           }}
         >
@@ -195,7 +195,7 @@ export default function ThankYou() {
           {/* progress bar */}
           <div className="ty-a1" style={{ maxWidth: 300, width: "100%", marginBottom: 32 }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
-              <span style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.1em", color: T.muted, fontFamily: "'DM Sans', sans-serif" }}>
+              <span style={{ fontSize: 12, textTransform: "uppercase", letterSpacing: "0.1em", color: T.muted, fontFamily: "'DM Sans', sans-serif" }}>
                 Only 30 frames at $114 - then $190
               </span>
             </div>
@@ -233,7 +233,7 @@ export default function ThankYou() {
 
           {/* referral share */}
           <div className="ty-a3" style={{ maxWidth: 300, width: "100%", textAlign: "center" }}>
-            <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.1em", color: T.muted, fontFamily: "'DM Sans', sans-serif", marginBottom: 12 }}>
+            <div style={{ fontSize: 12, textTransform: "uppercase", letterSpacing: "0.1em", color: T.muted, fontFamily: "'DM Sans', sans-serif", marginBottom: 12 }}>
               MOVE UP THE LIST — SHARE YOUR LINK
             </div>
             <div style={{ display: "flex", gap: 8 }}>
@@ -251,7 +251,7 @@ export default function ThankYou() {
                 onClick={copyLink}
                 style={{
                   background: T.gold, color: T.ink, border: "none", borderRadius: 3,
-                  padding: "10px 16px", fontSize: 11, textTransform: "uppercase",
+                  padding: "10px 16px", fontSize: 12, textTransform: "uppercase",
                   letterSpacing: "0.08em", fontFamily: "'DM Sans', sans-serif",
                   fontWeight: 500, cursor: "pointer", whiteSpace: "nowrap",
                 }}

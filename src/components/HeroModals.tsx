@@ -54,7 +54,7 @@ const inputStyle: React.CSSProperties = {
 const labelStyle: React.CSSProperties = {
   fontFamily: "Barlow, sans-serif",
   fontWeight: 500,
-  fontSize: "0.55rem",
+  fontSize: "0.75rem",
   letterSpacing: "0.2em",
   textTransform: "uppercase",
   color: "hsl(var(--cream-dim))",
@@ -65,7 +65,7 @@ const labelStyle: React.CSSProperties = {
 const eyebrowText: React.CSSProperties = {
   fontFamily: "Barlow, sans-serif",
   fontWeight: 500,
-  fontSize: "0.6rem",
+  fontSize: "0.75rem",
   letterSpacing: "0.28em",
   textTransform: "uppercase",
   color: "hsl(var(--gold))",

@@ -64,7 +64,7 @@ export default function DeCollection() {
                 <Link to={`/de/produkte/${product.id}`} aria-label={`Woolet ${product.id} ${product.shape} ansehen`} className="block no-underline">
                 <div className="aspect-[4/3] overflow-hidden bg-cream"><img src={product.image} alt={`Woolet ${product.id} ${product.shape} in Havana Founder Acetate`} width={1200} height={900} className="h-full w-full object-contain" loading="lazy" /></div>
                 <div className="px-6 pt-6 sm:px-8 sm:pt-8">
-                  <p className="font-body text-[10px] uppercase tracking-[0.24em] text-primary">Woolet {product.id}</p>
+                  <p className="font-body text-[12px] uppercase tracking-[0.24em] text-primary">Woolet {product.id}</p>
                   <h2 className="mt-2 font-display text-3xl font-normal text-foreground">{product.shape}</h2>
                   <p className="mt-3 font-body text-sm text-cream-dim">158 mm Frontbreite - Steg {product.bridge} mm - Havana Founder Acetat</p>
                 </div>

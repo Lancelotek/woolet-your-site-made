@@ -183,7 +183,7 @@ export function ColourSwatches({
       <div
         style={{
           fontFamily: SANS,
-          fontSize: 10,
+          fontSize: 12,
           letterSpacing: "0.24em",
           textTransform: "uppercase",
           color: T.inkMute,
@@ -227,7 +227,7 @@ export function ColourSwatches({
               <span
                 style={{
                   fontFamily: SANS,
-                  fontSize: 11,
+                  fontSize: 12,
                   color: activeState ? T.ink : T.inkDim,
                   fontWeight: activeState ? 600 : 400,
                 }}
@@ -236,7 +236,7 @@ export function ColourSwatches({
               </span>
               <span
                 aria-hidden
-                style={{ fontFamily: SANS, fontSize: 9, letterSpacing: "0.18em", textTransform: "uppercase", color: T.gold, height: 11, visibility: activeState ? "visible" : "hidden" }}
+                style={{ fontFamily: SANS, fontSize: 12, letterSpacing: "0.18em", textTransform: "uppercase", color: T.gold, height: 11, visibility: activeState ? "visible" : "hidden" }}
               >
                 ✓
               </span>

@@ -69,7 +69,7 @@ export default function KickstarterCountdown({ note }: { note?: string }) {
       }}
     >
       <div>
-        <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: GOLD }}>
+        <p style={{ margin: 0, fontSize: 12, letterSpacing: "0.18em", textTransform: "uppercase", color: GOLD }}>
           Kickstarter launch in
         </p>
         <p style={{ margin: "4px 0 0", fontSize: 12, color: TAUPE }}>
@@ -81,7 +81,7 @@ export default function KickstarterCountdown({ note }: { note?: string }) {
         {units.map(([v, l]) => (
           <div key={l} style={{ textAlign: "center", minWidth: 34 }}>
             <div style={{ fontSize: 24, lineHeight: 1, color: CREAM, fontVariantNumeric: "tabular-nums" }}>{v}</div>
-            <div style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: TAUPE, marginTop: 4 }}>{l}</div>
+            <div style={{ fontSize: 12, letterSpacing: "0.14em", textTransform: "uppercase", color: TAUPE, marginTop: 4 }}>{l}</div>
           </div>
         ))}
       </div>

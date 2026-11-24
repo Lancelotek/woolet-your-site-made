@@ -108,7 +108,7 @@ export default function DesktopScanGate({ lang }: Props) {
             <div
               style={{
                 color: GOLD,
-                fontSize: "0.62rem",
+                fontSize: "0.75rem",
                 fontWeight: 600,
                 letterSpacing: "0.18em",
                 textTransform: "uppercase",

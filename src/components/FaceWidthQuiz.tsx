@@ -160,7 +160,7 @@ const FaceWidthQuiz = () => {
     const fg = r.tone === "bespoke" ? "#EFE9DF" : "#111111";
     return (
       <div style={{ ...shellStyle, background: bg, borderColor: accent, color: fg }}>
-        <div style={{ fontSize: 10, letterSpacing: 3, textTransform: "uppercase", color: accent, marginBottom: 12, fontWeight: 600 }}>
+        <div style={{ fontSize: 12, letterSpacing: 3, textTransform: "uppercase", color: accent, marginBottom: 12, fontWeight: 600 }}>
           Your result
         </div>
         <h3 style={{ fontFamily: "'Newsreader', serif", fontSize: 24, lineHeight: 1.25, margin: "0 0 6px", fontWeight: 500, color: fg }}>
@@ -216,7 +216,7 @@ const FaceWidthQuiz = () => {
               border: "none",
               color: fg,
               opacity: 0.5,
-              fontSize: 11,
+              fontSize: 12,
               letterSpacing: 1.5,
               textTransform: "uppercase",
               cursor: "pointer",
@@ -235,10 +235,10 @@ const FaceWidthQuiz = () => {
   return (
     <div style={shellStyle}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
-        <div style={{ fontSize: 10, letterSpacing: 3, textTransform: "uppercase", color: "#8A8578", fontWeight: 600 }}>
+        <div style={{ fontSize: 12, letterSpacing: 3, textTransform: "uppercase", color: "#8A8578", fontWeight: 600 }}>
           Face-width quiz · Step {step + 1} of {STEPS.length}
         </div>
-        <div style={{ fontSize: 10, letterSpacing: 2, color: "#8A8578" }}>{progress}%</div>
+        <div style={{ fontSize: 12, letterSpacing: 2, color: "#8A8578" }}>{progress}%</div>
       </div>
       <div style={{ height: 3, background: "#E4DFD4", borderRadius: 2, overflow: "hidden", marginBottom: 22 }}>
         <div style={{ width: `${progress}%`, height: "100%", background: "#C2A05A", transition: "width 0.3s ease" }} />
@@ -286,7 +286,7 @@ const FaceWidthQuiz = () => {
             background: "none",
             border: "none",
             color: "#8A8578",
-            fontSize: 11,
+            fontSize: 12,
             letterSpacing: 1.5,
             textTransform: "uppercase",
             cursor: "pointer",

@@ -208,7 +208,7 @@ const ProductGalleryStage = ({ model, colourId, colourName, lang = "en" }: Props
         </div>
       )}
 
-      <div style={{ marginTop: 10, fontFamily: SANS, fontSize: 11.5, color: T.inkMute }}>
+      <div style={{ marginTop: 10, fontFamily: SANS, fontSize: 12, color: T.inkMute }}>
         {idx + 1} / {items.length} · {colourName}
       </div>
     </div>

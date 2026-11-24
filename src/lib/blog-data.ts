@@ -174,7 +174,7 @@ ${blogFitLensHookHtml()}
   </div>
 </div>
 
-<p style="font-size:18px;line-height:1.7;color:#1a1a1a;background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:20px 24px;margin:0 0 28px;border-radius:4px;"><strong>A wide face measures 155 mm or more temple-to-temple, and it needs glasses with a total front width of about 158 mm.</strong> Most frames sold as "wide" or "oversized" stop at 138–148 mm, which is why they still pinch after an hour. Buy to front width, not to lens size or style: 150–154 mm faces fit a 152–156 mm front, 155–159 mm faces need 157–160 mm, and 160 mm+ faces need 161 mm or bespoke from 145–160 mm. To see frames that clear that bar, browse our <a href="/en/collections/glasses-for-big-heads">extra wide glasses</a>.</p>
+<p style="font-size:18px;line-height:1.7;color:#1a1a1a;background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:20px 24px;margin:0 0 28px;"><strong>A wide face measures 155 mm or more temple-to-temple, and it needs glasses with a total front width of about 158 mm.</strong> Most frames sold as "wide" or "oversized" stop at 138–148 mm, which is why they still pinch after an hour. Buy to front width, not to lens size or style: 150–154 mm faces fit a 152–156 mm front, 155–159 mm faces need 157–160 mm, and 160 mm+ faces need 161 mm or bespoke from 145–160 mm. To see frames that clear that bar, browse our <a href="/en/collections/glasses-for-big-heads">extra wide glasses</a>.</p>
 
 <p>The short version if you are here from a search for wide-face frames or <a href="/en/collections/glasses-for-big-heads" style="color:#A07A2A;">glasses for big heads</a>: measure your temple-to-temple width with a ruler or your phone, add 2–5 mm, and shop only frames that publish a total front width in that range. Woolet 007 (round) and 009 (soft square) both run a 158 mm front with a 25 mm keyhole bridge — see the wide-face collection or jump to the <a href="#size-chart" style="color:#A07A2A;">size chart below</a>.</p>
 
@@ -251,7 +251,7 @@ ${blogFitLensHookHtml()}
 <p>It shouldn't. And the rest of this guide is here to fix that.</p>
 
 
-<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">Definition</div>
   <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">A wide face in eyewear terms means 155 mm or more measured temple-to-temple. Standard eyewear frames top out at 140–145 mm, so anything past that is already wider than the market is built for: frames pinch at the temples, bow at the arms, and sit off-center on the face. At 155 mm the mainstream market offers nothing at all — and that is where Woolet's standard 158 mm frames begin.</p>
 </div>
@@ -766,7 +766,7 @@ ${blogFitLensHookHtml()}
       ],
     },
     content: `
-<p style="font-size:18px;line-height:1.7;color:#1a1a1a;background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:20px 24px;margin:0 0 24px;border-radius:4px;"><strong>To measure your face width, hold a ruler flat and level across the widest part of your head at eye level — just in front of the ears — and read temple to temple in millimetres.</strong> That single number, not lens size, decides which frames fit. Under 145 mm is average; 155 mm and above needs a wide-face frame. For the full picture, read our guide to <a href="/en/blog/glasses-for-wide-faces-guide">glasses for wide faces</a>.</p>
+<p style="font-size:18px;line-height:1.7;color:#1a1a1a;background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:20px 24px;margin:0 0 24px;"><strong>To measure your face width, hold a ruler flat and level across the widest part of your head at eye level — just in front of the ears — and read temple to temple in millimetres.</strong> That single number, not lens size, decides which frames fit. Under 145 mm is average; 155 mm and above needs a wide-face frame. For the full picture, read our guide to <a href="/en/blog/glasses-for-wide-faces-guide">glasses for wide faces</a>.</p>
 
 <table style="width:100%;border-collapse:collapse;font-size:14px;margin:0 0 28px;">
   <thead><tr style="background:#F8F6F1;color:#1F1B16;"><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Face width</th><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Frame front width</th><th style="text-align:left;padding:10px 12px;border-bottom:1px solid #E8E4DC;">Size band</th></tr></thead>
@@ -1408,7 +1408,7 @@ ${blogFitLensHookHtml()}
 
 <p><em>Woolet 007 (round, 158mm) and Woolet 009 (square, 158mm) — Italian acetate frames designed for 155mm+ faces. Join the waitlist at woolet.co.</em></p>
 
-<p style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:16px 20px;border-radius:4px;">Shape is taste; width is arithmetic. Before you choose between round and soft-square, <a href="/en/fit" style="color:#A07A2A;"><strong>measure your face with FitLens</strong></a> — 60 seconds on your phone camera, and you will know whether 158 mm is your number.</p>
+<p style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:16px 20px;">Shape is taste; width is arithmetic. Before you choose between round and soft-square, <a href="/en/fit" style="color:#A07A2A;"><strong>measure your face with FitLens</strong></a> — 60 seconds on your phone camera, and you will know whether 158 mm is your number.</p>
 
 `,
   },
@@ -1533,7 +1533,7 @@ ${blogFitLensHookHtml()}
 
 <p><em>Woolet makes premium Italian acetate eyewear engineered for professionals with 155mm+ face widths. Two models: 007 (round, 158mm) and 009 (square, 158mm). Join the waitlist at woolet.co.</em></p>
 
-<p style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:16px 20px;border-radius:4px;">Not sure where you land? <a href="/en/fit" style="color:#A07A2A;"><strong>Get your number in 60 seconds</strong></a> with FitLens — your phone camera, a credit card for scale, and a face width in millimetres.</p>
+<p style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:16px 20px;">Not sure where you land? <a href="/en/fit" style="color:#A07A2A;"><strong>Get your number in 60 seconds</strong></a> with FitLens — your phone camera, a credit card for scale, and a face width in millimetres.</p>
 
 `,
   },
@@ -1749,7 +1749,7 @@ ${blogFitLensHookHtml()}
 
 <p><em>Woolet 007 (round, 158mm) and Woolet 009 (square, 158mm). Italian acetate. Engineered for 155mm+ faces. Join the waitlist at woolet.co for priority access and 15% off at launch.</em></p>
 
-<p style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:16px 20px;border-radius:4px;">Every recommendation above depends on one number you probably do not have yet. <a href="/en/fit" style="color:#A07A2A;"><strong>Scan your face with your phone</strong></a> — FitLens returns your temple-to-temple width and the front width that fits it.</p>
+<p style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:16px 20px;">Every recommendation above depends on one number you probably do not have yet. <a href="/en/fit" style="color:#A07A2A;"><strong>Scan your face with your phone</strong></a> — FitLens returns your temple-to-temple width and the front width that fits it.</p>
 
 `,
   },
@@ -1894,7 +1894,7 @@ ${blogFitLensHookHtml()}
 
 <p><a href="/en/collections/blue-light-glasses-for-wide-faces">oversized blue light glasses</a> | <a href="/en/products/007">Woolet 007 (round)</a> | <a href="/en/products/009">Woolet 009 (square)</a></p>
 
-<p style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:16px 20px;border-radius:4px;">A blue-light lens in a frame that pinches is still a frame that pinches. <a href="/en/fit" style="color:#A07A2A;"><strong>Measure your face with FitLens</strong></a> first — about 60 seconds, no app.</p>
+<p style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:16px 20px;">A blue-light lens in a frame that pinches is still a frame that pinches. <a href="/en/fit" style="color:#A07A2A;"><strong>Measure your face with FitLens</strong></a> first — about 60 seconds, no app.</p>
 
 `,
   },
@@ -1992,7 +1992,7 @@ ${blogFitLensHookHtml()}
 
 <p>Sunglasses for big heads — full collection | <a href="/en/collections/oversized-sunglasses-men">Oversized sunglasses for men</a> | <a href="/en/products/007">Woolet 007 (round)</a> | <a href="/en/products/009">Woolet 009 (square)</a></p>
 
-<p style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:16px 20px;border-radius:4px;">Before you buy any pair on this list, <a href="/en/fit" style="color:#A07A2A;"><strong>get your number in 60 seconds</strong></a>. FitLens measures your face width from your phone camera and tells you whether 158 mm fits.</p>
+<p style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:16px 20px;">Before you buy any pair on this list, <a href="/en/fit" style="color:#A07A2A;"><strong>get your number in 60 seconds</strong></a>. FitLens measures your face width from your phone camera and tells you whether 158 mm fits.</p>
 
 `,
   },
@@ -2026,7 +2026,7 @@ ${blogFitLensHookHtml()}
       },
     ],
     content: `
-<p style="font-size:18px;line-height:1.7;color:#1a1a1a;background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:20px 24px;margin:0 0 28px;border-radius:4px;"><strong>A wide face (155 mm or more temple to temple) needs sunglasses with a 155-160 mm front width, a 25 mm bridge and temples of 148 mm or more.</strong> Most sunglasses stop at 140-148 mm, so they pinch within an hour. Bigger lenses do not fix it - only a wider front does. For frames actually built at that width, browse our <a href="/en/collections/sunglasses-for-big-heads">sunglasses for big heads</a>.</p>
+<p style="font-size:18px;line-height:1.7;color:#1a1a1a;background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:20px 24px;margin:0 0 28px;"><strong>A wide face (155 mm or more temple to temple) needs sunglasses with a 155-160 mm front width, a 25 mm bridge and temples of 148 mm or more.</strong> Most sunglasses stop at 140-148 mm, so they pinch within an hour. Bigger lenses do not fix it - only a wider front does. For frames actually built at that width, browse our <a href="/en/collections/sunglasses-for-big-heads">sunglasses for big heads</a>.</p>
 
 <p>The single most common question we get from wide-faced buyers is also the simplest: <em>what size sunglasses do I actually need?</em> The short answer fits in one line — a front width of 155 mm or more, a 25 mm bridge, and temples of at least 148 mm. The long answer is what this guide is for: how to read the three numbers on a sunglass frame, how to measure your own face in under a minute, and how to avoid the most common sizing mistake.</p>
 
@@ -2136,7 +2136,7 @@ ${blogFitLensHookHtml()}
 
 <p>This guide explains where bespoke actually starts (it's not at 155 mm), why the 145–160 mm range exists, and how to know whether a stock Woolet 155–161 mm frame will work for you — or whether you need a made-to-measure pair.</p>
 
-<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">In one line</div>
   <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">Bespoke eyewear is for the faces Woolet's stock frames can't fit — below 155 mm, or with a bridge outside the 25 mm keyhole standard. Woolet bespoke covers 145–160 mm, hand-cut from a single block of Italian Mazzucchelli acetate.</p>
 </div>
@@ -3142,7 +3142,7 @@ ${blogFitLensHookHtml()}
 
 <p>This guide is for women who already know the routine: pulling frame after frame off the wall, watching the arms bow before they ever reach the ears, being told to try "a different shape" when the issue was never the shape. The answer is a number, not a style.</p>
 
-<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">Definition</div>
   <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">A wide face in eyewear terms means a face width of 155 mm or more measured temple-to-temple. The average adult woman's face measures roughly 134 mm wide; standard women's frames are built for 128–138 mm. Above 145 mm, mainstream women's eyewear stops fitting.</p>
 </div>
@@ -3298,7 +3298,7 @@ ${blogFitLensHookHtml()}
 
 <p>This is the part most retailers skip. If a shop cannot tell you the hinge-to-hinge measurement of a frame, they cannot tell you whether it fits.</p>
 
-<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;">
   <p style="margin:0;font-size:15px;line-height:1.6;color:#1a1a1a;">Not sure about your measurements? Our <a href="/en/fit" style="color:#A07A2A;font-weight:600;">Fit Wizard</a> tells you in 60 seconds — one front-facing photo, no tape measure required.</p>
 </div>
 
@@ -3479,7 +3479,7 @@ ${blogFitLensHookHtml()}
 
 <p>This guide fixes that in about a minute. No specialist tools, no visit to a hatter, no returning three sizes in a row. Just a string, a ruler, and the chart below.</p>
 
-<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">The one number that matters</div>
   <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">Your <strong>head circumference</strong> — measured in centimetres around the widest part of your skull, roughly 2.5&nbsp;cm above your eyebrows and ears. Every hat size in every country converts directly from this single number. Get it right once and you never guess a size again.</p>
 </div>
@@ -3693,7 +3693,7 @@ More on fit for bigger heads and wider faces:
 
 <p>One more thing the chart will tell you, if you know where to look: your hat size is the single best off-the-shelf predictor of whether glasses will fit you. The two measurements sit on the same ring of your skull. <a href="#your-hat-size-predicts-your-glasses-size" style="color:#c9a84c;">Skip to the hat size → glasses size conversion ↓</a></p>
 
-<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">The rule that fixes 90% of confusion</div>
   <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">Every hat size in the world is derived from one number: your <strong>head circumference in centimetres</strong>. US, UK and EU sizes are just three different ways of labelling the same measurement. Get the cm right and the rest is arithmetic.</p>
 </div>
@@ -3735,7 +3735,7 @@ More on fit for bigger heads and wider faces:
 
 <p style="font-size:13px;color:#666;margin-top:-8px;"><em>Frame front width = total width of the frame, hinge to hinge — not lens width. It is the number that decides whether the arms run straight back or splay. Most mainstream brands top out around 148&nbsp;mm; a handful of “XL” lines reach 152&nbsp;mm.</em></p>
 
-<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">Where Woolet sits on this table</div>
   <p style="margin:0 0 10px 0;font-size:15px;line-height:1.65;color:#1a1a1a;">We build one front width: <strong>158&nbsp;mm</strong>. That is deliberate — it covers the 58–61&nbsp;cm band (US 7¼ to 7⅝) properly rather than covering everything badly.</p>
   <p style="margin:0 0 10px 0;font-size:15px;line-height:1.65;color:#1a1a1a;">If your hat is 7 or smaller, you do not need us. A mainstream frame labelled “wide” or “XL” will fit you, and we would rather tell you that than sell you 158&nbsp;mm you will have to push back up your nose. If you are 62&nbsp;cm and above, 158&nbsp;mm is still short for you — that is what bespoke is for.</p>
@@ -3799,7 +3799,7 @@ More on fit for bigger heads and wider faces:
 
 <p>That is the gap Woolet was built to fill: a 158&nbsp;mm stock front for faces 155–161&nbsp;mm, plus bespoke from 145–160&nbsp;mm — for exactly the crowd that shops for hats in XL and XXL.</p>
 
-<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">For the same crowd</div>
   <p style="margin:0 0 8px 0;font-size:15px;line-height:1.65;color:#1a1a1a;">If your hat size is 7¼ or larger, mainstream frames are pinching your temples whether or not you have noticed. Woolet 007 and 009 ship at 158&nbsp;mm front width, in Italian Mazzucchelli acetate, hand made in EU.</p>
 <p style="margin:0;font-size:14px;line-height:1.65;">Glasses for big heads → · <a href="/en/bespoke" style="color:#A07A2A;">Bespoke 145–160 mm →</a></p>
@@ -3908,7 +3908,7 @@ Related guides:
 
 <p>If every "one size fits most" cap slides straight back to the crown of your skull, and every fitted-cap chart tops out one size below yours, this is the guide. No fluff, no chart you have to hunt down — just the numbers, the brands, and the honest answer to "what size hat do I wear?" when your head is on the bigger end of the bell curve.</p>
 
-<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">The short version</div>
   <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">If your head measures <strong>60&nbsp;cm or more</strong>, you wear a US 7½ or larger — and mainstream brands stop stocking your size right there. Above 62&nbsp;cm (7¾), you're in specialist territory: 4–5 brands worldwide will actually fit you off-the-shelf.</p>
 </div>
@@ -3972,7 +3972,7 @@ Related guides:
 
 <p>That's the gap Woolet was built for: frames starting at 158&nbsp;mm front width in Italian Mazzucchelli acetate, with bespoke sizing up to 160&nbsp;mm. Same crowd, adjacent problem.</p>
 
-<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">Sized out of eyewear too?</div>
   <p style="margin:0 0 8px 0;font-size:15px;line-height:1.65;color:#1a1a1a;">Woolet 007 and 009 ship at 158&nbsp;mm — designed for exactly the group that shops for hats in XL and XXL.</p>
   <p style="margin:0;font-size:14px;line-height:1.65;">Glasses for big heads → · <a href="/en/bespoke" style="color:#A07A2A;">Bespoke up to 160&nbsp;mm →</a></p>
@@ -4011,13 +4011,13 @@ Related guides:
       { q: "What is the average face width?", a: "141.9 mm for adult men, with a standard deviation of 5.1 mm, per anthropometric research published in the Cleft Palate and Craniofacial Journal (Perry et al., 2013). That is about 5.6 inches. Faces of 155 mm or more sit well above that average, which is why standard frames pinch them." },
     ],
     content: `
-<p style="font-size:18px;line-height:1.7;color:#1a1a1a;background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:20px 24px;margin:0 0 28px;border-radius:4px;"><strong>Your face is wide if it measures 155 mm or more temple to temple, across the widest point of the cheekbones.</strong> Narrow is under 138 mm, average 138-154 mm, wide 155-161 mm, and 162 mm and above is wide beyond the range we build — our widest bespoke front is 160 mm. The average adult male face is about 142 mm (plus or minus 5 mm), so most frames are built for 135-150 mm. For the full picture, read our guide to <a href="/en/blog/glasses-for-wide-faces-guide">glasses for wide faces</a>.</p>
+<p style="font-size:18px;line-height:1.7;color:#1a1a1a;background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:20px 24px;margin:0 0 28px;"><strong>Your face is wide if it measures 155 mm or more temple to temple, across the widest point of the cheekbones.</strong> Narrow is under 138 mm, average 138-154 mm, wide 155-161 mm, and 162 mm and above is wide beyond the range we build — our widest bespoke front is 160 mm. The average adult male face is about 142 mm (plus or minus 5 mm), so most frames are built for 135-150 mm. For the full picture, read our guide to <a href="/en/blog/glasses-for-wide-faces-guide">glasses for wide faces</a>.</p>
 
 <p>Most fit advice online skips the one thing that actually decides whether a frame will pinch or float on your face: <strong>your face width in millimetres</strong>. Not your face <em>shape</em>. Not your head circumference. The temple-to-temple distance, measured across the widest part of your cheekbones.</p>
 
 <p>This guide gives you a 30-second self-test, a clear four-band classification, and — honestly — tells you when Woolet is the answer and when it isn't.</p>
 
-<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">The one number that matters</div>
   <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">Face width = the horizontal distance between the two most outward points of your cheekbones, measured in millimetres. This is the number opticians <em>should</em> match to frame front width — but rarely publish.</p>
 </div>
@@ -4115,7 +4115,7 @@ wide-face fit guide ·
 
 <p>This is not a marketing piece — TR90 has real strengths and we will name them. But if your face is 155 mm+ and you want a frame that fits <em>you</em>, not the mould it came out of, the answer is not close.</p>
 
-<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">The single deciding factor</div>
   <p style="margin:0;font-size:15px;line-height:1.65;color:#1a1a1a;">Italian Mazzucchelli acetate can be reheated and reshaped at the bench — front curvature, temple splay, bridge angle. TR90 cannot. It is engineered to snap back to its factory shape. On a 155 mm+ face, that difference decides whether the frame sits level or forever tilts.</p>
 </div>
@@ -4201,7 +4201,7 @@ wide-face fit guide ·
 <p><strong>Face 145–154 mm:</strong> acetate is worth the premium for the adjustment margin alone. TR90 will fit but never <em>settle</em>.</p>
 <p><strong>Face 155 mm+:</strong> acetate is not really optional. This is the range where post-purchase adjustment is the difference between "wearable" and "unwearable" — and where the wide-fit market only exists in acetate anyway.</p>
 
-<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;border-radius:4px;">
+<div style="background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:18px 22px;margin:24px 0;">
   <div style="font-family:'Barlow',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">Not sure which band you're in?</div>
   <p style="margin:0 0 8px 0;font-size:15px;line-height:1.65;color:#1a1a1a;">Run the <a href="/en/fit" style="color:#A07A2A;text-decoration:underline;">AI Fit Wizard</a> — one selfie, face width in millimetres, and a straight recommendation on which material bracket you're in.</p>
   <p style="margin:0;font-size:14px;line-height:1.65;"><a href="/en/products/007" style="color:#A07A2A;">Woolet 007 (Italian acetate, 158 mm) →</a> · <a href="/en/bespoke" style="color:#A07A2A;">Bespoke (145–160 mm) →</a></p>

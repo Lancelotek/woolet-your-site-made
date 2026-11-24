@@ -156,7 +156,7 @@ const Process = () => {
                 className="uppercase text-gold-light mb-4"
                 style={{
                   fontFamily: "Barlow, sans-serif",
-                  fontSize: "0.68rem",
+                  fontSize: "0.75rem",
                   fontWeight: 600,
                   letterSpacing: "0.22em",
                 }}
@@ -213,7 +213,7 @@ const Process = () => {
                     className="uppercase text-gold-light mb-2"
                     style={{
                       fontFamily: "Barlow, sans-serif",
-                      fontSize: "0.68rem",
+                      fontSize: "0.75rem",
                       fontWeight: 600,
                       letterSpacing: "0.22em",
                     }}
@@ -266,7 +266,7 @@ const Process = () => {
                           className="block uppercase text-cream-dim/55"
                           style={{
                             fontFamily: "Barlow, sans-serif",
-                            fontSize: "0.6rem",
+                            fontSize: "0.75rem",
                             fontWeight: 600,
                             letterSpacing: "0.28em",
                           }}
@@ -337,7 +337,7 @@ const Process = () => {
                                 className="uppercase text-gold-light"
                                 style={{
                                   fontFamily: "Barlow, sans-serif",
-                                  fontSize: "0.6rem",
+                                  fontSize: "0.75rem",
                                   fontWeight: 600,
                                   letterSpacing: "0.18em",
                                   border: "1px solid hsl(var(--gold) / 0.55)",

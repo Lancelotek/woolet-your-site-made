@@ -190,7 +190,7 @@ const WaitlistForm = ({ lang = "en" as Lang, prefilledWidth, fitLink, utmSource 
         {[
           { icon: <RotateCcw size={11} strokeWidth={1.5} color="#9A8E7E" />, text: "5-Year Warranty" },
           { icon: <Ruler size={11} strokeWidth={1.5} color="#9A8E7E" />, text: "Fit Guarantee" },
-          { icon: <span style={{ fontSize: 11, lineHeight: 1 }}>🇪🇺</span>, text: "Mazzucchelli acetate" },
+          { icon: <span style={{ fontSize: 12, lineHeight: 1 }}>🇪🇺</span>, text: "Mazzucchelli acetate" },
           { icon: (
             <svg width="11" height="11" viewBox="0 0 11 11" aria-hidden="true">
               <circle cx="5.5" cy="5.5" r="5" fill="none" stroke="#9A8E7E" strokeWidth="0.6" />

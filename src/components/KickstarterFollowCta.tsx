@@ -44,7 +44,7 @@ export const KickstarterFollowCta = ({
         color: CREAM,
         textDecoration: "none",
         fontFamily: "Barlow, sans-serif",
-        fontSize: 11,
+        fontSize: 12,
         fontWeight: 600,
         letterSpacing: "0.16em",
         textTransform: "uppercase",

@@ -105,7 +105,7 @@ export default function FrHub() {
               style={{
                 color: colors.creamDim,
                 fontFamily: "'Barlow', sans-serif",
-                fontSize: 11,
+                fontSize: 12,
                 letterSpacing: "0.22em",
                 textTransform: "uppercase",
                 textDecoration: "none",
@@ -121,7 +121,7 @@ export default function FrHub() {
             <span
               style={{
                 fontFamily: "'Barlow', sans-serif",
-                fontSize: 11,
+                fontSize: 12,
                 letterSpacing: "0.28em",
                 textTransform: "uppercase",
                 color: colors.gold,
@@ -198,7 +198,7 @@ export default function FrHub() {
             <h2
               style={{
                 fontFamily: "'Barlow', sans-serif",
-                fontSize: 11,
+                fontSize: 12,
                 letterSpacing: "0.28em",
                 textTransform: "uppercase",
                 color: colors.creamDim,
@@ -222,7 +222,7 @@ export default function FrHub() {
                 >
                   <div
                     style={{
-                      fontSize: 11,
+                      fontSize: 12,
                       letterSpacing: "0.22em",
                       textTransform: "uppercase",
                       color: colors.gold,
@@ -255,7 +255,7 @@ export default function FrHub() {
                   <div
                     style={{
                       marginTop: 18,
-                      fontSize: 11,
+                      fontSize: 12,
                       letterSpacing: "0.22em",
                       textTransform: "uppercase",
                       color: colors.gold,
@@ -274,7 +274,7 @@ export default function FrHub() {
             <h2
               style={{
                 fontFamily: "'Barlow', sans-serif",
-                fontSize: 11,
+                fontSize: 12,
                 letterSpacing: "0.28em",
                 textTransform: "uppercase",
                 color: colors.creamDim,
@@ -295,7 +295,7 @@ export default function FrHub() {
                       <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 20, lineHeight: 1.3, color: colors.cream }}>{l.label}</div>
                       <div style={{ marginTop: 4, fontFamily: "'Barlow', sans-serif", fontSize: 13, color: colors.creamDim }}>{l.sub}</div>
                     </div>
-                    <span style={{ color: colors.gold, fontFamily: "'Barlow', sans-serif", fontSize: 11, letterSpacing: "0.22em", textTransform: "uppercase" }}>Ouvrir →</span>
+                    <span style={{ color: colors.gold, fontFamily: "'Barlow', sans-serif", fontSize: 12, letterSpacing: "0.22em", textTransform: "uppercase" }}>Ouvrir →</span>
                   </Link>
                 </li>
               ))}

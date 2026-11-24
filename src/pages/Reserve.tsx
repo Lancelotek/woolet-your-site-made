@@ -198,7 +198,7 @@ function ReserveOpen() {
       `}</style>
 
       <main className="rsv-wrap">
-        <p style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: C.gold, margin: 0 }}>
+        <p style={{ fontSize: 12, letterSpacing: "0.18em", textTransform: "uppercase", color: C.gold, margin: 0 }}>
           Founders Edition
         </p>
         <h1 className="rsv-h1">$1 unlocks the Founder Edition</h1>

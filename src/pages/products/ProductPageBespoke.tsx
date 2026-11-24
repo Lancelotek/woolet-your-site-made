@@ -121,7 +121,7 @@ const ProductPageBespoke = () => {
           className="mx-auto"
           style={{
             maxWidth: 1240, padding: "10px 20px",
-            fontFamily: SANS, fontSize: 11, letterSpacing: "0.18em",
+            fontFamily: SANS, fontSize: 12, letterSpacing: "0.18em",
             textTransform: "uppercase", color: "rgba(243,236,224,0.55)",
           }}
         >
@@ -213,7 +213,7 @@ const ProductPageBespoke = () => {
                     onClick={() => pushGtmEvent("pdp_bespoke_lens_chip_click", { chip: tag, dest: "bespoke_configurator" })}
                     aria-label={`${tag} - choose lenses in the configurator`}
                     style={{
-                      fontFamily: SANS, fontSize: 11, letterSpacing: "0.12em",
+                      fontFamily: SANS, fontSize: 12, letterSpacing: "0.12em",
                       textTransform: "uppercase", padding: "4px 10px",
                       border: `1px solid ${T.hairStrong}`, color: T.inkDim, borderRadius: 999,
                       textDecoration: "none", cursor: "pointer",
@@ -221,14 +221,14 @@ const ProductPageBespoke = () => {
                   >{tag}</Link>
                 ))}
                 <span style={{
-                  fontFamily: SANS, fontSize: 11, letterSpacing: "0.12em",
+                  fontFamily: SANS, fontSize: 12, letterSpacing: "0.12em",
                   textTransform: "uppercase", padding: "4px 10px",
                   color: T.gold, borderRadius: 999,
                 }}>{b.cutToFace}</span>
               </div>
 
               <div style={{
-                fontFamily: SANS, fontSize: 11, letterSpacing: "0.28em",
+                fontFamily: SANS, fontSize: 12, letterSpacing: "0.28em",
                 textTransform: "uppercase", color: T.gold, marginBottom: 10,
               }}>
                 {b.eyebrow}
@@ -260,7 +260,7 @@ const ProductPageBespoke = () => {
                 margin: "0 0 22px",
               }}>
                 <div style={{
-                  fontFamily: SANS, fontSize: 10, letterSpacing: "0.28em",
+                  fontFamily: SANS, fontSize: 12, letterSpacing: "0.28em",
                   textTransform: "uppercase", color: T.gold, marginBottom: 8,
                 }}>Regular price</div>
                 <div style={{ display: "flex", alignItems: "baseline", gap: 14, flexWrap: "wrap" }}>
@@ -276,7 +276,7 @@ const ProductPageBespoke = () => {
               {/* Model toggle */}
               <div style={{ marginBottom: 18 }}>
                 <div style={{
-                  fontFamily: SANS, fontSize: 10, letterSpacing: "0.28em",
+                  fontFamily: SANS, fontSize: 12, letterSpacing: "0.28em",
                   textTransform: "uppercase", color: T.inkMute, marginBottom: 8,
                 }}>{b.modelLabel}</div>
                 <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
@@ -362,7 +362,7 @@ const ProductPageBespoke = () => {
                 background: "rgba(255,255,255,0.35)",
               }}>
                 <div style={{
-                  fontFamily: SANS, fontSize: 10, letterSpacing: "0.28em",
+                  fontFamily: SANS, fontSize: 12, letterSpacing: "0.28em",
                   textTransform: "uppercase", color: T.gold, marginBottom: 12,
                 }}>{b.specsTitle}</div>
                 <dl style={{ margin: 0, display: "grid", gap: 0 }}>
@@ -386,7 +386,7 @@ const ProductPageBespoke = () => {
                 background: "rgba(255,255,255,0.35)",
               }}>
                 <div style={{
-                  fontFamily: SANS, fontSize: 10, letterSpacing: "0.28em",
+                  fontFamily: SANS, fontSize: 12, letterSpacing: "0.28em",
                   textTransform: "uppercase", color: T.gold, marginBottom: 14,
                 }}>{b.guaranteeTitle}</div>
                 <div style={{ display: "grid", gap: 14 }}>

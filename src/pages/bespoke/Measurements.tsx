@@ -707,7 +707,7 @@ export default function BespokeMeasurements() {
             <Link to="/en" className="text-cream text-[13px] tracking-[0.32em] uppercase font-medium">
               Woolet
             </Link>
-            <span className="text-cream-dim text-[11px] uppercase tracking-[0.2em]">Bespoke · Measurements</span>
+            <span className="text-cream-dim text-[12px] uppercase tracking-[0.2em]">Bespoke · Measurements</span>
           </div>
         </header>
 
@@ -726,7 +726,7 @@ export default function BespokeMeasurements() {
           ) : (
             <>
               <section className="mb-8">
-                <p className="text-cream-dim text-[11px] uppercase tracking-[0.22em] mb-3">Thank you</p>
+                <p className="text-cream-dim text-[12px] uppercase tracking-[0.22em] mb-3">Thank you</p>
                 <h1 className="font-display text-3xl sm:text-4xl leading-tight text-cream">
                   One last step — your <em className="text-gold not-italic italic">measurements</em>.
                 </h1>
@@ -743,7 +743,7 @@ export default function BespokeMeasurements() {
                   id="reading-strength-section"
                   className="rounded-md border border-gold/40 bg-gold/[0.06] p-5 sm:p-6 mb-8"
                 >
-                  <p className="text-[11px] uppercase tracking-[0.2em] text-gold">Reading strength</p>
+                  <p className="text-[12px] uppercase tracking-[0.2em] text-gold">Reading strength</p>
                   <p className="text-cream-dim text-sm leading-relaxed mt-2 max-w-xl">
                     Reading lenses come in strengths from +0.75 to +4.00. The higher the number, the
                     stronger the lens. Your current reading glasses show it inside one arm or on the lens
@@ -791,7 +791,7 @@ export default function BespokeMeasurements() {
                         ["Right eye", readingRight, setReadingRight],
                       ] as const).map(([label, value, setter]) => (
                         <label key={label} className="block">
-                          <span className="text-[11px] uppercase tracking-[0.18em] text-cream-dim">{label}</span>
+                          <span className="text-[12px] uppercase tracking-[0.18em] text-cream-dim">{label}</span>
                           <select
                             value={value}
                             onChange={(e) => setter(e.target.value)}
@@ -823,7 +823,7 @@ export default function BespokeMeasurements() {
                 <section className="rounded-md border border-cream/12 bg-cream/[0.03] p-5 sm:p-6 mb-8">
                   <div className="flex items-baseline justify-between gap-4 mb-4">
                     <div>
-                      <p className="text-[11px] uppercase tracking-[0.2em] text-cream-dim">Your order</p>
+                      <p className="text-[12px] uppercase tracking-[0.2em] text-cream-dim">Your order</p>
                       <p className="text-cream text-lg mt-1">{order.frame_name ?? "Woolet Bespoke"}</p>
                     </div>
                     {priceLabel && <p className="text-cream text-sm">{priceLabel}</p>}
@@ -914,7 +914,7 @@ export default function BespokeMeasurements() {
 
                       <button
                         onClick={() => setSubmitted(false)}
-                        className="mt-4 block text-[11px] uppercase tracking-[0.2em] text-cream underline underline-offset-4 hover:text-gold"
+                        className="mt-4 block text-[12px] uppercase tracking-[0.2em] text-cream underline underline-offset-4 hover:text-gold"
                       >
                         Edit measurements
                       </button>
@@ -1000,7 +1000,7 @@ export default function BespokeMeasurements() {
                       <h2 className="text-lg font-medium">2 · Photo with a card</h2>
                     </div>
                     {remeasure && (
-                      <p className="mb-3 inline-flex rounded-sm bg-gold/15 px-2.5 py-1 text-[11px] uppercase tracking-[0.16em] text-gold">
+                      <p className="mb-3 inline-flex rounded-sm bg-gold/15 px-2.5 py-1 text-[12px] uppercase tracking-[0.16em] text-gold">
                         Second measurement{priorRef ? ` for ${priorRef}` : ""}
                       </p>
                     )}
@@ -1020,7 +1020,7 @@ export default function BespokeMeasurements() {
                         className="w-full max-w-[200px] self-center"
                       />
                       <figcaption>
-                        <span className="block text-[11px] uppercase tracking-[0.18em] text-gold">Like this</span>
+                        <span className="block text-[12px] uppercase tracking-[0.18em] text-gold">Like this</span>
                         <ul className="mt-2 list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-cream-dim">
                           {PHOTO_TIPS.map((tip) => (
                             <li key={tip}>{tip}</li>
@@ -1145,7 +1145,7 @@ export default function BespokeMeasurements() {
                       <Field label="Arm length" value={form.manual_temple_length_mm} onChange={update("manual_temple_length_mm")} placeholder="150" />
                     </div>
                     {requestedTempleLength && (
-                      <p className="mt-2 text-[11px] leading-relaxed text-cream-dim/70">
+                      <p className="mt-2 text-[12px] leading-relaxed text-cream-dim/70">
                         Arm length you asked for at checkout: {requestedTempleLength}
                       </p>
                     )}
@@ -1160,7 +1160,7 @@ export default function BespokeMeasurements() {
                       <div className="mt-5 rounded-md border border-gold/40 bg-gold/[0.06] p-5">
                         {scanSource && (
                           <p
-                            className={`mb-3 inline-flex items-center gap-2 rounded-sm px-2.5 py-1 text-[11px] uppercase tracking-[0.16em] ${
+                            className={`mb-3 inline-flex items-center gap-2 rounded-sm px-2.5 py-1 text-[12px] uppercase tracking-[0.16em] ${
                               scanSource === "fitlens_client"
                                 ? "bg-cream/10 text-cream-dim"
                                 : "bg-gold/15 text-gold"
@@ -1273,7 +1273,7 @@ export default function BespokeMeasurements() {
                   <div>
                     {photoFile && (
                       <div className="mb-4 max-w-xl border border-cream/12 bg-cream/[0.03] p-4">
-                        <p className="text-[11px] uppercase tracking-[0.18em] text-gold">Your consent</p>
+                        <p className="text-[12px] uppercase tracking-[0.18em] text-gold">Your consent</p>
                         <p className="mt-2 text-xs leading-relaxed text-cream-dim">{PHOTO_CONSENT_TEXT}</p>
                       </div>
                     )}
@@ -1285,7 +1285,7 @@ export default function BespokeMeasurements() {
                       {submitting && <Loader2 size={14} className="animate-spin" />}
                       {submitting ? "Sending…" : photoFile ? "Agree & send to the workshop" : "Send to the workshop"}
                     </button>
-                    <p className="mt-3 text-cream-dim/70 text-[11px] leading-relaxed">
+                    <p className="mt-3 text-cream-dim/70 text-[12px] leading-relaxed">
                       {photoFile
                         ? "Tapping the button gives the consent above. Nothing is sent before that."
                         : hasFitPhoto
@@ -1306,7 +1306,7 @@ export default function BespokeMeasurements() {
 function Spec({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <dt className="text-[10px] uppercase tracking-[0.18em] text-cream-dim">{label}</dt>
+      <dt className="text-[12px] uppercase tracking-[0.18em] text-cream-dim">{label}</dt>
       <dd className="text-cream mt-0.5 truncate">{value}</dd>
     </div>
   );
@@ -1350,7 +1350,7 @@ function Field({
 }) {
   return (
     <label className="block">
-      <span className="block text-[11px] uppercase tracking-[0.16em] text-cream-dim mb-1.5">{label}</span>
+      <span className="block text-[12px] uppercase tracking-[0.16em] text-cream-dim mb-1.5">{label}</span>
       <input
         type="number"
         inputMode="decimal"
@@ -1360,7 +1360,7 @@ function Field({
         placeholder={placeholder}
         className="w-full bg-cream/[0.04] border border-cream/15 rounded-sm px-3 py-2.5 text-cream text-sm focus:outline-none focus:border-gold/60 transition"
       />
-      {note && <span className="block text-[11px] text-gold-light/80 mt-1.5">{note}</span>}
+      {note && <span className="block text-[12px] text-gold-light/80 mt-1.5">{note}</span>}
     </label>
   );
 }
@@ -1390,7 +1390,7 @@ function TextField({
 }) {
   return (
     <label className={`block ${full ? "sm:col-span-2" : ""}`}>
-      <span className="block text-[11px] uppercase tracking-[0.16em] text-cream-dim mb-1.5">{label}</span>
+      <span className="block text-[12px] uppercase tracking-[0.16em] text-cream-dim mb-1.5">{label}</span>
       <input
         type={type}
         value={value}
@@ -1401,7 +1401,7 @@ function TextField({
         required={required}
         className="w-full min-h-[48px] bg-cream/[0.04] border border-cream/15 rounded-sm px-3 py-2.5 text-cream text-sm focus:outline-none focus:border-gold/60 transition"
       />
-      {note && <span className="block text-[11px] text-cream-dim/80 mt-1.5">{note}</span>}
+      {note && <span className="block text-[12px] text-cream-dim/80 mt-1.5">{note}</span>}
     </label>
   );
 }
@@ -1415,7 +1415,7 @@ function CountryField({
 }) {
   return (
     <label className="block">
-      <span className="block text-[11px] uppercase tracking-[0.16em] text-cream-dim mb-1.5">Country</span>
+      <span className="block text-[12px] uppercase tracking-[0.16em] text-cream-dim mb-1.5">Country</span>
       <select
         value={value}
         onChange={onChange}
@@ -1448,7 +1448,7 @@ function Textarea({
 }) {
   return (
     <label className="block sm:col-span-2">
-      <span className="block text-[11px] uppercase tracking-[0.16em] text-cream-dim mb-1.5">{label}</span>
+      <span className="block text-[12px] uppercase tracking-[0.16em] text-cream-dim mb-1.5">{label}</span>
       <textarea
         value={value}
         onChange={onChange}

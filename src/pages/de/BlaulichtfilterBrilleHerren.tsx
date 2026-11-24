@@ -216,7 +216,7 @@ const BlaulichtfilterBrilleHerren = () => {
       <main style={{ background: T.surface, minHeight: "100vh", fontFamily: SANS, color: T.ink }}>
         {/* 1 — Hero */}
         <header style={{ background: T.dark, color: T.cream, paddingTop: 64 }}>
-          <nav aria-label="Breadcrumb" style={{ ...wrap, paddingTop: 18, fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "rgba(237,231,217,0.55)" }}>
+          <nav aria-label="Breadcrumb" style={{ ...wrap, paddingTop: 18, fontSize: 12, letterSpacing: "1px", textTransform: "uppercase", color: "rgba(237,231,217,0.55)" }}>
             <Link to="/de" style={{ color: "inherit", textDecoration: "none" }}>Startseite</Link>
             <span style={{ margin: "0 8px" }}>/</span>
             <span style={{ color: T.cream }}>Blaulichtfilter-Brille Herren</span>
@@ -232,7 +232,7 @@ const BlaulichtfilterBrilleHerren = () => {
 
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 26 }}>
               {badges.map((b) => (
-                <span key={b} style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(237,231,217,0.75)", border: "1px solid rgba(202,164,73,0.45)", padding: "5px 10px", borderRadius: 2 }}>
+                <span key={b} style={{ fontSize: 12, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(237,231,217,0.75)", border: "1px solid rgba(202,164,73,0.45)", padding: "5px 10px", borderRadius: 2 }}>
                   {b}
                 </span>
               ))}
@@ -241,13 +241,13 @@ const BlaulichtfilterBrilleHerren = () => {
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
               <Link
                 to={FIT_HREF}
-                style={{ background: T.gold, color: T.ctaInk, padding: "13px 22px", fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", borderRadius: 2, fontWeight: 700 }}
+                style={{ background: T.gold, color: T.ctaInk, padding: "13px 22px", fontSize: 12, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", borderRadius: 2, fontWeight: 700 }}
               >
                 Gesicht mit FitLens messen
               </Link>
               <a
                 href="#fassungen"
-                style={{ background: "transparent", color: T.cream, padding: "13px 22px", fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", border: "1px solid rgba(237,231,217,0.45)", borderRadius: 2 }}
+                style={{ background: "transparent", color: T.cream, padding: "13px 22px", fontSize: 12, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", border: "1px solid rgba(237,231,217,0.45)", borderRadius: 2 }}
               >
                 Fassungen ansehen
               </a>
@@ -282,7 +282,7 @@ const BlaulichtfilterBrilleHerren = () => {
               <caption className="sr-only">Maße: typische Blaulichtfilter-Brille im Vergleich zu Woolet 007 und 009</caption>
               <thead>
                 <tr style={{ background: "#FBF7EE" }}>
-                  <th scope="col" style={{ ...cell, borderTop: 0, textAlign: "left", fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "#666" }}>Maß</th>
+                  <th scope="col" style={{ ...cell, borderTop: 0, textAlign: "left", fontSize: 12, letterSpacing: "1px", textTransform: "uppercase", color: "#666" }}>Maß</th>
                   <th scope="col" style={{ ...cell, borderTop: 0, textAlign: "left", fontSize: 12, color: T.ink }}>Typische Fassung (130–145 mm)</th>
                   <th scope="col" style={{ ...cell, borderTop: 0, textAlign: "left", fontSize: 12, color: T.ink }}>Woolet 007 Rund</th>
                   <th scope="col" style={{ ...cell, borderTop: 0, textAlign: "left", fontSize: 12, color: T.ink }}>Woolet 009 Soft Square</th>
@@ -401,7 +401,7 @@ const BlaulichtfilterBrilleHerren = () => {
                 <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
                   <span style={{ color: T.goldDim, fontWeight: 700, fontSize: 16 }}>114 $</span>
                   <span style={{ color: "#BBB", fontSize: 12, textDecoration: "line-through" }}>190 $</span>
-                  <span style={{ marginLeft: "auto", fontSize: 11, color: T.goldDim, letterSpacing: "1.5px", textTransform: "uppercase" }}>Ansehen →</span>
+                  <span style={{ marginLeft: "auto", fontSize: 12, color: T.goldDim, letterSpacing: "1.5px", textTransform: "uppercase" }}>Ansehen →</span>
                 </div>
               </Link>
             ))}
@@ -413,7 +413,7 @@ const BlaulichtfilterBrilleHerren = () => {
               <div style={{ fontSize: 13, color: "rgba(237,231,217,0.7)", lineHeight: 1.55, marginBottom: 12 }}>
                 Außerhalb von 155–161 mm? Gleiches Mazzucchelli-Acetat, deine Frontbreite, handgefertigt in der EU.
               </div>
-              <span style={{ fontSize: 11, color: T.gold, letterSpacing: "1.5px", textTransform: "uppercase" }}>Maßanfertigung ansehen →</span>
+              <span style={{ fontSize: 12, color: T.gold, letterSpacing: "1.5px", textTransform: "uppercase" }}>Maßanfertigung ansehen →</span>
             </Link>
           </div>
         </section>
@@ -429,7 +429,7 @@ const BlaulichtfilterBrilleHerren = () => {
             </ol>
             <Link
               to={FIT_HREF}
-              style={{ display: "inline-block", background: T.gold, color: T.ctaInk, padding: "13px 22px", fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", borderRadius: 2, fontWeight: 700 }}
+              style={{ display: "inline-block", background: T.gold, color: T.ctaInk, padding: "13px 22px", fontSize: 12, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", borderRadius: 2, fontWeight: 700 }}
             >
               FitLens starten
             </Link>

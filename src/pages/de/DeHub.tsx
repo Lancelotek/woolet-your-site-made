@@ -81,7 +81,7 @@ export default function DeHub() {
             {models.map((model) => (
               <Link key={model.id} to={`/de/produkte/${model.id}`} className="group border border-border-sub bg-secondary no-underline transition-colors hover:border-primary/50">
                 <div className="aspect-[4/3] bg-background"><img src={model.image} alt={`Woolet ${model.id} ${model.shape}`} width={1200} height={900} loading="lazy" className="h-full w-full object-contain" /></div>
-                <div className="flex items-end justify-between gap-4 p-5"><div><p className="font-body text-[10px] uppercase tracking-[0.24em] text-primary">Woolet {model.id}</p><h3 className="mt-1 font-display text-2xl text-foreground">{model.shape}</h3><p className="mt-1 font-body text-xs text-cream-dim">158 mm - {model.specs}</p></div><span className="font-body text-[10px] uppercase tracking-[0.18em] text-primary">Ansehen →</span></div>
+                <div className="flex items-end justify-between gap-4 p-5"><div><p className="font-body text-[12px] uppercase tracking-[0.24em] text-primary">Woolet {model.id}</p><h3 className="mt-1 font-display text-2xl text-foreground">{model.shape}</h3><p className="mt-1 font-body text-xs text-cream-dim">158 mm - {model.specs}</p></div><span className="font-body text-[12px] uppercase tracking-[0.18em] text-primary">Ansehen →</span></div>
               </Link>
             ))}
           </div>
