@@ -31,7 +31,7 @@ const Eyebrow = ({ children }: { children: React.ReactNode }) => (
       color: GOLD,
       textTransform: "uppercase",
       letterSpacing: "0.18em",
-      fontSize: 11,
+      fontSize: 12,
       fontWeight: 500,
     }}
   >
@@ -162,7 +162,7 @@ const Placeholder = ({
         color: GOLD,
         textTransform: "uppercase",
         letterSpacing: "0.18em",
-        fontSize: 10,
+        fontSize: 12,
       }}
     >
       {label}
@@ -289,7 +289,7 @@ const BuyBox = () => {
               color: GOLD,
               textTransform: "uppercase",
               letterSpacing: "0.18em",
-              fontSize: 10,
+              fontSize: 12,
               marginBottom: 20,
             }}
           >
@@ -313,7 +313,7 @@ const BuyBox = () => {
                 color: GOLD,
                 textTransform: "uppercase",
                 letterSpacing: "0.16em",
-                fontSize: 11,
+                fontSize: 12,
               }}
             >
               −40%
@@ -328,7 +328,7 @@ const BuyBox = () => {
                 color: MUTED,
                 textTransform: "uppercase",
                 letterSpacing: "0.18em",
-                fontSize: 10,
+                fontSize: 12,
                 marginBottom: 10,
               }}
             >
@@ -351,7 +351,7 @@ const BuyBox = () => {
                       cursor: "pointer",
                       textTransform: "uppercase",
                       letterSpacing: "0.16em",
-                      fontSize: 11,
+                      fontSize: 12,
                     }}
                   >
                     {m === "007" ? "007 Round" : "009 Soft-square"}
@@ -438,7 +438,7 @@ const ProductTabs = () => {
                 padding: "16px 22px",
                 textTransform: "uppercase",
                 letterSpacing: "0.16em",
-                fontSize: 11,
+                fontSize: 12,
                 cursor: "pointer",
               }}
             >
@@ -605,7 +605,7 @@ const Shop = () => {
                 display: "flex",
                 gap: 24,
                 ...sans,
-                fontSize: 11,
+                fontSize: 12,
                 textTransform: "uppercase",
                 letterSpacing: "0.16em",
                 color: MUTED,
@@ -618,7 +618,7 @@ const Shop = () => {
               <a href="#guarantee" style={{ color: MUTED, textDecoration: "none" }}>Guarantee</a>
               <a href="#faq" style={{ color: MUTED, textDecoration: "none" }}>FAQ</a>
             </nav>
-            <a href="#buy" style={{ ...sans, color: GOLD, textDecoration: "none", textTransform: "uppercase", letterSpacing: "0.18em", fontSize: 11 }}>
+            <a href="#buy" style={{ ...sans, color: GOLD, textDecoration: "none", textTransform: "uppercase", letterSpacing: "0.18em", fontSize: 12 }}>
               40% off — join the list →
             </a>
           </div>
@@ -674,7 +674,7 @@ const Shop = () => {
                   key={b}
                   style={{
                     ...sans,
-                    fontSize: 11,
+                    fontSize: 12,
                     textTransform: "uppercase",
                     letterSpacing: "0.16em",
                     color: MUTED,
@@ -704,7 +704,7 @@ const Shop = () => {
             <div
               style={{
                 ...sans,
-                fontSize: 10,
+                fontSize: 12,
                 textTransform: "uppercase",
                 letterSpacing: "0.22em",
                 color: MUTED,
@@ -916,7 +916,7 @@ const Shop = () => {
               </div>
             ))}
           </div>
-          <div style={{ ...sans, color: MUTED, fontSize: 11, marginTop: 16, opacity: 0.7 }}>
+          <div style={{ ...sans, color: MUTED, fontSize: 12, marginTop: 16, opacity: 0.7 }}>
             * Placeholder data — replace with real Woolet numbers before publishing.
           </div>
         </section>
@@ -966,11 +966,11 @@ const Shop = () => {
             <table className="cmp-table" style={{ width: "100%", borderCollapse: "collapse", ...sans, fontSize: 14, color: CREAM, minWidth: 720 }}>
               <thead>
                 <tr style={{ background: SURFACE }}>
-                  <th style={{ padding: 16, textAlign: "left", ...sans, textTransform: "uppercase", letterSpacing: "0.16em", fontSize: 11, color: MUTED, fontWeight: 500 }}></th>
-                  <th style={{ padding: 16, textAlign: "center", color: GOLD, textTransform: "uppercase", letterSpacing: "0.16em", fontSize: 11, borderLeft: `1px solid ${HAIR}` }}>Woolet</th>
-                  <th style={{ padding: 16, textAlign: "center", color: MUTED, textTransform: "uppercase", letterSpacing: "0.16em", fontSize: 11, borderLeft: `1px solid ${HAIR}` }}>Persol / Tom Ford</th>
-                  <th style={{ padding: 16, textAlign: "center", color: MUTED, textTransform: "uppercase", letterSpacing: "0.16em", fontSize: 11, borderLeft: `1px solid ${HAIR}` }}>Warby Parker</th>
-                  <th style={{ padding: 16, textAlign: "center", color: MUTED, textTransform: "uppercase", letterSpacing: "0.16em", fontSize: 11, borderLeft: `1px solid ${HAIR}` }}>Ray-Ban Large</th>
+                  <th style={{ padding: 16, textAlign: "left", ...sans, textTransform: "uppercase", letterSpacing: "0.16em", fontSize: 12, color: MUTED, fontWeight: 500 }}></th>
+                  <th style={{ padding: 16, textAlign: "center", color: GOLD, textTransform: "uppercase", letterSpacing: "0.16em", fontSize: 12, borderLeft: `1px solid ${HAIR}` }}>Woolet</th>
+                  <th style={{ padding: 16, textAlign: "center", color: MUTED, textTransform: "uppercase", letterSpacing: "0.16em", fontSize: 12, borderLeft: `1px solid ${HAIR}` }}>Persol / Tom Ford</th>
+                  <th style={{ padding: 16, textAlign: "center", color: MUTED, textTransform: "uppercase", letterSpacing: "0.16em", fontSize: 12, borderLeft: `1px solid ${HAIR}` }}>Warby Parker</th>
+                  <th style={{ padding: 16, textAlign: "center", color: MUTED, textTransform: "uppercase", letterSpacing: "0.16em", fontSize: 12, borderLeft: `1px solid ${HAIR}` }}>Ray-Ban Large</th>
                 </tr>
               </thead>
               <tbody>
@@ -998,7 +998,7 @@ const Shop = () => {
               </tbody>
             </table>
           </div>
-          <div style={{ ...sans, color: MUTED, fontSize: 11, marginTop: 12, opacity: 0.7 }}>
+          <div style={{ ...sans, color: MUTED, fontSize: 12, marginTop: 12, opacity: 0.7 }}>
             Competitor figures are approximate and illustrative, based on publicly listed collection specs.
           </div>
         </section>
@@ -1139,7 +1139,7 @@ const Shop = () => {
               { h: "Support", links: ["30-day guarantee", "Shipping", "Contact", "FAQ"] },
             ].map((col) => (
               <div key={col.h}>
-                <div style={{ ...sans, color: GOLD, textTransform: "uppercase", letterSpacing: "0.18em", fontSize: 11, marginBottom: 16 }}>
+                <div style={{ ...sans, color: GOLD, textTransform: "uppercase", letterSpacing: "0.18em", fontSize: 12, marginBottom: 16 }}>
                   {col.h}
                 </div>
                 <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "grid", gap: 10 }}>
@@ -1163,7 +1163,7 @@ const Shop = () => {
               gap: 16,
               flexWrap: "wrap",
               ...sans,
-              fontSize: 11,
+              fontSize: 12,
               color: MUTED,
               textTransform: "uppercase",
               letterSpacing: "0.14em",

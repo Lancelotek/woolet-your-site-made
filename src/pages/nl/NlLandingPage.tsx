@@ -121,7 +121,7 @@ export default function NlLandingPage({ config }: { config: NlPageConfig }) {
               style={{
                 color: colors.creamDim,
                 fontFamily: "'Barlow', sans-serif",
-                fontSize: 11,
+                fontSize: 12,
                 letterSpacing: "0.22em",
                 textTransform: "uppercase",
                 textDecoration: "none",
@@ -141,7 +141,7 @@ export default function NlLandingPage({ config }: { config: NlPageConfig }) {
         >
           <div className="max-w-6xl mx-auto pt-28 md:pt-32 pb-20 md:pb-28 grid md:grid-cols-[1.2fr_1fr] gap-12 items-center">
             <div className="flex flex-col gap-7">
-              <span style={{ fontFamily: "'Barlow', sans-serif", fontSize: 11, letterSpacing: "0.28em", textTransform: "uppercase", color: colors.gold }}>
+              <span style={{ fontFamily: "'Barlow', sans-serif", fontSize: 12, letterSpacing: "0.28em", textTransform: "uppercase", color: colors.gold }}>
                 {config.eyebrow}
               </span>
               <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, lineHeight: 1.2, fontSize: "clamp(2rem, 4.2vw, 3.4rem)", color: colors.cream, letterSpacing: "-0.005em", margin: 0 }}>
@@ -187,7 +187,7 @@ export default function NlLandingPage({ config }: { config: NlPageConfig }) {
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px mt-14" style={{ background: colors.line }}>
               {config.proofBullets.map((b) => (
                 <div key={b.label} className="p-7" style={{ background: colors.ink }}>
-                  <div style={{ fontFamily: "'Barlow', sans-serif", fontSize: 10.5, letterSpacing: "0.22em", textTransform: "uppercase", color: colors.creamDim }}>{b.label}</div>
+                  <div style={{ fontFamily: "'Barlow', sans-serif", fontSize: 12, letterSpacing: "0.22em", textTransform: "uppercase", color: colors.creamDim }}>{b.label}</div>
                   <div style={{ marginTop: 10, fontFamily: "'Cormorant Garamond', serif", fontSize: 22, lineHeight: 1.3, color: colors.cream }}>{b.value}</div>
                 </div>
               ))}
@@ -237,9 +237,9 @@ export default function NlLandingPage({ config }: { config: NlPageConfig }) {
                 const r = nlPages[slug];
                 return (
                   <Link key={slug} to={`/nl/${slug}`} className="block p-7 transition-colors hover:bg-[rgba(202,164,73,0.05)]" style={{ border: `1px solid ${colors.line}`, background: colors.inkSoft, textDecoration: "none", color: colors.cream }}>
-                    <div style={{ fontSize: 11, letterSpacing: "0.22em", textTransform: "uppercase", color: colors.gold, marginBottom: 12 }}>{r.primaryKeyword}</div>
+                    <div style={{ fontSize: 12, letterSpacing: "0.22em", textTransform: "uppercase", color: colors.gold, marginBottom: 12 }}>{r.primaryKeyword}</div>
                     <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 22, lineHeight: 1.35, color: colors.cream }}>{r.h1}</div>
-                    <div style={{ marginTop: 18, fontSize: 11, letterSpacing: "0.22em", textTransform: "uppercase", color: colors.gold }}>Lees verder →</div>
+                    <div style={{ marginTop: 18, fontSize: 12, letterSpacing: "0.22em", textTransform: "uppercase", color: colors.gold }}>Lees verder →</div>
                   </Link>
                 );
               })}

@@ -161,7 +161,7 @@ const RefProductPage = () => {
   };
 
   const label: React.CSSProperties = {
-    fontFamily: SANS, fontSize: 11, letterSpacing: "0.18em",
+    fontFamily: SANS, fontSize: 12, letterSpacing: "0.18em",
     textTransform: "uppercase", color: T.goldDim,
   };
   const h2: React.CSSProperties = {
@@ -192,7 +192,7 @@ const RefProductPage = () => {
       <Navbar />
 
       <div style={{ background: T.dark, borderBottom: "1px solid rgba(216,184,106,0.10)" }}>
-        <div className="mx-auto" style={{ maxWidth: 1240, padding: "10px 20px", fontFamily: SANS, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(243,236,224,0.55)" }}>
+        <div className="mx-auto" style={{ maxWidth: 1240, padding: "10px 20px", fontFamily: SANS, fontSize: 12, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(243,236,224,0.55)" }}>
           <Link to="/en" style={{ color: "inherit", textDecoration: "none" }}>Home</Link>
           <span style={{ margin: "0 10px", opacity: 0.4 }}>/</span>
           <Link to="/en/collection" style={{ color: "inherit", textDecoration: "none" }}>Frames</Link>
@@ -225,7 +225,7 @@ const RefProductPage = () => {
               <p style={{ fontSize: 15, lineHeight: 1.6, color: T.inkDim, margin: 0, maxWidth: 520 }}>{product.tagline}</p>
 
               {product.status === "pre-production" && (
-                <div style={{ display: "inline-block", marginTop: 16, padding: "6px 12px", border: `1px solid ${T.gold}`, borderRadius: 2, color: T.goldDim, fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase" }}>
+                <div style={{ display: "inline-block", marginTop: 16, padding: "6px 12px", border: `1px solid ${T.gold}`, borderRadius: 2, color: T.goldDim, fontSize: 12, letterSpacing: "0.14em", textTransform: "uppercase" }}>
                   Pre-production sample · Sept 2026
                 </div>
               )}
@@ -350,7 +350,7 @@ const RefProductPage = () => {
                 </div>
               </section>
 
-              <p style={{ marginTop: 34, fontSize: 11.5, lineHeight: 1.6, color: T.inkMute, maxWidth: 520 }}>
+              <p style={{ marginTop: 34, fontSize: 12, lineHeight: 1.6, color: T.inkMute, maxWidth: 520 }}>
                 Reference page for partners and creators. Product photography and copy may be used in content about Woolet. Contact support@woolet.co.
               </p>
             </div>

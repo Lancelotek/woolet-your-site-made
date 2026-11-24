@@ -906,7 +906,7 @@ function CaptureStep({
                   style={{
                     fontFamily: "Barlow, sans-serif",
                     fontWeight: 500,
-                    fontSize: "0.55rem",
+                    fontSize: "0.75rem",
                     letterSpacing: "0.22em",
                     textTransform: "uppercase",
                     color: ok ? "var(--woolet-fit-success)" : "rgba(31,27,22,0.45)",
@@ -926,7 +926,7 @@ function CaptureStep({
               style={{
                 fontFamily: "Barlow, sans-serif",
                 fontWeight: 500,
-                fontSize: "0.625rem",
+                fontSize: "0.75rem",
                 letterSpacing: "0.3em",
                 textTransform: "uppercase",
                 color: "#A07A2A",
@@ -942,7 +942,7 @@ function CaptureStep({
                   pushEvent("fit_cardless_fallback_taken");
                   onCardlessFallback();
                 }}
-                style={{ ...goldButtonStyle, padding: "12px 18px", fontSize: "0.65rem" }}
+                style={{ ...goldButtonStyle, padding: "12px 18px", fontSize: "0.75rem" }}
               >
                 Skip the card · Use cardless mode
               </button>
@@ -954,7 +954,7 @@ function CaptureStep({
                 style={{
                   ...ghostButtonStyle,
                   padding: "12px 18px",
-                  fontSize: "0.65rem",
+                  fontSize: "0.75rem",
                   color: "var(--woolet-fit-text)",
                   borderColor: "rgba(31,27,22,0.3)",
                 }}
@@ -1093,7 +1093,7 @@ function FoundingMemberFomo({ sku, variant }: { sku: Sku; variant: FomoVariant }
           style={{
             fontFamily: "Barlow, sans-serif",
             fontWeight: 600,
-            fontSize: "0.65rem",
+            fontSize: "0.75rem",
             color: "hsl(var(--gold))",
           }}
         >
@@ -1272,7 +1272,7 @@ function ResultStep({
           style={{
             fontFamily: "Barlow, sans-serif",
             fontWeight: 500,
-            fontSize: "0.62rem",
+            fontSize: "0.75rem",
             letterSpacing: "0.22em",
             textTransform: "uppercase",
             color: "hsl(var(--gold))",
@@ -1312,7 +1312,7 @@ function ResultStep({
               style={{
                 fontFamily: "Barlow, sans-serif",
                 fontWeight: 500,
-                fontSize: "0.62rem",
+                fontSize: "0.75rem",
                 letterSpacing: "0.22em",
                 textTransform: "uppercase",
                 color: "hsl(var(--gold))",
@@ -1373,7 +1373,7 @@ function ResultStep({
           <div key={n.label} className="flex flex-col">
             <span
               className="uppercase tracking-[0.25em] mb-2"
-              style={{ fontFamily: "Barlow, sans-serif", fontWeight: 500, fontSize: "0.55rem", color: "hsl(var(--gold-dim))" }}
+              style={{ fontFamily: "Barlow, sans-serif", fontWeight: 500, fontSize: "0.75rem", color: "hsl(var(--gold-dim))" }}
             >
               {n.label}
             </span>
@@ -1596,7 +1596,7 @@ function EmailCaptureForm({
 
 
       <label className="flex flex-col gap-1.5">
-        <span className="uppercase tracking-[0.2em] text-cream-dim" style={{ fontSize: "0.55rem", fontFamily: "Barlow, sans-serif" }}>
+        <span className="uppercase tracking-[0.2em] text-cream-dim" style={{ fontSize: "0.75rem", fontFamily: "Barlow, sans-serif" }}>
           First name
         </span>
         <input
@@ -1621,7 +1621,7 @@ function EmailCaptureForm({
       </label>
 
       <label className="flex flex-col gap-1.5">
-        <span className="uppercase tracking-[0.2em] text-cream-dim" style={{ fontSize: "0.55rem", fontFamily: "Barlow, sans-serif" }}>
+        <span className="uppercase tracking-[0.2em] text-cream-dim" style={{ fontSize: "0.75rem", fontFamily: "Barlow, sans-serif" }}>
           Email
         </span>
         <input

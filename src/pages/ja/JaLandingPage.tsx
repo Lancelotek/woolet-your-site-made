@@ -125,7 +125,7 @@ export default function JaLandingPage({ config }: { config: JaPageConfig }) {
               style={{
                 color: colors.creamDim,
                 fontFamily: "'Barlow', sans-serif",
-                fontSize: 11,
+                fontSize: 12,
                 letterSpacing: "0.22em",
                 textTransform: "uppercase",
                 textDecoration: "none",
@@ -149,7 +149,7 @@ export default function JaLandingPage({ config }: { config: JaPageConfig }) {
               <span
                 style={{
                   fontFamily: "'Barlow', sans-serif",
-                  fontSize: 11,
+                  fontSize: 12,
                   letterSpacing: "0.28em",
                   textTransform: "uppercase",
                   color: colors.gold,
@@ -294,7 +294,7 @@ export default function JaLandingPage({ config }: { config: JaPageConfig }) {
                   <div
                     style={{
                       fontFamily: "'Barlow', 'Noto Sans JP', sans-serif",
-                      fontSize: 10.5,
+                      fontSize: 12,
                       letterSpacing: "0.22em",
                       textTransform: "uppercase",
                       color: colors.creamDim,
@@ -437,7 +437,7 @@ export default function JaLandingPage({ config }: { config: JaPageConfig }) {
                   >
                     <div
                       style={{
-                        fontSize: 11,
+                        fontSize: 12,
                         letterSpacing: "0.22em",
                         textTransform: "uppercase",
                         color: colors.gold,
@@ -459,7 +459,7 @@ export default function JaLandingPage({ config }: { config: JaPageConfig }) {
                     <div
                       style={{
                         marginTop: 18,
-                        fontSize: 11,
+                        fontSize: 12,
                         letterSpacing: "0.22em",
                         textTransform: "uppercase",
                         color: colors.gold,

@@ -129,7 +129,7 @@ const RelatedPosts = ({ currentSlug, lang, limit = 3 }: RelatedPostsProps) => {
                   <div
                     className="uppercase mb-3"
                     style={{
-                      fontSize: "0.66rem",
+                      fontSize: "0.75rem",
                       letterSpacing: "0.22em",
                       color: "hsl(var(--gold))",
                     }}
@@ -165,7 +165,7 @@ const RelatedPosts = ({ currentSlug, lang, limit = 3 }: RelatedPostsProps) => {
                   <div
                     className="mt-4 flex items-center justify-between uppercase"
                     style={{
-                      fontSize: "0.64rem",
+                      fontSize: "0.75rem",
                       letterSpacing: "0.2em",
                       color: "hsl(var(--cream-dim) / 0.75)",
                     }}

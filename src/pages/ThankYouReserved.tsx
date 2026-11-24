@@ -33,7 +33,7 @@ const eyebrow: React.CSSProperties = {
   fontFamily: "Barlow, sans-serif",
   textTransform: "uppercase",
   letterSpacing: "0.18em",
-  fontSize: 11,
+  fontSize: 12,
   color: T.gold,
 };
 

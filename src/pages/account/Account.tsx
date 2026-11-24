@@ -261,7 +261,7 @@ export default function Account() {
         <div className="w-full max-w-[680px] flex flex-col gap-12">
           <header className="flex items-start justify-between gap-4 flex-wrap">
             <div>
-              <p className="uppercase tracking-[0.22em] text-cream-dim" style={{ fontSize: "0.65rem" }}>
+              <p className="uppercase tracking-[0.22em] text-cream-dim" style={{ fontSize: "0.75rem" }}>
                 Account
               </p>
               <h1 className="font-display text-foreground mt-2" style={{ fontSize: "2rem", fontWeight: 300, lineHeight: 1.1 }}>
@@ -275,7 +275,7 @@ export default function Account() {
               onClick={() => signOut()}
               className="uppercase tracking-[0.2em] bg-transparent text-cream-dim hover:text-foreground"
               style={{
-                fontSize: "0.6rem",
+                fontSize: "0.75rem",
                 border: "1px solid rgba(255,255,255,0.16)",
                 padding: "8px 14px",
                 cursor: "pointer",
@@ -361,7 +361,7 @@ export default function Account() {
 
           {/* Recommendation */}
           <section className="flex flex-col gap-3">
-            <h2 className="uppercase tracking-[0.2em] text-cream-dim" style={{ fontSize: "0.65rem" }}>
+            <h2 className="uppercase tracking-[0.2em] text-cream-dim" style={{ fontSize: "0.75rem" }}>
               Your recommendation
             </h2>
             {recModel ? (
@@ -414,7 +414,7 @@ export default function Account() {
 
           {/* Scan history */}
           <section className="flex flex-col gap-3">
-            <h2 className="uppercase tracking-[0.2em] text-cream-dim" style={{ fontSize: "0.65rem" }}>
+            <h2 className="uppercase tracking-[0.2em] text-cream-dim" style={{ fontSize: "0.75rem" }}>
               Measurement history
             </h2>
             {dataLoading ? (
@@ -460,7 +460,7 @@ export default function Account() {
                       {s.recommendation_type && (
                         <span
                           className="uppercase tracking-[0.18em]"
-                          style={{ color: GOLD, fontSize: "0.65rem", border: `1px solid ${GOLD}`, padding: "4px 10px" }}
+                          style={{ color: GOLD, fontSize: "0.75rem", border: `1px solid ${GOLD}`, padding: "4px 10px" }}
                         >
                           {s.recommendation_type}
                         </span>
@@ -478,7 +478,7 @@ export default function Account() {
                         }}
                         className="uppercase tracking-[0.18em] bg-transparent text-cream-dim hover:text-foreground"
                         style={{
-                          fontSize: "0.6rem",
+                          fontSize: "0.75rem",
                           border: "1px solid rgba(255,255,255,0.16)",
                           padding: "6px 10px",
                           cursor: "pointer",
@@ -496,7 +496,7 @@ export default function Account() {
 
           {/* Orders */}
           <section className="flex flex-col gap-3">
-            <h2 className="uppercase tracking-[0.2em] text-cream-dim" style={{ fontSize: "0.65rem" }}>
+            <h2 className="uppercase tracking-[0.2em] text-cream-dim" style={{ fontSize: "0.75rem" }}>
               Orders & pre-orders
             </h2>
             {dataLoading ? (
@@ -528,7 +528,7 @@ export default function Account() {
 
           {/* Bespoke measurements */}
           <section className="flex flex-col gap-3">
-            <h2 className="uppercase tracking-[0.2em] text-cream-dim" style={{ fontSize: "0.65rem" }}>
+            <h2 className="uppercase tracking-[0.2em] text-cream-dim" style={{ fontSize: "0.75rem" }}>
               Bespoke measurements
             </h2>
             {dataLoading ? (
@@ -570,7 +570,7 @@ export default function Account() {
 
           {/* Bespoke AI previews */}
           <section className="flex flex-col gap-3">
-            <h2 className="uppercase tracking-[0.2em] text-cream-dim" style={{ fontSize: "0.65rem" }}>
+            <h2 className="uppercase tracking-[0.2em] text-cream-dim" style={{ fontSize: "0.75rem" }}>
               Bespoke AI previews
             </h2>
             {dataLoading ? (
@@ -624,7 +624,7 @@ export default function Account() {
                     color: "#0f0f0f",
                     fontFamily: "Barlow, sans-serif",
                     fontWeight: 500,
-                    fontSize: "0.68rem",
+                    fontSize: "0.75rem",
                     padding: "10px 16px",
                     border: "none",
                     cursor: "pointer",
@@ -676,12 +676,12 @@ export default function Account() {
                         <Link
                           to={configuratorUrlFor(pv)}
                           className="uppercase tracking-[0.18em] text-gold-light hover:text-gold no-underline"
-                          style={{ fontSize: "0.66rem", minHeight: 44, display: "inline-flex", alignItems: "center" }}
+                          style={{ fontSize: "0.75rem", minHeight: 44, display: "inline-flex", alignItems: "center" }}
                         >
                           Continue this build →
                         </Link>
                         <div className="flex items-center justify-between gap-2">
-                          <span className="text-cream-dim" style={{ fontSize: "0.68rem" }}>
+                          <span className="text-cream-dim" style={{ fontSize: "0.75rem" }}>
                             {new Date(pv.created_at).toLocaleDateString()}
                           </span>
                           <button
@@ -708,7 +708,7 @@ export default function Account() {
                             }}
                             className="uppercase tracking-[0.18em] text-cream-dim hover:text-foreground disabled:cursor-wait"
                             style={{
-                              fontSize: "0.6rem",
+                              fontSize: "0.75rem",
                               background: "transparent",
                               border: "none",
                               cursor: isDeleting ? "wait" : "pointer",
@@ -729,7 +729,7 @@ export default function Account() {
 
           {/* Profile */}
           <section className="flex flex-col gap-4">
-            <h2 className="uppercase tracking-[0.2em] text-cream-dim" style={{ fontSize: "0.65rem" }}>
+            <h2 className="uppercase tracking-[0.2em] text-cream-dim" style={{ fontSize: "0.75rem" }}>
               Profile
             </h2>
             {profile && (
@@ -764,7 +764,7 @@ function ProfileEditor({
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-2">
-        <label className="text-cream-dim uppercase tracking-[0.18em]" style={{ fontSize: "0.65rem" }}>
+        <label className="text-cream-dim uppercase tracking-[0.18em]" style={{ fontSize: "0.75rem" }}>
           Full name
         </label>
         <input
@@ -784,7 +784,7 @@ function ProfileEditor({
         />
       </div>
       <div className="flex flex-col gap-2">
-        <label className="text-cream-dim uppercase tracking-[0.18em]" style={{ fontSize: "0.65rem" }}>
+        <label className="text-cream-dim uppercase tracking-[0.18em]" style={{ fontSize: "0.75rem" }}>
           Language
         </label>
         <select
@@ -915,7 +915,7 @@ function BespokeMeasurementsCard({
             {row.is_current && (
               <span
                 className="ml-3 uppercase tracking-[0.18em]"
-                style={{ color: GOLD, fontSize: "0.6rem", border: `1px solid ${GOLD}`, padding: "2px 8px" }}
+                style={{ color: GOLD, fontSize: "0.75rem", border: `1px solid ${GOLD}`, padding: "2px 8px" }}
               >
                 Current
               </span>
@@ -930,7 +930,7 @@ function BespokeMeasurementsCard({
             onClick={() => setEditing(true)}
             className="uppercase tracking-[0.2em] bg-transparent text-cream-dim hover:text-foreground"
             style={{
-              fontSize: "0.6rem",
+              fontSize: "0.75rem",
               border: "1px solid rgba(255,255,255,0.16)",
               padding: "8px 14px",
               cursor: "pointer",
@@ -952,7 +952,7 @@ function BespokeMeasurementsCard({
               }}
               className="uppercase tracking-[0.2em] bg-transparent text-cream-dim hover:text-foreground"
               style={{
-                fontSize: "0.6rem",
+                fontSize: "0.75rem",
                 border: "1px solid rgba(255,255,255,0.16)",
                 padding: "8px 14px",
                 cursor: "pointer",
@@ -965,7 +965,7 @@ function BespokeMeasurementsCard({
               onClick={save}
               className="uppercase tracking-[0.2em]"
               style={{
-                fontSize: "0.6rem",
+                fontSize: "0.75rem",
                 background: saving ? "rgba(201,168,76,0.4)" : GOLD,
                 color: "#0f0f0f",
                 border: "none",
@@ -992,7 +992,7 @@ function BespokeMeasurementsCard({
             <div key={k} className="flex flex-col gap-1">
               <label
                 className="text-cream-dim uppercase tracking-[0.16em]"
-                style={{ fontSize: "0.6rem" }}
+                style={{ fontSize: "0.75rem" }}
               >
                 {range.label}
               </label>

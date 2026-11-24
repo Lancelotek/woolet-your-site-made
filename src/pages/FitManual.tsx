@@ -214,7 +214,7 @@ export default function FitManual() {
               >
                 <div
                   className="uppercase tracking-[0.2em]"
-                  style={{ color: "hsl(var(--gold-dim))", fontSize: "0.6rem", fontFamily: "Barlow, sans-serif" }}
+                  style={{ color: "hsl(var(--gold-dim))", fontSize: "0.75rem", fontFamily: "Barlow, sans-serif" }}
                 >
                   Face width
                 </div>
@@ -327,7 +327,7 @@ export default function FitManual() {
                 >
                   <div
                     className="uppercase tracking-[0.2em]"
-                    style={{ color: "hsl(var(--gold-dim))", fontSize: "0.6rem", fontFamily: "Barlow, sans-serif" }}
+                    style={{ color: "hsl(var(--gold-dim))", fontSize: "0.75rem", fontFamily: "Barlow, sans-serif" }}
                   >
                     Your match · {formattedMm} mm
                   </div>
@@ -374,7 +374,7 @@ export default function FitManual() {
               >
                 <div
                   className="uppercase tracking-[0.2em] mb-3"
-                  style={{ color: "hsl(var(--gold-dim))", fontSize: "0.55rem" }}
+                  style={{ color: "hsl(var(--gold-dim))", fontSize: "0.75rem" }}
                 >
                   Reference
                 </div>

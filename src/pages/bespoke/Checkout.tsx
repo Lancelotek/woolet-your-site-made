@@ -49,7 +49,7 @@ const PURCHASE_TRACKED_KEY = "woolet_bespoke_purchase_tracked_v1";
 
 const SummaryRow = ({ label, value }: { label: string; value: React.ReactNode }) => (
   <div className="flex items-baseline justify-between gap-4 py-2.5 border-b border-cream/10 last:border-b-0">
-    <div className="text-cream-dim text-[11px] uppercase tracking-[0.16em]">{label}</div>
+    <div className="text-cream-dim text-[12px] uppercase tracking-[0.16em]">{label}</div>
     <div className="text-cream text-sm text-right">
       {value || <span className="text-cream-dim/60">—</span>}
     </div>
@@ -405,11 +405,11 @@ export default function BespokeCheckout() {
                 lives under the order summary instead. */}
             <button
               onClick={() => navigate("/en/bespoke/configurator")}
-              className="hidden sm:inline-flex items-center gap-2 text-cream-dim hover:text-cream text-[11px] uppercase tracking-[0.2em] transition"
+              className="hidden sm:inline-flex items-center gap-2 text-cream-dim hover:text-cream text-[12px] uppercase tracking-[0.2em] transition"
             >
               <ChevronLeft size={14} /> Back to configurator
             </button>
-            <div className="text-[11px] uppercase tracking-[0.22em] text-cream-dim">
+            <div className="text-[12px] uppercase tracking-[0.22em] text-cream-dim">
               Secure checkout · <span className="text-gold-light">Free worldwide shipping</span>
             </div>
           </div>
@@ -423,7 +423,7 @@ export default function BespokeCheckout() {
             // Paid: never show the payment form again (it would open a second
             // Stripe session for an order that already exists).
             <section className="max-w-xl mx-auto text-center py-6 sm:py-10">
-              <div className="text-[11px] uppercase tracking-[0.22em] text-gold-light mb-3">
+              <div className="text-[12px] uppercase tracking-[0.22em] text-gold-light mb-3">
                 {split.plan === "deposit" ? "Deposit received" : "Payment received"}
               </div>
               <h1 className="font-display text-3xl sm:text-4xl leading-tight">
@@ -479,24 +479,24 @@ export default function BespokeCheckout() {
                     </span>
                     <span className="min-w-0 flex-1">
                       <span className="block font-display text-cream text-base leading-tight truncate">{frame.name}</span>
-                      <span className="block text-cream-dim text-[11px] truncate">{[front?.name, temple?.name].filter(Boolean).join(" · ")}</span>
-                      <span className="block mt-1 text-gold-light text-[10px] uppercase tracking-[0.16em] underline underline-offset-4">Order details and discount code</span>
+                      <span className="block text-cream-dim text-[12px] truncate">{[front?.name, temple?.name].filter(Boolean).join(" · ")}</span>
+                      <span className="block mt-1 text-gold-light text-[12px] uppercase tracking-[0.16em] underline underline-offset-4">Order details and discount code</span>
                     </span>
                     <span className="shrink-0 text-right">
-                      <span className="block text-cream-dim text-[10px] uppercase tracking-[0.16em]">Due today</span>
+                      <span className="block text-cream-dim text-[12px] uppercase tracking-[0.16em]">Due today</span>
                       <span className="block font-display text-cream text-xl">{formatEur(dueTodayUsd)}</span>
                     </span>
                   </a>
                 )}
                 <div className="mb-6">
-                  <div className="text-[11px] uppercase tracking-[0.22em] text-gold-light mb-3">Payment</div>
+                  <div className="text-[12px] uppercase tracking-[0.22em] text-gold-light mb-3">Payment</div>
                   <h1 className="font-display text-3xl sm:text-4xl leading-tight">
                     Complete your <em className="italic text-gold-light">bespoke order</em>
                   </h1>
                   <div className="mt-3"><PayMeasureNotice split={split} /></div>
 
                   {/* Trust row - desktop only here; on mobile it sits under the form. */}
-                  <ul className="mt-5 hidden lg:flex flex-wrap gap-x-5 gap-y-2 text-[11px] uppercase tracking-[0.16em] text-cream-dim">
+                  <ul className="mt-5 hidden lg:flex flex-wrap gap-x-5 gap-y-2 text-[12px] uppercase tracking-[0.16em] text-cream-dim">
                     <li className="inline-flex items-center gap-1.5"><Lock size={12} className="text-gold-light" /> 256-bit secure</li>
                     <li className="inline-flex items-center gap-1.5"><ShieldCheck size={12} className="text-gold-light" /> Wrong fit? 50% off a new frame</li>
                     
@@ -508,7 +508,7 @@ export default function BespokeCheckout() {
                 {/* Desktop only: on mobile the same question is asked after payment
                     (HeardFromQuestion), so nothing stands between the buyer and the form. */}
                 <div className="hidden lg:block mb-6 border border-cream/15 p-5" style={{ borderRadius: 4 }}>
-                  <label htmlFor="bespoke-source" className="block text-[11px] uppercase tracking-[0.2em] text-cream mb-2">
+                  <label htmlFor="bespoke-source" className="block text-[12px] uppercase tracking-[0.2em] text-cream mb-2">
                     How did you find Woolet? <span className="text-cream-dim normal-case tracking-normal">(optional)</span>
                   </label>
                   <select
@@ -552,7 +552,7 @@ export default function BespokeCheckout() {
                       clarityEvent("bespoke_checkout_email_submitted");
                     }}
                   >
-                    <label htmlFor="bespoke-checkout-email" className="block text-[11px] uppercase tracking-[0.2em] text-cream mb-2">
+                    <label htmlFor="bespoke-checkout-email" className="block text-[12px] uppercase tracking-[0.2em] text-cream mb-2">
                       Your email
                     </label>
                     <input
@@ -624,7 +624,7 @@ export default function BespokeCheckout() {
                   </div>
                 )}
 
-                <ul className="lg:hidden mt-5 flex flex-wrap gap-x-5 gap-y-2 text-[11px] uppercase tracking-[0.16em] text-cream-dim">
+                <ul className="lg:hidden mt-5 flex flex-wrap gap-x-5 gap-y-2 text-[12px] uppercase tracking-[0.16em] text-cream-dim">
                   <li className="inline-flex items-center gap-1.5"><Lock size={12} className="text-gold-light" /> 256-bit secure</li>
                   <li className="inline-flex items-center gap-1.5"><ShieldCheck size={12} className="text-gold-light" /> Wrong fit? 50% off a new frame</li>
                   <li className="inline-flex items-center gap-1.5"><Scissors size={12} className="text-gold-light" /> Cut in the EU</li>
@@ -652,7 +652,7 @@ export default function BespokeCheckout() {
                   <blockquote className="text-cream text-[13px] leading-relaxed italic">
                     &ldquo;First pair in ten years that actually sits on my face. The AI preview matched what arrived — I knew exactly what I was paying for.&rdquo;
                   </blockquote>
-                  <figcaption className="mt-2 text-cream-dim text-[10px] uppercase tracking-[0.18em]">
+                  <figcaption className="mt-2 text-cream-dim text-[12px] uppercase tracking-[0.18em]">
                     Marco B. · Verified bespoke buyer
                   </figcaption>
                 </figure>
@@ -674,7 +674,7 @@ export default function BespokeCheckout() {
                             className="w-full h-full object-cover"
                           />
                           <div
-                            className="absolute top-2 left-2 inline-flex items-center gap-1.5 px-2 py-1 text-[9px] uppercase tracking-[0.18em]"
+                            className="absolute top-2 left-2 inline-flex items-center gap-1.5 px-2 py-1 text-[12px] uppercase tracking-[0.18em]"
                             style={{ background: "rgba(11,10,9,0.72)", color: "#D8B86A", borderRadius: 2 }}
                           >
                             <Sparkles size={10} /> Your AI preview
@@ -688,7 +688,7 @@ export default function BespokeCheckout() {
                             className="w-full h-full object-cover"
                           />
                           <div
-                            className="absolute top-2 left-2 inline-flex items-center gap-1.5 px-2 py-1 text-[9px] uppercase tracking-[0.18em]"
+                            className="absolute top-2 left-2 inline-flex items-center gap-1.5 px-2 py-1 text-[12px] uppercase tracking-[0.18em]"
                             style={{ background: "rgba(11,10,9,0.72)", color: "#D8B86A", borderRadius: 2 }}
                           >
                             <Sparkles size={10} /> Preview without lens tint
@@ -702,7 +702,7 @@ export default function BespokeCheckout() {
                             className="w-full h-full object-cover"
                           />
                           <div
-                            className="absolute top-2 left-2 inline-flex items-center gap-1.5 px-2 py-1 text-[9px] uppercase tracking-[0.18em]"
+                            className="absolute top-2 left-2 inline-flex items-center gap-1.5 px-2 py-1 text-[12px] uppercase tracking-[0.18em]"
                             style={{ background: "rgba(11,10,9,0.72)", color: "#D8B86A", borderRadius: 2 }}
                           >
                             {frame.name} · {front.name} front
@@ -724,7 +724,7 @@ export default function BespokeCheckout() {
                           <div className="text-cream text-xs font-medium">
                             {fallbackPreviewUrl ? "Preview shown without your lens tint" : frontPreviewUrl ? "Preview shows your front acetate with black temples" : "No AI preview for this build yet"}
                           </div>
-                          <p className="text-cream-dim text-[11px] leading-relaxed mt-1">
+                          <p className="text-cream-dim text-[12px] leading-relaxed mt-1">
                             {fallbackPreviewUrl || frontPreviewUrl
                               ? "Generate a fresh AI visualisation of your current pattern and acetate choices to see exactly what you’re buying."
                               : "Generate an AI visualisation of your current pattern and colours before you pay."}
@@ -732,7 +732,7 @@ export default function BespokeCheckout() {
                           {!isSignedIn ? (
                             <Link
                               to={`/en/account/sign-in?next=${encodeURIComponent("/en/bespoke/checkout")}`}
-                              className="mt-3 inline-flex items-center gap-2 px-4 py-2 bg-gold text-background text-[10px] uppercase tracking-[0.18em] font-medium hover:bg-gold-light transition"
+                              className="mt-3 inline-flex items-center gap-2 px-4 py-2 bg-gold text-background text-[12px] uppercase tracking-[0.18em] font-medium hover:bg-gold-light transition"
                               style={{ borderRadius: 2 }}
                             >
                               <Sparkles size={12} /> Sign in to generate AI preview
@@ -741,7 +741,7 @@ export default function BespokeCheckout() {
                           <button
                             onClick={handleGeneratePreview}
                             disabled={isGenerating}
-                            className="mt-3 inline-flex items-center gap-2 px-4 py-2 bg-gold text-background text-[10px] uppercase tracking-[0.18em] font-medium hover:bg-gold-light transition disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="mt-3 inline-flex items-center gap-2 px-4 py-2 bg-gold text-background text-[12px] uppercase tracking-[0.18em] font-medium hover:bg-gold-light transition disabled:opacity-50 disabled:cursor-not-allowed"
                             style={{ borderRadius: 2 }}
                           >
                             {isGenerating ? (
@@ -761,11 +761,11 @@ export default function BespokeCheckout() {
                     </div>
                   )}
                   <div className="p-5">
-                    <div className="text-[10px] uppercase tracking-[0.22em] text-gold-light">Order summary</div>
+                    <div className="text-[12px] uppercase tracking-[0.22em] text-gold-light">Order summary</div>
                     {frame && (
                       <div className="mt-2 mb-4">
                         <div className="font-display text-cream text-xl">{frame.name}</div>
-                        <div className="text-cream-dim text-[11px] uppercase tracking-[0.16em]">Pattern · {frame.shape}</div>
+                        <div className="text-cream-dim text-[12px] uppercase tracking-[0.16em]">Pattern · {frame.shape}</div>
                       </div>
                     )}
 
@@ -776,7 +776,7 @@ export default function BespokeCheckout() {
                           front && (
                             <span className="inline-flex items-center gap-2">
                               <span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: front.hex }} />
-                              <span className="text-right">{front.name} <span className="font-mono text-[10px] text-gold-light">{front.code}</span></span>
+                              <span className="text-right">{front.name} <span className="font-mono text-[12px] text-gold-light">{front.code}</span></span>
                             </span>
                           )
                         }
@@ -787,7 +787,7 @@ export default function BespokeCheckout() {
                           temple && (
                             <span className="inline-flex items-center gap-2">
                               <span className="w-3 h-3 rounded-full border border-cream/20" style={{ background: temple.hex }} />
-                              <span className="text-right">{temple.name} <span className="font-mono text-[10px] text-gold-light">{temple.code}</span></span>
+                              <span className="text-right">{temple.name} <span className="font-mono text-[12px] text-gold-light">{temple.code}</span></span>
                             </span>
                           )
                         }
@@ -811,25 +811,25 @@ export default function BespokeCheckout() {
 
                     <Link
                       to="/en/bespoke/configurator"
-                      className="mt-3 inline-flex items-center gap-1.5 text-cream-dim hover:text-cream text-[11px] uppercase tracking-[0.18em] underline underline-offset-4"
+                      className="mt-3 inline-flex items-center gap-1.5 text-cream-dim hover:text-cream text-[12px] uppercase tracking-[0.18em] underline underline-offset-4"
                     >
                       <ChevronLeft size={12} /> Edit your build
                     </Link>
 
                     {/* Coupon */}
                     <div className="pt-4 mt-3 border-t border-cream/15">
-                      <label htmlFor="coupon" className="text-cream-dim text-[10px] uppercase tracking-[0.2em]">
+                      <label htmlFor="coupon" className="text-cream-dim text-[12px] uppercase tracking-[0.2em]">
                         Discount code
                       </label>
                       {appliedCoupon ? (
                         <div className="mt-2 flex items-center justify-between gap-3 border border-gold/30 px-3 py-2" style={{ borderRadius: 2, background: "rgba(194,160,90,0.07)" }}>
-                          <span className="text-gold-light text-[11px] uppercase tracking-[0.16em]">
+                          <span className="text-gold-light text-[12px] uppercase tracking-[0.16em]">
                             {appliedCoupon} · −{couponPercent}%
                           </span>
                           <button
                             type="button"
                             onClick={() => { setAppliedCoupon(null); setCouponPercent(0); setCouponInput(""); }}
-                            className="text-cream-dim hover:text-cream text-[10px] uppercase tracking-[0.16em] underline underline-offset-4"
+                            className="text-cream-dim hover:text-cream text-[12px] uppercase tracking-[0.16em] underline underline-offset-4"
                           >
                             Remove
                           </button>
@@ -868,24 +868,24 @@ export default function BespokeCheckout() {
                           />
                           <button
                             type="submit"
-                            className="px-4 py-2 border border-gold/40 text-gold-light text-[10px] uppercase tracking-[0.18em] hover:bg-gold hover:text-background transition"
+                            className="px-4 py-2 border border-gold/40 text-gold-light text-[12px] uppercase tracking-[0.18em] hover:bg-gold hover:text-background transition"
                             style={{ borderRadius: 2 }}
                           >
                             Apply
                           </button>
                         </form>
                       )}
-                      {couponError && <p className="mt-2 text-[11px] text-red-400/90">{couponError}</p>}
+                      {couponError && <p className="mt-2 text-[12px] text-red-400/90">{couponError}</p>}
                     </div>
 
                     {couponPercent > 0 && (
                       <div className="mt-4 space-y-1">
                         <div className="flex items-baseline justify-between gap-4">
-                          <div className="text-cream-dim text-[11px] uppercase tracking-[0.16em]">Subtotal</div>
+                          <div className="text-cream-dim text-[12px] uppercase tracking-[0.16em]">Subtotal</div>
                           <div className="text-cream-dim text-sm line-through">{formatEur(pricing.totalEur)}</div>
                         </div>
                         <div className="flex items-baseline justify-between gap-4">
-                          <div className="text-gold-light text-[11px] uppercase tracking-[0.16em]">Discount · {appliedCoupon}</div>
+                          <div className="text-gold-light text-[12px] uppercase tracking-[0.16em]">Discount · {appliedCoupon}</div>
                           <div className="text-gold-light text-sm">−{formatEur(Math.round(pricing.totalEur * couponPercent) / 100)}</div>
                         </div>
                       </div>
@@ -894,28 +894,28 @@ export default function BespokeCheckout() {
                     {split.plan === "deposit" ? (
                       <div className="pt-4 mt-3 border-t border-cream/15 space-y-2">
                         <div className="flex items-baseline justify-between gap-4">
-                          <div className="text-cream-dim text-[11px] uppercase tracking-[0.2em]">Order total</div>
+                          <div className="text-cream-dim text-[12px] uppercase tracking-[0.2em]">Order total</div>
                           <div className="text-cream text-base">{formatEur(split.totalCents / 100)}</div>
                         </div>
                         <div className="flex items-baseline justify-between gap-4">
-                          <div className="text-cream text-[11px] uppercase tracking-[0.2em]">Due today · deposit</div>
+                          <div className="text-cream text-[12px] uppercase tracking-[0.2em]">Due today · deposit</div>
                           <div className="text-cream text-2xl font-display">{formatEur(dueTodayUsd)}</div>
                         </div>
                         <div className="flex items-baseline justify-between gap-4">
-                          <div className="text-cream-dim text-[11px] uppercase tracking-[0.16em]">When you accept your visualization</div>
+                          <div className="text-cream-dim text-[12px] uppercase tracking-[0.16em]">When you accept your visualization</div>
                           <div className="text-cream-dim text-sm">{formatEur(split.balanceCents / 100)}</div>
                         </div>
                       </div>
                     ) : (
                     <div className="flex items-baseline justify-between gap-4 pt-4 mt-3 border-t border-cream/15">
-                      <div className="text-cream text-[11px] uppercase tracking-[0.2em]">Total due today</div>
+                      <div className="text-cream text-[12px] uppercase tracking-[0.2em]">Total due today</div>
                       <div className="text-cream text-2xl font-display">
                         {formatEur(Math.round(pricing.totalEur * (100 - couponPercent)) / 100)}
                       </div>
                     </div>
                     )}
                     {couponPercent === 100 && (
-                      <p className="mt-2 text-[11px] text-cream-dim/80">
+                      <p className="mt-2 text-[12px] text-cream-dim/80">
                         Test order — a $1 minimum is charged because payments cannot be processed at zero.
                       </p>
                     )}
@@ -929,7 +929,7 @@ export default function BespokeCheckout() {
                     borderRadius: 2,
                   }}
                 >
-                  <div className="text-[10px] uppercase tracking-[0.22em]" style={{ color: "#C2A05A" }}>
+                  <div className="text-[12px] uppercase tracking-[0.22em]" style={{ color: "#C2A05A" }}>
                     After payment
                   </div>
                   <ol className="mt-2 space-y-1.5 text-cream-dim text-[12px] leading-relaxed">

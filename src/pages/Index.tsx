@@ -393,7 +393,7 @@ const MeterRow = ({
     <div className="w-full">
       <div
         className="flex items-center justify-between mb-4 uppercase tracking-[0.22em]"
-        style={{ fontSize: "0.68rem", color: "hsl(var(--gold-dim))" }}
+        style={{ fontSize: "0.75rem", color: "hsl(var(--gold-dim))" }}
       >
         <span>{cfg.label}</span>
         <span>mm</span>
@@ -451,7 +451,7 @@ const MeterRow = ({
 
       <div
         className="flex justify-between mt-2.5 tracking-wider"
-        style={{ fontSize: "0.66rem", color: "hsl(var(--cream-dim))" }}
+        style={{ fontSize: "0.75rem", color: "hsl(var(--cream-dim))" }}
       >
         {cfg.ticks.map((t) => (
           <span key={t}>{t}</span>
@@ -463,7 +463,7 @@ const MeterRow = ({
           className="absolute -translate-x-1/2 uppercase tracking-[0.24em] whitespace-nowrap"
           style={{
             left: `${wlLeft + wlWidth / 2}%`,
-            fontSize: "0.62rem",
+            fontSize: "0.75rem",
             color: "hsl(var(--gold-light))",
             fontFamily: "Barlow, sans-serif",
             fontWeight: 500,

@@ -49,12 +49,12 @@ const FrameGallery = ({ frame, open, onOpenChange }: FrameGalleryProps) => {
         {/* Header */}
         <div className="flex items-baseline justify-between gap-4 px-6 pt-5 pb-3 border-b border-cream/10">
           <div>
-            <div className="text-[10px] uppercase tracking-[0.28em] text-gold-light/80">
+            <div className="text-[12px] uppercase tracking-[0.28em] text-gold-light/80">
               {frame.id.toUpperCase()} · {frame.shape}
             </div>
             <h2 className="font-display text-cream text-2xl font-light mt-0.5">{frame.name}</h2>
           </div>
-          <div className="text-[11px] uppercase tracking-[0.2em] text-cream-dim">
+          <div className="text-[12px] uppercase tracking-[0.2em] text-cream-dim">
             {frame.widthMm} mm · {frame.bridgeMm} mm bridge
           </div>
         </div>
@@ -84,7 +84,7 @@ const FrameGallery = ({ frame, open, onOpenChange }: FrameGalleryProps) => {
               >
                 <ChevronRight size={20} />
               </button>
-              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-full bg-[#0c0c0c]/70 text-cream text-[10px] tracking-[0.2em] uppercase">
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-full bg-[#0c0c0c]/70 text-cream text-[12px] tracking-[0.2em] uppercase">
                 {idx + 1} / {images.length}
               </div>
             </>
@@ -118,7 +118,7 @@ const FrameGallery = ({ frame, open, onOpenChange }: FrameGalleryProps) => {
             {!showAll && hiddenCount > 0 && (
               <button
                 onClick={() => setShowAll(true)}
-                className="aspect-square flex items-center justify-center text-[10px] uppercase tracking-[0.18em] text-cream-dim border border-cream/15 hover:text-cream hover:border-cream/40 transition"
+                className="aspect-square flex items-center justify-center text-[12px] uppercase tracking-[0.18em] text-cream-dim border border-cream/15 hover:text-cream hover:border-cream/40 transition"
                 style={{ borderRadius: 2 }}
               >
                 +{hiddenCount} more

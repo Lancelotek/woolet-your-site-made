@@ -75,7 +75,7 @@ const WideBridgeFitGuide = () => {
         <nav
           aria-label="Breadcrumb"
           className="mb-6 text-cream-dim"
-          style={{ fontSize: "0.6rem", letterSpacing: "0.2em", textTransform: "uppercase" }}
+          style={{ fontSize: "0.75rem", letterSpacing: "0.2em", textTransform: "uppercase" }}
         >
           <Link to="/en" className="text-cream-dim hover:text-gold-light no-underline">Home</Link>
           <span className="opacity-30 mx-2">/</span>
@@ -136,7 +136,7 @@ const WideBridgeFitGuide = () => {
         <section className="mb-16">
           <div
             className="text-primary uppercase mb-3"
-            style={{ fontSize: "0.55rem", letterSpacing: "0.28em" }}
+            style={{ fontSize: "0.75rem", letterSpacing: "0.28em" }}
           >
             Part 1
           </div>
@@ -263,7 +263,7 @@ const WideBridgeFitGuide = () => {
         <section className="mb-16">
           <div
             className="text-primary uppercase mb-3"
-            style={{ fontSize: "0.55rem", letterSpacing: "0.28em" }}
+            style={{ fontSize: "0.75rem", letterSpacing: "0.28em" }}
           >
             Part 2
           </div>
@@ -416,7 +416,7 @@ const WideBridgeFitGuide = () => {
         <section className="mb-10">
           <div
             className="text-primary uppercase mb-3"
-            style={{ fontSize: "0.55rem", letterSpacing: "0.28em" }}
+            style={{ fontSize: "0.75rem", letterSpacing: "0.28em" }}
           >
             Quick answers
           </div>
@@ -454,7 +454,7 @@ const WideBridgeFitGuide = () => {
           <Link
             to="/en/blog/category/nose-bridge-fit"
             className="text-cream-dim hover:text-gold-light no-underline uppercase"
-            style={{ fontSize: "0.6rem", letterSpacing: "0.28em" }}
+            style={{ fontSize: "0.75rem", letterSpacing: "0.28em" }}
           >
             ← Back to Nose-Bridge Fit hub
           </Link>

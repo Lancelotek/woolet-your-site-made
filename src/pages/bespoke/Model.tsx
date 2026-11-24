@@ -215,7 +215,7 @@ export default function BespokeModel() {
             <Link to="/en" className="text-cream text-[13px] tracking-[0.32em] uppercase font-medium">
               Woolet
             </Link>
-            <span className="text-cream-dim text-[11px] uppercase tracking-[0.2em]">{v2 && !paid ? "Bespoke · Visualization" : "Bespoke · 3D model"}</span>
+            <span className="text-cream-dim text-[12px] uppercase tracking-[0.2em]">{v2 && !paid ? "Bespoke · Visualization" : "Bespoke · 3D model"}</span>
           </div>
         </header>
 
@@ -293,7 +293,7 @@ export default function BespokeModel() {
                         Tell us what to change - the bridge, the width, the temples. You have {m.correctionsLeft} of{" "}
                         {m.maxCorrections} corrections left. After the last one your frame is built to that version.
                       </p>
-                      <label htmlFor="model-revision" className="block mt-5 text-[11px] uppercase tracking-[0.16em] text-cream-dim mb-1.5">
+                      <label htmlFor="model-revision" className="block mt-5 text-[12px] uppercase tracking-[0.16em] text-cream-dim mb-1.5">
                         What should we change?
                       </label>
                       <textarea
@@ -453,7 +453,7 @@ export default function BespokeModel() {
             </div>
           ) : (
             <section>
-              <div className="text-[11px] uppercase tracking-[0.22em] text-gold-light mb-3">Order {s.orderRef}</div>
+              <div className="text-[12px] uppercase tracking-[0.22em] text-gold-light mb-3">Order {s.orderRef}</div>
               <h1 className="font-display text-3xl sm:text-4xl leading-tight text-cream">
                 {s.firstName ? `${s.firstName}, your` : "Your"} 3D model is <em className="italic text-gold-light">ready</em>.
               </h1>
@@ -521,7 +521,7 @@ export default function BespokeModel() {
                     Tell us what to change - the bridge, the width, the temples. We send you a corrected model and your{" "}
                     {BALANCE_WINDOW_DAYS} days start again.
                   </p>
-                  <label htmlFor="model-revision" className="block mt-5 text-[11px] uppercase tracking-[0.16em] text-cream-dim mb-1.5">
+                  <label htmlFor="model-revision" className="block mt-5 text-[12px] uppercase tracking-[0.16em] text-cream-dim mb-1.5">
                     What should we change?
                   </label>
                   <textarea
@@ -613,7 +613,7 @@ function ModelFiles({ files }: { files?: ModelFile[] }) {
           style={{ borderRadius: 4 }}
         >
           <span className="break-all">{f.name}</span>
-          <span className="text-gold-light text-[11px] uppercase tracking-[0.16em] shrink-0">Open drawing</span>
+          <span className="text-gold-light text-[12px] uppercase tracking-[0.16em] shrink-0">Open drawing</span>
         </a>
       ))}
     </div>
@@ -657,22 +657,22 @@ function Summary({ s }: { s: Status }) {
           .filter(([, v]) => v)
           .map(([k, v]) => (
             <div key={k} className="flex items-baseline justify-between gap-4">
-              <dt className="text-cream-dim text-[11px] uppercase tracking-[0.16em]">{k}</dt>
+              <dt className="text-cream-dim text-[12px] uppercase tracking-[0.16em]">{k}</dt>
               <dd className="text-cream text-right">{v}</dd>
             </div>
           ))}
       </dl>
       <dl className="mt-4 pt-4 border-t border-cream/15 space-y-2 text-sm">
         <div className="flex items-baseline justify-between gap-4">
-          <dt className="text-cream-dim text-[11px] uppercase tracking-[0.16em]">Order total</dt>
+          <dt className="text-cream-dim text-[12px] uppercase tracking-[0.16em]">Order total</dt>
           <dd className="text-cream">{formatUsdCents(s.totalCents)}</dd>
         </div>
         <div className="flex items-baseline justify-between gap-4">
-          <dt className="text-cream-dim text-[11px] uppercase tracking-[0.16em]">Deposit paid</dt>
+          <dt className="text-cream-dim text-[12px] uppercase tracking-[0.16em]">Deposit paid</dt>
           <dd className="text-cream">{formatUsdCents(s.depositCents)}</dd>
         </div>
         <div className="flex items-baseline justify-between gap-4">
-          <dt className="text-cream text-[11px] uppercase tracking-[0.2em]">
+          <dt className="text-cream text-[12px] uppercase tracking-[0.2em]">
             {s.state === "paid" ? "Balance paid" : s.flow === 2 ? "Balance to accept" : "Balance on approval"}
           </dt>
           <dd className="text-cream text-xl font-display">{formatUsdCents(s.balanceCents)}</dd>

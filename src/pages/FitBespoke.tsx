@@ -85,7 +85,7 @@ export default function FitBespoke() {
             <nav
               aria-label="Breadcrumb"
               className="mb-6 text-cream-dim"
-              style={{ fontSize: "0.6rem", letterSpacing: "0.2em", textTransform: "uppercase" }}
+              style={{ fontSize: "0.75rem", letterSpacing: "0.2em", textTransform: "uppercase" }}
             >
               <Link to="/en" className="text-cream-dim hover:text-gold-light no-underline">Home</Link>
               <span className="opacity-30 mx-2">/</span>
@@ -150,7 +150,7 @@ export default function FitBespoke() {
                           fontWeight: 500,
                           letterSpacing: "0.22em",
                           textTransform: "uppercase",
-                          fontSize: "0.62rem",
+                          fontSize: "0.75rem",
                         }}
                       >
                         {h}
@@ -248,7 +248,7 @@ export default function FitBespoke() {
                   <Link
                     to={c.cta.to}
                     className="text-gold-light no-underline uppercase"
-                    style={{ fontSize: "0.62rem", letterSpacing: "0.24em" }}
+                    style={{ fontSize: "0.75rem", letterSpacing: "0.24em" }}
                   >
                     {c.cta.label} →
                   </Link>

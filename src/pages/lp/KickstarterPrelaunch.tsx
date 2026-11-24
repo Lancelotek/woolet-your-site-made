@@ -193,7 +193,7 @@ const StepBar = ({ step, emailInputId }: { step: 1 | 2; emailInputId?: string })
                 alignItems: "center",
                 justifyContent: "center",
                 fontFamily: "Barlow, sans-serif",
-                fontSize: 11,
+                fontSize: 12,
                 fontWeight: 600,
                 color: active || done ? INK : TAUPE,
                 background: active || done ? GOLD : "transparent",
@@ -205,7 +205,7 @@ const StepBar = ({ step, emailInputId }: { step: 1 | 2; emailInputId?: string })
             <span
               style={{
                 fontFamily: "Barlow, sans-serif",
-                fontSize: 11,
+                fontSize: 12,
                 letterSpacing: "0.14em",
                 textTransform: "uppercase",
                 color: active ? CREAM : TAUPE,
@@ -681,7 +681,7 @@ const VipForm = ({
         <p
           style={{
             fontFamily: "Barlow, sans-serif",
-            fontSize: 11,
+            fontSize: 12,
             letterSpacing: "0.14em",
             textTransform: "uppercase",
             color: GOLD,
@@ -847,7 +847,7 @@ const VipForm = ({
         <p
           style={{
             fontFamily: "Barlow, sans-serif",
-            fontSize: 11,
+            fontSize: 12,
             color: "hsl(var(--signup-helper))",
             letterSpacing: "0.04em",
             textAlign: compact ? "center" : "left",
@@ -1003,7 +1003,7 @@ const MarketWidthChart = () => {
                 style={{
                   ...eyebrowStyle,
                   color: TAUPE,
-                  fontSize: 10,
+                  fontSize: 12,
                 }}
               >
                 155 mm — where a wide face starts
@@ -1034,7 +1034,7 @@ const MarketWidthChart = () => {
                   <span
                     style={{
                       color: TAUPE,
-                      fontSize: 11,
+                      fontSize: 12,
                       textTransform: "uppercase",
                       letterSpacing: "0.14em",
                     }}
@@ -1087,7 +1087,7 @@ const MarketWidthChart = () => {
                   <div
                     style={{
                       color: TAUPE,
-                      fontSize: 10,
+                      fontSize: 12,
                       textTransform: "uppercase",
                       letterSpacing: "0.12em",
                       marginTop: 7,
@@ -1136,7 +1136,7 @@ const MarketWidthChart = () => {
           </div>
         </div>
 
-        <p style={{ color: TAUPE, fontSize: 11, lineHeight: 1.6, marginTop: 24, maxWidth: "62ch" }}>
+        <p style={{ color: TAUPE, fontSize: 12, lineHeight: 1.6, marginTop: 24, maxWidth: "62ch" }}>
           Widest published sizes, taken from each brand's own size guide or product specifications.
           Approximate and subject to change as their ranges change.
         </p>
@@ -1989,7 +1989,7 @@ const KickstarterPrelaunch = () => {
                         style={{
                           ...eyebrowStyle,
                           color: GOLD,
-                          fontSize: 11,
+                          fontSize: 12,
                           marginTop: 2,
                         }}
                       >
@@ -2428,7 +2428,7 @@ const KickstarterPrelaunch = () => {
           </div>
           {ended ? null : live || (hasJoined && hasResolved) ? (
             <div className="mt-8 flex flex-col items-center gap-3">
-              <span style={{ ...eyebrowStyle, color: TAUPE, fontSize: 11 }}>{live ? "Or skip the email" : "Or follow the campaign"}</span>
+              <span style={{ ...eyebrowStyle, color: TAUPE, fontSize: 12 }}>{live ? "Or skip the email" : "Or follow the campaign"}</span>
               <KickstarterFollowCta slot="final_cta" label={live ? "Back us on" : "Follow us on"} />
             </div>
           ) : (
@@ -2554,7 +2554,7 @@ const KickstarterPrelaunch = () => {
           <div className="font-wordmark" style={{ fontSize: 20, color: CREAM }}>
             WOOLET
           </div>
-          <p style={{ fontSize: 11, lineHeight: 1.6, color: TAUPE, width: "100%", textAlign: "center", order: -1 }}>
+          <p style={{ fontSize: 12, lineHeight: 1.6, color: TAUPE, width: "100%", textAlign: "center", order: -1 }}>
             Kickstarter is a registered trademark of Kickstarter, PBC. Woolet is not affiliated with
             or endorsed by Kickstarter.
           </p>

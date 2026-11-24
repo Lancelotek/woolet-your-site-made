@@ -211,7 +211,7 @@ const BlueLightGlassesForWideFaces = () => {
       <main style={{ background: T.surface, minHeight: "100vh", fontFamily: SANS, color: T.ink }}>
         {/* 1 — Hero */}
         <header style={{ background: T.dark, color: T.cream, paddingTop: 64 }}>
-          <nav aria-label="Breadcrumb" style={{ ...wrap, paddingTop: 18, fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "rgba(237,231,217,0.55)" }}>
+          <nav aria-label="Breadcrumb" style={{ ...wrap, paddingTop: 18, fontSize: 12, letterSpacing: "1px", textTransform: "uppercase", color: "rgba(237,231,217,0.55)" }}>
             <Link to="/en" style={{ color: "inherit", textDecoration: "none" }}>Home</Link>
             <span style={{ margin: "0 8px" }}>/</span>
             <Link to="/en/collection" style={{ color: "inherit", textDecoration: "none" }}>Collections</Link>
@@ -229,7 +229,7 @@ const BlueLightGlassesForWideFaces = () => {
 
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 26 }}>
               {badges.map((b) => (
-                <span key={b} style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(237,231,217,0.75)", border: "1px solid rgba(202,164,73,0.45)", padding: "5px 10px", borderRadius: 2 }}>
+                <span key={b} style={{ fontSize: 12, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(237,231,217,0.75)", border: "1px solid rgba(202,164,73,0.45)", padding: "5px 10px", borderRadius: 2 }}>
                   {b}
                 </span>
               ))}
@@ -238,13 +238,13 @@ const BlueLightGlassesForWideFaces = () => {
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
               <Link
                 to="/en/fit"
-                style={{ background: T.gold, color: T.ctaInk, padding: "13px 22px", fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", borderRadius: 2, fontWeight: 700 }}
+                style={{ background: T.gold, color: T.ctaInk, padding: "13px 22px", fontSize: 12, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", borderRadius: 2, fontWeight: 700 }}
               >
                 Measure my face with FitLens
               </Link>
               <a
                 href="#frames"
-                style={{ background: "transparent", color: T.cream, padding: "13px 22px", fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", border: "1px solid rgba(237,231,217,0.45)", borderRadius: 2 }}
+                style={{ background: "transparent", color: T.cream, padding: "13px 22px", fontSize: 12, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", border: "1px solid rgba(237,231,217,0.45)", borderRadius: 2 }}
               >
                 See the frames
               </a>
@@ -278,7 +278,7 @@ const BlueLightGlassesForWideFaces = () => {
               <caption className="sr-only">Frame geometry: typical blue-light frame compared with Woolet 007 and 009</caption>
               <thead>
                 <tr style={{ background: "#FBF7EE" }}>
-                  <th scope="col" style={{ ...cell, borderTop: 0, textAlign: "left", fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "#666" }}>
+                  <th scope="col" style={{ ...cell, borderTop: 0, textAlign: "left", fontSize: 12, letterSpacing: "1px", textTransform: "uppercase", color: "#666" }}>
                     Measurement
                   </th>
                   <th scope="col" style={{ ...cell, borderTop: 0, textAlign: "left", fontSize: 12, color: T.ink }}>
@@ -388,7 +388,7 @@ const BlueLightGlassesForWideFaces = () => {
                 <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
                   <span style={{ color: T.goldDim, fontWeight: 700, fontSize: 16 }}>$210</span>
                   <span style={{ color: "#8A7F6C", fontSize: 12 }}>with blue light lenses</span>
-                  <span style={{ marginLeft: "auto", fontSize: 11, color: T.goldDim, letterSpacing: "1.5px", textTransform: "uppercase" }}>View →</span>
+                  <span style={{ marginLeft: "auto", fontSize: 12, color: T.goldDim, letterSpacing: "1.5px", textTransform: "uppercase" }}>View →</span>
                 </div>
               </Link>
             ))}
@@ -400,7 +400,7 @@ const BlueLightGlassesForWideFaces = () => {
               <div style={{ fontSize: 13, color: "rgba(237,231,217,0.7)", lineHeight: 1.55, marginBottom: 12 }}>
                 Outside the 155–161 mm signature range? Same Mazzucchelli acetate, your front width, hand made in EU.
               </div>
-              <span style={{ fontSize: 11, color: T.gold, letterSpacing: "1.5px", textTransform: "uppercase" }}>Explore bespoke →</span>
+              <span style={{ fontSize: 12, color: T.gold, letterSpacing: "1.5px", textTransform: "uppercase" }}>Explore bespoke →</span>
             </Link>
           </div>
         </section>
@@ -416,7 +416,7 @@ const BlueLightGlassesForWideFaces = () => {
             </ol>
             <Link
               to="/en/fit"
-              style={{ display: "inline-block", background: T.gold, color: T.ctaInk, padding: "13px 22px", fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", borderRadius: 2, fontWeight: 700 }}
+              style={{ display: "inline-block", background: T.gold, color: T.ctaInk, padding: "13px 22px", fontSize: 12, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", borderRadius: 2, fontWeight: 700 }}
             >
               Start FitLens
             </Link>

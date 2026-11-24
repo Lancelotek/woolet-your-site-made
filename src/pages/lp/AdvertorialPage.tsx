@@ -392,7 +392,7 @@ const AdvertorialPage = () => {
               <span
                 style={{
                   fontFamily: "'Barlow', sans-serif",
-                  fontSize: 11,
+                  fontSize: 12,
                   color: "#8a8275",
                   letterSpacing: "1px",
                   textTransform: "uppercase",
@@ -606,7 +606,7 @@ const AdvertorialPage = () => {
                 <div
                   style={{
                     fontFamily: "'Barlow', sans-serif",
-                    fontSize: 11,
+                    fontSize: 12,
                     color: "#8a8275",
                     letterSpacing: "2px",
                     textTransform: "uppercase",
@@ -652,7 +652,7 @@ const AdvertorialPage = () => {
                             width: 110,
                             flexShrink: 0,
                             fontFamily: "'Barlow', sans-serif",
-                            fontSize: 11,
+                            fontSize: 12,
                             letterSpacing: "1.5px",
                             textTransform: "uppercase",
                             color: labelColor,
@@ -698,7 +698,7 @@ const AdvertorialPage = () => {
                     paddingTop: 14,
                     borderTop: "1px solid rgba(216,184,106,0.12)",
                     fontFamily: "'Barlow', sans-serif",
-                    fontSize: 11,
+                    fontSize: 12,
                     color: "#8a8275",
                     letterSpacing: "0.5px",
                     display: "flex",
@@ -1247,7 +1247,7 @@ const AdvertorialPage = () => {
                 style={{
                   fontFamily: "'Barlow', sans-serif",
                   fontWeight: 500,
-                  fontSize: 11,
+                  fontSize: 12,
                   letterSpacing: "3px",
                   color: "#8a8275",
                   textTransform: "uppercase",
@@ -1313,7 +1313,7 @@ const AdvertorialPage = () => {
                         style={{
                           fontFamily: "'Barlow', sans-serif",
                           fontWeight: 500,
-                          fontSize: 10.5,
+                          fontSize: 12,
                           letterSpacing: "2.5px",
                           textTransform: "uppercase",
                           color: "#d8b86a",

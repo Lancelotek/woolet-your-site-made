@@ -161,7 +161,7 @@ export default function PlLandingPage({ config }: { config: PlPageConfig }) {
               style={{
                 color: colors.creamDim,
                 fontFamily: "'Barlow', sans-serif",
-                fontSize: 11,
+                fontSize: 12,
                 letterSpacing: "0.22em",
                 textTransform: "uppercase",
                 textDecoration: "none",
@@ -182,7 +182,7 @@ export default function PlLandingPage({ config }: { config: PlPageConfig }) {
         >
           <div className="max-w-6xl mx-auto pt-28 md:pt-32 pb-20 md:pb-28 grid md:grid-cols-[1.2fr_1fr] gap-12 items-center">
             <div className="flex flex-col gap-7">
-              <span style={{ fontFamily: "'Barlow', sans-serif", fontSize: 11, letterSpacing: "0.28em", textTransform: "uppercase", color: colors.gold }}>
+              <span style={{ fontFamily: "'Barlow', sans-serif", fontSize: 12, letterSpacing: "0.28em", textTransform: "uppercase", color: colors.gold }}>
                 {config.eyebrow}
               </span>
               <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, lineHeight: 1.2, fontSize: "clamp(2rem, 4.2vw, 3.4rem)", color: colors.cream, letterSpacing: "-0.005em", margin: 0 }}>
@@ -256,7 +256,7 @@ export default function PlLandingPage({ config }: { config: PlPageConfig }) {
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px mt-14" style={{ background: colors.line }}>
               {config.proofBullets.map((b) => (
                 <div key={b.label} className="p-7" style={{ background: colors.ink }}>
-                  <div style={{ fontFamily: "'Barlow', sans-serif", fontSize: 10.5, letterSpacing: "0.22em", textTransform: "uppercase", color: colors.creamDim }}>{b.label}</div>
+                  <div style={{ fontFamily: "'Barlow', sans-serif", fontSize: 12, letterSpacing: "0.22em", textTransform: "uppercase", color: colors.creamDim }}>{b.label}</div>
                   <div style={{ marginTop: 10, fontFamily: "'Cormorant Garamond', serif", fontSize: 22, lineHeight: 1.3, color: colors.cream }}>{b.value}</div>
                 </div>
               ))}
@@ -312,9 +312,9 @@ export default function PlLandingPage({ config }: { config: PlPageConfig }) {
                 const r = plPages[slug];
                 return (
                   <Link key={slug} to={`/pl/${slug}`} className="block p-7 transition-colors hover:bg-[rgba(202,164,73,0.05)]" style={{ border: `1px solid ${colors.line}`, background: colors.inkSoft, textDecoration: "none", color: colors.cream }}>
-                    <div style={{ fontSize: 11, letterSpacing: "0.22em", textTransform: "uppercase", color: colors.gold, marginBottom: 12 }}>{r.primaryKeyword}</div>
+                    <div style={{ fontSize: 12, letterSpacing: "0.22em", textTransform: "uppercase", color: colors.gold, marginBottom: 12 }}>{r.primaryKeyword}</div>
                     <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 22, lineHeight: 1.35, color: colors.cream }}>{r.h1}</div>
-                    <div style={{ marginTop: 18, fontSize: 11, letterSpacing: "0.22em", textTransform: "uppercase", color: colors.gold }}>Czytaj dalej →</div>
+                    <div style={{ marginTop: 18, fontSize: 12, letterSpacing: "0.22em", textTransform: "uppercase", color: colors.gold }}>Czytaj dalej →</div>
                   </Link>
                 );
               })}
@@ -388,7 +388,7 @@ function ExtendedSections({
             <p style={{ ...bodyStyle, maxWidth: 720 }}>{content.sizeExplainer.intro}</p>
             {content.sizeExplainer.formula && (
               <div className="mt-8 p-6" style={{ border: `1px solid ${colors.line}`, background: colors.ink }}>
-                <div style={{ fontFamily: "'Barlow', sans-serif", fontSize: 11, letterSpacing: "0.22em", textTransform: "uppercase", color: colors.gold, marginBottom: 8 }}>
+                <div style={{ fontFamily: "'Barlow', sans-serif", fontSize: 12, letterSpacing: "0.22em", textTransform: "uppercase", color: colors.gold, marginBottom: 8 }}>
                   {content.sizeExplainer.formulaLabel}
                 </div>
                 <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 20, color: colors.cream }}>
@@ -483,7 +483,7 @@ function ExtendedSections({
             <div className="grid md:grid-cols-3 gap-px mt-6" style={{ background: colors.line }}>
               {content.fitRules.rules.map((r, i) => (
                 <div key={r.title} className="p-6" style={{ background: colors.ink }}>
-                  <div style={{ fontFamily: "'Barlow', sans-serif", fontSize: 11, letterSpacing: "0.22em", textTransform: "uppercase", color: colors.gold, marginBottom: 12 }}>
+                  <div style={{ fontFamily: "'Barlow', sans-serif", fontSize: 12, letterSpacing: "0.22em", textTransform: "uppercase", color: colors.gold, marginBottom: 12 }}>
                     Zasada {i + 1}
                   </div>
                   <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 20, color: colors.cream, marginBottom: 10 }}>

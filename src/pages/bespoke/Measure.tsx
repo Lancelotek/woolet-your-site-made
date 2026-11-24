@@ -190,7 +190,7 @@ export default function Measure() {
         path="/en/measure"
       />
       <div className="mx-auto w-full max-w-[560px]">
-        <p className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground">Woolet bespoke</p>
+        <p className="text-[12px] uppercase tracking-[0.22em] text-muted-foreground">Woolet bespoke</p>
 
         {stage === "checking" && (
           <p className="mt-8 text-[15px] text-muted-foreground">Opening your measurement…</p>

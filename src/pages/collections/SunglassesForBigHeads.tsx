@@ -89,7 +89,7 @@ const SunglassesForBigHeads = () => {
       <Navbar />
       <main style={{ background: "#F8F6F1", minHeight: "100vh", fontFamily: "'Barlow', sans-serif", color: "#111" }}>
         {/* Breadcrumb */}
-        <nav aria-label="Breadcrumb" style={{ ...wrap, paddingTop: 16, fontSize: 11, color: "#888", letterSpacing: "1px", textTransform: "uppercase" }}>
+        <nav aria-label="Breadcrumb" style={{ ...wrap, paddingTop: 16, fontSize: 12, color: "#888", letterSpacing: "1px", textTransform: "uppercase" }}>
           <Link to="/en" style={{ color: "#888", textDecoration: "none" }}>Home</Link>
           <span style={{ margin: "0 8px" }}>/</span>
           <Link to="/en/collection" style={{ color: "#888", textDecoration: "none" }}>Collections</Link>
@@ -109,13 +109,13 @@ const SunglassesForBigHeads = () => {
             Built from the ground up for wide faces (155 mm+) and head circumference 58 to 62 cm, not retrofitted from standard sizes. Hand made in the EU from Italian Mazzucchelli acetate, two shapes, one precise 158 mm front plus bespoke from 145 to 160 mm. Read the guide: <Link to="/en/blog/best-oversized-sunglasses-big-heads-2026" style={{ color: "#A07A2A" }}>best sunglasses for big heads in 2026, ranked by width</Link>.
           </p>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-            <a href="#size-finder" style={{ background: "#111", color: "#F8F6F1", padding: "11px 20px", fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", borderRadius: 2 }}>
+            <a href="#size-finder" style={{ background: "#111", color: "#F8F6F1", padding: "11px 20px", fontSize: 12, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", borderRadius: 2 }}>
               Find your size
             </a>
-            <Link to="/en/products/007" style={{ background: "transparent", color: "#111", padding: "11px 20px", fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", border: "1px solid #111", borderRadius: 2 }}>
+            <Link to="/en/products/007" style={{ background: "transparent", color: "#111", padding: "11px 20px", fontSize: 12, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", border: "1px solid #111", borderRadius: 2 }}>
               Shop 007 (Round)
             </Link>
-            <Link to="/en/products/009" style={{ background: "transparent", color: "#111", padding: "11px 20px", fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", border: "1px solid #111", borderRadius: 2 }}>
+            <Link to="/en/products/009" style={{ background: "transparent", color: "#111", padding: "11px 20px", fontSize: 12, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", border: "1px solid #111", borderRadius: 2 }}>
               Shop 009 (Square)
             </Link>
           </div>
@@ -182,8 +182,8 @@ const SunglassesForBigHeads = () => {
               <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13, color: "#F8F6F1", minWidth: 320 }}>
                 <thead>
                   <tr style={{ borderBottom: "1px solid #3A3530" }}>
-                    <th style={{ textAlign: "left", padding: "10px 8px", fontWeight: 500, color: "#CAA449", letterSpacing: "1px", textTransform: "uppercase", fontSize: 11 }}>Your measurement</th>
-                    <th style={{ textAlign: "left", padding: "10px 8px", fontWeight: 500, color: "#CAA449", letterSpacing: "1px", textTransform: "uppercase", fontSize: 11 }}>Recommended frame</th>
+                    <th style={{ textAlign: "left", padding: "10px 8px", fontWeight: 500, color: "#CAA449", letterSpacing: "1px", textTransform: "uppercase", fontSize: 12 }}>Your measurement</th>
+                    <th style={{ textAlign: "left", padding: "10px 8px", fontWeight: 500, color: "#CAA449", letterSpacing: "1px", textTransform: "uppercase", fontSize: 12 }}>Recommended frame</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -198,10 +198,10 @@ const SunglassesForBigHeads = () => {
             </div>
 
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-              <Link to="/en/blog/how-to-measure-face-width-for-glasses" style={{ background: "#CAA449", color: "#080807", padding: "10px 18px", borderRadius: 2, fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", fontWeight: 500 }}>
+              <Link to="/en/blog/how-to-measure-face-width-for-glasses" style={{ background: "#CAA449", color: "#080807", padding: "10px 18px", borderRadius: 2, fontSize: 12, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", fontWeight: 500 }}>
                 Measurement guide
               </Link>
-              <Link to="/en/fit/bespoke" style={{ background: "transparent", color: "#F8F6F1", padding: "10px 18px", borderRadius: 2, fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", border: "1px solid #555" }}>
+              <Link to="/en/fit/bespoke" style={{ background: "transparent", color: "#F8F6F1", padding: "10px 18px", borderRadius: 2, fontSize: 12, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", border: "1px solid #555" }}>
                 Bespoke
               </Link>
             </div>
@@ -262,7 +262,7 @@ const SunglassesForBigHeads = () => {
 
         {/* Internal links */}
         <section style={{ ...wrap, padding: "8px 20px 28px" }}>
-          <h2 style={{ fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", color: "#888", margin: "0 0 12px", fontWeight: 500 }}>
+          <h2 style={{ fontSize: 12, letterSpacing: "2px", textTransform: "uppercase", color: "#888", margin: "0 0 12px", fontWeight: 500 }}>
             Keep exploring
           </h2>
           <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 8, fontSize: 13 }}>
@@ -292,7 +292,7 @@ const SunglassesForBigHeads = () => {
             <p style={{ fontSize: 14, color: "#CCC", margin: "0 0 18px" }}>
               40% off at launch. Pre-order $114 instead of $190.
             </p>
-            <Link to="/en/lp/kickstarter" style={{ background: "#CAA449", color: "#080807", padding: "12px 22px", fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", borderRadius: 2, fontWeight: 500, display: "inline-block" }}>
+            <Link to="/en/lp/kickstarter" style={{ background: "#CAA449", color: "#080807", padding: "12px 22px", fontSize: 12, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", borderRadius: 2, fontWeight: 500, display: "inline-block" }}>
               Reserve my pair
             </Link>
           </div>

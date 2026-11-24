@@ -122,7 +122,7 @@ function PaymentsOpen() {
             <Link to="/en" style={{ textDecoration: "none", display: "flex", alignItems: "center" }}>
               <img src={wooletLogo} alt="Woolet" style={{ height: 32, width: "auto", display: "block" }} />
             </Link>
-            <div style={{ display: "flex", alignItems: "center", gap: 16, fontFamily: "'Barlow', sans-serif", fontSize: 11, letterSpacing: "0.15em", textTransform: "uppercase", color: "#0f0f0f" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 16, fontFamily: "'Barlow', sans-serif", fontSize: 12, letterSpacing: "0.15em", textTransform: "uppercase", color: "#0f0f0f" }}>
               <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
                 Secure
@@ -255,7 +255,7 @@ function PaymentsOpen() {
             </div>
 
             <div style={{ marginTop: 28, textAlign: "center" }}>
-              <Link to="/en" style={{ fontFamily: "'Barlow', sans-serif", fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(15,15,15,0.55)", textDecoration: "none" }}>
+              <Link to="/en" style={{ fontFamily: "'Barlow', sans-serif", fontSize: 12, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(15,15,15,0.55)", textDecoration: "none" }}>
                 ← Back to Woolet
               </Link>
             </div>

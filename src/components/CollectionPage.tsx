@@ -157,7 +157,7 @@ const CollectionPage = ({
       <Navbar />
       <main style={{ background: "#F8F6F1", minHeight: "100vh", fontFamily: "'Barlow', sans-serif", color: "#111" }}>
         {/* Breadcrumbs */}
-        <nav aria-label="Breadcrumb" style={{ maxWidth: 760, margin: "0 auto", padding: "16px 20px 0", fontSize: 11, color: "#888", letterSpacing: "1px", textTransform: "uppercase" }}>
+        <nav aria-label="Breadcrumb" style={{ maxWidth: 760, margin: "0 auto", padding: "16px 20px 0", fontSize: 12, color: "#888", letterSpacing: "1px", textTransform: "uppercase" }}>
           <Link to="/en" style={{ color: "#888", textDecoration: "none" }}>Home</Link>
           <span style={{ margin: "0 8px" }}>/</span>
           <Link to="/en/collection" style={{ color: "#888", textDecoration: "none" }}>Collections</Link>
@@ -188,7 +188,7 @@ const CollectionPage = ({
                 style={{ width: "100%", height: "auto", display: "block", borderRadius: 8, background: "#1A1612" }}
               />
               {heroImage.caption && (
-                <figcaption style={{ fontSize: 11, color: "#888", marginTop: 6, textAlign: "center", letterSpacing: "0.3px" }}>
+                <figcaption style={{ fontSize: 12, color: "#888", marginTop: 6, textAlign: "center", letterSpacing: "0.3px" }}>
                   {heroImage.caption}
                 </figcaption>
               )}
@@ -295,7 +295,7 @@ const CollectionPage = ({
                 style={{ width: "100%", maxWidth: 520, height: "auto", display: "block", margin: "0 auto", borderRadius: 8 }}
               />
               {inlineImage.caption && (
-                <figcaption style={{ fontSize: 11, color: "#888", marginTop: 6, textAlign: "center", letterSpacing: "0.3px" }}>
+                <figcaption style={{ fontSize: 12, color: "#888", marginTop: 6, textAlign: "center", letterSpacing: "0.3px" }}>
                   {inlineImage.caption}
                 </figcaption>
               )}
@@ -337,10 +337,10 @@ const CollectionPage = ({
               Use our AI Fit Wizard to confirm the right fit for your face.
             </p>
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-              <Link to="/en/fit" style={{ background: "#CAA449", color: "#080807", padding: "10px 18px", borderRadius: 4, fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", fontWeight: 500 }}>
+              <Link to="/en/fit" style={{ background: "#CAA449", color: "#080807", padding: "10px 18px", borderRadius: 4, fontSize: 12, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", fontWeight: 500 }}>
                 Find my size →
               </Link>
-              <Link to="/en/fit/bespoke" style={{ background: "transparent", color: "#F8F6F1", padding: "10px 18px", borderRadius: 4, fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", border: "1px solid #555" }}>
+              <Link to="/en/fit/bespoke" style={{ background: "transparent", color: "#F8F6F1", padding: "10px 18px", borderRadius: 4, fontSize: 12, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", border: "1px solid #555" }}>
                 Bespoke
               </Link>
             </div>

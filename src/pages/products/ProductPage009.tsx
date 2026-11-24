@@ -129,7 +129,7 @@ const ProductPage009 = () => {
       <Navbar />
 
       <div style={{ background: T.dark, borderBottom: "1px solid rgba(216,184,106,0.10)" }}>
-        <div className="mx-auto" style={{ maxWidth: 1240, padding: "10px 20px", fontFamily: SANS, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(243,236,224,0.55)" }}>
+        <div className="mx-auto" style={{ maxWidth: 1240, padding: "10px 20px", fontFamily: SANS, fontSize: 12, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(243,236,224,0.55)" }}>
           <Link to={ctx.home} style={{ color: "inherit", textDecoration: "none" }}>{ctx.homeLabel}</Link>
           <span style={{ margin: "0 10px", opacity: 0.4 }}>/</span>
           <Link to={ctx.collection} style={{ color: "inherit", textDecoration: "none" }}>{ctx.framesLabel}</Link>
@@ -239,7 +239,7 @@ const ProductPage009 = () => {
         <div className="mx-auto" style={{ maxWidth: 980, padding: "72px 20px 0" }}>
 
           <section style={{ marginTop: 56 }}>
-            <div style={{ fontFamily: SANS, fontSize: 10, letterSpacing: "0.28em", textTransform: "uppercase", color: T.goldDim, marginBottom: 14 }}>{c.whatYouGet}</div>
+            <div style={{ fontFamily: SANS, fontSize: 12, letterSpacing: "0.28em", textTransform: "uppercase", color: T.goldDim, marginBottom: 14 }}>{c.whatYouGet}</div>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "grid", gap: 12 }}>
               {benefits.map((b, i) => (
                 <li key={i} style={{ display: "flex", gap: 14, alignItems: "flex-start", fontFamily: SANS, fontSize: 15, lineHeight: 1.55, color: T.ink }}>
@@ -284,7 +284,7 @@ const ProductPage009 = () => {
             <ol style={{ listStyle: "none", padding: 0, margin: 0, display: "grid", gap: 20, gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))" }}>
               {c.steps.map(([step, body], i) => (
                 <li key={i} style={{ borderTop: `1px solid ${T.gold}`, paddingTop: 16 }}>
-                  <div style={{ fontFamily: SANS, fontSize: 10, letterSpacing: "0.28em", textTransform: "uppercase", color: T.goldDim, marginBottom: 8 }}>{c.stepLabel} {i + 1} · {step}</div>
+                  <div style={{ fontFamily: SANS, fontSize: 12, letterSpacing: "0.28em", textTransform: "uppercase", color: T.goldDim, marginBottom: 8 }}>{c.stepLabel} {i + 1} · {step}</div>
                   <div style={{ fontFamily: SANS, fontSize: 14, color: T.ink, lineHeight: 1.55 }}>{body}</div>
                 </li>
               ))}
@@ -323,7 +323,7 @@ const ProductPage009 = () => {
               <strong style={{ fontWeight: 700 }}>{c.stickyToday}</strong>
               <span style={{ opacity: 0.7 }}>{c.stickyLocks}</span>
             </div>
-            <div style={{ fontFamily: SANS, fontSize: 11, color: "rgba(237,231,217,0.55)", marginTop: 2 }}>{c.stickyRefundable}</div>
+            <div style={{ fontFamily: SANS, fontSize: 12, color: "rgba(237,231,217,0.55)", marginTop: 2 }}>{c.stickyRefundable}</div>
           </div>
           <button onClick={handleReserve} disabled={reserving} aria-busy={reserving} style={{ opacity: reserving ? 0.8 : 1, background: T.gold, color: "#1F1B16", border: "none", padding: "12px 20px", borderRadius: 2, cursor: "pointer", fontFamily: SANS, fontWeight: 700, fontSize: 12, letterSpacing: "0.22em", textTransform: "uppercase", whiteSpace: "nowrap" }}>
             {c.stickyReserve}

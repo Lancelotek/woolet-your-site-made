@@ -14,7 +14,7 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
     <div
       style={{
         fontFamily: "Barlow, sans-serif",
-        fontSize: 10,
+        fontSize: 12,
         letterSpacing: "0.24em",
         textTransform: "uppercase",
         color: "hsl(var(--gold))",
@@ -356,7 +356,7 @@ export default function FitToolContent() {
                   <th
                     key={h}
                     scope="col"
-                    style={{ textAlign: "left", padding: "10px 12px", fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: "hsl(var(--gold))", borderBottom: "1px solid hsl(var(--gold) / 0.3)" }}
+                    style={{ textAlign: "left", padding: "10px 12px", fontSize: 12, letterSpacing: "0.14em", textTransform: "uppercase", color: "hsl(var(--gold))", borderBottom: "1px solid hsl(var(--gold) / 0.3)" }}
                   >
                     {h}
                   </th>
@@ -396,7 +396,7 @@ export default function FitToolContent() {
                   <th
                     key={h}
                     scope="col"
-                    style={{ textAlign: "left", padding: "10px 12px", fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: "hsl(var(--gold))", borderBottom: "1px solid hsl(var(--gold) / 0.3)" }}
+                    style={{ textAlign: "left", padding: "10px 12px", fontSize: 12, letterSpacing: "0.14em", textTransform: "uppercase", color: "hsl(var(--gold))", borderBottom: "1px solid hsl(var(--gold) / 0.3)" }}
                   >
                     {h}
                   </th>

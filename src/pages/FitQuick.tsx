@@ -365,7 +365,7 @@ export default function FitQuick() {
                             color: active ? INK : PAPER,
                             border: "none",
                             fontFamily: "Barlow, sans-serif",
-                            fontSize: "0.68rem",
+                            fontSize: "0.75rem",
                             letterSpacing: "0.18em",
                             textTransform: "uppercase",
                             padding: "6px 12px",

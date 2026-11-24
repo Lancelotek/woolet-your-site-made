@@ -33,7 +33,7 @@ const RefIndex = () => (
     <Navbar />
 
     <div style={{ background: T.dark, borderBottom: "1px solid rgba(216,184,106,0.10)" }}>
-      <div className="mx-auto" style={{ maxWidth: 1240, padding: "10px 20px", fontFamily: SANS, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(243,236,224,0.55)" }}>
+      <div className="mx-auto" style={{ maxWidth: 1240, padding: "10px 20px", fontFamily: SANS, fontSize: 12, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(243,236,224,0.55)" }}>
         <Link to="/en" style={{ color: "inherit", textDecoration: "none" }}>Home</Link>
         <span style={{ margin: "0 10px", opacity: 0.4 }}>/</span>
         <span style={{ color: T.goldHi }}>Reference pages</span>
@@ -42,7 +42,7 @@ const RefIndex = () => (
 
     <main style={{ background: T.canvas, color: T.ink, fontFamily: SANS, paddingBottom: 80 }}>
       <div className="mx-auto" style={{ maxWidth: 1240, padding: "40px 20px 0" }}>
-        <div style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: T.goldDim }}>
+        <div style={{ fontSize: 12, letterSpacing: "0.18em", textTransform: "uppercase", color: T.goldDim }}>
           Reference pages · not a checkout
         </div>
         <h1 style={{ fontFamily: SERIF, fontSize: 42, lineHeight: 1.08, fontWeight: 400, margin: "12px 0 10px" }}>

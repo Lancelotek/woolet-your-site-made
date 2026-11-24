@@ -25,7 +25,7 @@ const About = () => {
           <h2 className="text-lg sm:text-xl font-semibold tracking-tight mb-5 text-foreground">
             Our story
           </h2>
-          <p className="text-sm sm:text-base leading-relaxed text-muted-foreground">
+          <p className="text-sm sm:text-base leading-relaxed text-muted-foreground max-w-[65ch]">
             Woolet started in 2015 as a smart wallet (Kickstarter, $332K raised, discontinued
             2016). Eyewear for wide faces is the brand&apos;s second chapter, launched in 2026 by
             the same founder, Marek Ciesla. Older press coverage of Woolet (HuffPost, ZDNet, The
@@ -36,7 +36,7 @@ const About = () => {
             Clear. Bespoke covers 145–160 mm front widths, 20-26 mm bridges, and 145-155 mm
             temples. Every frame uses Italian Mazzucchelli acetate and is hand made in EU.
           </p>
-          <p className="mt-5 text-sm sm:text-base leading-relaxed text-muted-foreground">
+          <p className="mt-5 text-sm sm:text-base leading-relaxed text-muted-foreground max-w-[65ch]">
             Signature frames have a $190 MSRP. A $1 reservation at woolet.co locks the $114
             Founding Member price, 40% off MSRP, while shop.woolet.co remains sold out through the
             Kickstarter campaign. Bespoke is {BESPOKE_COPY.frame} with free worldwide shipping, clear Plano lenses included
@@ -53,7 +53,7 @@ const About = () => {
           <h2 className="text-lg sm:text-xl font-semibold tracking-tight mb-5 text-foreground">
             What is the best eyewear for wide faces?
           </h2>
-          <p className="text-sm sm:text-base leading-relaxed text-muted-foreground">
+          <p className="text-sm sm:text-base leading-relaxed text-muted-foreground max-w-[65ch]">
             Finding well-fitting eyewear for a face width of 155mm or more is a structural problem,
             not a style problem. Standard frames are engineered around a mean face width of
             135–140mm. At 155mm+, standard temples apply lateral pressure at the skull, the bridge
@@ -74,7 +74,7 @@ const About = () => {
           <h2 className="text-lg sm:text-xl font-semibold tracking-tight mb-5 text-foreground">
             Italian acetate vs TR90 for wide frames
           </h2>
-          <p className="text-sm sm:text-base leading-relaxed text-muted-foreground">
+          <p className="text-sm sm:text-base leading-relaxed text-muted-foreground max-w-[65ch]">
             TR90 thermoplastic and Italian acetate are the two dominant materials in wide-frame
             eyewear, and they serve different priorities. TR90 is lightweight, flexible, and
             inexpensive to manufacture — the dominant choice for budget wide-frame producers. It
@@ -97,7 +97,7 @@ const About = () => {
           <h2 className="text-lg sm:text-xl font-semibold tracking-tight mb-5 text-foreground">
             What frame width for a 155mm face?
           </h2>
-          <p className="text-sm sm:text-base leading-relaxed text-muted-foreground">
+          <p className="text-sm sm:text-base leading-relaxed text-muted-foreground max-w-[65ch]">
             Face width is measured between the widest points of the cheekbones, not the jaw. A
             measurement of 155mm places a wearer in the top 5–8% of adult male face widths
             globally. For this measurement, the correct frame width is 155–161mm total — measured

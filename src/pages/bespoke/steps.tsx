@@ -372,14 +372,14 @@ function ColorSwatchGrid({
                     className="absolute inset-0 w-full h-full object-cover pointer-events-none grayscale opacity-35"
                   />
                   <span className="absolute inset-0 flex items-center justify-center">
-                    <span className="px-2 py-1 bg-[#0c0c0c]/80 text-cream text-[10px] uppercase tracking-[0.16em]" style={{ borderRadius: 2 }}>
+                    <span className="px-2 py-1 bg-[#0c0c0c]/80 text-cream text-[12px] uppercase tracking-[0.16em]" style={{ borderRadius: 2 }}>
                       Out of stock
                     </span>
                   </span>
                 </div>
                 <div className="px-3 py-2.5 bg-[#0c0c0c]/60">
                   <div className="text-cream-dim text-[12px] truncate line-through decoration-cream/30">{c.name}</div>
-                  <div className={`text-[10px] italic truncate ${oosTapped === c.id ? "text-gold-light" : "text-cream-dim"}`} role={oosTapped === c.id ? "status" : undefined}>
+                  <div className={`text-[12px] italic truncate ${oosTapped === c.id ? "text-gold-light" : "text-cream-dim"}`} role={oosTapped === c.id ? "status" : undefined}>
                     {oosTapped === c.id ? "Sold out - pick another colour" : "Out of stock"}
                   </div>
                 </div>
@@ -427,7 +427,7 @@ function ColorSwatchGrid({
               <div className="px-3 py-2.5 bg-[#0c0c0c]/60">
                 <div className="text-cream text-[12px] truncate">{c.name}</div>
                 {c.note && (
-                  <div className="text-cream-dim text-[10px] italic truncate">{c.note}</div>
+                  <div className="text-cream-dim text-[12px] italic truncate">{c.note}</div>
                 )}
               </div>
             </button>
@@ -842,7 +842,7 @@ export function AiPreviewPanel({
         {activeUrl && !loading && budget.remaining > 0 && activeUrl !== cachedUrl && (
           <button
             onClick={generate}
-            className="text-[11px] uppercase tracking-[0.18em] text-gold-light hover:text-gold underline underline-offset-4"
+            className="text-[12px] uppercase tracking-[0.18em] text-gold-light hover:text-gold underline underline-offset-4"
           >
             Regenerate
           </button>
@@ -893,7 +893,7 @@ export function AiPreviewPanel({
         ) : loading ? (
           <div className="flex flex-col items-center gap-3 text-[color:var(--cfg-ink)]/70">
             <div className="h-8 w-8 border-2 border-[color:var(--cfg-ink)]/30 border-t-[color:var(--cfg-ink)] rounded-full animate-spin" />
-            <div role="status" className="text-[11px] uppercase tracking-[0.2em]">Generating your preview — about 60 seconds</div>
+            <div role="status" className="text-[12px] uppercase tracking-[0.2em]">Generating your preview — about 60 seconds</div>
           </div>
         ) : (
           <div className="text-[color:var(--cfg-ink)]/50 text-xs uppercase tracking-[0.2em]">
@@ -917,7 +917,7 @@ export function AiPreviewPanel({
       )}
 
       {cachedUrl && activeUrl === cachedUrl && (
-        <p className="mt-2 text-[10px] uppercase tracking-[0.18em] text-gold-light">
+        <p className="mt-2 text-[12px] uppercase tracking-[0.18em] text-gold-light">
           Ready - generated earlier for this exact combination
         </p>
       )}
@@ -925,7 +925,7 @@ export function AiPreviewPanel({
       {currentList.length > 0 && (
         <div className="mt-3">
           <div className="flex items-center justify-between mb-2">
-            <div className="text-[10px] uppercase tracking-[0.2em] text-cream-dim">
+            <div className="text-[12px] uppercase tracking-[0.2em] text-cream-dim">
               Saved renders · {currentList.length}/{MAX_PER_KEY}
             </div>
           </div>
@@ -955,7 +955,7 @@ export function AiPreviewPanel({
                     onClick={() => removeEntry(entry.url)}
                     disabled={deletingUrl === entry.url}
                     aria-label="Delete render"
-                    className="absolute top-1 right-1 w-5 h-5 flex items-center justify-center bg-[color:var(--cfg-ink)]/70 text-cream text-[11px] leading-none opacity-0 group-hover:opacity-100 focus:opacity-100 transition disabled:opacity-100 disabled:cursor-wait"
+                    className="absolute top-1 right-1 w-5 h-5 flex items-center justify-center bg-[color:var(--cfg-ink)]/70 text-cream text-[12px] leading-none opacity-0 group-hover:opacity-100 focus:opacity-100 transition disabled:opacity-100 disabled:cursor-wait"
                     style={{ borderRadius: 2 }}
                   >
                     {deletingUrl === entry.url ? "…" : "×"}
@@ -993,13 +993,13 @@ export function AiPreviewPanel({
             pushCfg("cfg_preview_skip", { reason: "skip" });
             onNext();
           }}
-          className="mt-3 w-full text-center text-[11px] uppercase tracking-[0.18em] text-cream-dim hover:text-cream underline underline-offset-4"
+          className="mt-3 w-full text-center text-[12px] uppercase tracking-[0.18em] text-cream-dim hover:text-cream underline underline-offset-4"
         >
           Skip the preview - continue to {nextLabel} →
         </button>
       )}
 
-      <p className="mt-2 text-[10px] text-cream-dim/70">
+      <p className="mt-2 text-[12px] text-cream-dim/70">
         {budget.remaining > 0
           ? `${budget.remaining} of ${RENDERS_PER_SESSION} renders left in this session — no account needed.`
           : `All ${RENDERS_PER_SESSION} renders for this session have been used.`}
@@ -1026,7 +1026,7 @@ export function AiPreviewPanel({
               <button
                 type="button"
                 onClick={generate}
-                className="text-[11px] uppercase tracking-[0.18em] text-cream-dim hover:text-cream underline underline-offset-4"
+                className="text-[12px] uppercase tracking-[0.18em] text-cream-dim hover:text-cream underline underline-offset-4"
               >
                 Try again
               </button>
@@ -1036,22 +1036,22 @@ export function AiPreviewPanel({
       )}
 
       {storageWarning && (
-        <p className="mt-2 text-[11px] text-amber-300/80">{storageWarning}</p>
+        <p className="mt-2 text-[12px] text-amber-300/80">{storageWarning}</p>
       )}
 
       {cloudSaveState === "saving" && (
-        <p className="mt-2 text-[11px] text-cream-dim/80">Saving to your account…</p>
+        <p className="mt-2 text-[12px] text-cream-dim/80">Saving to your account…</p>
       )}
       {cloudSaveState === "saved" && (
-        <p className="mt-2 text-[11px] text-cream-dim/80">Saved to your account.</p>
+        <p className="mt-2 text-[12px] text-cream-dim/80">Saved to your account.</p>
       )}
       {cloudSaveState === "error" && (
-        <p className="mt-2 text-[11px] text-amber-300/80">
+        <p className="mt-2 text-[12px] text-amber-300/80">
           Preview is ready, but we couldn&rsquo;t save it to your account. It stays on this device — regenerate to retry the sync.
         </p>
       )}
 
-      <p className="mt-3 text-[10px] text-cream-dim/70 leading-relaxed">
+      <p className="mt-3 text-[12px] text-cream-dim/70 leading-relaxed">
         Illustrative render only — the final hand-crafted pair may vary in acetate grain and highlights.
         This device keeps up to {MAX_PER_KEY} renders per configuration across a maximum of {MAX_KEYS} configurations.
         When the limit is reached the oldest render in the current configuration is removed first, then the least-recently used configuration.
@@ -1087,7 +1087,7 @@ const PartIcon = ({ part }: { part: "front" | "temple" }) => {
   );
 };
 
-const DEFAULT_TAG = <span className="ml-2 text-[10px] uppercase tracking-[0.14em] text-gold-light/80">Pre-selected - tap another swatch to change</span>;
+const DEFAULT_TAG = <span className="ml-2 text-[12px] uppercase tracking-[0.14em] text-gold-light/80">Pre-selected - tap another swatch to change</span>;
 
 export function StepColor({ config, update, defaults = {} }: StepProps & { defaults?: { front?: boolean; temple?: boolean; finish?: boolean } }) {
   const front = COLORS.find((c) => c.id === config.frontColorId);
@@ -1148,7 +1148,7 @@ export function StepColor({ config, update, defaults = {} }: StepProps & { defau
                   />
                 </div>
                 <div className="px-3 py-2.5 bg-[#0c0c0c]/40">
-                  <div className={`text-[11px] uppercase tracking-[0.16em] ${active ? "text-gold-light" : "text-cream"}`}>
+                  <div className={`text-[12px] uppercase tracking-[0.16em] ${active ? "text-gold-light" : "text-cream"}`}>
                     {f.name}
                   </div>
                 </div>
@@ -2436,7 +2436,7 @@ export function StepReview({
             />
             {reviewView === "front" && frontState === "loading" && !frontUrl && (
               <div className="absolute inset-x-0 bottom-3 flex justify-center">
-                <span className="inline-flex items-center gap-2 rounded-full bg-black/70 px-3 py-1.5 text-[11px] uppercase tracking-[0.16em] text-cream">
+                <span className="inline-flex items-center gap-2 rounded-full bg-black/70 px-3 py-1.5 text-[12px] uppercase tracking-[0.16em] text-cream">
                   <Loader2 size={12} className="animate-spin" /> Rendering front view…
                 </span>
               </div>
@@ -2461,14 +2461,14 @@ export function StepReview({
                 role="tab"
                 aria-selected={reviewView === id}
                 onClick={() => setReviewView(id)}
-                className={`rounded-full border px-3 py-1.5 text-[11px] uppercase tracking-[0.16em] transition ${reviewView === id ? "border-gold/60 text-gold-light" : "border-cream/15 text-cream-dim hover:text-cream"}`}
+                className={`rounded-full border px-3 py-1.5 text-[12px] uppercase tracking-[0.16em] transition ${reviewView === id ? "border-gold/60 text-gold-light" : "border-cream/15 text-cream-dim hover:text-cream"}`}
               >
                 {label}
                 {id === "front" && frontState === "loading" && !frontUrl && <Loader2 size={11} className="ml-1.5 inline animate-spin" />}
               </button>
             ))}
             {reviewView === "front" && frontState === "error" && !frontUrl && (
-              <span className="self-center text-[11px] text-cream-dim">Front view unavailable - showing 3/4.</span>
+              <span className="self-center text-[12px] text-cream-dim">Front view unavailable - showing 3/4.</span>
             )}
           </div>
           <div className="p-5">
@@ -2528,12 +2528,12 @@ export function StepReview({
         <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
           <div className="cfg-eyebrow" style={{ color: "#C2A05A" }}>What happens after payment</div>
           {pricing.split.plan === "deposit" && (
-            <CfgInfoTrigger section="deposit" className="text-gold-light text-[11px] uppercase tracking-[0.16em]">How the deposit works</CfgInfoTrigger>
+            <CfgInfoTrigger section="deposit" className="text-gold-light text-[12px] uppercase tracking-[0.16em]">How the deposit works</CfgInfoTrigger>
           )}
         </div>
         <ol className="mt-4 space-y-3 text-cream text-sm">
           {afterPaymentSteps(pricing.split).map((line, i) => (
-            <li key={i}><span className="font-mono text-gold-light text-[11px] mr-3">{String(i + 1).padStart(2, "0")}</span> {line}</li>
+            <li key={i}><span className="font-mono text-gold-light text-[12px] mr-3">{String(i + 1).padStart(2, "0")}</span> {line}</li>
           ))}
         </ol>
       </div>

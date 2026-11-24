@@ -47,7 +47,7 @@ const Countdown = ({ targetDate }: CountdownProps) => {
               <span className="font-display text-woolet-white block leading-none text-[2rem] sm:text-[2.8rem]">
                 {u.val}
               </span>
-              <span className="text-cream-dim uppercase tracking-[0.22em] block mt-1" style={{ fontSize: "0.65rem" }}>
+              <span className="text-cream-dim uppercase tracking-[0.22em] block mt-1" style={{ fontSize: "0.75rem" }}>
                 {u.label}
               </span>
             </div>

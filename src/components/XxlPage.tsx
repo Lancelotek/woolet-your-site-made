@@ -20,7 +20,7 @@ const eyebrowStyle: React.CSSProperties = {
   background: "#F3EBD5",
   padding: "5px 12px",
   borderRadius: 2,
-  fontSize: 11,
+  fontSize: 12,
   letterSpacing: "1.5px",
   textTransform: "uppercase",
   color: "#3A2E12",
@@ -97,7 +97,7 @@ function XxlHubInner() {
       />
       <Navbar />
       <main style={shellStyle}>
-        <nav aria-label="Breadcrumb" style={{ ...wrap, paddingTop: 16, fontSize: 11, color: "#888", letterSpacing: "1px", textTransform: "uppercase" }}>
+        <nav aria-label="Breadcrumb" style={{ ...wrap, paddingTop: 16, fontSize: 12, color: "#888", letterSpacing: "1px", textTransform: "uppercase" }}>
           <Link to="/en" style={{ color: "#888", textDecoration: "none" }}>Home</Link>
           <span style={{ margin: "0 8px" }}>/</span>
           <span style={{ color: "#0B0A09" }}>XXL Sizing</span>
@@ -110,10 +110,10 @@ function XxlHubInner() {
             {XXL_HUB.subhead}
           </p>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 8 }}>
-            <Link to="/en/fit/bespoke" style={{ background: "#CAA449", color: "#1F1B16", padding: "12px 22px", fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", borderRadius: 2, fontWeight: 600 }}>
+            <Link to="/en/fit/bespoke" style={{ background: "#CAA449", color: "#1F1B16", padding: "12px 22px", fontSize: 12, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", borderRadius: 2, fontWeight: 600 }}>
               Start XXL bespoke
             </Link>
-            <Link to="/en/fit" style={{ background: "transparent", color: "#0B0A09", padding: "12px 22px", fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", border: "1px solid #0B0A09", borderRadius: 2 }}>
+            <Link to="/en/fit" style={{ background: "transparent", color: "#0B0A09", padding: "12px 22px", fontSize: 12, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", border: "1px solid #0B0A09", borderRadius: 2 }}>
               Measure with FitLens
             </Link>
           </div>
@@ -140,14 +140,14 @@ function XxlHubInner() {
               <Link key={s.slug} to={`/en/xxl/${s.slug}`} style={{ display: "block", padding: "18px 18px", background: "#FFF", border: "1px solid #E0D5C5", borderRadius: 4, textDecoration: "none", color: "#0B0A09" }}>
                 <div style={{ fontFamily: "'Newsreader', serif", fontWeight: 400, fontSize: 20, marginBottom: 6 }}>{s.label}</div>
                 <div style={{ fontSize: 13, color: "#666", lineHeight: 1.55, marginBottom: 10 }}>{s.desc}</div>
-                <span style={{ fontSize: 11, color: "#7A6420", letterSpacing: "1.5px", textTransform: "uppercase" }}>Read →</span>
+                <span style={{ fontSize: 12, color: "#7A6420", letterSpacing: "1.5px", textTransform: "uppercase" }}>Read →</span>
               </Link>
             ))}
           </div>
         </section>
 
         <section style={{ ...wrap, padding: "24px 20px 40px" }}>
-          <h2 style={{ fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", color: "#888", margin: "0 0 12px", fontWeight: 500 }}>
+          <h2 style={{ fontSize: 12, letterSpacing: "2px", textTransform: "uppercase", color: "#888", margin: "0 0 12px", fontWeight: 500 }}>
             Related — one tier below XXL
           </h2>
           <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 8, fontSize: 13 }}>
@@ -206,7 +206,7 @@ function XxlSpokeInner({ x }: { x: XxlEntry }) {
       />
       <Navbar />
       <main style={shellStyle}>
-        <nav aria-label="Breadcrumb" style={{ ...wrap, paddingTop: 16, fontSize: 11, color: "#888", letterSpacing: "1px", textTransform: "uppercase" }}>
+        <nav aria-label="Breadcrumb" style={{ ...wrap, paddingTop: 16, fontSize: 12, color: "#888", letterSpacing: "1px", textTransform: "uppercase" }}>
           <Link to="/en" style={{ color: "#888", textDecoration: "none" }}>Home</Link>
           <span style={{ margin: "0 8px" }}>/</span>
           <Link to="/en/xxl" style={{ color: "#888", textDecoration: "none" }}>XXL Sizing</Link>
@@ -219,10 +219,10 @@ function XxlSpokeInner({ x }: { x: XxlEntry }) {
           <h1 style={h1Style}>{x.h1}</h1>
           <p style={{ fontSize: 16, lineHeight: 1.6, color: "#333", margin: "0 0 22px", maxWidth: 620 }}>{x.subhead}</p>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 8 }}>
-            <Link to={x.primaryCta.to} style={{ background: "#CAA449", color: "#1F1B16", padding: "12px 22px", fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", borderRadius: 2, fontWeight: 600 }}>
+            <Link to={x.primaryCta.to} style={{ background: "#CAA449", color: "#1F1B16", padding: "12px 22px", fontSize: 12, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", borderRadius: 2, fontWeight: 600 }}>
               {x.primaryCta.label}
             </Link>
-            <Link to={x.secondaryCta.to} style={{ background: "transparent", color: "#0B0A09", padding: "12px 22px", fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", border: "1px solid #0B0A09", borderRadius: 2 }}>
+            <Link to={x.secondaryCta.to} style={{ background: "transparent", color: "#0B0A09", padding: "12px 22px", fontSize: 12, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", border: "1px solid #0B0A09", borderRadius: 2 }}>
               {x.secondaryCta.label}
             </Link>
           </div>
@@ -264,7 +264,7 @@ function XxlSpokeInner({ x }: { x: XxlEntry }) {
         </section>
 
         <section style={{ ...wrap, padding: "8px 20px 40px" }}>
-          <Link to="/en/xxl" style={{ fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", color: "#7A6420", textDecoration: "none" }}>
+          <Link to="/en/xxl" style={{ fontSize: 12, letterSpacing: "2px", textTransform: "uppercase", color: "#7A6420", textDecoration: "none" }}>
             ← Back to XXL sizing hub
           </Link>
         </section>

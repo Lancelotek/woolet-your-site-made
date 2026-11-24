@@ -87,7 +87,7 @@ function TemplePageInner({ t }: { t: TempleEntry }) {
       <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
         <span style={{ color: "#7A6420", fontWeight: 700, fontSize: 16 }}>$114</span>
         <span style={{ color: "#BBB", fontSize: 12, textDecoration: "line-through" }}>$190</span>
-        <span style={{ marginLeft: "auto", fontSize: 11, color: "#7A6420", letterSpacing: "1.5px", textTransform: "uppercase" }}>
+        <span style={{ marginLeft: "auto", fontSize: 12, color: "#7A6420", letterSpacing: "1.5px", textTransform: "uppercase" }}>
           View →
         </span>
       </div>
@@ -119,14 +119,14 @@ function TemplePageInner({ t }: { t: TempleEntry }) {
         color: "#EFE9DF",
       }}
     >
-      <div style={{ fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", color: "#CAA449", marginBottom: 8 }}>
+      <div style={{ fontSize: 12, letterSpacing: "2px", textTransform: "uppercase", color: "#CAA449", marginBottom: 8 }}>
         Bespoke
       </div>
       <div style={{ fontFamily: "'Newsreader', 'Cormorant Garamond', serif", fontWeight: 400, fontSize: 19, marginBottom: 6, color: "#EFE9DF" }}>
         Build temples to measure
       </div>
       <div style={{ fontSize: 12, color: "#B9B0A0", lineHeight: 1.55, marginBottom: 12 }}>{t.bespokeNote}</div>
-      <span style={{ fontSize: 11, color: "#CAA449", letterSpacing: "1.5px", textTransform: "uppercase" }}>
+      <span style={{ fontSize: 12, color: "#CAA449", letterSpacing: "1.5px", textTransform: "uppercase" }}>
         {bespokePrimary ? `Configure ${t.length} mm temples →` : "Start bespoke →"}
       </span>
     </Link>
@@ -155,7 +155,7 @@ function TemplePageInner({ t }: { t: TempleEntry }) {
         {/* Breadcrumb */}
         <nav
           aria-label="Breadcrumb"
-          style={{ ...wrap, paddingTop: 16, fontSize: 11, color: "#888", letterSpacing: "1px", textTransform: "uppercase" }}
+          style={{ ...wrap, paddingTop: 16, fontSize: 12, color: "#888", letterSpacing: "1px", textTransform: "uppercase" }}
         >
           <Link to="/en" style={{ color: "#888", textDecoration: "none" }}>Home</Link>
           <span style={{ margin: "0 8px" }}>/</span>
@@ -166,7 +166,7 @@ function TemplePageInner({ t }: { t: TempleEntry }) {
 
         {/* Hero */}
         <header style={{ ...wrap, padding: "28px 20px 8px" }}>
-          <div style={{ display: "inline-block", background: verdictBg[t.verdictKind], padding: "5px 12px", borderRadius: 2, fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#3A2E12", marginBottom: 18 }}>
+          <div style={{ display: "inline-block", background: verdictBg[t.verdictKind], padding: "5px 12px", borderRadius: 2, fontSize: 12, letterSpacing: "1.5px", textTransform: "uppercase", color: "#3A2E12", marginBottom: 18 }}>
             {verdictLabel[t.verdictKind]}
           </div>
           <h1
@@ -186,13 +186,13 @@ function TemplePageInner({ t }: { t: TempleEntry }) {
           </p>
 
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 12 }}>
-            <span style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#666", border: "1px solid #D9C9A8", padding: "5px 10px", borderRadius: 2 }}>
+            <span style={{ fontSize: 12, letterSpacing: "1.5px", textTransform: "uppercase", color: "#666", border: "1px solid #D9C9A8", padding: "5px 10px", borderRadius: 2 }}>
               Signature 150 mm
             </span>
-            <span style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#666", border: "1px solid #D9C9A8", padding: "5px 10px", borderRadius: 2 }}>
+            <span style={{ fontSize: 12, letterSpacing: "1.5px", textTransform: "uppercase", color: "#666", border: "1px solid #D9C9A8", padding: "5px 10px", borderRadius: 2 }}>
               Bespoke 145–155 mm
             </span>
-            <span style={{ fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#666", border: "1px solid #D9C9A8", padding: "5px 10px", borderRadius: 2 }}>
+            <span style={{ fontSize: 12, letterSpacing: "1.5px", textTransform: "uppercase", color: "#666", border: "1px solid #D9C9A8", padding: "5px 10px", borderRadius: 2 }}>
               11° tip bend
             </span>
           </div>
@@ -204,7 +204,7 @@ function TemplePageInner({ t }: { t: TempleEntry }) {
                 background: "#CAA449",
                 color: "#1F1B16",
                 padding: "12px 22px",
-                fontSize: 11,
+                fontSize: 12,
                 letterSpacing: "2px",
                 textTransform: "uppercase",
                 textDecoration: "none",
@@ -226,7 +226,7 @@ function TemplePageInner({ t }: { t: TempleEntry }) {
                 background: "transparent",
                 color: "#0B0A09",
                 padding: "12px 22px",
-                fontSize: 11,
+                fontSize: 12,
                 letterSpacing: "2px",
                 textTransform: "uppercase",
                 textDecoration: "none",
@@ -326,7 +326,7 @@ function TemplePageInner({ t }: { t: TempleEntry }) {
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13, minWidth: 380 }}>
               <thead>
                 <tr style={{ borderBottom: "1px solid #E0D5C5", background: "#FBF7EE" }}>
-                  <th scope="col" style={{ textAlign: "left", padding: "12px 14px", fontWeight: 600, color: "#666", letterSpacing: "1px", textTransform: "uppercase", fontSize: 11 }}>
+                  <th scope="col" style={{ textAlign: "left", padding: "12px 14px", fontWeight: 600, color: "#666", letterSpacing: "1px", textTransform: "uppercase", fontSize: 12 }}>
                     Temple (mm)
                   </th>
                   <th scope="col" style={{ textAlign: "left", padding: "12px 14px", fontWeight: 600, color: "#0B0A09", fontSize: 12 }}>
@@ -423,7 +423,7 @@ function TemplePageInner({ t }: { t: TempleEntry }) {
 
         {/* Cross-links */}
         <section style={{ ...wrap, padding: "24px 20px 8px" }}>
-          <h2 style={{ fontSize: 11, letterSpacing: "2px", textTransform: "uppercase", color: "#888", margin: "0 0 12px", fontWeight: 500 }}>
+          <h2 style={{ fontSize: 12, letterSpacing: "2px", textTransform: "uppercase", color: "#888", margin: "0 0 12px", fontWeight: 500 }}>
             Sizing hubs
           </h2>
           <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 8, fontSize: 13 }}>

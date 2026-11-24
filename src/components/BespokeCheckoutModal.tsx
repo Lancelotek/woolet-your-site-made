@@ -90,7 +90,7 @@ export function BespokeCheckoutModal({
             padding: "14px 20px",
             borderBottom: "1px solid rgba(15,15,15,0.08)",
             fontFamily: "'Archivo', sans-serif",
-            fontSize: 11,
+            fontSize: 12,
             letterSpacing: "0.18em",
             textTransform: "uppercase",
             color: "#0B0A09",

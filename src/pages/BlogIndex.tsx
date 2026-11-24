@@ -86,7 +86,7 @@ const BlogIndex = () => {
                     </span>
                     {post.tags.map((tag) => (
                       <span key={tag} className="text-primary/80 uppercase tracking-[0.18em] border border-primary/20 px-2 py-0.5"
-                        style={{ fontSize: "0.65rem" }}>
+                        style={{ fontSize: "0.75rem" }}>
                         {tag}
                       </span>
                     ))}

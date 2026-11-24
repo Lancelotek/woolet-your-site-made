@@ -407,7 +407,7 @@ export default function BespokePhoto() {
   useEffect(() => () => { if (imageUrl) URL.revokeObjectURL(imageUrl); }, [imageUrl]);
   useEffect(() => () => { if (profilePreview) URL.revokeObjectURL(profilePreview); }, [profilePreview]);
 
-  const eyebrow = "text-[11px] uppercase tracking-[0.18em] text-gold";
+  const eyebrow = "text-[12px] uppercase tracking-[0.18em] text-gold";
   const card = "border border-cream/10 bg-[#16140F] p-6 sm:p-8";
   const primaryBtn =
     "inline-flex min-h-[48px] items-center justify-center gap-2 bg-gold px-6 text-[12px] uppercase tracking-[0.18em] text-[#1F1B16] transition-colors hover:bg-gold-light disabled:opacity-40";
@@ -494,7 +494,7 @@ export default function BespokePhoto() {
                   className="w-full max-w-[220px] self-center"
                 />
                 <figcaption className="text-xs leading-relaxed text-cream-dim">
-                  <span className="block text-[11px] uppercase tracking-[0.18em] text-gold">Like this</span>
+                  <span className="block text-[12px] uppercase tracking-[0.18em] text-gold">Like this</span>
                   Card flat on the cheek, long edge horizontal, the whole card visible. Fingers only
                   along the bottom edge. Both eyes open and looking at the lens.
                 </figcaption>
@@ -506,7 +506,7 @@ export default function BespokePhoto() {
                       <span className="flex h-9 w-9 shrink-0 items-center justify-center border border-gold/50 text-gold">
                         <Icon className="h-4 w-4" aria-hidden />
                       </span>
-                      <span className="text-[11px] uppercase tracking-[0.18em] text-gold">Step {i + 1}</span>
+                      <span className="text-[12px] uppercase tracking-[0.18em] text-gold">Step {i + 1}</span>
                     </div>
                     <p className="mt-3 text-sm text-cream">{title}</p>
                     <p className="mt-1 text-xs leading-relaxed text-cream-dim">{body}</p>
@@ -582,15 +582,15 @@ export default function BespokePhoto() {
 
               <dl className="mt-5 grid grid-cols-2 gap-4 text-sm sm:grid-cols-3">
                 <div>
-                  <dt className="text-[11px] uppercase tracking-[0.16em] text-cream-dim">Scale</dt>
+                  <dt className="text-[12px] uppercase tracking-[0.16em] text-cream-dim">Scale</dt>
                   <dd className="text-cream">{mmPerPx ? `${round1(1 / mmPerPx)} px per mm` : "—"}</dd>
                 </div>
                 <div>
-                  <dt className="text-[11px] uppercase tracking-[0.16em] text-cream-dim">Temple to temple</dt>
+                  <dt className="text-[12px] uppercase tracking-[0.16em] text-cream-dim">Temple to temple</dt>
                   <dd className="text-cream">{templeToTempleMm ? `${templeToTempleMm} mm` : "—"}</dd>
                 </div>
                 <div>
-                  <dt className="text-[11px] uppercase tracking-[0.16em] text-cream-dim">Front width</dt>
+                  <dt className="text-[12px] uppercase tracking-[0.16em] text-cream-dim">Front width</dt>
                   <dd className="text-cream">{front.mm} mm · bridge {frame.bridgeMm} mm</dd>
                 </div>
               </dl>
@@ -652,7 +652,7 @@ export default function BespokePhoto() {
                       <span className="flex h-9 w-9 shrink-0 items-center justify-center border border-gold/50 text-gold">
                         <Icon className="h-4 w-4" aria-hidden />
                       </span>
-                      <span className="text-[11px] uppercase tracking-[0.18em] text-gold">Step {i + 1}</span>
+                      <span className="text-[12px] uppercase tracking-[0.18em] text-gold">Step {i + 1}</span>
                     </div>
                     <p className="mt-3 text-sm text-cream">{title}</p>
                     <p className="mt-1 text-xs leading-relaxed text-cream-dim">{body}</p>
@@ -677,7 +677,7 @@ export default function BespokePhoto() {
                 <div className="mt-6 flex items-start gap-3 border border-cream/10 bg-[#080807] p-4">
                   <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-gold" aria-hidden />
                   <div>
-                    <p className="text-[11px] uppercase tracking-[0.18em] text-gold">Your photos, your call</p>
+                    <p className="text-[12px] uppercase tracking-[0.18em] text-gold">Your photos, your call</p>
                     <p className="mt-2 text-xs leading-relaxed text-cream-dim">{consentText}</p>
                   </div>
                 </div>

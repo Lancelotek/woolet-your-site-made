@@ -163,7 +163,7 @@ const Collection = () => {
                       >
                         <div
                           className="text-gold-light/80 group-hover:underline"
-                          style={{ fontSize: 11.5, letterSpacing: "0.16em", textTransform: "uppercase" }}
+                          style={{ fontSize: 12, letterSpacing: "0.16em", textTransform: "uppercase" }}
                         >
                           {panel.eyebrow} →
                         </div>
@@ -287,7 +287,7 @@ const Collection = () => {
                           {BESPOKE_COPY.frame}
                         </div>
                       </div>
-                      <div className="text-cream-dim/80 mt-1" style={{ fontSize: 11, letterSpacing: "0.16em", textTransform: "uppercase" }}>
+                      <div className="text-cream-dim/80 mt-1" style={{ fontSize: 12, letterSpacing: "0.16em", textTransform: "uppercase" }}>
                         Cut to your face · reference {f.widthMm} mm
                       </div>
                     </div>

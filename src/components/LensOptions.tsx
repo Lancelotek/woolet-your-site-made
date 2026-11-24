@@ -53,7 +53,7 @@ const LensOptions = ({ productId, specs, framePrice, lang = "en" }: Props) => {
       aria-labelledby="lens-options-heading"
       style={{ marginTop: 40, background: T.surface, border: `1px solid ${T.hair}`, borderRadius: 4, padding: "26px 24px" }}
     >
-      <div style={{ fontFamily: SANS, fontSize: 10, letterSpacing: "0.28em", textTransform: "uppercase", color: T.goldDim, marginBottom: 10 }}>
+      <div style={{ fontFamily: SANS, fontSize: 12, letterSpacing: "0.28em", textTransform: "uppercase", color: T.goldDim, marginBottom: 10 }}>
         {t ? t.eyebrow : "Lenses"}
       </div>
       <h3 id="lens-options-heading" style={{ fontFamily: SERIF, fontWeight: 400, fontSize: 28, color: "#1F1B16", margin: "0 0 18px", lineHeight: 1.15 }}>

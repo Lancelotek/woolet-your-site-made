@@ -547,7 +547,7 @@ const CookieBanner = () => {
               {t.policy}
             </a>
             {" · "}
-            <button onClick={openCustomize} type="button" style={{ ...linkButtonStyle, padding: 0, fontSize: 11 }}>
+            <button onClick={openCustomize} type="button" style={{ ...linkButtonStyle, padding: 0, fontSize: 12 }}>
               {t.customize}
             </button>
           </p>

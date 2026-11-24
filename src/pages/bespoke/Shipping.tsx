@@ -130,7 +130,7 @@ export default function BespokeShipping() {
             <Link to="/en" className="text-cream text-[13px] tracking-[0.32em] uppercase font-medium">
               Woolet
             </Link>
-            <span className="text-cream-dim text-[11px] uppercase tracking-[0.2em]">Bespoke · Shipping</span>
+            <span className="text-cream-dim text-[12px] uppercase tracking-[0.2em]">Bespoke · Shipping</span>
           </div>
         </header>
 
@@ -168,7 +168,7 @@ export default function BespokeShipping() {
               <button
                 type="button"
                 onClick={() => setSaved(null)}
-                className="mt-6 text-[11px] uppercase tracking-[0.18em] text-gold border border-gold/45 rounded-[2px] px-4 py-3 hover:border-gold transition"
+                className="mt-6 text-[12px] uppercase tracking-[0.18em] text-gold border border-gold/45 rounded-[2px] px-4 py-3 hover:border-gold transition"
               >
                 Edit address
               </button>
@@ -176,7 +176,7 @@ export default function BespokeShipping() {
           ) : (
             <>
               <section className="mb-8">
-                <p className="text-cream-dim text-[11px] uppercase tracking-[0.22em] mb-3">Woolet Bespoke</p>
+                <p className="text-cream-dim text-[12px] uppercase tracking-[0.22em] mb-3">Woolet Bespoke</p>
                 <div className="border border-gold/30 bg-gold/[0.04] rounded-sm px-4 py-3 mb-6">
                   <div className="font-mono text-gold text-base tracking-[0.06em]">Order {caseNo}</div>
                   {summary && <div className="text-cream-dim text-sm mt-0.5">{summary}</div>}
@@ -205,7 +205,7 @@ export default function BespokeShipping() {
                 <Text label="State / province (optional)" value={fields.state} onChange={set("state")} autoComplete="address-level1" />
                 <Text label="Postal code" value={fields.postal_code} onChange={set("postal_code")} autoComplete="postal-code" required />
                 <label className="block">
-                  <span className="block text-[11px] uppercase tracking-[0.16em] text-cream-dim mb-1.5">Country</span>
+                  <span className="block text-[12px] uppercase tracking-[0.16em] text-cream-dim mb-1.5">Country</span>
                   <select value={fields.country} onChange={set("country")} autoComplete="country" required className={inputCls}>
                     <option value="">Select a country</option>
                     {COUNTRY_CODES.map((code) => (
@@ -267,7 +267,7 @@ function Text({
 }) {
   return (
     <label className={`block ${full ? "sm:col-span-2" : ""}`}>
-      <span className="block text-[11px] uppercase tracking-[0.16em] text-cream-dim mb-1.5">{label}</span>
+      <span className="block text-[12px] uppercase tracking-[0.16em] text-cream-dim mb-1.5">{label}</span>
       <input
         type={type}
         value={value}
@@ -278,7 +278,7 @@ function Text({
         inputMode={type === "tel" ? "tel" : undefined}
         className={inputCls}
       />
-      {note && <span className="block text-[11px] text-gold-light/80 mt-1.5">{note}</span>}
+      {note && <span className="block text-[12px] text-gold-light/80 mt-1.5">{note}</span>}
     </label>
   );
 }

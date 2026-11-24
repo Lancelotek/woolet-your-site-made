@@ -239,7 +239,7 @@ export default function CardPhotoCapture({ source, onClose, onAccept, onUploadIn
       >
         <div className="flex items-start justify-between gap-4">
           <div>
-            <p className="text-[11px] uppercase tracking-[0.18em] text-gold">Photo with a card</p>
+            <p className="text-[12px] uppercase tracking-[0.18em] text-gold">Photo with a card</p>
             <h2 className="mt-1 font-display text-xl font-light text-[#F8F8F6]">
               {stage === "review" || stage === "checking" ? "Check your photo" : "Card flat on your cheek"}
             </h2>

@@ -22,7 +22,7 @@ const BenefitsBar = () => {
             <span className="text-cream-dim tracking-wider text-[12px] md:text-[0.74rem]">{b.sub}</span>
           </div>
           {b.tag && (
-            <span className="bg-primary text-primary-foreground px-2 py-0.5 flex-shrink-0 font-semibold uppercase tracking-[0.2em]" style={{ fontSize: "0.62rem" }}>
+            <span className="bg-primary text-primary-foreground px-2 py-0.5 flex-shrink-0 font-semibold uppercase tracking-[0.2em]" style={{ fontSize: "0.75rem" }}>
               {b.tag}
             </span>
           )}

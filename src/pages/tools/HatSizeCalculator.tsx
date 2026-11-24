@@ -26,7 +26,7 @@ const S = {
     padding: "56px 20px 80px",
   } as const,
   eyebrow: {
-    fontSize: 11,
+    fontSize: 12,
     letterSpacing: "3px",
     textTransform: "uppercase",
     color: "#888",
@@ -84,7 +84,7 @@ const S = {
   }),
   label: {
     display: "block",
-    fontSize: 11,
+    fontSize: 12,
     letterSpacing: "2px",
     textTransform: "uppercase" as const,
     color: "#666",
@@ -116,7 +116,7 @@ const S = {
     borderRadius: 4,
   } as const,
   resultLabel: {
-    fontSize: 10,
+    fontSize: 12,
     letterSpacing: "3px",
     textTransform: "uppercase" as const,
     color: "#C2A05A",
@@ -135,7 +135,7 @@ const S = {
     gap: 4,
   } as const,
   resultKey: {
-    fontSize: 10,
+    fontSize: 12,
     letterSpacing: "2px",
     textTransform: "uppercase" as const,
     color: "#8a827a",

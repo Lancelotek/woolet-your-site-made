@@ -81,7 +81,7 @@ export default function ThankYouFb() {
   const eyebrow: React.CSSProperties = {
     fontFamily: "'Barlow', sans-serif",
     fontWeight: 500,
-    fontSize: 11,
+    fontSize: 12,
     letterSpacing: "0.18em",
     textTransform: "uppercase",
     color: C.gold,
@@ -434,7 +434,7 @@ export default function ThankYouFb() {
               <p
                 style={{
                   fontFamily: "'Barlow', sans-serif",
-                  fontSize: 11,
+                  fontSize: 12,
                   letterSpacing: "0.14em",
                   textTransform: "uppercase",
                   color: C.muted,
@@ -480,7 +480,7 @@ export default function ThankYouFb() {
             gap: "10px 18px",
             fontFamily: "'Barlow', sans-serif",
             fontWeight: 500,
-            fontSize: 10.5,
+            fontSize: 12,
             letterSpacing: "0.16em",
             textTransform: "uppercase",
             color: C.muted,

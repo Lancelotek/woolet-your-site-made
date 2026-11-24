@@ -91,7 +91,7 @@ const StickyMobileCTA = ({ count = 23 }: { count?: number }) => {
         style={{
           fontFamily: "'Barlow', sans-serif",
           fontWeight: 300,
-          fontSize: 11,
+          fontSize: 12,
           color: "rgba(0,0,0,0.7)",
         }}
       >

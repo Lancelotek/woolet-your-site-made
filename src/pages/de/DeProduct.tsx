@@ -100,14 +100,14 @@ export default function DeProduct({ modelId }: { modelId: "007" | "009" }) {
           <div className="flex flex-col gap-6 lg:col-start-2 lg:row-span-2 lg:row-start-1">
             <nav className="font-body text-xs text-cream-dim"><Link to="/de/kollektion" className="underline underline-offset-4">Kollektion</Link> / Woolet {model.id}</nav>
             <div>
-              <p className="font-body text-[10px] uppercase tracking-[0.24em] text-primary">Woolet {model.id}</p>
+              <p className="font-body text-[12px] uppercase tracking-[0.24em] text-primary">Woolet {model.id}</p>
               <h1 className="mt-2 font-display text-[clamp(2.2rem,4vw,3.6rem)] font-light leading-[1.05] text-woolet-white">{model.shape}</h1>
               <p className="mt-2 font-body text-sm text-cream-dim">158 mm Frontbreite - {model.specs} - {model.bridge}</p>
             </div>
             <p className="font-body text-base leading-7 text-cream-dim">{model.intro}</p>
 
             <div>
-              <p className="font-body text-[11px] uppercase tracking-[0.22em] text-cream-dim">Farbe: {COLOURS.find((c) => c.id === colour)?.name}</p>
+              <p className="font-body text-[12px] uppercase tracking-[0.22em] text-cream-dim">Farbe: {COLOURS.find((c) => c.id === colour)?.name}</p>
               <div className="mt-3 flex gap-3">
                 {COLOURS.map((c) => (
                   <button key={c.id} type="button" onClick={() => setColour(c.id)} aria-pressed={colour === c.id} className={`min-h-[44px] rounded-sm border px-4 font-body text-sm ${colour === c.id ? "border-primary text-foreground" : "border-border-sub text-cream-dim"}`}>{c.name}</button>

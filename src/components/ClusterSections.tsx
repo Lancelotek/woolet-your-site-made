@@ -51,7 +51,7 @@ const ClusterSections = ({ sections }: { sections?: Section[] }) => {
                           color: "#666",
                           letterSpacing: "1px",
                           textTransform: "uppercase",
-                          fontSize: 11,
+                          fontSize: 12,
                         }}
                       >
                         {h}

@@ -93,7 +93,7 @@ const SizeMatrix = ({
                   <span
                     className="uppercase tracking-[0.18em]"
                     style={{
-                      fontSize: "0.65rem",
+                      fontSize: "0.75rem",
                       border: "1px solid hsl(var(--gold) / 0.5)",
                       color: "hsl(var(--gold-light))",
                       padding: "2px 6px",
@@ -132,7 +132,7 @@ const SizeMatrix = ({
                 {r.bespoke && (
                   <span
                     className="uppercase tracking-[0.18em]"
-                    style={{ fontSize: "0.65rem", border: "1px solid hsl(var(--gold) / 0.5)", color: "hsl(var(--gold-light))", padding: "2px 6px", fontFamily: "Barlow, sans-serif", fontWeight: 500 }}
+                    style={{ fontSize: "0.75rem", border: "1px solid hsl(var(--gold) / 0.5)", color: "hsl(var(--gold-light))", padding: "2px 6px", fontFamily: "Barlow, sans-serif", fontWeight: 500 }}
                   >{t(lang, "matrix.custom_badge")}</span>
                 )}
               </div>

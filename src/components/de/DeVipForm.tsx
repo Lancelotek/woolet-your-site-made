@@ -109,7 +109,7 @@ export default function DeVipForm({ placement, variant = "section", className }:
     <form onSubmit={onSubmit} className={`flex w-full max-w-xl flex-col gap-3 text-left ${className ?? ""}`}>
       <div className={isHero ? "flex flex-col gap-3 sm:flex-row" : "flex flex-col gap-3"}>
         <label className="flex flex-1 flex-col gap-2">
-          <span className={isHero ? "sr-only" : "font-body text-[11px] uppercase tracking-[0.22em] text-cream-dim"}>E-Mail</span>
+          <span className={isHero ? "sr-only" : "font-body text-[12px] uppercase tracking-[0.22em] text-cream-dim"}>E-Mail</span>
           <input
             type="email"
             required

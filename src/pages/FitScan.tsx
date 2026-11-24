@@ -214,7 +214,7 @@ function AnalyzingStep({ previewUrl, lang }: { previewUrl?: string; lang: Lang }
         {stages[stageIdx]} <span style={{ color: GOLD, marginLeft: 6 }}>{progress}%</span>
       </div>
 
-      <div style={{ fontSize: 11, color: MUTED, maxWidth: 320 }}>
+      <div style={{ fontSize: 12, color: MUTED, maxWidth: 320 }}>
         {tFit(lang, "analyzing.footnote")}
       </div>
     </div>
@@ -281,7 +281,7 @@ function BridgeQuizStep({ answers, onChange, onSubmit, onSkip, analyzingReady, l
         textAlign: "left",
       }}
     >
-      <div style={{ fontSize: 11, letterSpacing: 1.4, color: GOLD, marginBottom: 6, textTransform: "uppercase" }}>
+      <div style={{ fontSize: 12, letterSpacing: 1.4, color: GOLD, marginBottom: 6, textTransform: "uppercase" }}>
         {lang === "de" ? "Während der Messung - 3 kurze Fragen" : "While we measure — 3 quick questions"}
       </div>
       <div style={{ fontSize: 13, color: "#c9c4bb", marginBottom: 14, lineHeight: 1.45 }}>
@@ -360,7 +360,7 @@ function BridgeQuizStep({ answers, onChange, onSubmit, onSkip, analyzingReady, l
         </button>
       </div>
       {analyzingReady && (
-        <div style={{ fontSize: 11, color: GOLD, marginTop: 10, textAlign: "center" }}>
+        <div style={{ fontSize: 12, color: GOLD, marginTop: 10, textAlign: "center" }}>
           {lang === "de" ? "✓ Messung abgeschlossen - absenden oder überspringen." : "✓ Scan finished — submit or skip to see your fit."}
         </div>
       )}
@@ -719,7 +719,7 @@ function WelcomeStep({
               <span
                 style={{
                   fontFamily: "Barlow, sans-serif",
-                  fontSize: "0.68rem",
+                  fontSize: "0.75rem",
                   letterSpacing: "0.22em",
                   textTransform: "uppercase",
                   color: "rgba(240,236,228,0.7)",
@@ -2400,7 +2400,7 @@ function CameraStep({ lang, onCaptured, onError, isMobile }: CameraStepProps) {
         >
           <span aria-hidden style={{ fontSize: "1rem", lineHeight: 1, marginTop: 1 }}>📷</span>
           <div style={{ fontSize: "0.78rem", lineHeight: 1.5, color: "rgba(255,255,255,0.82)" }}>
-            <strong style={{ display: "block", color: showLensHint ? "#fca5a5" : GOLD, fontWeight: 500, letterSpacing: "0.08em", textTransform: "uppercase", fontSize: "0.68rem", marginBottom: 3 }}>
+            <strong style={{ display: "block", color: showLensHint ? "#fca5a5" : GOLD, fontWeight: 500, letterSpacing: "0.08em", textTransform: "uppercase", fontSize: "0.75rem", marginBottom: 3 }}>
               {showLensHint ? tFit(lang, "camera.lens_tip_warn") : tFit(lang, "camera.lens_tip_title")}
             </strong>
             {tFit(lang, "camera.lens_tip_body")}
@@ -3413,7 +3413,7 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
               onChange={(e) => setGapCm(parseFloat(e.target.value))}
               style={{ accentColor: GOLD, width: "100%" }}
             />
-            <div style={{ display: "flex", justifyContent: "space-between", color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.68rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", color: MUTED, fontFamily: "Barlow, sans-serif", fontSize: "0.75rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>
               <span>{tFit(lang, "result.touching")}</span>
               <span>{tFit(lang, "result.held_out")}</span>
             </div>
@@ -3497,7 +3497,7 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
               color: GOLD,
               fontFamily: "Barlow, sans-serif",
               fontWeight: 500,
-              fontSize: "0.65rem",
+              fontSize: "0.75rem",
               letterSpacing: "0.22em",
               textTransform: "uppercase",
             }}
@@ -3555,7 +3555,7 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
             color: GOLD,
             fontFamily: "Barlow, sans-serif",
             fontWeight: 600,
-            fontSize: "0.68rem",
+            fontSize: "0.75rem",
             letterSpacing: "0.22em",
             textTransform: "uppercase",
           }}
@@ -3593,7 +3593,7 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
             color: BG,
             fontFamily: "Barlow, sans-serif",
             fontWeight: 500,
-            fontSize: "0.65rem",
+            fontSize: "0.75rem",
             padding: "5px 10px",
             letterSpacing: "0.18em",
             textTransform: "uppercase",
@@ -3626,7 +3626,7 @@ function ResultStep({ measurements, recommendation: baseRecommendation, faceShap
             style={{
               color: quizNote.warn ? "#e85d5d" : GOLD,
               fontFamily: "Barlow, sans-serif",
-              fontSize: "0.65rem",
+              fontSize: "0.75rem",
               letterSpacing: "0.22em",
               textTransform: "uppercase",
               fontWeight: 500,
@@ -4351,7 +4351,7 @@ function FitLensEmailCapture({
         <button
           type="submit"
           disabled={status === "sending"}
-          className="min-h-[48px] rounded-sm px-5 text-[11px] uppercase tracking-[0.2em] disabled:opacity-60"
+          className="min-h-[48px] rounded-sm px-5 text-[12px] uppercase tracking-[0.2em] disabled:opacity-60"
           style={{ background: GOLD, color: "#0B0A09", fontFamily: "Barlow, sans-serif" }}
         >
           {status === "sending" ? tFit(lang, "fitlens.email_sending") : tFit(lang, "fitlens.email_cta")}
@@ -5319,7 +5319,7 @@ export default function FitScan() {
                     style={{ borderColor: "rgba(202,164,73,0.45)", background: "rgba(202,164,73,0.07)" }}
                   >
                     <p
-                      className="mb-3 text-[11px] uppercase tracking-[0.22em]"
+                      className="mb-3 text-[12px] uppercase tracking-[0.22em]"
                       style={{ color: GOLD, fontFamily: "Barlow, sans-serif" }}
                     >
                       {lang === "de" ? "Maße empfangen" : "Measurements received"}
@@ -5347,11 +5347,11 @@ export default function FitScan() {
                       ) : (
                         <div className="flex flex-col gap-3">
                           <p className="font-display text-xl text-woolet-white">Für dich: Maßanfertigung von 145 bis 160 mm</p>
-                          <Link to="/de/bespoke" className="inline-flex min-h-12 items-center justify-center bg-primary px-5 py-3 font-body text-[11px] uppercase tracking-[0.2em] text-background">Maßanfertigung ansehen</Link>
+                          <Link to="/de/bespoke" className="inline-flex min-h-12 items-center justify-center bg-primary px-5 py-3 font-body text-[12px] uppercase tracking-[0.2em] text-background">Maßanfertigung ansehen</Link>
                         </div>
                       )
                     ) : (
-                      <Link to={`/${lang}/bespoke/configurator`} className="inline-flex items-center justify-center border px-5 py-3 text-[11px] uppercase tracking-[0.2em]" style={{ borderColor: GOLD, color: GOLD, fontFamily: "Barlow, sans-serif" }}>Use these in bespoke</Link>
+                      <Link to={`/${lang}/bespoke/configurator`} className="inline-flex items-center justify-center border px-5 py-3 text-[12px] uppercase tracking-[0.2em]" style={{ borderColor: GOLD, color: GOLD, fontFamily: "Barlow, sans-serif" }}>Use these in bespoke</Link>
                     )}
                   </div>
                 )}
