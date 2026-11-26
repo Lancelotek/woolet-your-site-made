@@ -734,8 +734,11 @@ async function handleCheckoutExpired(session: any) {
     await markMailerLiteAbandonedCheckoutDe(deEmail, session.id, deExpiredAt);
     return;
   }
-  // Only count a $1 checkout as abandoned when the visitor clicked pay AND
-  // engaged with the Stripe form. Pre-created sessions are ignored.
+  // Count a $1 checkout as abandoned when the visitor clicked pay (sessions are
+  // only created on a tap, user_initiated=1). Pre-created sessions are ignored.
+  // The form-engagement test below is kept for logging only: Stripe does not
+  // return what a visitor typed on an expired session, so requiring it blocked
+  // every abandonment from 27.09 to 26.11.2026 (226 sessions, 0 recoveries).
   const cd = session?.customer_details ?? {};
   const addr = cd?.address ?? {};
   const cdEmail = String(cd?.email ?? "").trim().toLowerCase();
@@ -745,7 +748,7 @@ async function handleCheckoutExpired(session: any) {
     (addr && Object.values(addr).some((v) => typeof v === "string" && v.trim())),
   );
   const userInitiated = session?.metadata?.user_initiated === "1";
-  if (!userInitiated || !engaged) {
+  if (!userInitiated) {
     try {
       await getSupabase().from("server_event_log").insert({
         source: "payments-webhook",
@@ -753,7 +756,8 @@ async function handleCheckoutExpired(session: any) {
         status: "skipped",
         request_summary: {
           stripe_session_id: session?.id,
-          reason: !userInitiated ? "not_user_initiated" : "no_engagement",
+          reason: "not_user_initiated",
+          engaged,
         },
       });
     } catch (e) {
