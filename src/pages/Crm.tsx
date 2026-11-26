@@ -221,6 +221,7 @@ export default function Crm() {
               <form onSubmit={handleLogin} style={{ display: "grid", gap: 12 }}>
                 <input
                   type="password"
+                  autoComplete="current-password"
                   required
                   autoFocus
                   placeholder="Password"

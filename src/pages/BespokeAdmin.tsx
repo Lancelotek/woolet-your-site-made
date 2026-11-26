@@ -459,6 +459,7 @@ export default function BespokeAdmin() {
           <p style={{ color: T.dim, fontSize: 13, margin: 0 }}>Internal console — admin password required.</p>
           <input
             type="password"
+            autoComplete="current-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Admin password"
