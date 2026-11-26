@@ -224,7 +224,7 @@ export const blogPostsNL: BlogPost[] = [
 
 <h2>De brugbreedte is belangrijker dan je denkt</h2>
 
-<p>De brug is de afstand tussen de twee glazen. Mainstream-zonnebrillen gebruiken een brug van 17–19 mm, ontworpen voor een gemiddelde neus. Bredere gezichten hebben bijna altijd ook bredere neuzen — een brug van 25 mm zorgt dat het montuur correct op de neuspads rust, het gewicht gelijk verdeeld wordt en de bril bij een lach niet op de jukbeenderen valt. Woolet gebruikt standaard een 25 mm sleutelgatbrug, met bespoke-opties tussen 20 en 26 mm.</p>
+<p>De brug is de afstand tussen de twee glazen. Mainstream-zonnebrillen gebruiken een brug van 17–19 mm, ontworpen voor een gemiddelde neus. Bredere gezichten hebben bijna altijd ook bredere neuzen — een brug van 25 mm zorgt dat het montuur correct op de neuspads rust, het gewicht gelijk verdeeld wordt en de bril bij een lach niet op de jukbeenderen valt. Woolet gebruikt standaard een 25 mm sleutelgatbrug, met bespoke-opties tussen 16 en 24 mm.</p>
 
 <h2>Korte FAQ</h2>
 

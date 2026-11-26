@@ -3,7 +3,7 @@
 // this helper so the three can never disagree.
 
 export const BRIDGE_MIN_MM = 16;
-export const BRIDGE_MAX_MM = 26;
+export const BRIDGE_MAX_MM = 24;
 // Inner-canthal distance is a FACE measurement (eye corner to eye corner),
 // typically 30-35 mm in an adult. It is never a frame bridge.
 export const INNER_CANTHAL_MIN_MM = 25;

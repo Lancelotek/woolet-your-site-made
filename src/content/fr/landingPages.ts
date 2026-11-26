@@ -31,7 +31,7 @@ export const frPages: Record<string, FrPageConfig> = {
     sub: "Largeur de face de 145 à 160 mm, pont, branches et hauteur de verre ajustés individuellement. Acétate italien Mazzucchelli 1849, façonné à la main dans l'Union européenne.",
     metaTitle: "Lunettes sur mesure 145-160 mm | Woolet - acétate italien",
     metaDescription:
-      "Lunettes sur mesure pour visages larges : 145-160 mm de face, pont 20-26 mm, branches ajustées. Acétate italien Mazzucchelli, fabrication artisanale en UE. Mesure FitLens en 60 s.",
+      "Lunettes sur mesure pour visages larges : 145-160 mm de face, pont 16-24 mm, branches ajustées. Acétate italien Mazzucchelli, fabrication artisanale en UE. Mesure FitLens en 60 s.",
     primaryKeyword: "lunettes sur mesure",
     ctaPrimaryLabel: "Mesurer mon visage (60 s)",
     ctaPrimaryHref: "/fr/fit",
@@ -55,7 +55,7 @@ export const frPages: Record<string, FrPageConfig> = {
     faqs: [
       {
         q: "Jusqu'où peut-on ajuster les dimensions ?",
-        a: "Face : 145 à 160 mm. Pont : 20 à 26 mm. Branches : 135 à 155 mm. La hauteur de verre est également paramétrable.",
+        a: "Face : 145 à 160 mm. Pont : 16 à 24 mm. Branches : 135 à 155 mm. La hauteur de verre est également paramétrable.",
       },
       {
         q: "Comment se fait la prise de mesure ?",

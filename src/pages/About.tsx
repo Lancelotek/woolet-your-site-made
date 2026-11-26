@@ -33,7 +33,7 @@ const About = () => {
             wide faces. Woolet 007 Round / Panto and Woolet 009 Soft Square share a 158 mm front
             width and 150 mm temples; 007 and 009 both have a 25 mm keyhole
             bridge. Both fit faces in the 155-161 mm range and come in Black, Havana, and Silver
-            Clear. Bespoke covers 145–160 mm front widths, 20-26 mm bridges, and 145-155 mm
+            Clear. Bespoke covers 145–160 mm front widths, 16-24 mm bridges, and 145-155 mm
             temples. Every frame uses Italian Mazzucchelli acetate and is hand made in EU.
           </p>
           <p className="mt-5 text-sm sm:text-base leading-relaxed text-muted-foreground max-w-[65ch]">

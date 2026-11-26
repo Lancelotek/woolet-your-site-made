@@ -240,7 +240,7 @@ const CollectionPage = ({
                     Woolet Bespoke
                   </h3>
                   <p style={{ fontSize: 12, color: "#CCC", lineHeight: 1.5, margin: "0 0 10px" }}>
-                    Made to your measurement: 145 to 160 mm front, 20 to 26 mm bridge.
+                    Made to your measurement: 145 to 160 mm front, 16 to 24 mm bridge.
                   </p>
                   <p style={{ margin: 0, color: "#CAA449", fontWeight: 600, fontSize: 16 }}>{BESPOKE_COPY.frame}</p>
                 </Link>
@@ -333,7 +333,7 @@ const CollectionPage = ({
               One precise size - or go bespoke
             </h2>
             <p style={{ fontSize: 13, lineHeight: 1.6, color: "#CCC", margin: "0 0 14px" }}>
-              Both shapes ship at 158 mm wide with a 25 mm bridge, engineered for faces in the 155-161 mm range. Outside that, bespoke covers 145 to 160 mm with a 20–26 mm bridge.
+              Both shapes ship at 158 mm wide with a 25 mm bridge, engineered for faces in the 155-161 mm range. Outside that, bespoke covers 145 to 160 mm with a 16–24 mm bridge.
               Use our AI Fit Wizard to confirm the right fit for your face.
             </p>
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>

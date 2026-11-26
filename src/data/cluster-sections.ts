@@ -174,17 +174,16 @@ export const TEMPLE_SECTIONS: Record<string, ClusterSection[]> = {
 
 /**
  * Long-form, per-width unique copy for the /en/bridge/* landing cluster.
- * Signature bridge: 25 mm keyhole on the 007 and the 009. Bespoke 20–26 mm,
+ * Signature bridge: 25 mm keyhole on the 007 and the 009 (widest we build). Bespoke 16–24 mm,
  * any front width 145–160 mm. Bridge numbers here are frame DBL, not a
  * measurement of the wearer's nose.
  */
 const RANGE_TABLE: NonNullable<ClusterSection["table"]> = {
   head: ["Frame bridge", "Woolet route"],
   rows: [
-    ["18–19 mm", "Below our range — mainstream"],
-    ["20–24 mm", "Bespoke"],
-    ["25 mm", "Woolet 007 Round and 009 Soft Square (signature)"],
-    ["26 mm", "Bespoke — our widest bridge"],
+    ["16–24 mm", "Bespoke, on any front from 145 to 160 mm"],
+    ["25 mm", "Woolet 007 Round and 009 Soft Square (signature) — our widest bridge"],
+    ["26 mm and up", "Wider than we build"],
   ],
 };
 
@@ -205,17 +204,12 @@ export const BRIDGE_SECTIONS: Record<string, ClusterSection[]> = {
       ],
     },
     {
-      h2: "Why we do not build 18 mm",
+      h2: "18 mm on a wide front: bespoke",
       body: [
-        "Putting an 18 mm saddle on a 158 mm front concentrates the weight of the frame on two small contact points at the top of the nose. That is what produces red marks and a frame that slides once your skin warms. Our signature bridges are 25 mm on both the 007 and the 009.",
+        "Stock retail only puts 18 mm bridges on 140–148 mm fronts. Bespoke puts the same bridge on a 145–160 mm front, so a wide face with a narrow nose gets both numbers right. Our signature bridges are 25 mm on both the 007 and the 009.",
+        "If your face width is under 155 mm as well, nothing about the wide-face category applies to you.",
       ],
       table: RANGE_TABLE,
-    },
-    {
-      h2: "What to do if 18 mm is your measurement",
-      body: [
-        "Buy mainstream, and buy on bridge rather than on lens size. If your face width is under 155 mm as well, nothing about the wide-face category applies to you. If your face is wide but your frame bridge needs to be 18 mm, the honest answer is a mainstream frame or a specialist outside our range.",
-      ],
     },
     MEASURE_SECTION,
   ],
@@ -230,7 +224,7 @@ export const BRIDGE_SECTIONS: Record<string, ClusterSection[]> = {
     {
       h2: "19 mm against the Woolet range",
       body: [
-        "Woolet bespoke starts at 20 mm and the signature frames run 25 mm, so 19 mm sits below our range.",
+        "Woolet bespoke covers 16–24 mm and the signature frames run 25 mm, so 19 mm is a bespoke build on any front from 145 to 160 mm.",
       ],
       table: RANGE_TABLE,
     },
@@ -241,7 +235,7 @@ export const BRIDGE_SECTIONS: Record<string, ClusterSection[]> = {
     {
       h2: "Who a 20 mm bridge fits",
       body: [
-        "20 mm is wider than nearly everything in stock retail and it is the floor of Woolet bespoke. It suits a wide face that needs a frame bridge narrower than our 25 mm signature.",
+        "20 mm is wider than most stock retail bridges and sits inside the Woolet bespoke range (16–24 mm). It suits a wide face that needs a frame bridge narrower than our 25 mm signature.",
       ],
     },
     {
@@ -321,10 +315,10 @@ export const BRIDGE_SECTIONS: Record<string, ClusterSection[]> = {
 
   "26mm": [
     {
-      h2: "26 mm is our widest bridge, built in bespoke",
+      h2: "26 mm is wider than we build",
       body: [
-        "26 mm is the top of the bespoke range (20–26 mm). The signature 007 and 009 both use a 25 mm keyhole, so a 26 mm bridge is a made-to-measure order. Bespoke can put it on any bespoke shape and any front from 145 to 160 mm.",
-        "When the bridge widens, the lens geometry has to follow: bespoke adjusts lens width so the optical centres stay aligned with your pupillary distance.",
+        "The widest Woolet bridge is the 25 mm keyhole on the signature 007 and 009. Bespoke covers 16–24 mm, so a 26 mm bridge is outside both.",
+        "Measure before you rule 25 mm out: the bridge number printed on a frame is not a measurement of your nose, and a keyhole sits on the sides of the nose rather than the top.",
       ],
       table: RANGE_TABLE,
     },

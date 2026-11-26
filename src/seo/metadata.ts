@@ -971,9 +971,9 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
       nl: {
         title: "Woolet 007 — ronde panto acetaatbril, 158 mm",
         description:
-          "Ronde panto in acetaat, 158 mm breed met 26 mm brug. Ontworpen voor gezichten van 155 mm+. Reserveer voor $1 en zet de $114 founding-prijs vast.",
+          "Ronde panto in acetaat, 158 mm breed met 25 mm brug. Ontworpen voor gezichten van 155 mm+. Reserveer voor $1 en zet de $114 founding-prijs vast.",
         noscriptHtml: `<h1>Woolet 007 — ronde panto acetaatbril, 158 mm</h1>
-<p>Ronde panto in Italiaans Mazzucchelli-acetaat, 158 mm breed met een 26 mm keyhole-brug. Glas 53 × 47.6 mm, veren 150 mm. Handgemaakt in de EU. Ontworpen voor gezichten van 155 mm+. Reserveer voor $1 en zet de $114 founding-prijs vast (adviesprijs $190). Bespoke 145–160 mm beschikbaar.</p>`,
+<p>Ronde panto in Italiaans Mazzucchelli-acetaat, 158 mm breed met een 25 mm keyhole-brug. Glas 53 × 47.6 mm, veren 150 mm. Handgemaakt in de EU. Ontworpen voor gezichten van 155 mm+. Reserveer voor $1 en zet de $114 founding-prijs vast (adviesprijs $190). Bespoke 145–160 mm beschikbaar.</p>`,
       },
       fr: {
         title: "Woolet 007 — lunettes rondes panto en acétate, 158 mm",
@@ -1286,9 +1286,9 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
     return base(route, lang, {
       title: "Bespoke Fit — Woolet (145–160 mm)",
       description:
-        "If your face falls outside the standard Woolet sizes, bespoke covers 145–160 mm with a 20–26 mm bridge. Hand-crafted by a European atelier from your AI scan.",
+        "If your face falls outside the standard Woolet sizes, bespoke covers 145–160 mm with a 16–24 mm bridge. Hand-crafted by a European atelier from your AI scan.",
       noscriptHtml: `<h1>Bespoke Fit — Woolet (145–160 mm)</h1>
-<p>Outside the 155–161 mm signature range? Bespoke builds your frame to the millimetre across 145–160 mm, with a 20–26 mm bridge, from your fit measurement.</p>
+<p>Outside the 155–161 mm signature range? Bespoke builds your frame to the millimetre across 145–160 mm, with a 16–24 mm bridge, from your fit measurement.</p>
 <p>Fit tools: <a href="/en/fit">virtual fit scan</a> · <a href="/en/fit/manual">manual measurement</a> · <a href="/en/fit/bespoke">bespoke fit (145–160 mm)</a>.</p>`,
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
@@ -1391,9 +1391,9 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
     return base(route, lang, {
       title: "Wide Bridge Glasses — 25 mm Keyhole Bridge, Acetate | Woolet",
       description:
-        "Wide bridge glasses for wider noses: 25 mm keyhole bridge, 158 mm front, Italian Mazzucchelli acetate. Bespoke bridge 20–26 mm.",
+        "Wide bridge glasses for wider noses: 25 mm keyhole bridge, 158 mm front, Italian Mazzucchelli acetate. Bespoke bridge 16–24 mm.",
       noscriptHtml: `<h1>Wide Bridge Glasses</h1>
-<p>Glasses with a 25 mm keyhole bridge as standard — engineered for wider noses where mainstream 17–19 mm bridges pinch or slide. 158 mm front width, Italian Mazzucchelli acetate. Bespoke bridge 20–26 mm available. From $114 pre-order.</p>`,
+<p>Glasses with a 25 mm keyhole bridge as standard — engineered for wider noses where mainstream 17–19 mm bridges pinch or slide. 158 mm front width, Italian Mazzucchelli acetate. Bespoke bridge 16–24 mm available. From $114 pre-order.</p>`,
     }, {}, [breadcrumbJsonLd([
       { name: "Woolet", url: `${SITE_URL}/en` },
       { name: "Collections", url: `${SITE_URL}/en/collection` },
@@ -1434,7 +1434,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
       title: "Keyhole Bridge Glasses for Wide Faces & Big Heads | Woolet",
       description: "Keyhole bridge glasses with a wider 25 mm gap. Italian Mazzucchelli acetate, 158 mm front. Built for wider noses and 155 mm+ faces.",
       h1: "Keyhole Bridge Glasses for Wide Faces & Big Heads",
-      intro: "Mainstream bridges sit at 17–20 mm. Woolet's keyhole bridge is 25 mm as standard, shaped to load weight on bone rather than cartilage — the difference between a frame that sits balanced and one that slides or pinches a wider nose. 158 mm front, Italian acetate, bespoke bridge 20–26 mm.",
+      intro: "Mainstream bridges sit at 17–20 mm. Woolet's keyhole bridge is 25 mm as standard, shaped to load weight on bone rather than cartilage — the difference between a frame that sits balanced and one that slides or pinches a wider nose. 158 mm front, Italian acetate, bespoke bridge 16–24 mm.",
     },
   };
   if (extraCollections[path]) {
@@ -1501,7 +1501,7 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
 <h2>Why a keyhole bridge works on a wide nose</h2>
 <p>A keyhole bridge rides on the top ridge of the nose instead of pinching the sides, so the weight sits on bone rather than cartilage. That removes the two usual failure modes: sliding and red pressure marks.</p>
 <h2>Woolet's bridge specs</h2>
-<p>Woolet 007 and Woolet 009 both ship with a 25 mm keyhole bridge, on a 158 mm signature front width (fit range 155–161 mm). Bespoke covers fronts from 145 to 160 mm with bridges from 20 to 26 mm. Cut from Mazzucchelli acetate from Milan, Italy, hand made in EU.</p>
+<p>Woolet 007 and Woolet 009 both ship with a 25 mm keyhole bridge, on a 158 mm signature front width (fit range 155–161 mm). Bespoke covers fronts from 145 to 160 mm with bridges from 16 to 24 mm. Cut from Mazzucchelli acetate from Milan, Italy, hand made in EU.</p>
  <p><a href="/en/fit">Measure your bridge in 60 seconds</a> · <a href="/en/collections/wide-bridge-glasses">See wide bridge glasses</a></p>
  <h2>FAQ</h2><dl>${WIDE_BRIDGE_GUIDE_FAQ.map((f) => `<dt>${escapeHtml(f.q)}</dt><dd>${escapeHtml(f.a)}</dd>`).join("")}</dl>`,
     }, { type: "article" }, [faqPageJsonLd(WIDE_BRIDGE_GUIDE_FAQ)]);
@@ -1726,7 +1726,7 @@ ${enhancement ? `<aside aria-label="Quick answer"><strong>Quick answer</strong><
       {
         title: "Lunettes sur mesure 145–160 mm | Woolet — acétate italien",
         description:
-          "Lunettes sur mesure pour visages larges : 145–160 mm de face, pont 20–26 mm, branches ajustées. Acétate italien Mazzucchelli, fabrication artisanale en UE. Mesure FitLens en 60 s.",
+          "Lunettes sur mesure pour visages larges : 145–160 mm de face, pont 16–24 mm, branches ajustées. Acétate italien Mazzucchelli, fabrication artisanale en UE. Mesure FitLens en 60 s.",
         noscriptHtml: `<h1>Lunettes sur mesure — Woolet bespoke 145–160 mm</h1>
 <p>Woolet propose des lunettes sur mesure dont la largeur de face, le pont, la longueur des branches et la hauteur de verre sont ajustés au millimètre. Acétate italien Mazzucchelli 1849, façonné à la main dans l'Union européenne. Délai : 4 à 6 semaines.</p>`,
       },
@@ -1876,7 +1876,7 @@ ${c.slug === "persol-alternative" || c.slug === "zenni-alternative" ? `<p>From $
 <h2>Does Woolet fit a ${b.width} mm bridge?</h2>
 <p>${b.fitVerdict}</p>
 <p>${b.intro}</p>
-<p>Signature bridge: 25 mm keyhole (007 and 009). Bespoke 20–26 mm.</p>
+<p>Signature bridge: 25 mm keyhole (007 and 009). Bespoke 16–24 mm.</p>
  <p><a href="/en/products/007">Woolet 007 · 25 mm keyhole</a> · <a href="/en/products/009">Woolet 009 · 25 mm keyhole</a> · <a href="/en/bespoke">Bespoke bridge</a> · <a href="/en/collections/wide-bridge-glasses">Wide-bridge hub</a></p>${b.slug === "19mm" ? `<h2>Frequently asked</h2><dl>${[...b.faq, ...BRIDGE_FIT_FAQ].map((f) => `<dt>${escapeHtml(f.q)}</dt><dd>${escapeHtml(f.a)}</dd>`).join("")}</dl>` : ""}`,
         },
         { image: DEFAULT_OG, type: "website" },
@@ -2037,7 +2037,7 @@ ${c.slug === "persol-alternative" || c.slug === "zenni-alternative" ? `<p>From $
       description: desc,
       noscriptHtml: `<h1>Maßanfertigung für breite Gesichter 145 - 160 mm</h1>
 <p>${desc}</p>
-<p>Woolet Bespoke ist für Gesichter, denen die Standardgröße 158 mm nicht passt. Frontbreite von 145 bis 160 mm, Stegbreite von 20 bis 26 mm, gebaut nach einem Gesichtsscan mit dem Smartphone. Bevor die Fertigung beginnt, bekommst du das 3D-Modell deiner Fassung zur Freigabe.</p>
+<p>Woolet Bespoke ist für Gesichter, denen die Standardgröße 158 mm nicht passt. Frontbreite von 145 bis 160 mm, Stegbreite von 16 bis 24 mm, gebaut nach einem Gesichtsscan mit dem Smartphone. Bevor die Fertigung beginnt, bekommst du das 3D-Modell deiner Fassung zur Freigabe.</p>
 <p>Preis: 480 USD inklusive weltweitem Versand.</p>
 <p><a href="/de/fit">Gesicht messen</a> · <a href="/de/kollektion">Kollektion</a> · <a href="/de/brille-breite-150-mm">Brille 150 mm breit</a> · <a href="/en/bespoke">English</a></p>`,
     }, { image: DEFAULT_OG }, [bespokeProductJsonLd("de")]);
@@ -2098,7 +2098,7 @@ ${c.slug === "persol-alternative" || c.slug === "zenni-alternative" ? `<p>From $
 <h2>Who is Woolet Bespoke for?</h2><p>If stock frames pinch at the temples, slide down the nose or sit crooked, a made-to-measure frame solves the dimensional mismatch. Bespoke is for narrow and wide faces within the measured range. Standard Woolet 007 and 009 signature frames have a 158 mm front and fit approximately 155-161 mm faces. They are different designs from the four Bespoke shapes. A phone-camera scan helps determine whether a standard frame fits before you choose a made-to-measure shape.</p>
 <h2>Specifications</h2><table><thead><tr><th>Specification</th><th>Woolet Bespoke</th></tr></thead><tbody>${[["Front width",BESPOKE_FACTS.frontWidth],["Bridge",BESPOKE_FACTS.bridge],["Temples",BESPOKE_FACTS.temples],["Shapes",BESPOKE_FACTS.shapes.join(", ")],["Material",BESPOKE_FACTS.material],["Made in",BESPOKE_FACTS.origin],["Regular price",BESPOKE_FACTS.regularPriceLabel],["Lenses",BESPOKE_FACTS.lenses],["Shipping",BESPOKE_FACTS.shipping],["Warranty",BESPOKE_FACTS.warranty],["Production",BESPOKE_FACTS.leadTime]].map(([k,v])=>`<tr><th>${k}</th><td>${v}</td></tr>`).join("")}</tbody></table>
 <h2>Six steps from design to delivery</h2><ol>${BESPOKE_FACTS.process.map(s=>`<li>${s}</li>`).join("")}</ol><p>The production clock starts only once you approve your made-to-measure 3D model. Production takes two weeks after approval, and shipping begins afterward. Worldwide shipping is free. Transit time varies by destination.</p>
-<h2>Bespoke compared with standard frames</h2><table><thead><tr><th>Feature</th><th>Bespoke</th><th>Standard 007 and 009</th></tr></thead><tbody><tr><th>Front width</th><td>145-160 mm to measure</td><td>158 mm</td></tr><tr><th>Bridge</th><td>20-26 mm</td><td>25 mm (007 and 009)</td></tr><tr><th>Shapes</th><td>Aviator, Rectangle, Crown Panto, Round</td><td>007 Round/Panto, 009 Soft Square</td></tr><tr><th>Fit</th><td>Dimensions set to you</td><td>Approximately 155-161 mm faces</td></tr></tbody></table>
+<h2>Bespoke compared with standard frames</h2><table><thead><tr><th>Feature</th><th>Bespoke</th><th>Standard 007 and 009</th></tr></thead><tbody><tr><th>Front width</th><td>145-160 mm to measure</td><td>158 mm</td></tr><tr><th>Bridge</th><td>16-24 mm</td><td>25 mm (007 and 009)</td></tr><tr><th>Shapes</th><td>Aviator, Rectangle, Crown Panto, Round</td><td>007 Round/Panto, 009 Soft Square</td></tr><tr><th>Fit</th><td>Dimensions set to you</td><td>Approximately 155-161 mm faces</td></tr></tbody></table>
 <h2>Crafted and shipped worldwide</h2><p>Italian Mazzucchelli 1849 cellulose acetate is shaped and finished by hand in the EU. The material originates in Italy; the frames are not made there. The first Bespoke pairs have already shipped to customers abroad, including Vietnam. The fit is checked against the approved model before dispatch, and a 5-year warranty backs the frame.</p>
 ${BESPOKE_GUIDE.map(({heading,text})=>`<section><h2>${heading}</h2><p>${text}</p></section>`).join("")}
 <h2>Questions about Woolet Bespoke</h2>${BESPOKE_FAQS.map(({q,a})=>`<section><h3>${q}</h3><p>${a}</p></section>`).join("")}
@@ -2350,7 +2350,7 @@ ${nbLink("glasses-for-wide-nose-bridge-21-22mm-explained")}
 <li><a href="/en/products/007">Woolet 007 — 25 mm</a></li>
 <li><a href="/en/products/009">Woolet 009 — 25 mm</a></li>
 <li><a href="/en/fit">AI Fit Wizard</a></li>
-<li><a href="/en/fit/bespoke">Bespoke 20–26 mm</a></li>
+<li><a href="/en/fit/bespoke">Bespoke 16–24 mm</a></li>
 </ul>
 <h2>Related guides</h2>
 <ul>

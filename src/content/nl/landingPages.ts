@@ -31,7 +31,7 @@ export const nlPages: Record<string, NlPageConfig> = {
     sub: "Frontbreedte van 145 tot 160 mm, brug, veren en glashoogte individueel afgesteld. Italiaans Mazzucchelli 1849 acetaat, met de hand afgewerkt in de EU.",
     metaTitle: "Acetaat bril op maat 145–160 mm | Woolet — Italiaans acetaat",
     metaDescription:
-      "Acetaat bril op maat voor bredere gezichten: front 145–160 mm, brug 20–26 mm, veren op maat. Italiaans Mazzucchelli-acetaat, handgemaakt in de EU. FitLens-meting in  60 s.",
+      "Acetaat bril op maat voor bredere gezichten: front 145–160 mm, brug 16–24 mm, veren op maat. Italiaans Mazzucchelli-acetaat, handgemaakt in de EU. FitLens-meting in  60 s.",
     primaryKeyword: "acetaat bril op maat",
     ctaPrimaryLabel: "Meet je gezicht (60 s)",
     ctaPrimaryHref: "/nl/fit",
@@ -55,7 +55,7 @@ export const nlPages: Record<string, NlPageConfig> = {
     faqs: [
       {
         q: "Hoe ver kunnen de afmetingen worden aangepast?",
-        a: "Front: 145–160 mm. Brug: 20–26 mm. Veren: 135–155 mm. Ook de glashoogte is instelbaar.",
+        a: "Front: 145–160 mm. Brug: 16–24 mm. Veren: 135–155 mm. Ook de glashoogte is instelbaar.",
       },
       {
         q: "Hoe verloopt de meting?",

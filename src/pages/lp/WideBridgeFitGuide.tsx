@@ -203,8 +203,8 @@ const WideBridgeFitGuide = () => {
             {[
               { range: "< 17 mm", label: "Narrow", note: "Most petite frames. Will pinch a wide nose immediately." },
               { range: "17–20 mm", label: "Mainstream", note: "Standard for off-the-shelf eyewear. Works for average noses." },
-              { range: "25 mm", label: "Wide (Woolet 007 / 009)", note: "Stops the slide for the majority of wider noses without going bespoke." },
-              { range: "23–26 mm", label: "Bespoke", note: "For high or unusually broad bridges. Custom-cut from Italian acetate." },
+              { range: "16–24 mm", label: "Bespoke", note: "Any bridge in this range on a 145–160 mm front. Custom-cut from Italian acetate." },
+              { range: "25 mm", label: "Wide (Woolet 007 / 009)", note: "Our widest bridge. Stops the slide for the majority of wider noses." },
             ].map((row, i, arr) => (
               <div
                 key={row.range}
@@ -407,7 +407,7 @@ const WideBridgeFitGuide = () => {
                 border: "1px solid hsl(0 0% 100% / 0.08)",
               }}
             >
-              Bespoke 20–26 mm
+              Bespoke 16–24 mm
             </Link>
           </div>
         </section>

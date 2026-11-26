@@ -5,7 +5,7 @@ export const BESPOKE_FACTS = {
   name: "Woolet Bespoke - made-to-measure eyeglasses",
   h1: "Woolet Bespoke - glasses made to your exact face",
   frontWidth: "145-160 mm",
-  bridge: "20-26 mm",
+  bridge: "16-24 mm",
   temples: "145-155 mm",
   regularPrice: BESPOKE_PRICES.frameUsd,
   regularPriceLabel: `${BESPOKE_COPY.frame} USD`,
@@ -45,7 +45,7 @@ export const BESPOKE_META_DESCRIPTION =
 export const BESPOKE_GUIDE = [
   {
     heading: "A frame built around your measurements",
-    text: "Made to measure means the front width, bridge and temples are chosen for one person, not picked from an existing shelf size. Woolet Bespoke covers front widths from 145-160 mm, bridges from 20-26 mm and temple lengths from 145-155 mm. Those numbers describe the frame, not a guarantee that every face of the same width needs identical glasses. The measurement and model-review steps establish the dimensions for your individual build. If you are deciding between a stock frame and a custom one, start with a face-width measurement rather than guessing from your hat size or an old pair of glasses.",
+    text: "Made to measure means the front width, bridge and temples are chosen for one person, not picked from an existing shelf size. Woolet Bespoke covers front widths from 145-160 mm, bridges from 16-24 mm and temple lengths from 145-155 mm. Those numbers describe the frame, not a guarantee that every face of the same width needs identical glasses. The measurement and model-review steps establish the dimensions for your individual build. If you are deciding between a stock frame and a custom one, start with a face-width measurement rather than guessing from your hat size or an old pair of glasses.",
   },
   {
     heading: "When a standard Woolet frame is enough",

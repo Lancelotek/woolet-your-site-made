@@ -105,7 +105,7 @@ function BridgePageInner({ b }: { b: BridgeEntry }) {
               009 Bridge 25 mm
             </span>
             <span style={{ fontSize: 12, letterSpacing: "1.5px", textTransform: "uppercase", color: "#666", border: "1px solid #D9C9A8", padding: "5px 10px", borderRadius: 2 }}>
-              Bespoke 20–26 mm
+              Bespoke 16–24 mm
             </span>
           </div>
 
@@ -127,7 +127,7 @@ function BridgePageInner({ b }: { b: BridgeEntry }) {
               Find my size
             </Link>
             <Link
-              to={b.verdictKind === "signature" ? "/en/collection" : "/en/fit/bespoke"}
+              to={b.verdictKind === "signature" || b.verdictKind === "out-of-range" ? "/en/collection" : "/en/fit/bespoke"}
               style={{
                 background: "transparent",
                 color: "#0B0A09",
@@ -140,7 +140,7 @@ function BridgePageInner({ b }: { b: BridgeEntry }) {
                 borderRadius: 2,
               }}
             >
-              {b.verdictKind === "signature" ? "See the frames" : "Explore bespoke"}
+              {b.verdictKind === "signature" || b.verdictKind === "out-of-range" ? "See the frames" : "Explore bespoke"}
             </Link>
           </div>
         </header>
@@ -228,7 +228,7 @@ function BridgePageInner({ b }: { b: BridgeEntry }) {
             </table>
           </div>
           <p style={{ fontSize: 12, color: "#666", lineHeight: 1.6, margin: "12px 0 0" }}>
-            Bridge width scales with front width. Bespoke pairs 20–26 mm bridges with any front from 145 to 160 mm.
+            Bridge width scales with front width. Bespoke pairs 16–24 mm bridges with any front from 145 to 160 mm.
           </p>
         </section>
 

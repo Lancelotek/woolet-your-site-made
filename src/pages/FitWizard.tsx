@@ -45,7 +45,7 @@ const TRUST_COPY: Record<CardType, string> = {
 };
 
 const SKU_DETAIL: Record<Exclude<Sku, "bespoke">, { shape: string; widthMm: number; bridgeMm: number; range: string }> = {
-  "007": { shape: "Round / Panto", widthMm: 158, bridgeMm: 26, range: "155–161 mm" },
+  "007": { shape: "Round / Panto", widthMm: 158, bridgeMm: 25, range: "155–161 mm" },
   "009": { shape: "Soft Square",   widthMm: 158, bridgeMm: 25, range: "155–161 mm" },
 };
 

@@ -555,7 +555,7 @@ const BespokePage = () => {
               {de ? D.whatIs.lead : "Bespoke eyewear,"} <em className="italic text-gold-light">{de ? D.whatIs.italic : "defined properly."}</em>
             </h2>
             <p className="text-cream-dim leading-relaxed max-w-[65ch] mb-5" style={{ fontSize: "0.98rem" }}>
-              {de ? D.whatIs.p1 : "Woolet Bespoke is a made-to-measure frame, not a stock size or colour swap. Front widths run from 145–160 mm, bridges from 20-26 mm and temples from 145-155 mm. The finished frame is made for one wearer."}
+              {de ? D.whatIs.p1 : "Woolet Bespoke is a made-to-measure frame, not a stock size or colour swap. Front widths run from 145–160 mm, bridges from 16-24 mm and temples from 145-155 mm. The finished frame is made for one wearer."}
             </p>
             <p className="text-cream-dim leading-relaxed max-w-[65ch]" style={{ fontSize: "0.95rem" }}>
               {de ? (
@@ -714,7 +714,7 @@ const BespokePage = () => {
               {(de ? D.who.items : [
                 "Frame width 145–160 mm (outside the stock 158 mm front)",
                 "Asymmetric ears or significant pantoscopic-tilt needs",
-                "Bridge width 20-26 mm, measured for the wearer's nose",
+                "Bridge width 16-24 mm, measured for the wearer's nose",
                 "Wearers who simply want a one-of-one frame, cut to their face",
               ]).map((item) => (
                 <li

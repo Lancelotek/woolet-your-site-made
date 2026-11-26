@@ -231,7 +231,7 @@ export const blogPostsDE: BlogPost[] = [
 
 <h2>Die Stegbreite ist wichtiger als Sie denken</h2>
 
-<p>Der Steg ist der Abstand zwischen den beiden Gläsern. Mainstream-Sonnenbrillen verwenden einen 17–19 mm breiten Steg, der für eine Standardnase ausgelegt ist. Breitere Gesichter haben fast immer auch breitere Nasen – ein 25 mm breiter Steg sorgt dafür, dass die Fassung korrekt auf den Nasenpads aufliegt, das Gewicht gleichmäßig verteilt wird und die Brille beim Lächeln nicht auf die Wangenknochen rutscht. Woolet verwendet standardmäßig einen 21 mm breiten Schlüssellochsteg, mit Optionen für Maßanfertigungen zwischen 20 und 26 mm.</p>
+<p>Der Steg ist der Abstand zwischen den beiden Gläsern. Mainstream-Sonnenbrillen verwenden einen 17–19 mm breiten Steg, der für eine Standardnase ausgelegt ist. Breitere Gesichter haben fast immer auch breitere Nasen – ein 25 mm breiter Steg sorgt dafür, dass die Fassung korrekt auf den Nasenpads aufliegt, das Gewicht gleichmäßig verteilt wird und die Brille beim Lächeln nicht auf die Wangenknochen rutscht. Woolet verwendet standardmäßig einen 21 mm breiten Schlüssellochsteg, mit Optionen für Maßanfertigungen zwischen 16 und 24 mm.</p>
 
 <h2>Kurzes FAQ</h2>
 

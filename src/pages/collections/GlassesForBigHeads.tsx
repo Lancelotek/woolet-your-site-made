@@ -111,7 +111,7 @@ const GlassesForBigHeads = () => (
       { question: "Can I get prescription or progressive lenses fitted?", answer: "Yes. Both shapes ship with demo lenses, ready for any optician to fit single-vision, progressive or blue-light lenses. The 53 × 47.6 mm lens area on 007 and 54 × 44 mm on 009 leave room for a progressive corridor." },
       { question: "Do you make wide frame reading glasses?", answer: "Yes. Reading glasses use the same 158 mm fronts, fitted with single-vision reading lenses from +1.00 to +3.00." },
       { question: "What about the bridge - will it fit a wider nose?", answer: "The 007 and the 009 both have a 25 mm keyhole bridge. Both are designed to distribute weight on a wider nose without pinching." },
-      { question: "What if 158 mm is too wide or too narrow for me?", answer: "Bespoke covers 145 to 160 mm of front width in either shape, with a 20–26 mm bridge and temples up to 155 mm. Same Italian Mazzucchelli acetate, hand made in EU to your measurement." },
+      { question: "What if 158 mm is too wide or too narrow for me?", answer: "Bespoke covers 145 to 160 mm of front width in either shape, with a 16–24 mm bridge and temples up to 155 mm. Same Italian Mazzucchelli acetate, hand made in EU to your measurement." },
       { question: "How thick are Woolet frames?", answer: "Both shapes are cut from 7 mm Italian Mazzucchelli acetate. Most bold frames online sit at 3–5 mm of injected plastic." },
       { question: "What do they cost and can I return them?", answer: "$114 is the founding-member price, locked with a $1 reservation; $190 at full launch. Shipping is free and you have 30 days to return." },
     ]}

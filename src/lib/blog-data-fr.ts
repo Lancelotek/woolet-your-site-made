@@ -224,7 +224,7 @@ export const blogPostsFR: BlogPost[] = [
 
 <h2>La largeur du pont compte plus que vous ne le pensez</h2>
 
-<p>Le pont est la distance entre les deux verres. Les solaires mainstream utilisent un pont de 17–19 mm, pensé pour un nez moyen. Les visages larges ont presque toujours un nez plus large aussi — un pont de 25 mm garantit que la monture repose correctement sur les plaquettes, que le poids est réparti et que les lunettes ne tombent pas sur les pommettes au premier sourire. Woolet utilise un pont keyhole de 25 mm en standard, avec des options bespoke entre 20 et 26 mm.</p>
+<p>Le pont est la distance entre les deux verres. Les solaires mainstream utilisent un pont de 17–19 mm, pensé pour un nez moyen. Les visages larges ont presque toujours un nez plus large aussi — un pont de 25 mm garantit que la monture repose correctement sur les plaquettes, que le poids est réparti et que les lunettes ne tombent pas sur les pommettes au premier sourire. Woolet utilise un pont keyhole de 25 mm en standard, avec des options bespoke entre 16 et 24 mm.</p>
 
 <h2>FAQ courte</h2>
 

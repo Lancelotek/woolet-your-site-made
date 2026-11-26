@@ -8,15 +8,15 @@
  * Rules (do not violate):
  *  - Signature bridge: 25 mm keyhole on both the 007 and the 009 (2026-11-19).
  *  - Founders Edition (the $114 pre-order) has a 24 mm bridge. Limited, not restocked.
- *  - Bespoke bridge range 20–26 mm, any front width 145–160 mm.
+ *  - Bespoke bridge range 16–24 mm, any front width 145–160 mm.
  *  - No "Made in Italy" — Italian Mazzucchelli acetate, hand made in EU.
  */
 
 export type BridgeVerdictKind =
   | "below-signature"      // narrower than we build in signature
   | "signature"            // 25 mm — matches both the 007 and the 009
-  | "signature-between"    // 20 mm — bespoke floor
-  | "bespoke-narrower"     // 21–24 mm — narrower than signature, bespoke
+  | "signature-between"    // unused since 26.11.2026 (bespoke floor moved to 16 mm)
+  | "bespoke-narrower"     // 16–24 mm — narrower than signature, bespoke
   | "wide-bespoke"         // wider bespoke territory
   | "out-of-range";        // beyond bespoke
 
@@ -41,64 +41,65 @@ export const BRIDGES: BridgeEntry[] = [
   {
     width: 18,
     slug: "18mm",
-    inRange: false,
-    verdictKind: "below-signature",
-    h1: "18 mm Bridge Glasses — Narrower Than We Build",
+    inRange: true,
+    verdictKind: "bespoke-narrower",
+    h1: "18 mm Bridge Glasses on a Wide Front — Bespoke",
     subhead:
-      "18 mm is standard-narrow bridge territory. Woolet signature bridges are 25 mm on both the 007 and the 009, built for wider noses. If 18 mm is genuinely your fit, mainstream retail is the honest answer.",
+      "18 mm is a mainstream bridge width. Woolet builds it in bespoke on a wide front; the signature 007 and 009 use a 25 mm keyhole.",
     intro:
-      "18 mm bridges are the mainstream default — designed for average-width noses on 140–148 mm frames. Woolet is built for wider faces (155 mm+), which usually come with a wider nose. We don't build 18 mm because a narrow bridge on a wide front pinches and slides.",
+      "Stock retail sells 18 mm bridges on 140–148 mm fronts. When your face is wide but your nose is not, that combination doesn't exist on the shelf. Woolet Bespoke pairs a 18 mm bridge with any front from 145 to 160 mm. Italian Mazzucchelli acetate, hand made in the EU.",
     fitVerdict:
-      "We don't build at 18 mm. Signature runs 25 mm keyhole on both the 007 and the 009; bespoke starts at 20 mm.",
+      "Bespoke. Signature runs 25 mm on the 007 and the 009; bespoke builds any bridge from 16 to 24 mm.",
     metaDescription:
-      "18 mm bridge glasses: below Woolet's bridge range. Honest guide to bridge sizing for wide faces. Signature 158 mm front · 007 and 009 25 mm keyhole · Bespoke 20–26 mm.",
+      "18 mm bridge glasses on a wide front: Woolet Bespoke, 16–24 mm bridge on a 145–160 mm front. Italian Mazzucchelli acetate, hand made in EU.",
     bespokeNote:
-      "We don't offer 18 mm bridges. See the 20 mm page for the bespoke floor.",
-    bestFor: "Narrow noses on 140–148 mm mainstream frames.",
+      "Bespoke builds a 18 mm bridge on any front from 145 to 160 mm, in any bespoke shape.",
+    bestFor: "Wide faces with a narrow nose.",
     faq: [
       { q: "Is 18 mm a wide bridge?", a: "No. 18 mm is standard-to-narrow. Wide bridges start around 20 mm." },
-      { q: "Why doesn't Woolet make 18 mm bridges?", a: "Wide-face frames (155 mm+ front) need wider bridges to spread weight across a wider nose. An 18 mm bridge on a 158 mm front rides up and pinches." },
+      { q: "Can I get 18 mm on a wide frame?", a: "Yes, in bespoke. The signature 007 and 009 are fixed at a 25 mm keyhole; bespoke builds any bridge from 16 to 24 mm on a 145–160 mm front." },
       { q: "How do I measure my nose bridge?", a: "Use FitLens, or measure the gap between where the frame would rest on either side of the nose. Your nose measurement is not the same number as the bridge printed on a frame." },
     ],
   },
   {
     width: 19,
     slug: "19mm",
-    inRange: false,
-    verdictKind: "below-signature",
-    h1: "19 mm Bridge Glasses — Below Our Range",
+    inRange: true,
+    verdictKind: "bespoke-narrower",
+    h1: "19 mm Bridge Glasses on a Wide Front — Bespoke",
     subhead:
-      "19 mm sits between standard and wide. Woolet bespoke starts at 20 mm and signature frames run 25 mm.",
+      "19 mm is a mainstream bridge width. Woolet builds it in bespoke on a wide front; the signature 007 and 009 use a 25 mm keyhole.",
     intro:
-      "19 mm is the transition zone between mainstream and wide-face eyewear. Standard bridges run 16–18 mm; wide bridges start at 20 mm. Woolet signature bridges are 25 mm on both the 007 and the 009.",
+      "Stock retail sells 19 mm bridges on 140–148 mm fronts. When your face is wide but your nose is not, that combination doesn't exist on the shelf. Woolet Bespoke pairs a 19 mm bridge with any front from 145 to 160 mm. Italian Mazzucchelli acetate, hand made in the EU.",
     fitVerdict:
-      "Not built at 19 mm. Signature is 25 mm on both the 007 and the 009. Bespoke doesn't go below 20 mm.",
+      "Bespoke. Signature runs 25 mm on the 007 and the 009; bespoke builds any bridge from 16 to 24 mm.",
     metaDescription:
-      "19 mm bridge glasses: below Woolet's range. Guide to bridge sizing for wide faces. Signature 158 mm front · 007 and 009 25 mm keyhole · Bespoke 20–26 mm.",
+      "19 mm bridge glasses on a wide front: Woolet Bespoke, 16–24 mm bridge on a 145–160 mm front. Italian Mazzucchelli acetate, hand made in EU.",
     bespokeNote:
-      "Bespoke floor is 20 mm; 19 mm is out of range.",
-    bestFor: "Average noses on 148–152 mm frames.",
+      "Bespoke builds a 19 mm bridge on any front from 145 to 160 mm, in any bespoke shape.",
+    bestFor: "Wide faces with an average-width nose.",
     faq: [
-      { q: "Is a 19 mm bridge considered wide?", a: "It's borderline. Standard bridges are 16–18 mm, wide bridges start at 20 mm." },
-      { q: "What bridge does Woolet start at?", a: "20 mm in bespoke. Signature frames: 25 mm keyhole on both the 007 and the 009." },
+      { q: "Is 19 mm a wide bridge?", a: "It's borderline. Standard bridges are 16–18 mm, wide bridges start at 20 mm." },
+      { q: "Can I get 19 mm on a wide frame?", a: "Yes, in bespoke. The signature 007 and 009 are fixed at a 25 mm keyhole; bespoke builds any bridge from 16 to 24 mm on a 145–160 mm front." },
+      { q: "How do I measure my nose bridge?", a: "Use FitLens, or measure the gap between where the frame would rest on either side of the nose. Your nose measurement is not the same number as the bridge printed on a frame." },
     ],
   },
   {
     width: 20,
     slug: "20mm",
     inRange: true,
-    verdictKind: "signature-between",
-    h1: "20 mm Bridge Glasses — Bespoke Floor",
+    verdictKind: "bespoke-narrower",
+    h1: "20 mm Bridge Glasses — Bespoke",
     subhead:
-      "20 mm is the narrowest bridge we build. Bespoke only — signature runs 25 mm on both the 007 and the 009.",
+      "20 mm sits inside our bespoke bridge range (16–24 mm). Signature runs 25 mm on both the 007 and the 009.",
     intro:
-      "20 mm is where wide-face bridge sizing begins. It sits well below the 25 mm signature bridges, so it is a bespoke build. Same Italian Mazzucchelli acetate, cut to your measurement.",
+      "20 mm is where wide-bridge sizing begins in mainstream retail. It sits well below the 25 mm signature bridges, so it is a bespoke build. Same Italian Mazzucchelli acetate, cut to your measurement.",
     fitVerdict:
       "Bespoke only. Signature runs 25 mm.",
     metaDescription:
-      "20 mm bridge glasses: bespoke floor. Italian Mazzucchelli acetate, hand made in EU. Signature 158 mm front · 007 and 009 25 mm keyhole · Bespoke 20–26 mm.",
+      "20 mm bridge glasses: bespoke. Italian Mazzucchelli acetate, hand made in EU. Signature 158 mm front · 007 and 009 25 mm keyhole · Bespoke 16–24 mm.",
     bespokeNote:
-      "20 mm sits at the floor of our bespoke bridge range. Same acetate, same shapes, made to your measurement.",
+      "20 mm sits inside our bespoke bridge range (16–24 mm). Same acetate, same shapes, made to your measurement.",
     bestFor: "Wide faces with a narrower-than-typical nose.",
     faq: [
       { q: "Is 20 mm a wide bridge?", a: "It's the entry point to wide-bridge sizing. Standard bridges run 16–18 mm." },
@@ -119,7 +120,7 @@ export const BRIDGES: BridgeEntry[] = [
     fitVerdict:
       "Bespoke. Signature runs 25 mm on both the 007 and the 009; a 21 mm bridge is a made-to-measure order.",
     metaDescription:
-      "21 mm bridge glasses: bespoke in Italian Mazzucchelli acetate, hand made in EU. Signature 158 mm front · 007 and 009 25 mm keyhole · Bespoke 20–26 mm.",
+      "21 mm bridge glasses: bespoke in Italian Mazzucchelli acetate, hand made in EU. Signature 158 mm front · 007 and 009 25 mm keyhole · Bespoke 16–24 mm.",
     bespokeNote:
       "Bespoke pairs a 21 mm bridge with any front width from 145 to 160 mm, in any bespoke shape.",
     bestFor: "Wide faces whose frame bridge needs to sit between mainstream and the Woolet signature.",
@@ -142,7 +143,7 @@ export const BRIDGES: BridgeEntry[] = [
     fitVerdict:
       "Bespoke. Signature runs 25 mm on both the 007 and the 009; a 22 mm bridge is a made-to-measure order.",
     metaDescription:
-      "22 mm bridge glasses: bespoke in Italian Mazzucchelli acetate, hand made in EU. Signature 158 mm front · 007 and 009 25 mm keyhole · Bespoke 20–26 mm.",
+      "22 mm bridge glasses: bespoke in Italian Mazzucchelli acetate, hand made in EU. Signature 158 mm front · 007 and 009 25 mm keyhole · Bespoke 16–24 mm.",
     bespokeNote:
       "Bespoke pairs a 22 mm bridge with any front width from 145 to 160 mm, in any bespoke shape.",
     bestFor: "Wide faces whose frame bridge needs to sit between mainstream and the Woolet signature.",
@@ -165,7 +166,7 @@ export const BRIDGES: BridgeEntry[] = [
     fitVerdict:
       "Bespoke. Signature runs 25 mm on both the 007 and the 009; a 24 mm bridge is a made-to-measure order.",
     metaDescription:
-      "24 mm bridge glasses: bespoke in Italian Mazzucchelli acetate, hand made in EU. Signature 158 mm front · 007 and 009 25 mm keyhole · Bespoke 20–26 mm.",
+      "24 mm bridge glasses: bespoke in Italian Mazzucchelli acetate, hand made in EU. Signature 158 mm front · 007 and 009 25 mm keyhole · Bespoke 16–24 mm.",
     bespokeNote:
       "Bespoke pairs a 24 mm bridge with any front width from 145 to 160 mm, in any bespoke shape.",
     bestFor: "Wide faces whose frame bridge needs to sit between mainstream and the Woolet signature.",
@@ -188,37 +189,37 @@ export const BRIDGES: BridgeEntry[] = [
     fitVerdict:
       "Yes — 25 mm is exactly the signature bridge on the 007 Round and the 009 Soft Square. No bespoke needed.",
     metaDescription:
-      "25 mm bridge glasses: Woolet 007 Round and 009 Soft Square, both with a 25 mm keyhole bridge on a 158 mm front. Italian acetate. Bespoke 20–26 mm.",
+      "25 mm bridge glasses: Woolet 007 Round and 009 Soft Square, both with a 25 mm keyhole bridge on a 158 mm front. Italian acetate. Bespoke 16–24 mm.",
     bespokeNote:
-      "Bespoke lets you keep a 25 mm bridge on any bespoke shape and any front from 145 to 160 mm.",
+      "25 mm is the widest bridge Woolet builds, on the signature 007 and 009 only. Bespoke covers 16–24 mm.",
     bestFor: "Wide noses on 155–161 mm faces, in the round or the soft-square shape.",
     faq: [
       { q: "Is 25 mm a very wide bridge?", a: "Yes. Standard bridges run 16–18 mm and most brands stop at 18–20 mm. 25 mm is built for wide noses on wide faces." },
       { q: "007 or 009 — which 25 mm frame fits better?", a: "The bridge is the same 25 mm keyhole on both. The 007 puts it on a round lens, the 009 on a soft-square lens. Shape preference decides." },
-      { q: "Can I get a bridge wider than 25 mm?", a: "Yes, in bespoke. Bespoke bridges go up to 26 mm on any front from 145 to 160 mm." },
+      { q: "Can I get a bridge wider than 25 mm?", a: "No. 25 mm is the widest bridge Woolet builds. Bespoke covers 16–24 mm for narrower noses." },
     ],
   },
   {
     width: 26,
     slug: "26mm",
-    inRange: true,
-    verdictKind: "wide-bespoke",
-    h1: "26 mm Bridge Glasses — Bespoke",
+    inRange: false,
+    verdictKind: "out-of-range",
+    h1: "26 mm Bridge Glasses — Wider Than We Build",
     subhead:
-      "26 mm is the widest bridge we build, and it is a bespoke order. The signature 007 and 009 both use a 25 mm keyhole.",
+      "26 mm is 1 mm past the widest bridge Woolet makes. The signature 007 and 009 use a 25 mm keyhole, the closest we offer.",
     intro:
-      "26 mm is the top of the Woolet bespoke bridge range (20–26 mm). The signature frames, the 007 Round and the 009 Soft Square, sit 1 mm under it at 25 mm. When your nose needs the extra millimetre, bespoke pairs a 26 mm bridge with any front from 145 to 160 mm. Italian Mazzucchelli acetate, hand made in the EU.",
+      "26 mm bridges are rare even among wide-fit brands. Woolet tops out at 25 mm on the signature 007 Round and 009 Soft Square, each on a 158 mm front. A keyhole rests on the sides of the nose rather than the top, so measure before you rule 25 mm out.",
     fitVerdict:
-      "Bespoke. Signature runs 25 mm on the 007 and the 009; a 26 mm bridge is a made-to-measure order.",
+      "We don't build 26 mm. The widest Woolet bridge is the 25 mm keyhole on the 007 and the 009; bespoke covers 16–24 mm.",
     metaDescription:
-      "26 mm bridge glasses: bespoke in Italian Mazzucchelli acetate, hand made in EU. Signature 158 mm front · 007 and 009 25 mm keyhole · Bespoke 20–26 mm.",
+      "26 mm bridge glasses: wider than Woolet builds. The closest is the 25 mm keyhole on the 007 and 009, 158 mm front, Italian Mazzucchelli acetate.",
     bespokeNote:
-      "26 mm is the widest bridge we build in bespoke, on any shape and any front from 145 to 160 mm.",
-    bestFor: "The widest noses — 1 mm past the signature bridge.",
+      "Bespoke covers 16–24 mm, so 26 mm is outside it too.",
+    bestFor: "The widest noses. Woolet's closest is the 25 mm keyhole.",
     faq: [
       { q: "What's a keyhole bridge?", a: "An open, notched bridge shape that rests on the sides of the nose rather than the top. It spreads weight on a wider nose without pinching." },
-      { q: "Is 26 mm the widest bridge Woolet offers?", a: "Yes. 26 mm is the top of the bespoke range. The signature 007 and 009 are 25 mm." },
-      { q: "Can I get 26 mm on the 007 or 009?", a: "Only bespoke. The signature 007 and 009 are fixed at a 25 mm keyhole." },
+      { q: "What is the widest bridge Woolet offers?", a: "25 mm, the keyhole on the signature 007 and 009. Bespoke covers 16–24 mm." },
+      { q: "Can I get 26 mm on the 007 or 009?", a: "No. Both are fixed at a 25 mm keyhole, and bespoke stops at 24 mm." },
     ],
   },
 ];

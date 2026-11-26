@@ -36,16 +36,16 @@ export const XXL_HUB = {
   h1: "XXL Eyewear — Sized for the Widest 5% of Faces",
   eyebrow: "XXL Sizing Hub",
   subhead:
-    "Woolet's XXL tier: 160 mm fronts, 148–155 mm temples, 21–26 mm bridges. Built for faces 160 mm+ and heads 62–64 cm — where mainstream stops.",
+    "Woolet's XXL tier: 160 mm fronts, 148–155 mm temples, 21–24 mm bridges. Built for faces 160 mm+ and heads 62–64 cm — where mainstream stops.",
   metaTitle: "XXL Glasses & Sunglasses for Wide Faces | Sizing Hub — Woolet",
   metaDescription:
     "XXL eyewear for the widest 5% of faces (160 mm+) and largest heads (62–64 cm). Italian Mazzucchelli acetate, hand made in EU. Signature 158 mm · Bespoke 145–160 mm.",
   intro:
-    "XXL isn't a marketing label at Woolet — it is a wide slice of our bespoke range. Signature runs 158 mm; this XXL guide covers 160 mm fronts with 148–155 mm temples and 21–26 mm bridges. Woolet Bespoke as a whole spans 145–160 mm.",
+    "XXL isn't a marketing label at Woolet — it is a wide slice of our bespoke range. Signature runs 158 mm; this XXL guide covers 160 mm fronts with 148–155 mm temples and 21–24 mm bridges. Woolet Bespoke as a whole spans 145–160 mm.",
   spec: [
     { label: "Front width", value: "160 mm (bespoke)" },
     { label: "Temple length", value: "148–155 mm (bespoke)" },
-    { label: "Bridge", value: "21–26 mm keyhole (bespoke)" },
+    { label: "Bridge", value: "21–24 mm keyhole (bespoke)" },
     { label: "Head circumference", value: "62–64 cm" },
     { label: "Material", value: "Italian Mazzucchelli acetate" },
     { label: "Hinges", value: "5-barrel PVD Gunmetal" },
@@ -64,7 +64,7 @@ export const XXL_PAGES: XxlEntry[] = [
     eyebrow: "XXL Optical",
     h1: "XXL Glasses — Optical Frames for the Widest 5% of Faces",
     subhead:
-      "160 mm fronts, 148–155 mm temples, 21–26 mm bridges. Bespoke Italian acetate, sized past mainstream XL.",
+      "160 mm fronts, 148–155 mm temples, 21–24 mm bridges. Bespoke Italian acetate, sized past mainstream XL.",
     metaTitle: "XXL Glasses for Wide Faces & Big Heads (160 mm) — Woolet",
     metaDescription:
       "XXL optical glasses in Italian Mazzucchelli acetate. Bespoke 160 mm front, 148–155 mm temples. For faces 160 mm+ and heads 62–64 cm.",
@@ -74,7 +74,7 @@ export const XXL_PAGES: XxlEntry[] = [
       { label: "Front width", value: "160 mm" },
       { label: "Lens", value: "53 × 47.6 mm (007) or 54 × 44 mm (009)" },
       { label: "Temple", value: "148–155 mm at 11° bend" },
-      { label: "Bridge", value: "21–26 mm keyhole" },
+      { label: "Bridge", value: "21–24 mm keyhole" },
       { label: "Best for face width", value: "160 mm" },
       { label: "Best for head circumference", value: "62–64 cm" },
     ],
@@ -101,13 +101,13 @@ export const XXL_PAGES: XxlEntry[] = [
     metaDescription:
       "XXL sunglasses in Italian Mazzucchelli acetate, bespoke 160 mm. UV400 and polarised options. For 160 mm+ faces and 62–64 cm heads.",
     intro:
-      "XXL sunglasses take the signature 007 round and 009 soft-square shapes into bespoke sizing — 160 mm across the front, 148–155 mm temples, 21–26 mm bridges. UV400 standard, polarised optional. Frame geometry stays balanced because temples and bridge scale with the front, not just the lens.",
+      "XXL sunglasses take the signature 007 round and 009 soft-square shapes into bespoke sizing — 160 mm across the front, 148–155 mm temples, 21–24 mm bridges. UV400 standard, polarised optional. Frame geometry stays balanced because temples and bridge scale with the front, not just the lens.",
     spec: [
       { label: "Front width", value: "160 mm" },
       { label: "Lens", value: "UV400 · optional polarised" },
       { label: "Shapes", value: "007 Round · 009 Soft Square" },
       { label: "Temple", value: "148–155 mm at 11° bend" },
-      { label: "Bridge", value: "21–26 mm keyhole" },
+      { label: "Bridge", value: "21–24 mm keyhole" },
       { label: "Best for face width", value: "160 mm" },
     ],
     faq: [
@@ -138,7 +138,7 @@ export const XXL_PAGES: XxlEntry[] = [
       { label: "Head circumference", value: "62–64 cm" },
       { label: "Front width", value: "160 mm bespoke" },
       { label: "Temple", value: "150–155 mm at 11° bend" },
-      { label: "Bridge", value: "21–26 mm keyhole" },
+      { label: "Bridge", value: "21–24 mm keyhole" },
       { label: "Hat size (US)", value: "7 ¾ – 8" },
       { label: "Hinges", value: "5-barrel PVD Gunmetal" },
     ],
@@ -170,7 +170,7 @@ export const XXL_PAGES: XxlEntry[] = [
       { label: "Front width range", value: "160 mm" },
       { label: "Signature reference", value: "158 mm (2–4 mm below XXL)" },
       { label: "Full Bespoke range", value: "145–160 mm" },
-      { label: "Bridge", value: "21–26 mm keyhole (bespoke)" },
+      { label: "Bridge", value: "21–24 mm keyhole (bespoke)" },
       { label: "Temple", value: "148–155 mm (bespoke)" },
       { label: "Best for face width", value: "160 mm measured" },
     ],
