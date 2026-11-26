@@ -212,7 +212,7 @@ function TemplePageInner({ t }: { t: TempleEntry }) {
                 fontWeight: 600,
               }}
             >
-              Measure my face with FitLens
+              Find my size
             </Link>
             <Link
               to={

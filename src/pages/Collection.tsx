@@ -228,10 +228,12 @@ const Collection = () => {
                 className="font-display text-woolet-white leading-[1.05] mb-5"
                 style={{ fontSize: "clamp(1.75rem, 3vw, 2.4rem)", fontWeight: 300 }}
               >
-                Not a standard size?{" "}
-                <em className="italic text-gold-light" style={{ fontStyle: "italic" }}>
-                  Go bespoke.
-                </em>
+                <Link to="/en/bespoke" className="no-underline text-inherit">
+                  Not a standard size?{" "}
+                  <em className="italic text-gold-light" style={{ fontStyle: "italic" }}>
+                    Go bespoke.
+                  </em>
+                </Link>
               </h2>
               <p
                 className="text-cream-dim leading-relaxed max-w-2xl mb-10"

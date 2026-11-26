@@ -34,6 +34,8 @@ import { loadQuizPrior, reconcileScan } from "@/lib/fit-quiz-prior";
 import { saveScanResult } from "@/lib/scan-result-store";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useFitLensScript } from "@/hooks/use-fitlens-script";
+import { FITLENS_ENABLED } from "@/lib/fitlens-embed";
+import FitWelcomeNoScan from "@/components/FitWelcomeNoScan";
 import {
   normalizeCaseNo,
   readScanContext,
@@ -424,7 +426,8 @@ function WelcomeStep({
       ? crypto.randomUUID()
       : Math.random().toString(36).slice(2) + Date.now().toString(36),
   );
-  const showDesktopQr = useDesktopQr() && !isMobile;
+  const desktopQr = useDesktopQr();
+  const showDesktopQr = FITLENS_ENABLED && desktopQr && !isMobile;
   const phoneUrl =
     typeof window === "undefined" ? "" : buildDesktopQrUrl(window.location.href, handoffSid);
   const qrShownRef = useRef(false);
@@ -445,6 +448,8 @@ function WelcomeStep({
   ];
 
 
+
+  if (!FITLENS_ENABLED) return <FitWelcomeNoScan lang={lang} isMobile={isMobile} />;
 
   return (
     <div className="flex flex-col gap-8">
@@ -5489,7 +5494,7 @@ export default function FitScan() {
         </div>
 
         <div className="px-5 sm:px-8 lg:px-16 pb-10 sm:pb-16">
-          {lang === "en" && <FitToolContent />}
+          {lang === "en" && FITLENS_ENABLED && <FitToolContent />}
           <div className="max-w-2xl mx-auto">
             <RelatedGuides variant="dark" lang={lang === "de" ? "de" : "en"} />
           </div>

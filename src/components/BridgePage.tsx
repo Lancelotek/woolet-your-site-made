@@ -124,7 +124,7 @@ function BridgePageInner({ b }: { b: BridgeEntry }) {
                 fontWeight: 600,
               }}
             >
-              Measure my face with FitLens
+              Find my size
             </Link>
             <Link
               to={b.verdictKind === "signature" ? "/en/collection" : "/en/fit/bespoke"}

@@ -243,7 +243,7 @@ const BlaulichtfilterBrilleHerren = () => {
                 to={FIT_HREF}
                 style={{ background: T.gold, color: T.ctaInk, padding: "13px 22px", fontSize: 12, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", borderRadius: 2, fontWeight: 700 }}
               >
-                Gesicht mit FitLens messen
+                Meine Größe finden
               </Link>
               <a
                 href="#fassungen"
@@ -431,7 +431,7 @@ const BlaulichtfilterBrilleHerren = () => {
               to={FIT_HREF}
               style={{ display: "inline-block", background: T.gold, color: T.ctaInk, padding: "13px 22px", fontSize: 12, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", borderRadius: 2, fontWeight: 700 }}
             >
-              FitLens starten
+              Meine Größe finden
             </Link>
           </div>
         </section>

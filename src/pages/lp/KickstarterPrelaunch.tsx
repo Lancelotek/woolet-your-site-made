@@ -566,7 +566,8 @@ const VipForm = ({
             width={800}
             height={800}
             decoding="async"
-            className="w-full h-auto object-cover"
+            onClick={() => document.getElementById(`vip-reserve${idSuffix}`)?.focus({ preventScroll: false })}
+            className="w-full h-auto object-cover cursor-pointer"
             style={{ aspectRatio: "3 / 2", objectPosition: "center 55%" }}
           />
           <ul className="m-0 p-0 list-none space-y-3" aria-label="What $1 unlocks">
@@ -629,12 +630,12 @@ const VipForm = ({
                 <figcaption className="text-sm leading-relaxed text-muted-foreground italic">“{GREG_QUOTE}” <span className="block not-italic text-xs mt-1">{GREG_ATTRIBUTION}</span></figcaption>
               </figure>
               <p>Free shipping · 5-year warranty · Italian Mazzucchelli acetate, 158 mm front for 155-161 mm faces.</p>
-              <p>Not sure 158 mm fits? Check your size with FitLens before you {ended ? "order" : "pledge"}.</p>
+              <p>Not sure 158 mm fits? <Link to="/en/fit" className="text-foreground underline underline-offset-4">Check your size in 2 minutes</Link> before you {ended ? "order" : "pledge"}.</p>
             </>
           ) : (
             <>
               <p>Prescription lenses? Available when you choose your frames.</p>
-              <p>What if 158 mm doesn't fit? Check your size with FitLens before you pledge.</p>
+              <p>What if 158 mm doesn't fit? <Link to="/en/fit" className="text-foreground underline underline-offset-4">Check your size in 2 minutes</Link> before you pledge.</p>
               <p>$1 is fully refundable, or applied to your order.</p>
             </>
           )}
@@ -1333,7 +1334,7 @@ const KickstarterPrelaunch = () => {
       },
       {
         q: "What if 158 mm doesn't fit me?",
-        a: "Bespoke covers any width from 145 to 160 mm, built to measure with FitLens — our AI fit app that measures your face with your phone camera.",
+        a: "Bespoke covers any width from 145 to 160 mm, built to your measurements - a photo with a card and the numbers printed on your current glasses.",
       },
       {
         q: "Can I get prescription lenses?",
@@ -1727,6 +1728,7 @@ const KickstarterPrelaunch = () => {
               ? [
                   {
                     t: `${FOUNDER_EDITION.model}, limited run`,
+                    lightbox: heroGallery.findIndex((g) => g.src === FOUNDER_BOX_PHOTO),
                     d: `The 009 soft-square in black Italian acetate: 158 mm front, ${FOUNDER_EDITION.bridgeMm} mm bridge. A limited first run.`,
                   },
                   {
@@ -1760,8 +1762,27 @@ const KickstarterPrelaunch = () => {
                     d: "Join the private VIP group: behind-the-scenes updates, early votes on colours, and a direct line to the founder.",
                   },
                 ]
-            ).map((p, i) => (
-              <div key={p.t} style={{ background: INK, padding: "36px 28px" }}>
+            ).map((p, i) => {
+              const lb = "lightbox" in p && typeof p.lightbox === "number" && p.lightbox >= 0 ? p.lightbox : null;
+              return (
+              <div
+                key={p.t}
+                style={{ background: INK, padding: "36px 28px", cursor: lb !== null ? "zoom-in" : undefined }}
+                {...(lb !== null
+                  ? {
+                      role: "button",
+                      tabIndex: 0,
+                      "aria-label": `${p.t} - view photo`,
+                      onClick: (e: React.MouseEvent<HTMLDivElement>) => openLightbox(lb, "thumbnail", e.currentTarget),
+                      onKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          openLightbox(lb, "thumbnail", e.currentTarget);
+                        }
+                      },
+                    }
+                  : {})}
+              >
                 <div style={{ ...eyebrowStyle, marginBottom: 12 }}>0{i + 1}</div>
                 <h3
                   style={{
@@ -1776,7 +1797,8 @@ const KickstarterPrelaunch = () => {
                 </h3>
                 <p style={{ color: TAUPE, fontSize: 14, lineHeight: 1.65 }}>{p.d}</p>
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
         <Hairline />
@@ -2058,9 +2080,9 @@ const KickstarterPrelaunch = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mt-12">
             {[
               {
-                t: "FitLens",
-                sub: "Know your size before you pledge",
-                d: "Our AI fit app measures your face temple-to-temple with your phone camera and recommends the exact Woolet size — so the frame you back is the frame that fits.",
+                t: "Size check",
+                sub: "Know your size before you buy",
+                d: "Measure your face temple to temple with a tape in two minutes and we tell you whether 158 mm fits or which Bespoke width you need - so the frame you order is the frame that fits.",
               },
               {
                 t: "Keyhole Bridge",

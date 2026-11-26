@@ -21,7 +21,7 @@ import {
   pickFitLensParams,
 } from "@/lib/fitlens-events";
 
-import { FITLENS_EMBED_SRC, appendFitLensScript } from "@/lib/fitlens-embed";
+import { FITLENS_EMBED_SRC, FITLENS_ENABLED, appendFitLensScript } from "@/lib/fitlens-embed";
 
 // SRI-pinned loader; a mismatch falls back to an unpinned load (see fitlens-embed.ts).
 const SCRIPT_SRC = FITLENS_EMBED_SRC;
@@ -292,6 +292,7 @@ export function useFitLensScript(options?: {
   }, []);
 
   const openFitLens = () => {
+    if (!FITLENS_ENABLED) return;
     if (frameRef.current) return;
 
     const origin = new URL(SCRIPT_SRC).origin;

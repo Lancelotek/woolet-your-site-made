@@ -114,7 +114,7 @@ function XxlHubInner() {
               Start XXL bespoke
             </Link>
             <Link to="/en/fit" style={{ background: "transparent", color: "#0B0A09", padding: "12px 22px", fontSize: 12, letterSpacing: "2px", textTransform: "uppercase", textDecoration: "none", border: "1px solid #0B0A09", borderRadius: 2 }}>
-              Measure with FitLens
+              Find my size
             </Link>
           </div>
         </header>

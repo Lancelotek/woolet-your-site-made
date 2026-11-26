@@ -7,6 +7,14 @@
 // event shows up (hash = sha384 of the served file, base64).
 import { pushGtmEvent } from "@/lib/gtm";
 
+/**
+ * FitLens (Railway) went offline on 2026-11-26: the embed and the /w/intro
+ * iframe return 404 "Application not found". While this is false no page loads
+ * the embed or opens the iframe, and /fit offers the tape measure + quiz.
+ * Set back to true only once a working fit app is wired in.
+ */
+export const FITLENS_ENABLED = false;
+
 export const FITLENS_EMBED_SRC = "https://fitlens-web-production.up.railway.app/v1/embed.js";
 export const FITLENS_EMBED_SRI = "sha384-brSBpVaQjzJtWAKkncKEYcFp1TsV5kZcseUmLZvhCv3W4o3+kzg5lU0MZRxtUnAW";
 
@@ -28,6 +36,8 @@ export function appendFitLensScript(
   onReplace?: (script: HTMLScriptElement) => void,
 ): HTMLScriptElement {
   const script = createFitLensScript(configure);
+  // Disabled: hand back a detached element so callers keep working, load nothing.
+  if (!FITLENS_ENABLED) return script;
   script.addEventListener(
     "error",
     () => {

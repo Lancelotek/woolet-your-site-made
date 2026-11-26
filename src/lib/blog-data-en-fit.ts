@@ -24,7 +24,7 @@ const BYLINE = (published: string, updated: string) => `
 const ANSWER = (html: string) => `
 <p style="font-size:18px;line-height:1.7;color:#1a1a1a;background:#F8F6F1;color:#1F1B16;border-left:3px solid #c9a84c;padding:20px 24px;margin:0 0 28px;">${html}</p>`;
 
-const FITLENS_CTA = (intro: string, anchor: string, href = "/en/fit", eyebrow = "FitLens · 60 seconds, phone camera") => `
+const FITLENS_CTA = (intro: string, anchor: string, href = "/en/fit", eyebrow = "Frame Finder · 2 minutes, tape measure") => `
 <div style="background:#0f0f0f;color:#f0ece4;padding:26px 28px;margin:32px 0;border-radius:6px;font-family:'Barlow',sans-serif;">
   <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#c9a84c;margin-bottom:14px;font-weight:500;">${eyebrow}</div>
   <p style="margin:0 0 14px 0;font-size:15px;line-height:1.65;">${intro}</p>
@@ -157,8 +157,8 @@ ${ANSWER(
 <p>Now compare. If your frame's front width is within about 3 mm of your face width, the fit is right and the pain is an adjustment problem. If the frame is 6 mm or more narrower than your face, it is the wrong size and no bench work will change that.</p>
 
 ${FITLENS_CTA(
-      "Don't want to hold a ruler against your own head? FitLens measures face width and bridge width from your phone camera in about twenty seconds — no app, no appointment, and the image never leaves your device.",
-      "Measure your face with FitLens",
+      "Don't want to guess? Measure your face width temple to temple with a soft tape in about two minutes and we tell you which frame width fits - no app, no appointment.",
+      "Find my size",
     )}
 
 <h2>If your face is 155 mm or wider</h2>
@@ -396,8 +396,8 @@ ${ANSWER(
 <p>This estimation gap is the single most common sizing mistake in eyewear. People shop for a "58 mm lens" believing bigger lenses mean a wider frame, then discover a 58□16 frame is narrower across the front than a 54□25 one.</p>
 
 ${FITLENS_CTA(
-      "The chart is only useful once you know which row you are in. FitLens reads your face width and bridge width from a phone photo in about twenty seconds and tells you which band — including whether you are past the end of the standard chart.",
-      "Find your band in 60 seconds",
+      "The chart is only useful once you know which row you are in. Measure your face width with a tape in about two minutes and we tell you which band you are in - including whether you are past the end of the standard chart.",
+      "Find your band",
     )}
 
 <h2>Men's vs women's charts — why the women's chart is narrower</h2>
@@ -552,8 +552,8 @@ ${ANSWER(
 <p>The practical consequence: it is entirely possible to need a 158 mm front with a standard 140 mm arm, or a 140 mm front with a 150 mm arm. These are independent dimensions and should be chosen independently. Length reference pages by measurement: <a href="/en/temple/140mm" style="color:#A07A2A;">140 mm</a> · <a href="/en/temple/145mm" style="color:#A07A2A;">145 mm</a> · <a href="/en/temple/150mm" style="color:#A07A2A;">150 mm</a>.</p>
 
 ${FITLENS_CTA(
-      "Temple-to-temple is the number that decides whether a frame fits, and it is awkward to measure on yourself. FitLens reads it from your phone camera in about twenty seconds, together with your bridge width.",
-      "Get your number in 60 seconds",
+      "Temple-to-temple is the number that decides whether a frame fits. Our Frame Finder walks you through measuring it with a tape in about two minutes.",
+      "Get your number",
     )}
 
 <h2>How to measure both, properly</h2>
@@ -737,8 +737,8 @@ ${ANSWER(
 <p>Bridge deserves one extra note. A 25 mm keyhole bridge is not just a wider gap; it is a different load path, spreading weight across a broader nasal base instead of pinching two points. Detail on that in the <a href="/en/bridge/21mm" style="color:#A07A2A;">21 mm bridge reference</a>.</p>
 
 ${FITLENS_CTA(
-      "Rather than decoding markings and estimating, measure the thing the markings leave out. FitLens returns your face width and bridge width from a phone photo in about twenty seconds and tells you the front width to shop for.",
-      "Measure with FitLens",
+      "Rather than decoding markings and estimating, measure the thing the markings leave out: your face width. Enter it in our Frame Finder and get the front width to shop for.",
+      "Find my size",
     )}
 
 <h2>FAQ</h2>
@@ -923,8 +923,8 @@ ${ANSWER(
 <p>So we treat it as what it is: an optional coating, a preference, not a medical device. The claim we do make is the measurement. A frame that spans your face is the difference between wearing it for eight hours and taking it off at three.</p>
 
 ${FITLENS_CTA(
-      "Stop guessing from lens numbers. FitLens reads your temple-to-temple and bridge width from a phone photo in about twenty seconds, then tells you whether 158 mm is your size or bespoke is.",
-      "Measure with FitLens",
+      "Stop guessing from lens numbers. Measure your temple-to-temple width with a tape, enter it in our Frame Finder, and see whether 158 mm is your size or Bespoke is.",
+      "Find my size",
     )}
 
 <h2>FAQ</h2>
@@ -1124,8 +1124,8 @@ ${ANSWER(
 <p>The arms should run straight back from the hinges without touching the sides of your head. The bend starts just behind the top of the ear, not on it. From there the tip follows the back of the ear with light contact along its length, holding the frame in place without hooking into the bone. After a full day of wear there should be no marks - neither on the ear nor at the temples. And when you look down at your phone or a book, the frame should stay level rather than sliding forward.</p>
 
 ${FITLENS_CTA(
-      "Before you buy another frame, get the number that decides all of this. FitLens measures face width and bridge width from your phone camera - no app, no appointment, and the image never leaves your device.",
-      "Measure my face with FitLens - 60 seconds, no app",
+      "Before you buy another frame, get the number that decides all of this: your face width, measured with a tape in about two minutes - no app, no appointment.",
+      "Find my size - 2 minutes",
     )}
 
 <h2>FAQ</h2>

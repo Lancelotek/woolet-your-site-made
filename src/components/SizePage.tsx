@@ -182,7 +182,7 @@ function SizePageInner({ size }: { size: SizeEntry }) {
                 fontWeight: 600,
               }}
             >
-              Measure my face with FitLens
+              Find my size
             </Link>
             <Link
               to={size.inRange && size.verdictKind === "signature-range" ? "/en/collection" : "/en/fit/bespoke"}
@@ -344,7 +344,7 @@ function SizePageInner({ size }: { size: SizeEntry }) {
                 fontWeight: 600,
               }}
             >
-              Start FitLens
+              Find my size
             </Link>
           </div>
         </section>
