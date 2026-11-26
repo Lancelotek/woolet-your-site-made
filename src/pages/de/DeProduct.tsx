@@ -6,6 +6,8 @@ import Footer from "@/components/Footer";
 import DeReservationCta from "@/components/de/DeReservationCta";
 import DeVipForm from "@/components/de/DeVipForm";
 import DeMobileReservationBar from "@/components/de/DeMobileReservationBar";
+import ImageLightbox from "@/components/ImageLightbox";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { DE_PRICING, formatDePrice } from "@/content/de/pricing";
 import { galleryOnFace, type OnFaceColourId } from "@/data/on-face-photos";
 import { commerceJson } from "@/lib/schema-offer";
@@ -65,6 +67,13 @@ export default function DeProduct({ modelId }: { modelId: "007" | "009" }) {
   const title = `Woolet ${model.id} ${model.id === "007" ? "Rund" : "Quadrat"}: Brille für breite Gesichter, 158 mm`;
   const description = `Woolet ${model.id} ${model.shape}: 158 mm Frontbreite, ${model.bridge}, Mazzucchelli-Acetat, handgefertigt in der EU. Founder-Preis ${formatDePrice(DE_PRICING.founderPriceEur)} statt ${formatDePrice(DE_PRICING.regularPriceEur)} inkl. MwSt.`;
   const onFace = galleryOnFace[model.id][colour];
+  // Tap on a photo opens it large (26.11.2026: 5 dead clicks on the frame photo in 3 days).
+  const [zoom, setZoom] = useState<number | null>(null);
+  const isMobile = useIsMobile();
+  const zoomImages = [
+    { src: model.frames[colour], alt: `Woolet ${model.id} ${model.shape} in ${COLOURS.find((c) => c.id === colour)?.name}` },
+    { src: onFace.src, alt: `Woolet ${model.id} auf einem 158 mm breiten Gesicht` },
+  ];
   const productJsonLd = {
     "@context": "https://schema.org", "@type": "Product", name: `Woolet ${model.id} ${model.shape}`,
     description, brand: { "@type": "Brand", name: "Woolet" }, material: "Italienisches Acetat (Mazzucchelli 1849)",
@@ -94,7 +103,7 @@ export default function DeProduct({ modelId }: { modelId: "007" | "009" }) {
 
       <section className="px-5 pb-12 pt-8 sm:px-8 lg:px-16 lg:pb-16 lg:pt-14">
         <div className="mx-auto grid max-w-[1200px] gap-8 lg:grid-cols-2 lg:gap-x-14 lg:gap-y-6 lg:items-start">
-          <div className="aspect-[4/3] overflow-hidden border border-border-sub bg-cream lg:col-start-1 lg:row-start-1">
+          <div className="aspect-[4/3] cursor-zoom-in overflow-hidden border border-border-sub bg-cream lg:col-start-1 lg:row-start-1" role="button" tabIndex={0} aria-label="Foto vergrößern" onClick={() => setZoom(0)} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setZoom(0); } }}>
               <img src={model.frames[colour]} alt={`Woolet ${model.id} ${model.shape} in ${COLOURS.find((c) => c.id === colour)?.name}`} width={1200} height={900} className="h-full w-full object-contain" fetchPriority="high" />
             </div>
           <div className="flex flex-col gap-6 lg:col-start-2 lg:row-span-2 lg:row-start-1">
@@ -127,7 +136,7 @@ export default function DeProduct({ modelId }: { modelId: "007" | "009" }) {
             </div>
 
             <ul className="m-0 grid list-none gap-2 p-0 font-body text-sm text-cream-dim">
-              <li>✓ Passt Gesichtern mit 155-161 mm Breite - <Link to="/de/fit" className="text-primary underline underline-offset-4">in 60 Sekunden messen</Link></li>
+              <li>✓ Passt Gesichtern mit 155-161 mm Breite - <Link to="/de/fit" className="text-primary underline underline-offset-4">Größe in 2 Minuten finden</Link></li>
               <li>✓ Mazzucchelli-Acetat, handgefertigt in der EU</li>
               <li>✓ Verglasungsfertig für Einstärken- und Gleitsichtgläser</li>
               <li>✓ Kostenloser Versand nach Deutschland, 30 Tage Rückgabe</li>
@@ -135,7 +144,7 @@ export default function DeProduct({ modelId }: { modelId: "007" | "009" }) {
 
             <p className="font-body text-sm text-cream-dim">Schmaler oder breiter? <Link to="/de/bespoke" className="text-primary underline underline-offset-4">Maßanfertigung von 145 bis 160 mm</Link></p>
           </div>
-          <div className="order-3 aspect-[3/4] overflow-hidden border border-border-sub sm:aspect-[4/3] lg:order-none lg:col-start-1 lg:row-start-2">
+          <div className="order-3 aspect-[3/4] cursor-zoom-in overflow-hidden border border-border-sub sm:aspect-[4/3] lg:order-none lg:col-start-1 lg:row-start-2" role="button" tabIndex={0} aria-label="Foto vergrößern" onClick={() => setZoom(1)} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setZoom(1); } }}>
               <img src={onFace.src} alt={`Woolet ${model.id} auf einem 158 mm breiten Gesicht`} width={onFace.width} height={onFace.height} className="h-full w-full object-cover object-[center_30%]" loading="lazy" />
             </div>
         </div>
@@ -143,6 +152,15 @@ export default function DeProduct({ modelId }: { modelId: "007" | "009" }) {
 
       <Footer lang="de" />
       <DeMobileReservationBar />
+      {zoom !== null && (
+        <ImageLightbox
+          images={zoomImages}
+          index={zoom}
+          onIndexChange={setZoom}
+          onClose={() => setZoom(null)}
+          isMobile={isMobile}
+        />
+      )}
     </main>
   );
 }

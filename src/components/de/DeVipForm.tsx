@@ -23,19 +23,13 @@ type Props = {
  */
 export default function DeVipForm({ placement, variant = "section", className }: Props) {
   const [email, setEmail] = useState("");
-  const [consent, setConsent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [consentMissing, setConsentMissing] = useState(false);
 
   const onSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (loading) return;
-    if (!consent) {
-      setConsentMissing(true);
-      return;
-    }
     setLoading(true);
     setError(null);
     try {
@@ -116,6 +110,11 @@ export default function DeVipForm({ placement, variant = "section", className }:
             autoComplete="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
+          onInvalid={(event) => {
+            const el = event.currentTarget;
+            el.setCustomValidity(el.validity.valueMissing ? "Bitte gib deine E-Mail-Adresse ein." : "Bitte gib eine gültige E-Mail-Adresse ein.");
+          }}
+          onInput={(event) => event.currentTarget.setCustomValidity("")}
             placeholder="du@beispiel.de"
             className={isHero
               ? "h-12 w-full rounded-sm border border-border-sub bg-transparent px-4 font-body text-[15px] text-foreground outline-none focus:border-primary"
@@ -129,25 +128,13 @@ export default function DeVipForm({ placement, variant = "section", className }:
             ? "h-12 shrink-0 rounded-sm px-6 text-xs font-semibold uppercase tracking-[0.2em]"
             : "h-auto rounded-sm py-4 text-xs font-semibold uppercase tracking-[0.22em]"}
         >
-          {loading ? "Wird gesendet..." : "Founder-Preis sichern"}
+          {loading ? "Wird gesendet..." : "Angebot per E-Mail"}
         </Button>
       </div>
-      <label className="flex cursor-pointer items-start gap-3 font-body text-xs leading-5 text-cream-dim">
-        <input
-          type="checkbox"
-          checked={consent}
-          onChange={() => { setConsent((value) => !value); setConsentMissing(false); }}
-          aria-invalid={consentMissing}
-          aria-describedby={consentMissing ? `de-consent-hint-${placement}` : undefined}
-          className="mt-0.5 h-4 w-4 shrink-0 accent-primary"
-        />
-        <span>Ja, schickt mir das Founder-Angebot (109 € statt 179 €) und Neuigkeiten von Woolet per E-Mail. Abmeldung jederzeit möglich.</span>
-      </label>
-      {consentMissing && (
-        <p id={`de-consent-hint-${placement}`} role="alert" className="font-body text-xs leading-5 text-primary">
-          Bitte setze oben das Häkchen - ohne deine Zustimmung dürfen wir dir das Angebot nicht schicken.
-        </p>
-      )}
+      {/* Consent by the button tap (26.11.2026): the checkbox blocked signups on phones. */}
+      <p className="font-body text-xs leading-5 text-cream-dim">
+        Mit Klick auf „Angebot per E-Mail" schicken wir dir das Founder-Angebot (109 € statt 179 €) und Neuigkeiten von Woolet per E-Mail. Abmeldung jederzeit möglich. <a href="/de/datenschutz" className="underline underline-offset-2">Datenschutz</a>
+      </p>
       {error && <p className="font-body text-xs text-destructive">{error}</p>}
     </form>
   );

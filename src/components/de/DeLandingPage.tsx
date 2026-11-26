@@ -162,6 +162,27 @@ function DeOrderCta({ slug }: { slug: string }) {
   );
 }
 
+/**
+ * Second hero action (26.11.2026): Google searchers want to buy a frame, not join
+ * a list, and the direct order sat far below the fold. No UTM on the link, so the
+ * visitor's original attribution (e.g. Google Ads) is kept.
+ */
+function HeroOrderButton({ slug }: { slug: string }) {
+  const [open, setOpen] = useState(true);
+  useEffect(() => setOpen(isReservationOpen()), []);
+  if (!open) return null;
+  return (
+    <div className="flex w-full max-w-xl flex-col gap-2">
+      <Button asChild variant="outline" className="h-12 w-full rounded-sm border-primary px-6 text-xs font-semibold uppercase tracking-[0.2em] text-primary hover:bg-primary/10 sm:w-auto sm:self-start">
+        <Link to="/de/founders" onClick={() => pushGtmEvent("founder_order_click", { slot: `${slug}_hero`, market: "de" })}>
+          Jetzt bestellen - {formatDePrice(DE_PRICING.founderPriceEur)}
+        </Link>
+      </Button>
+      <p className="font-body text-[13px] leading-5 text-cream-dim">Kein Konto nötig · Versand aus Polen (EU), kein Zoll · 14 Tage Rückgabe</p>
+    </div>
+  );
+}
+
 function FounderEditionDe() {
   const facts = [
     [`Woolet ${F.model}`, `158 mm Front, ${F.bridgeMm} mm Steg - für Gesichter von 155 bis 161 mm`],
@@ -233,7 +254,7 @@ export default function DeLandingPage({ config }: { config: DePageConfig }) {
               {/* One action in the hero: the email form. Phone order: headline, form, photo, offer. */}
               <div data-de-hero-reservation className="order-2 flex flex-col items-start gap-3 lg:order-none">
                 <DeVipForm placement={config.slug} variant="hero" />
-                <p className="max-w-xl font-body text-[13px] leading-5 text-cream-dim">Erst E-Mail, dann 1 €: Damit sicherst du dir den Founder-Preis von 109 € statt 179 €. Voll anrechenbar und jederzeit erstattbar.</p>
+                <HeroOrderButton slug={config.slug} />
                 <ProofDe />
               </div>
 
