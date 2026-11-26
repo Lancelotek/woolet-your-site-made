@@ -904,7 +904,18 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
     return base(route, "de", {
       title: "Brillen für breite Gesichter - 158 mm Frontbreite | Woolet",
       description: `Woolet 007 und 009 für breite Gesichter: 158 mm Frontbreite, 25 mm Steg. ${DE_PRICING.founderPriceEur} € inkl. MwSt.`,
-      noscriptHtml: `<h1>Brillen für breite Gesichter - 158 mm Frontbreite</h1><p>Woolet 007 rund und Woolet 009 eckig aus Mazzucchelli-Acetat, handgefertigt in der EU.</p>`,
+      // 26.11.2026: was 21 words with no products, price or links in the
+      // JS-free HTML. Facts mirror the /de/produkte/* tables below.
+      noscriptHtml: `<h1>Brillen für breite Gesichter - 158 mm Frontbreite</h1>
+<p>Zwei Formen, eine präzise Größe: Woolet 007 rund und Woolet 009 eckig, beide mit 158 mm Frontbreite und 25 mm Keyhole-Steg. Gefertigt aus italienischem Mazzucchelli-Acetat, handgefertigt in der EU. Sie passen zu Gesichtern mit 155-161 mm Breite, von Schläfe zu Schläfe gemessen.</p>
+<h2><a href="/de/produkte/007">Woolet 007 Rund / Panto</a></h2>
+<p>158 mm Front, Glas 53 × 47,6 mm, 25 mm Keyhole-Steg, 150 mm Bügel. Farben: Black, Havana, Silver Clear.</p>
+<h2><a href="/de/produkte/009">Woolet 009 Weiches Quadrat</a></h2>
+<p>158 mm Front, Glas 54 × 44 mm, 25 mm Keyhole-Steg, 150 mm Bügel. Farben: Black, Havana, Silver Clear.</p>
+<h2>Preis</h2>
+<p>Founder-Preis ${DE_PRICING.founderPriceEur} € statt ${DE_PRICING.regularPriceEur} € inkl. MwSt., nur ${DE_PRICING.founderLimit} Fassungen. 5-fach-Scharniere in PVD Gunmetal, 5 Jahre Garantie.</p>
+<h2>Andere Gesichtsbreite?</h2>
+<p>Unter 155 mm oder über 161 mm: <a href="/de/bespoke">Woolet Bespoke</a> fertigt Fassungen nach Maß von 145 bis 160 mm Frontbreite. Unsicher bei deiner Größe? <a href="/de/fit">Miss dein Gesicht in 60 Sekunden</a>.</p>`,
     }, {}, undefined, { en: `${SITE_URL}/en/collection`, de: `${SITE_URL}/de/kollektion`, "x-default": `${SITE_URL}/en/collection` });
   }
 
@@ -1090,7 +1101,13 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
       description:
         "Why we make one precise size (158 mm) in Italian Mazzucchelli acetate. Founder story, facility, fit philosophy.",
       noscriptHtml: `<h1>About Woolet</h1>
-<p>Woolet is an eyewear brand founded in 2026 by JAY23 LLC. We design and manufacture EU-finished acetate frames engineered specifically for wide faces (155 mm and above). The brand is unrelated to the discontinued Woolet smart wallet (2014–2016).</p>`,
+<p>Woolet is an eyewear brand founded in 2026 by JAY23 LLC. We design and manufacture EU-finished acetate frames engineered specifically for wide faces (155 mm and above). The brand is unrelated to the discontinued Woolet smart wallet (2014–2016).</p>
+<h2>Why one size</h2>
+<p>Standard frames stop at 140-145 mm. Woolet makes one precise size instead: a 158 mm front with a 25 mm keyhole bridge and 150 mm temples, in two shapes, the <a href="/en/products/007">007 round</a> and the <a href="/en/products/009">009 soft square</a>. Faces outside 155-161 mm get <a href="/en/bespoke">Woolet Bespoke</a>, made to measure from 145 to 160 mm.</p>
+<h2>Material and making</h2>
+<p>Every frame is cut from Italian Mazzucchelli cellulose acetate and hand made in the EU, with 5-barrel PVD Gunmetal hinges. <a href="/en/blog/handmade-italian-acetate-eyewear-process">How a Woolet frame is made</a>.</p>
+<h2>Founder</h2>
+<p>Woolet was founded by Marek Cieśla, who couldn't find a frame that fit his own wide face. <a href="/en/fit">Measure your face with FitLens</a> to see where you fall.</p>`,
     });
   }
 
@@ -1209,7 +1226,12 @@ ${p.lensOptions.length ? `<h2>Lens options</h2><ul>${p.lensOptions.map((l) => `<
       return base(route, lang, {
         title: "Brillenfinder für breite Gesichter in 60 Sekunden",
         description: "Miss deine Gesichtsbreite mit der Smartphone-Kamera und finde die passende Woolet Fassung in etwa 60 Sekunden.",
-        noscriptHtml: `<h1>Brillenfinder für breite Gesichter - Gesicht in 60 Sekunden messen</h1><p>FitLens misst Gesichtsbreite, Steg und PD und empfiehlt 007, 009 oder eine Maßanfertigung.</p>`,
+        noscriptHtml: `<h1>Brillenfinder für breite Gesichter - Gesicht in 60 Sekunden messen</h1>
+<p>FitLens misst Gesichtsbreite, Steg und PD und empfiehlt 007, 009 oder eine Maßanfertigung.</p>
+<h2>So funktioniert es</h2>
+<p>FitLens nutzt die Kamera deines Smartphones und eine Kreditkarte (85,6 mm) als Maßstab. Du bekommst deine Gesichtsbreite von Schläfe zu Schläfe, deine Stegbreite und deinen Pupillenabstand in Millimetern. Ohne App, ohne Konto, in etwa 60 Sekunden.</p>
+<h2>Was das Ergebnis bedeutet</h2>
+<p>155-161 mm Gesichtsbreite: <a href="/de/produkte/007">Woolet 007</a> oder <a href="/de/produkte/009">Woolet 009</a> mit 158 mm Front. Andere Maße: <a href="/de/bespoke">Bespoke von 145 bis 160 mm</a>. Mehr dazu: <a href="/de/brille-fuer-breites-gesicht">Brille für breites Gesicht</a>.</p>`,
       });
     }
     return base(
@@ -2015,7 +2037,9 @@ ${c.slug === "persol-alternative" || c.slug === "zenni-alternative" ? `<p>From $
       description: desc,
       noscriptHtml: `<h1>Maßanfertigung für breite Gesichter 145 - 160 mm</h1>
 <p>${desc}</p>
-<p><a href="/de/fit">Gesicht messen</a> · <a href="/de/kollektion">Kollektion</a> · <a href="/en/bespoke">English</a></p>`,
+<p>Woolet Bespoke ist für Gesichter, denen die Standardgröße 158 mm nicht passt. Frontbreite von 145 bis 160 mm, Stegbreite von 20 bis 26 mm, gebaut nach einem Gesichtsscan mit dem Smartphone. Bevor die Fertigung beginnt, bekommst du das 3D-Modell deiner Fassung zur Freigabe.</p>
+<p>Preis: 480 USD inklusive weltweitem Versand.</p>
+<p><a href="/de/fit">Gesicht messen</a> · <a href="/de/kollektion">Kollektion</a> · <a href="/de/brille-breite-150-mm">Brille 150 mm breit</a> · <a href="/en/bespoke">English</a></p>`,
     }, { image: DEFAULT_OG }, [bespokeProductJsonLd("de")]);
   }
 

@@ -138,7 +138,13 @@ globalThis.__wooletCollectionSnapshots = (() => {
   }
 })();
 
+// Final crawler bodies (nav + content + footer) resolved in main() before
+// injectHead runs; checked first so overrides are not applied twice.
+globalThis.__wooletResolvedBody = new Map();
+
 function getNoscriptContent(route, fallback) {
+  const resolved = globalThis.__wooletResolvedBody?.get(route);
+  if (resolved) return resolved;
   const content = NOSCRIPT_OVERRIDES[route] ?? globalThis.__wooletCollectionSnapshots?.[route] ?? fallback;
   if (!content?.includes("{{BLOG_UPDATED_MONTH}}")) return content;
   // Resolve this route's slug, using the same source as Article dateModified.
@@ -157,6 +163,81 @@ const KNOWN_LOCALES = new Set(["en", "pl", "de", "fr", "nl", "ja", "es", "ar", "
 function localeFromRoute(route) {
   const m = /^\/([a-z]{2})(?:\/|$)/.exec(route);
   return m && KNOWN_LOCALES.has(m[1]) ? m[1] : "en";
+}
+
+// ---------------------------------------------------------------------------
+// Crawler navigation (26.11.2026)
+// The SPA header/footer only exist after JS runs, so in the raw HTML many
+// routes had zero outgoing links (OpenSEO audit: /de/kollektion, /de/fit,
+// /en/about ...) and money pages got no internal link equity. Every route's
+// crawler block now carries the same locale nav + footer. Anchors are the
+// target page's own <title> (localized, descriptive) and only indexable,
+// existing routes are linked, so the block can never point at a 404 or a
+// noindex page.
+// ---------------------------------------------------------------------------
+const NAV_PATHS = ["", "/collection", "/products/007", "/products/009", "/bespoke", "/fit", "/blog", "/about"];
+const NAV_PATHS_DE = ["", "/kollektion", "/produkte/007", "/produkte/009", "/bespoke", "/fit", "/blog",
+  "/brille-fuer-breites-gesicht", "/breite-brille", "/brillen-fuer-grosse-koepfe", "/xxl-brille-herren"];
+const FOOTER_PATHS = ["/privacy-policy", "/return-policy"];
+const FOOTER_PATHS_DE = ["/impressum", "/widerruf", "/datenschutz"];
+
+function shortTitle(title) {
+  return title
+    .replace(/\s*[|¦]\s*Woolet\s*$/i, "")
+    .replace(/\s+-\s+Woolet\s*$/i, "")
+    .trim();
+}
+
+function makeLinkBuilder(routeSet, getMetadata) {
+  const cache = new Map();
+  return (target) => {
+    if (cache.has(target)) return cache.get(target);
+    let link = null;
+    if (routeSet.has(target)) {
+      try {
+        const m = getMetadata(target);
+        if (!m.robots?.includes("noindex")) {
+          const label = target.split("/").length === 2 ? "Woolet" : /\/blog$/.test(target) ? "Blog" : shortTitle(m.title);
+          link = `<a href="${target}">${escText(label)}</a>`;
+        }
+      } catch {
+        link = null;
+      }
+    }
+    cache.set(target, link);
+    return link;
+  };
+}
+
+function escText(value) {
+  return String(value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+function crawlerChrome(route, buildLink, routes) {
+  const lang = localeFromRoute(route);
+  const prefix = `/${lang}`;
+  // en/de have a full page set. Smaller locales (pl, ja, ar, es ...) link
+  // their own top-level pages, then the English product core.
+  const targets = lang === "en" || lang === "de"
+    ? (lang === "de" ? NAV_PATHS_DE : NAV_PATHS).map((p) => prefix + p)
+    : [
+        prefix,
+        ...routes.filter((r) => r.startsWith(`${prefix}/`) && r.split("/").length === 3),
+        ...["/collection", "/products/007", "/products/009", "/bespoke"].map((p) => `/en${p}`),
+      ];
+  const nav = [...new Set(targets)]
+    .filter((target) => target !== route)
+    .map(buildLink)
+    .filter(Boolean);
+  const foot = (lang === "de" ? FOOTER_PATHS_DE : FOOTER_PATHS)
+    .map((p) => prefix + p)
+    .filter((target) => target !== route)
+    .map(buildLink)
+    .filter(Boolean);
+  return {
+    header: nav.length ? `<nav aria-label="Woolet"><ul>${nav.map((a) => `<li>${a}</li>`).join("")}</ul></nav>` : "",
+    footer: foot.length ? `<footer><p>${foot.join(" · ")}</p></footer>` : "",
+  };
 }
 
 function injectHead(template, headHtml, noscriptHtml, route) {
@@ -292,6 +373,7 @@ async function main() {
 
   const template = await readFile(resolve(DIST, "index.html"), "utf8");
   const routes = getAllRoutes();
+  const buildLink = makeLinkBuilder(new Set(routes), getMetadata);
   const renderedHtml = new Map();
   console.log(`[prerender] rendering ${routes.length} routes…`);
 
@@ -309,6 +391,12 @@ async function main() {
         const hero = Object.entries(images).find(([key]) => key.endsWith("/woolet-158-signature.jpg"))?.[1];
         if (hero) headHtml += `\n<link rel="preload" as="image" type="image/webp" href="${hero.variants[1000]}" imagesrcset="${hero.variants[640]} 640w, ${hero.variants[1000]} 1000w" imagesizes="(min-width: 768px) 50vw, 100vw" fetchpriority="high" data-rh="true" />`;
       }
+      // Routes without hand-written crawler copy (e.g. /ar, /pl, /ja homes)
+      // used to ship an empty #root: 0 words for non-JS crawlers. Fall back
+      // to the route's own localized title + description.
+      const fallbackBody = `<h1>${escText(shortTitle(meta.title))}</h1>${meta.description ? `<p>${escText(meta.description)}</p>` : ""}`;
+      const chrome = crawlerChrome(route, buildLink, routes);
+      globalThis.__wooletResolvedBody.set(route, `${chrome.header}${getNoscriptContent(route, meta.noscriptHtml) || fallbackBody}${chrome.footer}`);
       const html = injectHead(template, headHtml, meta.noscriptHtml, route);
       renderedHtml.set(route, html);
       const outDir = resolve(DIST, "." + route);
